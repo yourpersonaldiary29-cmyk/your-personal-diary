@@ -1,0 +1,5 @@
+Az első verzió a Microsoft Store-ban.
+- A naplód a saját fiókodban a Your Personal Diary szerverén, minden eszközödön ugyanaz
+- Akkor is működik, ha megszakad a kapcsolat, és feltölti a módosításaidat, amint visszatér
+- Jelszó-visszaállítás e-mailben
+- 20 nyelv

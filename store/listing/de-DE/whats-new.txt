@@ -1,0 +1,5 @@
+Die erste Version im Microsoft Store.
+- Dein Tagebuch in deinem eigenen Konto auf dem Server von Your Personal Diary, gleich auf allen deinen Geräten
+- Funktioniert weiter, wenn die Verbindung abbricht, und lädt deine Änderungen hoch, sobald sie zurück ist
+- Passwort per E-Mail zurücksetzen
+- 20 Sprachen

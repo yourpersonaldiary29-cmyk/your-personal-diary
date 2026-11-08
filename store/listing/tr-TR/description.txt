@@ -1,0 +1,50 @@
+Your Personal Diary, günlüğünüzü Your Personal Diary sunucusunda size ait hesapta tutan özel ve akıllı bir günlüktür. Kullanmak için uygulamada bir hesap oluşturursunuz; hesabı oluşturmak ve ilk kez giriş yapmak için internet bağlantısı gerekir. Gününüzü yazarsınız; uygulama da haftalar, aylar ve yıllar boyunca ortaya çıkan örüntüleri fark etmenize yardımcı olur. Reklam yok, analiz yok, izleme yok.
+
+Gününüzü yazın
+- Kendi sözlerinizle kayıtlar; ruh hali, duygular, enerji, stres, uyku, fiziksel aktivite, olaylar, kişiler, yer, notlar ve etiketlerle.
+- Günlüğünüzün zaman çizelgesi ve her gün için ayrı bir sayfa.
+
+Alışkanlıklar ve hatırlatıcılar
+- Gün içinde işaretlediğiniz günlük ve haftalık alışkanlıklar.
+- Uygulama çalışırken Windows bildirimi olarak gösterilen isteğe bağlı hatırlatıcılar.
+
+Özenli içgörüler
+- Uygulama kendi verilerinizde olası ilişkileri arar; örneğin uyku ile ruh hali ya da fiziksel aktivite ile enerji arasında.
+- İçgörüler dikkatle ifade edilir ve hiçbir zaman bir şeyin başka bir şeye neden olduğunu iddia etmez.
+- "Bu içgörüyü neden aldım?" kaç günün incelendiğini ve her içgörünün arkasındaki kesin sayıları gösterir.
+- Yeterli veri olmadığında uygulama tahmin yürütmek yerine bunu söyler.
+
+Takvim, istatistikler ve arama
+- Miladi, İbrani ya da Hicri takvime göre aylık takvim; seçtiğiniz takvimin bayramları ve özel günleriyle.
+- Ruh hali, enerji, stres, uyku ve alışkanlıklarınızın zaman içindeki grafikleri; her biri bir veri tablosuyla.
+- Akıllı arama: kendi dilinizde bir soru sorun, örneğin "Hangi günlerde beş saatten az uyudum?", cevabı günlüğünüzden alın.
+
+Tüm cihazlarınızda tek hesap
+- Günlüğünüz Your Personal Diary sunucusunda, size ait hesapta tutulur. Başka bir cihazda aynı hesapla giriş yapın, her şey orada.
+- Bir cihazda yaptığınız değişiklikler diğerlerinde de görünür.
+
+Bağlantı kopsa da çalışmaya devam eder
+- Okumaya ve yazmaya devam edin. Değişiklikleriniz bilgisayarınızda şifreli olarak saklanır ve bağlantı geri geldiğinde, arada uygulamayı kapatmış olsanız bile, otomatik olarak yüklenir.
+- "Beni hatırla" seçiliyse uygulama son görüntülediklerinizin şifreli bir kopyasını da saklar; böylece bağlantı olmadan da açılır ve bunları gösterir.
+- İçgörüler, arama, istatistikler, yedekleme, dışa aktarma ve hesap ayarları için bağlantı gerekir.
+
+Gizlilik ve güvenlik
+- Günlüğünüz sunucuda şifreli olarak (AES-256), her hesap için ayrı bir dosyada saklanır. Parolanızın kendisi saklanmaz.
+- Giriş yapmış olduğunuz sürece sunucu, günlüğünüzü size gösterebilmek, içinde arama yapabilmek ve analiz edebilmek için onu belleğinde açar. Gizlilik politikası bunun ne anlama geldiğini açıklar.
+- Uygulama yalnızca Your Personal Diary sunucusuna ve her zaman HTTPS üzerinden bağlanır.
+- Belirli bir süre işlem yapılmadığında otomatik kilit ve Ctrl+L ile anında kilit.
+- Parolanızı mı unuttunuz? E-posta adresinize gönderilen bir bağlantı ya da kodla sıfırlayın; günlüğünüz yerinde kalır.
+- İstediğiniz yerde saklayacağınız bir dosyaya şifreli yedekleme ve bu dosyadan geri yükleme.
+- Günlüğünüzü TXT, CSV, JSON veya PDF olarak dışa aktarma.
+- Hesabınızı ve tüm verilerini istediğiniz zaman Ayarlar'dan silme.
+
+20 dil
+İngilizce, İbranice, Arapça, Çince (Basitleştirilmiş), Japonca, Hintçe, Tayca, İspanyolca, Portekizce, Fransızca, İtalyanca, Almanca, Rumence, Yunanca, Lehçe, Çekçe, Macarca, Rusça, Bulgarca ve Türkçe. Uygulama İngilizce açılır: dilinizi Ayarlar (Settings) bölümünde, Dil (Language) altında seçin; hesabınız bu seçimi hatırlar. İbranice ve Arapça sağdan sola gösterilir.
+
+Erişilebilirlik
+- Ekran okuyucularla çalışır: net başlıklar, etiketli alanlar ve sesli okunan durum mesajları.
+- Her şey klavyeyle yapılabilir; ana işlemler için kısayollar vardır.
+- Açık, koyu ve yüksek karşıtlık temaları, ayarlanabilir metin boyutu ve hareketi azaltma seçeneği.
+
+Lütfen dikkat
+Your Personal Diary, 16 yaş ve üzeri kişiler için kişisel günlük tutmaya yarayan bir araçtır. Tıbbi ya da teşhis amaçlı bir araç değildir ve içgörüleri tıbbi veya psikolojik tavsiye niteliği taşımaz. Sağlığınızla ilgili endişeleriniz varsa lütfen yetkin bir uzmana danışın.

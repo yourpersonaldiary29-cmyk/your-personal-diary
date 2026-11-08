@@ -1,0 +1,7 @@
+diary
+journal
+mood tracker
+habit tracker
+private diary
+mood journal
+encrypted diary

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Network security of the app process (WP-14; WP-H6 server-only build, docs/android-tasks/HOSTED-IMPL.md
+  item 8). The app talks to exactly one host - the Your Personal Diary server - and only over TLS:
+    - base-config: no cleartext connection from any code in this process, anywhere;
+    - domain-config: the server host, spelled here as in src/config/server-default.json (the one place
+      the clients' address lives; mobile/test/android-config.test.ts fails when the two drift), TLS only,
+      trusted through the system certificate store alone (never a user-installed certificate). No
+      certificate pinning on purpose: the host's certificates are issued and renewed by the hosting
+      platform, a pinned app would stop working at the next renewal.
+  The WebView is confined to the same origin by the CSP of mobile/index.html (connect-src), written at
+  build time from the same JSON.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="false">yourpersonaldiary.fly.dev</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

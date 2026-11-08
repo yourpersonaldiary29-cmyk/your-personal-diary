@@ -1,0 +1,20 @@
+Wpisy w dzienniku z nastrojem, emocjami, energią, stresem, snem, aktywnością fizyczną, osobami, miejscem i tagami
+Codzienne i cotygodniowe nawyki z opcjonalnymi przypomnieniami jako powiadomienia systemu Windows
+Ostrożne spostrzeżenia o możliwych wzorcach w twoich własnych danych, bez twierdzeń o przyczynie i skutku
+„Dlaczego widzę to spostrzeżenie?” pokazuje dokładne liczby stojące za każdym spostrzeżeniem
+Kalendarz miesięczny gregoriański, hebrajski lub muzułmański (hidżry), ze świętami każdego z nich
+Statystyki i wykresy w czasie, każdy z tabelą danych
+Inteligentne wyszukiwanie: zadawaj pytania o swój dziennik we własnym języku
+Jedno konto na wszystkich urządzeniach, przechowywane na serwerze Your Personal Diary
+Działa dalej, gdy zniknie połączenie, i wysyła zmiany, gdy ono wróci
+Dziennik przechowywany na serwerze w postaci zaszyfrowanej (AES-256), w osobnym pliku dla każdego konta
+Łączy się wyłącznie z serwerem Your Personal Diary, zawsze przez HTTPS
+Bez reklam, bez analityki, bez śledzenia
+Automatyczna blokada po bezczynności i natychmiastowa blokada skrótem Ctrl+L
+Resetowanie hasła przez e-mail z zachowaniem dziennika
+Zaszyfrowana kopia zapasowa w pliku, który przechowujesz, i przywracanie z niej
+Eksport do TXT, CSV, JSON i PDF
+20 języków interfejsu, w tym hebrajski i arabski wyświetlane od prawej do lewej
+Działa z czytnikami ekranu, z pełną obsługą klawiatury i skrótami
+Motyw jasny, ciemny i o wysokim kontraście z regulowanym rozmiarem tekstu
+Narzędzie do prowadzenia osobistego dziennika, a nie narzędzie medyczne ani diagnostyczne

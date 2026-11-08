@@ -1,0 +1,5 @@
+Microsoft Store'daki ilk sürüm.
+- Günlüğünüz Your Personal Diary sunucusunda size ait hesapta, tüm cihazlarınızda aynı
+- Bağlantı kopsa da çalışmaya devam eder, bağlantı geri geldiğinde değişikliklerinizi yükler
+- E-postayla parola sıfırlama
+- 20 dil

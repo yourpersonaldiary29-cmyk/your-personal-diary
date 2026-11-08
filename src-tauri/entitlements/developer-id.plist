@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Entitlements of the Developer ID build of "Your Personal Diary" (route 1: notarized app in a DMG,
+  downloaded from the owner's own channel). Used by scripts/mac/release.sh, which passes this file to
+  Tauri as bundle.macOS.entitlements together with the hardened runtime (Tauri's default, and a
+  notarization requirement).
+
+  The dictionary is EMPTY on purpose. The hardened runtime blocks things the app never does:
+  - JIT / unsigned executable memory (com.apple.security.cs.allow-jit,
+    com.apple.security.cs.allow-unsigned-executable-memory): the JavaScript engine of WKWebView runs
+    in WebKit's own helper processes (com.apple.WebKit.WebContent), which Apple signs and entitles;
+    the app process itself executes no generated code. Tauri's documented notarization flow signs
+    with the hardened runtime and no entitlements file (https://v2.tauri.app/distribute/sign/macos/).
+  - Loading third-party plug-ins / libraries (com.apple.security.cs.disable-library-validation):
+    the app bundles no dylibs or frameworks.
+  - Debugging by other processes (com.apple.security.get-task-allow): must stay absent for
+    notarization.
+  - Camera, microphone, location, contacts, calendars, photos, Apple events: the app uses none of
+    them. The Keychain, LocalAuthentication (Touch ID), the open/save panels, user notifications and
+    outgoing HTTPS need no hardened-runtime entitlement.
+
+  If a future build really needs an exception, add the key here with a comment that names the Apple
+  document or the exact codesign/notarytool failure that proves it, and re-run release.sh.
+  Mac App Store route (App Sandbox): see mac-appstore.plist in this folder.
+-->
+<plist version="1.0">
+<dict/>
+</plist>

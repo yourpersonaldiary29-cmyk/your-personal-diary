@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark theme colours (tokens.css, data-theme dark: color-bg #121417, color-primary #8ab4f8). -->
+<resources>
+    <color name="colorPrimary">#8ab4f8</color>
+    <color name="colorPrimaryDark">#121417</color>
+    <color name="colorAccent">#8ab4f8</color>
+    <color name="window_background">#121417</color>
+</resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Your Personal Diary - Android manifest (docs/ANDROID-PLAN.md, WP-14).
+
+  Privacy: the diary files and device.key must never leave the phone through Google's cloud backup or
+  a device-to-device transfer, so allowBackup is off and both rule files exclude everything.
+  Permissions (each one justified, scripts/check-no-network.mjs fails when this file gains one that is
+  not on its allow-list):
+    INTERNET               the app is a client of the Your Personal Diary server (WP-H6, server-only
+                           build): the WebView is confined by the CSP of index.html to its own assets
+                           plus that one https origin, and res/xml/network_security_config.xml names
+                           the same host, TLS only;
+    POST_NOTIFICATIONS     WP-8 habit reminders as system notifications (asked at runtime on Android
+                           13+ from the Reminders card, never at start-up);
+    RECEIVE_BOOT_COMPLETED WP-8: @capacitor/local-notifications re-arms the pending reminders after a
+                           reboot (its LocalNotificationRestoreReceiver, not exported);
+    USE_BIOMETRIC          WP-9: the BiometricPrompt of the lock screen (DiaryBiometricPlugin).
+  Removed although @capacitor/local-notifications declares them: SCHEDULE_EXACT_ALARM (the app
+  schedules inexact alarms only - every notification carries isExactNotification=false - so the
+  Android 12+ "Alarms & reminders" special access is never asked) and WAKE_LOCK (the plugin never
+  acquires a wake lock; AlarmManager wakes the receiver by itself).
+  Identity (applicationId) is set in app/build.gradle - one place.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission tools:node="remove" android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission tools:node="remove" android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="false"
+        android:theme="@style/AppTheme">
+
+        <!--
+          configChanges: rotation, keyboard, locale, density, dark mode, the system font size (fontScale)
+          and bold-text setting (fontWeightAdjustment), colour mode and grammatical gender reach the
+          WebView as events instead of recreating the activity - Capacitor reloads the page on
+          recreation, which would drop unsaved text. The web UI follows the font scale through rem units.
+          scripts/android/verify-apk.ps1 checks the merged mask. windowSoftInputMode=adjustResize: the
+          page shrinks above the keyboard (Capacitor's SystemBars plugin pads the window for the IME on
+          edge-to-edge devices).
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBarLaunch"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density|layoutDirection|fontScale|fontWeightAdjustment|colorMode|grammaticalGender"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+              "Open with Your Personal Diary" (WP-7): a backup file (.mpd) opened from Files, WhatsApp,
+              a mail app... reaches DiaryFilesPlugin (handleOnNewIntent - singleTask), which hands it to
+              the Restore card. Opening never restores: the password and the confirmation stay.
+              Two filters because providers describe the file either by MIME type (the .mpd format
+              has no registered type, so it arrives as application/octet-stream) or by name only.
+              The first filter deliberately has no pathPattern: a mail or messaging app hands a file
+              over as content://<provider>/item/<id> - a URI without the file name - so a name pattern
+              would never match it and "Open with" from Gmail / WhatsApp / Drive would be lost. The
+              price is cosmetic: the app is also offered for other files of unknown type (.bin, .dat),
+              and the Restore card then says the file is not a backup. Nothing is restored by opening.
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="application/octet-stream" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:host="*" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.mpd" />
+                <data android:pathPattern=".*\\..*\\.mpd" />
+                <data android:pathPattern=".*\\..*\\..*\\.mpd" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.mpd" />
+            </intent-filter>
+
+        </activity>
+
+        <!-- Capacitor's FileProvider (not exported): used by plugins that hand a file to another app (Share, WP-7). -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!--
+          androidx.profileinstaller (a transitive AndroidX dependency) merges in an EXPORTED receiver for
+          benchmark tooling (install / skip / save baseline profiles via adb). This app ships no baseline
+          profile and wants exactly one exported component - the launcher activity - so it is removed.
+        -->
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            tools:node="remove" />
+    </application>
+</manifest>

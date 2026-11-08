@@ -1,0 +1,20 @@
+Entradas del diario con estado de ánimo, emociones, energía, estrés, sueño, actividad física, personas, lugar y etiquetas
+Hábitos diarios y semanales con recordatorios opcionales como notificaciones de Windows
+Observaciones prudentes sobre posibles patrones en tus propios datos, sin afirmar nunca causa y efecto
+«¿Por qué recibí esta observación?» muestra las cifras exactas detrás de cada observación
+Calendario mensual gregoriano, hebreo o de la hégira, con las festividades de cada uno
+Estadísticas y gráficos a lo largo del tiempo, cada uno con su tabla de datos
+Búsqueda inteligente: haz preguntas sobre tu diario en tu propio idioma
+Una cuenta en todos tus dispositivos, guardada en el servidor de Your Personal Diary
+Sigue funcionando si se corta la conexión y sube tus cambios cuando vuelve
+Diario almacenado cifrado en el servidor (AES-256), en un archivo independiente para cada cuenta
+Solo se conecta al servidor de Your Personal Diary, siempre mediante HTTPS
+Sin anuncios, sin analíticas, sin rastreo
+Bloqueo automático tras un periodo de inactividad y bloqueo inmediato con Ctrl+L
+Restablecimiento de la contraseña por correo electrónico que conserva tu diario
+Copia de seguridad cifrada en un archivo que guardas tú, y restauración desde él
+Exportación a TXT, CSV, JSON y PDF
+20 idiomas de interfaz, entre ellos el hebreo y el árabe de derecha a izquierda
+Funciona con lectores de pantalla, con navegación completa por teclado y atajos
+Temas claro, oscuro y de alto contraste, con tamaño de texto ajustable
+Una herramienta para llevar un diario personal, no una herramienta médica ni de diagnóstico

@@ -1,0 +1,5 @@
+A primeira versão na Microsoft Store.
+- O seu diário na sua própria conta no servidor do Your Personal Diary, igual em todos os seus dispositivos
+- Continua a funcionar quando a ligação falha e envia as suas alterações quando ela voltar
+- Reposição da palavra-passe por e-mail
+- 20 idiomas

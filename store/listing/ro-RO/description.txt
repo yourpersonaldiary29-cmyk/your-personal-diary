@@ -1,0 +1,50 @@
+Your Personal Diary este un jurnal privat și inteligent care îți păstrează jurnalul în propriul cont pe serverul Your Personal Diary. Pentru a-l folosi, îți creezi un cont în aplicație și ai nevoie de o conexiune la internet ca să-l creezi și să te conectezi prima dată. Scrii despre ziua ta, iar aplicația te ajută să observi tipare de-a lungul săptămânilor, lunilor și anilor. Fără reclame, fără analize de utilizare, fără urmărire.
+
+Notează-ți ziua
+- Însemnări cu propriile cuvinte, cu dispoziția, emoțiile, energia, stresul, somnul, activitatea fizică, evenimentele, persoanele, locul, notițele și etichetele.
+- O cronologie a jurnalului și o pagină pentru fiecare zi.
+
+Obiceiuri și mementouri
+- Obiceiuri zilnice și săptămânale pe care le bifezi pe parcursul zilei.
+- Mementouri opționale, afișate ca notificări Windows cât timp aplicația rulează.
+
+Observații prudente
+- Aplicația caută legături posibile în propriile tale date, de exemplu între somn și dispoziție sau între activitatea fizică și energie.
+- Observațiile sunt formulate cu grijă și nu susțin niciodată că un lucru îl cauzează pe altul.
+- „De ce văd această observație?” arată câte zile au fost analizate și cifrele exacte din spatele fiecărei observații.
+- Când datele nu sunt suficiente, aplicația spune asta în loc să ghicească.
+
+Calendar, statistici și căutare
+- Un calendar lunar gregorian, ebraic sau hegirian (islamic), cu sărbătorile calendarului ales.
+- Grafice ale dispoziției, energiei, stresului, somnului și obiceiurilor în timp, fiecare cu un tabel de date.
+- Căutare inteligentă: pune o întrebare în limba ta, de exemplu „În ce zile am dormit mai puțin de cinci ore?”, și primește răspunsul din jurnal.
+
+Un singur cont pe toate dispozitivele tale
+- Jurnalul tău este păstrat în propriul cont pe serverul Your Personal Diary. Conectează-te cu același cont pe alt dispozitiv și găsești totul acolo.
+- Ce modifici pe un dispozitiv apare și pe celelalte.
+
+Funcționează în continuare când cade conexiunea
+- Continuă să citești și să scrii. Modificările tale se păstrează criptate pe PC și se încarcă automat când revine conexiunea, chiar dacă între timp ai închis aplicația.
+- Cu „Ține-mă minte”, aplicația păstrează și o copie criptată a ce ai văzut recent, ca să se deschidă și să ți-o arate fără conexiune.
+- Observațiile, căutarea, statisticile, backupul, exportul și setările contului au nevoie de conexiune.
+
+Confidențialitate și securitate
+- Jurnalul tău este stocat criptat pe server (AES-256), într-un fișier separat pentru fiecare cont. Parola ta propriu-zisă nu este stocată.
+- Cât timp ești conectat, serverul îți deschide jurnalul în memoria sa, ca să ți-l poată afișa, căuta și analiza. Politica de confidențialitate explică ce înseamnă asta.
+- Aplicația se conectează doar la serverul Your Personal Diary, mereu prin HTTPS.
+- Blocare automată după o perioadă de inactivitate și blocare imediată cu Ctrl+L.
+- Ai uitat parola? Resetează-o cu un link sau un cod trimis la adresa ta de e-mail și îți păstrezi jurnalul.
+- Backup criptat într-un fișier pe care îl păstrezi unde vrei, și restaurare din el.
+- Exportă jurnalul în TXT, CSV, JSON sau PDF.
+- Șterge-ți contul și toate datele lui oricând, din Setări.
+
+20 de limbi
+Engleză, ebraică, arabă, chineză (simplificată), japoneză, hindi, thailandeză, spaniolă, portugheză, franceză, italiană, germană, română, greacă, poloneză, cehă, maghiară, rusă, bulgară și turcă. Aplicația se deschide în engleză: alege-ți limba din Setări (Settings), la Limbă (Language), iar contul tău o reține. Ebraica și araba sunt afișate de la dreapta la stânga.
+
+Accesibilitate
+- Funcționează cu cititoare de ecran: titluri clare, câmpuri etichetate și mesaje de stare anunțate.
+- Totul se poate face din tastatură, cu comenzi rapide pentru acțiunile principale.
+- Teme luminoasă, întunecată și cu contrast ridicat, dimensiune reglabilă a textului și o opțiune de reducere a animațiilor.
+
+De reținut
+Your Personal Diary este un instrument pentru jurnalul personal, destinat persoanelor de 16 ani și peste. Nu este un instrument medical sau de diagnostic, iar observațiile sale nu sunt sfaturi medicale sau psihologice. Dacă îți faci griji pentru sănătatea ta, vorbește cu un specialist calificat.

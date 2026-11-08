@@ -1,0 +1,15 @@
+TASK: the "Account ID" row in Settings -> Account (added by docs/android-tasks/OWNER-ID.md) must NOT be visible to every user. Owner decision 2026-10-24: regular users never see their account id; only the owner needs it.
+
+RULE: in hosted mode the row is shown only when (a) the server has no owner configured yet (bootstrap: DIARY_OWNER_ID unset or naming a missing account - the would-be owner must be able to read his id), OR (b) the signed-in user IS the configured owner. Everyone else: no row, no hint. Local/developer mode: unchanged (no row, as today).
+
+READ FIRST: docs/android-tasks/ENV.md (last update is current), server/src/hosted/owner.ts (hostedOwnerGate: configured(), isOwner()), server/src/hosted.ts (how the gate is composed and the `ownerConfigured` value already logged at start-up), server/src/routes/server.ts (GET /api/server/info builds ServerInfo; GET /api/server/settings already returns isMailOwner = hostedOwner.isOwner(userId) in hosted mode), shared/types.ts (ServerInfo, ServerSettings), src/pages/settings/AccountSection.tsx (+ AccountSection.test.tsx, hosted.test.tsx), src/pages/settings/MailSection.tsx (how the client learns isMailOwner), src/context/ConnectionContext.tsx (useServerInfo).
+
+DO:
+1. Server (hosted mode only): add `ownerConfigured: boolean` to ServerInfo (shared/types.ts, optional field so older clients and local mode are unaffected; local mode omits it). It must be computed live on each request (the gate's configured()), not cached at start-up, so the row disappears right after the owner sets DIARY_OWNER_ID and the machine restarts. Tests in server/test (hosted composition): unset -> false; set to a missing id -> false; set to an existing id -> true; local mode -> field absent; no other ServerInfo field changes.
+2. Client: AccountSection shows the row when hosted && (info.ownerConfigured === false || serverSettings.isMailOwner === true). Reuse the existing server-settings query the Mail card uses (do not add a second request if one exists; if the settings request is owner-gated or fails for a regular user, the row simply stays hidden - never an error in the card). Keep the Copy button and the hint. Update the hint text in all 20 locales if its wording no longer fits (it says only the owner needs it - probably fine; check).
+3. Tests: hosted + no owner yet -> row visible; hosted + owner configured + regular user -> no row, no hint, no request error shown; hosted + owner configured + the owner -> row visible; local -> no row. Keep the existing copy tests.
+4. docs/HOSTED-DEPLOY.he.md "שלב ו" step 2: one sentence that the row is visible to everyone only until the owner is set, afterwards only to the owner.
+
+DO NOT: touch server/src/sync/**, server/src/routes/sync.ts, shared/sync.ts, src/offline/** (the offline packages), src-tauri/**, mobile/**, store/**, deploy/**; run fly or deploy; read real data directories.
+
+GATES (quote the numbers): root typecheck + whole root vitest + `npx vite build` + `node scripts/check-no-network.mjs`; server typecheck + whole server vitest; i18n parity if texts changed.

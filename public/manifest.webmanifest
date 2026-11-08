@@ -1,0 +1,19 @@
+{
+  "name": "Your Personal Diary",
+  "short_name": "Diary",
+  "description": "Your Personal Diary - a private, encrypted personal diary.",
+  "id": "/",
+  "start_url": "/#/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f6f9",
+  "theme_color": "#2b4c7e",
+  "lang": "en",
+  "dir": "auto",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/pwa-256.png", "sizes": "256x256", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

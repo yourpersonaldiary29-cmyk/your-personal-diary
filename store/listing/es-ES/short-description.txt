@@ -1,0 +1,1 @@
+Un diario privado con estado de ánimo, hábitos y observaciones prudentes. Tu diario se guarda cifrado en tu cuenta en el servidor de Your Personal Diary, igual en todos tus dispositivos, y la aplicación sigue funcionando si se corta la conexión. Sin anuncios ni rastreo.

@@ -1,0 +1,383 @@
+{
+  "kdf": {
+    "N": 32768,
+    "r": 8,
+    "p": 1
+  },
+  "secretLength": 64,
+  "generatedWith": "node v24.20.0 (node:crypto scrypt)",
+  "vectors": [
+    {
+      "label": "empty",
+      "password": "",
+      "saltHex": "00000000000000000000000000000000",
+      "secretHex": "2b89a64cf5271142e00236ebd886413e02d879612eaa837ac18d677204157fa11cd6d8506c65601accda29c4099f24f7d60ad9790338ff022f55b317dbe9a4d9"
+    },
+    {
+      "label": "one space",
+      "password": " ",
+      "saltHex": "2a3839da95f8928227316a59795b7d87",
+      "secretHex": "b210c5d6025409a357f4dcef3753c8d1081705dcd1ff36c2399a71905913c04487497a6a278637bc91f56874ace7ac373193dad044d8443572fa624ff46b7f62"
+    },
+    {
+      "label": "one letter",
+      "password": "a",
+      "saltHex": "79f720a7bdca7f14bd675c2a4c0aa9e4",
+      "secretHex": "24e5aad451a88c97db5c09b63a6b40f20a64355c249462ef6b0bd4f6b3deabce21c3c32f7787f3e160e46b03f3eb76f6dafeb6a06d800f9f2d04612a953b7969"
+    },
+    {
+      "label": "NUL character",
+      "password": "\u0000",
+      "saltHex": "e64539982944181968c221dfa106aa10",
+      "secretHex": "8ab30ed0d63fba6b2c3a6ea74cb369ca1459e99bc58d1e8d641d7dc1ad5ccaab11d4be1a1d57c97bc5e25d0f220bfad8ffce62b31b2bc0bd837208b4b54bbfca"
+    },
+    {
+      "label": "whitespace only",
+      "password": " \t\n ",
+      "saltHex": "1001251c76e759131129743bac456ffc",
+      "secretHex": "84806582d6011732670c3d00618a1933e1d8ad88e9a680db8a66637183d68d8feb965ba337c6028d8935ccdc6b8e24e94fdae945dd6dd5bb1186921a08213ee1"
+    },
+    {
+      "label": "ascii word",
+      "password": "password",
+      "saltHex": "49930dc556917665deae914efc139ab6",
+      "secretHex": "6a95072d86c85ac8f2963e5a0d4e64597a6b7187a9be8e9d0a69a4736e8971467ccc077df4056aa1eae6b2aad359b003d0d43853ca32074e8e2075800f626974"
+    },
+    {
+      "label": "ascii mixed",
+      "password": "Passw0rd!",
+      "saltHex": "668c6886ea636b7643f626c4afcefd3a",
+      "secretHex": "872593c75eb5e043a32db1bdfa1aac6d29f6d9e22d37db44e68a40c9308250a560c6da5c246303f6767236b034594f0246b9b46ce9caa3a8d530476911494dc1"
+    },
+    {
+      "label": "ascii phrase",
+      "password": "correct horse battery staple",
+      "saltHex": "6c68c7348bc3db92cb852f69002ffdd2",
+      "secretHex": "508cc5fce0f93f950d84fc6d59b8290f53c5ebbd0baf826336723137b3511e86587ca94b9fffc5a5e0d5b4d3677210ab56446124a3807c5fbf2782f4e4c1f363"
+    },
+    {
+      "label": "63 bytes (below the HMAC block)",
+      "password": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "saltHex": "292849b433d875291f70a54622dbcb69",
+      "secretHex": "0e1fd7a7a1208844de2f5ade757fe6c235d22fe2ec22a02f9484dfb0d8357d064e8350d9d41af1a2b58463bc16640ceff010e65d26b2ad5d73c30ae5a4c0ea3a"
+    },
+    {
+      "label": "64 bytes (the HMAC block)",
+      "password": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "saltHex": "0be109ababf57b2ec7f29ef4f8077184",
+      "secretHex": "7d36620fc27c9cf7f26adad88c0de7dbd96d65b7490bc5c96d1d9c4ca344cbb2cb0d5e1b40c35a6964e19aec3423ba8f094f00b6a14c8ff18410316d1ab3aa7f"
+    },
+    {
+      "label": "65 bytes (above the HMAC block)",
+      "password": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      "saltHex": "cb0fa277162dbfcac77a8e318f160bfa",
+      "secretHex": "13fdcce451f33f4a21b60a13788e7a29694fe34a82f7b770ebc5def86a3c0c60f97360453a27527650b96aa35906a452663cd550bb0f77302cfff3d2a5021aa7"
+    },
+    {
+      "label": "127 bytes",
+      "password": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+      "saltHex": "23002a05938e2116e3e3d54ff8dd6889",
+      "secretHex": "5994d978e08949b209d37c08e5c8dc835c0e36f0d917a3fbad51be67aee12c868f6a13163e80cd1def8820c89576283399613716ebfde674198ebf88a463c392"
+    },
+    {
+      "label": "128 bytes",
+      "password": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+      "saltHex": "e55a8adc61a95d5b5ad0275c4fdff989",
+      "secretHex": "515ed16f99df3336cc14eed00f544307a6ee96a440da2d900aa00f12a23de0a619cdb6a1e094f687f368b6bfbc2762dabcc4db9206ef9adbb4c3142ae2e5ea55"
+    },
+    {
+      "label": "129 bytes",
+      "password": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+      "saltHex": "7dd8882d6f2c98bf330a60cda6968c9d",
+      "secretHex": "4c7e46fcf2cc869c5eb51c7c325cd228249af987437cb53d9cfc96fdf6500a7ffd29a5fac9609fd4d8913e6a0a362bb36512bccc7e5965eeca90ceb3a5fb03ac"
+    },
+    {
+      "label": "256 characters",
+      "password": "Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!",
+      "saltHex": "b388a6502652956d5eddea2a14cb2d27",
+      "secretHex": "7663aee332de5070a66095b69eb8a9b07b568d87f8885b222bd01ccf5b87ea2070c425e9f2ce5d95350f152115654159dda91c0baba8af5ee496bcb5923116ee"
+    },
+    {
+      "label": "1000 characters",
+      "password": "long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long password long p",
+      "saltHex": "33d262c97b4cfca61341b87cf4b74a12",
+      "secretHex": "b0493de7f5e2ecfec4c42fb707267390a6b9c31f46299c8abaa1b40bfdb8ba47f0dfd0291d32f7856a8d6a44f37ce9b55b26a85690081edc8290a99257feb47c"
+    },
+    {
+      "label": "4096 characters, mixed scripts",
+      "password": "aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀aא😀",
+      "saltHex": "35be4e86c306a0eb869d16095ee8a465",
+      "secretHex": "849beb7cb8ccab7390fc5b4b2a59eda04bf5a25efcb7e122d73ab1f1648b29158c229c721ddf05fdb251d2365f5f404830a62af1695dfa77bafa7e7467c31146"
+    },
+    {
+      "label": "NFKC: full-width latin (= \"password\")",
+      "password": "ｐａｓｓｗｏｒｄ",
+      "saltHex": "c7fbd65c5c05348232f6b450c4367921",
+      "secretHex": "6f7fd21fc1ff2ef429cb424c084709eda3dfa1b0beb31dae6df20be71218534f98b562d728255512b5c6da1d7d9a695f77fdd1467cd057f9fe5f7a361f9ed95c"
+    },
+    {
+      "label": "NFKC: fi ligature",
+      "password": "ﬁnance ﬂow",
+      "saltHex": "f05868fd5ab25d0d64701bd5bd646a49",
+      "secretHex": "b1358ca330bcb6279b1d78e662c42ae19297ac12ff68f031886f00262fba512eac5e16c2ab788d7c7984e1a5e4920b76bc54d9e86ac2d64020140bfe0baa15fa"
+    },
+    {
+      "label": "NFKC: decomposed e-acute",
+      "password": "Café 123",
+      "saltHex": "c840c76814ce0220e7e05d099e128948",
+      "secretHex": "9f82991296a8739a6fd6006680e01e282edc51294f6e191ecef69b28c11b1e7e525b187c4ee437adffb9b22423fd38b99bab2959de9916586753698789a087f6"
+    },
+    {
+      "label": "NFKC: precomposed e-acute",
+      "password": "Café 123",
+      "saltHex": "17188ff636e7e30b9276810108fc247d",
+      "secretHex": "da77b4dca5d444946d6332982fb0de725a5ea59af0538e40ce44bec6426c0dbf26654f32eb664f4f68d06ff4a63a70507dd909c6915a0aed01c294b469327f0a"
+    },
+    {
+      "label": "NFKC: circled digits",
+      "password": "①②③④",
+      "saltHex": "d78ab823119c6cd33c4a52dd5ef2cce3",
+      "secretHex": "c9bcf9d8a8d247568fdd7f910bac951345d2e9dcb35b35c7170f6e09c8f26a11c90fce3973ebc04bef46243fd580f3e6dfa383ab4c0f8de5f0e0f73bc10d07e4"
+    },
+    {
+      "label": "NFKC: ohm and kelvin signs",
+      "password": "Ω K",
+      "saltHex": "33aa8f4b8cc638526f0bc6dfe8628695",
+      "secretHex": "231fdfe6edaa301f869e60b2df1f8d7055cc1eae8e24c1df1969db687b8f25ca65f63816eb855bc470d932ca5b2e6b9a607ce68f3ee91ac14bac01503e03726a"
+    },
+    {
+      "label": "NFKC: half-width katakana with dakuten",
+      "password": "ｶﾞｷﾞｸﾞ",
+      "saltHex": "8ff8f2b60ae1b54d2a108ff184366ee2",
+      "secretHex": "6376a4234f52a3fbd263398d9bf2b4ceb27c530cfbbdf247218d25ef6550a2fae3d340b505f0f83d8a4d84ebd987a68702155651c96cde3a16473028192a1652"
+    },
+    {
+      "label": "NFKC: square corporation sign",
+      "password": "㍿ 2026",
+      "saltHex": "8b95d1f2d8250210debede8af9619c3b",
+      "secretHex": "55de4ce1000b41b81ebccc780344a677e8abd780158bf7df11bced2b225b72a9aef09a2393790b21e7956c44fe7b827806466e42e60893ed98aaf9e0a0f24f01"
+    },
+    {
+      "label": "NFKC: superscripts",
+      "password": "x² + y³",
+      "saltHex": "80f0ef18e2d8d431d78791bd49fe88b2",
+      "secretHex": "e660e76ca8e64963a39e46c2b35061cb27bfd2eddd25d11e7777ddb82334261e85c212e605233caddc3a39b2067f92758429a7cc92925b1d906565435d0050ee"
+    },
+    {
+      "label": "NFKC: long s and ellipsis",
+      "password": "ſecret…",
+      "saltHex": "48b128086a31b568164417a5794345b9",
+      "secretHex": "eb9b082ae1bbb5f03354a69c18b3370bc1427247b52b9828696e9552ea251a61f2943b0c7dfd97dcc987969b0d47fc34eb4fc72ee76e5d5bb777c226f3b0b30d"
+    },
+    {
+      "label": "NFKC: no-break and ideographic spaces",
+      "password": "a b　c",
+      "saltHex": "5a8356fe3986e2f60b31930d9d52a107",
+      "secretHex": "d62b2ab546a0d883a1f8aa27a10abd7b9b92a2033d7a39353e06e4c5c3e7d9651f78809665402de5f9d5e486777757e2a9995b06846f2e29d30ad21950325ad3"
+    },
+    {
+      "label": "NFKC: hebrew presentation form",
+      "password": "שׁשׂﭏ",
+      "saltHex": "e338dce755f398b5030ddde84e535b62",
+      "secretHex": "148c30560f403490e832b21b520cb80de1ef6f18f1e3935978fd17a7291e430e3be94747a5acbfb4d1ecb3b9311dde54dee2bab6efedbee3b16ee1df47845484"
+    },
+    {
+      "label": "NFKC: arabic ligature",
+      "password": "ﷺ",
+      "saltHex": "de728fab0c5e082ef80dcf8626dc424a",
+      "secretHex": "c82a76df76fd5b3f9a37853386cb81c9f2a692a21d8df7b573514a92ea8d0f0164ff99ea9933e644bc5ff1d7c1d98f57f3e83ecc61e81b59546543bf38b52da1"
+    },
+    {
+      "label": "NFKC: arabic lam-alef form",
+      "password": "ﻻﻷ",
+      "saltHex": "a549ecf2c5fd498eca7894b73f8babbe",
+      "secretHex": "be048745fbff864889e582510046cf2a0d8111c725bec2f505b2abd2c80a9791ff22ca9d283eb0956371e5f1adea5de17bc41d533d26d6212c2da99714653c7e"
+    },
+    {
+      "label": "hebrew word",
+      "password": "סיסמה",
+      "saltHex": "c9c10222713bf0c09de7dd7ae1789e20",
+      "secretHex": "ba2acad791c81b1ec3ae80ff1fb21f4fc91446d7ffbadba9e6222e1dc4db9b03c2ba5c362baf29e94de3330a473f491fb019d460c3e43cce5a2a1ae812d512d4"
+    },
+    {
+      "label": "hebrew with niqqud",
+      "password": "שָׁלוֹם עוֹלָם",
+      "saltHex": "18ac223e4f595a9bcd92506b1c232664",
+      "secretHex": "86904bbf141499f002f424397986bba034fed87ae366eded996fe4a933046fa741633a198b51bd604f47e9eaaceaa983bd472c392508f48ca60fc2bd87e009c2"
+    },
+    {
+      "label": "hebrew alphabet",
+      "password": "אבגדהוזחטיכלמנסעפצקרשת",
+      "saltHex": "777efd6d810c4bfe605d735380544b90",
+      "secretHex": "fce3feb587f47801bdcceb554efe7b7d04f433f192e0cca3a3f04807182f7feaa7935c11b6211a888fcf2a0a7c6984bb36633fd8014a2ab4bfc993fb50858372"
+    },
+    {
+      "label": "hebrew with digits",
+      "password": "יומן אישי 2026!",
+      "saltHex": "3ea1c9437905ec45f4e63c20eaa71282",
+      "secretHex": "46e2c299474c9112e30d5ca464f4ee5930b8e0a71a92a699924a642f01fd80cd3814f1935d8c8fe38068fe2a19172672ee12635c83a18083a5bff30f810bdf3f"
+    },
+    {
+      "label": "hebrew and english",
+      "password": "Diary יומן 123",
+      "saltHex": "b086b0b2c37947f2842c64fb26afbcbd",
+      "secretHex": "b6589e116f91c72b19bbebe949d07a685aa0002df39b9033a3d88adfde07309d578924abae3b3afd51a492a594ffceea8190f4b86c9ead2bbcbee469f696ccd4"
+    },
+    {
+      "label": "hebrew with direction marks",
+      "password": "‏סוד‎!",
+      "saltHex": "851b4998efd5ff1851d131a3e28bad5e",
+      "secretHex": "2e70adb6262834de4016cc6fa00580ebcf67b2ade1fc5853c4dfac2f87d0814f604f02089a664a91f307a9045fd08ede96ce66b8b2f455085c258ce030bdcdb1"
+    },
+    {
+      "label": "arabic words",
+      "password": "كلمة السر",
+      "saltHex": "3af8513d3528541c6e5fec4ad23c39f4",
+      "secretHex": "644ea69edc21996ae5d04c4715c3caaf8a94f7bb15d568703ff2b529b711fde9c3b8ab48f7ba4c1415976685a1cd5f711eec1780f0cd3161b3b69e9e933ddb95"
+    },
+    {
+      "label": "arabic with harakat",
+      "password": "مَرْحَبًا",
+      "saltHex": "0fc38b29efc1cc68133c7a5213cd9e93",
+      "secretHex": "d7229c89bae004c46c0c4620177f562bf3b571705fd255d84ddf3c415e3330a28c165c136f100eb49407a3aad6854c8d9dd1ea2bc3457894a7fea19f51022a3e"
+    },
+    {
+      "label": "arabic-indic digits",
+      "password": "١٢٣٤٥٦",
+      "saltHex": "f8058d94e98b5ed168540dedd670b5b4",
+      "secretHex": "b252b4563099c3abca6f8e27d28d7d910d5b04d62d21b6cdb6144d25c842e800c7dce5b159ea966adc216d94406874d895edc47d2444e77edad1c23daf8cf24a"
+    },
+    {
+      "label": "arabic phrase",
+      "password": "يوميات شخصية 2026",
+      "saltHex": "432a7445010f93ff3149344303656dd1",
+      "secretHex": "a3a1ad0d161d36604fcda85c50cc9dd0f39edb32cc11038413d8582f6bf9493ca44930f44fd3be34d0d4d66a8bcf5666169799806e093e2e1dc35dd8593fff6f"
+    },
+    {
+      "label": "persian",
+      "password": "گذرواژه",
+      "saltHex": "4dc94b9471c01bea15678767b2aa71ff",
+      "secretHex": "de4738eba3164b18b86f106c96f7922add2526b2622507014be3216c3ff497dd3bca33956cd20a8ffcf3705106b87ee0d2f2d7e17cd00ccb02abace49d62d0cf"
+    },
+    {
+      "label": "chinese simplified",
+      "password": "密码",
+      "saltHex": "c600c6ed750df19984b1d3646a55d434",
+      "secretHex": "c9b7d03e25d577dae39c8dfc2cb5053575f5363dbd6dee4980151e4f7c0075cdb5c177fb58a815012daec777920f6547714800e631d87efb18f04118d981c37b"
+    },
+    {
+      "label": "chinese traditional",
+      "password": "密碼",
+      "saltHex": "bc9db43dd96f44edb2477c04e89a6caf",
+      "secretHex": "ac3d4588b236234fc4bbd95bc03e507fcebb9d22948f1dc230b19f5a4bde404adef01e6e9580446b44ace7249563ba4b7076a09d2d05fa88d2c8861637f1a998"
+    },
+    {
+      "label": "japanese katakana",
+      "password": "パスワード",
+      "saltHex": "f2b2be79ffeef1248d2471408595b28f",
+      "secretHex": "72ec233a96946b3b239275a17e425266b861ea88e3a2ff3160aee29a8fc3e34b174e661223c020d4685d6b9d31225fd58b70bc8d34956aca9ba1566987072dbc"
+    },
+    {
+      "label": "japanese hiragana",
+      "password": "ぱすわーど",
+      "saltHex": "6e3edf898422c5c8346bd288b3bb8435",
+      "secretHex": "6ca0ff152b657697b17fd7e51f1bbb5a24396b15f34dbb5d4da8469cdefafd0331b0012f9956d0605bdb6ded9a3953c12a672edfdba74ed47486375c7c07df44"
+    },
+    {
+      "label": "korean",
+      "password": "비밀번호",
+      "saltHex": "51f1c60e6800271b6cd85cf36f3363dc",
+      "secretHex": "1659abe41a8142daf8f439af81f8356e5efda92d4cf22432c909a6903af46b70f63c356655b8b6148c447347eb91e9b5b370278107aaa7fc3279a797984e9ddb"
+    },
+    {
+      "label": "japanese mixed",
+      "password": "日本語のパスワード123",
+      "saltHex": "f533d89e9cc48fad4c165b87b166f793",
+      "secretHex": "1e994ac2ce1c8cbfb6368f08654fb3578fc07e7fdd5ac37c19514e432795a86895625d5fb70274d4aa719993add81863ee5faa69ce4edc41f319aff65875f7e7"
+    },
+    {
+      "label": "han outside the BMP",
+      "password": "𠮷野家",
+      "saltHex": "597c452da60c880dd3c8e24d6ea5635c",
+      "secretHex": "78e6866a0d833ebc3e2bdcb8ce7900811365cbe25d2d80af14144e52412c1f0b09a217b973980aceac11eeaf295c9fdcd0cf2d73d8c9f92212e4b40faffb71d5"
+    },
+    {
+      "label": "emoji",
+      "password": "🔒",
+      "saltHex": "93dd68111128cdadc8ad1f0f47f46734",
+      "secretHex": "4cd81840cde36fd6984afbbfa815edc40c26b981f5e3220eea5e07e0e25f97cd44893006ebfe3aa3c8788e7ea9345543ca5f98c891959dbff4f3875df32c553b"
+    },
+    {
+      "label": "emoji family (ZWJ sequence)",
+      "password": "👨‍👩‍👧‍👦",
+      "saltHex": "3c6700c719e23bc83f8c0ef7c7116503",
+      "secretHex": "983e072312cb70d724d35cf4f9795377317706837876cb1c8471944f26d23b832efdf0cf004cfc03db706213830b3c75234d8c17884074d2e63e9d4552391c7a"
+    },
+    {
+      "label": "emoji flag with variation selector",
+      "password": "🏳️‍🌈",
+      "saltHex": "e84e830b225daa6adc9eb6268bf8c4c6",
+      "secretHex": "ea42923782264c5b9e01acfa93bc575fafd537d72d6e1f191801b9d54d1d7d919e83034e906b3374125739302dae4b10ff3521e9bce203c901877b0a42a22f25"
+    },
+    {
+      "label": "emoji with skin tone",
+      "password": "👍🏽",
+      "saltHex": "b3ae22bf424ecd4b22608f41ee77738e",
+      "secretHex": "fe1e63c35f4980e17f7bbbfac84f79187880e1d7d1c157d8567fc4f4a300ba4b166e6c84d13ca05c606999e4572493f98eeefdae059f432c462f7deed9bf01b7"
+    },
+    {
+      "label": "emoji inside ascii",
+      "password": "pass🔑word",
+      "saltHex": "b1702f88f7a268aa0ed6c04a5eb16787",
+      "secretHex": "eac15fb6aac96494c6a5129177aa1159144611ec7aa1f0f6eda274fa7a74eb04b471d7fc36cdccb2950eee361c8e0d440cd9ee08118fca16cf03623d3cbfcbdf"
+    },
+    {
+      "label": "regional indicators",
+      "password": "🇮🇱🇯🇵",
+      "saltHex": "c18a0039f2988cc3fcd7d2e826173035",
+      "secretHex": "6d52dec9a8510e4ea6176a07e32ec9f0442e3336626f7491f56997d51f7f3871e791fb24af802ef1af4ff5182f2d164c6639fe42a8a16a62c8575bfe1ec502f1"
+    },
+    {
+      "label": "cyrillic",
+      "password": "пароль",
+      "saltHex": "1dea61b178f083f9c8afcedc8a4b4387",
+      "secretHex": "0da19d0799c05c14691082dda81dd543319a628a8b2475bbd40c98f2b9d43ab3ad77626a523a1ef05f8d56e5eace90dcdd84dee7041ebfa9ac4d24f1dfa62bfd"
+    },
+    {
+      "label": "greek",
+      "password": "κωδικός",
+      "saltHex": "a573af17d6a7b06292d5d235d7802a12",
+      "secretHex": "21c0cd28010c98465659e2f7e39d5ddfa62c3b7ad3164cb9dbd2698d2cd6dd07ca0881fd30a2d7f8110ee51bac30d5a53ba8d75cbc6c7aa8214b3773afa05eb6"
+    },
+    {
+      "label": "thai and devanagari",
+      "password": "รหัสผ่าน पासवर्ड",
+      "saltHex": "683df33909369eef29a00f6d0914a7f2",
+      "secretHex": "c35f61931e7f144125aed99170daf4a5e9a3fa58f3d51f6cb88afd472334bb570553cdaf8e944d9fa68858d5429eb29b9005f35f132778424be6f6a045f90bae"
+    },
+    {
+      "label": "turkish dotted and dotless i",
+      "password": "İstanbul ıI",
+      "saltHex": "839932b409969ecb4e27afc900ae038e",
+      "secretHex": "1bbbfdec64667ac34344f625a4f95e3282efd6557a6d9a5364e70bbd06659ce5225ad9db9b4b7b89c3d9818eb2a9ca27f130eaff6a714346438bdf9ed1e6106d"
+    },
+    {
+      "label": "lone surrogate",
+      "password": "a\ud83db",
+      "saltHex": "7d5c45c86a8cb33f9e71ca05cd907087",
+      "secretHex": "edda62502467aad3780830d538748446328b547f0eabcc25aa1db2d38741e7330e4bc0689be0be50c1976d7050377f920f23784aca65a81c37977399408c1ba0"
+    },
+    {
+      "label": "two lone lead surrogates at the end",
+      "password": "Passw0rd-\ud83d\ud83d",
+      "saltHex": "c9e17ac0bd6e7abf3c9ba40d1c841f62",
+      "secretHex": "f9ea726a8a15f617bd06ac8430a9433175c994babfa904558d3c51ca42b2c1a4f70b6922dff11c274612d8ad68228285899386b9fda20163282bf18f326019f1"
+    },
+    {
+      "label": "three lone lead surrogates",
+      "password": "\ud83d\udbff\ud83d",
+      "saltHex": "98dbd48eac8e56ae2e5f6a1ffe03bca2",
+      "secretHex": "26f1802cc9c31c7d791c5f800dde965c83ca3e04574a4b30702b2bae6ba001f9890887330f4145d8612f6e709c23d7f92db225048c39d634e317018df01249d3"
+    }
+  ]
+}

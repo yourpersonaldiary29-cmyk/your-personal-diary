@@ -1,0 +1,104 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Your Personal Diary",
+  "mainBinaryName": "your-personal-diary",
+  "version": "0.1.0",
+  "identifier": "com.mydiary.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "title": "Your Personal Diary",
+        "label": "main",
+        "width": 1200,
+        "height": 760,
+        "maximized": true,
+        "minWidth": 900,
+        "minHeight": 600,
+        "center": true,
+        "resizable": true,
+        "focus": true,
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://yourpersonaldiary.fly.dev ipc: http://ipc.localhost; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'",
+      "devCsp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://yourpersonaldiary.fly.dev http://127.0.0.1:* http://localhost:* ws://localhost:* ipc: http://ipc.localhost; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'",
+      "assetProtocol": {
+        "enable": false,
+        "scope": []
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "createUpdaterArtifacts": false,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "languages": [
+          "English",
+          "Hebrew",
+          "SimpChinese",
+          "Spanish",
+          "Polish",
+          "Russian",
+          "French",
+          "Arabic",
+          "Japanese",
+          "Turkish",
+          "Czech",
+          "Hungarian",
+          "Bulgarian",
+          "Greek",
+          "Portuguese",
+          "German",
+          "Romanian",
+          "Italian",
+          "Thai",
+          "Hindi"
+        ],
+        "displayLanguageSelector": true,
+        "installMode": "currentUser",
+        "installerHooks": "./nsis/hooks.nsh",
+        "customLanguageFiles": {
+          "Hebrew": "./nsis/Hebrew.nsh",
+          "Polish": "./nsis/Polish.nsh",
+          "Czech": "./nsis/Czech.nsh",
+          "Hungarian": "./nsis/Hungarian.nsh",
+          "Greek": "./nsis/Greek.nsh",
+          "German": "./nsis/German.nsh",
+          "Romanian": "./nsis/Romanian.nsh",
+          "Italian": "./nsis/Italian.nsh",
+          "Thai": "./nsis/Thai.nsh",
+          "Hindi": "./nsis/Hindi.nsh"
+        }
+      },
+      "wix": {
+        "language": "he-IL"
+      }
+    },
+    "publisher": "Ouriel Sebag",
+    "copyright": "© 2026 Ouriel Sebag",
+    "shortDescription": "A smart, private personal diary",
+    "longDescription": "A smart personal diary that finds patterns over time. Your diary is stored on the Your Personal Diary server and encrypted with your password."
+  },
+  "plugins": {}
+}

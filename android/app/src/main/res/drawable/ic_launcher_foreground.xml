@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive launcher icon - foreground layer, drawn from design/app-icon.svg (the book with the lock).
+  The 1024-unit artwork is scaled to 66% around the centre so the book stays inside the 66 dp safe
+  zone of the 108 dp adaptive canvas whatever mask the launcher applies; the gradient background is
+  ic_launcher_background.xml.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <group
+        android:pivotX="512"
+        android:pivotY="512"
+        android:scaleX="0.66"
+        android:scaleY="0.66">
+        <!-- book cover -->
+        <path
+            android:fillColor="#c9a86a"
+            android:pathData="M268,176 h488 a56,56 0 0 1 56,56 v560 a56,56 0 0 1 -56,56 h-488 a56,56 0 0 1 -56,-56 v-560 a56,56 0 0 1 56,-56 z" />
+        <!-- pages -->
+        <path
+            android:fillColor="#faf6ea"
+            android:pathData="M300,176 h464 a48,48 0 0 1 48,48 v576 a48,48 0 0 1 -48,48 h-464 a48,48 0 0 1 -48,-48 v-576 a48,48 0 0 1 48,-48 z" />
+        <!-- spine -->
+        <path
+            android:fillColor="#a6864c"
+            android:pathData="M242,176 h10 a30,30 0 0 1 30,30 v612 a30,30 0 0 1 -30,30 h-10 a30,30 0 0 1 -30,-30 v-612 a30,30 0 0 1 30,-30 z" />
+        <!-- written lines -->
+        <path
+            android:strokeColor="#b9b09a"
+            android:strokeWidth="18"
+            android:strokeLineCap="round"
+            android:pathData="M360,330 H740 M360,420 H740 M360,510 H640" />
+        <!-- lock badge -->
+        <path
+            android:fillColor="#2b4c7e"
+            android:pathData="M550,720 a150,150 0 1 0 300,0 a150,150 0 1 0 -300,0 z" />
+        <path
+            android:strokeColor="#fffdf6"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M640,700 v-50 a60,60 0 0 1 120,0 v50" />
+        <path
+            android:fillColor="#fffdf6"
+            android:pathData="M640,700 h120 a24,24 0 0 1 24,24 v72 a24,24 0 0 1 -24,24 h-120 a24,24 0 0 1 -24,-24 v-72 a24,24 0 0 1 24,-24 z" />
+        <path
+            android:fillColor="#2b4c7e"
+            android:pathData="M682,750 a18,18 0 1 0 36,0 a18,18 0 1 0 -36,0 z" />
+        <path
+            android:fillColor="#2b4c7e"
+            android:pathData="M697,760 h6 a6,6 0 0 1 6,6 v22 a6,6 0 0 1 -6,6 h-6 a6,6 0 0 1 -6,-6 v-22 a6,6 0 0 1 6,-6 z" />
+    </group>
+</vector>

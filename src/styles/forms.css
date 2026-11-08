@@ -1,0 +1,434 @@
+/*
+ * Form controls: fields, inputs, checkboxes/radios, rating slider, tag chips.
+ * Every control has a >= 44px touch target and a visible label.
+ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin-block-start: var(--space-2);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field__label {
+  font-weight: 600;
+}
+
+.field__required {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 0.9em;
+  margin-inline-start: var(--space-1);
+}
+
+.field__hint {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.field__error {
+  color: var(--color-danger);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.field__error::before {
+  content: "⚠ ";
+  speak: never;
+}
+
+.field__control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.field__unit {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--color-primary);
+}
+
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--color-danger);
+  border-width: 2px;
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+}
+
+.input--short {
+  width: 8rem;
+}
+
+.input--number {
+  width: 7rem;
+  text-align: center;
+}
+
+.input[type="date"],
+.input[type="time"] {
+  width: auto;
+  min-width: 11rem;
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.select {
+  appearance: auto;
+  padding-inline-end: var(--space-4);
+}
+
+/* Password field with show/hide toggle. The toggle always keeps its whole label (long in some
+   languages - Arabic, French...) and never shrinks under it (.btn's min-width would let it): the
+   input gives way first, and when it would get narrower than 8rem - on a phone with a long label -
+   the toggle moves onto its own line instead of overflowing. */
+.password-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+
+.password-field .input {
+  flex: 1 1 8rem;
+  min-width: 0;
+  direction: ltr;
+  text-align: start;
+}
+
+.password-field .btn {
+  flex: none;
+  max-width: 100%;
+  white-space: normal;
+}
+
+/* Show / hide labels stacked in one cell: the button is as wide as the longer one, so toggling
+   never resizes it or moves it to another line. (Two classes: .btn in components.css loads later.) */
+.password-field .password-field__toggle {
+  display: inline-grid;
+  place-items: center;
+}
+
+.password-field__label {
+  grid-area: 1 / 1;
+}
+
+.password-field__label[aria-hidden="true"] {
+  visibility: hidden;
+}
+
+/* Checkbox & radio ----------------------------------------------------------- */
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding-block: var(--space-1);
+}
+
+.check__input {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0.35rem 0 0;
+  flex-shrink: 0;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.check__label {
+  cursor: pointer;
+  padding-block: 0.3rem;
+}
+
+.check__hint {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.check[aria-invalid="true"] .check__input,
+.check__input[aria-invalid="true"] {
+  outline: 2px solid var(--color-danger);
+  outline-offset: 1px;
+}
+
+/* The privacy checkbox of the registration form (RegisterPrivacyConsent): its error and the address the
+   Windows shell could not open sit under the box, lined up with the sentence (logical sides: RTL too). */
+.consent__below {
+  margin: 0;
+  margin-inline-start: calc(1.35rem + var(--space-2));
+  overflow-wrap: anywhere;
+}
+
+.fieldset {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  margin: 0;
+  min-width: 0;
+}
+
+.fieldset__legend {
+  font-weight: 600;
+  padding-inline: var(--space-2);
+}
+
+.fieldset--plain {
+  border: 0;
+  padding: 0;
+}
+
+.fieldset--plain .fieldset__legend {
+  padding-inline: 0;
+  margin-block-end: var(--space-2);
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.radio-group--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+  gap: 0 var(--space-4);
+}
+
+/* Rating (1..10) ------------------------------------------------------------- */
+.rating {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.rating__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.rating__range {
+  flex: 1 1 12rem;
+  min-height: var(--touch-target);
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  margin: 0;
+}
+
+.rating__value {
+  min-width: 6.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.rating__value--empty {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.rating__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  padding-inline: 0.2rem;
+}
+
+/* Tags ----------------------------------------------------------------------- */
+.tag-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* A chip is symmetric: the same space before and after its text. Read-only chips (the emotions of
+   an entry card, the tags of an entry) are just that. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-text);
+  border: var(--border-width) solid var(--color-border);
+  min-height: 2.25rem;
+}
+
+/* The remove button of an editable chip (TagInput) is round like the chip's end, so it sits 0.2rem
+   from the edge - it reaches into the chip's end padding instead of the chip having an uneven one. */
+.chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: 2rem;
+  min-width: 2.25rem;
+  margin-inline-end: -0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.chip__remove:hover {
+  background: var(--color-surface);
+}
+
+.duration {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.duration__part {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.duration__part label {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+/* Autosizing textarea (appended by the UI shell) ---------------------------- */
+.textarea--autosize {
+  overflow: hidden;
+  resize: none;
+}
+
+/* Tag input row: text box + "הוסף" button */
+.tag-input__row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+
+.tag-input__row .input {
+  flex: 1 1 auto;
+}
+
+/* Auth forms (login / register) */
+.auth-card {
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.auth-card .form {
+  margin-block-start: var(--space-2);
+}
+
+.auth-switch {
+  margin-block-start: var(--space-4);
+  text-align: center;
+}
+
+/* "Forgot password?" link right before the Log in button (LoginPage). */
+.auth-forgot {
+  margin: 0;
+}
+
+/* Links to the next step on the forgot-password and reset-password pages. */
+.auth-next {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+  text-align: center;
+}
+
+/* A long label ("Stattdessen den Code aus der E-Mail verwenden") wraps inside its button on a
+   phone (see .btn) - the list item must not grow past the card either. */
+.auth-next > li {
+  max-width: 100%;
+}
+
+/* Buttons of a form inside a dialog sit where the dialog footer puts them (end side, Cancel then
+   the action) - the same place and order in every dialog (ConfirmDialog, habit dialog, change
+   password, set e-mail, delete account). */
+.dialog .form__actions {
+  justify-content: flex-end;
+}
+
+/* Standalone text links of the sign-in pages ("Forgot password?", "Back to log in"...): as tall as
+   every other touch target of the app, not just the line of text. */
+.auth-forgot a,
+.auth-next a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+}

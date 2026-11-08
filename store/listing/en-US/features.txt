@@ -1,0 +1,20 @@
+Diary entries with mood, emotions, energy, stress, sleep, physical activity, people, place and tags
+Daily and weekly habits with optional reminders as Windows notifications
+Gentle insights about possible patterns in your own data, never cause-and-effect claims
+"Why did I get this insight?" shows the exact numbers behind every insight
+Month calendar in the Gregorian, Hebrew or Hijri calendar, with the holidays of each
+Statistics and charts over time, each with a data table
+Smart search: ask questions about your diary in your own language
+One account on all your devices, kept on the Your Personal Diary server
+Keeps working when the connection drops and uploads your changes when it returns
+Diary stored encrypted on the server (AES-256), a separate file for each account
+Connects only to the Your Personal Diary server, always over HTTPS
+No ads, no analytics, no tracking
+Automatic lock after inactivity and instant lock with Ctrl+L
+Password reset by e-mail that keeps your diary
+Encrypted backup to a file you keep, and restore from it
+Export to TXT, CSV, JSON and PDF
+20 interface languages, including right-to-left Hebrew and Arabic
+Works with screen readers, with full keyboard navigation and shortcuts
+Light, dark and high-contrast themes with adjustable text size
+A personal journaling tool, not a medical or diagnostic tool

@@ -1,0 +1,376 @@
+/*
+ * Application shell: header, navigation bar, main content, footer.
+ * The document is RTL; every offset uses logical properties.
+ */
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-root[inert] {
+  filter: blur(4px);
+  user-select: none;
+}
+
+/* Header ------------------------------------------------------------------- */
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 20;
+  background: var(--color-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+  box-shadow: 0 1px 3px var(--color-shadow);
+}
+
+.header__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  flex-wrap: wrap;
+  min-height: var(--header-height);
+}
+
+.header__date {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.header__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.header__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.header__title-link:hover {
+  text-decoration: underline;
+}
+
+/*
+ * The greeting sentence after sign-in ("Hello Dana, and welcome to your personal diary") takes the
+ * rest of the header row, at its end. One line in every language: when the row is too narrow for the
+ * sentence it is cut with an ellipsis (Greeting.tsx then adds the whole sentence as its tooltip);
+ * when fewer than 10rem are left it moves onto its own line. flex-basis 0 so that a long sentence
+ * never forces a wrap by itself.
+ */
+.header__greeting {
+  flex: 1 1 0;
+  min-width: 10rem;
+  margin: 0;
+  color: var(--color-text);
+  text-align: end;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back-button {
+  flex-shrink: 0;
+}
+
+/* Navigation --------------------------------------------------------------- */
+.nav {
+  background: var(--color-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+/*
+ * As wide as the content column, and wider - up to the window - when the labels of a language need
+ * it (Greek, Polish, Russian): the links then still fit on one line on a wide screen instead of
+ * wrapping inside the 74rem column.
+ */
+.nav__inner {
+  width: max-content;
+  min-width: min(100%, var(--content-max));
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav__toggle {
+  display: none;
+  margin-block: var(--space-2);
+}
+
+/*
+ * The links are laid out like the words of a line (inline-block items in a block list) so that
+ * `text-wrap: balance` applies: a list that does not fit on one line is split into lines of about
+ * the same length (5 + 5), never nine links and one left alone on the second line. Where
+ * `text-wrap: balance` is unknown the list simply wraps where it must. The negative block margin
+ * takes back the row gap under the last line.
+ */
+.nav__list {
+  list-style: none;
+  margin: 0 0 calc(-1 * var(--space-1));
+  padding: 0;
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+/* The closed menu of a narrow screen (the class sets `display`, which would beat the attribute). */
+.nav__list[hidden] {
+  display: none;
+}
+
+.nav__item {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 0 var(--space-1);
+  margin-inline-end: var(--space-1);
+}
+
+.nav__item:last-child {
+  margin-inline-end: 0;
+}
+
+/* "Sign up" / "Log in" of an anonymous visitor: a list of its own at the end of the row; the two
+   links never part. */
+.nav__list--auth {
+  flex: none;
+  margin-inline-start: auto;
+  white-space: nowrap;
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  border: var(--border-width) solid transparent;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.nav__link:hover {
+  background: var(--color-surface-alt);
+  text-decoration: underline;
+}
+
+.nav__link[aria-current="page"] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+}
+
+.nav__link--accent {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.nav__link--accent[aria-current="page"] {
+  color: var(--color-on-primary);
+}
+
+/* Narrow screens: a "Menu" toggle button reveals the links, one per line (still lists). */
+@media (max-width: 720px) {
+  .nav__inner {
+    flex-wrap: wrap;
+    width: auto;
+    min-width: 0;
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+  }
+
+  .nav__list {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-1);
+    margin: 0;
+    padding-block: var(--space-2);
+  }
+
+  .nav__item {
+    display: block;
+    margin: 0;
+  }
+
+  .nav__link {
+    width: 100%;
+  }
+
+  /* Directly under the page links, with the same gap as between two links. */
+  .nav__list--auth {
+    margin-block-start: calc(var(--space-1) - var(--space-2));
+    padding-block-start: 0;
+    white-space: normal;
+  }
+
+  /* The greeting gets a line of its own under the date and the title (still one line, cut with an
+     ellipsis when the sentence is longer than the screen is wide). */
+  .header__greeting {
+    flex-basis: 100%;
+    text-align: start;
+  }
+}
+
+/* Main --------------------------------------------------------------------- */
+.main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4) var(--space-8);
+}
+
+.main:focus {
+  outline: none;
+}
+
+.page-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block-end: var(--space-5);
+}
+
+.page-title__heading {
+  margin: 0;
+}
+
+.page-title__subtitle {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+}
+
+.page-title__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Footer ------------------------------------------------------------------- */
+.footer {
+  border-top: var(--border-width) solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.footer__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Full-screen states (loading the session, lock, welcome) ------------------ */
+.centered-page {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.narrow {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.welcome {
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.welcome__lead {
+  font-size: 1.15rem;
+}
+
+.welcome__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-block: var(--space-5);
+}
+
+.welcome__actions .btn {
+  min-width: 12rem;
+  min-height: 3.5rem;
+  font-size: 1.1rem;
+}
+
+.welcome__features {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: var(--space-3);
+  text-align: start;
+}
+
+.welcome__features li {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* Header date is a <p>: cancel the base paragraph margin (appended by the UI shell) */
+.header__date {
+  margin: 0;
+}
+
+/*
+ * The menu toggle also carries .btn (components.css loads after this file and
+ * sets display: inline-flex at the same specificity). Raise specificity so the
+ * toggle stays hidden on wide screens and appears only on narrow ones.
+ */
+.nav .nav__toggle {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .nav .nav__toggle {
+    display: inline-flex;
+  }
+}
+
+/* Header: the Hebrew-calendar date appended to today's date (calendar extras) */
+.header__date-extra {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .header__date-extra {
+    display: none;
+  }
+}

@@ -1,0 +1,46 @@
+Your Personal Diary este un jurnal personal, privat și inteligent. Scrii despre ziua ta, iar aplicația te ajută să observi tipare de-a lungul săptămânilor, lunilor și anilor. Fără reclame, fără analize de utilizare, fără urmărire.
+
+Vrei să arunci mai întâi o privire? Atinge „Omite - vreau doar să arunc o privire” pe primul ecran și explorează aplicația cu date de exemplu. Nimic din ce scrii acolo nu se salvează.
+
+Notează-ți ziua
+- Însemnări cu propriile cuvinte, cu dispoziția, emoțiile, energia, stresul, somnul, activitatea fizică, evenimentele, persoanele, locul, notițele și etichetele.
+- O cronologie a jurnalului și o pagină pentru fiecare zi.
+
+Obiceiuri și mementouri
+- Obiceiuri zilnice și săptămânale pe care le bifezi pe parcursul zilei.
+- Mementouri opționale ca notificări pe telefon. Tu decizi dacă afișează numele obiceiului.
+
+Observații prudente
+- Aplicația caută legături posibile în propriile tale date, de exemplu între somn și dispoziție sau între activitatea fizică și energie.
+- Observațiile sunt formulate cu grijă și nu susțin niciodată că un lucru îl cauzează pe altul.
+- „De ce văd această observație?” arată câte zile au fost analizate și cifrele exacte din spatele fiecărei observații.
+- Când datele nu sunt suficiente, aplicația spune asta în loc să ghicească.
+
+Calendar, statistici și căutare
+- Un calendar lunar gregorian, ebraic sau hegirian, cu sărbătorile calendarului ales.
+- Grafice ale dispoziției, energiei, stresului, somnului și obiceiurilor în timp, fiecare cu un tabel de date.
+- Căutare inteligentă: pune o întrebare în limba ta, de exemplu „În ce zile am dormit mai puțin de cinci ore?”, și primește răspunsul din jurnal.
+
+Funcționează offline și se sincronizează când revine conexiunea
+- Jurnalul tău este păstrat în propriul cont pe serverul Your Personal Diary. Conectează-te pe alt telefon sau calculator și găsești totul acolo.
+- A căzut conexiunea? Continuă să citești și să scrii. Modificările se păstrează criptate pe telefon și se încarcă automat când revine conexiunea.
+
+Confidențialitate și securitate
+- Jurnalul tău este stocat criptat pe server, separat pentru fiecare cont.
+- Aplicația se conectează doar la serverul Your Personal Diary.
+- Blocare automată după o perioadă de inactivitate și, dacă vrei, de fiecare dată când părăsești aplicația.
+- O opțiune pentru a ascunde conținutul în ecranul aplicațiilor recente și a bloca capturile de ecran.
+- Backup criptat într-un fișier pe care îl păstrezi unde vrei, și restaurare din el.
+- Exportă jurnalul în TXT, CSV, JSON sau PDF.
+- Șterge-ți contul și toate datele lui oricând, din Setări.
+- Politica de confidențialitate explică exact ce se stochează și unde.
+
+20 de limbi
+Aplicația se deschide în limba telefonului dacă aceasta este una dintre cele 20 de limbi ale sale, iar limba se poate schimba oricând din Setări. Ebraica și araba sunt afișate de la dreapta la stânga.
+
+Accesibilitate
+- Funcționează cu cititoare de ecran: titluri clare, câmpuri etichetate și mesaje de stare anunțate.
+- Teme luminoasă, întunecată și cu contrast ridicat, dimensiune reglabilă a textului și o opțiune de reducere a animațiilor.
+
+De reținut
+Your Personal Diary este un instrument pentru jurnalul personal. Nu este un instrument medical sau de diagnostic, iar observațiile sale nu sunt sfaturi medicale sau psihologice. Dacă îți faci griji pentru sănătatea ta, vorbește cu un specialist calificat.

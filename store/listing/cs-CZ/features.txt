@@ -1,0 +1,20 @@
+Záznamy v deníku s náladou, emocemi, energií, stresem, spánkem, pohybem, lidmi, místem a štítky
+Denní a týdenní návyky s volitelnými připomínkami jako oznámení Windows
+Opatrné postřehy o možných vzorcích ve tvých vlastních datech, nikdy tvrzení o příčině a následku
+„Proč vidím tento postřeh?“ ukazuje přesná čísla za každým postřehem
+Měsíční kalendář gregoriánský, židovský nebo islámský (hidžra), s jejich svátky
+Statistiky a grafy v čase, každý s tabulkou dat
+Chytré hledání: ptej se na svůj deník svým vlastním jazykem
+Jeden účet na všech tvých zařízeních, uložený na serveru Your Personal Diary
+Funguje dál, i když vypadne připojení, a po jeho obnovení nahraje tvé změny
+Deník uložený na serveru zašifrovaný (AES-256), pro každý účet samostatný soubor
+Připojuje se výhradně k serveru Your Personal Diary, vždy přes HTTPS
+Žádné reklamy, žádná analytika, žádné sledování
+Automatické zamčení při nečinnosti a okamžité zamčení zkratkou Ctrl+L
+Obnovení hesla e-mailem, deník ti zůstane
+Šifrovaná záloha do souboru, který si uložíš, a obnovení z něj
+Export do TXT, CSV, JSON a PDF
+20 jazyků rozhraní včetně hebrejštiny a arabštiny psaných zprava doleva
+Funguje se čtečkami obrazovky, plné ovládání klávesnicí a klávesové zkratky
+Světlý, tmavý a vysoce kontrastní motiv s nastavitelnou velikostí textu
+Nástroj pro osobní deník, ne zdravotnický ani diagnostický nástroj

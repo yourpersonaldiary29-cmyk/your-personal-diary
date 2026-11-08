@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - the first release.
+- Your diary in your own account, the same on every device you sign in on
+- Keeps working when the connection drops and uploads your changes when it returns
+- Gentle insights, habits with reminders, three calendars with their holidays
+- 20 languages

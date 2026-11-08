@@ -1,0 +1,1155 @@
+{
+  "generator": "scripts/play/render-screenshots.mjs",
+  "profile": "phone",
+  "size": "1080x1920",
+  "viewport": "432x768 CSS px at device scale 2.5",
+  "theme": "light",
+  "fixedTime": "2026-10-23T21:30:00.000Z",
+  "timeZone": "UTC",
+  "ui": "npm run mobile:build (server build) with VITE_API_BASE=http://127.0.0.1:<port>",
+  "server": "server/src/hosted.ts startHosted (DIARY_MODE=hosted) on 127.0.0.1, temporary data directory",
+  "sets": {
+    "ar": {
+      "appLocale": "ar",
+      "account": "سارة الفلاني",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 115426,
+          "sha256": "ec2b8a31fd764d5ea7d1889445c0cf9de5485d3a01467051cd223b025d808d54",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 182085,
+          "sha256": "a58c3f6e86fe2727dc30ebb6e70246ca3a783750ca0d3ecd0c5644824dc4f806",
+          "scrollY": 1782,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 147382,
+          "sha256": "a17bc05859b3568a4fa69410ff8b294e8e45eb02c5101657b07a9e0c4d584f59",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 123022,
+          "sha256": "7d142d08e4ff5e5c03966302c495af04aa138dd01ccbba71eb235b613a6bc102",
+          "scrollY": 705,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 202495,
+          "sha256": "5ea75b045a18a3bc0d964bba14026da0e73ad982b8e9cfbed3f523ecdde8f476",
+          "scrollY": 270,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 143882,
+          "sha256": "00dd248f57a202c9088afefda97a9262154e27f4595d965ed2ec85d6d87e06ac",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 175193,
+          "sha256": "afe150274cf9efcbefcf4044aa4d6d283615a1ca5460df4736af33496effe26a",
+          "scrollY": 2140,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "bg": {
+      "appLocale": "bg",
+      "account": "Мария Иванова",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 130128,
+          "sha256": "e8604e152efa30df50ab2a96afba988b96106fb3c70f389ce2020d94a92e0bb3",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 187974,
+          "sha256": "1b0c34777c37478bebbddd507e248358c86c600935546006980686ce975c9b2f",
+          "scrollY": 1935,
+          "bottomNav": 73
+        },
+        "03-entry.png": {
+          "bytes": 168522,
+          "sha256": "4b82174b0ea63570145ed510aaf6f3e8d6438c2e1280bd2fb78a270bb9de25c1",
+          "scrollY": 0,
+          "bottomNav": 73
+        },
+        "04-habits.png": {
+          "bytes": 127208,
+          "sha256": "b9bac0a74aec2eea8bba2be33c4e8a48dcaaa21e5f402665bad0c67a19a96fd7",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 224134,
+          "sha256": "4a104aba7b9cfd7dfd39ca176cac09ee03373be496986095b680090bcc69092b",
+          "scrollY": 325,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 178140,
+          "sha256": "2a23099484500c49d78bb7562e83296c312b90f93d00ad25bb4c7b1ff3144dd3",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 197955,
+          "sha256": "0b7622c806742e05b3a8d6ae8d98d8b6848d8e3210e6e6daa0d356d7fab44065",
+          "scrollY": 2366,
+          "bottomNav": 73
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "cs-CZ": {
+      "appLocale": "cs",
+      "account": "Anna Nováková",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 126750,
+          "sha256": "38a996d97267bd3979be14efa3322fb039df137f0f0bd0fd3952d1408936b21d",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 201823,
+          "sha256": "70a7bb06ecf9f70fdb2250a521160e34c45f8d2d2958d7c46e1719aa2e3110a5",
+          "scrollY": 1814,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 156168,
+          "sha256": "ea473a9330751a5f03e149c749c2fc81eafd9243a84a3ecca83d2855fed73903",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 131738,
+          "sha256": "d8b66f24d5eabeb259b17dcb78c10eb1d58eee9abdbb2bf91a8d3c9f544b41ae",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 228520,
+          "sha256": "c7038352fc774b39add19c14ab6bbc357af012c94687b312e711f9173307afda",
+          "scrollY": 317,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 175742,
+          "sha256": "11e24d21af43112978499ab9944a22d15ad317e930ee96409210720c4abf011b",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 195605,
+          "sha256": "b81bf5b6dcc7912d1a07ac3e481c04c0ba4d76bf7dd057e50e55d3b378e0c20c",
+          "scrollY": 2194,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "de-DE": {
+      "appLocale": "de",
+      "account": "Anna Mustermann",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 138966,
+          "sha256": "ef181c3a634a99318c923b176609ca149f4a5449711c8434db7ffc9bb074292c",
+          "scrollY": 8,
+          "bottomNav": 73
+        },
+        "02-diary.png": {
+          "bytes": 196359,
+          "sha256": "804550973beb06adb2e36a4fa9969d81f17cdfe4758a774f6f619f71e1cb9a3e",
+          "scrollY": 2057,
+          "bottomNav": 73
+        },
+        "03-entry.png": {
+          "bytes": 177073,
+          "sha256": "46b060dc4cef1e5562c5117c5b6a0711e4dae695437c4903dcaf62a765411e0d",
+          "scrollY": 0,
+          "bottomNav": 73
+        },
+        "04-habits.png": {
+          "bytes": 140559,
+          "sha256": "38688e47e71f1f2ae5c0a50c59326c39d389cc830637fefd8c45e57c85050a1c",
+          "scrollY": 763,
+          "bottomNav": 73
+        },
+        "05-insights.png": {
+          "bytes": 222680,
+          "sha256": "40b49228ce06572ab70a49d19686891cbb359b0895f2fb84a77103c7f2a583c8",
+          "scrollY": 378,
+          "bottomNav": 73
+        },
+        "06-settings.png": {
+          "bytes": 173478,
+          "sha256": "df709a0f154e8645e34e9b5811470e63c9051ef75fa9d5706d55cb6a03c64acb",
+          "scrollY": 4,
+          "bottomNav": 73
+        },
+        "07-offline.png": {
+          "bytes": 221245,
+          "sha256": "360a1131911661f291b0ad864288eaa2151cedba55c2481ba86589b42ed68c2d",
+          "scrollY": 2467,
+          "bottomNav": 73
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "el-GR": {
+      "appLocale": "el",
+      "account": "Μαρία Παπαδοπούλου",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 176724,
+          "sha256": "b2312a8da318658bea3a59f62e01f5693a9be3c004c3ef4e8c55bfe2218d6c86",
+          "scrollY": 8,
+          "bottomNav": 73
+        },
+        "02-diary.png": {
+          "bytes": 246029,
+          "sha256": "bbbbef36a1c3dc837125954aa66fefbec7b6b76eb2e142ae2e2258c069f7ca78",
+          "scrollY": 2049,
+          "bottomNav": 87.3
+        },
+        "03-entry.png": {
+          "bytes": 224926,
+          "sha256": "8ffd03977f82a5320e6ff90f11c0263a75b0b662416fdf7cfa3e61a6fc420a65",
+          "scrollY": 13,
+          "bottomNav": 87.3
+        },
+        "04-habits.png": {
+          "bytes": 174910,
+          "sha256": "621af6bae22a2709c1dc6244bc418dc7e823752efda4562aa46966b0a836b846",
+          "scrollY": 787,
+          "bottomNav": 73
+        },
+        "05-insights.png": {
+          "bytes": 259295,
+          "sha256": "e80de3d940034602c081747d395cb54abe0144a763d59b20b3e697ebb3a2520b",
+          "scrollY": 378,
+          "bottomNav": 73
+        },
+        "06-settings.png": {
+          "bytes": 194414,
+          "sha256": "9642d1f358065e284223c374f32bc0b3ede49cd765fc157021e6313b4eb3e89e",
+          "scrollY": 59,
+          "bottomNav": 73
+        },
+        "07-offline.png": {
+          "bytes": 256417,
+          "sha256": "dbe1840416100ff46e580932318438a375be08a223ac4ed0a597dd53d79c9c5b",
+          "scrollY": 2465,
+          "bottomNav": 87.3
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "en-US": {
+      "appLocale": "en",
+      "account": "Dana Doe",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 128725,
+          "sha256": "6540d533542d2dc7816a3bb8add23c222fd7146cf94bbfdca0c0731a85db3e36",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 193086,
+          "sha256": "34f1d098a4ff3be4a3d810a43fdd3800f255d53e8797eda3978801d0200297d1",
+          "scrollY": 1782,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 159322,
+          "sha256": "a3c67143c7120d73c9b19aa8cae2db247a5ada295ea8a95e2876fede65d29b37",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 132810,
+          "sha256": "f49fb9b8fc56a18115e01bbfbcce83e8c84ea6d5292629d77e8c132bfb90e7de",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 199562,
+          "sha256": "3caf7744f5144225517fe7b9b4221826c2e9454c885be18afccfa3c187e820de",
+          "scrollY": 317,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 158857,
+          "sha256": "8ccf7aeef51e62f40f7582e9d4d35be92ce19f91b7f55e506eb7b3e82718f062",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 193305,
+          "sha256": "aead8c1c2eb468c4f31134c0b0cde083188732ee107c1e334412ef44031c435d",
+          "scrollY": 2162,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "es-ES": {
+      "appLocale": "es",
+      "account": "Lucía de Tal",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 133767,
+          "sha256": "cdfd4d817c9ed33980c0189b992f78abe2285ab4266087da0ad9c862ff27b5b5",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 205462,
+          "sha256": "d4af41f8a07e388a2f41d6d5e82427db1fe2c48a80afd8f11097323f67d4082c",
+          "scrollY": 1856,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 173072,
+          "sha256": "470f46e8babc9a0b4a8e0989af215348804c2b1a9a48f746ca308895f331eca1",
+          "scrollY": 15,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 139214,
+          "sha256": "2c57271381fe7345b55fbf2349545fadfe6759f4f8176106e70faef5bc7684f8",
+          "scrollY": 705,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 221275,
+          "sha256": "a9f02647d8a51b18ab732ff1e26abb7becf926a2de00a1f5e21325cf6aba9157",
+          "scrollY": 325,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 162278,
+          "sha256": "1840734c18edb3531ae05613d992148eaa8ff8a0c31eba80db53ec47f044eec1",
+          "scrollY": 4,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 192203,
+          "sha256": "7cd6203ccb955244e73944f4f55e7ce84c1035be04d3894993713a35299472c1",
+          "scrollY": 2295,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "fr-FR": {
+      "appLocale": "fr",
+      "account": "Camille Dupont",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 137114,
+          "sha256": "7f422347d55041a7cf41338fb4f13230deb3ab2464ca95465e3993bab2cae2b9",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 190411,
+          "sha256": "efd75b787a015dc13c62107672df135062bd1d9c37775b1d433f71743039939b",
+          "scrollY": 2018,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 176396,
+          "sha256": "0e7a8ba626bd9d62a19ca53364cda43638fb777b942fca466585e5f1d444b682",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 136769,
+          "sha256": "4b5dfcc0fe01b58e70ad272f032a3060d21b768868669b0eef29561580106b2c",
+          "scrollY": 786,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 235913,
+          "sha256": "00b787a3ca22807eeeac19bc57f43ba84c59b090f38f876600c9179f3434e752",
+          "scrollY": 347,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 153838,
+          "sha256": "0b51052d5550197633f23e93cbfd1b4155cf863747507bafda79c6f7f3d900a9",
+          "scrollY": 12,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 201650,
+          "sha256": "8e2947a95f6256e4fe05e281d7a5878ec06913723813de6d02580d7b09dae2c9",
+          "scrollY": 2482,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "hi-IN": {
+      "appLocale": "hi",
+      "account": "प्रिया कुमार",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 124950,
+          "sha256": "0225b6040629427823478e01f480286ae4aa0de8bbd5c6c289f0e4fa1db93a5b",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 213773,
+          "sha256": "9c1bbe8c529d3d0047d77b5534d8461fe037a614ccda500c66043288d6e7c696",
+          "scrollY": 1784,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 160375,
+          "sha256": "cf584bec8e305225ef42e10402bec09035707eed7d8265436ca91091938c6ea9",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 125905,
+          "sha256": "9f42e672697009702094ccb5d2fb29d4ff78b10aef2b86edf598fc92af38cc27",
+          "scrollY": 786,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 232138,
+          "sha256": "48f51b6834d767769cabc63f6188e56c4d9694d5fe97d514644e26b839e97a3a",
+          "scrollY": 293,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 173239,
+          "sha256": "04e3a44a79c4f273f652d70b8764cfd744bed2801ffa542e9c6a2124dca1e139",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 203171,
+          "sha256": "082fa51d46cc5a9660f25cdea949050d88fbfb18e9ed6f8e82403c015bfd3797",
+          "scrollY": 2197,
+          "bottomNav": 65,
+          "boxUnderTopBar": true
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "hu-HU": {
+      "appLocale": "hu",
+      "account": "Minta Anna",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 137945,
+          "sha256": "7ffd610adda7115182db2ef4e8f83acfd0d5b003de6d804716f907df3fd6db98",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 207441,
+          "sha256": "f4d4c52d224f9c7bdf922e631d91a3d602e49e3742e6e98e7fe39b3c08f2acb6",
+          "scrollY": 1927,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 184984,
+          "sha256": "eec3896ef5e471b1f1f6f4927941a7930b588fc404b7fd1b049bdeb69ead38be",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 135505,
+          "sha256": "a39583da7ec6a30b15a52c3139008c97045e36943d07ec508c0fd18e3ef5cfc2",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 227415,
+          "sha256": "65e6f6d0171ba62a8fca12d231b970a65015446be9c9fdfac8f8f12b263de8d0",
+          "scrollY": 347,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 190442,
+          "sha256": "737c9efe41e9bece06bb8dde5a89c265784995565c43b605194b637570bae448",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 206099,
+          "sha256": "bbc5765b91abd59ccacbeff98caba0029c41eb3b841d82a3aebd9faf3567e273",
+          "scrollY": 2341,
+          "bottomNav": 65,
+          "boxUnderTopBar": true
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "it-IT": {
+      "appLocale": "it",
+      "account": "Giulia Rossi",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 126354,
+          "sha256": "0f45dfad34541ddc1e315093a1c69dace8cfafb2ed41b695b78f1cef9fa0a552",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 207430,
+          "sha256": "030153a5b6b306cc19adedfe28af6524e3546001e1887f31cad964bc0aac68a7",
+          "scrollY": 1856,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 173591,
+          "sha256": "6308a5835e2456e569607edaa815d7c94c5a5c013a3addad5e9d8612cdc7cb7a",
+          "scrollY": 15,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 132701,
+          "sha256": "53a897524b6f05ec83ac06f945a556ef7003c44d184a23b7960ff85df6527d62",
+          "scrollY": 786,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 212207,
+          "sha256": "cfbcbbde94b7d6014212fe03734fcbec5efd1708a7f3e0d44943bab281456244",
+          "scrollY": 339,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 175113,
+          "sha256": "443d2d0aa533c9508e4d501c6327fab1eaef750c8e2d73c88b9a1ee3f7a8297c",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 199803,
+          "sha256": "8b372cc7c087273604c8c50bef4b446ca0242f35ca1694b884081f1aad3929b5",
+          "scrollY": 2295,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "iw-IL": {
+      "appLocale": "he",
+      "account": "דנה ישראלי",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 107966,
+          "sha256": "cc96975f6c49aea988e821474444ba089b15f895fb6ce574011a8a7b167ee9c3",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 158711,
+          "sha256": "7566af16a2ccff70965f996ec8ad6d4613997369f6aa4b778dab45b1d41a8999",
+          "scrollY": 1749,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 131231,
+          "sha256": "658ef217568074b12322c2c81979a2ed956276bb337aaeba8009bf4d12d5f731",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 108206,
+          "sha256": "7333fce75c004e131bdb2954cc959b9b13b1ceb987165ae11616b988428e9fbf",
+          "scrollY": 674,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 175876,
+          "sha256": "4486917f36627bb7604727128fa6b8a87e7719fe54462d908868259b48cf5893",
+          "scrollY": 246,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 130436,
+          "sha256": "146a6d90734029736b8671d8ac92a17ec16b12113d371834c37db7a80c797d56",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 149534,
+          "sha256": "277047bf27d0875f1ef551251f27de46c0753cf79b1352e60b65e2102eeb393c",
+          "scrollY": 2093,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "ja-JP": {
+      "appLocale": "ja",
+      "account": "山田美咲",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 131534,
+          "sha256": "51c512925ac3258ee1f16111dd0664ee3427494de3c79121225dee80dee9404d",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 226436,
+          "sha256": "659b8f5353a8bf97c10d42f56b2521da331ba71df11a436cf46904fca3c33c2c",
+          "scrollY": 1814,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 169887,
+          "sha256": "df380e7fc06dbe6350dab69a874e6343380a4f5dd5ec2fc43e4a05192574aa27",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 128737,
+          "sha256": "7a74ccbdb82d6649eaafe87d86c1ee16f6b7abcd22d7dacace25797297b1ab16",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 267387,
+          "sha256": "5e244d53b78379cfe9169bc7e0562b46376fa7283a30a50d33692fe3c7a1750f",
+          "scrollY": 351,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 167345,
+          "sha256": "e4f114ca81fc7bbc63a3efa2b244d49e1f5e7c750e0044d05f7f4a544097724f",
+          "scrollY": 4,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 228419,
+          "sha256": "d9efe3349d06c847f18578cdf37d1ee9f093f321ce07cfa901b63ae735cfb1f6",
+          "scrollY": 2252,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "pl-PL": {
+      "appLocale": "pl",
+      "account": "Anna Kowalska",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 146721,
+          "sha256": "7da4870f4f5b66cb062f8a26b966551dd44bf8cb64fa2652f7bc4bf124f1f217",
+          "scrollY": 8,
+          "bottomNav": 73
+        },
+        "02-diary.png": {
+          "bytes": 221825,
+          "sha256": "4a3f92584a94a3ed52fa45bda61ce1663a62ef5b218c4eabe3e4a7cbefa00395",
+          "scrollY": 1833,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 188591,
+          "sha256": "55b2ece6c14c63490b62f4db92a8aca76bc0ecd3e8af1ee47f6f5adda32881ba",
+          "scrollY": 15,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 140203,
+          "sha256": "583d69ef8cfa00679a6caae9730fa331104ba236f356842b15e0db59e1d06521",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 231674,
+          "sha256": "d37339a13cdd5e2d75547deddbb4a701d3554e7c9fb120a92d486e70aa4c6241",
+          "scrollY": 339,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 172072,
+          "sha256": "89a23c722cdacdf36d022bff92094e0bda13108392bcea69e310f591b2e1ea27",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 216208,
+          "sha256": "a793ec61b28e9441fa0451a8a9e7ce93f7a64401e99494e7be4abeb5bd930935",
+          "scrollY": 2272,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "pt-BR": {
+      "appLocale": "pt",
+      "account": "Marta de Tal",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 134512,
+          "sha256": "35bb2b20403eea4fea44db8cd9a2cd38abb91d96cc09b88a628cf28846d932e0",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 198860,
+          "sha256": "141bb991c0ec2326f67ab1bb8e0cd77067f29c3ec7f332a43a558891b65a0fc7",
+          "scrollY": 1806,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 172855,
+          "sha256": "238b8af46ac848aea5e352f5adcc597116a2514d47876b8b1995e2bf33f86823",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 136859,
+          "sha256": "1b002b1acd126c73c280377bf3da15da9ed29f488b81aaaf59d377d99b310312",
+          "scrollY": 786,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 231722,
+          "sha256": "35d2da61a7c78ae3b1fe62785177bcd41f6954ace723e7bac8168ae7721f461f",
+          "scrollY": 347,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 155574,
+          "sha256": "eb386c3e697df2d4e5edd7c22601bf095dcfb73fbe27dcb168e1ce6e55fd26b1",
+          "scrollY": 12,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 197813,
+          "sha256": "1601baef7ef4a0b82a73ee5b469863e966562d62fa8aa0e2a055f6c0a13072aa",
+          "scrollY": 2245,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "ro": {
+      "appLocale": "ro",
+      "account": "Ana Popescu",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 129561,
+          "sha256": "4a5c7dca034024faa81b5ec105159933fdf1f0324bddb8e8bf6b8dd89ed7e39b",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 200386,
+          "sha256": "6eaf32d1b5fd7cf0eee9cd06b1b5e131b06f841b6a6933899f90d44f7732ccb2",
+          "scrollY": 1808,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 174518,
+          "sha256": "61dbb4a980f83ffab5281133d53de746c781244b4e224a911b2baeea577f7139",
+          "scrollY": 15,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 125948,
+          "sha256": "1c189cb7eae18f1aaf6c221e1846a8ad3c67037ebbd6d64ce25ba468eb09add3",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 209984,
+          "sha256": "f6a21a3d5ed34a764a3d0d3f07c9fdd11fb57f2544c6b86dd261d17878488233",
+          "scrollY": 317,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 176295,
+          "sha256": "6a5066ffcbe7a59b60f89a7805a3510a54029ed338069bcfa423057da18fd626",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 206496,
+          "sha256": "31b03264cc3f1146f1c689fc9f6d09816a73ba503f7f2880a068243aee75fd1a",
+          "scrollY": 2133,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "ru-RU": {
+      "appLocale": "ru",
+      "account": "Анна Иванова",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 132942,
+          "sha256": "77050ba91c970b4be4f5814cc488d4f0456a838836ca11433df9b0eb22c2b3a6",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 193837,
+          "sha256": "b301c845293735833ad84970e5375f91239f8f5c71e29b219a0b2f5e68dd13d7",
+          "scrollY": 1977,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 168555,
+          "sha256": "6a5caa5373f6eb68b6c527da1b350c63d58fc2941135eaeebfa5eab89755fa10",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 132005,
+          "sha256": "b6e8c7ea1744026c55b91bbd3477261127aa68537c34b033828fe7d610f961b8",
+          "scrollY": 705,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 231788,
+          "sha256": "d71d6db23b8e39b906abaf179639a9765ea49217147a5c4f5e7b6b76b5fe58d3",
+          "scrollY": 381,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 157973,
+          "sha256": "42c3008065dc6db81384fa1a4a72055b25ce833e0ff01d26c10f97029d0addd6",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 194501,
+          "sha256": "5f10094d295fcaacefb7359b80cb052b282679b4bc14119a43b3bb0908fb2a6a",
+          "scrollY": 2478,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 235,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "th": {
+      "appLocale": "th",
+      "account": "มาลี ใจดี",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 141365,
+          "sha256": "a7f561f255d606e6023f1a7ede6b8d17864c49799ae4ac2a8a926452b595a945",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 210740,
+          "sha256": "5c17bc25a7b32a61dd5499b96bda0be0038d8a0ef200f67ee38e4f004b5728b3",
+          "scrollY": 1815,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 185901,
+          "sha256": "f0a7e737a7e074f10177318b94aecfa11cc6559d32abd87b126f375c25dfddb0",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 142543,
+          "sha256": "93e2dd126a6efbb070f9e067f5b52541de3406eeaa9a5fb11de2259cc3610bb8",
+          "scrollY": 705,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 233393,
+          "sha256": "215420237e62f6a2f26ebb526aeb7f84ff84b3719f4e33eef0b10cc03595ede3",
+          "scrollY": 315,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 182993,
+          "sha256": "15c3c6dd7be813ff7589544c6e894e1b7c1e9f8a60c84ccebbf0bc1d96a3bc91",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 202133,
+          "sha256": "a3cecbdf4dcb36745cc874e49010c28ba07b75e21c313ae5ba45facaa8c2f337",
+          "scrollY": 2211,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "tr-TR": {
+      "appLocale": "tr",
+      "account": "Elif Yılmaz",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 127199,
+          "sha256": "e800f210fb59cc950d78f912a65e1ada5a52305e77d4aa93d6cc0e49cf968958",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 199841,
+          "sha256": "36fba5eb81218b85caab4b559ad7830f66a822acda859b403e8d2c6e95ba9cf4",
+          "scrollY": 1856,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 159385,
+          "sha256": "a24412060a36be9c7c47263e066e81dfc139121eaeefc854879c885c6ec8ea51",
+          "scrollY": 15,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 129200,
+          "sha256": "0c5b83742c0579c75eaa9582a5921ca520c0ee8480bd4ce9b20bc3691abc73ea",
+          "scrollY": 761,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 220376,
+          "sha256": "3e207eb52bfdc63aa703d42f780d714c60af7f9c27d4b03cf2aff43d684364a7",
+          "scrollY": 292,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 164443,
+          "sha256": "20e9a30f30a07a39e39bcdc7b1b8b8f47c2dd98194fc14a5aca2e9d988925db1",
+          "scrollY": 72,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 195261,
+          "sha256": "f68530fe1be2820fc21d448042ff8884a920314d777df7999cab77766f86ef5c",
+          "scrollY": 2295,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 235,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    },
+    "zh-CN": {
+      "appLocale": "zh",
+      "account": "张晓雯",
+      "entry": "2026-10-19 10:58",
+      "files": {
+        "01-home.png": {
+          "bytes": 127680,
+          "sha256": "6dc78c35ab99234c7156baad52bf6a13c2287468f9231d7ec704074459adb57d",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "02-diary.png": {
+          "bytes": 200758,
+          "sha256": "cb9539244caf4b215659f172b386d91433c2e6a832530d02346ef4976f64b287",
+          "scrollY": 1784,
+          "bottomNav": 65
+        },
+        "03-entry.png": {
+          "bytes": 154235,
+          "sha256": "34ab0f2caa661f84b68a3890b6743e30de3e7bba9f4df0dc463ae23dac30be23",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "04-habits.png": {
+          "bytes": 145076,
+          "sha256": "0d45af0d37c0cbf3dd816816d551196e69ab518b95881b266be2e9f4adb5cf9e",
+          "scrollY": 676,
+          "bottomNav": 65
+        },
+        "05-insights.png": {
+          "bytes": 270840,
+          "sha256": "bf95f72c43a69436205830d6cb2ed8e7f326a36e321c5f8472937f3fe213db03",
+          "scrollY": 324,
+          "bottomNav": 65
+        },
+        "06-settings.png": {
+          "bytes": 167396,
+          "sha256": "32a01cb419c93be02d871b241c30447e43da1d2d7e320c0283d9a305a19156b9",
+          "scrollY": 0,
+          "bottomNav": 65
+        },
+        "07-offline.png": {
+          "bytes": 189446,
+          "sha256": "a72c192bc9b56f3b1bfd1d50670639b6fdaadade3df58c29b57cb5f5035b517d",
+          "scrollY": 2142,
+          "bottomNav": 65
+        }
+      },
+      "layout": "clean",
+      "transport": {
+        "requests": 236,
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "refused": 0
+      }
+    }
+  }
+}

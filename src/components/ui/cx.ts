@@ -1,0 +1,7 @@
+/**
+ * Joins class names, skipping falsy values.
+ * `cx('btn', primary && 'btn--primary', className)` -> "btn btn--primary ..."
+ */
+export function cx(...parts: Array<string | false | null | undefined>): string {
+  return parts.filter((p): p is string => typeof p === 'string' && p.length > 0).join(' ');
+}

@@ -1,0 +1,5 @@
+Pierwsza wersja w Microsoft Store.
+- Twój dziennik na twoim własnym koncie na serwerze Your Personal Diary, taki sam na wszystkich urządzeniach
+- Działa dalej, gdy zniknie połączenie, i wysyła zmiany, gdy ono wróci
+- Resetowanie hasła przez e-mail
+- 20 języków

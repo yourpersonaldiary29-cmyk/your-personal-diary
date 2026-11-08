@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy - Your Personal Diary</title>
+<meta name="description" content="Privacy policy of the app Your Personal Diary: the diary is stored only on your own device, encrypted, and the developer receives nothing.">
+<style>
+  :root { color-scheme: light dark; --bg: #ffffff; --text: #1c2430; --muted: #4a5565; --accent: #1f5fa8; --line: #d5dbe3; --box: #f3f6fa; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14181f; --text: #e8ecf2; --muted: #b3bdcb; --accent: #8fc1ff; --line: #3a4352; --box: #1d232d; }
+  }
+  html { font-size: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; line-height: 1.6; }
+  main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 0.25rem; }
+  h2 { font-size: 1.3rem; line-height: 1.3; margin: 2rem 0 0.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.08rem; margin: 1.25rem 0 0.25rem; }
+  p, ul { margin: 0.6rem 0; }
+  ul { padding-inline-start: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .meta { color: var(--muted); margin: 0 0 1rem; }
+  .summary { background: var(--box); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.75rem 1.1rem; }
+  .lang { margin: 0 0 1rem; }
+</style>
+</head>
+<body>
+<main>
+<p class="lang"><a href="he.html" lang="he" hreflang="he">עברית</a></p>
+<h1>Privacy Policy - Your Personal Diary</h1>
+<p class="meta">Effective date: {{EFFECTIVE_DATE}}</p>
+
+<div class="summary">
+<h2 style="border-top: 0; margin-top: 0; padding-top: 0;">In short</h2>
+<ul>
+<li>Your diary is stored only on your own device, in an encrypted file.</li>
+<li>We, the developer, receive nothing from the app. There is no account on a server of ours, no analytics, no telemetry, no advertising, and the app sends no crash reports.</li>
+<li>The app does not connect to the internet unless the owner of the device turns on, or tests, one of the optional features described in section 5.</li>
+<li>Your Personal Diary is a personal journaling tool. It is not a medical or diagnostic tool.</li>
+</ul>
+</div>
+
+<h2>1. Who we are</h2>
+<p>Your Personal Diary ("the app") is published by {{PUBLISHER_NAME}} ("we", "us"). You can reach us at <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>.</p>
+
+<h2>2. What the app stores, and where</h2>
+<p>Everything the app stores is kept on your own device - the Windows computer on which the app is installed - in the app's data folders inside your Windows user profile.</p>
+<ul>
+<li><strong>Your diary.</strong> Entries (text, mood, emotions, energy, stress, sleep, physical activity, events, people, place, notes and tags), habits and habit records, and your settings. Every account has its own diary file, encrypted with AES-256-GCM. The encryption key is derived from your password. The password itself is not stored - only a value that lets the app check it. While you are signed in, the open diary is held in the computer's memory, and it is written to the disk only in encrypted form.</li>
+<li><strong>Account details.</strong> The first name, last name, e-mail address and user name that you typed when you created the account, the time the account was created and the time of its last sign-in. If you change the e-mail address, the previous address and the time of the change are kept as well. All of these are kept in a list of accounts on the device. This list is not encrypted. It contains no password and nothing from your diary. On the computer itself, the sign-in screen shows the names and user names of all the accounts in this list before anyone signs in, and that screen also receives their e-mail addresses so that you can sign in with yours.</li>
+<li><strong>Sign-in helpers.</strong> If you choose "Remember me", a sign-in session is kept on the device so that the app can open without asking for the password, together with a short label of the device it belongs to (for example "Phone") and the times when it was created, when it was last used and when it expires. The device also keeps a "recovery key" for each account; section 6 explains what that means.</li>
+<li><strong>Settings of the optional features</strong>, if the owner of the device turned them on: the DuckDNS address and token, the security certificate and its keys, and the details of the e-mail account used for sending. The DuckDNS token and the e-mail sending password are stored encrypted with a key that is kept on the device.</li>
+<li><strong>A technical log.</strong> Start-up events and errors of the app's local helper process. It contains nothing from your diary. It can contain the path of the data folder (which includes your Windows user name), the addresses of your computer on the home network if phone access was on and, if remote access was on, your DuckDNS name and your public IP address. The log is not removed when an account is deleted (see section 8).</li>
+<li><strong>Convenience data in the app window.</strong> The last user name, your language and display preferences, the sign-in token of "Remember me", and your recent search questions. The app window keeps them in a folder of its own (see section 8).</li>
+</ul>
+
+<h2>3. What we receive</h2>
+<p>Nothing. The app has no server of ours to talk to. It contains no analytics, no telemetry, no advertising, no crash reporting and no third-party tracking code. We cannot see your diary, your password, your e-mail address or how you use the app. We do not sell or share personal data, because we do not have any.</p>
+
+<h2>4. Your e-mail address</h2>
+<p>The app asks for an e-mail address when you create an account. The address is saved only on your device. It is not sent to us and the app does not check that it belongs to you. It is used for three things:</p>
+<ul>
+<li>You can sign in with it instead of your user name.</li>
+<li>Only if the owner of the device has set up e-mail sending (section 5): to send you your own password-reset message, and a notice after your password was changed with such a message.</li>
+<li>Only if e-mail sending has been set up: when the address of an account is changed, a notice about the change is sent to the previous address. For 30 days after the change, the notice that the password was changed is sent to the previous address as well as to the new one. This way, the owner of the previous address learns about it if someone else changed the address.</li>
+</ul>
+<p>You can change the address in Settings. The previous address stays in the list of accounts (section 2) until the address is changed again or the account is deleted.</p>
+
+<h2>5. When the app uses the network</h2>
+<p>By default the app makes no connection to the internet. The app is made of a window and a local helper process (diary-server.exe) that talk to each other only inside your computer (the local address 127.0.0.1).</p>
+<p>The features below are optional and are off by default. Only the owner of the device - the first account created on it - can turn them on, only from the computer itself, and only after entering the account password. One action works without the password: the "Test connection" button of remote access, described in part b.</p>
+
+<h3>a. Phone access on the home network</h3>
+<p>When this is on, the helper process also listens on your home network, so that a phone or another computer on the same network can open the sign-in page and sign in. The data travels only inside your home network and nothing is sent to the internet. This connection is not encrypted, so use it only on a network that you trust.</p>
+
+<h3>b. Remote access</h3>
+<p>Remote access lets you open your diary from anywhere, at your own DuckDNS address, over an encrypted HTTPS connection. While it is on:</p>
+<ul>
+<li><strong>DuckDNS</strong> (a dynamic DNS service) receives the host name you chose, your DuckDNS token and the public IP address of your home internet connection. The update is repeated about every five minutes so that the name keeps pointing to your home. When a certificate is issued, a temporary verification record is also written through DuckDNS.</li>
+<li><strong>Let's Encrypt</strong> (a certificate authority) receives the host name in order to issue and renew the HTTPS certificate, and sees the IP address the request comes from. Like every HTTPS certificate, the certificate with your host name is recorded in public certificate transparency logs, so do not choose a name that identifies you.</li>
+<li><strong>Your home router</strong> receives a request (UPnP) to forward a port to your computer.</li>
+<li><strong>The DNS service your computer uses</strong> (usually that of your internet provider) and the name servers of DuckDNS are asked about your DuckDNS name, as happens with any internet address.</li>
+<li>The sign-in page of your diary becomes reachable from the internet for anyone who knows the address. The content of your diary is sent only to the device that you sign in from, over the encrypted connection. It is never sent to DuckDNS, to Let's Encrypt or to us.</li>
+</ul>
+<p>The "Test connection" button in the Remote access card can be pressed by the owner of the device, on the computer itself, even while remote access is off and without entering the password. Each press sends the same update to DuckDNS once (so the DuckDNS name you typed starts pointing to your home IP address), and asks the home router and the DNS service once.</p>
+<p>Turning remote access off stops the repeated connections. The DuckDNS name keeps pointing to your last address until you delete it at DuckDNS.</p>
+
+<h3>c. Password reset by e-mail</h3>
+<p>The owner of the device can enter the details of an e-mail account (for example a Gmail account with an app password) through which the app sends messages. When this is on and a message is sent - a password-reset message, a notice that a password was changed, a notice that the e-mail address of an account was changed, or a test message - the e-mail provider that the owner configured receives the message together with the sender's and the recipient's addresses, over an encrypted connection. Every message contains a greeting with the first name and a short explanation. A password-reset message also contains the user name of the account, a link and a code. The two notices contain the user name of the account and the date and time of the change. No message ever contains anything from a diary.</p>
+
+<p>DuckDNS, Let's Encrypt and the e-mail provider are independent services with their own privacy policies. We have no access to what they receive.</p>
+
+<h2>6. The recovery key, in plain words</h2>
+<p>So that "Forgot password?" can work without losing what you wrote, the app keeps on the device a copy of each diary's encryption key. This copy is itself encrypted with a "device key", and the device key is a file in the same data folder. "Remember me" works in the same way. The recovery key exists for every account, even when password reset by e-mail has not been set up.</p>
+<p>What this means for you:</p>
+<ul>
+<li>A diary file or a backup file that is copied on its own cannot be opened without its password.</li>
+<li>But a person or a program with full access to your Windows user profile on this computer - both the device key and the account files - could open the diaries stored there, or reset an account's password, without knowing the current password.</li>
+<li>For the same reason, accounts of the app that share one Windows user are not protected from each other at the level of the files.</li>
+</ul>
+<p>To protect yourself: lock your Windows user with a password or PIN and do not share it, use separate Windows users for people who should not be able to reach each other's files, and consider turning on disk encryption in Windows.</p>
+
+<h2>7. Backups and exports</h2>
+<ul>
+<li><strong>Backup</strong> is a file that you create yourself. It is encrypted with your account password or with another password that you choose, and you decide where to keep it.</li>
+<li><strong>Export</strong> (TXT, CSV, JSON or PDF) creates ordinary readable files. They are not encrypted, so anyone who gets such a file can read it. Keep them in a safe place.</li>
+<li>The app itself never uploads a backup, an export or any other data to any cloud. Backup or synchronisation tools that you or Windows run on your computer, and any place where you choose to put these files, are outside the app's control.</li>
+</ul>
+
+<h2>8. How to delete your data</h2>
+<ul>
+<li><strong>Settings - Delete account</strong> (the last card on the Settings page) permanently deletes the account, its encrypted diary, its habits and settings, its sign-in sessions on every device and any password-reset links. It asks for the account password and cannot be undone. If the account is the owner of the device, the remote-access and e-mail sending settings are deleted as well. The technical log (section 2) is not deleted with an account: it stays until the app's data folder is deleted.</li>
+<li><strong>Uninstalling the app</strong> removes the app from the computer. Delete your account in the app before you uninstall, so that the diary is gone even if a folder is left behind. If you once installed the app from a setup file rather than from the Microsoft Store, two folders may stay on the disk after uninstalling, both named com.mydiary.app, inside your Windows user profile: one inside AppData\Roaming (the diaries, the list of accounts, the settings of the optional features and the technical log) and one inside AppData\Local (the convenience data of the app window, including the "Remember me" sign-in token). You can delete both folders yourself.</li>
+<li><strong>Backup and export files</strong> are yours. Delete them yourself wherever you saved them.</li>
+<li><strong>Other devices.</strong> Signing out removes the sign-in from that device, and "Connected devices" in Settings lets you disconnect any device.</li>
+<li>We hold none of your data, so there is nothing for us to delete.</li>
+</ul>
+
+<h2>9. Children</h2>
+<p>The app is not directed at children, and we do not knowingly collect personal information from children - or from anyone else, because the app sends us nothing. Children should use the app only with the agreement of a parent or guardian.</p>
+
+<h2>10. Security measures</h2>
+<ul>
+<li>The diary is encrypted with AES-256-GCM, with a key derived from your password using scrypt. Any change to the file is detected.</li>
+<li>Automatic lock after a period of inactivity, and a lock screen that asks for the password.</li>
+<li>Repeated wrong passwords are limited, and sensitive actions (changing the password or the e-mail address, deleting the account, changing the optional network features) require the account password.</li>
+<li>Remote access works only over HTTPS, and new accounts cannot be created over the internet.</li>
+<li>The app window is allowed to talk only to the local helper process on your own computer.</li>
+</ul>
+<p>No software can promise perfect security. Choose a strong password, keep Windows up to date and keep a backup.</p>
+
+<h2>11. The Microsoft Store</h2>
+<p>If you get the app from the Microsoft Store, Microsoft handles the download, installation and updates under its own privacy statement. Microsoft shows developers general statistics about their apps, such as the number of installations, the ratings and reviews that people choose to post and - depending on your Windows diagnostic settings - error reports collected by Windows. This information is collected by Microsoft, not by the app, and the app adds nothing to it.</p>
+
+<h2>12. Your choices and rights</h2>
+<p>Because your data is on your own device, you can see it, change it, export it and delete it yourself at any time, without asking us. If you write to us, we receive your e-mail address and what you wrote, and we use them only to answer you.</p>
+
+<h2>13. Not a medical tool</h2>
+<p>The insights in the app describe possible relationships in your own data. They do not establish cause and effect and they are not medical or psychological advice.</p>
+
+<h2>14. Changes to this policy</h2>
+<p>If the app or this policy changes, we will update this page and the effective date at the top. If a new version of the app changes what is sent over the network, we will describe it here before that version is released.</p>
+
+<h2>15. Contact</h2>
+<p>Questions about privacy: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></p>
+<p>{{PUBLISHER_NAME}}</p>
+</main>
+</body>
+</html>

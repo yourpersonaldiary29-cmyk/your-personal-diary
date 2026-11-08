@@ -1,0 +1,20 @@
+Ruh hali, duygular, enerji, stres, uyku, fiziksel aktivite, kişiler, yer ve etiketlerle günlük kayıtları
+Windows bildirimi olarak isteğe bağlı hatırlatıcılarla günlük ve haftalık alışkanlıklar
+Kendi verilerinizdeki olası örüntüler hakkında özenli içgörüler; asla neden-sonuç iddiası yok
+"Bu içgörüyü neden aldım?" her içgörünün arkasındaki kesin sayıları gösterir
+Miladi, İbrani ya da Hicri takvimde aylık takvim, her birinin bayramları ve özel günleriyle
+Zaman içindeki istatistikler ve grafikler, her biri bir veri tablosuyla
+Akıllı arama: günlüğünüz hakkında kendi dilinizde sorular sorun
+Tüm cihazlarınızda tek hesap, Your Personal Diary sunucusunda tutulur
+Bağlantı kopsa da çalışmaya devam eder, bağlantı geri geldiğinde değişikliklerinizi yükler
+Günlük sunucuda şifreli olarak saklanır (AES-256), her hesap için ayrı bir dosya
+Yalnızca Your Personal Diary sunucusuna, her zaman HTTPS üzerinden bağlanır
+Reklam yok, analiz yok, izleme yok
+Hareketsizlikten sonra otomatik kilit ve Ctrl+L ile anında kilit
+E-postayla parola sıfırlama; günlüğünüz yerinde kalır
+Sakladığınız bir dosyaya şifreli yedekleme ve bu dosyadan geri yükleme
+TXT, CSV, JSON ve PDF olarak dışa aktarma
+Sağdan sola yazılan İbranice ve Arapça dahil 20 arayüz dili
+Ekran okuyucularla çalışır; tam klavye gezintisi ve kısayollar
+Ayarlanabilir metin boyutuyla açık, koyu ve yüksek karşıtlık temaları
+Kişisel bir günlük aracıdır; tıbbi ya da teşhis amaçlı bir araç değildir

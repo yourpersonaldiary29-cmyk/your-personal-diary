@@ -1,0 +1,102 @@
+{
+  "en": {
+    "folder": "en-US",
+    "appleName": "English (U.S.)",
+    "note": "Primary language of both app records (iPhone and Mac). A reader whose language has no localization sees this one."
+  },
+  "he": {
+    "folder": "he",
+    "appleName": "Hebrew",
+    "note": "Written by the base writer together with en-US; the second reference for the translators (tone)."
+  },
+  "ar": {
+    "folder": "ar-SA",
+    "appleName": "Arabic",
+    "note": "Apple's only Arabic localization; its code carries the SA region."
+  },
+  "zh": {
+    "folder": "zh-Hans",
+    "appleName": "Chinese (Simplified)",
+    "note": "The app has one Chinese catalogue, in Simplified characters (shared/i18n/locales.ts). Apple's Chinese (Traditional) (zh-Hant) is not used."
+  },
+  "ja": {
+    "folder": "ja",
+    "appleName": "Japanese",
+    "note": ""
+  },
+  "hi": {
+    "folder": "hi",
+    "appleName": "Hindi",
+    "note": ""
+  },
+  "th": {
+    "folder": "th",
+    "appleName": "Thai",
+    "note": "Apple counts Thai characters like any other; count with Array.from(text).length as the checker does."
+  },
+  "es": {
+    "folder": "es-ES",
+    "appleName": "Spanish (Spain)",
+    "note": "The app's Spanish follows Spain conventions (intl es-ES in shared/i18n/locales.ts). Apple's Spanish (Mexico) (es-MX) is not used."
+  },
+  "pt": {
+    "folder": "pt-PT",
+    "appleName": "Portuguese (Portugal)",
+    "note": "Decision of 2026-11-08: the app's own catalogue shared/i18n/messages/pt/*.ts is European Portuguese - 'palavra-passe' (158 occurrences), 'ficheiro' (77), 'definições' (56), 'telemóvel' (32), 'guardar' (32), 'utilizador' (22), 'aplicação' (22), 'ecrã' (10); the Brazilian markers 'você' and 'usuário' occur 0 times ('ação' is the post-1990 spelling of both variants and 'e-mail' is common to both). The App Store localization is therefore Portuguese (Portugal), the same choice as the Microsoft Store listing (store/listing/pt-PT). Apple also offers Portuguese (Brazil) (pt-BR); a reader in Brazil sees the primary language (en-US) until a pt-BR folder is added - to add one, copy pt-PT, adapt the spelling and register the folder here."
+  },
+  "fr": {
+    "folder": "fr-FR",
+    "appleName": "French",
+    "note": "Apple's code for French carries the FR region; the display name is just French (French (Canada) is a separate localization, not used)."
+  },
+  "it": {
+    "folder": "it",
+    "appleName": "Italian",
+    "note": ""
+  },
+  "de": {
+    "folder": "de-DE",
+    "appleName": "German",
+    "note": "Apple's code for German carries the DE region; the display name is just German."
+  },
+  "ro": {
+    "folder": "ro",
+    "appleName": "Romanian",
+    "note": ""
+  },
+  "el": {
+    "folder": "el",
+    "appleName": "Greek",
+    "note": ""
+  },
+  "pl": {
+    "folder": "pl",
+    "appleName": "Polish",
+    "note": ""
+  },
+  "cs": {
+    "folder": "cs",
+    "appleName": "Czech",
+    "note": ""
+  },
+  "hu": {
+    "folder": "hu",
+    "appleName": "Hungarian",
+    "note": ""
+  },
+  "ru": {
+    "folder": "ru",
+    "appleName": "Russian",
+    "note": ""
+  },
+  "bg": {
+    "folder": null,
+    "appleName": null,
+    "note": "App Store Connect has no Bulgarian localization (docs/APPLE-PLAN.md section 7.4, ENV-FINAL locale mapping). No texts can be entered; a Bulgarian reader sees en-US. The app itself has Bulgarian. appstore/listing/bg/NOTE.txt explains this in English and Hebrew."
+  },
+  "tr": {
+    "folder": "tr",
+    "appleName": "Turkish",
+    "note": ""
+  }
+}

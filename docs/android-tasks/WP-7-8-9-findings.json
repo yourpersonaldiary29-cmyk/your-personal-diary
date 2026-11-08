@@ -1,0 +1,78 @@
+{
+  "package": "WP-7 + WP-8 + WP-9 (files, reminders, lock / lifecycle / biometrics / back / privacy screen)",
+  "verifiedOn": "2026-10-18",
+  "verifier": "independent skeptical verifier (no implementation report survived; judged from the files)",
+  "gates": {
+    "root tsc": "OK",
+    "root vitest": "836/836 passed (83 files)",
+    "vite build (desktop)": "OK; dist/assets contains no Capacitor / DiaryFiles / DiaryBiometric / DiaryPrivacyScreen / phone-section identifiers",
+    "check-no-network": "passed (18:36 and 18:49; failed transiently in between on a server/** file edited by the hosted agents)",
+    "mobile typecheck": "OK",
+    "mobile vitest": "1199 passed, 3 skipped, 3 failed on first run -> 2 still failing on re-run, both caused by server/src/routes/server-status.ts (statfsSync, edited 18:43 by the server agents; not WP-7/8/9 files); network-audit.test.ts passes again",
+    "server tsc": "OK",
+    "server vitest": "953 passed, 1 failed on first run (unhandled EISDIR on <temp>/resets.json.tmp, server/test), green on the second run",
+    "build-server": "server.cjs 10.3 MB built",
+    "gradle assembleDebug (scripts/android/build-apk.ps1, detached)": "BUILD SUCCESSFUL in 47 s; verify-apk.ps1: every check PASS; APK 10.9 MB (11,388,015 bytes; ~8.2 MB download), 10 dex files, no native libraries, zipalign -P 16 OK"
+  },
+  "findings": [
+    {
+      "severity": "high",
+      "file": "mobile/platform/lifecycle.ts (with mobile/platform/index.ts, mobile/platform/files.ts, src/pages/settings/RestoreSection.tsx)",
+      "title": "'Lock when I leave the app' (default on) fires for the app's own system pickers: Save-to-device returns to the lock screen and Restore-by-picker can never complete",
+      "evidence": "Capacitor fires appStateChange(isActive=false) from BridgeActivity.onStop when activityDepth==0 (node_modules/@capacitor/android/capacitor/src/main/java/com/getcapacitor/BridgeActivity.java:113-119); lifecycle.ts:67-78 treats every such event as leave(): onLocked() + control('lockAll') + flushAll, and prefs.ts:22 makes lockOnLeave default true. ACTION_CREATE_DOCUMENT (DiaryFilesPlugin.java:147-151, startActivityForResult) and the WebView's <input type=file> chooser (BridgeWebChromeClient.showFilePicker -> ACTION_GET_CONTENT) open DocumentsUI, an opaque full-screen activity of another app, so MainActivity reaches onStop while the picker is open and the UI and the core sessions lock. Consequence 1: 'Save to device' writes the file (the blob is already in JS) but the user returns to the lock screen. Consequence 2: RestoreSection.onFileChange (lines 123-131) -> backupApi.inspectFile -> the core answers 423 -> fileError + lock screen; choosing the file again locks again, so restoring through the picker is impossible with the default setting. The owner's test script (docs/ANDROID-PHONE-TEST.he.md part 2, section 1) will hit this.",
+      "fix": "Suspend the lock (not the flush) while an app-initiated system UI is pending: a suspendLockOnLeave() token set by files.ts around createDocument/share and by the host around the WebView file chooser (or route Restore through the plugin's ACTION_OPEN_DOCUMENT so one token covers it), honoured by shouldLockOnLeave(); alternatively lock on resume only when no own activity result is pending. Add a lifecycle test for the suspended case."
+    },
+    {
+      "severity": "high",
+      "file": "mobile/platform/notifications.ts (with mobile/platform/index.ts:177, src/hooks/useReminders.ts:121-145)",
+      "title": "Every resume or start of a LOCKED session cancels all pending reminders (423 treated like 'no session'), and nothing re-plans after unlocking",
+      "evidence": "notifications.ts:226-235: a rejected loadHabits/loadProgress -> cancelAll() and reason 'failed'. index.ts:177 wires onResume -> scheduler.resync(); with lock-on-leave on, every return to the app happens locked, so habitsApi.list answers 423 (src/api/client.ts:218 throws, reportLocked) and the whole plan is cancelled. The same happens on a cold start of a remembered locked session (useReminders plan() runs with status 'authenticated' while sessionLocked) and after the auto-lock timer. Unlocking (LockScreen.onSubmit -> verifyPassword -> unlock()) triggers no sync: useReminders' effect depends only on [phone, enabled, locale] and the core posts no habits-changed. So in the default configuration the OS-scheduled reminders are wiped each time the user opens the app and come back only after a habit edit/log, a language change or a settings toggle - contradicting WP-8's acceptance ('the reminder fires while the app is closed'). notifications.test.ts:223 enshrines 'cancel when the habits cannot be loaded (no session)' without distinguishing 423.",
+      "fix": "In run(), keep the existing plan on a load failure (return 'failed' without cancelAll) unless the error is a real 401/no-session; and re-sync after a successful unlock (make useReminders depend on the lock state, or let LockContext.unlock call phone.sync). Add tests: 423 keeps the pending notifications; unlock -> one resync."
+    },
+    {
+      "severity": "medium",
+      "file": "server/src/routes/server-status.ts (owned by the server/hosted agents) -> mobile/test/compat/shims.test.ts, mobile/test/vfs/server-usage.test.ts",
+      "title": "Mobile gate red because of a concurrent server change: node:fs statfsSync has no shim/VFS facade",
+      "evidence": "npm run mobile:test: 2 failures persist after the re-run - 'node:fs statfsSync (used by routes/server-status.ts)' and 'routes/server-status.ts: statfsSync'. server/src/routes/server-status.ts was modified today at 18:43 (hosted/server work: server/src/hosted/**, middleware/disk-paths.ts, storage-health.ts ...), after this run's mobile:build (18:32, which succeeded). check-no-network and mobile/test/network-audit.test.ts also failed transiently at that time on a server/** file and pass again now; the server suite's single EISDIR failure (resets.json.tmp) did not reproduce. None of these files belong to WP-7/8/9.",
+      "fix": "For the server agents: add statfsSync to mobile/core/shims/fs.ts and the VFS facade (or keep server-status.ts out of the mobile core bundle), then re-run npm run mobile:test and a mobile:build; WP-7/8/9 needs no change."
+    },
+    {
+      "severity": "low",
+      "file": "mobile/plugins/README.md (and docs/ANDROID-PLAN.md status section)",
+      "title": "The required comparison of two biometric plugin candidates is documented nowhere; the plan has no WP-7/8/9 status line",
+      "evidence": "The package asked to compare 2 maintained biometric plugins (maintenance, Capacitor 8 support, licence) and say why one was chosen. grep for capacitor-native-biometric / capgo / aparajita / biometric-auth in docs/, mobile/plugins/README.md, README.md, ARCHITECTURE.md: no hit. A local plugin (DiaryBiometricPlugin, framework BiometricPrompt + Keystore, no dependency, no network) was written instead - defensible, but the rationale is missing. docs/ANDROID-PLAN.md's status section lists WP-1..6 and WP-14 only (the plan is outside the package's ownership).",
+      "fix": "Add the comparison and the decision to mobile/plugins/README.md; the main session adds the WP-7/8/9 status line (feature flag BIOMETRIC_UNLOCK_ENABLED=false until the core implements /api/auth/biometric/*)."
+    },
+    {
+      "severity": "low",
+      "file": "mobile/platform/files.ts:132-135",
+      "title": "Share: the cache copy is deleted as soon as the chooser returns, not when the receiving app finished reading it",
+      "evidence": "shareFile deletes the copy in finally right after Share.share resolves; SharePlugin.java:77-93 resolves in the chooser's activityResult, i.e. when the chooser activity finishes (right after the target was chosen), while the target app reads the content:// grant afterwards. A receiver that copies the stream asynchronously (Drive upload, mail attach) can find the file gone. Cannot be demonstrated without a device.",
+      "fix": "Try 'Share -> Save to Drive' and 'Share -> Gmail' on the phone (part 2, section 1.4 of the Hebrew guide); if it fails, delete the previous copy at the next share / app start instead of immediately."
+    },
+    {
+      "severity": "low",
+      "file": "android/app/src/main/AndroidManifest.xml:75-81",
+      "title": "The first VIEW filter matches every application/octet-stream file, not only .mpd",
+      "evidence": "The filter has schemes content/file and mimeType application/octet-stream with no pathPattern, so 'Your Personal Diary' is offered as 'Open with' for every unknown-type file (.bin, .dat, ...) and the user only learns it is not a backup after the restore card inspects it. It is what the package text literally asked for; the second filter already covers *.mpd by name.",
+      "fix": "Keep only the pathPattern filter (second one), or add the .mpd pathPatterns to the octet-stream filter as well; verify the 'Open with' list on the phone."
+    }
+  ],
+  "checkedOk": [
+    "Permissions: merged manifest exactly INTERNET, POST_NOTIFICATIONS, RECEIVE_BOOT_COMPLETED, USE_BIOMETRIC (verify-apk PASS); SCHEDULE_EXACT_ALARM and WAKE_LOCK removed with tools:node=remove is safe - the plugin acquires no wake lock (no PowerManager/WakeLock in its Kotlin) and every notification carries isExactNotification:false, which LocalNotificationsPlugin.kt:122-131 honours (no 'Alarms & reminders' screen) and LocalNotificationManager.kt:357-371 schedules with setAndAllowWhileIdle",
+    "Reboot: LocalNotificationRestoreReceiver (exported=false, directBootAware) re-arms future one-shot notifications after BOOT_COMPLETED; fired ones are not re-armed",
+    "Plugins registered in MainActivity.java before super.onCreate (DiaryFiles, DiaryPrivacyScreen, DiaryBiometric); npm plugins via capacitor.plugins.json (cap sync)",
+    "Dependencies: npm @capacitor/app 8.1.1, local-notifications 8.3.1, preferences 8.0.1, share 8.0.3 (exact-pinned); Gradle: only the four plugin modules (each capacitor-android + androidx.appcompat; share also androidx.core; local-notifications brings the Kotlin stdlib) - nothing added to app/build.gradle; no analytics/HTTP code in their Java/Kotlin/JS (java.net, HttpURLConnection, okhttp, firebase, analytics, fetch, XMLHttpRequest, sendBeacon: no hits); the biometric plugin uses framework classes only",
+    "Java security: SAF result checks RESULT_OK and data; handles are plugin-private and run on Capacitor's single task thread; exported components = MainActivity only (verify-apk PASS; profileinstaller receiver removed); FileProvider not exported; PendingIntents are the plugins' (FLAG_MUTABLE only on S+, explicit targets; Share's broadcast is nonce-validated); the VIEW intent is consumed (setData(null)) so a recreated activity does not re-deliver it; opening a file never restores (password + confirmation + counts unchanged in RestoreSection)",
+    "Notification content: generic body by default (showHabitNames default false in prefs.ts), habit name only on opt-in; the hint says it also shows on the lock screen; channel name/description translated and refreshed on every sync",
+    "Biometric design honest: no password stored anywhere; token comes from a core endpoint; Keystore AES-256-GCM key with setUserAuthenticationRequired + per-use auth (timeout 0 / -1) + setInvalidatedByBiometricEnrollment + BIOMETRIC_STRONG; CryptoObject prompt; BIOMETRIC_UNLOCK_ENABLED=false because /api/auth/biometric/* does not exist in mobile/core or server/src -> setting and lock-screen button hidden; contract written in biometric.ts; the Hebrew guide says so plainly",
+    "Pause/flush and back: isActive=false -> flushAll (+ UI lock first, then lockAll when lockOnLeave); guest never locked (LockContext guard and core lockAll skips guest sessions); Back via @capacitor/app's OnBackPressedCallback (predictive-back safe on targetSdk 36) -> handleBack(): dialog cancel / navigate / minimizeApp; the lock dialog is never dismissed",
+    "TypeScript platform modules + tests: 55 tests in mobile/platform/*.test.ts incl. the 10 MB chunked save measurement (files.test.ts:149), reschedule/cancel/permission flows, chunked read, back handling, pause/resume; component tests for the five phone branches under vi.stubGlobal('__MOBILE__', true); all green",
+    "Desktop unchanged: vite.config.ts defines __MOBILE__=false so the phone branches fold away; dist/assets has no Capacitor/DiaryFiles/phone-section identifiers; root tsc OK, root vitest 836/836, server tsc OK, server.cjs builds, check-no-network passes",
+    "Gradle debug build: BUILD SUCCESSFUL in 47 s (full build-apk.ps1 incl. mobile:build + cap sync); APK 10.9 MB (was 9.7 MB at WP-14: +Kotlin stdlib/plugins), 10 dex, no .so, zipalign -P 16 OK; verify-apk every check PASS",
+    "i18n: 24 new mobile.* keys in all 20 locales, parity test green; spot-check en/he/ar/ja/th/ru/de/zh shows real translations with the brand kept in English; every key used by the code exists (also shell.reminderTitle, server.habits.reminder)",
+    "Hebrew what-to-try: docs/ANDROID-PHONE-TEST.he.md part two covers save to Downloads, share, restore via Open with, reminder +2 min with the app closed and after reboot, lock on leave, blank recents / blocked screenshots, back button, and explains that fingerprint unlock is hidden on purpose",
+    "Keyboard/insets/bars: SystemBars.java pads the decor view for the IME in both inset modes (adjustResize effective under edge-to-edge); SystemBars.setStyle follows <html data-theme> and prefers-color-scheme (ui.ts)",
+    "destPath options hidden on the phone: BackupCreate/Export use the blob download path and the Save/Share buttons; the core answers 400 to destPath anyway"
+  ]
+}

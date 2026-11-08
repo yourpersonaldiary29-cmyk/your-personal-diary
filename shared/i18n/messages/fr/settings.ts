@@ -1,0 +1,543 @@
+/** fr - settings messages. Keys are prefixed 'settings.'; see shared/i18n/index.ts for the syntax. */
+const messages: Record<string, string> = {
+  // Language card (src/pages/settings/LanguageSection.tsx, src/context/LanguageContext.tsx)
+  'settings.language.title': 'Langue',
+  'settings.language.label': 'Langue de l’interface',
+  'settings.language.hint':
+    'Tout le journal passe immédiatement à la langue choisie. Avant la connexion, ce choix est conservé sur cet appareil ; après la connexion, il est enregistré dans votre compte.',
+  'settings.language.changed': 'Langue mise à jour : {language}',
+  'settings.language.saveFailed': 'La langue a été changée sur cet appareil, mais son enregistrement dans le compte a échoué.',
+
+  // Page titles (src/pages/SettingsPage.tsx, BackupPage.tsx)
+  'settings.title': 'Paramètres',
+  'settings.backup.pageTitle': 'Sauvegarde, restauration et export',
+  'settings.actionCancelled': 'L’opération a été annulée.',
+
+  // Account card (src/pages/settings/AccountSection.tsx, ProfileEditor.tsx, ChangePasswordDialog.tsx)
+  'settings.account.title': 'Compte',
+  'settings.account.anonymousText':
+    'Les paramètres du compte, de sécurité, des rappels et des données sont disponibles après la connexion. Les préférences d’affichage sont conservées sur cet appareil, même sans compte.',
+  'settings.account.setEmail': 'Définir',
+  'settings.account.setEmailTitle': 'Définir l’adresse e-mail',
+  'settings.account.emailSaved': 'L’adresse e-mail a été enregistrée.',
+  'settings.account.editDetails': 'Modifier les informations',
+  'settings.account.editDetailsHint': 'Le prénom est aussi utilisé dans le message d’accueil en haut du journal.',
+  'settings.account.emailPassword': 'Mot de passe de votre compte',
+  'settings.account.emailPasswordHint': 'Nécessaire pour changer l’adresse e-mail, car les e-mails de réinitialisation du mot de passe y sont envoyés.',
+  'settings.account.profileSaved': 'Vos informations ont été enregistrées.',
+  'settings.account.noChanges': 'Aucune modification n’a été apportée.',
+  'settings.account.changePassword': 'Changer le mot de passe',
+  'settings.account.logout': 'Se déconnecter',
+  'settings.account.logoutQuestion': 'Se déconnecter du journal ? Pour revenir, il faudra saisir votre nom d’utilisateur et votre mot de passe.',
+  'settings.account.oldPassword': 'Ancien mot de passe',
+  'settings.account.newPassword': 'Nouveau mot de passe',
+  'settings.account.confirmNewPassword': 'Confirmer le nouveau mot de passe',
+  'settings.account.newPasswordHint': 'Au moins {min} caractères, avec des lettres et des chiffres',
+  'settings.account.passwordChanged': 'Le mot de passe a bien été changé',
+  'settings.account.wrongOldPassword': 'L’ancien mot de passe est incorrect. Veuillez réessayer.',
+  'settings.account.passwordChangeHint': 'Changer le mot de passe rechiffre le journal et déconnecte tous les autres appareils.',
+  // Account ID row (hosted server only): the server owner copies it to turn the owner cards on.
+  'settings.account.accountId': 'Identifiant du compte',
+  'settings.account.copyAccountId': 'Copier l’identifiant du compte',
+  'settings.account.accountIdCopied': 'Identifiant du compte copié',
+  'settings.account.accountIdCopyFailed': 'La copie a échoué. Sélectionnez l’identifiant du compte et copiez-le manuellement.',
+  'settings.account.accountIdHint': 'Seul le propriétaire du serveur en a besoin, pour activer les cartes du propriétaire.',
+
+  // Connected devices (src/pages/settings/SessionsList.tsx)
+  'settings.devices.title': 'Appareils connectés',
+  'settings.devices.hint': 'Tous les appareils actuellement connectés à ce compte. Déconnecter un appareil met fin immédiatement à sa session.',
+  'settings.devices.current': 'Cet appareil',
+  'settings.devices.remembered': 'Se souvenir de moi',
+  'settings.devices.unknown': 'Appareil sans nom',
+  'settings.devices.connectedAt': 'Connexion',
+  'settings.devices.lastSeen': 'Dernière activité',
+  'settings.devices.revoke': 'Déconnecter',
+  'settings.devices.revokeName': 'Déconnecter {device}',
+  'settings.devices.none': 'Aucun appareil connecté.',
+  'settings.devices.revoked': 'L’appareil « {device} » a été déconnecté.',
+
+  // Display card (src/pages/settings/DisplaySection.tsx)
+  'settings.display.title': 'Affichage',
+  'settings.display.theme': 'Thème',
+  'settings.display.themeOption.system': 'Suivre le système',
+  'settings.display.themeOption.light': 'Clair',
+  'settings.display.themeOption.dark': 'Sombre',
+  'settings.display.themeOption.highContrast': 'Contraste élevé',
+  'settings.display.themeChanged': 'Thème mis à jour : {label}',
+  'settings.display.fontScale': 'Taille du texte',
+  'settings.display.fontScaleOption.small': 'Petite ({percent} %)',
+  'settings.display.fontScaleOption.normal': 'Normale ({percent} %)',
+  'settings.display.fontScaleOption.large': 'Grande ({percent} %)',
+  'settings.display.fontScaleOption.veryLarge': 'Très grande ({percent} %)',
+  'settings.display.fontScaleOption.huge': 'Immense ({percent} %)',
+  'settings.display.fontScaleOption.custom': 'Personnalisée ({percent} %)',
+  'settings.display.fontScaleChanged': 'Taille du texte mise à jour : {label}',
+  'settings.display.reduceMotion': 'Réduire les animations',
+  'settings.display.reduceMotionHint': 'Désactive les animations et les transitions de l’interface.',
+  'settings.display.reduceMotionOn': 'Réduction des animations activée.',
+  'settings.display.reduceMotionOff': 'Réduction des animations désactivée.',
+  'settings.display.firstDayOfWeek': 'Premier jour de la semaine',
+  'settings.display.sunday': 'Dimanche',
+  'settings.display.monday': 'Lundi',
+  'settings.display.firstDayChanged': 'Premier jour de la semaine : {label}.',
+  'settings.display.anonymousHint': 'Les préférences sont conservées dans ce navigateur. Après la connexion, elles sont enregistrées dans votre compte.',
+
+  // Security card (src/pages/settings/SecuritySection.tsx)
+  'settings.security.title': 'Sécurité',
+  'settings.security.autoLock': 'Verrouillage automatique après inactivité',
+  'settings.security.autoLockHint': 'Passé le délai choisi, le journal affiche un écran de verrouillage et demande le mot de passe. Votre session reste ouverte.',
+  'settings.security.autoLockOff': 'Désactivé',
+  'settings.security.autoLockChanged': 'Verrouillage automatique : {label}',
+  'settings.security.lockNow': 'Verrouiller maintenant',
+  'settings.security.lockNowHint': 'Vous pouvez aussi verrouiller à tout moment avec Ctrl+L.',
+
+  // Reminders card (src/pages/settings/RemindersSection.tsx)
+  'settings.reminders.title': 'Rappels',
+  'settings.reminders.enabled': 'Afficher les rappels d’habitudes',
+  'settings.reminders.hint': 'Les rappels sont uniquement des notifications locales - sur l’ordinateur ou dans le navigateur où le journal est ouvert. Rien n’est envoyé à l’extérieur.',
+  'settings.reminders.explanation': 'L’heure du rappel se règle pour chaque habitude, sur la page des habitudes. Tant que cette option est désactivée, aucun rappel n’est affiché.',
+  'settings.reminders.on': 'Rappels activés.',
+  'settings.reminders.off': 'Rappels désactivés.',
+  'settings.reminders.habitsLink': 'Aller à la page des habitudes',
+
+  // Privacy card (src/pages/settings/PrivacySection.tsx)
+  // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
+  'settings.privacy.policyLink': 'Politique de confidentialité',
+  'settings.privacy.title': 'Confidentialité',
+  'settings.privacy.offlineLabel': 'Mode confidentialité hors ligne',
+  'settings.privacy.offlineHint': 'Lorsqu’il est activé, l’application ne peut ouvrir aucune connexion réseau, sauf vers son propre serveur local. Ne le désactivez que si vous utilisez l’accès à distance.',
+  'settings.privacy.offlineOn': 'Mode confidentialité hors ligne activé.',
+  'settings.privacy.offlineOff': 'Mode confidentialité hors ligne désactivé.',
+  // Data card (src/pages/settings/DataSection.tsx)
+  'settings.data.title': 'Données',
+  'settings.data.reassurance': 'Les données de votre journal sont conservées dans votre compte personnel et chiffrées de bout en bout.',
+  'settings.data.seedDemo': 'Charger des données d’exemple',
+  'settings.data.seedDemoTitle': 'Chargement de données d’exemple',
+  'settings.data.seedDemoMessage':
+    'Le journal est vide pour le moment. Environ {days} jours d’entrées et d’habitudes fictives vont être créés pour vous permettre de découvrir les observations, les statistiques et la recherche. Vous pourrez les modifier et les supprimer comme n’importe quelle autre entrée.',
+  'settings.data.seedDemoConfirm': 'Charger',
+  'settings.data.seedDemoDone':
+    'Données chargées : {entries, plural, one {# entrée} other {# entrées}}, {habits, plural, one {# habitude} other {# habitudes}} et {logs, plural, one {# suivi d’habitude} other {# suivis d’habitudes}}.',
+
+  // Delete account card - the last card of the page (src/pages/settings/DeleteAccountSection.tsx)
+  'settings.deleteAccount.title': 'Supprimer le compte',
+  'settings.deleteAccount.warning':
+    'La suppression de votre compte l’efface définitivement avec son journal, ses habitudes et ses paramètres, et le déconnecte de tous les appareils. Il ne pourra pas être restauré. Les fichiers de sauvegarde que vous avez enregistrés ailleurs ne sont pas concernés.',
+  'settings.deleteAccount.button': 'Supprimer le compte',
+  'settings.deleteAccount.dialogTitle': 'Supprimer le compte « {username} » ?',
+  'settings.deleteAccount.passwordHint': 'Pour confirmer, saisissez le mot de passe du compte.',
+  'settings.deleteAccount.understand': 'Je comprends que cette action est irréversible',
+  'settings.deleteAccount.confirm': 'Supprimer définitivement le compte',
+  'settings.deleteAccount.done': 'Toutes les données et le compte ont été supprimés.',
+  'settings.deleteAccount.wrongPassword': 'Mot de passe incorrect. Veuillez réessayer.',
+  'settings.deleteAccount.ownerRemote':
+    'Votre compte est le propriétaire de l’accès à distance sur cet ordinateur. Sa suppression désactive l’accès à distance et efface ses paramètres (adresse et jeton DuckDNS, certificat) ; le plus ancien des comptes restants en devient propriétaire et peut le configurer à nouveau.',
+  'settings.deleteAccount.ownerMail':
+    'Votre compte est le propriétaire de l’e-mail de réinitialisation du mot de passe sur cet ordinateur. Sa suppression désactive l’envoi d’e-mails et efface ses paramètres (compte d’envoi et mot de passe d’application) ; le plus ancien des comptes restants en devient propriétaire et peut le configurer à nouveau.',
+  'settings.deleteAccount.ownerBoth':
+    'Votre compte est le propriétaire de l’accès à distance et de l’e-mail de réinitialisation du mot de passe sur cet ordinateur. Sa suppression désactive les deux et efface leurs paramètres (adresse et jeton DuckDNS, certificat, compte d’envoi et mot de passe d’application) ; le plus ancien des comptes restants en devient propriétaire et peut les configurer à nouveau.',
+  // The owner line on the Your Personal Diary server (hosted mode): its owner is DIARY_OWNER_ID only, and deleting
+  // the owner erases the mail settings and promotes nobody (server/src/hosted/owner.ts, docs/API.md "בעלות").
+  'settings.deleteAccount.ownerHosted':
+    'Votre compte est le propriétaire du serveur du journal. Sa suppression arrête les e-mails de réinitialisation du mot de passe pour tous les comptes et efface les paramètres de l’e-mail (compte d’envoi et mot de passe d’application). Aucun autre compte ne devient propriétaire, donc personne ne pourra ouvrir la carte « Serveur » ni préparer une archive du serveur. Si vous vous réinscrivez, votre nouveau compte aura un nouvel identifiant de compte, et il faudra de nouveau le définir comme DIARY_OWNER_ID sur le serveur.',
+
+  // Diagnostics card (src/pages/settings/DiagnosticsSection.tsx, desktop only)
+  'settings.diagnostics.title': 'Diagnostic',
+  'settings.diagnostics.hint': 'Informations techniques sur le serveur local qui fonctionne en arrière-plan. Utile si quelque chose ne marche pas.',
+  'settings.diagnostics.uiVersion': 'Version de l’interface',
+  'settings.diagnostics.serverVersion': 'Version du serveur',
+  'settings.diagnostics.port': 'Port',
+  'settings.diagnostics.lanStatus': 'Accès réseau',
+  'settings.diagnostics.lanOn': 'Activé',
+  'settings.diagnostics.lanOff': 'Désactivé',
+  'settings.diagnostics.startedAt': 'Démarrage',
+  'settings.diagnostics.showServerLog': 'Afficher le journal du serveur',
+  'settings.diagnostics.hideServerLog': 'Masquer le journal du serveur',
+  'settings.diagnostics.serverLog': 'Journal du serveur',
+  'settings.diagnostics.serverLogEmpty': 'Le journal du serveur est vide.',
+  'settings.diagnostics.serverLogLoaded': 'Journal du serveur chargé : {count, plural, one {# ligne} other {# lignes}}.',
+  'settings.diagnostics.serverLogFailed': 'Impossible de lire le journal du serveur.',
+  'settings.diagnostics.restartServer': 'Redémarrer le serveur',
+  'settings.diagnostics.restartTitle': 'Redémarrage du serveur',
+  'settings.diagnostics.restartMessage':
+    'Le serveur local va être fermé puis relancé, et l’interface se rechargera pour s’y reconnecter. Si « Se souvenir de moi » n’était pas coché, il faudra peut-être vous reconnecter.',
+  'settings.diagnostics.restartConfirm': 'Redémarrer',
+  'settings.diagnostics.restarting': 'Le serveur redémarre. L’interface va se recharger dans un instant.',
+  'settings.diagnostics.restartFailed': 'Le redémarrage du serveur a échoué.',
+
+  // Data card: phone (LAN) access, desktop only (src/pages/settings/LanAccessSection.tsx)
+  'settings.lan.title': 'Accès depuis le téléphone sur le réseau domestique',
+  'settings.lan.label': 'Accès depuis le téléphone sur le réseau domestique',
+  'settings.lan.hint': 'Le serveur local sera aussi accessible sur le réseau Wi-Fi de la maison, pour ouvrir le même journal depuis le téléphone. Les données ne quittent jamais la maison.',
+  'settings.lan.onlyFromComputer': 'L’accès depuis le téléphone ne peut être activé ou désactivé que depuis l’ordinateur sur lequel le journal est installé.',
+  'settings.lan.enabled': 'Accès depuis le téléphone activé.',
+  'settings.lan.disabled': 'Accès depuis le téléphone désactivé.',
+  'settings.lan.ownerOnly': 'Seul le compte propriétaire de cet ordinateur (le premier compte créé dessus) peut activer ou désactiver l’accès depuis le téléphone.',
+  'settings.lan.statusOn': 'L’accès depuis le téléphone est activé.',
+  'settings.lan.statusOff': 'L’accès depuis le téléphone est désactivé.',
+  'settings.lan.confirmTitle': 'Activer l’accès depuis le téléphone',
+  'settings.lan.confirmMessage': 'Les téléphones et ordinateurs du réseau domestique pourront ouvrir la page de connexion du journal. Pour confirmer, saisissez le mot de passe de votre compte.',
+  'settings.lan.urlsTitle': 'Adresses à ouvrir sur le téléphone',
+  'settings.lan.noUrls': 'Aucune adresse réseau n’a été trouvée. Vérifiez que l’ordinateur est connecté au Wi-Fi, puis réessayez.',
+  'settings.lan.copy': 'Copier',
+  'settings.lan.copyName': 'Copier {url}',
+  'settings.lan.copied': 'L’adresse {url} a été copiée.',
+  'settings.lan.copyFailed': 'La copie a échoué. Vous pouvez sélectionner l’adresse et la copier manuellement.',
+  'settings.lan.instructionsTitle': 'Se connecter depuis le téléphone',
+  'settings.lan.instructions.sameNetwork': 'Vérifiez que le téléphone est connecté au même réseau Wi-Fi que l’ordinateur.',
+  'settings.lan.instructions.openUrl': 'Ouvrez l’une des adresses ci-dessus dans le navigateur du téléphone et connectez-vous avec le même nom d’utilisateur et le même mot de passe.',
+  'settings.lan.instructions.firewall': 'La première fois, le pare-feu Windows peut demander une autorisation - autorisez l’accès uniquement sur les réseaux privés.',
+  'settings.lan.instructions.sameServer': 'Le téléphone voit exactement ce qui est fait sur l’ordinateur, car les deux utilisent le même serveur local.',
+
+  // Backup page: backup card (src/pages/settings/BackupCreateSection.tsx)
+  'settings.backup.title': 'Sauvegarde',
+  'settings.backup.explanation':
+    'Le fichier de sauvegarde est une copie chiffrée de tout le journal (entrées, habitudes et paramètres) au format .mpd. Conservez-le en lieu sûr - par exemple sur un disque externe. Il ne peut pas être ouvert sans le mot de passe.',
+  'settings.backup.ownPassword': 'Mot de passe distinct pour la sauvegarde',
+  'settings.backup.ownPasswordHint': 'Par défaut, la sauvegarde est chiffrée avec le mot de passe du compte. Vous pouvez choisir un autre mot de passe pour ce fichier uniquement.',
+  'settings.backup.password': 'Mot de passe de la sauvegarde',
+  'settings.backup.passwordConfirm': 'Confirmer le mot de passe de la sauvegarde',
+  'settings.backup.create': 'Créer un fichier de sauvegarde',
+  'settings.backup.fileFilter': 'Fichier de sauvegarde chiffré',
+  'settings.backup.created': 'Sauvegarde créée : {fileName} ({size}).',
+
+  // Backup page: restore card (src/pages/settings/RestoreSection.tsx)
+  'settings.restore.title': 'Restaurer une sauvegarde',
+  'settings.restore.explanation': 'La restauration remplace le journal actuel par le contenu du fichier de sauvegarde. Le mot de passe du compte ne change pas.',
+  'settings.restore.pickFile': 'Choisir un fichier de sauvegarde',
+  'settings.restore.fileField': 'Fichier de sauvegarde',
+  'settings.restore.fileHint': 'Un fichier .mpd créé sur cette page.',
+  'settings.restore.chosenFile': 'Fichier',
+  'settings.restore.fileSize': 'Taille',
+  'settings.restore.fileStatus': 'État',
+  'settings.restore.inspecting': 'Vérification du fichier…',
+  'settings.restore.action': 'Restaurer la sauvegarde',
+  'settings.restore.confirmTitle': 'Restaurer la sauvegarde ?',
+  'settings.restore.warning':
+    'Le journal actuel - toutes les entrées, habitudes et paramètres - sera remplacé par le contenu du fichier de sauvegarde. Cette action est irréversible. Il est conseillé de sauvegarder d’abord le journal actuel.',
+  'settings.restore.confirm': 'Restaurer',
+  'settings.restore.done': 'Restauration terminée : {entries, plural, one {# entrée} other {# entrées}} et {habits, plural, one {# habitude} other {# habitudes}}.',
+  'settings.restore.needFile': 'Choisissez un fichier de sauvegarde',
+  'settings.restore.invalidFile': 'Le fichier choisi n’est pas un fichier de sauvegarde valide',
+
+  // Backup page: export card (src/pages/settings/ExportSection.tsx)
+  'settings.export.title': 'Export',
+  'settings.export.explanation':
+    'L’export crée un fichier lisible (non chiffré) des entrées, par exemple pour les lire, les imprimer ou les utiliser dans un autre programme. Conservez-le en conséquence.',
+  'settings.export.format': 'Format',
+  'settings.export.formatOption.txt': 'TXT - texte',
+  'settings.export.formatOption.csv': 'CSV - tableau',
+  'settings.export.formatOption.json': 'JSON - données complètes',
+  'settings.export.formatOption.pdf': 'PDF - document',
+  'settings.export.formatHint.txt': 'Un simple fichier texte qui s’ouvre sur n’importe quel ordinateur ou téléphone',
+  'settings.export.formatHint.csv': 'À ouvrir dans Excel ou un tableur',
+  'settings.export.formatHint.json': 'Tous les champs, pour passer à un autre programme',
+  'settings.export.formatHint.pdf': 'Un document mis en page, pour la lecture et l’impression',
+  'settings.export.filter.txt': 'Fichier texte',
+  'settings.export.filter.csv': 'Fichier CSV',
+  'settings.export.filter.json': 'Fichier JSON',
+  'settings.export.filter.pdf': 'Document PDF',
+  'settings.export.from': 'Du',
+  'settings.export.to': 'Au',
+  'settings.export.rangeHint': 'Laissez vide pour exporter tout le journal.',
+  'settings.export.rangeError': 'La date de fin doit être identique ou postérieure à la date de début',
+  'settings.export.includeHabits': 'Inclure les habitudes et leurs suivis',
+  'settings.export.includeHabitsCsv': 'Un fichier CSV ne contient que les entrées. Les habitudes sont incluses dans les formats TXT, JSON et PDF.',
+  'settings.export.action': 'Exporter',
+  'settings.export.done': 'Export terminé : {count, plural, one {# entrée} other {# entrées}}.',
+  'settings.export.doneWithFile': 'Export terminé : {count, plural, one {# entrée} other {# entrées}}. {fileName}',
+  'settings.export.downloaded': 'Export terminé. Le fichier {fileName} a été téléchargé.',
+
+  // Remote access card (src/pages/settings/RemoteAccessSection.tsx; the Privacy card's confirmation in PrivacySection.tsx)
+  'settings.remote.title': 'Accès à distance',
+  'settings.remote.intro':
+    'Ouvrez votre journal où que vous soyez - depuis votre téléphone ou un autre ordinateur - à votre propre adresse DuckDNS. Le journal reste sur cet ordinateur et rien n’est envoyé dans un cloud : c’est cet ordinateur qui répond, via une connexion HTTPS chiffrée.',
+  'settings.remote.switchLabel': 'Autoriser l’accès depuis Internet',
+  'settings.remote.switchHint':
+    'Désactivé par défaut. Tant qu’il est activé, cet ordinateur contacte DuckDNS (pour que votre adresse continue de pointer ici) et Let’s Encrypt (pour le certificat de sécurité) ; le mode confidentialité hors ligne est donc désactivé.',
+  'settings.remote.enabled': 'L’accès à distance a été activé. La configuration peut prendre environ deux minutes ; l’état ci-dessous se met à jour tout seul.',
+  'settings.remote.disabled': 'L’accès à distance a été désactivé. Le journal ne peut plus être ouvert depuis Internet.',
+  'settings.remote.offlineTurnedOff': 'Le mode confidentialité hors ligne a été désactivé, car l’accès à distance se connecte à DuckDNS et à Let’s Encrypt.',
+  'settings.remote.detailsTitle': 'Informations de connexion',
+  'settings.remote.hostname': 'Adresse DuckDNS',
+  'settings.remote.hostnameHint': 'Le nom que vous avez créé sur duckdns.org, par exemple yourpersonaldiary.duckdns.org.',
+  'settings.remote.hostnameInvalid': 'Saisissez un nom DuckDNS comme yourpersonaldiary.duckdns.org (lettres latines sans accents, chiffres et traits d’union).',
+  'settings.remote.token': 'Jeton DuckDNS',
+  'settings.remote.tokenHint':
+    'Affiché en haut de votre page sur duckdns.org après connexion. Il est conservé chiffré sur cet ordinateur et n’est plus jamais affiché.',
+  'settings.remote.tokenSaved': 'Un jeton est enregistré. Laissez le champ vide pour le conserver, ou saisissez un nouveau jeton pour le remplacer.',
+  'settings.remote.tokenMissing': 'Saisissez votre jeton DuckDNS.',
+  'settings.remote.tokenInvalid': 'Un jeton DuckDNS ressemble à xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (des chiffres et les lettres a à f).',
+  'settings.remote.showToken': 'Afficher le jeton',
+  'settings.remote.publicPort': 'Port sur le routeur',
+  'settings.remote.publicPortHint':
+    'Le port par lequel Internet atteint cet ordinateur. 443 est le port HTTPS standard ; ne le changez que si votre fournisseur d’accès le bloque.',
+  'settings.remote.portInvalid': 'Saisissez un nombre entier entre 1 et 65535.',
+  'settings.remote.upnp': 'Ouvrir automatiquement le port du routeur (UPnP)',
+  'settings.remote.upnpHint': 'Fonctionne avec la plupart des routeurs domestiques. Sinon, les instructions ci-dessous expliquent comment ouvrir le port manuellement.',
+  'settings.remote.save': 'Enregistrer les informations',
+  'settings.remote.saved': 'Les informations d’accès à distance ont été enregistrées.',
+  'settings.remote.test': 'Tester la connexion',
+  'settings.remote.testTitle': 'Résultats du test de connexion',
+  'settings.remote.testDone': 'Test de connexion terminé : {passed} vérifications réussies sur {total}.',
+  'settings.remote.statusTitle': 'État',
+  'settings.remote.busy': 'Configuration de l’accès à distance en cours. Cela peut prendre environ deux minutes ; la liste se met à jour toute seule.',
+  'settings.remote.ready': 'L’accès à distance est prêt. Adresse de votre journal : {url}',
+  'settings.remote.failed': 'Impossible de configurer l’accès à distance : {message}',
+  'settings.remote.lastError': 'Dernier problème : {message}',
+  'settings.remote.nextRetry': 'Prochaine tentative automatique : {time}.',
+  'settings.remote.stepAt': 'Mis à jour : {time}',
+  'settings.remote.state.idle': 'Non démarré',
+  'settings.remote.state.running': 'En cours',
+  'settings.remote.state.ok': 'Terminé',
+  'settings.remote.state.error': 'Échec',
+  'settings.remote.state.warning': 'Avertissement',
+  'settings.remote.state.skipped': 'Ignoré',
+  'settings.remote.step.duckdns': 'Adresse DuckDNS',
+  'settings.remote.step.certificate': 'Certificat de sécurité (Let’s Encrypt)',
+  'settings.remote.step.listener': 'Connexion sécurisée (HTTPS)',
+  'settings.remote.step.upnp': 'Port du routeur',
+  'settings.remote.check.duckdns': 'Mise à jour DuckDNS',
+  'settings.remote.check.upnp': 'Routeur (UPnP)',
+  'settings.remote.check.dns': 'Résolution de l’adresse (DNS)',
+  'settings.remote.check.https': 'Connexion HTTPS',
+  'settings.remote.publicIp': 'Adresse IP publique',
+  'settings.remote.unknown': 'Inconnue',
+  'settings.remote.certificate': 'Certificat',
+  'settings.remote.certificateValid':
+    'Valide jusqu’au {date} ({days, plural, one {encore # jour} other {encore # jours}}), délivré par {issuer}. Il est renouvelé automatiquement.',
+  'settings.remote.certificateStaging': 'Il s’agit d’un certificat de test (Let’s Encrypt staging) ; les navigateurs afficheront un avertissement.',
+  'settings.remote.noCertificate': 'Pas encore de certificat.',
+  'settings.remote.renew': 'Renouveler le certificat',
+  'settings.remote.renewStarted': 'Le renouvellement du certificat a commencé. Il peut prendre environ deux minutes.',
+  'settings.remote.urlTitle': 'Adresse de votre journal',
+  'settings.remote.urlHint': 'Ouvrez cette adresse sur votre téléphone ou sur n’importe quel ordinateur, puis connectez-vous avec votre nom d’utilisateur et votre mot de passe.',
+  'settings.remote.noUrl': 'L’adresse apparaîtra ici dès que la connexion sécurisée sera prête.',
+  'settings.remote.qrLabel': 'Code QR de l’adresse {url}',
+  'settings.remote.qrHint': 'Scannez le code avec l’appareil photo du téléphone pour ouvrir l’adresse.',
+  'settings.remote.instructionsTitle': 'Fonctionnement et prérequis',
+  'settings.remote.instructions.account':
+    'Créez un compte gratuit sur duckdns.org, ajoutez un nom (par exemple yourpersonaldiary) et copiez le jeton affiché sur la page.',
+  'settings.remote.instructions.enter':
+    'Saisissez le nom et le jeton ci-dessus, cochez « Autoriser l’accès depuis Internet », tapez le mot de passe de votre compte et sélectionnez Enregistrer.',
+  'settings.remote.instructions.firstCertificate': 'Le premier certificat peut prendre environ deux minutes. La liste d’état se met à jour toute seule.',
+  'settings.remote.instructions.keepOn': 'Laissez cet ordinateur allumé et l’application du journal ouverte : le journal n’est accessible que lorsque les deux fonctionnent.',
+  'settings.remote.instructions.manualForward':
+    'Si le port du routeur ne peut pas être ouvert automatiquement, ouvrez les paramètres de votre routeur et redirigez le port externe {publicPort} (TCP) vers l’adresse de cet ordinateur {ip}, port {port}.',
+  'settings.remote.instructions.manualForwardNoIp':
+    'Si le port du routeur ne peut pas être ouvert automatiquement, ouvrez les paramètres de votre routeur et redirigez le port externe {publicPort} (TCP) vers cet ordinateur (son adresse sur le réseau domestique), port {port}.',
+  'settings.remote.instructions.signIn': 'Sur le téléphone, ouvrez l’adresse et connectez-vous avec votre nom d’utilisateur et votre mot de passe - tout ce que vous avez écrit s’y trouve.',
+  'settings.remote.instructions.firewall':
+    'Si le pare-feu Windows demande s’il faut autoriser diary-server.exe (qui fait partie de Your Personal Diary), autorisez-le (l’accord d’un administrateur peut être nécessaire). Sinon, les connexions depuis Internet sont bloquées.',
+  'settings.remote.instructions.atHome':
+    'À la maison, sur le même réseau, l’adresse Internet peut ne pas s’ouvrir (beaucoup de routeurs ne le permettent pas). Utilisez alors plutôt « Accès depuis le téléphone sur le réseau domestique ».',
+  'settings.remote.privacyNote':
+    'Confidentialité : vos entrées restent sur cet ordinateur et ne circulent, chiffrées, que vers les appareils depuis lesquels vous vous connectez. DuckDNS connaît l’adresse IP publique de cet ordinateur et Let’s Encrypt connaît le nom de votre adresse. Toute personne qui connaît l’adresse peut atteindre la page de connexion : utilisez donc un mot de passe robuste. Après plusieurs mots de passe erronés, les connexions depuis les autres appareils sont bloquées pendant 15 minutes (cet ordinateur peut toujours se connecter). Il est impossible de créer un compte via Internet.',
+  'settings.remote.offlineConflictTitle': 'Activer le mode confidentialité hors ligne ?',
+  'settings.remote.offlineConflictMessage':
+    'Le mode confidentialité hors ligne n’autorise pas les connexions dont l’accès à distance a besoin (DuckDNS et Let’s Encrypt). L’activer désactive aussi l’accès à distance, et le journal ne pourra plus être ouvert depuis Internet.',
+  'settings.remote.offlineConflictConfirm': 'Désactiver l’accès à distance',
+  'settings.remote.disabledByOffline': 'L’accès à distance a été désactivé.',
+  'settings.remote.offlineConflictPassword': 'Saisissez le mot de passe de votre compte pour désactiver l’accès à distance.',
+  // Ownership and the locked card (only the account that set remote access up can view or change it).
+  'settings.remote.ownerNote': 'Seul votre compte peut consulter ou modifier ces paramètres. Les autres comptes de cet ordinateur ne voient pas cette carte.',
+  'settings.remote.setupOwnerNote': 'Le compte qui enregistre ces paramètres devient le seul compte de cet ordinateur à pouvoir les consulter ou les modifier.',
+  'settings.remote.currentTitle': 'Paramètres actuels',
+  'settings.remote.summary.state': 'Accès à distance',
+  'settings.remote.summary.on': 'Activé',
+  'settings.remote.summary.off': 'Désactivé',
+  'settings.remote.summary.tokenSaved': 'Enregistré (chiffré, jamais affiché)',
+  'settings.remote.summary.upnp': 'Ouverture du port du routeur',
+  'settings.remote.summary.upnpAuto': 'Automatique (UPnP)',
+  'settings.remote.summary.upnpManual': 'Manuelle, dans les paramètres du routeur',
+  'settings.remote.lockedHint': 'Les paramètres sont verrouillés. Pour les modifier, sélectionnez « Modifier les paramètres » et saisissez le mot de passe de votre compte.',
+  'settings.remote.change': 'Modifier les paramètres',
+  'settings.remote.unlockTitle': 'Modifier les paramètres d’accès à distance',
+  'settings.remote.unlockMessage':
+    'Pour protéger votre journal, saisissez le mot de passe de votre compte avant de modifier où et comment il est accessible depuis Internet.',
+  'settings.remote.unlocked': 'Les paramètres sont modifiables. Changez les informations, puis sélectionnez Enregistrer.',
+  'settings.remote.editCancelled': 'Aucune modification n’a été apportée. Les paramètres sont de nouveau verrouillés.',
+  'settings.remote.savedLocked': 'Les paramètres d’accès à distance ont été enregistrés et de nouveau verrouillés.',
+  'settings.remote.password': 'Mot de passe de votre compte',
+  'settings.remote.passwordHint': 'Nécessaire pour enregistrer. Ensuite, seul ce compte pourra consulter ou modifier l’accès à distance.',
+  'settings.remote.passwordMissing': 'Saisissez le mot de passe de votre compte.',
+  'settings.remote.wrongPassword': 'Le mot de passe est incorrect.',
+  // E-mail for password reset (src/pages/settings/MailSection.tsx; owner-only, locked after setup, like remote access).
+  'settings.mail.title': 'E-mail de réinitialisation du mot de passe',
+  'settings.mail.intro':
+    'Quand quelqu’un oublie son mot de passe, le journal lui envoie par e-mail un lien et un code pour en choisir un nouveau. Pour cela, le journal a besoin d’un compte de messagerie depuis lequel envoyer, par exemple l’adresse Gmail que vous avez créée pour le journal.',
+  'settings.mail.ownerNote':
+    'Seul votre compte peut consulter ou modifier ces paramètres. Les autres comptes de cet ordinateur ne voient pas cette carte.',
+  'settings.mail.setupOwnerNote':
+    'Le compte qui enregistre ces paramètres devient le seul compte de cet ordinateur à pouvoir les consulter ou les modifier.',
+  'settings.mail.switchLabel': 'Envoyer les e-mails de réinitialisation du mot de passe',
+  'settings.mail.switchHint':
+    'Tant que cette option est activée, le journal se connecte au serveur de messagerie uniquement pour envoyer les e-mails de réinitialisation du mot de passe et les e-mails de test.',
+  'settings.mail.detailsTitle': 'Compte d’envoi',
+  'settings.mail.address': 'Adresse Gmail',
+  'settings.mail.addressHint':
+    'Les e-mails sont envoyés depuis cette adresse, avec le nom d’expéditeur « Your Personal Diary ».',
+  'settings.mail.addressInvalid': 'Saisissez une adresse e-mail valide.',
+  'settings.mail.appPassword': 'Mot de passe d’application',
+  'settings.mail.appPasswordHint':
+    'Le mot de passe d’application de 16 lettres que Google a créé pour le journal, et non votre mot de passe Gmail habituel. Les espaces n’ont pas d’importance.',
+  'settings.mail.appPasswordSaved':
+    'Un mot de passe d’application est enregistré (chiffré, jamais affiché). Laissez le champ vide pour le conserver.',
+  'settings.mail.appPasswordMissing': 'Saisissez le mot de passe d’application.',
+  'settings.mail.appPasswordGmail':
+    'Un mot de passe d’application Gmail compte 16 lettres. Votre mot de passe Gmail habituel ne fonctionne pas ici.',
+  'settings.mail.advanced': 'Avancé : serveur de messagerie',
+  'settings.mail.host': 'Serveur d’envoi (SMTP)',
+  'settings.mail.hostHint': 'Pour Gmail : smtp.gmail.com',
+  'settings.mail.hostInvalid': 'Saisissez le nom du serveur de messagerie, par exemple smtp.gmail.com.',
+  'settings.mail.port': 'Port',
+  'settings.mail.portHint': '465 avec SSL/TLS, 587 avec STARTTLS',
+  'settings.mail.portInvalid': 'Saisissez un numéro de port compris entre 1 et 65535.',
+  'settings.mail.security': 'Chiffrement',
+  'settings.mail.security.tls': 'SSL/TLS (généralement port 465)',
+  'settings.mail.security.starttls': 'STARTTLS (généralement port 587)',
+  'settings.mail.password': 'Mot de passe de votre compte',
+  'settings.mail.passwordHint':
+    'Le mot de passe de votre compte du journal. Nécessaire pour enregistrer ; ensuite, seul ce compte pourra consulter ou modifier ces paramètres.',
+  'settings.mail.passwordMissing': 'Saisissez le mot de passe de votre compte.',
+  'settings.mail.wrongPassword': 'Le mot de passe est incorrect.',
+  'settings.mail.saved': 'Les paramètres d’e-mail ont été enregistrés.',
+  'settings.mail.savedLocked': 'Les paramètres d’e-mail ont été enregistrés et verrouillés.',
+  'settings.mail.enabled':
+    'L’envoi des e-mails de réinitialisation est activé. Sélectionnez « Envoyer un e-mail de test » pour le vérifier.',
+  'settings.mail.disabled': 'L’envoi des e-mails de réinitialisation est désactivé.',
+  'settings.mail.notReady':
+    'Les e-mails ne peuvent pas encore être envoyés : les informations sont incomplètes. Sélectionnez « Modifier les paramètres » pour les compléter.',
+  'settings.mail.currentTitle': 'Paramètres actuels',
+  'settings.mail.summary.state': 'Envoi des e-mails de réinitialisation',
+  'settings.mail.summary.on': 'Activé',
+  'settings.mail.summary.off': 'Désactivé',
+  'settings.mail.summary.address': 'Envoyé depuis',
+  'settings.mail.summary.appPassword': 'Mot de passe d’application',
+  'settings.mail.summary.appPasswordSaved': 'Enregistré (chiffré, jamais affiché)',
+  'settings.mail.summary.server': 'Serveur de messagerie',
+  'settings.mail.summary.serverValue': '{host}, port {port}, {security}',
+  'settings.mail.lockedHint':
+    'Les paramètres sont verrouillés. Pour les modifier, sélectionnez « Modifier les paramètres » et saisissez le mot de passe de votre compte.',
+  'settings.mail.change': 'Modifier les paramètres',
+  'settings.mail.unlockTitle': 'Modifier les paramètres d’e-mail',
+  'settings.mail.unlockMessage':
+    'Pour protéger votre journal, saisissez le mot de passe de votre compte avant de modifier le compte depuis lequel le journal envoie des e-mails.',
+  'settings.mail.unlocked': 'Les paramètres sont modifiables. Changez les informations, puis sélectionnez Enregistrer.',
+  'settings.mail.editCancelled': 'Aucune modification n’a été apportée. Les paramètres sont de nouveau verrouillés.',
+  'settings.mail.test': 'Envoyer un e-mail de test',
+  'settings.mail.testHint': 'Envoie un court e-mail à votre propre adresse : {email}.',
+  'settings.mail.testNoEmail':
+    'Votre compte n’a pas encore d’adresse e-mail. Ajoutez-en une dans la carte « Compte » pour recevoir l’e-mail de test.',
+  'settings.mail.testSent':
+    'Un e-mail de test a été envoyé à {email}. Vérifiez la boîte de réception (et le dossier des spams).',
+  'settings.mail.testFailed': 'L’e-mail de test n’a pas pu être envoyé. {message}',
+  'settings.mail.instructionsTitle': 'Obtenir un mot de passe d’application Gmail',
+  'settings.mail.instructions.signIn':
+    'Connectez-vous sur myaccount.google.com au compte Gmail depuis lequel le journal enverra les e-mails.',
+  'settings.mail.instructions.twoStep':
+    'Ouvrez « Sécurité » et activez la validation en deux étapes. Google ne propose des mots de passe d’application qu’aux comptes qui utilisent la validation en deux étapes.',
+  'settings.mail.instructions.create':
+    'Ouvrez myaccount.google.com/apppasswords (ou recherchez « Mots de passe des applications » dans votre compte Google), saisissez un nom comme « Your Personal Diary » et sélectionnez « Créer ».',
+  'settings.mail.instructions.copy':
+    'Google affiche une seule fois un mot de passe de 16 lettres. Saisissez-le ici dans le champ « Mot de passe d’application » (les espaces n’ont pas d’importance), saisissez le mot de passe de votre compte et sélectionnez « Enregistrer ».',
+  'settings.mail.instructions.test':
+    'Sélectionnez « Envoyer un e-mail de test » et vérifiez qu’il arrive dans votre boîte de réception.',
+  'settings.mail.whyAppPassword':
+    'Pourquoi un mot de passe d’application ? Google refuse le mot de passe Gmail habituel dans les logiciels de messagerie ; il ne fonctionne donc pas ici. Un mot de passe d’application ne sert qu’à la messagerie et vous pouvez le révoquer à tout moment dans votre compte Google.',
+  'settings.mail.privacyNote':
+    'Le mot de passe d’application est enregistré chiffré sur cet ordinateur et n’est plus jamais affiché. Les e-mails ne contiennent que le lien et le code de réinitialisation, jamais rien de votre journal.',
+
+  // Your Personal Diary server (src/pages/settings/PrivacySection.tsx; the published apps, the web UI it serves)
+  'settings.hosted.reassurance': 'Votre journal est conservé sur le serveur Your Personal Diary et chiffré avec votre mot de passe.',
+  'settings.hosted.serverAddress': 'Serveur du journal : {host}',
+  'settings.hosted.offlineHint': 'Lorsqu’il est activé, l’application ne peut ouvrir aucune connexion réseau, sauf vers le serveur du journal.',
+  // Server card (src/pages/settings/ServerSection.tsx): hosted server, its owner only (docs/android-tasks/SERVER-CARD.md)
+  'settings.server.title': 'Serveur',
+  'settings.server.intro': 'L’état du serveur Your Personal Diary. Vous seul, en tant que propriétaire, voyez cette carte.',
+  'settings.server.refresh': 'Actualiser',
+  'settings.server.refreshed': 'L’état du serveur a été actualisé.',
+  'settings.server.version': 'Version',
+  'settings.server.uptime': 'Durée de fonctionnement',
+  'settings.server.accounts': 'Comptes',
+  'settings.server.accountsValue': '{count} sur {max} au maximum',
+  'settings.server.registrations': 'Nouveaux comptes au cours des dernières 24 heures',
+  'settings.server.disk': 'Disque',
+  'settings.server.diskValue': '{used} utilisés, {free} libres ({percent})',
+  'settings.server.diskLow':
+    'Il ne reste que {percent} d’espace libre sur le disque. Agrandissez bientôt le volume (fly volumes extend, voir le manuel d’exploitation) : quand le disque est plein, les modifications ne peuvent plus être enregistrées.',
+  'settings.server.storage': 'Enregistrement sur le disque',
+  'settings.server.storageOk': 'Normal',
+  'settings.server.storageFailed': 'En échec : l’enregistrement échoue',
+  'settings.server.storageAlert':
+    'Le serveur ne parvient pas à enregistrer les modifications sur son disque en ce moment. Vérifiez l’espace libre et le journal (voir le manuel d’exploitation).',
+  'settings.server.lastSave': 'Dernier enregistrement réussi',
+  'settings.server.noSaveYet': 'Aucun depuis le démarrage du serveur',
+  'settings.server.memory': 'Mémoire utilisée',
+  'settings.server.gigabytes': '{value} Go',
+  'settings.server.lastArchive': 'Dernière archive du serveur',
+  'settings.server.noArchive': 'Aucune pour l’instant',
+  'settings.server.archiveDueNone':
+    'Il n’existe encore aucune archive du serveur. Préparez-en une ci-dessous et téléchargez-la sur votre ordinateur.',
+  'settings.server.archiveDueOld':
+    'La dernière archive du serveur date de plus de {days} jours. Préparez-en une nouvelle ci-dessous et téléchargez-la sur votre ordinateur.',
+  'settings.server.archive.title': 'Archive du serveur',
+  'settings.server.archive.intro':
+    'Une copie chiffrée de toutes les données du serveur, pour le restaurer après une catastrophe. Elle est écrite sur le disque du serveur, qui conserve les 2 plus récentes ; vous la téléchargez ensuite sur votre ordinateur avec une commande dans votre propre fenêtre PowerShell. Elle n’est jamais téléchargeable par le site ou l’application.',
+  'settings.server.archive.listTitle': 'Archives sur le serveur',
+  'settings.server.archive.created': 'Préparée le',
+  'settings.server.archive.size': 'Taille',
+  'settings.server.archive.download': 'Commande de téléchargement',
+  'settings.server.archive.check': 'Commande de vérification',
+  'settings.server.archive.copyDownload': 'Copier la commande de téléchargement',
+  'settings.server.archive.copyCheck': 'Copier la commande de vérification',
+  'settings.server.archive.copied': 'La commande a été copiée.',
+  'settings.server.archive.copyFailed': 'La copie a échoué. Sélectionnez la commande et copiez-la manuellement.',
+  'settings.server.archive.stepsTitle': 'Comment télécharger l’archive',
+  'settings.server.archive.step.open': 'Sur votre ordinateur, ouvrez PowerShell dans le dossier où vous voulez garder le fichier.',
+  'settings.server.archive.step.download': 'Collez la commande de téléchargement et appuyez sur Entrée.',
+  'settings.server.archive.step.check':
+    'Collez la commande de vérification et appuyez sur Entrée. Elle doit afficher True ; sinon, téléchargez à nouveau le fichier.',
+  'settings.server.archive.step.keep':
+    'Conservez le fichier hors ligne (par exemple sur un disque externe) et la phrase secrète dans un autre endroit sûr.',
+  'settings.server.archive.prepare': 'Préparer une archive du serveur',
+  'settings.server.archive.formTitle': 'Préparer une nouvelle archive',
+  'settings.server.archive.password': 'Mot de passe de votre compte',
+  'settings.server.archive.passphrase': 'Phrase secrète de l’archive',
+  'settings.server.archive.passphraseHint':
+    'Au moins {min} caractères. Pas le mot de passe de votre compte : choisissez-en une autre et notez-la.',
+  'settings.server.archive.passphraseRepeat': 'Phrase secrète de l’archive, à nouveau',
+  'settings.server.archive.passphraseWarning':
+    'La phrase secrète est indispensable pour restaurer l’archive et ne peut pas être récupérée.',
+  'settings.server.archive.passwordMissing': 'Saisissez le mot de passe de votre compte.',
+  'settings.server.archive.passphraseShort': 'La phrase secrète de l’archive doit comporter au moins {min} caractères.',
+  'settings.server.archive.passphraseLong': 'La phrase secrète de l’archive peut comporter au plus {max} caractères.',
+  'settings.server.archive.passphraseMismatch': 'Les deux phrases secrètes ne sont pas identiques.',
+  'settings.server.archive.submit': 'Préparer l’archive',
+  'settings.server.archive.preparing': 'Préparation de l’archive. Cela peut prendre une minute : gardez cette page ouverte.',
+  'settings.server.archive.ready': 'L’archive {name} ({size}) est prête. Téléchargez-la maintenant avec la commande ci-dessous.',
+  'settings.server.archive.busy': 'Une archive est en cours de préparation.',
+  'settings.server.archive.nextAt': 'La prochaine archive pourra être préparée à partir de {time}.',
+  // Deletion request by e-mail (src/pages/settings/DeletionRequest.tsx, docs/android-tasks/ADMIN-TOOL.md item 3): the card builds two commands and sends nothing
+  'settings.server.deletion.title': 'Demande de suppression par e-mail',
+  'settings.server.deletion.intro':
+    'Pour une personne qui ne peut pas se connecter et demande par e-mail la suppression de son compte. L’application elle-même ne peut ni rechercher ni supprimer des comptes : saisissez ici l’adresse, et la carte prépare deux commandes pour PowerShell sur votre ordinateur, qui ne fonctionnent qu’avec votre connexion Fly. Rien de ce que vous saisissez ici n’est envoyé nulle part.',
+  'settings.server.deletion.check': 'Vérifiez que la demande provient de l’adresse enregistrée dans le compte.',
+  'settings.server.deletion.email': 'Adresse e-mail de la personne qui fait la demande',
+  'settings.server.deletion.waiting': 'Les commandes apparaissent ici dès que vous avez saisi une adresse e-mail complète.',
+  'settings.server.deletion.encoded':
+    'Cette adresse contient des caractères que PowerShell modifierait ; les commandes la transmettent donc encodée (b64:...), et l’outil la décode.',
+  'settings.server.deletion.find': 'Étape 1 : trouver le compte',
+  'settings.server.deletion.findHint':
+    'Collez-la dans PowerShell et appuyez sur Entrée. Elle ne modifie rien : elle affiche le nom d’utilisateur du compte, son adresse e-mail, sa date d’inscription et la taille de son journal.',
+  'settings.server.deletion.copyFind': 'Copier la commande de recherche',
+  'settings.server.deletion.username': 'Nom d’utilisateur affiché par la commande de recherche',
+  'settings.server.deletion.usernameHint': 'Saisissez-le exactement tel qu’il s’affiche ; la commande de suppression apparaît alors en dessous.',
+  'settings.server.deletion.usernameInvalid':
+    'Ce n’est pas un nom d’utilisateur : un nom d’utilisateur compte de 3 à 32 lettres, chiffres, points, traits d’union ou tirets bas.',
+  'settings.server.deletion.delete': 'Étape 2 : supprimer le compte',
+  'settings.server.deletion.deleteHint':
+    'Exécutez-la seulement après avoir vérifié l’adresse. Elle supprime définitivement le compte et son journal ; c’est irréversible. Notez dans votre registre la date qu’elle affiche.',
+  'settings.server.deletion.copyDelete': 'Copier la commande de suppression',
+};
+export default messages;

@@ -1,0 +1,50 @@
+Your Personal Diary to prywatny, inteligentny dziennik, którego wpisy są przechowywane na twoim własnym koncie na serwerze Your Personal Diary. Aby z niego korzystać, zakładasz konto w aplikacji, a do założenia konta i pierwszego logowania potrzebne jest połączenie z internetem. Piszesz o swoim dniu, a aplikacja pomaga dostrzec wzorce na przestrzeni tygodni, miesięcy i lat. Bez reklam, bez analityki, bez śledzenia.
+
+Zapisuj swój dzień
+- Wpisy własnymi słowami, z nastrojem, emocjami, energią, stresem, snem, aktywnością fizyczną, wydarzeniami, osobami, miejscem, notatkami i tagami.
+- Oś czasu dziennika i osobna strona dla każdego dnia.
+
+Nawyki i przypomnienia
+- Codzienne i cotygodniowe nawyki, które odhaczasz w ciągu dnia.
+- Opcjonalne przypomnienia wyświetlane jako powiadomienia systemu Windows, gdy aplikacja jest uruchomiona.
+
+Ostrożne spostrzeżenia
+- Aplikacja szuka możliwych zależności w twoich własnych danych, na przykład między snem a nastrojem albo między aktywnością fizyczną a energią.
+- Spostrzeżenia są formułowane ostrożnie i nigdy nie twierdzą, że jedno jest przyczyną drugiego.
+- „Dlaczego widzę to spostrzeżenie?” pokazuje, ile dni sprawdzono i jakie dokładnie liczby stoją za każdym spostrzeżeniem.
+- Gdy danych jest za mało, aplikacja mówi o tym wprost, zamiast zgadywać.
+
+Kalendarz, statystyki i wyszukiwanie
+- Kalendarz miesięczny gregoriański, hebrajski lub muzułmański (hidżry), ze świętami wybranego kalendarza.
+- Wykresy nastroju, energii, stresu, snu i nawyków w czasie, każdy z tabelą danych.
+- Inteligentne wyszukiwanie: zadaj pytanie w swoim języku, na przykład „W które dni sen trwał krócej niż pięć godzin?”, i otrzymaj odpowiedź z dziennika.
+
+Jedno konto na wszystkich urządzeniach
+- Twój dziennik jest przechowywany na twoim własnym koncie na serwerze Your Personal Diary. Zaloguj się na to samo konto na innym urządzeniu, a wszystko tam będzie.
+- To, co zmienisz na jednym urządzeniu, pojawi się na pozostałych.
+
+Działa dalej, gdy zniknie połączenie
+- Czytaj i pisz dalej. Zmiany są przechowywane na komputerze w postaci zaszyfrowanej i wysyłane automatycznie, gdy połączenie wróci, nawet jeśli w międzyczasie zamkniesz aplikację.
+- Z opcją „Zapamiętaj mnie” aplikacja przechowuje też zaszyfrowaną kopię ostatnio przeglądanych treści, aby otworzyć się i pokazać je bez połączenia.
+- Spostrzeżenia, wyszukiwanie, statystyki, kopia zapasowa, eksport i ustawienia konta wymagają połączenia.
+
+Prywatność i bezpieczeństwo
+- Twój dziennik jest przechowywany na serwerze w postaci zaszyfrowanej (AES-256), w osobnym pliku dla każdego konta. Samo hasło nie jest przechowywane.
+- Podczas sesji serwer otwiera twój dziennik w swojej pamięci, aby móc go wyświetlać, przeszukiwać i analizować. Polityka prywatności wyjaśnia, co to oznacza.
+- Aplikacja łączy się wyłącznie z serwerem Your Personal Diary, zawsze przez HTTPS.
+- Automatyczna blokada po okresie bezczynności i natychmiastowa blokada skrótem Ctrl+L.
+- Nie pamiętasz hasła? Zresetuj je za pomocą linku lub kodu wysłanego na twój adres e-mail i zachowaj swój dziennik.
+- Zaszyfrowana kopia zapasowa w pliku, który przechowujesz, gdzie chcesz, i przywracanie z niego.
+- Eksport dziennika do TXT, CSV, JSON lub PDF.
+- Usunięcie konta i wszystkich jego danych w dowolnej chwili w Ustawieniach.
+
+20 języków
+Angielski, hebrajski, arabski, chiński (uproszczony), japoński, hindi, tajski, hiszpański, portugalski, francuski, włoski, niemiecki, rumuński, grecki, polski, czeski, węgierski, rosyjski, bułgarski i turecki. Aplikacja otwiera się po angielsku: wybierz swój język w Ustawieniach (Settings), w sekcji Język (Language), a twoje konto go zapamięta. Hebrajski i arabski są wyświetlane od prawej do lewej.
+
+Dostępność
+- Działa z czytnikami ekranu: czytelne nagłówki, opisane pola i odczytywane komunikaty o stanie.
+- Wszystko można zrobić z klawiatury, ze skrótami do najważniejszych czynności.
+- Motyw jasny, ciemny i o wysokim kontraście, regulowany rozmiar tekstu i opcja ograniczenia animacji.
+
+Ważne
+Your Personal Diary to narzędzie do prowadzenia osobistego dziennika, przeznaczone dla osób w wieku od 16 lat. Nie jest narzędziem medycznym ani diagnostycznym, a jego spostrzeżenia nie są poradą medyczną ani psychologiczną. Jeśli martwisz się o swoje zdrowie, porozmawiaj z wykwalifikowanym specjalistą.

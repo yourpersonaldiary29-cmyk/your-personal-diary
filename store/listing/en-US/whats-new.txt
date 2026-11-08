@@ -1,0 +1,5 @@
+The first version in the Microsoft Store.
+- Your diary in your own account on the Your Personal Diary server, the same on all your devices
+- Keeps working when the connection drops and uploads your changes when it returns
+- Password reset by e-mail
+- 20 languages

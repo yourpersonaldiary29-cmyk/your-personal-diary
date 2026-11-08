@@ -1,0 +1,203 @@
+{
+  "_comment": "Microsoft Store listing captions for the desktop screenshots in store/screenshots/<tag>/ (made by: node scripts/play/render-screenshots.mjs --profile desktop). Partner Center: 'You can also provide a short caption that describes each screenshot in 200 characters or less', per listing language (learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/screenshots-and-images). Keys: the Store listing tag, then the file name. Checked by: node scripts/store-shots/check-screenshots.mjs (a caption for every file, at most 200 characters, the honest-claims rules of scripts/play/check-listing.mjs).",
+  "en-US": {
+    "01-home.png": "Home: today at a glance – your entries, your writing streak and the 7-day averages of mood, energy, stress and sleep.",
+    "02-diary.png": "My diary: your entries day by day, each with its mood, energy, stress, sleep and emotions.",
+    "03-entry.png": "An entry: your own text, ratings, sleep, exercise, emotions, notes and tags – write as much or as little as you like.",
+    "04-calendar.png": "Calendar: mood, energy, habits and entries on every day of the month, in the Gregorian, Hebrew or Hijri calendar.",
+    "05-habits.png": "Habits: daily goals with streaks, 30-day completion and a quick way to log today's progress.",
+    "06-insights.png": "Insights: patterns found in your own entries – and each one explains why you got it.",
+    "07-settings.png": "Settings: 20 interface languages, your account and the devices signed in to it.",
+    "08-offline.png": "No connection? Keep writing: the entry is saved on this device and uploaded to the server when the connection returns."
+  },
+  "he-IL": {
+    "01-home.png": "דף הבית: היום במבט אחד – הרשומות שלכם, רצף הכתיבה וממוצעי מצב הרוח, האנרגיה, הלחץ והשינה בשבעת הימים האחרונים.",
+    "02-diary.png": "היומן שלי: הרשומות שלכם יום אחר יום, כל אחת עם מצב הרוח, האנרגיה, הלחץ, השינה והרגשות שלה.",
+    "03-entry.png": "רשומה: טקסט חופשי, דירוגים, שינה, פעילות גופנית, רגשות, הערות ותגיות – כותבים כמה שרוצים.",
+    "04-calendar.png": "לוח שנה: מצב רוח, אנרגיה, הרגלים ורשומות בכל יום בחודש – בלוח הגרגוריאני, העברי או המוסלמי.",
+    "05-habits.png": "הרגלים: יעדים יומיים עם רצפים, אחוז השלמה ב-30 הימים האחרונים ועדכון מהיר של היום.",
+    "06-insights.png": "תובנות: דפוסים שנמצאו ברשומות שלכם – וכל תובנה מסבירה למה קיבלתם אותה.",
+    "07-settings.png": "הגדרות: 20 שפות ממשק, החשבון שלכם והמכשירים שמחוברים אליו.",
+    "08-offline.png": "אין חיבור? ממשיכים לכתוב: הרשומה נשמרת במכשיר ועולה לשרת כשהחיבור חוזר."
+  },
+  "zh-CN": {
+    "01-home.png": "首页：今天一目了然——您的记录、连续写作天数，以及最近 7 天心情、精力、压力和睡眠的平均值。",
+    "02-diary.png": "我的日记：按天查看您的记录，每条都附有心情、精力、压力、睡眠和情绪。",
+    "03-entry.png": "一条记录：正文、评分、睡眠、运动、情绪、备注和标签——想写多少就写多少。",
+    "04-calendar.png": "日历：每月每一天的心情、精力、习惯和记录，可使用公历、希伯来历或伊斯兰历。",
+    "05-habits.png": "习惯：每日目标、连续天数、30 天完成率，并可快速记录今天的进度。",
+    "06-insights.png": "洞察：从您自己的记录中发现的规律——每条洞察都会说明您为什么会看到它。",
+    "07-settings.png": "设置：20 种界面语言、您的账户以及已登录该账户的设备。",
+    "08-offline.png": "没有网络？照样写：记录先保存在本设备上，连接恢复后再上传到服务器。"
+  },
+  "es-ES": {
+    "01-home.png": "Inicio: tu día de un vistazo – tus entradas, tu racha de escritura y las medias de 7 días de estado de ánimo, energía, estrés y sueño.",
+    "02-diary.png": "Mi diario: tus entradas día a día, cada una con su ánimo, energía, estrés, sueño y emociones.",
+    "03-entry.png": "Una entrada: texto libre, valoraciones, sueño, ejercicio, emociones, notas y etiquetas; escribe tanto o tan poco como quieras.",
+    "04-calendar.png": "Calendario: ánimo, energía, hábitos y entradas en cada día del mes, en el calendario gregoriano, hebreo o de la Hégira.",
+    "05-habits.png": "Hábitos: objetivos diarios con rachas, cumplimiento de los últimos 30 días y una forma rápida de registrar el progreso de hoy.",
+    "06-insights.png": "Observaciones: patrones encontrados en tus propias entradas, y cada una explica por qué la recibes.",
+    "07-settings.png": "Ajustes: 20 idiomas de interfaz, tu cuenta y los dispositivos conectados a ella.",
+    "08-offline.png": "¿Sin conexión? Sigue escribiendo: la entrada se guarda en este dispositivo y se sube al servidor cuando vuelve la conexión."
+  },
+  "pl-PL": {
+    "01-home.png": "Strona główna: dzień w skrócie – twoje wpisy, seria pisania i średnie z 7 dni: nastrój, energia, stres i sen.",
+    "02-diary.png": "Mój dziennik: twoje wpisy dzień po dniu, każdy z nastrojem, energią, stresem, snem i emocjami.",
+    "03-entry.png": "Wpis: dowolny tekst, oceny, sen, aktywność fizyczna, emocje, notatki i tagi – pisz tyle, ile chcesz.",
+    "04-calendar.png": "Kalendarz: nastrój, energia, nawyki i wpisy w każdym dniu miesiąca – w kalendarzu gregoriańskim, hebrajskim lub hidżry.",
+    "05-habits.png": "Nawyki: codzienne cele z seriami, wykonanie z ostatnich 30 dni i szybkie zapisywanie dzisiejszych postępów.",
+    "06-insights.png": "Spostrzeżenia: wzorce znalezione w twoich własnych wpisach – każde wyjaśnia, skąd się wzięło.",
+    "07-settings.png": "Ustawienia: 20 języków interfejsu, twoje konto i urządzenia, które są do niego zalogowane.",
+    "08-offline.png": "Brak połączenia? Pisz dalej: wpis zostaje zapisany na tym urządzeniu i trafia na serwer, gdy połączenie wróci."
+  },
+  "ru-RU": {
+    "01-home.png": "Главная: день с первого взгляда — ваши записи, серия записей подряд и средние за 7 дней: настроение, энергия, стресс и сон.",
+    "02-diary.png": "Мой дневник: ваши записи день за днём, у каждой — настроение, энергия, стресс, сон и эмоции.",
+    "03-entry.png": "Запись: свободный текст, оценки, сон, физическая активность, эмоции, заметки и теги — пишите сколько хотите.",
+    "04-calendar.png": "Календарь: настроение, энергия, привычки и записи на каждый день месяца — по григорианскому, еврейскому календарю или хиджре.",
+    "05-habits.png": "Привычки: ежедневные цели с сериями, выполнение за 30 дней и быстрая отметка сегодняшнего прогресса.",
+    "06-insights.png": "Наблюдения: закономерности в ваших собственных записях — и каждое объясняет, почему вы его видите.",
+    "07-settings.png": "Настройки: 20 языков интерфейса, ваш аккаунт и устройства, на которых в него выполнен вход.",
+    "08-offline.png": "Нет связи? Продолжайте писать: запись сохраняется на этом устройстве и отправляется на сервер, когда связь вернётся."
+  },
+  "fr-FR": {
+    "01-home.png": "Accueil : votre journée en un coup d'œil – vos entrées, votre série d'écriture et les moyennes sur 7 jours de l'humeur, de l'énergie, du stress et du sommeil.",
+    "02-diary.png": "Mon journal : vos entrées jour après jour, chacune avec son humeur, son énergie, son stress, son sommeil et ses émotions.",
+    "03-entry.png": "Une entrée : texte libre, notes, sommeil, activité physique, émotions, remarques et étiquettes – écrivez autant ou aussi peu que vous voulez.",
+    "04-calendar.png": "Calendrier : humeur, énergie, habitudes et entrées pour chaque jour du mois, dans le calendrier grégorien, hébraïque ou hégirien.",
+    "05-habits.png": "Habitudes : des objectifs quotidiens avec séries, le taux de réussite sur 30 jours et une saisie rapide du jour.",
+    "06-insights.png": "Observations : des tendances trouvées dans vos propres entrées – et chacune explique pourquoi vous la voyez.",
+    "07-settings.png": "Paramètres : 20 langues d'interface, votre compte et les appareils qui y sont connectés.",
+    "08-offline.png": "Pas de connexion ? Continuez à écrire : l'entrée est enregistrée sur cet appareil et envoyée au serveur dès que la connexion revient."
+  },
+  "ar-SA": {
+    "01-home.png": "الرئيسية: يومك في لمحة – تدويناتك وسلسلة الكتابة ومتوسطات آخر 7 أيام للمزاج والطاقة والتوتر والنوم.",
+    "02-diary.png": "يومياتي: تدويناتك يومًا بيوم، ولكل منها المزاج والطاقة والتوتر والنوم والمشاعر.",
+    "03-entry.png": "تدوينة: نص حر وتقييمات ونوم ونشاط بدني ومشاعر وملاحظات ووسوم – اكتب ما تشاء، قليلًا أو كثيرًا.",
+    "04-calendar.png": "التقويم: المزاج والطاقة والعادات والتدوينات في كل يوم من أيام الشهر، بالتقويم الهجري أو الميلادي أو العبري.",
+    "05-habits.png": "العادات: أهداف يومية مع سلاسل الإنجاز ونسبة الإنجاز في آخر 30 يومًا وتسجيل سريع لتقدّم اليوم.",
+    "06-insights.png": "الرؤى: أنماط مستخرجة من تدويناتك أنت – وكل رؤية توضّح لماذا ظهرت لك.",
+    "07-settings.png": "الإعدادات: 20 لغة للواجهة، وحسابك والأجهزة المسجّل دخولها إليه.",
+    "08-offline.png": "لا يوجد اتصال؟ تابع الكتابة: تُحفظ التدوينة على هذا الجهاز وتُرفع إلى الخادم عند عودة الاتصال."
+  },
+  "ja-JP": {
+    "01-home.png": "ホーム：今日がひと目でわかります。記録、連続記録日数、過去7日間の気分・エネルギー・ストレス・睡眠の平均。",
+    "02-diary.png": "わたしの日記：日ごとの記録。それぞれに気分、エネルギー、ストレス、睡眠、感情が表示されます。",
+    "03-entry.png": "記録：本文、評価、睡眠、運動、感情、メモ、タグ。書きたいだけ書けます。",
+    "04-calendar.png": "カレンダー：月の毎日の気分、エネルギー、習慣、記録。グレゴリオ暦、ユダヤ暦、ヒジュラ暦で表示できます。",
+    "05-habits.png": "習慣：毎日の目標と連続日数、過去30日間の達成率。今日の進み具合もすぐに記録できます。",
+    "06-insights.png": "気づき：あなた自身の記録から見つかったパターン。それぞれ、なぜその気づきが出たのかを説明します。",
+    "07-settings.png": "設定：20の表示言語、アカウント、ログイン中のデバイス。",
+    "08-offline.png": "接続がなくても書き続けられます。記録はこのデバイスに保存され、接続が戻るとサーバーにアップロードされます。"
+  },
+  "tr-TR": {
+    "01-home.png": "Ana sayfa: gününüz bir bakışta – kayıtlarınız, yazma seriniz ve son 7 günün ruh hali, enerji, stres ve uyku ortalamaları.",
+    "02-diary.png": "Günlüğüm: kayıtlarınız gün gün; her birinde ruh hali, enerji, stres, uyku ve duygular.",
+    "03-entry.png": "Bir kayıt: serbest metin, puanlar, uyku, egzersiz, duygular, notlar ve etiketler – istediğiniz kadar yazın.",
+    "04-calendar.png": "Takvim: ayın her günü için ruh hali, enerji, alışkanlıklar ve kayıtlar; Miladi, İbrani veya Hicri takvimle.",
+    "05-habits.png": "Alışkanlıklar: serilerle günlük hedefler, son 30 günün tamamlanma oranı ve bugünün ilerlemesini hızlıca girme.",
+    "06-insights.png": "İçgörüler: kendi kayıtlarınızda bulunan örüntüler – her biri neden gösterildiğini açıklar.",
+    "07-settings.png": "Ayarlar: 20 arayüz dili, hesabınız ve hesaba giriş yapmış cihazlar.",
+    "08-offline.png": "Bağlantı mı yok? Yazmaya devam edin: kayıt bu cihaza kaydedilir ve bağlantı geri geldiğinde sunucuya yüklenir."
+  },
+  "cs-CZ": {
+    "01-home.png": "Domů: den na první pohled – tvoje záznamy, série psaní a průměry nálady, energie, stresu a spánku za 7 dní.",
+    "02-diary.png": "Můj deník: tvoje záznamy den po dni, každý s náladou, energií, stresem, spánkem a emocemi.",
+    "03-entry.png": "Záznam: volný text, hodnocení, spánek, pohyb, emoce, poznámky a štítky – napiš, kolik chceš.",
+    "04-calendar.png": "Kalendář: nálada, energie, návyky a záznamy pro každý den v měsíci – v gregoriánském, židovském nebo hidžrském kalendáři.",
+    "05-habits.png": "Návyky: denní cíle se sériemi, plnění za posledních 30 dní a rychlý zápis dnešního pokroku.",
+    "06-insights.png": "Postřehy: vzorce nalezené v tvých vlastních záznamech – a každý vysvětlí, proč se ti zobrazil.",
+    "07-settings.png": "Nastavení: 20 jazyků rozhraní, tvůj účet a zařízení, která jsou k němu přihlášená.",
+    "08-offline.png": "Bez spojení? Piš dál: záznam se uloží v tomto zařízení a nahraje se na server, až se spojení obnoví."
+  },
+  "hu-HU": {
+    "01-home.png": "Kezdőlap: a napod egy pillantással – bejegyzéseid, írási sorozatod és a hangulat, az energia, a stressz és az alvás 7 napos átlaga.",
+    "02-diary.png": "Naplóm: bejegyzéseid napról napra, mindegyiknél a hangulat, az energia, a stressz, az alvás és az érzelmek.",
+    "03-entry.png": "Bejegyzés: szabad szöveg, értékelések, alvás, mozgás, érzelmek, jegyzetek és címkék – annyit írsz, amennyit szeretnél.",
+    "04-calendar.png": "Naptár: hangulat, energia, szokások és bejegyzések a hónap minden napján – Gergely-, zsidó vagy hidzsra naptár szerint.",
+    "05-habits.png": "Szokások: napi célok sorozatokkal, az elmúlt 30 nap teljesítése és a mai haladás gyors rögzítése.",
+    "06-insights.png": "Meglátások: a saját bejegyzéseidben talált minták – és mindegyik elmagyarázza, miért kaptad.",
+    "07-settings.png": "Beállítások: 20 felületi nyelv, a fiókod és a hozzá bejelentkezett eszközök.",
+    "08-offline.png": "Nincs kapcsolat? Írj tovább: a bejegyzés ezen az eszközön mentődik, és a kapcsolat helyreállásakor a szerverre kerül."
+  },
+  "bg-BG": {
+    "01-home.png": "Начало: денят ви с един поглед – вашите записи, поредицата от писане и средните стойности за 7 дни за настроение, енергия, стрес и сън.",
+    "02-diary.png": "Моят дневник: вашите записи ден по ден, всеки с настроение, енергия, стрес, сън и емоции.",
+    "03-entry.png": "Запис: свободен текст, оценки, сън, упражнения, емоции, бележки и етикети – пишете колкото искате.",
+    "04-calendar.png": "Календар: настроение, енергия, навици и записи за всеки ден от месеца – по григорианския, еврейския или хиджра календара.",
+    "05-habits.png": "Навици: ежедневни цели с поредици, изпълнение за последните 30 дни и бързо отбелязване на днешния напредък.",
+    "06-insights.png": "Наблюдения: закономерности, открити във вашите собствени записи – и всяко обяснява защо го виждате.",
+    "07-settings.png": "Настройки: 20 езика на интерфейса, вашият профил и устройствата, влезли в него.",
+    "08-offline.png": "Няма връзка? Продължете да пишете: записът се запазва на това устройство и се качва на сървъра, когато връзката се възстанови."
+  },
+  "el-GR": {
+    "01-home.png": "Αρχική: η μέρα σου με μια ματιά – οι καταχωρίσεις σου, το σερί γραψίματος και οι μέσοι όροι 7 ημερών για διάθεση, ενέργεια, άγχος και ύπνο.",
+    "02-diary.png": "Το ημερολόγιό μου: οι καταχωρίσεις σου μέρα με τη μέρα, η καθεμία με διάθεση, ενέργεια, άγχος, ύπνο και συναισθήματα.",
+    "03-entry.png": "Μια καταχώριση: ελεύθερο κείμενο, βαθμολογίες, ύπνος, άσκηση, συναισθήματα, σημειώσεις και ετικέτες – γράψε όσα θέλεις.",
+    "04-calendar.png": "Μηνιαίο ημερολόγιο: διάθεση, ενέργεια, συνήθειες και καταχωρίσεις για κάθε μέρα του μήνα – στο γρηγοριανό, το εβραϊκό ή το ισλαμικό ημερολόγιο.",
+    "05-habits.png": "Συνήθειες: καθημερινοί στόχοι με σερί, ολοκλήρωση των τελευταίων 30 ημερών και γρήγορη καταγραφή της σημερινής προόδου.",
+    "06-insights.png": "Παρατηρήσεις: μοτίβα που βρέθηκαν στις δικές σου καταχωρίσεις – και η καθεμία εξηγεί γιατί τη βλέπεις.",
+    "07-settings.png": "Ρυθμίσεις: 20 γλώσσες περιβάλλοντος, ο λογαριασμός σου και οι συσκευές που είναι συνδεδεμένες σε αυτόν.",
+    "08-offline.png": "Δεν υπάρχει σύνδεση; Συνέχισε να γράφεις: η καταχώριση αποθηκεύεται σε αυτή τη συσκευή και ανεβαίνει στον διακομιστή όταν επανέλθει η σύνδεση."
+  },
+  "pt-PT": {
+    "01-home.png": "Início: o seu dia num relance – as suas entradas, a sua sequência de escrita e as médias de 7 dias de humor, energia, stress e sono.",
+    "02-diary.png": "O meu diário: as suas entradas dia a dia, cada uma com humor, energia, stress, sono e emoções.",
+    "03-entry.png": "Uma entrada: texto livre, avaliações, sono, exercício, emoções, notas e etiquetas – escreva tanto ou tão pouco quanto quiser.",
+    "04-calendar.png": "Calendário: humor, energia, hábitos e entradas em cada dia do mês, no calendário gregoriano, hebraico ou da Hégira.",
+    "05-habits.png": "Hábitos: objetivos diários com sequências, cumprimento nos últimos 30 dias e um registo rápido do progresso de hoje.",
+    "06-insights.png": "Observações: padrões encontrados nas suas próprias entradas – e cada uma explica porque a recebeu.",
+    "07-settings.png": "Definições: 20 idiomas de interface, a sua conta e os dispositivos com sessão iniciada nela.",
+    "08-offline.png": "Sem ligação? Continue a escrever: a entrada é guardada neste dispositivo e enviada para o servidor quando a ligação voltar."
+  },
+  "de-DE": {
+    "01-home.png": "Startseite: dein Tag auf einen Blick – deine Einträge, deine Schreibserie und die 7-Tage-Durchschnitte von Stimmung, Energie, Stress und Schlaf.",
+    "02-diary.png": "Mein Tagebuch: deine Einträge Tag für Tag, jeder mit Stimmung, Energie, Stress, Schlaf und Gefühlen.",
+    "03-entry.png": "Ein Eintrag: freier Text, Bewertungen, Schlaf, Sport, Gefühle, Notizen und Schlagwörter – schreib so viel oder so wenig, wie du willst.",
+    "04-calendar.png": "Kalender: Stimmung, Energie, Gewohnheiten und Einträge an jedem Tag des Monats – im gregorianischen, hebräischen oder Hidschri-Kalender.",
+    "05-habits.png": "Gewohnheiten: tägliche Ziele mit Serien, Erfüllung der letzten 30 Tage und schnelles Eintragen des heutigen Fortschritts.",
+    "06-insights.png": "Erkenntnisse: Muster aus deinen eigenen Einträgen – und jede erklärt, warum du sie siehst.",
+    "07-settings.png": "Einstellungen: 20 Sprachen der Oberfläche, dein Konto und die Geräte, die damit angemeldet sind.",
+    "08-offline.png": "Keine Verbindung? Schreib einfach weiter: Der Eintrag wird auf diesem Gerät gespeichert und auf den Server hochgeladen, sobald die Verbindung wieder da ist."
+  },
+  "ro-RO": {
+    "01-home.png": "Acasă: ziua ta dintr-o privire – însemnările tale, seria de scris și mediile pe 7 zile pentru dispoziție, energie, stres și somn.",
+    "02-diary.png": "Jurnalul meu: însemnările tale zi de zi, fiecare cu dispoziția, energia, stresul, somnul și emoțiile ei.",
+    "03-entry.png": "O însemnare: text liber, evaluări, somn, mișcare, emoții, notițe și etichete – scrie cât vrei.",
+    "04-calendar.png": "Calendar: dispoziție, energie, obiceiuri și însemnări pentru fiecare zi a lunii – în calendarul gregorian, ebraic sau hegirian.",
+    "05-habits.png": "Obiceiuri: obiective zilnice cu serii, îndeplinirea din ultimele 30 de zile și notarea rapidă a progresului de azi.",
+    "06-insights.png": "Observații: tipare găsite în propriile tale însemnări – și fiecare explică de ce o vezi.",
+    "07-settings.png": "Setări: 20 de limbi pentru interfață, contul tău și dispozitivele conectate la el.",
+    "08-offline.png": "Fără conexiune? Scrie mai departe: însemnarea se salvează pe acest dispozitiv și se încarcă pe server când revine conexiunea."
+  },
+  "it-IT": {
+    "01-home.png": "Home: la tua giornata a colpo d'occhio – le tue voci, la serie di scrittura e le medie di 7 giorni di umore, energia, stress e sonno.",
+    "02-diary.png": "Il mio diario: le tue voci giorno per giorno, ognuna con umore, energia, stress, sonno ed emozioni.",
+    "03-entry.png": "Una voce: testo libero, valutazioni, sonno, attività fisica, emozioni, note e tag – scrivi quanto vuoi.",
+    "04-calendar.png": "Calendario: umore, energia, abitudini e voci per ogni giorno del mese, nel calendario gregoriano, ebraico o dell'Egira.",
+    "05-habits.png": "Abitudini: obiettivi giornalieri con serie, completamento negli ultimi 30 giorni e registrazione rapida dei progressi di oggi.",
+    "06-insights.png": "Osservazioni: schemi trovati nelle tue stesse voci – e ognuna spiega perché la vedi.",
+    "07-settings.png": "Impostazioni: 20 lingue dell'interfaccia, il tuo account e i dispositivi connessi.",
+    "08-offline.png": "Nessuna connessione? Continua a scrivere: la voce viene salvata su questo dispositivo e caricata sul server quando torna la connessione."
+  },
+  "th-TH": {
+    "01-home.png": "หน้าแรก: ดูวันนี้ได้ในแวบเดียว – บันทึกของคุณ ความต่อเนื่องในการเขียน และค่าเฉลี่ย 7 วันของอารมณ์ พลังงาน ความเครียด และการนอน",
+    "02-diary.png": "ไดอารี่ของฉัน: บันทึกของคุณทีละวัน แต่ละรายการมีอารมณ์ พลังงาน ความเครียด การนอน และความรู้สึก",
+    "03-entry.png": "บันทึก: ข้อความอิสระ คะแนน การนอน การออกกำลังกาย ความรู้สึก หมายเหตุ และแท็ก – เขียนมากหรือน้อยก็ได้ตามต้องการ",
+    "04-calendar.png": "ปฏิทิน: อารมณ์ พลังงาน นิสัย และบันทึกของทุกวันในเดือน ในปฏิทินเกรกอเรียน ฮีบรู หรือฮิจเราะห์",
+    "05-habits.png": "นิสัย: เป้าหมายรายวันพร้อมความต่อเนื่อง อัตราความสำเร็จ 30 วัน และการบันทึกความคืบหน้าของวันนี้อย่างรวดเร็ว",
+    "06-insights.png": "ข้อสังเกต: รูปแบบที่พบในบันทึกของคุณเอง – และแต่ละข้ออธิบายว่าทำไมคุณจึงได้รับ",
+    "07-settings.png": "การตั้งค่า: ภาษาอินเทอร์เฟซ 20 ภาษา บัญชีของคุณ และอุปกรณ์ที่ลงชื่อเข้าใช้บัญชีนี้",
+    "08-offline.png": "ไม่มีการเชื่อมต่อ? เขียนต่อได้เลย: บันทึกจะถูกเก็บไว้ในอุปกรณ์นี้ และอัปโหลดไปยังเซิร์ฟเวอร์เมื่อการเชื่อมต่อกลับมา"
+  },
+  "hi-IN": {
+    "01-home.png": "होम: आज का दिन एक नज़र में – आपकी प्रविष्टियाँ, लेखन का सिलसिला और पिछले 7 दिनों में मूड, ऊर्जा, तनाव और नींद का औसत।",
+    "02-diary.png": "मेरी डायरी: आपकी प्रविष्टियाँ दिन-ब-दिन, हर एक के साथ मूड, ऊर्जा, तनाव, नींद और भावनाएँ।",
+    "03-entry.png": "एक प्रविष्टि: खुला पाठ, रेटिंग, नींद, व्यायाम, भावनाएँ, नोट्स और टैग – जितना चाहें उतना लिखें।",
+    "04-calendar.png": "कैलेंडर: महीने के हर दिन का मूड, ऊर्जा, आदतें और प्रविष्टियाँ – ग्रेगोरियन, हिब्रू या हिजरी कैलेंडर में।",
+    "05-habits.png": "आदतें: सिलसिले के साथ रोज़ के लक्ष्य, पिछले 30 दिनों की पूर्णता और आज की प्रगति को जल्दी दर्ज करने का तरीका।",
+    "06-insights.png": "अंतर्दृष्टियाँ: आपकी अपनी प्रविष्टियों में मिले पैटर्न – और हर एक बताती है कि वह आपको क्यों मिली।",
+    "07-settings.png": "सेटिंग्स: इंटरफ़ेस की 20 भाषाएँ, आपका खाता और उसमें साइन इन किए गए डिवाइस।",
+    "08-offline.png": "कनेक्शन नहीं है? लिखते रहें: प्रविष्टि इसी डिवाइस पर सहेजी जाती है और कनेक्शन लौटने पर सर्वर पर अपलोड हो जाती है।"
+  }
+}

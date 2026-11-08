@@ -1,0 +1,5 @@
+Prima versiune în Microsoft Store.
+- Jurnalul tău în propriul cont pe serverul Your Personal Diary, același pe toate dispozitivele tale
+- Funcționează în continuare când cade conexiunea și încarcă modificările când aceasta revine
+- Resetarea parolei prin e-mail
+- 20 de limbi

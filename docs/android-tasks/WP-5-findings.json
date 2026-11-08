@@ -1,0 +1,44 @@
+[
+ {
+  "severity": "medium",
+  "file": "C:\\Users\\AVI\\Projects\\my-personal-diary\\mobile\\core\\boot.ts",
+  "title": "A storage that refuses writes turns EVERY request into 500 IO - reads, export, backup download, logout, even /api/health",
+  "evidence": "Scratch test on the real core in-process (bootTestCore on FaultyStorage(MemoryStorage) from mobile/test/vfs/helpers.ts): register, 3 entries, flushAll, then faulty.failAlways('write') and one more save. Results while the storage refuses: POST /api/entries -> 201; GET /api/health -> 500 {\"code\":\"IO\",\"message\":\"File error: The diary file could not be written\"}; GET /api/entries?limit=2 -> 500; GET /api/entries/1 -> 500; POST /api/export {format:'json'} -> 500; POST /api/backup/create -> 500; GET /api/server/info -> 500; GET /api/auth/me -> 500; POST /api/auth/logout -> 500 (four consecutive requests all 500, so it is not one-shot). core.flushAll() rejects with EIO. After faulty.repair(): GET /api/health -> 200, entries intact, restart on the storage finds them. Cause: handle() runs drainTwice() after every request and answers ioFailureResponse whenever vfs.drain() rejects; while a file is out of sync the VFS re-tries it on each drain and rejects again, whoever asked. On the desktop a full disk only fails saving - reading, exporting and backing up keep working; on the phone a full storage makes the diary unreadable and blocks the two rescue paths (export, backup download) until space is freed.",
+  "fix": "In handle(): replace the answer by 500 IO only for requests that can write (not GET/HEAD/OPTIONS, and not the download answers of POST /api/export and POST /api/backup/create); for the others post the real answer and report the storage failure to the host as an event (e.g. a new 'storage-failed' CoreEvent or the existing 'log' error) so the UI can show a banner. Add a test with FaultyStorage.failAlways('write') asserting that GET /api/entries, export and backup create still answer 200."
+ },
+ {
+  "severity": "medium",
+  "file": "C:\\Users\\AVI\\Projects\\my-personal-diary\\mobile\\core\\boot.ts",
+  "title": "The drain barrier does not cover diary data: the 201/200 answer is posted about 250 ms before the entry reaches the storage (kill right after the answer = entry lost)",
+  "evidence": "Scratch test: register, flushAll, POST /api/entries (40 kB body). Size of users/<id>.mpd in the MemoryStorage: before 53313 bytes; when the 201 answer arrived 53313; +100 ms 53313; +600 ms 90177. A second core booted on a copy of the storage taken at the moment of the answer: GET /api/entries -> 200, total 0. Same through the full worker stack (createCoreClient + serveStorage with structured-clone transfers): file 53313 bytes at the 201 answer, 102465 after control('flushAll'). Same for POST /api/habits (201, 0 habits after the restart) and PUT /api/settings (language back to the default). Cause: server/src/security/vault.ts schedules the persist 250 ms after a write (debounce), so when handle() calls vfs.drain() right after dispatch nothing is queued yet; only accounts.json / sessions.json (written synchronously) are covered. The header comment of boot.ts ('the answer is sent only when everything the request wrote is in the storage') and mobile/test/core/boot.test.ts ('The answer was sent only after the storage had the change (drain barrier)') claim the opposite; that test only asserts byteLength > 0 of a file that exists since registration, then shutdown() flushes before the restart, so it cannot fail. Nothing calls flushAll yet (WP-9), and on a phone the process is killed far more often than on the desktop.",
+  "fix": "In handle(), after a mutating request that answered 2xx, await auth.vaults.persistAll() (persistIfDirty: free when nothing changed) before drainTwice(), so the answer really waits for the diary file; add a test that copies the storage at answer time, boots a second core on the copy and finds the entry. If the cost of one encrypt+write per save is judged too high on the phone, keep the debounce but correct the comment and the test, and make the flush-on-pause of WP-9 a stated requirement."
+ },
+ {
+  "severity": "low",
+  "file": "C:\\Users\\AVI\\Projects\\my-personal-diary\\mobile\\host\\core-client.ts",
+  "title": "After control('shutdown') the client is not marked dead: later requests and controls never settle (UI hangs instead of the 'no connection' error)",
+  "evidence": "Real Worker in the browser (mobile-dist served by vite preview on 127.0.0.1:4393): request before shutdown answered 200; {type:'control',action:'shutdown'} -> control-result ok:true; a request posted 1.5 s later got no message at all within 4 s; then pressing 'Skip - just look' left the button disabled/busy for 6 s with no alert and no navigation. Same in vitest with a worker double that drops messages after close(): client.coreFetch('/api/health') still pending after 1.5 s, client.control('flushAll') still pending after 0.5 s. worker.ts calls scope.close() after posting the result; core-client.ts resolves the control and keeps accepting requests (dead stays null).",
+  "fix": "In createCoreClient().control(): when a 'shutdown' result arrives (ok or not), call kill(new Error('The diary core was shut down.')) so pending and later coreFetch calls reject with ApiClientError status 0 and later controls reject; add a test. WP-9 (the first caller of shutdown) should know the page must be reloaded afterwards."
+ },
+ {
+  "severity": "low",
+  "file": "C:\\Users\\AVI\\Projects\\my-personal-diary\\mobile\\core\\express-shim\\body.ts",
+  "title": "express.json() of the shim differs from Express in two inputs: '+json' media types are parsed, a leading BOM is rejected",
+  "evidence": "Scratch contract run (same request against the core and the desktop server from source, 52 odd requests; all others agreed, incl. 413/415/400 parse errors, query and path edge cases, HEAD/OPTIONS): (a) POST /api/entries with Content-Type application/vnd.api+json: core 201 (entry created), desktop 400 {\"code\":\"VALIDATION\",\"message\":\"The request body must be an entry object\"} - body.ts typeMatches() adds `type === 'application/json' && mediaType.endsWith('+json')`, which Express's default type does not do. (b) POST /api/entries with a JSON text body that starts with U+FEFF: core 400 {\"code\":\"VALIDATION\",\"message\":\"The request body is not valid JSON\"}, desktop 201 (body-parser strips the BOM while decoding). The UI sends neither form today.",
+  "fix": "Remove the '+json' special case from typeMatches() (keep it only when the caller passes such a type), strip one leading U+FEFF from a textual body before the strict first-character check, and add both cases to mobile/test/core/express-shim.test.ts."
+ },
+ {
+  "severity": "low",
+  "file": "C:\\Users\\AVI\\Projects\\my-personal-diary\\mobile\\core\\boot.ts",
+  "title": "Password-reset e-mail composed by the phone core carries a dead link (http://127.0.0.1:0/...)",
+  "evidence": "Scratch test with an injected capturing SmtpTransport (bootOptions.mailTransport), mail settings saved via PUT /api/server/mail, POST /api/auth/forgot-password -> 200; the one e-mail handed to the transport contains http://127.0.0.1:0/#/reset-password?token=... . Cause: boot.ts passes getListenInfo: () => ({ port: 0, ... }) and server/src/routes/auth.ts resetLinkBase() builds `http://127.0.0.1:${port}` when there is no remote controller. Latent today (the stub transport rejects every send) but becomes user-visible the day WP-12 injects the native SMTP plugin; the 6-digit code in the same mail works.",
+  "fix": "Decide the phone's reset path before WP-12: either an e-mail without the link (code only) or a link base the app can open (deep link handled by the host). It needs a tiny seam, e.g. an optional deps.resetLinkBase used by resetLinkBase(), set by mobile/core/boot.ts; add a core test that inspects the composed mail."
+ },
+ {
+  "severity": "low",
+  "file": "C:\\Users\\AVI\\Projects\\my-personal-diary\\mobile\\shared\\transport.ts",
+  "title": "habits-changed is posted BEFORE the answer of the request; the protocol comment promises 'after'",
+  "evidence": "Worker channel order for POST /api/habits (scratch test on runCoreWorker): [\"event:habits-changed\", \"response#2=201\"]. boot.ts handle() calls emit() before it returns the response that worker.ts then posts; transport.ts (CoreHabitsChangedEvent) says 'Sent after the answer of the request.' The event is also raised for a request the host cancelled.",
+  "fix": "Either post the event from worker.ts serve() after post(response) (handle() can return a flag), or correct the comment in transport.ts so WP-8 does not rely on the documented order."
+ }
+]

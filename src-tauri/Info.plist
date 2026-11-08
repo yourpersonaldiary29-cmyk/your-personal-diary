@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Extra Info.plist keys of the Mac app "Your Personal Diary" (docs/MAC-RELEASE.he.md, package MAC-M4).
+  Tauri merges this file into the Info.plist it generates for the macOS bundle (and embeds it into the
+  macOS binary for `tauri dev`); Windows and Android never read it. Keep only keys Tauri does not
+  generate itself: CFBundleIdentifier, CFBundleVersion, LSMinimumSystemVersion,
+  LSApplicationCategoryType and the icon come from src-tauri/tauri.conf.json + tauri.macos.conf.json.
+  Check the result in the built bundle:
+    /usr/libexec/PlistBuddy -c "Print" "Your Personal Diary.app/Contents/Info.plist"
+-->
+<plist version="1.0">
+<dict>
+	<!--
+	  Export compliance (App Store Connect asks this for every upload; the key answers it in advance).
+	  false = the app uses only encryption that the operating system provides: HTTPS (WebKit / URLSession),
+	  Web Crypto inside WKWebView and the Keychain. It ships no cryptographic code of its own, so it is
+	  exempt (Apple, "Complying with encryption export regulations"). The identical answer is given for
+	  the iPhone app. If the app ever bundles its own cipher, change this to true and follow the yearly
+	  self-classification report duty described in appstore/ANSWERS.he.md.
+	-->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<!--
+	  Shown by Finder (Get Info) and in the About window. The literal equals legal/settings.json
+	  publisherName and bundle.copyright of tauri.conf.json - keep the three in step.
+	-->
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2026 Ouriel Sebag</string>
+</dict>
+</plist>

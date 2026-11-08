@@ -1,0 +1,7 @@
+{
+  "versionCode": 0,
+  "versionName": null,
+  "uploadedAt": null,
+  "track": null,
+  "note": "The highest Android versionCode ever uploaded to Google Play (0 = nothing uploaded yet). The OWNER updates it after every successful upload: versionCode as an integer (from the Play Console release page; never null), versionName, date YYYY-MM-DD, track: closed-testing / production. scripts/play/preflight.mjs FAILS (refuses) a build whose versionCode is not higher; scripts/android/build-aab.ps1 only WARNS and still builds the bundle (e.g. for a local test install). Both report an unreadable versionCode (null, missing, not an integer) instead of reading it as 0. See docs/PLAY-RELEASE.he.md."
+}

@@ -1,0 +1,50 @@
+Your Personal Diary est un journal personnel, privé et intelligent, qui conserve tout ce que vous écrivez dans votre propre compte sur le serveur Your Personal Diary. Pour l’utiliser, vous créez un compte dans l’application, et il vous faut une connexion internet pour le créer et pour vous connecter la première fois. Vous racontez vos journées, et l’application vous aide à repérer des tendances au fil des semaines, des mois et des années. Sans publicité, sans statistiques d’usage, sans pistage.
+
+Écrire sa journée
+- Des entrées avec vos propres mots, l’humeur, les émotions, l’énergie, le stress, le sommeil, l’activité physique, les événements, les personnes, le lieu, des notes et des étiquettes.
+- Une chronologie du journal et une page pour chaque jour.
+
+Habitudes et rappels
+- Des habitudes quotidiennes et hebdomadaires à cocher au fil de la journée.
+- Des rappels facultatifs, affichés sous forme de notifications Windows pendant que l’application est ouverte.
+
+Des observations prudentes
+- L’application cherche des liens possibles dans vos propres données, par exemple entre le sommeil et l’humeur, ou entre l’activité physique et l’énergie.
+- Les observations sont formulées avec soin et n’affirment jamais qu’une chose en cause une autre.
+- « Pourquoi cette observation ? » indique combien de jours ont été examinés et les chiffres exacts derrière chaque observation.
+- Quand les données ne suffisent pas, l’application le dit au lieu de deviner.
+
+Calendrier, statistiques et recherche
+- Un calendrier mensuel grégorien, hébraïque ou hégirien, avec les fêtes du calendrier choisi.
+- Des graphiques de l’humeur, de l’énergie, du stress, du sommeil et des habitudes dans le temps, chacun avec un tableau de données.
+- Recherche intelligente : posez une question dans votre langue, par exemple « Quels jours ai-je dormi moins de cinq heures ? », et obtenez la réponse tirée du journal.
+
+Un seul compte sur tous vos appareils
+- Le journal est conservé dans votre propre compte sur le serveur Your Personal Diary. Connectez-vous avec le même compte sur un autre appareil, et tout est là.
+- Ce que vous modifiez sur un appareil apparaît sur les autres.
+
+Continue de fonctionner quand la connexion est coupée
+- Continuez à lire et à écrire. Vos modifications sont conservées chiffrées sur le PC et envoyées automatiquement dès que la connexion revient, même si vous avez fermé l’application entre-temps.
+- Avec « Se souvenir de moi », l’application garde aussi une copie chiffrée de ce que vous avez consulté récemment, pour s’ouvrir et l’afficher sans connexion.
+- Les observations, la recherche, les statistiques, la sauvegarde, l’export et les paramètres du compte nécessitent une connexion.
+
+Confidentialité et sécurité
+- Le journal est stocké chiffré sur le serveur (AES-256), dans un fichier distinct pour chaque compte. Votre mot de passe lui-même n’est pas stocké.
+- Pendant votre session, le serveur ouvre votre journal dans sa mémoire pour pouvoir l’afficher, y faire des recherches et l’analyser pour vous. La politique de confidentialité explique ce que cela signifie.
+- L’application se connecte uniquement au serveur Your Personal Diary, toujours en HTTPS.
+- Verrouillage automatique après une période d’inactivité et verrouillage immédiat avec Ctrl+L.
+- Mot de passe oublié ? Réinitialisez-le avec un lien ou un code envoyé à votre adresse e-mail, sans rien perdre du journal.
+- Sauvegarde chiffrée dans un fichier que vous conservez où vous voulez, et restauration à partir de ce fichier.
+- Export du journal en TXT, CSV, JSON ou PDF.
+- Suppression de votre compte et de toutes ses données à tout moment dans les Paramètres.
+
+20 langues
+Anglais, hébreu, arabe, chinois (simplifié), japonais, hindi, thaï, espagnol, portugais, français, italien, allemand, roumain, grec, polonais, tchèque, hongrois, russe, bulgare et turc. L’application s’ouvre en anglais : choisissez votre langue dans les Paramètres (Settings), sous Langue (Language), et votre compte la conserve. L’hébreu et l’arabe s’affichent de droite à gauche.
+
+Accessibilité
+- Compatible avec les lecteurs d’écran : titres clairs, champs étiquetés et messages d’état annoncés.
+- Tout peut se faire au clavier, avec des raccourcis pour les actions principales.
+- Thèmes clair, sombre et à contraste élevé, taille du texte réglable et option pour réduire les animations.
+
+À noter
+Your Personal Diary est un outil de journal personnel destiné aux personnes de 16 ans et plus. Ce n’est pas un outil médical ni de diagnostic, et ses observations ne sont pas des conseils médicaux ou psychologiques. Si votre santé vous inquiète, parlez-en à un professionnel qualifié.

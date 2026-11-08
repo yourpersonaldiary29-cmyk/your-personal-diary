@@ -1,0 +1,53 @@
+# Your Personal Diary - hosted mode on Fly.io (STAGING app: throw-away data, debug routes on).
+# Same shape as fly.toml (HOSTED-IMPL item 1); differences are marked "staging:".
+# Deploy with: scripts/hosted/deploy.ps1 -Staging
+# This app is where the SMTP precondition (HOSTED-IMPL item 2) and the WP-H4 measurements run.
+
+app = "yourpersonaldiary-staging"          # staging: own app, own volume, own throw-away secrets
+primary_region = "fra"
+
+kill_signal = "SIGTERM"
+kill_timeout = "20s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  DIARY_MODE = "hosted"
+  DIARY_DATA_DIR = "/data"
+  DIARY_PUBLIC_URL = "https://yourpersonaldiary-staging.fly.dev"   # staging: its own host
+  DIARY_CLIENT_IP_HEADER = "fly-client-ip"
+  DIARY_TRUST_PROXY = "1"
+  PORT = "8080"
+  DIARY_REGISTRATION = "invite"
+  # staging: mounts GET /api/debug/proxy and POST /api/debug/crash (plan 2.2, 3.8). NEVER in fly.toml.
+  DIARY_DEBUG_ROUTES = "1"
+  # staging: uncomment to rehearse the disk-full alert on /api/health/strict (plan 2.1).
+  # DIARY_MIN_FREE_PCT = "99"
+
+[[mounts]]
+  source = "diary_data"
+  destination = "/data"
+  initial_size = "1gb"                     # staging: smaller volume, default snapshot retention
+  snapshot_retention = 5
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = false
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/api/health"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+
+[[restart]]
+  policy = "always"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

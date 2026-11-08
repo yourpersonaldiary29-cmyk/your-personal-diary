@@ -1,0 +1,5 @@
+První verze v obchodě Microsoft Store.
+- Tvůj deník ve tvém vlastním účtu na serveru Your Personal Diary, stejný na všech tvých zařízeních
+- Funguje dál, i když vypadne připojení, a po jeho obnovení nahraje tvé změny
+- Obnovení hesla e-mailem
+- 20 jazyků

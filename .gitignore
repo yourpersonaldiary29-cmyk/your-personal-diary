@@ -1,0 +1,79 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies / builds
+node_modules
+dist
+dist-ssr
+*.local
+server/.dev-data
+server/dist
+
+# Generated at build time (bundled server + Node sidecar runtime)
+src-tauri/binaries/*.exe
+src-tauri/binaries/diary-server-*
+src-tauri/binaries/RUNTIME_VERSION.txt
+src-tauri/binaries/LICENSE-nodejs.txt
+src-tauri/resources/server/server.cjs
+src-tauri/resources/server/sql-wasm.wasm
+src-tauri/resources/server/pdfkit-data
+src-tauri/resources/server/ui
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Diary data must never be committed
+*.mpd
+*.mpd.prev
+*.mpd.tmp
+*.mpda
+
+# Secrets and keys (the only key in the repository is the FICTIONAL test fixture below)
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.p8
+*.key
+!mobile/test/fixtures/desktop-data/device.key
+accounts.local.json
+store/identity.json
+
+# Generated bundles and kits (rebuilt by scripts; see README section 5.5)
+mobile-dist
+store/out
+deploy/hosted/build
+deploy/hosted/dist
+android/app/src/main/assets/public
+
+# App Store screenshots are large (2880x1800, 19 languages) and regenerable:
+# node scripts/play/render-screenshots.mjs --profile mac / --profile iphone
+appstore/screenshots/**/*.png
+
+# Local tool folder of the screenshot scripts (playwright-core, Edge profile, logs)
+mpd-store-tools
+
+# iOS project: Xcode user state and generated folders (the sources stay)
+ios/App/App/public
+ios/App/Pods
+ios/App/DerivedData
+ios/App/build
+xcuserdata
+*.xcuserstate

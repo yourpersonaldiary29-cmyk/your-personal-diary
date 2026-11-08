@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      The WebView may only load what is bundled with the app: no external script, style, image or
+      font, and no connection but one (connect-src 'self' here; the BUILD of the published app adds
+      the fixed origin of the Your Personal Diary server to it, from src/config/server-default.json -
+      mobile/vite.config.mobile.ts - so the host is never spelled in this file). 'wasm-unsafe-eval'
+      and worker-src blob: serve the local-core build only (the in-process diary core and its inline
+      worker, MOBILE_LOCAL_CORE=1); the published build has no wasm and no worker and drops both.
+      `npm run mobile:dev` relaxes script-src / connect-src for the dev server only (vite.config.mobile.ts).
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#2b4c7e" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Your Personal Diary</title>
+    <style>
+      /* Start-up splash: shown until the app rendered its first screen (mobile/host/splash.ts removes it; the local-core build waits for the diary core first). */
+      #mobile-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 24px;
+        background: #f4f6f9;
+        color: #2b4c7e;
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', Arial, sans-serif;
+        text-align: center;
+      }
+      #mobile-splash p {
+        margin: 0;
+      }
+      #mobile-splash .mobile-splash__name {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      #mobile-splash .mobile-splash__bar {
+        width: 120px;
+        height: 4px;
+        border-radius: 2px;
+        background: currentColor;
+        opacity: 0.35;
+        animation: mobile-splash-pulse 1.2s ease-in-out infinite alternate;
+      }
+      #mobile-splash[aria-busy='false'] .mobile-splash__bar {
+        display: none;
+      }
+      #mobile-splash .mobile-splash__message {
+        max-width: 32rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #1b1f24;
+      }
+      @keyframes mobile-splash-pulse {
+        from {
+          opacity: 0.2;
+        }
+        to {
+          opacity: 0.8;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #mobile-splash .mobile-splash__bar {
+          animation: none;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        #mobile-splash {
+          background: #121417;
+          color: #8ab4f8;
+        }
+        #mobile-splash .mobile-splash__message {
+          color: #e8eaed;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mobile-splash" role="status" aria-busy="true">
+      <p class="mobile-splash__name">Your Personal Diary</p>
+      <div class="mobile-splash__bar" aria-hidden="true"></div>
+      <p class="mobile-splash__message" hidden></p>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/entry.ts"></script>
+  </body>
+</html>

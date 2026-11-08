@@ -1,0 +1,138 @@
+/*
+ * "Server" card (ServerSection.tsx): the status list, the archive list with the PowerShell commands
+ * (left-to-right inside right-to-left pages, wrapping at phone width) and the passphrase warning.
+ * State is told by text and icon, never by colour alone.
+ */
+
+/*
+ * The status lists: the shared .definition-list sizes its term column to `max-content`, and some
+ * terms here are long ("New accounts in the last 24 hours", longer still in Hebrew) - at phone width
+ * that left the values a sliver of 14px, one character per line. Here a term takes at most half the
+ * width (and wraps), and on a phone each value goes under its term.
+ */
+.server-card .definition-list {
+  grid-template-columns: fit-content(50%) minmax(0, 1fr);
+}
+
+.server-card .definition-list dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 30rem) {
+  .server-card .definition-list {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .server-card .definition-list dd {
+    margin-block-end: var(--space-2);
+  }
+}
+
+.server-card__ok {
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.server-card__bad {
+  font-weight: 600;
+  color: var(--color-danger);
+}
+
+.server-card__warning {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: 4px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  font-weight: 600;
+}
+
+.server-card__form {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.server-card__archives {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.server-card__archive {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  min-width: 0;
+}
+
+.server-card__file {
+  margin: 0;
+  font-weight: 600;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.server-card__hash {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.server-card__command {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.server-card__command-label {
+  font-weight: 600;
+}
+
+/* A sentence under a command's label (the deletion helper's find and delete steps). */
+.server-card__command-hint {
+  margin: 0;
+}
+
+/* "Deletion request by e-mail" (DeletionRequest.tsx): its own part of the card, set off from the archive. */
+.server-card__deletion {
+  border-block-start: 1px solid var(--color-border);
+  padding-block-start: var(--space-4);
+  min-width: 0;
+}
+
+.server-card__code {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  /* The whole command at phone width: wrap anywhere instead of scrolling sideways. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+  /* One click selects the whole command (the hand fallback when copying fails). */
+  user-select: all;
+}
+
+@media (forced-colors: active) {
+  .server-card__warning,
+  .server-card__form,
+  .server-card__archive,
+  .server-card__code {
+    border: 1px solid CanvasText;
+  }
+}

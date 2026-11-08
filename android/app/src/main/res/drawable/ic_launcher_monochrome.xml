@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive launcher icon - monochrome layer (Android 13+ themed icons): the book silhouette with the
+  three lines and the lock cut out (even-odd), the lock drawn inside. The colour is replaced by the
+  launcher's theme; only the shape matters. Same 66% scale as ic_launcher_foreground.xml.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <group
+        android:pivotX="512"
+        android:pivotY="512"
+        android:scaleX="0.66"
+        android:scaleY="0.66">
+        <path
+            android:fillColor="#ffffff"
+            android:fillType="evenOdd"
+            android:pathData="M268,176 h488 a56,56 0 0 1 56,56 v560 a56,56 0 0 1 -56,56 h-488 a56,56 0 0 1 -56,-56 v-560 a56,56 0 0 1 56,-56 z M360,321 h380 a9,9 0 0 1 0,18 h-380 a9,9 0 0 1 0,-18 z M360,411 h380 a9,9 0 0 1 0,18 h-380 a9,9 0 0 1 0,-18 z M360,501 h280 a9,9 0 0 1 0,18 h-280 a9,9 0 0 1 0,-18 z M550,720 a150,150 0 1 0 300,0 a150,150 0 1 0 -300,0 z" />
+        <path
+            android:strokeColor="#ffffff"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M640,700 v-50 a60,60 0 0 1 120,0 v50" />
+        <path
+            android:fillColor="#ffffff"
+            android:fillType="evenOdd"
+            android:pathData="M640,700 h120 a24,24 0 0 1 24,24 v72 a24,24 0 0 1 -24,24 h-120 a24,24 0 0 1 -24,-24 v-72 a24,24 0 0 1 24,-24 z M682,750 a18,18 0 1 0 36,0 a18,18 0 1 0 -36,0 z M697,760 h6 a6,6 0 0 1 6,6 v22 a6,6 0 0 1 -6,6 h-6 a6,6 0 0 1 -6,-6 v-22 a6,6 0 0 1 6,-6 z" />
+    </group>
+</vector>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The 20 languages of the app (shared/i18n/locales.ts), as BCP-47 tags, for Android 13+ per-app
+  language settings (android:localeConfig). The UI strings live in the web bundle, so the list only
+  tells Android which languages the app offers. Hebrew is "he" here (BCP-47); Android's legacy
+  resource qualifier for Hebrew is "iw" (values-iw/), which matters only for Android resource folders.
+  Chinese is Simplified ("zh-Hans"): the app's "zh" renders with the zh-CN conventions.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="he" />
+    <locale android:name="zh-Hans" />
+    <locale android:name="es" />
+    <locale android:name="pl" />
+    <locale android:name="ru" />
+    <locale android:name="fr" />
+    <locale android:name="ar" />
+    <locale android:name="ja" />
+    <locale android:name="tr" />
+    <locale android:name="cs" />
+    <locale android:name="hu" />
+    <locale android:name="bg" />
+    <locale android:name="el" />
+    <locale android:name="pt" />
+    <locale android:name="de" />
+    <locale android:name="ro" />
+    <locale android:name="it" />
+    <locale android:name="th" />
+    <locale android:name="hi" />
+</locale-config>

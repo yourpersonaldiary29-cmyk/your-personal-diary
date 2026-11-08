@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Entitlements of the Mac App Store build of "Your Personal Diary" (route 2, UNTESTED: it needs
+  Apple credentials, a "Mac App Store" provisioning profile and the Xcode/macOS floor of
+  docs/MAC-RELEASE.he.md). Used by scripts/mac/build-appstore.sh, which copies this file and ADDS the
+  two team-specific keys at build time (com.apple.application-identifier and
+  com.apple.developer.team-identifier - see mac-appstore.team.example.plist). This file never holds
+  a team id, so it is never wrong for whoever signs.
+
+  Every key below exists because the app does the thing it describes; nothing is "just in case".
+  Apple: App Sandbox - https://developer.apple.com/documentation/security/app-sandbox
+-->
+<plist version="1.0">
+<dict>
+	<!--
+	  Required for every app distributed through the Mac App Store. The app then runs in its container
+	  (~/Library/Containers/app.yourpersonaldiary.mac/): the outbox mirror and WebKit's storage move
+	  there, the Keychain item stays reachable (its own item), /usr/bin/open for the legal pages is
+	  brokered by Launch Services - all of this is UNTESTED until a sandboxed build runs (route 2).
+	-->
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<!--
+	  Outgoing connections only: the app is a client of https://yourpersonaldiary.fly.dev (sign-in,
+	  the diary, sync, password reset). It never listens, so com.apple.security.network.server is absent.
+	-->
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<!--
+	  "Save as" of backups and exports (the save_file command, NSSavePanel) and the restore picker
+	  (<input type="file">, NSOpenPanel): the app may read and write exactly the files the user picked
+	  in those panels. No other file access (no Downloads, no Documents, no bookmarks).
+	-->
+	<key>com.apple.security.files.user-selected.read-write</key>
+	<true/>
+	<!--
+	  Absent on purpose: com.apple.security.application-groups (no shared container, no extensions),
+	  com.apple.security.device.* (no camera / microphone / USB), com.apple.security.personal-information.*
+	  (no contacts / calendars / location), com.apple.security.print (the app has no print command),
+	  com.apple.security.network.server, keychain-access-groups (the Keychain item uses the app's own
+	  default access group, which the application-identifier gives it).
+	-->
+</dict>
+</plist>

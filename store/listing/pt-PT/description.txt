@@ -1,0 +1,50 @@
+Your Personal Diary é um diário privado e inteligente que guarda o seu diário na sua própria conta no servidor do Your Personal Diary. Para o utilizar, cria uma conta na aplicação e precisa de uma ligação à Internet para a criar e para iniciar sessão pela primeira vez. Escreve sobre o seu dia e a aplicação ajuda-o a reparar em padrões ao longo de semanas, meses e anos. Sem anúncios, sem análises de utilização, sem rastreio.
+
+Escreva o seu dia
+- Entradas com as suas próprias palavras, com humor, emoções, energia, stress, sono, atividade física, acontecimentos, pessoas, local, notas e etiquetas.
+- Uma cronologia do seu diário e uma página para cada dia.
+
+Hábitos e lembretes
+- Hábitos diários e semanais que vai assinalando ao longo do dia.
+- Lembretes opcionais, apresentados como notificações do Windows enquanto a aplicação está em execução.
+
+Observações cuidadosas
+- A aplicação procura relações possíveis nos seus próprios dados, por exemplo entre o sono e o humor, ou entre a atividade física e a energia.
+- As observações são escritas com cuidado e nunca afirmam que uma coisa causa outra.
+- "Porque recebi esta observação?" mostra quantos dias foram analisados e os números exatos por trás de cada observação.
+- Quando não há dados suficientes, a aplicação di-lo em vez de adivinhar.
+
+Calendário, estatísticas e pesquisa
+- Um calendário mensal gregoriano, hebraico ou islâmico (Hégira), com os feriados e as festas do calendário que escolher.
+- Gráficos do seu humor, energia, stress, sono e hábitos ao longo do tempo, cada um com uma tabela de dados.
+- Pesquisa inteligente: faça uma pergunta no seu idioma, como "Em que dias dormi menos de cinco horas?", e obtenha a resposta a partir do seu diário.
+
+Uma conta em todos os seus dispositivos
+- O seu diário fica na sua própria conta no servidor do Your Personal Diary. Inicie sessão com a mesma conta noutro dispositivo e está lá tudo.
+- O que altera num dispositivo aparece nos outros.
+
+Continua a funcionar quando a ligação falha
+- Continue a ler e a escrever. As suas alterações ficam guardadas encriptadas no seu PC e são enviadas automaticamente quando a ligação voltar, mesmo que tenha fechado a aplicação entretanto.
+- Com "Manter sessão iniciada", a aplicação guarda também uma cópia encriptada do que viu recentemente, para abrir e mostrá-lo sem ligação.
+- Observações, pesquisa, estatísticas, cópia de segurança, exportação e definições da conta precisam de ligação.
+
+Privacidade e segurança
+- O seu diário é guardado encriptado no servidor (AES-256), num ficheiro separado para cada conta. A sua palavra-passe propriamente dita não é guardada.
+- Enquanto tem a sessão iniciada, o servidor abre o seu diário na memória dele para o poder mostrar, pesquisar e analisar para si. A política de privacidade explica o que isto significa.
+- A aplicação liga-se apenas ao servidor do Your Personal Diary, sempre através de HTTPS.
+- Bloqueio automático após um período de inatividade e bloqueio imediato com Ctrl+L.
+- Esqueceu-se da palavra-passe? Reponha-a com uma ligação ou um código enviado para o seu endereço de e-mail, e mantenha o seu diário.
+- Cópia de segurança encriptada num ficheiro que guarda onde quiser, e restauro a partir dele.
+- Exporte o seu diário para TXT, CSV, JSON ou PDF.
+- Elimine a sua conta e todos os dados dela em qualquer momento, nas Definições.
+
+20 idiomas
+Inglês, hebraico, árabe, chinês (simplificado), japonês, hindi, tailandês, espanhol, português, francês, italiano, alemão, romeno, grego, polaco, checo, húngaro, russo, búlgaro e turco. A aplicação abre em inglês: escolha o seu idioma em Definições (Settings), em Idioma (Language), e a sua conta guarda-o. O hebraico e o árabe são apresentados da direita para a esquerda.
+
+Acessibilidade
+- Funciona com leitores de ecrã: títulos claros, campos com etiquetas e mensagens de estado anunciadas.
+- Tudo pode ser feito com o teclado, com atalhos para as ações principais.
+- Temas claro, escuro e de alto contraste, tamanho do texto ajustável e uma opção para reduzir o movimento.
+
+Importante
+Your Personal Diary é uma ferramenta para manter um diário pessoal, destinada a pessoas com 16 anos ou mais. Não é uma ferramenta médica nem de diagnóstico, e as suas observações não são aconselhamento médico ou psicológico. Se estiver preocupado com a sua saúde, fale com um profissional qualificado.

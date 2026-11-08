@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  EXAMPLE ONLY - never passed to codesign. It shows the two keys that the Mac App Store build adds
+  to mac-appstore.plist at signing time. "TEAMID" is a placeholder for the 10-character Team ID of
+  the Apple Developer account (developer.apple.com > Membership details). scripts/mac/build-appstore.sh
+  reads the real value from the environment variable APPLE_TEAM_ID and writes the merged file to
+  <output folder>/entitlements.appstore.plist with PlistBuddy; this example is here so that a
+  developer can see the final shape without running the script.
+
+  Why they are needed: when Xcode signs an app it adds them from the provisioning profile; a manual
+  codesign (what Tauri does) must state them itself, and they must match the "Mac App Store"
+  provisioning profile embedded as Contents/embedded.provisionprofile, otherwise App Store Connect
+  rejects the upload (Tauri, "App Store" guide: https://v2.tauri.app/distribute/app-store/).
+-->
+<plist version="1.0">
+<dict>
+	<!-- <Team ID>.<bundle identifier>; the identifier is the one of src-tauri/tauri.macos.conf.json -->
+	<key>com.apple.application-identifier</key>
+	<string>TEAMID.app.yourpersonaldiary.mac</string>
+	<!-- the Team ID alone -->
+	<key>com.apple.developer.team-identifier</key>
+	<string>TEAMID</string>
+</dict>
+</plist>

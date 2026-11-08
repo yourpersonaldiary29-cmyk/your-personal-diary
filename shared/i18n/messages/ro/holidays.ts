@@ -1,0 +1,107 @@
+/** ro - holidays messages. Keys are prefixed 'holidays.'; see shared/i18n/index.ts for the syntax. */
+// Note: the "Orthodox" Christmas and Epiphany of the calendar are the Julian dates (7 and 19 January),
+// hence "pe stil vechi"; Romanian Orthodox users see their own 25 December as "Crăciunul (stil nou)".
+const messages: Record<string, string> = {
+  // Traditions (legend, settings, screen-reader text) - shared/calendars/types.ts -------
+  'holidays.tradition.jewish': 'Sărbători și zile de comemorare evreiești',
+  'holidays.tradition.muslim': 'Sărbători și zile de comemorare musulmane',
+  'holidays.tradition.christian': 'Sărbători și zile de comemorare creștine',
+  'holidays.tradition.druze': 'Sărbători și zile de comemorare druze',
+  'holidays.traditionShort.jewish': 'Evreiesc',
+  'holidays.traditionShort.muslim': 'Musulman',
+  'holidays.traditionShort.christian': 'Creștin',
+  'holidays.traditionShort.druze': 'Druz',
+
+  // Kinds ---------------------------------------------------------------------------
+  'holidays.kind.major': 'Sărbătoare',
+  'holidays.kind.minor': 'Zi de observanță',
+  'holidays.kind.fast': 'Zi de post',
+  'holidays.kind.memorial': 'Zi de comemorare',
+  'holidays.kind.national': 'Zi națională',
+
+  // Sentences (describeHoliday / describeHolidayAmong) -------------------------------
+  'holidays.dayOf': '{name} (ziua {index} din {count})',
+  'holidays.withTradition': '{label} ({tradition})',
+
+  // Notes attached to moved or approximate dates ---------------------------------------
+  'holidays.note.postponedFromShabbat': 'Amânată de sâmbătă (Șabat)',
+  'holidays.note.advancedFromShabbat': 'Devansată de sâmbătă (Șabat)',
+  'holidays.note.advancedFromFriday': 'Devansată de vineri',
+  'holidays.note.postponedFromSunday': 'Amânată de duminică',
+  'holidays.note.postponedFromMonday': 'Amânată de luni',
+  'holidays.note.movedWithYomHaatzmaut': 'Mutată împreună cu Ziua Independenței',
+  'holidays.note.roshChodeshTwoDays': 'Roș Hodeș de două zile',
+  'holidays.note.ummAlQura': 'După calendarul Umm al-Qura; data exactă depinde de observarea lunii noi și se poate schimba cu o zi',
+  'holidays.note.civilHijri': 'După calendarul hegirian aritmetic; data exactă depinde de observarea lunii noi și se poate schimba cu una sau două zile',
+  'holidays.note.officialHoliday': 'Sărbătoare legală',
+
+  // Jewish holidays (key = 'holidays.' + id with dots replaced by dashes) --------------
+  'holidays.jewish-rosh-hashana': 'Roș Hașana',
+  'holidays.jewish-tzom-gedaliah': 'Postul lui Ghedalia',
+  'holidays.jewish-yom-kippur': 'Iom Kipur',
+  'holidays.jewish-sukkot': 'Sucot',
+  'holidays.jewish-sukkot.cholHamoed': 'Hol Hamoed Sucot',
+  'holidays.jewish-hoshana-rabba': 'Hoșana Raba',
+  'holidays.jewish-shemini-atzeret': 'Șemini Ațeret și Simhat Tora',
+  'holidays.jewish-sigd': 'Sigd',
+  'holidays.jewish-hanukkah': 'Hanuka',
+  'holidays.jewish-asara-btevet': 'Zece Tevet',
+  'holidays.jewish-tu-bishvat': 'Tu Bișvat',
+  'holidays.jewish-taanit-esther': 'Postul Esterei',
+  'holidays.jewish-purim': 'Purim',
+  'holidays.jewish-shushan-purim': 'Șușan Purim',
+  'holidays.jewish-pesach': 'Pesah',
+  'holidays.jewish-pesach.cholHamoed': 'Hol Hamoed Pesah',
+  'holidays.jewish-pesach.seventh': 'A șaptea zi de Pesah',
+  'holidays.jewish-yom-hashoah': 'Ziua de Comemorare a Holocaustului',
+  'holidays.jewish-yom-haatzmaut': 'Ziua Independenței',
+  'holidays.jewish-yom-hazikaron': 'Ziua Comemorării Eroilor',
+  'holidays.jewish-lag-baomer': 'Lag BaOmer',
+  'holidays.jewish-yom-yerushalayim': 'Ziua Ierusalimului',
+  'holidays.jewish-shavuot': 'Șavuot',
+  'holidays.jewish-tzom-tammuz': 'Șaptesprezece Tamuz',
+  'holidays.jewish-tisha-bav': 'Tișa BeAv',
+  'holidays.jewish-tu-bav': 'Tu BeAv',
+  'holidays.jewish-rosh-chodesh': 'Roș Hodeș {month}',
+
+  // Muslim holidays -----------------------------------------------------------------
+  'holidays.muslim-hijri-new-year': 'Anul Nou Islamic',
+  'holidays.muslim-ashura': 'Așura',
+  'holidays.muslim-mawlid': 'Mawlid an-Nabi',
+  'holidays.muslim-isra-miraj': 'Isra și Miraj',
+  'holidays.muslim-ramadan-start': 'Începutul Ramadanului',
+  'holidays.muslim-laylat-al-qadr': 'Laylat al-Qadr',
+  'holidays.muslim-eid-al-fitr': 'Eid al-Fitr (Ramazan Bayram)',
+  'holidays.muslim-arafah': 'Ziua Arafat',
+  'holidays.muslim-eid-al-adha': 'Eid al-Adha (Kurban Bayram)',
+
+  // Christian holidays ----------------------------------------------------------------
+  'holidays.christian-epiphany-western': 'Epifania (occidentală)',
+  'holidays.christian-annunciation': 'Buna Vestire',
+  'holidays.christian-assumption': 'Adormirea Maicii Domnului',
+  'holidays.christian-all-saints': 'Ziua Tuturor Sfinților',
+  'holidays.christian-christmas-western': 'Crăciunul (stil nou)',
+  'holidays.christian-ash-wednesday': 'Miercurea Cenușii',
+  'holidays.christian-palm-sunday-western': 'Floriile (occidentale)',
+  'holidays.christian-maundy-thursday': 'Joia Mare',
+  'holidays.christian-good-friday-western': 'Vinerea Mare (occidentală)',
+  'holidays.christian-easter-western': 'Paștele (occidental)',
+  'holidays.christian-easter-monday': 'A doua zi de Paște',
+  'holidays.christian-ascension-western': 'Înălțarea Domnului (occidentală)',
+  'holidays.christian-pentecost-western': 'Rusaliile (occidentale)',
+  'holidays.christian-christmas-orthodox': 'Crăciunul pe stil vechi',
+  'holidays.christian-epiphany-orthodox': 'Boboteaza pe stil vechi',
+  'holidays.christian-lazarus-saturday': 'Sâmbăta lui Lazăr',
+  'holidays.christian-palm-sunday-orthodox': 'Floriile (ortodoxe)',
+  'holidays.christian-good-friday-orthodox': 'Vinerea Mare (ortodoxă)',
+  'holidays.christian-easter-orthodox': 'Paștele ortodox',
+  'holidays.christian-ascension-orthodox': 'Înălțarea Domnului (ortodoxă)',
+  'holidays.christian-pentecost-orthodox': 'Rusaliile (ortodoxe)',
+
+  // Druze holidays --------------------------------------------------------------------
+  'holidays.druze-eid-al-adha': 'Eid al-Adha',
+  'holidays.druze-nabi-shuayb': 'Ziyarat Nabi Shu’ayb',
+  'holidays.druze-al-khadr': 'Ziyarat al-Khadr',
+  'holidays.druze-nabi-sablan': 'Ziyarat Nabi Sablan',
+};
+export default messages;

@@ -1,0 +1,47 @@
+Your Personal Diary is a private, smart diary for your own words and your own patterns. You write about your day, and the app helps you notice how your sleep, mood, energy and habits move together over weeks, months and years.
+
+Your diary is kept in your own account on the Your Personal Diary server, so it is the same on every device you sign in on. You need a connection to create the account and to sign in for the first time; after that the app keeps working without one. No ads, no analytics, no tracking.
+
+Write your day
+- Entries in your own words, with mood, emotions, energy, stress, sleep, physical activity, events, people, place, notes and tags.
+- A page for every day and a timeline of your whole diary.
+
+Habits and reminders
+- Daily and weekly habits that you tick off as you go.
+- Optional reminders as notifications, at the time you choose for each habit.
+
+Gentle insights
+- The app looks for possible relationships in your own data, for example between sleep and mood, or between physical activity and energy.
+- Insights are worded carefully and never claim that one thing causes another.
+- "Why did I get this insight?" shows how many days were checked and the numbers behind each insight.
+- When there is not enough data, the app says so instead of guessing.
+
+Calendar, statistics and search
+- A month calendar in the Gregorian, Hebrew or Hijri calendar, with its holidays.
+- Charts of your mood, energy, stress, sleep and habits over time, each with a data table.
+- Smart search: ask a question in your own language, such as "On which days did I sleep less than five hours?", and get the answer from your diary.
+
+Keeps working when the connection drops
+- Keep reading and writing. Your changes are kept encrypted on the device and uploaded automatically when the connection returns, even if you closed the app in between.
+- With "Remember me", the app also keeps an encrypted copy of what you viewed recently, so that it opens and shows it without a connection. If the diary is locked and there is no connection, unlock it with Face ID or Touch ID, or with the passcode or password of your device.
+- Insights, search, statistics, backup, export and the account settings need a connection.
+
+Privacy and security
+- Your diary is stored on the server encrypted with a key derived from your password, in a separate file for each account. Your password itself is not stored.
+- While you are signed in, the server opens your diary in its memory to show, search and analyse it for you. The privacy policy explains plainly what this means.
+- The app connects only to the Your Personal Diary server, always over HTTPS.
+- Automatic lock after a period of inactivity, and "Lock now" whenever you want.
+- Forgot your password? Reset it with a link or a code sent to your e-mail address, and keep your diary.
+- Encrypted backup to a file you keep wherever you choose, and restore from it.
+- Export your diary to TXT, CSV, JSON or PDF.
+- Delete your account and all of its data at any time in Settings.
+
+20 languages
+English, Hebrew, Arabic, Chinese (Simplified), Japanese, Hindi, Thai, Spanish, Portuguese, French, Italian, German, Romanian, Greek, Polish, Czech, Hungarian, Russian, Bulgarian and Turkish. Choose your language at any time in Settings, under Language; your account keeps it. Hebrew and Arabic are shown right to left.
+
+Accessibility
+- Works with screen readers: clear headings, labelled fields and announced status messages.
+- Light, dark and high-contrast themes, adjustable text size and a reduce-motion option.
+
+Please note
+Your Personal Diary is a personal journaling tool for people aged 16 and over. It is not a medical or diagnostic tool, and its insights are not medical or psychological advice. If you are worried about your health, please talk to a qualified professional.

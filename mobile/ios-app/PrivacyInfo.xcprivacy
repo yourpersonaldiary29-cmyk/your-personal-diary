@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Your Personal Diary - the privacy manifest of the iOS app (docs/APPLE-PLAN.md section 6.1).
+
+  STATUS: a template written on Windows (WP-A2). On the Mac it is copied to
+  ios/App/App/PrivacyInfo.xcprivacy and added to the App target (scripts/ios/README.he.md); Xcode's
+  property-list editor then shows every value as a choice from Apple's own list - a value it does
+  not recognise is a typing mistake here. Check the result with Product > Archive > "Generate
+  Privacy Report" before the first upload.
+
+  What it says, and where each fact comes from:
+   - no tracking, no tracking domains: the app talks to one server and contains no SDK
+     (scripts/check-no-network.mjs);
+   - collected data: the same facts as the Google Play Data safety form (play/policy/data-safety.md)
+     - name, e-mail address, user id, the diary itself - each linked to the user, none used for
+     tracking, purpose "app functionality";
+   - required-reason APIs: UserDefaults, reason CA92.1 (@capacitor/preferences keeps the phone
+     settings there, and the app's own Swift code keeps two small settings); file timestamps,
+     reason C617.1 (@capacitor/filesystem reads them when it lists the app's own files).
+
+  OWNER DECISION before the first upload (docs/APPLE-PLAN.md section 11, item 4): the optional
+  sleep / stress / exercise fields. If the answer in App Store Connect is "Health & Fitness is
+  collected" - the conservative choice made for Google Play - add the two entries that are written
+  out in the comment further down. This file and the App Privacy answers must say the same thing.
+-->
+<plist version="1.0">
+<dict>
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeName</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeEmailAddress</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeUserID</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeOtherUserContent</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<!--
+		  Only if the owner declares Health & Fitness (see the header) - two more entries of the same
+		  shape as the four above, with these two data types:
+		      NSPrivacyCollectedDataTypeHealth
+		      NSPrivacyCollectedDataTypeFitness
+		-->
+	</array>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>C617.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

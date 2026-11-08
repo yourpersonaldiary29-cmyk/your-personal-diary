@@ -1,0 +1,50 @@
+A Your Personal Diary privát, okos napló, amely a naplódat a saját fiókodban tárolja a Your Personal Diary szerverén. A használatához fiókot kell létrehoznod az alkalmazásban, a fiók létrehozásához és az első bejelentkezéshez pedig internetkapcsolat szükséges. Te írsz a napodról, az alkalmazás pedig segít észrevenni a mintázatokat hetek, hónapok és évek alatt. Nincs reklám, nincs használati elemzés, nincs követés.
+
+Írd le a napodat
+- Bejegyzések a saját szavaiddal, hangulattal, érzelmekkel, energiával, stresszel, alvással, testmozgással, eseményekkel, emberekkel, hellyel, jegyzetekkel és címkékkel.
+- A napló idővonala és minden naphoz egy külön oldal.
+
+Szokások és emlékeztetők
+- Napi és heti szokások, amelyeket napközben kipipálsz.
+- Választható emlékeztetők Windows-értesítésként, amíg az alkalmazás fut.
+
+Óvatos meglátások
+- Az alkalmazás lehetséges összefüggéseket keres a saját adataidban, például az alvás és a hangulat vagy a testmozgás és az energia között.
+- A meglátások óvatosan fogalmaznak, és sosem állítják, hogy az egyik dolog okozza a másikat.
+- A „Miért kaptam ezt a meglátást?” megmutatja, hány napot vizsgált az alkalmazás, és milyen pontos számok állnak az egyes meglátások mögött.
+- Ha nincs elég adat, az alkalmazás ezt megmondja ahelyett, hogy találgatna.
+
+Naptár, statisztika és keresés
+- Havi naptár a Gergely-naptár, a zsidó naptár vagy a hidzsra (iszlám naptár) szerint, a választott naptár ünnepeivel.
+- Grafikonok a hangulatodról, energiádról, stresszedről, alvásodról és szokásaidról az idő múlásával, mindegyik adattáblázattal.
+- Okos keresés: tegyél fel kérdést a saját nyelveden, például „Mely napokon aludtam kevesebb, mint öt órát?”, és a választ a naplódból kapod meg.
+
+Egy fiók minden eszközödön
+- A naplód a saját fiókodban van a Your Personal Diary szerverén. Jelentkezz be ugyanazzal a fiókkal egy másik eszközön, és minden ott lesz.
+- Amit az egyik eszközön módosítasz, az a többin is megjelenik.
+
+Akkor is működik, ha megszakad a kapcsolat
+- Olvass és írj tovább. A módosításaid titkosítva maradnak a számítógépeden, és automatikusan feltöltődnek, amint visszatér a kapcsolat, akkor is, ha közben bezártad az alkalmazást.
+- Az „Emlékezz rám” beállítással az alkalmazás a legutóbb megtekintett tartalmak titkosított másolatát is megőrzi, így kapcsolat nélkül is megnyílik és megmutatja őket.
+- A meglátásokhoz, a kereséshez, a statisztikához, a biztonsági mentéshez, az exportáláshoz és a fiókbeállításokhoz kapcsolat kell.
+
+Adatvédelem és biztonság
+- A naplódat titkosítva (AES-256) tárolja a szerver, minden fiókhoz külön fájlban. Magát a jelszavadat nem tárolja.
+- Amíg be vagy jelentkezve, a szerver megnyitja a naplódat a memóriájában, hogy meg tudja mutatni, keresni tudjon benne és elemezni tudja neked. Hogy ez mit jelent, azt az adatvédelmi tájékoztató elmagyarázza.
+- Az alkalmazás kizárólag a Your Personal Diary szerveréhez kapcsolódik, mindig HTTPS-en keresztül.
+- Automatikus zárolás egy ideig tartó tétlenség után, és azonnali zárolás a Ctrl+L billentyűkombinációval.
+- Elfelejtetted a jelszavad? Állítsd vissza az e-mail-címedre küldött linkkel vagy kóddal, és a naplód megmarad.
+- Titkosított biztonsági mentés egy fájlba, amelyet ott tartasz, ahol akarsz, és visszaállítás belőle.
+- A napló exportálása TXT, CSV, JSON vagy PDF formátumba.
+- A fiókod és minden adata bármikor törölhető a Beállításokban.
+
+20 nyelv
+Angol, héber, arab, kínai (egyszerűsített), japán, hindi, thai, spanyol, portugál, francia, olasz, német, román, görög, lengyel, cseh, magyar, orosz, bolgár és török. Az alkalmazás angolul nyílik meg: a nyelvet a Beállítások (Settings) között, a Nyelv (Language) résznél választhatod ki, és a fiókod megjegyzi. A héber és az arab szöveg jobbról balra jelenik meg.
+
+Akadálymentesség
+- Képernyőolvasóval is használható: egyértelmű címsorok, feliratozott mezők és felolvasott állapotüzenetek.
+- Minden elvégezhető billentyűzettel, a fő műveletekhez billentyűparancsok is vannak.
+- Világos, sötét és nagy kontrasztú téma, állítható szövegméret és animációcsökkentési lehetőség.
+
+Fontos tudnivaló
+A Your Personal Diary egy személyes naplóvezető eszköz 16 éves és idősebb felhasználóknak. Nem orvosi vagy diagnosztikai eszköz, és a meglátásai nem minősülnek orvosi vagy pszichológiai tanácsnak. Ha aggódsz az egészséged miatt, fordulj képzett szakemberhez.

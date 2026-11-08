@@ -1,0 +1,15 @@
+Bulgarian (bg) - no App Store localization
+
+App Store Connect has no Bulgarian localization, so there is no place to enter Bulgarian texts for the App Store page of either record (iPhone or Mac). A reader whose device language is Bulgarian sees the primary language of the record, English (U.S.). The app itself has Bulgarian as one of its 20 languages (Settings, under Language), and the privacy and support pages exist in Bulgarian on the server: https://yourpersonaldiary.fly.dev/privacy/bg/ and https://yourpersonaldiary.fly.dev/support/bg/
+
+This folder exists only so that nobody looks for missing texts; appstore/locales.json records the same decision ("folder": null). If Apple adds Bulgarian one day: copy appstore/listing/en-US/, translate it as appstore/README.md describes, name the folder with Apple's code, put that code in locales.json and run node scripts/appstore/check-listing.mjs.
+
+Written 2026-11-08 (LISTING package, docs/apple-tasks/LISTING.md).
+
+---
+
+בולגרית - אין לה מקום ב-App Store Connect
+
+ברשימת השפות של דף האפליקציה ב-App Store Connect אין בולגרית, ולכן אין לאן להכניס טקסטים בבולגרית - לא לאפליקציית ה-iPhone ולא לאפליקציית ה-Mac. מי שהמכשיר שלו בבולגרית רואה את דף האפליקציה באנגלית (שפת הבסיס). האפליקציה עצמה כן כוללת בולגרית (הגדרות, תחת "שפה"), וגם דפי הפרטיות והתמיכה קיימים בבולגרית בשרת.
+
+התיקייה הזאת קיימת רק כדי שאף אחד לא יחפש טקסטים חסרים. אם אפל תוסיף בולגרית בעתיד - מעתיקים את התיקייה en-US, מתרגמים לפי appstore/README.md, קוראים לתיקייה בקוד של אפל ורושמים אותו ב-locales.json.

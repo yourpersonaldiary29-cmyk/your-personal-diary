@@ -1,0 +1,118 @@
+[package]
+name = "your-personal-diary"
+version = "0.1.0"
+description = "Your Personal Diary - desktop shell (a thin client of the Your Personal Diary server)"
+authors = ["AVI"]
+edition = "2021"
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "your_personal_diary_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[features]
+# The shipped Windows app is a SERVER-ONLY thin client (docs/android-tasks/HOSTED-IMPL.md items 8
+# and 10): it talks to the fixed Your Personal Diary server and ships no local server. Nothing is on
+# by default.
+default = []
+# Developer / test configuration only ("local mode"): the shell spawns the bundled Node.js server as
+# a sidecar and exposes get_server_info / get_server_log / restart_server to the UI, as the app did
+# before hosted mode. Build with `--features local-server` together with the config overlay
+# src-tauri/tauri.local.conf.json (sidecar binary, server resources, loopback CSP) and a UI built
+# with VITE_LOCAL_SERVER=1 - see README section 5.3 ("המצב המקומי - לפיתוח ולבדיקות בלבד, לא מופץ").
+# Never on in a published build.
+local-server = ["dep:tauri-plugin-shell"]
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = { version = "2", optional = true }
+tauri-plugin-dialog = "2"
+tauri-plugin-notification = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Everything Windows-specific the shell calls lives in src/platform/windows.rs (the platform layer,
+# src/platform/mod.rs - docs/android-tasks/APPLE-PREP.md item 2); these are its crates.
+# Reminder toasts of the Microsoft Store (MSIX) version (`store_toast`, used by lib.rs
+# `show_store_notification`): the WinRT toast API itself, because tauri-plugin-notification always
+# sends with the AppUserModelID `com.mydiary.app`, which a packaged app may not use. This is the
+# `windows` crate Tauri and the plugin already build (one copy in Cargo.lock, these two features are
+# already enabled by tauri-winrt-notification) - keep the version in step with Tauri's when Tauri is
+# updated, or a second copy gets compiled.
+# The automatic offline mode (src/offline.rs, docs/android-tasks/OFFLINE-DESIGN.md sections 5 and 7)
+# adds DPAPI (`Win32_Security_Cryptography`, `Win32_Foundation` for `LocalFree`; `key_protect` /
+# `key_unprotect`) and Windows Hello (`Security_Credentials_UI` `UserConsentVerifier`,
+# `Win32_System_WinRT` for its window interop, `Foundation`; `user_check_available` / `user_check`).
+# `windows-future` is the crate this `windows` version keeps `IAsyncOperation` in (the copy already in
+# Cargo.lock, no new download): the Hello prompt's operation type has to be named.
+# The legal-page links (src/opener.rs `open_external_url` -> `open_url`,
+# docs/android-tasks/WINDOWS-OPENER.md) add `ShellExecuteW` (`Win32_UI_Shell`,
+# `Win32_UI_WindowsAndMessaging` for `SW_SHOWNORMAL`) and the COM initialization Microsoft asks for
+# before it (`Win32_System_Com`) - all three already enabled on this same copy by tao, so nothing new
+# is compiled or downloaded.
+# macOS (docs/APPLE-PLAN.md WP-M2): src/platform/macos.rs has its own table below.
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.61", features = [
+    "Data_Xml_Dom",
+    "UI_Notifications",
+    "Win32_Security_Cryptography",
+    "Win32_Foundation",
+    "Security_Credentials_UI",
+    "Win32_System_WinRT",
+    "Foundation",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_System_Com",
+] }
+windows-future = "0.2"
+
+# Everything macOS-specific the shell calls lives in src/platform/macos.rs (docs/APPLE-PLAN.md WP-M2);
+# these are its crates, all of the objc2 family Tauri itself builds on macOS: the Keychain
+# (`objc2-security`: SecItem*, SecRandomCopyBytes, and the test build's temporary keychain), the
+# Core Foundation types its calls take (`objc2-core-foundation`), LocalAuthentication for the offline
+# unlock (`objc2-local-authentication`, with `objc2-foundation` for NSString / NSError, `block2` for
+# the reply block and `objc2` for its BOOL). objc2, objc2-foundation, objc2-core-foundation and
+# block2 were in Cargo.lock already (tao / wry); objc2-security and objc2-local-authentication are
+# the two new ones, both "Zlib OR Apache-2.0 OR MIT". The legal pages open through /usr/bin/open
+# (std::process), so no crate for that. Default features are off; only the modules used are on.
+# A Windows build never downloads or compiles any of this; only the PC's crates.io index cache needs
+# their entries, because `--offline` resolves the whole lockfile - after a change of this table run
+# `cargo fetch --target x86_64-pc-windows-msvc` once on the PC (index entries only, no macOS crate).
+[target.'cfg(target_os = "macos")'.dependencies]
+block2 = "0.6"
+objc2 = "0.6"
+objc2-core-foundation = { version = "0.3", default-features = false, features = [
+    "std",
+    "CFArray",
+    "CFData",
+    "CFDictionary",
+    "CFNumber",
+    "CFString",
+] }
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSError", "NSString"] }
+objc2-local-authentication = { version = "0.3", default-features = false, features = [
+    "std",
+    "block2",
+    "LAContext",
+    "LAError",
+] }
+objc2-security = { version = "0.3", default-features = false, features = [
+    "std",
+    "SecBase",
+    "SecItem",
+    "SecKeychain",
+    "SecRandom",
+] }
+
+# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Themes follow the system light/dark setting (DayNight): the window background and the system bars
+  match the page colours of the web UI (src/styles/tokens.css: #f4f6f9 light, #121417 dark - see
+  colors.xml and values-night/colors.xml), with dark bar icons on the light background and light icons
+  on the dark one (bools.xml). On Android 15+ the bars are transparent (edge-to-edge is enforced) and
+  Capacitor's SystemBars plugin sets the icon colours from the same light/dark state; the web UI pads
+  with env(safe-area-inset-*). values-v27/styles.xml adds the navigation-bar items.
+-->
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@color/window_background</item>
+        <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
+    </style>
+
+    <!-- The theme Capacitor's BridgeActivity switches to once it runs (the name is fixed by Capacitor). -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@color/window_background</item>
+        <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
+    </style>
+
+    <!--
+      Launch theme: the Android 12+ splash screen API (androidx.core:core-splashscreen on older
+      versions) shows the launcher icon on the page colour until the activity is up; then the web
+      splash of mobile/index.html (same colour) takes over until the diary core is ready.
+    -->
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/window_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+        <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
+    </style>
+</resources>

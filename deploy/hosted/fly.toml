@@ -1,0 +1,66 @@
+# Your Personal Diary - hosted mode on Fly.io (production app).
+# Binding source: docs/android-tasks/HOSTED-IMPL.md item 1 (every value below is the one listed there),
+# on top of docs/HOSTED-PLAN.md Part B 1.4 ("Fly.io") and 3.5-3.8.
+#
+# Deploy ONLY through scripts/hosted/deploy.ps1 (it stages deploy/hosted/dist, runs
+# `fly deploy --ha=false` from this directory and then `fly scale count 1`). Never more than one
+# machine: the server keeps sessions, open diaries and lockout counters in memory (plan 3.8).
+#
+# Secrets (DIARY_DEVICE_KEY, DIARY_INVITE_CODE) are NOT here: the owner sets them from his own
+# window with scripts/hosted/set-secrets.ps1 (`fly secrets import`). Secrets override [env].
+
+app = "yourpersonaldiary"
+primary_region = "fra"
+
+# The server flushes every open diary on SIGTERM (server/src/index.ts); give it 20 s (plan 3.5).
+kill_signal = "SIGTERM"
+kill_timeout = "20s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  DIARY_MODE = "hosted"
+  DIARY_DATA_DIR = "/data"
+  DIARY_PUBLIC_URL = "https://yourpersonaldiary.fly.dev"
+  DIARY_CLIENT_IP_HEADER = "fly-client-ip"
+  DIARY_TRUST_PROXY = "1"
+  PORT = "8080"
+  # Owner decision (HOSTED-IMPL item 6): invite-only until the owner has registered, then "open".
+  # Change this line and run scripts/hosted/deploy.ps1 again (or override temporarily with
+  # `fly secrets set DIARY_REGISTRATION=open` - secrets win over [env]).
+  # 2026-10-27: registration opened to everyone by the owner (also set as a Fly secret, which wins over [env]).
+  DIARY_REGISTRATION = "open"
+  # 2026-10-27: account limit raised by the owner from the default 300 (also set as a Fly secret, which wins).
+  DIARY_MAX_ACCOUNTS = "5000"
+  # After the owner's first registration: copy the Account ID from Settings -> Account here and
+  # deploy again. Until then nobody has the owner cards (plan 2.3) - that is intended.
+  # DIARY_OWNER_ID = "u_0123456789abcdef"
+
+[[mounts]]
+  source = "diary_data"
+  destination = "/data"
+  initial_size = "3gb"
+  snapshot_retention = 30
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = false
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/api/health"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+
+[[restart]]
+  policy = "always"
+
+# 512 MB shared machine (HOSTED-IMPL item 6; plan 3.7 - raise to 1 GB if the measured RSS says so).
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

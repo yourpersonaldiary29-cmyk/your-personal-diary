@@ -1,0 +1,6 @@
+/* Entry point for all application styles (imported once from main.tsx). */
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./forms.css";
+@import "./components.css";

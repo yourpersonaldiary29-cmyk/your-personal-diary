@@ -1,0 +1,20 @@
+Entrées de journal avec humeur, émotions, énergie, stress, sommeil, activité physique, personnes, lieu et étiquettes
+Habitudes quotidiennes et hebdomadaires avec rappels facultatifs sous forme de notifications Windows
+Observations prudentes sur des tendances possibles dans vos propres données, sans jamais affirmer de lien de cause à effet
+« Pourquoi cette observation ? » indique les chiffres exacts derrière chaque observation
+Calendrier mensuel grégorien, hébraïque ou hégirien, avec les fêtes de chacun
+Statistiques et graphiques dans le temps, chacun avec un tableau de données
+Recherche intelligente : posez des questions sur votre journal dans votre propre langue
+Un seul compte sur tous vos appareils, conservé sur le serveur Your Personal Diary
+Continue de fonctionner quand la connexion est coupée et envoie vos modifications à son retour
+Journal stocké chiffré sur le serveur (AES-256), dans un fichier distinct pour chaque compte
+Se connecte uniquement au serveur Your Personal Diary, toujours en HTTPS
+Sans publicité, sans statistiques d’usage, sans pistage
+Verrouillage automatique après inactivité et verrouillage immédiat avec Ctrl+L
+Réinitialisation du mot de passe par e-mail, sans perdre votre journal
+Sauvegarde chiffrée dans un fichier que vous conservez, et restauration à partir de celui-ci
+Export en TXT, CSV, JSON et PDF
+20 langues d’interface, dont l’hébreu et l’arabe de droite à gauche
+Compatible avec les lecteurs d’écran, navigation complète au clavier et raccourcis
+Thèmes clair, sombre et à contraste élevé, avec taille du texte réglable
+Un outil de journal personnel, pas un outil médical ni de diagnostic

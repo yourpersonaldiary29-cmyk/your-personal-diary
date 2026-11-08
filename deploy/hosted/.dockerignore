@@ -1,0 +1,15 @@
+# Build context = deploy/hosted. Only what the Dockerfile copies goes to the remote builder.
+*
+!Dockerfile
+!entrypoint.sh
+!data-tools.sh
+!dist/
+# Never, even inside dist/ (plan 5.7: no secrets in the image).
+**/.env
+**/.env.*
+**/*.map
+**/*.mpd
+**/*.mpd.prev
+**/*.mpd.tmp
+# A tree staged with the desktop bundle is for the local file-list check only, never for a deploy.
+dist/STAGED-WITH-LOCAL-FALLBACK

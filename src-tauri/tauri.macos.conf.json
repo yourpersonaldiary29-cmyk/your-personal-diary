@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "identifier": "app.yourpersonaldiary.mac",
+  "bundle": {
+    "targets": ["app"],
+    "category": "Lifestyle",
+    "macOS": {
+      "minimumSystemVersion": "12.3",
+      "signingIdentity": "-"
+    }
+  }
+}

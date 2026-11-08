@@ -1,0 +1,46 @@
+Your Personal Diary é um diário privado e inteligente. Você escreve sobre o seu dia, e o app ajuda a perceber padrões ao longo de semanas, meses e anos. Sem anúncios, sem análises de uso, sem rastreamento.
+
+Quer dar uma olhada primeiro? Toque em "Ignorar - só quero ver" na primeira tela e explore o app com dados de exemplo. Nada do que você escrever ali é salvo.
+
+Escreva o seu dia
+- Entradas com as suas próprias palavras, com humor, emoções, energia, estresse, sono, atividade física, acontecimentos, pessoas, lugar, notas e etiquetas.
+- Uma linha do tempo do seu diário e uma página para cada dia.
+
+Hábitos e lembretes
+- Hábitos diários e semanais que você marca ao longo do dia.
+- Lembretes opcionais como notificações no celular. Você decide se eles mostram o nome do hábito.
+
+Observações cuidadosas
+- O app procura relações possíveis nos seus próprios dados, por exemplo entre o sono e o humor, ou entre a atividade física e a energia.
+- As observações são escritas com cuidado e nunca afirmam que uma coisa causa outra.
+- Cada observação mostra por que você a recebeu: quantos dias foram analisados e os números exatos por trás dela.
+- Quando não há dados suficientes, o app diz isso em vez de adivinhar.
+
+Calendário, estatísticas e pesquisa
+- Um calendário mensal gregoriano, hebraico ou islâmico (hégira), com as datas festivas do calendário que você escolher.
+- Gráficos do seu humor, energia, estresse, sono e hábitos ao longo do tempo, cada um com uma tabela de dados.
+- Pesquisa inteligente: faça uma pergunta no seu idioma, como "Em que dias dormi menos de cinco horas?", e receba a resposta a partir do seu diário.
+
+Funciona offline e sincroniza quando a conexão volta
+- O seu diário fica na sua própria conta no servidor do Your Personal Diary. Entre em outro celular ou computador e estará tudo lá.
+- Caiu a conexão? Continue lendo e escrevendo. As suas alterações ficam guardadas com criptografia no celular e são enviadas automaticamente quando a conexão volta.
+
+Privacidade e segurança
+- O seu diário é armazenado com criptografia no servidor, separadamente para cada conta.
+- O app se conecta apenas ao servidor do Your Personal Diary.
+- Bloqueio automático após um período de inatividade e, se você quiser, sempre que sair do app.
+- Uma opção para ocultar o conteúdo na tela de apps recentes e bloquear capturas de tela.
+- Backup criptografado em um arquivo que você guarda onde quiser, e restauração a partir dele.
+- Exporte o seu diário para TXT, CSV, JSON ou PDF.
+- Exclua a sua conta e todos os dados dela a qualquer momento, nas Definições do app.
+- A política de privacidade explica exatamente o que é armazenado e onde.
+
+20 idiomas
+O app abre no idioma do seu celular quando ele é um dos 20 idiomas do app, e você pode mudar o idioma a qualquer momento nas Definições. Hebraico e árabe são exibidos da direita para a esquerda.
+
+Acessibilidade
+- Funciona com leitores de tela: títulos claros, campos com rótulos e mensagens de estado anunciadas.
+- Temas claro, escuro e de alto contraste, tamanho de texto ajustável e uma opção para reduzir o movimento.
+
+Importante
+Your Personal Diary é uma ferramenta para manter um diário pessoal. Não é uma ferramenta médica nem de diagnóstico, e as suas observações não são aconselhamento médico ou psicológico. Se você estiver preocupado com a sua saúde, converse com um profissional qualificado.

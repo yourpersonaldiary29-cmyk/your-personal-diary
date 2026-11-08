@@ -1,0 +1,17 @@
+TASK: WP-H10c - UI and app integration of the automatic offline mode, exactly as the binding design docs/android-tasks/OFFLINE-DESIGN.md defines it (read it completely; the WP-H10c entry of section 8 is your package: owned files, work list, tests, acceptance; sections 4.6-4.9 and 6 are the behaviour; §2 traces HOSTED-IMPL item 11).
+
+PRECONDITION: WP-H10b (src/offline/**, the facade in src/api) is finished and green - read its report in the files and their tests before you start; build on its exported API, do not change src/offline/** (if something is missing there, add the smallest adapter in your own files and report it).
+
+OWNER DECISIONS THAT OVERRIDE THE DESIGN WHERE THEY CONFLICT: docs/android-tasks/HOSTED-IMPL.md items 12-13 (no first-run language screen anywhere; Skip tour Android-only) and docs/android-tasks/OWNER-ID-VISIBILITY.md (the account-id row rule; src/pages/settings/AccountSection.tsx is NOT yours even if the design lists Settings sections).
+
+OWNED FILES: exactly the WP-H10c list in §8 (app shell src/main.tsx, src/App.tsx; contexts incl. new src/context/SyncContext.tsx; src/components/ConnectionBanner.tsx and new src/components/sync/**; src/hooks/useApi.ts; the listed pages and habit/entry components; the listed Settings sections minus AccountSection.tsx; src/test/**; shared/i18n/messages/*/shell.ts for the new texts in all 20 locales - real translations, ICU plurals, parity green).
+
+WORK (all of §8 WP-H10c): cache start and the me() re-run rule (§4.7); the 401 / logout / lock-screen logout / account-deletion paths (§4.8) with explicit wipeAccount; bar-not-page for cache sessions; remount with key={userId} on account switch; SyncStatusBar replacing ConnectionBanner for signed-in non-guest users when the engine is enabled (same slot, role="status", one line on mobile, no flicker on a 300 ms drop, announcements); the pending-changes review dialog and the notes actions (§4.9); badges; NeedsConnection on the online-only pages and controls (§6.2); the -1 id handling and URL replace after mapping; toasts; the lock screen offline unlock through DeviceUserCheck with fallback text and the 423 password prompt; "drain first" for online-only writes. The web UI served by the hosted server shares this code (no offline start there, §7).
+
+TESTS: the component tests listed in §8 WP-H10c, plus the 20-locale parity test. Every EXISTING page test must keep passing without edits to its expectations (online behaviour is unchanged).
+
+GATES (quote the numbers): root typecheck, whole root vitest, `npx vite build` (the desktop dist must contain no Capacitor code), `node scripts/check-no-network.mjs`, i18n parity; `npm run mobile:typecheck`, `npm run mobile:test`, `npm run mobile:build`.
+
+DO NOT: touch src/offline/**, src/api/**, server/**, src-tauri/**, mobile/platform/**, android/**, store/**, deploy/**, AccountSection.tsx; run fly or deploy; read real data directories.
+
+NOTE 2026-10-25 from the WP-H10b fixer (binding for H10c implementer, verifier and fixer): the engine now listens to UNAUTHORIZED_EVENT from app start and purges the bound account's key, snapshot and cache on any 401 that the AuthProvider does not suppress. Keep the AuthProvider's suppression listener in the CAPTURE phase on window (as it is now) or a wrong-password 401 on the login form would wipe the device copy. AuthContext's setServerInfo-from-snapshot line is now redundant but harmless. See OFFLINE-DESIGN.md section 13.

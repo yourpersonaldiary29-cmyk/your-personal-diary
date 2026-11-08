@@ -1,0 +1,292 @@
+/**
+ * ja - Japanese keyword table of the smart-search parser (schema: ./index.ts).
+ *
+ * Japanese has no spaces, so the table uses the 'segmenter' tokenizer: the question is first
+ * cut at every phrase of this table found as a substring (longest first), and the rest is
+ * split with Intl.Segmenter. Design notes:
+ *  - Every single hiragana character is a stopword. Particles and inflection endings
+ *    (は, が, を, た, っ, ...) are therefore never kept as search terms, while the longer
+ *    phrases below (いちばん, について, うれしい, ...) still match whole because the longest
+ *    phrase wins. Free-text terms are the kanji / katakana / Latin words of the question;
+ *    a word written only in hiragana can be searched in quotes (「ごはん」).
+ *  - Japanese puts comparators after the number (5時間未満, 8以上, 8を超えた): those rules carry
+ *    position 'after'. The forms that precede the number work too: 最大 / 多くても / 長くても
+ *    (at most), 最低 / 少なくとも (at least), ちょうど (exactly).
+ *  - "Xと書いたのはいつ" puts the written words before the verb: the trigger phrases absorb the
+ *    usual endings (のはいつ, 日, こと ...) so the parser falls back to the words before the verb.
+ */
+import type { SearchLanguageTable } from './index';
+
+/** ぁ..ゖ - every hiragana character, used as a stopword (see the header). */
+const HIRAGANA: string[] = Array.from({ length: 0x3096 - 0x3041 + 1 }, (_, i) => String.fromCharCode(0x3041 + i));
+
+const WRITE_VERBS = [
+  '書いた', '書きました', '書いていた', '書いてた', '書いてある', '記録した', '記録しました', '記した', '触れた',
+  '触れていた', '言及した', 'メモした', '綴った',
+];
+const WRITE_ENDINGS = [
+  '', 'の', 'のは', 'のはいつ', 'のはいつですか', 'のはいつだっけ', 'のはいつだった', 'のはどの日', 'のは何日', '日',
+  '日は', '日はいつ', '日はいつですか', '日はどれ', 'こと', 'ことは', 'ことがある', 'ことある', 'とき', '時', 'か', 'っけ',
+];
+
+const table: SearchLanguageTable = {
+  locale: 'ja',
+  script: 'kana',
+  tokenizer: 'segmenter',
+  dateOrder: 'ymd',
+  prefixes: [],
+  articlePrefixes: [],
+  numberPrefixLetters: '',
+  barePrefixTokens: [],
+  articles: [],
+  stopwords: [
+    ...HIRAGANA,
+    // question words and function words
+    'いつ', 'どの', 'どれ', 'どんな', 'どう', 'なに', 'なん', '何', '何か', '何日', '何回', 'について', 'についての',
+    'に関する', 'に関して', 'という', 'といった', 'ですか', 'でした', 'ました', 'ません', 'ください', 'ている', 'ていた',
+    'だった', 'だっけ', 'でしょう', 'ところ', 'こと', 'とき', 'もの', 'その', 'あの', 'この日', 'それ', 'これ',
+    // pronouns
+    '私', 'わたし', '僕', 'ぼく', '俺', '自分', 'あなた',
+    // diary vocabulary and request words
+    '日', '日々', '日記', '記録', 'エントリー', 'エントリ', 'メモ', 'タグ', '付いた', 'ついた', '含む', '含まれる',
+    '入った', '表示', '見せて', '教えて', '探して', '検索', '一覧', '時', '毎日', '十分', '多分', '感じた', '感じ',
+    '思った', '思う', 'その日', '分', 'から', 'まで', 'までの間', 'の間', 'より',
+    // post-number comparators (read as comparators after a number) - never kept as search terms
+    '以上', '以下', '未満', '以内', '超', '超え', '超えた', '下回', '上回',
+  ],
+  numberWords: {
+    一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10,
+    十一: 11, 十二: 12, 十五: 15, 二十: 20, 三十: 30, 四十: 40, 五十: 50, 六十: 60, 九十: 90, 百: 100,
+  },
+  halfPhrases: [],
+  periods: {
+    phrases: {
+      '今日': 'today',
+      'きょう': 'today',
+      '本日': 'today',
+      '昨日': 'yesterday',
+      'きのう': 'yesterday',
+      '一昨日': 'twoDaysAgo',
+      'おととい': 'twoDaysAgo',
+      '今週': 'week',
+      '先週': 'week',
+      'この1週間': 'week',
+      'この一週間': 'week',
+      '過去1週間': 'week',
+      '過去一週間': 'week',
+      'ここ1週間': 'week',
+      'ここ一週間': 'week',
+      '最近1週間': 'week',
+      '直近1週間': 'week',
+      '今月': 'month',
+      '先月': 'month',
+      'この1か月': 'month',
+      'この一か月': 'month',
+      'この1ヶ月': 'month',
+      'この1カ月': 'month',
+      '過去1か月': 'month',
+      '過去一か月': 'month',
+      '過去1ヶ月': 'month',
+      '過去1カ月': 'month',
+      'ここ1か月': 'month',
+      'ここ一か月': 'month',
+      'ここ1ヶ月': 'month',
+      '直近1か月': 'month',
+      '最近1か月': 'month',
+      '半年': 'halfYear',
+      '半年間': 'halfYear',
+      'この半年': 'halfYear',
+      'この半年間': 'halfYear',
+      '過去半年': 'halfYear',
+      '過去半年間': 'halfYear',
+      'ここ半年': 'halfYear',
+      '今年': 'year',
+      '去年': 'year',
+      '昨年': 'year',
+      'この1年': 'year',
+      'この一年': 'year',
+      'この1年間': 'year',
+      '過去1年': 'year',
+      '過去一年': 'year',
+      '過去1年間': 'year',
+      'ここ1年': 'year',
+      'ここ一年': 'year',
+      '直近1年': 'year',
+      '今年に入ってから': 'startYear',
+      '年初から': 'startYear',
+      '年始から': 'startYear',
+      '年明けから': 'startYear',
+      '今年の初めから': 'startYear',
+      '今年初めから': 'startYear',
+      '今月に入ってから': 'startMonth',
+      '月初から': 'startMonth',
+      '今月の初めから': 'startMonth',
+      '今月初めから': 'startMonth',
+      '最近': 'recent',
+      'このところ': 'recent',
+      'ここのところ': 'recent',
+      'ここ最近': 'recent',
+      'ここ数日': 'recent',
+      'この数日': 'recent',
+      '最近数日': 'recent',
+      '近頃': 'recent',
+    },
+    units: {
+      '日': 'day', '日間': 'day',
+      '週': 'week', '週間': 'week',
+      'か月': 'month', 'ヶ月': 'month', 'ヵ月': 'month', 'カ月': 'month', 'ケ月': 'month', 'か月間': 'month', 'ヶ月間': 'month',
+      '年': 'year', '年間': 'year',
+    },
+    lastWords: ['過去', 'ここ', '最近', 'この', '直近'],
+    dualWords: {},
+    ago: { words: ['前'], position: 'after' },
+    // Intl knows 1月..12月; kanji month names are common too.
+    monthAliases: {
+      '一月': 0, '二月': 1, '三月': 2, '四月': 3, '五月': 4, '六月': 5,
+      '七月': 6, '八月': 7, '九月': 8, '十月': 9, '十一月': 10, '十二月': 11,
+    },
+    monthNeedsContext: [],
+    monthLeadWords: [],
+    rangeConnectors: ['から', 'まで', 'までの間', 'の間', 'より', '〜', '~'],
+  },
+  metrics: {
+    '気分': 'mood', '機嫌': 'mood', 'ご機嫌': 'mood', '気持ち': 'mood', 'ムード': 'mood', 'メンタル': 'mood',
+    'エネルギー': 'energy', 'エネルギーレベル': 'energy', '活力': 'energy', '体力': 'energy', '気力': 'energy',
+    'ストレス': 'stress', 'ストレスレベル': 'stress', 'ストレス度': 'stress',
+    '睡眠': 'sleepHours', '睡眠時間': 'sleepHours', '睡眠量': 'sleepHours', '寝': 'sleepHours', '眠': 'sleepHours',
+    '睡眠の質': 'sleepQuality', '眠りの質': 'sleepQuality', '睡眠品質': 'sleepQuality', '寝つき': 'sleepQuality',
+    '寝付き': 'sleepQuality',
+    '運動': 'exerciseMinutes', '運動時間': 'exerciseMinutes', 'トレーニング': 'exerciseMinutes', '筋トレ': 'exerciseMinutes',
+    'ジム': 'exerciseMinutes', 'ランニング': 'exerciseMinutes', 'ジョギング': 'exerciseMinutes', 'スポーツ': 'exerciseMinutes',
+    'ワークアウト': 'exerciseMinutes', 'エクササイズ': 'exerciseMinutes', '体を動かし': 'exerciseMinutes', '水泳': 'exerciseMinutes',
+    'ヨガ': 'exerciseMinutes',
+  },
+  thresholdUnits: {
+    '時間': 'sleepHours',
+    '分': 'exerciseMinutes', '分間': 'exerciseMinutes',
+    '点': null, 'ポイント': null,
+  },
+  comparators: [
+    // Comparators AFTER the number (and its unit): see ComparatorRule.position.
+    { words: ['未満'], comparator: 'lt', position: 'after' },
+    { words: ['以下'], comparator: 'lte', position: 'after' },
+    { words: ['以内'], comparator: 'lte', position: 'after' },
+    { words: ['以上'], comparator: 'gte', position: 'after' },
+    { words: ['超'], comparator: 'gt', position: 'after' },
+    { words: ['超え'], comparator: 'gt', position: 'after' },
+    { words: ['超えた'], comparator: 'gt', position: 'after' },
+    { words: ['を', '超えた'], comparator: 'gt', position: 'after' },
+    { words: ['を', '超える'], comparator: 'gt', position: 'after' },
+    { words: ['を', '超え'], comparator: 'gt', position: 'after' },
+    { words: ['最大'], comparator: 'lte' },
+    { words: ['最大で'], comparator: 'lte' },
+    { words: ['多くても'], comparator: 'lte' },
+    { words: ['長くても'], comparator: 'lte' },
+    { words: ['高くても'], comparator: 'lte' },
+    { words: ['せいぜい'], comparator: 'lte' },
+    { words: ['最長'], comparator: 'lte' },
+    { words: ['最低'], comparator: 'gte' },
+    { words: ['最低でも'], comparator: 'gte' },
+    { words: ['少なくとも'], comparator: 'gte' },
+    { words: ['最短'], comparator: 'gte' },
+    { words: ['ちょうど'], comparator: 'eq' },
+    { words: ['きっかり'], comparator: 'eq' },
+    // "7より高い" (higher than 7), "5より低い" (lower than 5): the comparison follows the number.
+    { words: ['より', '高い'], comparator: 'gt', position: 'after' },
+    { words: ['より', '多い'], comparator: 'gt', position: 'after' },
+    { words: ['より', '長い'], comparator: 'gt', position: 'after' },
+    { words: ['より', '大きい'], comparator: 'gt', position: 'after' },
+    { words: ['より', '上'], comparator: 'gt', position: 'after' },
+    { words: ['より', '低い'], comparator: 'lt', position: 'after' },
+    { words: ['より', '少ない'], comparator: 'lt', position: 'after' },
+    { words: ['より', '短い'], comparator: 'lt', position: 'after' },
+    { words: ['より', '小さい'], comparator: 'lt', position: 'after' },
+    { words: ['より', '下'], comparator: 'lt', position: 'after' },
+    { words: ['より高い'], comparator: 'gt', position: 'after' },
+    { words: ['より多い'], comparator: 'gt', position: 'after' },
+    { words: ['より長い'], comparator: 'gt', position: 'after' },
+    { words: ['より低い'], comparator: 'lt', position: 'after' },
+    { words: ['より少ない'], comparator: 'lt', position: 'after' },
+    { words: ['より短い'], comparator: 'lt', position: 'after' },
+    { words: ['<'], comparator: 'lt' },
+    { words: ['<='], comparator: 'lte' },
+    { words: ['>'], comparator: 'gt' },
+    { words: ['>='], comparator: 'gte' },
+    { words: ['='], comparator: 'eq' },
+    { words: ['＜'], comparator: 'lt' },
+    { words: ['≦'], comparator: 'lte' },
+    { words: ['≤'], comparator: 'lte' },
+    { words: ['＞'], comparator: 'gt' },
+    { words: ['≧'], comparator: 'gte' },
+    { words: ['≥'], comparator: 'gte' },
+  ],
+  negations: ['しなかった', 'していない', 'してない', 'しない', 'せず', 'なかった', 'ない', 'なし', '無し', '休んだ', 'サボった'],
+  rank: {
+    good: ['良い', 'よい', 'いい', '良かった', 'よかった', '気分が良い', '気分がいい', '気分が良かった', '気分がよかった',
+      '調子が良い', '調子がいい', '調子が良かった', '調子がよかった', '気持ちが良かった'],
+    bad: ['悪い', '悪かった', 'つらい', 'つらかった', '辛い', '辛かった', '大変', '大変だった', 'しんどい', 'しんどかった',
+      'きつい', 'きつかった', 'ひどい', 'ひどかった', '気分が悪い', '気分が悪かった', '調子が悪い', '調子が悪かった'],
+    high: ['高い', '高かった', '多い', '多かった', '高め'],
+    low: ['低い', '低かった', '少ない', '少なかった', '低め'],
+    markersBefore: ['いちばん', '一番', '最も', 'もっとも'],
+    markersAfter: [],
+    // Named days are listed too: they are cut whole (週末, 誕生日) and stay search terms unless next to good/bad.
+    dayWords: ['日', '日々', '週末', '平日', '休日', '祝日', '記念日', '誕生日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日',
+      '土曜日', '日曜日', '月曜', '火曜', '水曜', '木曜', '金曜', '土曜', '日曜'],
+    bare: {
+      best: ['最高', 'ベスト', '最良', '絶好調'],
+      worst: ['最悪', 'ワースト', '最低', '絶不調', 'どん底'],
+      high: ['最大', 'ピーク', '最多'],
+      low: ['最小', '最少'],
+    },
+  },
+  trend: {
+    words: [
+      '変わ', '変化', '推移', '傾向', 'トレンド', '移り変わり', '変動', '改善', '悪化', '上がっ', '下がっ', '上昇', '低下',
+      '良くなっ', '悪くなっ', '平均', '平均値',
+    ],
+    leadWords: ['どう', 'どのように', 'どんなふうに', 'どんな風に'],
+  },
+  trigger: {
+    words: WRITE_VERBS.flatMap((verb) => WRITE_ENDINGS.map((ending) => verb + ending)),
+    leadWords: ['いつ', 'と', 'って', 'ことを', 'について'],
+    conjunctions: [],
+    conjunctionPrefix: null,
+  },
+  // Label first, then aliases (the 'emotions' catalogue of ja is merged in as well).
+  // Stems (嬉し, 疲れ, 悲し ...) also catch the other inflected forms (嬉しかった, 疲れていた).
+  emotions: {
+    happy: ['うれしい', 'うれし', '嬉し', '幸せ', 'しあわせ', '楽し', '喜び', 'ハッピー'],
+    calm: ['穏やか', 'おだやか', '落ち着', 'リラックス', '平穏', '安らぎ', 'のんびり'],
+    sad: ['悲しい', '悲し', 'かなし', '落ち込', '憂うつ', '憂鬱'],
+    angry: ['怒り', '怒っ', '腹が立', '腹立たし', 'むかつ', 'いらだ', '苛立'],
+    stressed: ['ストレス', 'ストレスを感じ', 'ストレスがたま', 'プレッシャー', '張り詰め', 'ピリピリ'],
+    excited: ['ワクワク', 'わくわく', '興奮', 'ドキドキ'],
+    tired: ['疲れた', '疲れ', '疲労', 'くたくた', 'へとへと', '眠い', 'だるい', 'だるか'],
+    satisfied: ['満足', '満たされ', '充実'],
+    frustrated: ['もどかしい', 'もどかし', 'フラストレーション', '歯がゆ', '悔し', 'イライラ', 'いらいら'],
+    anxious: ['不安', '心配', '気がかり', '緊張', '怖'],
+    energetic: ['元気いっぱい', '元気', 'エネルギッシュ', '活気', 'はつらつ'],
+    grateful: ['感謝', 'ありがた', 'ありがとう'],
+    lonely: ['さみしい', 'さみし', '寂し', 'さびし', '孤独', 'ひとりぼっち'],
+    hopeful: ['希望に満ちた', '希望', '前向き', '楽観'],
+    bored: ['退屈', 'つまらな', '暇', '飽き'],
+    proud: ['誇らしい', '誇らし', '誇り', '自慢'],
+    focused: ['集中', '没頭'],
+    overwhelmed: ['いっぱいいっぱい', '圧倒され', '手一杯', 'キャパオーバー', '押しつぶされ'],
+  },
+  examples: [
+    '過去1か月で、いちばん気分が良かった日は？',
+    '「疲れた」と書いたのはいつ？',
+    '睡眠が5時間未満だった日は？',
+    '過去3か月で、気分はどのように変わりましたか？',
+    'ストレスを感じた日はいつ？',
+    '今週、うれしかったのはいつ？',
+    '過去1年間で、エネルギーが8を超えた日',
+    '仕事についての記録',
+    '7月',
+    '2026/08/01から2026/08/15まで',
+  ],
+};
+
+export default table;

@@ -1,0 +1,20 @@
+Naplóbejegyzések hangulattal, érzelmekkel, energiával, stresszel, alvással, testmozgással, emberekkel, hellyel és címkékkel
+Napi és heti szokások választható emlékeztetőkkel Windows-értesítésként
+Óvatos meglátások a saját adataidban rejlő lehetséges mintázatokról, soha nem állít ok-okozati összefüggést
+A „Miért kaptam ezt a meglátást?” megmutatja a pontos számokat minden meglátás mögött
+Havi naptár Gergely-, zsidó vagy hidzsra (iszlám) naptár szerint, mindegyik ünnepeivel
+Statisztika és grafikonok az idő múlásával, mindegyik adattáblázattal
+Okos keresés: kérdezz a naplódról a saját nyelveden
+Egy fiók minden eszközödön, a Your Personal Diary szerverén tárolva
+Akkor is működik, ha megszakad a kapcsolat, és feltölti a módosításaidat, amint visszatér
+A napló titkosítva (AES-256) a szerveren, minden fióknak külön fájlban
+Kizárólag a Your Personal Diary szerveréhez kapcsolódik, mindig HTTPS-en keresztül
+Nincs reklám, nincs használati elemzés, nincs követés
+Automatikus zárolás tétlenség után és azonnali zárolás a Ctrl+L billentyűkombinációval
+Jelszó-visszaállítás e-mailben, a naplód megmarad
+Titkosított biztonsági mentés egy általad őrzött fájlba, és visszaállítás belőle
+Exportálás TXT, CSV, JSON és PDF formátumba
+20 felületnyelv, köztük a jobbról balra írt héber és arab
+Képernyőolvasóval is használható, teljes billentyűzetes vezérléssel és billentyűparancsokkal
+Világos, sötét és nagy kontrasztú téma állítható szövegmérettel
+Személyes naplóvezető eszköz, nem orvosi vagy diagnosztikai eszköz

@@ -1,0 +1,20 @@
+Tagebucheinträge mit Stimmung, Gefühlen, Energie, Stress, Schlaf, Bewegung, Personen, Ort und Schlagwörtern
+Tägliche und wöchentliche Gewohnheiten mit optionalen Erinnerungen als Windows-Benachrichtigungen
+Behutsame Erkenntnisse über mögliche Muster in deinen eigenen Daten, nie Aussagen über Ursache und Wirkung
+„Warum sehe ich diese Erkenntnis?“ zeigt die genauen Zahlen hinter jeder Erkenntnis
+Monatskalender nach gregorianischem, hebräischem oder islamischem Kalender, jeweils mit seinen Feiertagen
+Statistiken und Diagramme im Zeitverlauf, jedes mit einer Datentabelle
+Intelligente Suche: Stell Fragen zu deinem Tagebuch in deiner eigenen Sprache
+Ein Konto auf allen deinen Geräten, aufbewahrt auf dem Server von Your Personal Diary
+Funktioniert weiter, wenn die Verbindung abbricht, und lädt deine Änderungen hoch, sobald sie zurück ist
+Tagebuch verschlüsselt auf dem Server gespeichert (AES-256), eine eigene Datei für jedes Konto
+Verbindet sich ausschließlich mit dem Server von Your Personal Diary, immer über HTTPS
+Keine Werbung, keine Nutzungsanalyse, kein Tracking
+Automatische Sperre bei Inaktivität und sofortige Sperre mit Strg+L
+Passwort per E-Mail zurücksetzen, ohne dein Tagebuch zu verlieren
+Verschlüsseltes Backup in eine Datei, die du aufbewahrst, und Wiederherstellung daraus
+Export als TXT, CSV, JSON und PDF
+20 Sprachen der Oberfläche, darunter Hebräisch und Arabisch von rechts nach links
+Funktioniert mit Screenreadern, vollständig per Tastatur bedienbar, mit Tastenkürzeln
+Helles, dunkles und kontrastreiches Design mit anpassbarer Textgröße
+Ein Werkzeug für dein persönliches Tagebuch, kein medizinisches oder diagnostisches Werkzeug

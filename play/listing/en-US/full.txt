@@ -1,0 +1,46 @@
+Your Personal Diary is a private, smart diary. You write about your day, and the app helps you notice patterns over weeks, months and years. No ads, no analytics, no tracking.
+
+Want to look around first? Tap "Skip - just look around" on the first screen and explore the app with sample data. Nothing you write there is saved.
+
+Write your day
+- Entries in your own words, with mood, emotions, energy, stress, sleep, physical activity, events, people, place, notes and tags.
+- A timeline of your diary and a page for every day.
+
+Habits and reminders
+- Daily and weekly habits that you tick off as you go.
+- Optional reminders as notifications on your phone. You decide whether they show the habit's name.
+
+Gentle insights
+- The app looks for possible relationships in your own data, for example between sleep and mood, or between physical activity and energy.
+- Insights are worded carefully and never claim that one thing causes another.
+- "Why did I get this insight?" shows how many days were checked and the exact numbers behind each insight.
+- When there is not enough data, the app says so instead of guessing.
+
+Calendar, statistics and search
+- A month calendar in the Gregorian, Hebrew or Hijri calendar, with the holidays of the calendar you choose.
+- Charts of your mood, energy, stress, sleep and habits over time, each with a data table.
+- Smart search: ask a question in your own language, such as "On which days did I sleep less than five hours?", and get the answer from your diary.
+
+Works offline, syncs when you are back
+- Your diary is kept in your own account on the Your Personal Diary server. Sign in on another phone or computer and everything is there.
+- If the connection drops, keep reading and writing. Your changes are kept encrypted on the phone and uploaded automatically when the connection returns.
+
+Privacy and security
+- Your diary is stored encrypted on the server, separately for each account.
+- The app connects only to the Your Personal Diary server.
+- Automatic lock after a period of inactivity and, if you choose, whenever you leave the app.
+- An option to hide the app's content in the recent-apps screen and block screenshots.
+- Encrypted backup to a file that you keep wherever you choose, and restore from it.
+- Export your diary to TXT, CSV, JSON or PDF.
+- Delete your account and all of its data at any time in Settings.
+- The privacy policy explains exactly what is stored and where.
+
+20 languages
+The app opens in your phone's language when it is one of its 20 languages, and you can change it at any time in Settings. Hebrew and Arabic are shown right to left.
+
+Accessibility
+- Works with screen readers: clear headings, labelled fields and announced status messages.
+- Light, dark and high-contrast themes, adjustable text size and a reduce-motion option.
+
+Please note
+Your Personal Diary is a personal journaling tool. It is not a medical or diagnostic tool, and its insights are not medical or psychological advice. If you are worried about your health, please talk to a qualified professional.

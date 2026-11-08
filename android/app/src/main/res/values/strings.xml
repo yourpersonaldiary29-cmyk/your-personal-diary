@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Your Personal Diary</string>
+    <string name="title_activity_main">Your Personal Diary</string>
+    <!-- Capacitor template strings: the application id of app/build.gradle (app.yourpersonaldiary). -->
+    <string name="package_name">app.yourpersonaldiary</string>
+    <string name="custom_url_scheme">app.yourpersonaldiary</string>
+</resources>

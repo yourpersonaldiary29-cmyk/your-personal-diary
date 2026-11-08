@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adaptive launcher icon - background layer: the blue gradient of design/app-icon.svg (top-left #2b4c7e to bottom-right #1b2f4f). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="#2b4c7e"
+        android:endColor="#1b2f4f"
+        android:type="linear" />
+</shape>

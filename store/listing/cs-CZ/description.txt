@@ -1,0 +1,50 @@
+Your Personal Diary je soukromý, chytrý deník, který tvé záznamy uchovává ve tvém vlastním účtu na serveru Your Personal Diary. K jeho používání si v aplikaci vytvoříš účet a k vytvoření účtu a k prvnímu přihlášení potřebuješ připojení k internetu. Píšeš o svém dni a aplikace ti pomáhá všímat si vzorců v průběhu týdnů, měsíců a let. Žádné reklamy, žádná analytika, žádné sledování.
+
+Zapisuj svůj den
+- Záznamy vlastními slovy, s náladou, emocemi, energií, stresem, spánkem, pohybem, událostmi, lidmi, místem, poznámkami a štítky.
+- Časová osa deníku a stránka pro každý den.
+
+Návyky a připomínky
+- Denní a týdenní návyky, které si během dne odškrtáváš.
+- Volitelné připomínky jako oznámení Windows, když aplikace běží.
+
+Opatrné postřehy
+- Aplikace hledá možné souvislosti ve tvých vlastních datech, například mezi spánkem a náladou nebo mezi pohybem a energií.
+- Postřehy jsou formulované opatrně a nikdy netvrdí, že jedna věc způsobuje druhou.
+- „Proč vidím tento postřeh?“ ukazuje, kolik dní se prověřilo a jaká přesná čísla stojí za každým postřehem.
+- Když dat není dost, aplikace to řekne, místo aby hádala.
+
+Kalendář, statistiky a hledání
+- Měsíční kalendář gregoriánský, židovský nebo islámský (hidžra), se svátky zvoleného kalendáře.
+- Grafy nálady, energie, stresu, spánku a návyků v čase, každý i s tabulkou dat.
+- Chytré hledání: zeptej se svým jazykem, například „Ve kterých dnech trval můj spánek méně než pět hodin?“, a dostaneš odpověď ze svého deníku.
+
+Jeden účet na všech tvých zařízeních
+- Tvůj deník je uložený ve tvém vlastním účtu na serveru Your Personal Diary. Přihlas se stejným účtem na jiném zařízení a všechno tam najdeš.
+- Co změníš na jednom zařízení, objeví se i na ostatních.
+
+Funguje dál, i když vypadne připojení
+- Čti a piš dál. Změny se uloží zašifrované v počítači a automaticky se nahrají, jakmile se připojení obnoví, i když mezitím aplikaci zavřeš.
+- Se zapnutou volbou „Zapamatovat si mě“ si aplikace uchová i zašifrovanou kopii naposledy zobrazeného obsahu, takže se otevře a zobrazí ho i bez připojení.
+- Postřehy, hledání, statistiky, záloha, export a nastavení účtu vyžadují připojení.
+
+Soukromí a zabezpečení
+- Tvůj deník je na serveru uložený zašifrovaný (AES-256), pro každý účet v samostatném souboru. Samotné heslo se neukládá.
+- Během přihlášení otevře server tvůj deník ve své paměti, aby ti ho mohl zobrazit, prohledávat a analyzovat. Co to znamená, vysvětlují zásady ochrany soukromí.
+- Aplikace se připojuje výhradně k serveru Your Personal Diary, vždy přes HTTPS.
+- Automatické zamčení po určité době nečinnosti a okamžité zamčení zkratkou Ctrl+L.
+- Zapomenuté heslo? Obnov ho pomocí odkazu nebo kódu zaslaného na tvou e-mailovou adresu a deník ti zůstane.
+- Šifrovaná záloha do souboru, který si uložíš, kam chceš, a obnovení z něj.
+- Export deníku do TXT, CSV, JSON nebo PDF.
+- Smazání účtu a všech jeho dat kdykoli v Nastavení.
+
+20 jazyků
+Angličtina, hebrejština, arabština, čínština (zjednodušená), japonština, hindština, thajština, španělština, portugalština, francouzština, italština, němčina, rumunština, řečtina, polština, čeština, maďarština, ruština, bulharština a turečtina. Aplikace se otevře v angličtině: jazyk si vyber v Nastavení (Settings) v části Jazyk (Language) a tvůj účet si ho zapamatuje. Hebrejština a arabština se zobrazují zprava doleva.
+
+Přístupnost
+- Funguje se čtečkami obrazovky: jasné nadpisy, popsaná pole a ohlašované stavové zprávy.
+- Všechno se dá ovládat klávesnicí, hlavní akce mají klávesové zkratky.
+- Světlý, tmavý a vysoce kontrastní motiv, nastavitelná velikost textu a možnost omezit animace.
+
+Upozornění
+Your Personal Diary je nástroj pro osobní deník určený lidem od 16 let. Není to zdravotnický ani diagnostický nástroj a jeho postřehy nejsou lékařskou ani psychologickou radou. Pokud tě něco ohledně zdraví znepokojuje, obrať se na kvalifikovaného odborníka.

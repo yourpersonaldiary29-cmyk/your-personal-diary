@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "sessions": [
+    {
+      "id": "s_2d3c879e459059ea",
+      "tokenHash": "709ef5a1845fe5dcffc9abf2be2bd7eeb65446135b04cf216f4fa5359b0337a8",
+      "userId": "u_2b7daaad498df7ef",
+      "deviceName": "Fixture desktop",
+      "createdAt": "2026-10-01T13:38:24.631Z",
+      "lastSeenAt": "2026-10-01T13:38:24.636Z",
+      "expiresAt": "2026-12-30T13:38:24.631Z",
+      "rememberMe": true,
+      "wrappedKeyBase64": "4dYlpwgRijyHrY2sPNnfjU+SyOSrPi87zG+FsC3Ft5XZhsMI2XpMcc11nEHYZqsMPtwD2NURJtt8mAxb"
+    }
+  ]
+}

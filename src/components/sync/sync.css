@@ -1,0 +1,183 @@
+/*
+ * Automatic offline mode (docs/android-tasks/OFFLINE-DESIGN.md section 6): the status bar in the
+ * connection banner's slot, the review dialog, the "needs a connection" notice and the badges.
+ * Colours come from the theme tokens (tokens.css), so light, dark and high contrast follow the app's
+ * theme; offsets use logical properties and mirror in Hebrew and Arabic.
+ */
+
+.sync-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-block-end: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-info-soft);
+  color: var(--color-text);
+}
+
+.sync-bar--offline,
+.sync-bar--attention,
+.sync-bar--unreadable {
+  background: var(--color-warning-soft);
+}
+
+.sync-bar--drained {
+  background: var(--color-success-soft);
+}
+
+.sync-bar__text {
+  flex: 1 1 16rem;
+  min-width: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+.sync-bar__chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.sync-bar__actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: var(--space-2);
+}
+
+/* Outboxes of other accounts on this device: a separate line under the bar (also on a phone). */
+.sync-other {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  margin-block-end: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-alt);
+}
+
+.sync-other__text {
+  flex: 1 1 16rem;
+  min-width: 0;
+  margin: 0;
+}
+
+/* A phone: one line - the text is shortened, the chips and the actions keep their place. */
+@media (max-width: 40rem) {
+  .sync-bar {
+    flex-wrap: nowrap;
+    padding-inline: var(--space-3);
+  }
+
+  .sync-bar__text {
+    flex: 1 1 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .sync-bar__chips .badge:not(:first-child) {
+    display: none;
+  }
+
+  .sync-other {
+    padding-inline: var(--space-3);
+  }
+}
+
+.sync-panel__section + .sync-panel__section {
+  margin-block-start: var(--space-4);
+}
+
+.sync-panel__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sync-panel__item {
+  padding-block: var(--space-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.sync-panel__item:last-child {
+  border-block-end: 0;
+}
+
+.sync-panel__line {
+  margin: 0;
+}
+
+.sync-panel__kind {
+  font-weight: 600;
+}
+
+.sync-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block-start: var(--space-2);
+}
+
+.sync-panel__version {
+  margin-block-start: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-inline-start: 3px solid var(--color-border-strong);
+  background: var(--color-surface-alt);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sync-panel__version-title {
+  margin: 0 0 var(--space-1);
+  font-weight: 600;
+}
+
+.sync-panel__version-body {
+  margin: 0;
+}
+
+.needs-connection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.needs-connection__text {
+  margin: 0;
+}
+
+.needs-connection-hint {
+  margin-block: var(--space-1) 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+.pending-badge {
+  margin-inline-start: var(--space-2);
+  vertical-align: middle;
+}
+
+.sync-hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+@media (forced-colors: active) {
+  .sync-bar,
+  .sync-other {
+    border: 1px solid CanvasText;
+  }
+
+  .sync-panel__version {
+    border-inline-start-color: CanvasText;
+  }
+}

@@ -1,0 +1,50 @@
+Your Personal Diary ist ein privates, smartes Tagebuch, das dein Tagebuch in deinem eigenen Konto auf dem Server von Your Personal Diary aufbewahrt. Um es zu nutzen, erstellst du in der App ein Konto; dafür und für die erste Anmeldung brauchst du eine Internetverbindung. Du schreibst über deinen Tag, und die App hilft dir, Muster über Wochen, Monate und Jahre zu erkennen. Keine Werbung, keine Nutzungsanalyse, kein Tracking.
+
+Deinen Tag festhalten
+- Einträge in deinen eigenen Worten, mit Stimmung, Gefühlen, Energie, Stress, Schlaf, Bewegung, Ereignissen, Personen, Ort, Notizen und Schlagwörtern.
+- Eine Zeitleiste deines Tagebuchs und eine Seite für jeden Tag.
+
+Gewohnheiten und Erinnerungen
+- Tägliche und wöchentliche Gewohnheiten, die du im Laufe des Tages abhakst.
+- Optionale Erinnerungen, die als Windows-Benachrichtigungen erscheinen, solange die App läuft.
+
+Behutsame Erkenntnisse
+- Die App sucht in deinen eigenen Daten nach möglichen Zusammenhängen, zum Beispiel zwischen Schlaf und Stimmung oder zwischen Bewegung und Energie.
+- Erkenntnisse sind vorsichtig formuliert und behaupten nie, dass das eine das andere verursacht.
+- „Warum sehe ich diese Erkenntnis?“ zeigt, wie viele Tage geprüft wurden und welche genauen Zahlen hinter jeder Erkenntnis stehen.
+- Wenn die Daten nicht ausreichen, sagt die App das, statt zu raten.
+
+Kalender, Statistiken und Suche
+- Ein Monatskalender nach gregorianischem, hebräischem oder islamischem Kalender (Hidschra), mit den Feiertagen des gewählten Kalenders.
+- Diagramme zu Stimmung, Energie, Stress, Schlaf und Gewohnheiten im Zeitverlauf, jedes mit einer Datentabelle.
+- Intelligente Suche: Stell eine Frage in deiner Sprache, etwa „An welchen Tagen habe ich weniger als fünf Stunden geschlafen?“, und erhalte die Antwort aus deinem Tagebuch.
+
+Ein Konto auf allen deinen Geräten
+- Dein Tagebuch liegt in deinem eigenen Konto auf dem Server von Your Personal Diary. Melde dich auf einem anderen Gerät mit demselben Konto an, und alles ist da.
+- Was du auf einem Gerät änderst, erscheint auch auf den anderen.
+
+Funktioniert weiter, wenn die Verbindung abbricht
+- Lies und schreib einfach weiter. Deine Änderungen werden verschlüsselt auf deinem PC gespeichert und automatisch hochgeladen, sobald die Verbindung zurück ist, auch wenn du die App zwischendurch geschlossen hast.
+- Mit „Angemeldet bleiben“ behält die App außerdem eine verschlüsselte Kopie dessen, was du zuletzt angesehen hast, damit sie sich auch ohne Verbindung öffnet und es anzeigt.
+- Erkenntnisse, Suche, Statistiken, Backup, Export und Kontoeinstellungen brauchen eine Verbindung.
+
+Datenschutz und Sicherheit
+- Dein Tagebuch wird verschlüsselt auf dem Server gespeichert (AES-256), in einer eigenen Datei für jedes Konto. Dein Passwort selbst wird nicht gespeichert.
+- Solange du angemeldet bist, öffnet der Server dein Tagebuch in seinem Arbeitsspeicher, damit er es dir anzeigen, durchsuchen und auswerten kann. Die Datenschutzerklärung erklärt, was das bedeutet.
+- Die App verbindet sich ausschließlich mit dem Server von Your Personal Diary, immer über HTTPS.
+- Automatische Sperre nach einer Zeit ohne Aktivität und sofortige Sperre mit Strg+L.
+- Passwort vergessen? Setze es mit einem Link oder einem Code zurück, den du an deine E-Mail-Adresse bekommst, und behalte dein Tagebuch.
+- Verschlüsseltes Backup in eine Datei, die du aufbewahrst, wo du willst, und Wiederherstellung daraus.
+- Export deines Tagebuchs als TXT, CSV, JSON oder PDF.
+- Lösche dein Konto und alle seine Daten jederzeit in den Einstellungen.
+
+20 Sprachen
+Englisch, Hebräisch, Arabisch, Chinesisch (vereinfacht), Japanisch, Hindi, Thailändisch, Spanisch, Portugiesisch, Französisch, Italienisch, Deutsch, Rumänisch, Griechisch, Polnisch, Tschechisch, Ungarisch, Russisch, Bulgarisch und Türkisch. Die App öffnet sich auf Englisch: Wähle deine Sprache in den Einstellungen (Settings) unter „Sprache“ (Language), und dein Konto merkt sie sich. Hebräisch und Arabisch werden von rechts nach links angezeigt.
+
+Barrierefreiheit
+- Funktioniert mit Screenreadern: klare Überschriften, beschriftete Felder und angesagte Statusmeldungen.
+- Alles lässt sich mit der Tastatur bedienen, mit Tastenkürzeln für die wichtigsten Aktionen.
+- Helles, dunkles und kontrastreiches Design, anpassbare Textgröße und eine Option, Bewegung zu reduzieren.
+
+Bitte beachten
+Your Personal Diary ist ein Werkzeug für dein persönliches Tagebuch, gedacht für Menschen ab 16 Jahren. Es ist kein medizinisches oder diagnostisches Werkzeug, und seine Erkenntnisse sind keine medizinische oder psychologische Beratung. Wenn du dir Sorgen um deine Gesundheit machst, sprich bitte mit einer qualifizierten Fachperson.

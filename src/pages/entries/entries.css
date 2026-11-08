@@ -1,0 +1,676 @@
+/*
+ * Styles for the entry, timeline, day and calendar pages. Uses the design
+ * tokens from styles/tokens.css only, so every theme (light, dark, high
+ * contrast) and forced-colors mode keep working. Colour is never the only
+ * carrier of meaning: every tinted calendar cell also shows its numbers.
+ */
+
+/* Entry form ------------------------------------------------------------- */
+.entry-form .grid-2 {
+  align-items: start;
+}
+
+/* Metric badges ------------------------------------------------------------ */
+.metric-badges {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+}
+
+/* Entry cards (timeline) --------------------------------------------------- */
+.entry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.entry-card {
+  padding: var(--space-3) var(--space-4);
+}
+
+.entry-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+
+.entry-card__time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.entry-card__title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.entry-card__emotions {
+  margin-block-start: var(--space-2);
+}
+
+.entry-card__excerpt {
+  margin: var(--space-2) 0 0;
+  overflow-wrap: anywhere;
+}
+
+.entry-card__footer {
+  margin-block-start: var(--space-2);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Timeline ----------------------------------------------------------------- */
+.diary-toolbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: var(--space-3) var(--space-4);
+  align-items: end;
+  margin-block-end: var(--space-4);
+}
+
+.diary-toolbar .field {
+  margin: 0;
+}
+
+.day-navigator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-block-end: var(--space-4);
+}
+
+.day-navigator__label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.timeline__heading {
+  font-size: 1.05rem;
+  margin: 0 0 var(--space-2);
+  padding-block-end: var(--space-1);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.timeline__relative {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.timeline__status {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.timeline__more {
+  margin-block-start: var(--space-4);
+}
+
+.month-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.month-table th,
+.month-table td {
+  padding: var(--space-2) var(--space-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+  text-align: start;
+}
+
+.month-table thead th {
+  border-block-end-width: 2px;
+}
+
+/* Entry read view ---------------------------------------------------------- */
+.entry-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.entry-details__heading {
+  font-size: 1rem;
+  margin: 0 0 var(--space-1);
+}
+
+.entry-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: var(--line-height);
+}
+
+.plain-list {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.entry-meta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Day page tiles ----------------------------------------------------------- */
+.tiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: var(--space-3);
+}
+
+.tile {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.tile__label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.tile__value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.day-entry {
+  padding: var(--space-4);
+}
+
+.day-entry__title {
+  margin: 0 0 var(--space-3);
+  font-size: 1.15rem;
+}
+
+.day-entry__actions {
+  margin-block-start: var(--space-3);
+}
+
+.habit-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.habit-table caption {
+  text-align: start;
+  font-weight: 600;
+  padding-block-end: var(--space-2);
+}
+
+.habit-table th,
+.habit-table td {
+  padding: var(--space-2) var(--space-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+  text-align: start;
+}
+
+/* Calendar ----------------------------------------------------------------- */
+.calendar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-2) var(--space-3);
+  margin-block-end: var(--space-4);
+}
+
+.calendar__controls .field {
+  margin: 0;
+}
+
+.calendar {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.calendar__table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.calendar__table caption {
+  caption-side: top;
+  text-align: start;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding-block-end: var(--space-2);
+}
+
+.calendar__table th {
+  padding: var(--space-2) var(--space-1);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-block-end: 2px solid var(--color-border);
+}
+
+/* --calendar-cell-height: one height for every day cell of the month (5.75rem; more in a month
+   whose holiday cells need it - see "Holiday names in the day cells" below). */
+.calendar__table td {
+  border: var(--border-width) solid var(--color-border);
+  vertical-align: top;
+  padding: 0;
+  height: var(--calendar-cell-height, 5.75rem);
+}
+
+.calendar__empty {
+  background: var(--color-surface-alt);
+}
+
+.calendar__day {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  width: 100%;
+  height: 100%;
+  min-height: var(--calendar-cell-height, 5.75rem);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-surface);
+  border: 0;
+  border-radius: 0;
+  color: var(--color-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.calendar__day:hover {
+  background: var(--color-surface-alt);
+}
+
+.calendar__day:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 5px var(--color-focus-inner);
+}
+
+.calendar__day[data-mood-level="low"] {
+  background: var(--color-danger-soft);
+}
+
+.calendar__day[data-mood-level="mid"] {
+  background: var(--color-warning-soft);
+}
+
+.calendar__day[data-mood-level="high"] {
+  background: var(--color-success-soft);
+}
+
+.calendar__day[aria-current="date"] {
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+.calendar__day[aria-current="date"]:focus-visible {
+  box-shadow: inset 0 0 0 5px var(--color-focus-inner);
+}
+
+.calendar__num {
+  font-weight: 700;
+  border-radius: 999px;
+  min-width: 1.6rem;
+  padding: 0 0.3rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.calendar__day[aria-current="date"] .calendar__num {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.calendar__metrics,
+.calendar__habits,
+.calendar__entry {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.calendar__entry {
+  font-weight: 600;
+}
+
+.calendar__legend,
+.calendar__hint {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: var(--space-3) 0 0;
+}
+
+@media (max-width: 720px) {
+  .calendar__table th {
+    font-size: 0.75rem;
+    padding: var(--space-1) 0;
+  }
+
+  .calendar__table td {
+    height: 4.5rem;
+  }
+
+  .calendar__day {
+    min-height: 4.5rem;
+    padding: 0.2rem 0.25rem;
+  }
+
+  .calendar__metrics,
+  .calendar__habits,
+  .calendar__entry {
+    font-size: 0.7rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .calendar__day {
+    border: 1px solid ButtonText;
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .calendar__day[aria-current="date"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .calendar__day:focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+
+  .tile,
+  .entry-card {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Holidays and the other calendars ------------------------------------------
+ * The month's span in the other two calendars is one line of full sentences
+ * under the page title. Traditions are told apart by a textual mark (✡ ☪ ✝ ✦)
+ * AND a border style; the tint is only a third cue. Everything reads correctly
+ * in forced colours. */
+.calendar__spans {
+  margin: 0 0 var(--space-3);
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.calendar__holidays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  max-width: 100%;
+}
+
+.holiday-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  max-width: 100%;
+  padding: 0 0.4rem;
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.holiday-badge--compact {
+  max-width: 100%;
+}
+
+.holiday-badge--compact .holiday-badge__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.holiday-badge__mark {
+  flex: 0 0 auto;
+}
+
+/* Per-tradition style: shape + border pattern, tint as a secondary cue. */
+.holiday-badge--jewish {
+  border-radius: 999px;
+  border-style: solid;
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.holiday-badge--muslim {
+  border-radius: 2px;
+  border-style: dashed;
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+}
+
+.holiday-badge--christian {
+  border-radius: var(--radius-sm);
+  border-style: double;
+  border-width: 3px;
+  background: var(--color-info-soft);
+  border-color: var(--color-info);
+}
+
+.holiday-badge--druze {
+  border-radius: 0;
+  border-style: dotted;
+  border-width: 2px;
+  background: var(--color-warning-soft);
+  border-color: var(--color-warning);
+}
+
+/* "+2": a signed number - laid out left to right as a unit of its own, or Hebrew and Arabic pages
+   draw the sign after the digit ("2+"). */
+.holiday-badge--more {
+  font-variant-numeric: tabular-nums;
+  border-style: solid;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Legend under the month grid */
+.calendar__extras-legend {
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.calendar__extras-legend-title {
+  font-size: 1rem;
+  margin: 0 0 var(--space-2);
+}
+
+.calendar__extras-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-size: 0.9rem;
+}
+
+.calendar__extras-list .holiday-badge {
+  font-size: 0.85rem;
+}
+
+.calendar__notice {
+  margin: var(--space-2) 0 0;
+  font-size: 0.9rem;
+  color: var(--color-warning);
+}
+
+/* Day page: alternative dates under the heading and the holiday list */
+.day-alt-date {
+  white-space: nowrap;
+}
+
+.day-alt-date__label {
+  font-weight: 600;
+}
+
+.entry-alt-date {
+  white-space: nowrap;
+}
+
+.day-holidays {
+  margin-block-end: var(--space-4);
+}
+
+.day-holidays h2 {
+  font-size: 1.1rem;
+  margin: 0 0 var(--space-2);
+}
+
+.holiday-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.holiday-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+}
+
+.holiday-list__name {
+  font-size: 0.95rem;
+}
+
+.holiday-list__meta {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.holiday-list__note {
+  flex-basis: 100%;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 720px) {
+  .holiday-badge {
+    font-size: 0.65rem;
+  }
+
+  .holiday-badge {
+    padding-inline: 0.25rem;
+  }
+}
+
+/*
+ * Holiday names in the day cells of the month grid (wider than a phone).
+ *
+ * A long name ("Good Friday (Western)", "שמיני עצרת ושמחת תורה") used to be cut after one line.
+ * The holidays of a cell now take at most two lines:
+ *   - one holiday: its name may wrap onto a second line (and is cut only after that);
+ *   - two holidays: one line each;
+ *   - more: the first on its line, the second sharing the next line with "+N" (the second gives
+ *     way, "+N" keeps its size).
+ * Whatever is cut stays complete in the badge's tooltip and in the day button's accessible name.
+ *
+ * So that a holiday does not make its week taller than the others (rows of 93, 112, 134 and 142 px
+ * in one month before), every cell of the month gets the height of the fullest kind of cell the
+ * month contains. A cell is a column of: day number, holidays (two lines at most), mood / energy,
+ * habits, entry marker. The default 5.75rem holds the number with either the holidays or the three
+ * data lines; a month in which some day has holidays AND data lines gets the height for the number,
+ * two holiday lines and that many data lines (one, two or three - each selector below is more
+ * specific than the one before it). Nothing is clipped: should a line wrap unexpectedly, the row
+ * still grows.
+ */
+@media (min-width: 720.01px) {
+  .calendar__table:has(.calendar__holidays ~ :is(.calendar__metrics, .calendar__habits, .calendar__entry)) {
+    --calendar-cell-height: 6.75rem;
+  }
+
+  .calendar__table:has(.calendar__holidays ~ .calendar__metrics ~ :is(.calendar__habits, .calendar__entry), .calendar__holidays ~ .calendar__habits ~ .calendar__entry) {
+    --calendar-cell-height: 8rem;
+  }
+
+  .calendar__table:has(.calendar__holidays ~ .calendar__metrics ~ .calendar__habits ~ .calendar__entry) {
+    --calendar-cell-height: 9.25rem;
+  }
+
+  .calendar__holidays {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-items: start;
+    width: 100%;
+  }
+
+  .calendar__holidays > .holiday-badge {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  /* Third and further holidays: "+N" next to the second badge. */
+  .calendar__holidays > .holiday-badge:nth-child(2):not(:last-child) {
+    grid-column: 1;
+  }
+
+  .calendar__holidays > .holiday-badge--more {
+    grid-column: 2;
+  }
+
+  .calendar__holidays > .holiday-badge--compact:only-child {
+    align-items: flex-start;
+  }
+
+  .calendar__holidays > .holiday-badge--compact:only-child .holiday-badge__name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* The pill of the Jewish holidays: still fully round on one line, a rounded box on two (a
+     999px radius would curve into the text of a two-line name). */
+  .calendar__holidays > .holiday-badge--jewish {
+    border-radius: 0.7rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .holiday-badge {
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .calendar__notice {
+    color: CanvasText;
+  }
+}

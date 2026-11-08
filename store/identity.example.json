@@ -1,0 +1,6 @@
+{
+  "_readme": "Copy this file to store/identity.json and replace the three values with the ones Partner Center shows on Product management -> Product identity after the name is reserved (store/MSIX-BUILD.md, section 1). The build refuses these example values. The package version is not here: src-tauri/msix/package-version.json.",
+  "identityName": "12345PublisherName.YourPersonalDiary",
+  "publisher": "CN=00000000-0000-0000-0000-000000000000",
+  "publisherDisplayName": "Publisher Name"
+}

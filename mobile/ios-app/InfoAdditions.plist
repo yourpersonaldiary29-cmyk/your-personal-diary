@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Your Personal Diary - the keys the iOS app adds to the Info.plist that `npx cap add ios` generates
+  (docs/APPLE-PLAN.md sections 4 and 7.3; the Mac steps: scripts/ios/README.he.md).
+
+  STATUS: a template written on Windows (WP-A2). It is a complete property list on purpose: on the
+  Mac one command merges it into ios/App/App/Info.plist -
+      /usr/libexec/PlistBuddy -c "Merge mobile/ios-app/InfoAdditions.plist" ios/App/App/Info.plist
+  - and `plutil -lint ios/App/App/Info.plist` checks the result. None of these keys exists in the
+  generated file, so nothing is overwritten.
+
+  NSFaceIDUsageDescription   REQUIRED: the offline unlock may show Face ID (DiaryOfflinePlugin.swift
+                             `verifyUser`); without this text iOS terminates the app at the first
+                             Face ID prompt. English here; the other 19 languages go into
+                             <lang>.lproj/InfoPlist.strings (WP-I1).
+  ITSAppUsesNonExemptEncryption   false = "only encryption that is exempt": HTTPS, and the system's
+                             own AES-GCM / Keychain. The OWNER confirms this answer (docs/APPLE-PLAN.md
+                             section 5, "Export compliance") before the first upload.
+  CFBundleLocalizations      the 20 languages of the app (shared/i18n/locales.ts; "zh" is Simplified
+                             Chinese, as in android/app/src/main/res/xml/locales_config.xml). The UI
+                             texts live in the web bundle, so without this list iOS takes the app for
+                             English-only - and the web view then reports English as the app's
+                             language, so the app would not start in the phone's language.
+  CFBundleDocumentTypes +    "Open with Your Personal Diary" for a backup file (.mpd): the app owns
+  UTExportedTypeDeclarations the type and only reads such a file (the Restore card; opening never
+                             restores by itself).
+  LSSupportsOpeningDocumentsInPlace   false: the system hands the app a COPY of an opened file
+                             (Documents/Inbox, removed after reading by DiaryFilesPlugin.swift)
+                             instead of access to the user's original. The key must be present once
+                             document types are declared (App Store Connect asks for it).
+
+  Deliberately ABSENT: UIFileSharingEnabled (the app's Documents folder must not appear in the Files
+  app or in Finder), NSAppTransportSecurity (no exception: the server is HTTPS only), any background
+  mode, any other usage description (the app asks for notifications through the system alert, which
+  needs none).
+-->
+<plist version="1.0">
+<dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Your Personal Diary uses Face ID to unlock the diary on this device while there is no connection to the server.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>he</string>
+		<string>zh-Hans</string>
+		<string>es</string>
+		<string>pl</string>
+		<string>ru</string>
+		<string>fr</string>
+		<string>ar</string>
+		<string>ja</string>
+		<string>tr</string>
+		<string>cs</string>
+		<string>hu</string>
+		<string>bg</string>
+		<string>el</string>
+		<string>pt</string>
+		<string>de</string>
+		<string>ro</string>
+		<string>it</string>
+		<string>th</string>
+		<string>hi</string>
+	</array>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Your Personal Diary backup</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>app.yourpersonaldiary.backup</string>
+			</array>
+		</dict>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>app.yourpersonaldiary.backup</string>
+			<key>UTTypeDescription</key>
+			<string>Your Personal Diary backup</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>mpd</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

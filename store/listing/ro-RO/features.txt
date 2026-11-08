@@ -1,0 +1,20 @@
+Însemnări cu dispoziție, emoții, energie, stres, somn, activitate fizică, persoane, loc și etichete
+Obiceiuri zilnice și săptămânale cu mementouri opționale ca notificări Windows
+Observații prudente despre tipare posibile în propriile tale date, fără afirmații de tip cauză-efect
+„De ce văd această observație?” arată cifrele exacte din spatele fiecărei observații
+Calendar lunar gregorian, ebraic sau hegirian, fiecare cu sărbătorile sale
+Statistici și grafice în timp, fiecare cu un tabel de date
+Căutare inteligentă: pune întrebări despre jurnalul tău în limba ta
+Un singur cont pe toate dispozitivele tale, păstrat pe serverul Your Personal Diary
+Funcționează în continuare când cade conexiunea și încarcă modificările când aceasta revine
+Jurnal stocat criptat pe server (AES-256), un fișier separat pentru fiecare cont
+Se conectează doar la serverul Your Personal Diary, mereu prin HTTPS
+Fără reclame, fără analize de utilizare, fără urmărire
+Blocare automată după inactivitate și blocare imediată cu Ctrl+L
+Resetarea parolei prin e-mail, fără să pierzi jurnalul
+Backup criptat într-un fișier pe care îl păstrezi, și restaurare din el
+Export în TXT, CSV, JSON și PDF
+20 de limbi ale interfeței, inclusiv ebraica și araba, de la dreapta la stânga
+Funcționează cu cititoare de ecran, cu navigare completă din tastatură și comenzi rapide
+Teme luminoasă, întunecată și cu contrast ridicat, cu dimensiune reglabilă a textului
+Un instrument pentru jurnalul personal, nu un instrument medical sau de diagnostic

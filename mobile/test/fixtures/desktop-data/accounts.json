@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "accounts": [
+    {
+      "id": "u_2b7daaad498df7ef",
+      "username": "fixture_noa",
+      "usernameLower": "fixture_noa",
+      "firstName": "נועה",
+      "lastName": "לדוגמה",
+      "email": "noa.fixture@example.test",
+      "emailLower": "noa.fixture@example.test",
+      "createdAt": "2026-10-01T13:38:24.577Z",
+      "lastLoginAt": "2026-10-01T13:38:24.577Z",
+      "kdf": {
+        "algorithm": "scrypt",
+        "N": 32768,
+        "r": 8,
+        "p": 1,
+        "saltHex": "9934a2f95a119259b10ce1a08d8bf42a"
+      },
+      "verifierHex": "d64040e387beb00059b03cdf5a2675a971ab98ac0e67378719b5aecddfd1446d",
+      "dbFile": "u_2b7daaad498df7ef.mpd",
+      "recoveryWrappedKey": "jKmbkyvm/gULQvEZJVa6Kc5/iFVSA2v407vjOmT35xcCullKzoMDCTuCMRXbQQDx8+sCdv8rpYxNNj4O"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Light theme colours (the web UI's tokens.css: color-bg #f4f6f9, color-primary #2b4c7e). -->
+<resources>
+    <color name="colorPrimary">#2b4c7e</color>
+    <color name="colorPrimaryDark">#1b2f4f</color>
+    <color name="colorAccent">#2b4c7e</color>
+    <!-- Page background: window, system bars and the launch splash. -->
+    <color name="window_background">#f4f6f9</color>
+</resources>
