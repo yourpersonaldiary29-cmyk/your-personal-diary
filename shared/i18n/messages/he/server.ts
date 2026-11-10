@@ -489,6 +489,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'יותר מדי הרשמות מהרשת שלכם. נסו שוב מאוחר יותר.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'כדי ליצור חשבון יש לאשר שקראת את מדיניות הפרטיות ושהסכמת לה. אם אין בטופס תיבה לסימון, יש לעדכן את האפליקציה.',
+  'server.auth.termsRequired': 'כדי ליצור חשבון יש לאשר שקראת את תנאי השימוש ושהסכמת להם. אם אין בטופס תיבה לסימון, יש לעדכן את האפליקציה.',
   'server.error.busy': 'השרת עמוס כרגע. נסו שוב בעוד רגע.',
   'server.vault.quota': 'היומן שלכם הגיע למגבלת הגודל של השרת הזה ({max} MB). מחקו כמה רשומות כדי לפנות מקום.',
   'server.owner.unset': 'לשרת הזה עדיין לא הוגדר בעלים. על המפעיל להגדיר את DIARY_OWNER_ID למזהה החשבון של הבעלים.',

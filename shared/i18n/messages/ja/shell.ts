@@ -281,6 +281,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'この端末の画面ロックで解除',
   'shell.sync.lock.deviceReason': 'Your Personal Diary のロック解除',
   'shell.sync.lock.passwordToUpload': '変更をアップロードするにはパスワードを入力してください。',
+  'shell.sync.lock.passwordOffline': '接続がありません。パスワードはこの端末で確認されます。',
+  'shell.sync.lock.wait': '{seconds, plural, other {#秒待ってから、もう一度お試しください。}}',
   'shell.sync.drainFirst': '先に変更をアップロードしています…',
   'shell.sync.drainFailed': '変更はまだアップロードされていません。接続が戻ったらもう一度お試しください。',
   'shell.sync.deleteAccount.pending': '{count, plural, other {まだアップロードされていない#件の変更も削除されます。}}',

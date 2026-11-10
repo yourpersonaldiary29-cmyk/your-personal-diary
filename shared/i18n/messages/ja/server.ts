@@ -493,6 +493,8 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'お使いのネットワークからの登録が多すぎます。しばらくしてからもう一度お試しください。',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'アカウントを作成するには、プライバシーポリシーを読み、内容に同意したことを確認する必要があります。チェックボックスが表示されない場合は、アプリを更新してください。',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
   'server.error.busy': 'サーバーが混み合っています。少し待ってからもう一度お試しください。',
   'server.vault.quota': '日記がこのサーバーのサイズ上限（{max} MB）に達しました。空きを作るには、いくつかの記録を削除してください。',
   'server.owner.unset': 'このサーバーには所有者がまだ設定されていません。運営者が DIARY_OWNER_ID に所有者のアカウント ID を設定する必要があります。',

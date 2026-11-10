@@ -48,7 +48,7 @@ async function realAuth(extra: Parameters<typeof createAuthService>[1] = {}) {
 
 function registerBody(username: string, extra: object = {}) {
   // A hosted server creates no account without the privacy checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md).
-  return { firstName: 'Test', lastName: 'User', username, email: `${username}@example.com`, password: PASSWORD, confirmPassword: PASSWORD, privacyAccepted: true, ...extra };
+  return { firstName: 'Test', lastName: 'User', username, email: `${username}@example.com`, password: PASSWORD, confirmPassword: PASSWORD, privacyAccepted: true, termsAccepted: true, ...extra };
 }
 
 describe('RegisterLimiter / RegistrationCounter (fake clock)', () => {

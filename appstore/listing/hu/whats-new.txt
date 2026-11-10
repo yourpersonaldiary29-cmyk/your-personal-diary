@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - az első kiadás.
+- A naplód a saját fiókodban, ugyanaz minden eszközön, amelyiken bejelentkezel
+- Akkor is működik, ha megszakad a kapcsolat, és feltölti a módosításaidat, amint visszatér
+- Óvatos meglátások, szokások emlékeztetőkkel, három naptár a saját ünnepeivel
+- 20 nyelv

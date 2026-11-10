@@ -32,7 +32,7 @@ afterAll(cleanupTempDirs);
 function uiDir(): string {
   const dir = tempDataDir();
   fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><title>Your Personal Diary</title><div id="root"></div>');
-  for (const page of ['privacy', 'delete-account']) fs.cpSync(path.join(PUBLIC_DIR, page), path.join(dir, page), { recursive: true });
+  for (const page of ['privacy', 'delete-account', 'terms']) fs.cpSync(path.join(PUBLIC_DIR, page), path.join(dir, page), { recursive: true });
   return dir;
 }
 
@@ -46,9 +46,9 @@ async function boot() {
 }
 
 describe('legal pages on the hosted server', () => {
-  it('serves /privacy and /delete-account in English, each locale in its folder, with the hosted headers', async () => {
+  it('serves /privacy, /delete-account and /terms in English, each locale in its folder, with the hosted headers', async () => {
     const get = await boot();
-    for (const page of ['privacy', 'delete-account']) {
+    for (const page of ['privacy', 'delete-account', 'terms']) {
       const bare = await get(`/${page}`);
       expect(bare.status, page).toBe(301);
       expect(bare.headers.location, page).toBe(`/${page}/`);

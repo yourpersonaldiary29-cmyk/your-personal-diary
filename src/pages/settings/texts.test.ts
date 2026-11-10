@@ -36,8 +36,8 @@ describe('settings catalogue (en / he parity)', () => {
 
   it('no longer carries the privacy page, its data-folder block or the calendar toggles', () => {
     // The Privacy *card* keys (settings.privacy.title / offline*) are expected; the old page's other keys are not.
-    // settings.privacy.policyLink: the card's link to the privacy policy page on the diary server (PLAY-LEGAL item 4).
-    const privacyCard = new Set(['settings.privacy.title', 'settings.privacy.offlineLabel', 'settings.privacy.offlineHint', 'settings.privacy.offlineOn', 'settings.privacy.offlineOff', 'settings.privacy.policyLink']);
+    // settings.privacy.policyLink / termsLink: the card's links to the privacy policy and the Terms of Use on the diary server (PLAY-LEGAL item 4, TERMS).
+    const privacyCard = new Set(['settings.privacy.title', 'settings.privacy.offlineLabel', 'settings.privacy.offlineHint', 'settings.privacy.offlineOn', 'settings.privacy.offlineOff', 'settings.privacy.policyLink', 'settings.privacy.termsLink']);
     const gone = Object.keys(enSettings).filter(
       (key) =>
         (key.startsWith('settings.privacy.') && !privacyCard.has(key)) ||

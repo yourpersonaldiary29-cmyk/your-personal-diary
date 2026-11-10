@@ -37,6 +37,14 @@ export const REGISTER_REMOTE_KEY = 'server.remote.registerRemote';
 export const PRIVACY_REQUIRED_KEY = 'server.auth.privacyRequired';
 /** The field of RegisterRequest that carries the privacy checkbox (and of the 400 above). */
 export const PRIVACY_FIELD = 'privacyAccepted';
+/**
+ * Catalogue key of the 400 VALIDATION (field `termsAccepted`) a hosted server answers to a registration without
+ * the Terms of Use (docs/apple-tasks/TERMS.md). The one checkbox of the form sends both flags, so only an app
+ * built before the Terms of Use existed gets this answer: it says to update the app.
+ */
+export const TERMS_REQUIRED_KEY = 'server.auth.termsRequired';
+/** The field of RegisterRequest that carries the Terms of Use (the same checkbox as the policy; the 400 above). */
+export const TERMS_FIELD = 'termsAccepted';
 /** The one answer of POST /forgot-password ("If this address is registered, we sent a link and a code to it."). */
 export const RESET_SENT_KEY = 'server.reset.sent';
 /** The answer of a successful POST /reset-password. */
@@ -119,14 +127,17 @@ export function authRouter(deps: AppDeps): Router {
       if (!req.hosted && isRemoteRequest(req) && !req.isLocal) throw ApiError.forbidden(REGISTER_REMOTE_KEY);
       if (req.hosted) deps.hosted?.registration.check(req, bodyOf(req));
       const input = validateRegisterBody(bodyOf(req), localeOf(req));
-      // The privacy checkbox ("I have read the Privacy policy and agree to it",
-      // docs/android-tasks/PRIVACY-CHECKBOX.md): the hosted server creates no account without
-      // `privacyAccepted: true` - checked after the fields, in the order of the form, where the box
-      // sits last - and the account records when and which policy (auth-service.ts). Local developer
-      // mode is unchanged: the field is neither required nor recorded there.
+      // The consent checkbox ("I have read the Privacy Policy and the Terms of Use, and I agree to them",
+      // docs/android-tasks/PRIVACY-CHECKBOX.md, docs/apple-tasks/TERMS.md): the hosted server creates no
+      // account without `privacyAccepted: true` AND `termsAccepted: true` (the one box sends both) - checked
+      // after the fields, in the order of the form, where the box sits last; the policy first - and the
+      // account records when and which versions (auth-service.ts). Local developer mode is unchanged:
+      // neither field is required nor recorded there.
       if (req.hosted) {
         if (bodyOf(req)[PRIVACY_FIELD] !== true) throw ApiError.validation(PRIVACY_REQUIRED_KEY, PRIVACY_FIELD);
+        if (bodyOf(req)[TERMS_FIELD] !== true) throw ApiError.validation(TERMS_REQUIRED_KEY, TERMS_FIELD);
         input.privacyAccepted = true;
+        input.termsAccepted = true;
       }
       // The account starts in the language of the sign-up screen: the body's `language`, else the
       // Accept-Language the app sends with every request.

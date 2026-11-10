@@ -103,6 +103,8 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'गोपनीयता नीति',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'settings.privacy.termsLink': 'Terms of Use',
   'settings.privacy.title': 'गोपनीयता',
   'settings.privacy.offlineLabel': 'ऑफ़लाइन गोपनीयता मोड',
   'settings.privacy.offlineHint': 'यह चालू होने पर ऐप अपने स्थानीय सर्वर के अलावा कोई भी नेटवर्क कनेक्शन नहीं खोल सकता। इसे केवल तभी बंद करें जब आप रिमोट एक्सेस का उपयोग करते हों।',

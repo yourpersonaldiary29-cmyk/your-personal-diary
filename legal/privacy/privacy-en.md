@@ -1,6 +1,6 @@
 ---
 title: Privacy Policy - Your Personal Diary
-description: How Your Personal Diary (Android app, Windows app and website) stores and protects your data.
+description: How Your Personal Diary (the Android, Windows, Mac and iPhone apps and the website) stores and protects your data.
 languages: Languages
 otherPage: How to delete your account
 ---
@@ -11,7 +11,7 @@ Effective date: {{EFFECTIVE_DATE}}
 
 ## In short
 
-- Your Personal Diary is one service with three ways in: the **Android app** (Google Play), the **Windows app** (Microsoft Store or a setup file) and the **website** [{{SITE_URL}}]({{SITE_URL}}). All three use the same server and the same account.
+- Your Personal Diary is one service with five ways in: the **Android app** (Google Play), the **Windows app** (Microsoft Store or a setup file), the **Mac app** (a download or the Mac App Store), the **iPhone app** (App Store, when it is published) and the **website** [{{SITE_URL}}]({{SITE_URL}}). All of them use the same server and the same account.
 - Your diary is kept on our server in a file encrypted with a key derived from your password. Your account details are kept there too.
 - We use your data only to run your diary for you. No advertising, no analytics, no tracking, and we do not sell or share your data.
 - Please know the limits: while you are signed in, the server has your diary open in its memory, and the operator of the server could technically reset your password and read your diary. Section 4 explains this plainly.
@@ -21,13 +21,13 @@ Effective date: {{EFFECTIVE_DATE}}
 
 The service is operated by {{PUBLISHER_NAME}} ("we", "us"), who is responsible for your personal data (the "controller"). Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-This policy applies to the Android app, the Windows app and the website. They show the same diary and follow the same rules; where an app behaves differently, this policy says so.
+This policy applies to the Android app, the Windows app, the Mac app, the iPhone app (when it is published) and the website. They show the same diary and follow the same rules; where an app behaves differently, this policy says so.
 
 ## 2. What we store on the server, and where
 
 The server runs at the hosting provider Fly.io, in its data centre in **Frankfurt, Germany (European Union)**. It stores:
 
-- **Account details:** your first name, last name, user name and e-mail address, an account ID, the language you use the app in, when the account was created and when you last signed in. When you create the account, we also keep a record of your confirmation that you have read this policy and agree to it: the time and the effective date of the version you confirmed. If you change your e-mail address, the previous address and the time of the change are kept with the account until you change the address again or delete the account. These details are not encrypted by the app, because the server needs them to sign you in and to write to you, so the operator can see them.
+- **Account details:** your first name, last name, user name and e-mail address, an account ID, the language you use the app in, when the account was created and when you last signed in. When you create the account, we also keep a record of your confirmation that you have read this policy and the Terms of Use and agree to them: the time and the effective dates of the versions you confirmed. If you change your e-mail address, the previous address and the time of the change are kept with the account until you change the address again or delete the account. These details are not encrypted by the app, because the server needs them to sign you in and to write to you, so the operator can see them.
 - **Your password:** it is not stored. The server keeps only a value derived from it (scrypt) that lets it check the password.
 - **Your diary:** entries (text, and the optional fields mood, emotions, energy, stress, sleep, physical activity, events, people, place, notes and tags), habits and habit records, and your settings. Every account has its own encrypted diary file.
 - **Sign-in sessions:** for each device where you are signed in: the kind of device ("Computer", "Phone" or "Browser"), when the session started, when it was last used and when it ends. The sign-in token itself is stored only as a hash. With "Remember me", the session also holds your diary key, encrypted with the server key (section 4).
@@ -68,15 +68,17 @@ On every device where you use the service:
 
 - your sign-in token (so you stay signed in), the last user name, your language and display preferences, and your recent search questions (removed when you sign out).
 
-**Without a connection.** If the app cannot reach the server it keeps working: what you write is saved on your device, encrypted, and uploaded to the server automatically when the connection returns, even if the app was closed in between. In the Windows and Android apps, if you chose "Remember me", the app also keeps an encrypted copy of what it showed you recently (recent entries, habits, today's data, the calendar month and your settings) so that you can read it without a connection; otherwise that copy exists only in memory while the app is open. The key to these copies is kept by the server inside your encrypted diary; with "Remember me", the Windows and Android apps also keep it on the device, protected by Windows Data Protection or by the Android Keystore, so that the app can open without a connection. Your password and your recovery key are never stored on the device. So that every change is uploaded exactly once, the app also keeps, encrypted, a record of the changes it uploaded in the last 7 days.
+**Without a connection.** If the app cannot reach the server it keeps working: what you write is saved on your device, encrypted, and uploaded to the server automatically when the connection returns, even if the app was closed in between. In the Windows, Mac, Android and iPhone apps, if you chose "Remember me", the app also keeps an encrypted copy of what it showed you recently (recent entries, habits, today's data, the calendar month and your settings) so that you can read it without a connection; otherwise that copy exists only in memory while the app is open. The key to these copies is kept by the server inside your encrypted diary; with "Remember me", the Windows, Mac, Android and iPhone apps also keep it on the device, protected by Windows Data Protection, by the macOS Keychain, by the Android Keystore or by the iOS Keychain, so that the app can open without a connection. Your password and your recovery key are never stored on the device. In the apps that keep that key on the device with "Remember me", the app also keeps a copy of it encrypted with a key derived from your password, so that you can unlock the app without a connection by typing your password; the password itself is not stored, and this copy is deleted together with the key - when you sign out, when the sign-in ends, or when the account is deleted. Someone with a copy of this device's data could try to guess your password against that copy, each guess costing as much as against the server but with no limit on the number of tries; a strong password is what protects it. So that every change is uploaded exactly once, the app also keeps, encrypted, a record of the changes it uploaded in the last 7 days.
 
 - **Windows app:** these copies are kept in the app's data folders inside your Windows user profile (for the Microsoft Store version, in the app's own package folder). The key is protected by Windows Data Protection (DPAPI) and works only for your Windows user.
 - **Android app:** these copies are kept in the app's private storage, which other apps cannot read and which is excluded from backups. The key is protected by the Android Keystore.
+- **Mac app:** these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named "Your Personal Diary offline key" and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.
+- **iPhone app:** these copies are kept in the app's private storage, excluded from iCloud backup. The key is kept in the iOS Keychain, available only on this device after it was unlocked once, and removed when you sign out.
 - **Website:** the browser keeps, encrypted, only the changes not yet uploaded, the record of the last 7 days and the notes about conflicting changes (see below), but no copy of what you read; the key stays in memory and is gone when you close the page.
 
 When the connection returns, the app uploads the changes you made, in the order you made them, each exactly once. If the same entry, habit or setting was also changed on another device, the newer change is kept and the app tells you in one line; the other version stays available to you on this device until you dismiss the note.
 
-If the app offers to unlock with your device's screen lock (Windows Hello, or the Android screen lock or fingerprint), the check is done by the operating system. Nothing about your fingerprint, face or PIN reaches the app or us. Habit reminders in the Android app are scheduled on the phone itself; no push service is involved.
+If the app offers to unlock with your device's screen lock (Windows Hello, Touch ID or the Mac password, Face ID / Touch ID or the iPhone passcode, or the Android screen lock or fingerprint), the check is done by the operating system. Nothing about your fingerprint, face or PIN reaches the app or us. Habit reminders in the Android and iPhone apps are scheduled on the device itself; no push service is involved.
 
 Files you create yourself: a **backup** is encrypted with a password; an **export** (TXT, CSV, JSON or PDF) is an ordinary readable file. You decide where to save them, and anyone who gets an export file can read it.
 
@@ -87,7 +89,7 @@ We use two service providers. They process data only on our behalf, to run the s
 - **Fly.io, Inc.** (United States) - hosting of the server in Frankfurt, Germany. Its systems hold the encrypted diary files, the account details and the other data of section 2, and receive connection data such as IP addresses. Because Fly.io is a US company, it may access the data from outside the European Union; this is covered by its data processing terms. Its privacy policy: `fly.io/legal/privacy-policy`.
 - **Google (Gmail)** - sends the password reset messages and security notices. Google receives the message, your e-mail address, and the first name and user name in it. A message never contains anything from your diary. Google's privacy policy: `policies.google.com/privacy`.
 
-The app stores also process data under their own privacy policies when you download the apps: **Google Play** for the Android app and the **Microsoft Store** for the Windows app (for example installations, ratings and crash reports that their systems collect). The apps contain no code from them or from anyone else that sends data to them.
+The app stores also process data under their own privacy policies when you download the apps: **Google Play** for the Android app, the **Microsoft Store** for the Windows app, and the **App Store** and the **Mac App Store** (Apple) for the iPhone and Mac apps (for example installations, ratings and crash reports that their systems collect). The apps contain no code from them or from anyone else that sends data to them.
 
 We do not sell, rent or share your personal data with anyone else. We would disclose data only if the law requires it.
 
@@ -99,7 +101,7 @@ We do not sell, rent or share your personal data with anyone else. We would disc
 - **The operator's encrypted server archives:** to be able to recover from a disaster, the operator makes an encrypted archive of the server's storage about once a month; the server keeps only the 2 newest, and the operator keeps at most the 3 newest offline, on a drive that is not connected to the internet, so copies of a deleted account disappear from them as newer archives replace them, normally within three months.
 - **Deleted or changed entries** disappear from the app at once, and their old text is erased from your diary file on the server when the change is saved, a moment later: the server overwrites deleted data instead of only marking the space as free. The previous version of the file, which the server keeps in case a save goes wrong, is replaced at the next save. Text deleted before this protection existed is erased the first time your diary is opened after the update (for example when you sign in). On the server, earlier versions then remain only in the daily snapshots of the storage, for up to 30 days, and, encrypted, in unused space of its disk until that space is used again; backup files you made before keep the text they contain. Deleting your account removes the whole file.
 - **If you cannot sign in:** write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) from the e-mail address registered in your account. We will confirm the request and delete the account within 30 days. All the details: [{{DELETE_URL}}]({{DELETE_URL}}).
-- **Uninstalling the app does not delete your account.** Delete it in Settings first if that is what you want. Signing out deletes the copies and the key from that device; if changes are still waiting to be uploaded, the app asks first. On Windows, uninstalling the downloaded (setup file) version keeps the encrypted copy unless you choose to delete the application data; sign out first to be sure.
+- **Uninstalling the app does not delete your account.** Delete it in Settings first if that is what you want. Signing out deletes the copies and the key from that device; if changes are still waiting to be uploaded, the app asks first. On Windows, uninstalling the downloaded (setup file) version keeps the encrypted copy unless you choose to delete the application data; sign out first to be sure. On a Mac, moving the app to the Bin keeps the encrypted copies in your Library and the key in your keychain until you sign out or delete them; sign out first. Deleting the iPhone app removes its storage; the keychain item is removed when you sign out - sign out first to be sure.
 - We do not delete inactive accounts automatically at the moment. If we start doing so, we will say so here before it applies.
 
 ## 8. Security measures
@@ -108,7 +110,7 @@ We do not sell, rent or share your personal data with anyone else. We would disc
 - Limits on sign-in and registration attempts. After 10 wrong passwords, sign-in from that network is locked for 15 minutes, and further attempts on the account are slowed down.
 - The diary locks itself after a period of inactivity. Changing the password or the e-mail address and deleting the account require your password.
 - The server key is kept outside the stored files, and only the operator can manage the server.
-- Someone who can run programs as your Windows user, or who has full control of a rooted phone, could read the copy kept for "Remember me".
+- Someone who can run programs as your Windows or Mac user, or who has full control of a rooted or jailbroken phone, could read the copy kept for "Remember me".
 
 No system can promise perfect security. Choose a strong password that you do not use anywhere else, keep your devices up to date and keep a backup.
 

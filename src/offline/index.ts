@@ -141,12 +141,12 @@ async function openEngine(opts: EngineOpenOptions & { rememberMe: boolean }): Pr
  * read-only engine (its data was written with another key: a wrap would open and then fail the key
  * check, telling the user the right password is wrong). The key bytes are zeroed before this returns.
  */
-async function keepPasswordWrap(e: OfflineEngine, password: string, res: SyncKeyResponse, onError?: (err: unknown) => void): Promise<void> {
+async function keepPasswordWrap(e: OfflineEngine, password: string, res: SyncKeyResponse, onError?: (err: unknown) => void, atRest = true): Promise<void> {
   if (e.readOnly) return;
   let aok: Uint8Array | null = null;
   try {
     aok = aokBytes(res);
-    await e.rememberPasswordWrap(await makePasswordWrap(password, aok, e.userId));
+    await e.rememberPasswordWrap(await makePasswordWrap(password, aok, e.userId), atRest);
   } catch (err) {
     onError?.(err);
   } finally {
@@ -216,7 +216,8 @@ async function doStart(args: StartArgs): Promise<StartOutcome> {
     if (persistent) await saveSnapshot(engine.store, engine.keys, snapshotOf(args, info)).catch(args.onError);
     if (persistent) await writeBinding(args.user.id, token);
     else await removeWrappedKey(engine.store, args.user.id, false, args.onError);
-    if (args.password) await keepPasswordWrap(engine, args.password, res, args.onError);
+    // At rest only when THIS start is remembered (the engine may have been opened persistent earlier).
+    if (args.password) await keepPasswordWrap(engine, args.password, res, args.onError, persistent);
     engine.replayer.kick();
     return { enabled: true, recovered: engine.recovered, readOnly: engine.readOnly };
   }
@@ -386,12 +387,16 @@ export const offline = {
    * The server has just accepted `password` (the online lock screen, the 423 "enter your password to
    * upload" prompt, a password change - with the NEW password): the AOK is fetched again from the
    * server (`GET /api/sync/key`, the call every start makes; the key is never kept in memory after the
-   * keys are derived) and wrapped under the password for the offline unlock. Nothing is written when
-   * the engine is not running or the key cannot be fetched. Resolves true when a wrap was kept.
+   * keys are derived) and wrapped under the password for the offline unlock. The wrap in hand is
+   * dropped FIRST: when the new one cannot be made (the key fetch fails, the engine stops), the device
+   * is left with no wrap rather than one under a password the user may just have changed because it
+   * leaked (the offline unlock then needs the device check or the next server check). Resolves true
+   * when a wrap under `password` was kept.
    */
   async refreshPasswordWrap(password: string): Promise<boolean> {
     const e = engine;
     if (!e || !isOfflineEnabled() || !password) return false;
+    await e.forgetPasswordWrap();
     let res: SyncKeyResponse;
     try {
       res = await fetchSyncKey();

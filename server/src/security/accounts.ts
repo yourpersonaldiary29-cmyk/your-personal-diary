@@ -18,7 +18,8 @@
  * `privacyAcceptedAt` + `privacyVersion` (optional, both or neither) record the privacy checkbox of a
  * registration on the hosted server (AccountRecord.privacyAcceptedAt). Older files have neither and load
  * unchanged; a record with only one of the two, or with a value that is not a non-empty string, loads
- * without both.
+ * without both. `termsAcceptedAt` + `termsVersion` (the Terms of Use, confirmed with the same checkbox -
+ * docs/apple-tasks/TERMS.md) follow exactly the same rule.
  *
  * `pendingDeletes` (only present while non-empty) lists diary files (`<id>.mpd`, relative to
  * users/) of deleted accounts that still have to be removed from disk: an account deletion writes
@@ -154,6 +155,11 @@ function canonical(a: AccountRecord): AccountRecord {
   if (!isNonEmptyString(a.privacyAcceptedAt) || !isNonEmptyString(a.privacyVersion)) {
     delete copy.privacyAcceptedAt;
     delete copy.privacyVersion;
+  }
+  // The Terms-of-Use record: the same rule (accounts created before the terms existed have neither).
+  if (!isNonEmptyString(a.termsAcceptedAt) || !isNonEmptyString(a.termsVersion)) {
+    delete copy.termsAcceptedAt;
+    delete copy.termsVersion;
   }
   // The previous address after an e-mail change (see AccountRecord.previousEmail): both or neither.
   if (typeof a.previousEmail !== 'string' || !a.previousEmail.trim() || typeof a.emailChangedAt !== 'string') {

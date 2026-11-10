@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - la primera versión.
+- Tu diario en tu propia cuenta, el mismo en todos los dispositivos en los que inicias sesión
+- Sigue funcionando si se corta la conexión y sube tus cambios cuando vuelve
+- Observaciones prudentes, hábitos con recordatorios, tres calendarios con sus festividades
+- 20 idiomas

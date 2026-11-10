@@ -284,6 +284,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Bu cihazın ekran kilidiyle aç',
   'shell.sync.lock.deviceReason': 'Your Personal Diary kilidini aç',
   'shell.sync.lock.passwordToUpload': 'Değişikliklerinizi yüklemek için parolanızı girin.',
+  'shell.sync.lock.passwordOffline': 'Bağlantı yok: parolanız bu cihazda denetleniyor.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Yeniden denemeden önce # saniye bekleyin.} other {Yeniden denemeden önce # saniye bekleyin.}}',
   'shell.sync.drainFirst': 'Önce değişiklikleriniz yükleniyor…',
   'shell.sync.drainFailed': 'Değişiklikleriniz henüz yüklenmedi. Bağlantı geri geldiğinde tekrar deneyin.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {Henüz yüklenmemiş # değişiklik de silinecek.} other {Henüz yüklenmemiş # değişiklik de silinecek.}}',

@@ -94,7 +94,7 @@ async function boot(o: { dataDir?: string; env?: Record<string, string>; start?:
 
 function registerBody(username: string) {
   // A hosted server creates no account without the privacy checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md).
-  return { firstName: 'Test', lastName: 'User', username, email: `${username}@example.com`, password: PASSWORD, confirmPassword: PASSWORD, privacyAccepted: true };
+  return { firstName: 'Test', lastName: 'User', username, email: `${username}@example.com`, password: PASSWORD, confirmPassword: PASSWORD, privacyAccepted: true, termsAccepted: true };
 }
 
 function sha256File(file: string): string {

@@ -282,6 +282,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': '使用此设备的屏幕锁解锁',
   'shell.sync.lock.deviceReason': '解锁 Your Personal Diary',
   'shell.sync.lock.passwordToUpload': '请输入您的密码以上传您的更改。',
+  'shell.sync.lock.passwordOffline': '没有连接：您的密码将在此设备上验证。',
+  'shell.sync.lock.wait': '{seconds, plural, other {请等待 # 秒后再试。}}',
   'shell.sync.drainFirst': '正在先上传您的更改…',
   'shell.sync.drainFailed': '您的更改尚未上传。请在连接恢复后重试。',
   'shell.sync.deleteAccount.pending': '{count, plural, other {尚未上传的 # 项更改也将被删除。}}',

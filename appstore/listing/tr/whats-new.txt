@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - ilk sürüm.
+- Günlüğünüz size ait hesapta, giriş yaptığınız her cihazda aynı
+- Bağlantı kopsa da çalışmaya devam eder, bağlantı gelince değişikliklerinizi yükler
+- Özenli içgörüler, hatırlatıcılı alışkanlıklar, bayramlarıyla üç takvim
+- 20 dil

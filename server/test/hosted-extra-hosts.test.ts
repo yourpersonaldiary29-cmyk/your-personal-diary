@@ -242,7 +242,7 @@ describe('startHosted with DIARY_EXTRA_HOSTS', () => {
     expect((await under('other.example').get('/api/server/info')).status).toBe(421);
 
     // The owner registers under his own domain and configures mail there (a capturing transport).
-    const reg = await under(EXTRA).post('/api/auth/register', { firstName: 'Test', lastName: 'Owner', username: 'ownertest', email: 'ownertest@example.com', password: PASSWORD, confirmPassword: PASSWORD, privacyAccepted: true });
+    const reg = await under(EXTRA).post('/api/auth/register', { firstName: 'Test', lastName: 'Owner', username: 'ownertest', email: 'ownertest@example.com', password: PASSWORD, confirmPassword: PASSWORD, privacyAccepted: true, termsAccepted: true });
     expect(reg.status).toBe(201);
     const owner = reg.body as AuthResponse;
     ownerId = owner.user.id;

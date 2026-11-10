@@ -174,8 +174,9 @@ describe('the published Android app against a hosted server', () => {
       confirmPassword: PASSWORD,
       rememberMe: true,
       deviceName: 'Phone',
-      // The privacy checkbox of the registration form: a hosted server creates no account without it.
+      // The consent checkbox of the registration form (Privacy Policy and Terms of Use): a hosted server creates no account without both flags.
       privacyAccepted: true,
+      termsAccepted: true,
     });
     expect(registered.user.username).toBe('noa_phone');
     expect(registered.guest).toBeUndefined();

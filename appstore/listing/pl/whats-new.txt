@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - pierwsza wersja.
+- Twój dziennik na twoim własnym koncie, taki sam na każdym urządzeniu, na którym się logujesz
+- Działa dalej, gdy zniknie połączenie, i wysyła zmiany, gdy ono wróci
+- Ostrożne spostrzeżenia, nawyki z przypomnieniami, trzy kalendarze ze świętami
+- 20 języków

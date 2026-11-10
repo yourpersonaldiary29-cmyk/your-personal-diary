@@ -6,6 +6,10 @@
  *   Shift+?          shortcuts dialog
  * Plain keys ("?") are ignored while typing in a field; Ctrl/Alt combos always
  * work. AltGr (Ctrl+Alt) is left alone so Hebrew/European layouts can type.
+ * Mac app only: Option is the Mac's AltGr, so inside a field Option+digit types
+ * the layout's character ("¡", "™"; "[" and "{" on a German keyboard) and
+ * Option+← moves the caret one word back - macOS keeps those keys there, and
+ * ⌥1..⌥0 / ⌥← navigate everywhere else (Command counts as Ctrl everywhere).
  * Navigation honours the unsaved-changes guard.
  *
  * Phone app: the shortcuts keep working for a Bluetooth keyboard (Shift+? still opens the list),
@@ -20,6 +24,7 @@ import { NAV_ITEMS } from '@shared/constants';
 import { PATHS } from '@/constants/routes';
 import { isGuestUser, useAuth } from '@/context/AuthContext';
 import { useLock } from '@/context/LockContext';
+import { isMacApp } from '@/offline/session';
 import { isMobileUi } from '@/utils/mobile-ui';
 import { canGoBack } from '@/utils/navigation';
 import { confirmNavigation, hasActiveLeaveGuard } from './useUnsavedChangesGuard';
@@ -95,6 +100,8 @@ export function useKeyboardShortcuts({ onShowShortcuts, enabled = true }: Keyboa
 
       // Alt + digit -> navigation
       if (e.altKey && !ctrl && !e.shiftKey) {
+        // Mac app, typing in a field: Option+digit / Option+← are macOS's (a character, a word back).
+        if (isEditableTarget(e.target) && isMacApp()) return;
         const digit = altDigit(e);
         if (digit !== null) {
           const item = NAV_ITEMS.find((n) => n.key === digit);

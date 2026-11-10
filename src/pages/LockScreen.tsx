@@ -38,7 +38,8 @@ import { useOfflineNow } from '@/components/sync/hooks';
 import { setLockScreenUp } from '@/components/sync/syncGate';
 import { offline } from '@/offline';
 import { getOfflinePlatform } from '@/offline/seams';
-import { tr } from '@/i18n/runtime';
+import { getCurrentLocale, tr } from '@/i18n/runtime';
+import { localeDef } from '@shared/i18n';
 import { errorMessage } from '@/utils/errors';
 
 /** Cancelled or failed device checks before the lock screen falls back to "needs a connection". */
@@ -230,21 +231,26 @@ export default function LockScreen() {
         // (like the device check); the server session stays as it was.
         const res = await offline.unlockWithPassword(password);
         if (res.outcome === 'ok') {
+          setPassword('');
           unlockOffline();
           announce(T.unlocked, 'polite');
           return;
         }
         setPasswordReady(res.outcome !== 'unavailable');
         const wait = res.waitSeconds > 0 ? tr('shell.sync.lock.wait', { seconds: res.waitSeconds }) : null;
+        // Chinese and Japanese do not put a space between sentences.
+        const joiner = localeDef(getCurrentLocale()).script === 'cjk' ? '' : ' ';
         if (res.outcome === 'unavailable') setError(tr('shell.sync.lock.offline'));
         else if (res.outcome === 'wait') setError(wait);
-        else setError(wait ? `${T.lockWrongPassword} ${wait}` : T.lockWrongPassword);
-        setPassword('');
+        else setError(wait ? `${T.lockWrongPassword}${joiner}${wait}` : T.lockWrongPassword);
+        // A 'wait' refusal checked nothing: the typed password stays for the next try.
+        if (res.outcome !== 'wait') setPassword('');
         document.getElementById(passwordId)?.focus();
         return;
       }
       const ok = await verifyPassword(password);
       if (ok) {
+        setPassword('');
         unlock();
         announce(T.unlocked, 'polite');
       } else {
@@ -271,7 +277,8 @@ export default function LockScreen() {
       showCloseButton={false}
       describedBy={descId}
     >
-      <p id={descId}>{uploadPrompt ? tr('shell.sync.lock.passwordToUpload') : T.lockDescription}</p>
+      {/* Offline the password only unlocks this device's screen and uploads nothing: the 423 wording waits for the connection. */}
+      <p id={descId}>{uploadPrompt && !offlineNow ? tr('shell.sync.lock.passwordToUpload') : T.lockDescription}</p>
       {user && <p className="text-muted">{T.greetingShort(user.firstName)}</p>}
       {showOfflineFallback && (
         <p className="text-muted" data-testid="lock-offline-fallback">

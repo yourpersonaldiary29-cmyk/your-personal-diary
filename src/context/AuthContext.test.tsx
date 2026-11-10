@@ -6,7 +6,9 @@ import * as api from '@/api';
 import { ApiClientError, TOKEN_KEY } from '@/api';
 import { T } from '@/constants/texts';
 import { setCurrentLocale, trWith } from '@/i18n/runtime';
-import { BINDING_KEY } from '@/offline';
+import { __resetConnectionForTests, setServerInfo } from '@/api/connection';
+import { BINDING_KEY, offline } from '@/offline';
+import { fakeServerInfo } from '@/offline/test-utils/fake-sync-server';
 import { sampleUser } from '@/test/render';
 import {
   AuthContext,
@@ -214,5 +216,93 @@ describe('logout notices', () => {
     expect(withGuestName(sampleUser, 'en')).toBe(sampleUser);
     expect(withGuestName({ ...guestUser, firstName: 'Noa' }, 'en').firstName).toBe('Noa');
     expect(withGuestName(guestUser, 'ja').firstName).toBe(trWith('ja')('mobile.guest.name'));
+  });
+});
+
+// Offline unlock by password (OFFLINE-DESIGN section 13, 2026-11-08): the password the server has just
+// accepted reaches the engine once and is kept nowhere else.
+describe('the password in hand reaches the offline engine once', () => {
+  beforeEach(() => {
+    setCurrentLocale('en');
+    vi.mocked(api.auth.me).mockReset();
+    vi.mocked(api.auth.login).mockReset();
+    vi.mocked(api.auth.verifyPassword).mockReset();
+    // A server that offers offline mode: the AuthProvider starts the engine after every session event.
+    setServerInfo(fakeServerInfo());
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+    __resetConnectionForTests();
+    sessionStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+  });
+
+  it('login hands the password to offline.start once; the next start of the same session carries none', async () => {
+    const start = vi.spyOn(offline, 'start').mockResolvedValue({ enabled: true, recovered: null, readOnly: false });
+    vi.mocked(api.auth.login).mockResolvedValue({ token: 'tok-login', user: sampleUser, rememberMe: true } as never);
+    renderAuth();
+    await act(async () => {});
+    expect(latest.status).toBe('anonymous');
+    expect(start).not.toHaveBeenCalled();
+
+    await act(async () => {
+      await latest.ctx!.login({ username: 'dana', password: 'Passw0rd!', rememberMe: true });
+    });
+    expect(latest.status).toBe('authenticated');
+    expect(start).toHaveBeenCalledTimes(1);
+    expect(start.mock.calls[0][0]).toMatchObject({ user: sampleUser, rememberMe: true, password: 'Passw0rd!' });
+    // The same session again (me() after a profile refresh): no password is in hand any more.
+    vi.mocked(api.auth.me).mockResolvedValue(meOk());
+    await act(async () => {
+      await latest.ctx!.refreshUser();
+    });
+    expect(start).toHaveBeenCalledTimes(2);
+    expect(start.mock.calls[1][0].password).toBeUndefined();
+    // Nothing of the provider's state holds it, and no storage does.
+    expect(JSON.stringify(latest.ctx)).not.toContain('Passw0rd!');
+    expect([...Array(localStorage.length).keys()].map((i) => localStorage.getItem(localStorage.key(i)!)).join()).not.toContain('Passw0rd!');
+    expect([...Array(sessionStorage.length).keys()].map((i) => sessionStorage.getItem(sessionStorage.key(i)!)).join()).not.toContain('Passw0rd!');
+  });
+
+  it('a run that cannot start the engine (a session from me() without offline mode) drops the login password', async () => {
+    const start = vi.spyOn(offline, 'start').mockResolvedValue({ enabled: false, reason: 'unsupported' });
+    __resetConnectionForTests(); // no server info yet: the start effect does not run for the login
+    vi.mocked(api.auth.login).mockResolvedValue({ token: 'tok-login', user: sampleUser, rememberMe: false } as never);
+    renderAuth();
+    await act(async () => {});
+    await act(async () => {
+      await latest.ctx!.login({ username: 'dana', password: 'Passw0rd!' });
+    });
+    expect(start).not.toHaveBeenCalled();
+    // The server's self-description arrives afterwards: the engine starts, but the password is gone.
+    await act(async () => {
+      setServerInfo(fakeServerInfo());
+    });
+    expect(start).toHaveBeenCalledTimes(1);
+    expect(start.mock.calls[0][0].password).toBeUndefined();
+  });
+
+  it('verifyPassword refreshes the wrap only when the server accepted the password', async () => {
+    vi.spyOn(offline, 'start').mockResolvedValue({ enabled: true, recovered: null, readOnly: false });
+    const refresh = vi.spyOn(offline, 'refreshPasswordWrap').mockResolvedValue(true);
+    sessionStorage.setItem(TOKEN_KEY, 'tok');
+    vi.mocked(api.auth.me).mockResolvedValue(meOk());
+    renderAuth();
+    await act(async () => {});
+    expect(latest.status).toBe('authenticated');
+
+    vi.mocked(api.auth.verifyPassword).mockResolvedValue({ ok: true });
+    await act(async () => {
+      expect(await latest.ctx!.verifyPassword('Passw0rd!')).toBe(true);
+    });
+    expect(refresh).toHaveBeenCalledTimes(1);
+    expect(refresh).toHaveBeenCalledWith('Passw0rd!');
+
+    vi.mocked(api.auth.verifyPassword).mockRejectedValue(new ApiClientError(401, { code: 'WRONG_PASSWORD', message: 'wrong' }));
+    await act(async () => {
+      expect(await latest.ctx!.verifyPassword('not-it')).toBe(false);
+    });
+    expect(refresh).toHaveBeenCalledTimes(1);
+    expect(latest.status).toBe('authenticated');
   });
 });

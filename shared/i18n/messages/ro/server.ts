@@ -503,6 +503,8 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'Prea multe înregistrări din rețeaua dumneavoastră. Încercați din nou mai târziu.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'Pentru a crea un cont, confirmați că ați citit politica de confidențialitate și sunteți de acord cu ea. Dacă nu vedeți nicio casetă de bifat, actualizați aplicația.',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
   'server.error.busy': 'Serverul este ocupat în acest moment. Încercați din nou peste câteva clipe.',
   'server.vault.quota': 'Jurnalul dumneavoastră a atins limita de dimensiune a acestui server ({max} MB). Ștergeți câteva însemnări pentru a elibera spațiu.',
   'server.owner.unset': 'Acest server nu are încă un proprietar configurat. Operatorul trebuie să seteze DIARY_OWNER_ID la ID-ul contului proprietarului.',

@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - první verze.
+- Tvůj deník ve tvém vlastním účtu, stejný na každém zařízení, na kterém se přihlásíš
+- Funguje dál, i když vypadne připojení, a po jeho obnovení nahraje tvé změny
+- Opatrné postřehy, návyky s připomínkami, tři kalendáře s jejich svátky
+- 20 jazyků

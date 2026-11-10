@@ -1,0 +1,47 @@
+Your Personal Diary to prywatny, inteligentny dziennik. Piszesz o swoim dniu, a aplikacja pomaga ci zauważyć, jak sen, nastrój, energia i nawyki zmieniają się razem na przestrzeni tygodni, miesięcy i lat.
+
+Twój dziennik jest przechowywany na twoim koncie na serwerze Your Personal Diary, więc jest taki sam na każdym urządzeniu, na którym się logujesz. Do założenia konta i pierwszego logowania potrzebne jest połączenie; potem aplikacja działa także bez niego. Bez reklam, bez analityki, bez śledzenia.
+
+Zapisuj swój dzień
+- Wpisy własnymi słowami, z nastrojem, emocjami, energią, stresem, snem, aktywnością fizyczną, wydarzeniami, osobami, miejscem, notatkami i tagami.
+- Strona dla każdego dnia i oś czasu całego dziennika.
+
+Nawyki i przypomnienia
+- Codzienne i cotygodniowe nawyki, które odhaczasz w ciągu dnia.
+- Opcjonalne przypomnienia jako powiadomienia, o godzinie wybranej dla każdego nawyku.
+
+Ostrożne spostrzeżenia
+- Aplikacja szuka możliwych zależności w twoich danych, na przykład między snem a nastrojem albo między aktywnością fizyczną a energią.
+- Są formułowane ostrożnie i nigdy nie twierdzą, że jedno jest przyczyną drugiego.
+- „Dlaczego widzę to spostrzeżenie?” pokazuje, ile dni sprawdzono i jakie liczby stoją za każdym spostrzeżeniem.
+- Gdy danych jest za mało, aplikacja mówi o tym wprost, zamiast zgadywać.
+
+Kalendarz, statystyki i wyszukiwanie
+- Kalendarz miesięczny gregoriański, hebrajski lub muzułmański (hidżry), z jego świętami.
+- Wykresy nastroju, energii, stresu, snu i nawyków w czasie, każdy z tabelą danych.
+- Inteligentne wyszukiwanie: zadaj pytanie w swoim języku, na przykład „W które dni sen trwał krócej niż pięć godzin?”, i otrzymaj odpowiedź z dziennika.
+
+Działa dalej, gdy zniknie połączenie
+- Czytaj i pisz dalej. Zmiany są przechowywane na urządzeniu zaszyfrowane i wysyłane automatycznie, gdy połączenie wróci, nawet jeśli w międzyczasie zamkniesz aplikację.
+- Z opcją „Zapamiętaj mnie” aplikacja przechowuje też zaszyfrowaną kopię ostatnio przeglądanych treści, aby pokazać je bez połączenia. Dziennik zablokowany bez połączenia? Odblokuj go za pomocą Face ID lub Touch ID albo kodu lub hasła urządzenia.
+- Spostrzeżenia, wyszukiwanie, statystyki, kopia zapasowa, eksport i ustawienia konta wymagają połączenia.
+
+Prywatność i bezpieczeństwo
+- Na serwerze twój dziennik jest zaszyfrowany kluczem wyprowadzonym z twojego hasła, w osobnym pliku dla każdego konta. Samo hasło nie jest przechowywane.
+- Podczas sesji serwer otwiera twój dziennik w swojej pamięci, aby go wyświetlać, przeszukiwać i analizować. Polityka prywatności jasno to wyjaśnia.
+- Aplikacja łączy się wyłącznie z serwerem Your Personal Diary, zawsze przez HTTPS.
+- Automatyczna blokada po bezczynności oraz „Zablokuj teraz”, kiedy chcesz.
+- Nie pamiętasz hasła? Zresetuj je linkiem lub kodem wysłanym na twój e-mail i zachowaj dziennik.
+- Zaszyfrowana kopia zapasowa w pliku, który przechowujesz, gdzie chcesz, i przywracanie.
+- Eksport dziennika do TXT, CSV, JSON lub PDF.
+- Usunięcie konta i wszystkich jego danych w dowolnej chwili w Ustawieniach.
+
+20 języków
+Angielski, hebrajski, arabski, chiński (uproszczony), japoński, hindi, tajski, hiszpański, portugalski, francuski, włoski, niemiecki, rumuński, grecki, polski, czeski, węgierski, rosyjski, bułgarski i turecki. Język wybierzesz w dowolnej chwili w Ustawieniach, w sekcji Język; twoje konto go zapamięta. Hebrajski i arabski są wyświetlane od prawej do lewej.
+
+Dostępność
+- Działa z czytnikami ekranu: czytelne nagłówki, opisane pola i odczytywane komunikaty o stanie.
+- Motyw jasny, ciemny i o wysokim kontraście, regulowany rozmiar tekstu i opcja ograniczenia animacji.
+
+Ważne
+Your Personal Diary to narzędzie do prowadzenia osobistego dziennika dla osób od 16 lat. Nie jest narzędziem medycznym ani diagnostycznym, a jego spostrzeżenia nie są poradą medyczną ani psychologiczną. Jeśli martwisz się o swoje zdrowie, porozmawiaj z wykwalifikowanym specjalistą.

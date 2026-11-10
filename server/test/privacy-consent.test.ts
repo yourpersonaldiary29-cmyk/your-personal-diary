@@ -13,6 +13,8 @@
  *   - the tour (POST /api/auth/guest) creates no account and needs no tick;
  *   - ONE version: PRIVACY_POLICY_VERSION (shared/legal.ts) is the effective date that the legal page
  *     generator (scripts/legal/build-pages.mjs) reads from legal/settings.json and prints on every policy page.
+ * The same box also confirms the Terms of Use (docs/apple-tasks/TERMS.md): a registration with the tick sends
+ * `termsAccepted: true` too - server/test/terms-consent.test.ts covers that half.
  * Fictional users and TEST-NET addresses only.
  */
 import fs from 'node:fs';
@@ -115,7 +117,7 @@ describe('hosted server: no account without the privacy checkbox', () => {
     expect(accountsJson(config)).toEqual([]);
     expect(diaryFiles(config)).toEqual([]);
     // The name and the address are still free: the same registration with the tick goes through.
-    expect((await anon().post('/api/auth/register', body('dana', { privacyAccepted: true }))).status).toBe(201);
+    expect((await anon().post('/api/auth/register', body('dana', { privacyAccepted: true, termsAccepted: true }))).status).toBe(201);
   });
 
   it('the fields of the form are checked first - the box is the last thing on the form', async () => {
@@ -129,7 +131,7 @@ describe('hosted server: no account without the privacy checkbox', () => {
 
   it('with the tick -> 201; the account records when (= createdAt) and which policy - and no answer carries it', async () => {
     const { config, anon, as } = await boot();
-    const res = await anon('he').post('/api/auth/register', body('dana', { privacyAccepted: true }));
+    const res = await anon('he').post('/api/auth/register', body('dana', { privacyAccepted: true, termsAccepted: true }));
     expect(res.status).toBe(201);
     const reg = res.body as AuthResponse;
     const [record] = accountsJson(config);
@@ -260,7 +262,7 @@ describe('ONE policy version: the server and the legal page generator agree', ()
 
   it('the date is not written in the code a second time: shared/legal.ts imports it from the settings file', () => {
     const source = fs.readFileSync(path.join(ROOT, 'shared', 'legal.ts'), 'utf8');
-    expect(source).toContain("import { effectiveDate } from '../legal/settings.json';");
+    expect(source).toContain("import { effectiveDate, termsEffectiveDate } from '../legal/settings.json';");
     expect(source.replace(/^\s*(?:\/\/|\*|\/\*\*).*$/gm, '')).not.toMatch(/\d{4}-\d{2}-\d{2}/);
     expect(isPolicyVersion('28.10.2026')).toBe(false);
     expect(isPolicyVersion('2026-13-45')).toBe(false);

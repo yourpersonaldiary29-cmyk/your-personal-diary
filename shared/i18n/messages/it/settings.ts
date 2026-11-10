@@ -103,6 +103,8 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'Informativa sulla privacy',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'settings.privacy.termsLink': 'Terms of Use',
   'settings.privacy.title': 'Privacy',
   'settings.privacy.offlineLabel': 'Modalità privacy offline',
   'settings.privacy.offlineHint': 'Quando è attiva, l’app non può aprire alcuna connessione di rete tranne quella verso il proprio server locale. Disattivala solo se usi l’accesso remoto.',

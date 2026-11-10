@@ -208,9 +208,12 @@ export const T = {
   get alreadyHaveAccount() {
     return tr('auth.alreadyHaveAccount');
   },
-  /** The error under the unticked privacy checkbox of the registration form. */
+  /**
+   * The error under the unticked consent checkbox of the registration form - the one box for the Privacy Policy
+   * and the Terms of Use, so the error names both (auth.legalConsentRequired; docs/apple-tasks/TERMS.md).
+   */
   get privacyConsentRequired() {
-    return tr('auth.privacyConsentRequired');
+    return tr('auth.legalConsentRequired');
   },
   fieldRequired: (label: string) => tr('shell.fieldRequired', { label }),
   get passwordsMismatch() {

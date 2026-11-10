@@ -280,6 +280,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Mit der Bildschirmsperre dieses Geräts entsperren',
   'shell.sync.lock.deviceReason': 'Your Personal Diary entsperren',
   'shell.sync.lock.passwordToUpload': 'Gib dein Passwort ein, um deine Änderungen hochzuladen.',
+  'shell.sync.lock.passwordOffline': 'Keine Verbindung: Dein Passwort wird auf diesem Gerät geprüft.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Warte # Sekunde, bevor du es erneut versuchst.} other {Warte # Sekunden, bevor du es erneut versuchst.}}',
   'shell.sync.drainFirst': 'Zuerst werden deine Änderungen hochgeladen…',
   'shell.sync.drainFailed': 'Deine Änderungen wurden noch nicht hochgeladen. Versuche es erneut, wenn die Verbindung wieder da ist.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {# noch nicht hochgeladene Änderung wird ebenfalls gelöscht.} other {# noch nicht hochgeladene Änderungen werden ebenfalls gelöscht.}}',

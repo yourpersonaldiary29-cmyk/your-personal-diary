@@ -1,8 +1,9 @@
 // @vitest-environment node
 /**
- * The privacy policy and account-deletion pages (docs/play-tasks/PLAY-LEGAL.md item 3): legal/**.md ->
- * scripts/legal/build-pages.mjs -> public/privacy/** and public/delete-account/** (Vite copies public/ into
- * dist/, the hosted server serves it). Proves:
+ * The privacy policy, the account-deletion page, the support page and the Terms of Use (docs/play-tasks/PLAY-LEGAL.md
+ * item 3; the support page: docs/apple-tasks/LEGAL.md; the terms: docs/apple-tasks/TERMS.md): legal/**.md ->
+ * scripts/legal/build-pages.mjs -> public/privacy/**, public/delete-account/**, public/support/** and public/terms/**
+ * (Vite copies public/ into dist/, the hosted server serves it). Proves:
  *  - every page exists for all 20 app languages plus the English default at the folder itself, and public/
  *    is exactly what the sources give (a text change is one edit plus one run of the script);
  *  - the placeholders are filled from the ONE settings place (legal/settings.json): with values set, none is
@@ -51,25 +52,28 @@ beforeAll(async () => {
 
 const SITE = new URL(serverDefault.url).origin;
 /** Fictional values (the owner's real name and address are never in a test). */
-const FILLED: LegalSettings = { publisherName: 'Example & Sons Publishing', contactEmail: 'privacy@example.test', effectiveDate: '2026-11-01', minimumAge: 16 };
+const FILLED: LegalSettings = { publisherName: 'Example & Sons Publishing', contactEmail: 'privacy@example.test', effectiveDate: '2026-11-01', termsEffectiveDate: '2026-11-12', minimumAge: 16 };
 
 describe('the one settings place', () => {
   it('legal/settings.json is valid; publisher and contact stay null until the owner fills them', () => {
     const settings = readSettings();
     expect(settingsProblems(JSON.parse(fs.readFileSync(`${ROOT}/legal/settings.json`, 'utf8')))).toEqual([]);
     expect(settings.effectiveDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(settings.termsEffectiveDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(settings.minimumAge).toBeGreaterThanOrEqual(13);
     // No real personal data in the repository: either not set yet, or set by the owner himself.
     for (const placeholder of unsetSettings(settings)) expect(['PUBLISHER_NAME', 'CONTACT_EMAIL']).toContain(placeholder);
   });
 
   it('refuses broken values', () => {
-    expect(settingsProblems({ publisherName: '', contactEmail: null, effectiveDate: '2026-10-26', minimumAge: 16 })).toHaveLength(1);
-    expect(settingsProblems({ publisherName: null, contactEmail: 'not-an-address', effectiveDate: '2026-10-26', minimumAge: 16 })).toHaveLength(1);
-    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '26.10.2026', minimumAge: 16 })).toHaveLength(1);
-    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '2026-10-26', minimumAge: 9 })).toHaveLength(1);
-    expect(settingsProblems({ publisherName: '<b>', contactEmail: null, effectiveDate: '2026-10-26', minimumAge: 16 })).toHaveLength(1);
-    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '2026-10-26', minimumAge: 16, extra: 1 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: '', contactEmail: null, effectiveDate: '2026-10-26', termsEffectiveDate: '2026-11-12', minimumAge: 16 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: null, contactEmail: 'not-an-address', effectiveDate: '2026-10-26', termsEffectiveDate: '2026-11-12', minimumAge: 16 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '26.10.2026', termsEffectiveDate: '2026-11-12', minimumAge: 16 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '2026-10-26', termsEffectiveDate: '2026-11-12', minimumAge: 9 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: '<b>', contactEmail: null, effectiveDate: '2026-10-26', termsEffectiveDate: '2026-11-12', minimumAge: 16 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '2026-10-26', termsEffectiveDate: '2026-11-12', minimumAge: 16, extra: 1 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '2026-10-26', termsEffectiveDate: '12.11.2026', minimumAge: 16 })).toHaveLength(1);
+    expect(settingsProblems({ publisherName: null, contactEmail: null, effectiveDate: '2026-10-26', minimumAge: 16 })).toEqual(['"termsEffectiveDate" is missing']);
   });
 
   it('the site address is the fixed diary server of src/config/server-default.json', () => {
@@ -82,7 +86,7 @@ describe('public/ pages', () => {
     const files = buildAll();
     const expected = PAGES.flatMap((page) => [`${page.id}/index.html`, ...LOCALES.map((l) => `${page.id}/${l.code}/index.html`)]).sort();
     expect([...files.keys()].sort()).toEqual(expected);
-    expect(expected).toHaveLength(2 * 21);
+    expect(expected).toHaveLength(4 * 21);
     expect(existingPages()).toEqual(expected);
     // Run `node scripts/legal/build-pages.mjs` after editing legal/ when this fails.
     expect(diffWithDisk(files)).toEqual([]);
@@ -126,6 +130,7 @@ describe('translations', () => {
   const shape = (md: string) => ({
     h1: (md.match(/^# /gm) ?? []).length,
     h2: (md.match(/^## /gm) ?? []).length,
+    h3: (md.match(/^### /gm) ?? []).length,
     items: (md.match(/^(?:- |\d+\. )/gm) ?? []).length,
     links: (md.match(/\]\(/g) ?? []).length,
     placeholders: [...md.matchAll(/\{\{([A-Z_]+)\}\}/g)].map((m) => m[1]).sort().join(','),
@@ -199,12 +204,62 @@ describe('the rendered pages', () => {
     }
   });
 
-  it('link the two documents to each other in the same language', () => {
+  it('link the documents to each other in the same language', () => {
     const all = files();
     expect(all.get('privacy/he/index.html')).toContain('<a href="/delete-account/he/">');
     expect(all.get('delete-account/he/index.html')).toContain('<a href="/privacy/he/">');
+    expect(all.get('support/he/index.html')).toContain('<a href="/privacy/he/">');
     expect(all.get('privacy/index.html')).toContain(`href="${SITE}/delete-account/"`);
     expect(all.get('delete-account/fr/index.html')).toContain(`href="${SITE}/privacy/fr/"`);
+    expect(all.get('support/index.html')).toContain(`href="${SITE}/privacy/"`);
+    expect(all.get('support/index.html')).toContain(`href="${SITE}/delete-account/"`);
+    expect(all.get('support/fr/index.html')).toContain(`href="${SITE}/privacy/fr/"`);
+    expect(all.get('support/fr/index.html')).toContain(`href="${SITE}/delete-account/fr/"`);
+    // The Terms of Use: the footer leads to the policy; the body links the policy, the deletion and the support page.
+    expect(all.get('terms/he/index.html')).toContain('<a href="/privacy/he/">');
+    for (const target of ['privacy', 'delete-account', 'support']) {
+      expect(all.get('terms/index.html'), target).toContain(`href="${SITE}/${target}/"`);
+      expect(all.get('terms/he/index.html'), target).toContain(`href="${SITE}/${target}/he/"`);
+    }
+  });
+
+  it('the Terms of Use: fifteen numbered sections, the one-account rule on its own, the owner\'s promises, the English reference', () => {
+    const all = files();
+    for (const l of LOCALES) {
+      const html = all.get(`terms/${l.code}/index.html`) as string;
+      expect((html.match(/<h2>\d+\. /g) ?? []).length, `terms ${l.code}`).toBe(15);
+      expect(html, `terms ${l.code}: the approval address`).toContain('href="mailto:privacy@example.test"');
+      expect(html, `terms ${l.code}: the terms date`).toMatch(/2026|12/);
+    }
+    const english = all.get('terms/index.html') as string;
+    expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
+    expect(english).toContain('<h2>3. One account per person</h2>');
+    for (const needle of ['<strong>You may open and keep only one account.</strong>', 'prior written approval of the operator', 'Accounts opened without it may be closed.', 'at least 16 years old', '<strong>We never ask for your password</strong>', '<strong>free of charge</strong>', 'at least 30 days before it ends', 'not medical or psychological advice', 'please write to us first', 'when it is published', '12 November 2026', 'The version you agreed to when you registered is recorded with your account.']) {
+      expect(english, needle).toContain(needle);
+    }
+    // English is the reference text: every other language says so near the top (the base writer's Hebrew included).
+    expect(english).not.toContain('If a translation differs');
+    const hebrew = all.get('terms/he/index.html') as string;
+    expect(hebrew).toContain('הנוסח האנגלי חל');
+    expect(hebrew).toContain('<h2>3. חשבון אחד לכל אדם</h2>');
+  });
+
+  it('the support page (App Store "Support URL") shows the operator and the e-mail before the questions, then the frequent questions', () => {
+    const all = files();
+    for (const l of LOCALES) {
+      const html = all.get(`support/${l.code}/index.html`) as string;
+      const firstQuestion = html.indexOf('<h3>');
+      expect(firstQuestion, `support ${l.code}`).toBeGreaterThan(0);
+      const head = html.slice(html.indexOf('<main>'), firstQuestion);
+      expect(head, `support ${l.code}: operator before the questions`).toContain('Example &amp; Sons Publishing');
+      expect(head, `support ${l.code}: e-mail before the questions`).toContain('href="mailto:privacy@example.test"');
+      expect((html.match(/<h3>/g) ?? []).length, `support ${l.code}: the nine questions`).toBe(9);
+    }
+    const english = all.get('support/index.html') as string;
+    expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
+    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', '<strong>Settings - Backup</strong>', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', 'when it is published', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
+      expect(english, needle).toContain(needle);
+    }
   });
 
   it('the deletion page names the app and the publisher, the steps, the e-mail route and the 30-day snapshot window', () => {
@@ -217,9 +272,9 @@ describe('the rendered pages', () => {
     expect(html).toContain('<strong>30 days</strong>');
   });
 
-  it('the policy names both apps, the hosting place, the operator\'s reset capability and the device copies', () => {
+  it('the policy names the four apps and the website, the hosting place, the operator\'s reset capability and the device copies', () => {
     const html = files().get('privacy/index.html') as string;
-    for (const needle of ['Android app', 'Windows app', 'Frankfurt, Germany', 'AES-256-GCM', 'Windows Data Protection (DPAPI)', 'Android Keystore', 'The operator can technically reset any password', 'within 30 days', 'Fly.io, Inc.', 'Gmail']) {
+    for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'when it is published', 'Frankfurt, Germany', 'AES-256-GCM', 'Windows Data Protection (DPAPI)', 'Android Keystore', 'macOS Keychain', 'iOS Keychain', 'Your Personal Diary offline key', 'App Store', 'Mac App Store', 'jailbroken', 'The operator can technically reset any password', 'within 30 days', 'Fly.io, Inc.', 'Gmail']) {
       expect(html, needle).toContain(needle);
     }
     expect(html).toContain('at least 16 years old');

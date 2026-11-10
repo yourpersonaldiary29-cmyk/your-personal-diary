@@ -37,7 +37,7 @@ import { randomBytes } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { DEFAULT_LOCALE, isLocale, resolveLocale, t, type Locale } from '@shared/i18n';
-import { PRIVACY_POLICY_VERSION } from '@shared/legal';
+import { PRIVACY_POLICY_VERSION, TERMS_VERSION } from '@shared/legal';
 import type { ServerConfig } from '../config';
 import type { DiaryDb } from '../db/database';
 import { seedDemoData, SEED_DEFAULT_DAYS, SEED_DEFAULT_SEED } from '../db/seed';
@@ -272,6 +272,12 @@ export interface RegisterInput {
    * PRIVACY_POLICY_VERSION). Never parsed from the body here, so local mode records nothing.
    */
   privacyAccepted?: boolean;
+  /**
+   * The same checkbox also confirms the Terms of Use (docs/apple-tasks/TERMS.md). Set by the hosted server's
+   * route only, which refuses a registration without it; the account then records `termsAcceptedAt` (=
+   * `createdAt`) and `termsVersion` (= TERMS_VERSION). Never parsed from the body here.
+   */
+  termsAccepted?: boolean;
 }
 
 export interface LoginInput {
@@ -750,6 +756,8 @@ export class DiaryAuthService implements AuthService {
       recoveryWrappedKey: wrapRecoveryKey(key, this.deviceKey, id),
       // The privacy checkbox (hosted server): when it was ticked and which policy was published then.
       ...(input.privacyAccepted === true ? { privacyAcceptedAt: createdAt, privacyVersion: PRIVACY_POLICY_VERSION } : {}),
+      // The Terms of Use, confirmed with the same checkbox: when, and which version was published then.
+      ...(input.termsAccepted === true ? { termsAcceptedAt: createdAt, termsVersion: TERMS_VERSION } : {}),
     };
     wipe(verifierSource);
     if (fs.existsSync(vaultPathOf(this.config, account))) {

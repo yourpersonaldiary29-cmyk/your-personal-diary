@@ -522,6 +522,8 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'Πάρα πολλές εγγραφές από το δίκτυό σας. Παρακαλούμε δοκιμάστε ξανά αργότερα.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'Για να δημιουργήσετε λογαριασμό, επιβεβαιώστε ότι διαβάσατε την πολιτική απορρήτου και την αποδέχεστε. Αν δεν βλέπετε πλαίσιο για να το επιλέξετε, ενημερώστε την εφαρμογή.',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
   'server.error.busy': 'Ο διακομιστής είναι απασχολημένος αυτήν τη στιγμή. Παρακαλούμε δοκιμάστε ξανά σε λίγο.',
   'server.vault.quota': 'Το ημερολόγιό σας έφτασε το όριο μεγέθους αυτού του διακομιστή ({max} MB). Διαγράψτε μερικές καταχωρίσεις για να ελευθερώσετε χώρο.',
   'server.owner.unset': 'Αυτός ο διακομιστής δεν έχει ακόμη ορισμένο ιδιοκτήτη. Ο διαχειριστής πρέπει να ορίσει το DIARY_OWNER_ID στο αναγνωριστικό λογαριασμού του ιδιοκτήτη.',

@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - die erste Version.
+- Dein Tagebuch in deinem eigenen Konto, gleich auf jedem Gerät, auf dem du dich anmeldest
+- Läuft weiter, wenn die Verbindung abbricht, und lädt deine Änderungen hoch, sobald sie zurück ist
+- Behutsame Erkenntnisse, Gewohnheiten mit Erinnerungen, drei Kalender mit ihren Feiertagen
+- 20 Sprachen

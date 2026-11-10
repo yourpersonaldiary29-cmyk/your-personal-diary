@@ -30,11 +30,14 @@ const messages: Record<string, string> = {
   'auth.registerTitle': 'Registrieren',
   'auth.loginTitle': 'Anmelden',
   'auth.noAccountYet': 'Noch kein Konto?',
-  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent): {policy} = the link
-  // auth.privacyConsentLink (worded to fit this sentence); auth.privacyConsentRequired shows under the unticked box
-  'auth.privacyConsent': 'Ich habe die {policy} gelesen und stimme ihr zu',
+  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent) - ONE box for both documents
+  // (docs/apple-tasks/TERMS.md): {policy} = the link auth.privacyConsentLink, {terms} = the link auth.termsConsentLink
+  // (each worded to fit this sentence); auth.legalConsentRequired shows under the unticked box
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'auth.legalConsent': 'I have read the {policy} and the {terms}, and I agree to them',
   'auth.privacyConsentLink': 'Datenschutzerklärung',
-  'auth.privacyConsentRequired': 'Um ein Konto zu erstellen, setze hier ein Häkchen und bestätige damit, dass du die Datenschutzerklärung gelesen hast und ihr zustimmst.',
+  'auth.termsConsentLink': 'Terms of Use',
+  'auth.legalConsentRequired': 'To create an account, tick this box to confirm that you have read the Privacy Policy and the Terms of Use and agree to them.',
   'auth.alreadyHaveAccount': 'Du hast schon ein Konto?',
 
   // Validation and session messages

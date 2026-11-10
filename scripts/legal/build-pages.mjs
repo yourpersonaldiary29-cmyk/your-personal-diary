@@ -1,34 +1,48 @@
 #!/usr/bin/env node
 /**
- * scripts/legal/build-pages.mjs - the privacy policy and the account-deletion page of Your Personal Diary
- * (docs/play-tasks/PLAY-LEGAL.md), from the Markdown sources in legal/ to self-contained HTML pages in public/.
+ * scripts/legal/build-pages.mjs - the privacy policy, the account-deletion page, the support page and the Terms of
+ * Use of Your Personal Diary (docs/play-tasks/PLAY-LEGAL.md; the support page: docs/apple-tasks/LEGAL.md; the terms:
+ * docs/apple-tasks/TERMS.md), from the Markdown sources in legal/ to self-contained HTML pages in public/.
  * Vite copies public/ into dist/ ("npx vite build"), and the hosted server serves dist/ as static files
  * (server/src/app.ts: express.static before the SPA fallback), so the pages are reachable at
  *   <server>/privacy/              English (the default) with links to the 19 other languages
  *   <server>/privacy/<locale>/     one page per app language (en included), each linking back to English
  *   <server>/delete-account/       the same for the Play "data deletion" web resource
+ *   <server>/support/              the same for the App Store "Support URL" (contact details, frequent questions)
+ *   <server>/terms/                the same for the Terms of Use (confirmed together with the policy at registration)
  * without any server change. A text change is one edit of a legal/ source plus one run of this script.
  *
- * Sources: legal/privacy/privacy-<locale>.md and legal/delete-account/delete-account-<locale>.md for the 20
- * app locales (shared/i18n/locales.ts). Each starts with a front-matter block (title, description, languages =
- * the label of the language list, otherPage = the link text of the other page) followed by Markdown: # / ## / ###
- * headings, paragraphs, "- " and "1. " lists, **bold**, `code` and [text](url) links.
+ * Sources: legal/<kind>/<kind>-<locale>.md (kinds: privacy, delete-account, support, terms) for the 20 app locales
+ * (shared/i18n/locales.ts). Each starts with a front-matter block (title, description, languages = the label of
+ * the language list, otherPage = the link text of the page the footer leads to: privacy <-> delete-account,
+ * support -> privacy, terms -> privacy) followed by Markdown: # / ## / ### headings, paragraphs, "- " and "1. " lists, **bold**,
+ * `code` and [text](url) links.
  *
  * The ONE place for the values the owner fills: legal/settings.json
- *   { "publisherName": null | "...", "contactEmail": null | "...", "effectiveDate": "YYYY-MM-DD", "minimumAge": 16 }
- * Placeholders in the sources: {{PUBLISHER_NAME}} {{CONTACT_EMAIL}} {{EFFECTIVE_DATE}} {{MINIMUM_AGE}} and the
- * computed {{SITE_URL}} (the fixed server of src/config/server-default.json), {{PRIVACY_URL}} / {{DELETE_URL}}
- * (the same-language page of the other document). A setting that is still null leaves its {{PLACEHOLDER}} visible
+ *   { "publisherName": null | "...", "contactEmail": null | "...", "effectiveDate": "YYYY-MM-DD",
+ *     "termsEffectiveDate": "YYYY-MM-DD", "minimumAge": 16 }
+ * (effectiveDate = the privacy policy's, termsEffectiveDate = the Terms of Use's; shared/legal.ts exports both as
+ * the versions the hosted server records at registration.)
+ * Placeholders in the sources: {{PUBLISHER_NAME}} {{CONTACT_EMAIL}} {{EFFECTIVE_DATE}} {{TERMS_EFFECTIVE_DATE}}
+ * {{MINIMUM_AGE}} and the computed {{SITE_URL}} (the fixed server of src/config/server-default.json), {{PRIVACY_URL}} /
+ * {{DELETE_URL}} / {{SUPPORT_URL}} / {{TERMS_URL}} (the same-language page of each document). A setting that is still null leaves its {{PLACEHOLDER}} visible
  * in the pages on purpose: scripts/play/preflight.mjs refuses to go on while one is left.
  *
  * The pages: no script (the server's CSP is script-src 'self'), no external resource (inline CSS only, system
  * fonts), RTL for he and ar, readable on a phone, light and dark. The only absolute URLs in them are those of
  * the fixed server (the Android bundle carries public/ too, and its test allows no other host).
  *
+ * A source that still contains the marker TODO-TRANSLATE is an English placeholder waiting for its translation
+ * (when a page is new, the base writer leaves one per locale so that the build and the structure tests work
+ * while the translators are at it; a translator replaces the whole file). --strict refuses to go on while one
+ * is left, exactly as it does for an unset setting; without --strict it is a warning.
+ *
  * Usage:
- *   node scripts/legal/build-pages.mjs            write public/privacy/** and public/delete-account/**
+ *   node scripts/legal/build-pages.mjs            write public/privacy/**, public/delete-account/**, public/support/**
+ *                                                 and public/terms/**
  *   node scripts/legal/build-pages.mjs --check    exit 1 when public/ is not what the sources produce
- *   node scripts/legal/build-pages.mjs --strict   also exit 1 while a setting is unset (use before publishing)
+ *   node scripts/legal/build-pages.mjs --strict   also exit 1 while a setting is unset or a source is still
+ *                                                 marked TODO-TRANSLATE (use before publishing)
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -65,16 +79,22 @@ export const LOCALES = [
 ];
 export const DEFAULT_LOCALE = 'en';
 
-/** The two documents: id = the URL path segment and the folder under public/. */
+/**
+ * The four documents: id = the URL path segment and the folder under public/; footer = the id of the page the
+ * footer link (front matter "otherPage") leads to. The support page links to the deletion page in its body; the
+ * Terms of Use link the policy, the deletion page and the support page in their body.
+ */
 export const PAGES = [
-  { id: 'privacy', sourceDir: path.join('legal', 'privacy'), prefix: 'privacy' },
-  { id: 'delete-account', sourceDir: path.join('legal', 'delete-account'), prefix: 'delete-account' },
+  { id: 'privacy', sourceDir: path.join('legal', 'privacy'), prefix: 'privacy', footer: 'delete-account' },
+  { id: 'delete-account', sourceDir: path.join('legal', 'delete-account'), prefix: 'delete-account', footer: 'privacy' },
+  { id: 'support', sourceDir: path.join('legal', 'support'), prefix: 'support', footer: 'privacy' },
+  { id: 'terms', sourceDir: path.join('legal', 'terms'), prefix: 'terms', footer: 'privacy' },
 ];
 
 /** Placeholders filled from legal/settings.json (null = not set yet: the placeholder stays visible). */
 export const SETTING_PLACEHOLDERS = { PUBLISHER_NAME: 'publisherName', CONTACT_EMAIL: 'contactEmail' };
 /** Every placeholder a source may use. */
-export const PLACEHOLDERS = ['PUBLISHER_NAME', 'CONTACT_EMAIL', 'EFFECTIVE_DATE', 'MINIMUM_AGE', 'SITE_URL', 'PRIVACY_URL', 'DELETE_URL'];
+export const PLACEHOLDERS = ['PUBLISHER_NAME', 'CONTACT_EMAIL', 'EFFECTIVE_DATE', 'TERMS_EFFECTIVE_DATE', 'MINIMUM_AGE', 'SITE_URL', 'PRIVACY_URL', 'DELETE_URL', 'SUPPORT_URL', 'TERMS_URL'];
 const PLACEHOLDER_RE = /\{\{\s*([A-Z][A-Z0-9_]*)\s*\}\}/g;
 const FRONT_MATTER_KEYS = ['title', 'description', 'languages', 'otherPage'];
 
@@ -96,19 +116,23 @@ export function readSettings(root = ROOT, file = path.join(root, SETTINGS_FILE))
     publisherName: raw.publisherName === null ? null : String(raw.publisherName).trim(),
     contactEmail: raw.contactEmail === null ? null : String(raw.contactEmail).trim(),
     effectiveDate: raw.effectiveDate,
+    termsEffectiveDate: raw.termsEffectiveDate,
     minimumAge: raw.minimumAge,
   };
 }
+
+/** The keys of legal/settings.json (all required). */
+export const SETTING_KEYS = ['publisherName', 'contactEmail', 'effectiveDate', 'termsEffectiveDate', 'minimumAge'];
 
 /** What is wrong with a settings object (empty when it is valid; null values are valid = not set yet). */
 export function settingsProblems(raw) {
   const problems = [];
   if (!raw || typeof raw !== 'object') return ['not a JSON object'];
-  for (const key of ['publisherName', 'contactEmail', 'effectiveDate', 'minimumAge']) {
+  for (const key of SETTING_KEYS) {
     if (!(key in raw)) problems.push(`"${key}" is missing`);
   }
   for (const key of Object.keys(raw)) {
-    if (!['publisherName', 'contactEmail', 'effectiveDate', 'minimumAge'].includes(key)) problems.push(`unknown key "${key}"`);
+    if (!SETTING_KEYS.includes(key)) problems.push(`unknown key "${key}"`);
   }
   if (raw.publisherName !== null && raw.publisherName !== undefined) {
     if (typeof raw.publisherName !== 'string' || !raw.publisherName.trim()) problems.push('"publisherName" must be null (not set yet) or a name');
@@ -119,9 +143,10 @@ export function settingsProblems(raw) {
       problems.push('"contactEmail" must be null (not set yet) or an e-mail address');
     }
   }
-  if (raw.effectiveDate !== undefined) {
-    const ok = typeof raw.effectiveDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw.effectiveDate) && !Number.isNaN(Date.parse(`${raw.effectiveDate}T00:00:00Z`));
-    if (!ok) problems.push('"effectiveDate" must look like 2026-10-26');
+  for (const key of ['effectiveDate', 'termsEffectiveDate']) {
+    if (raw[key] === undefined) continue;
+    const ok = typeof raw[key] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw[key]) && !Number.isNaN(Date.parse(`${raw[key]}T00:00:00Z`));
+    if (!ok) problems.push(`"${key}" must look like 2026-10-26`);
   }
   if (raw.minimumAge !== undefined && !(Number.isInteger(raw.minimumAge) && raw.minimumAge >= 13 && raw.minimumAge <= 18)) {
     problems.push('"minimumAge" must be a whole number from 13 to 18');
@@ -297,7 +322,8 @@ footer a{margin-inline-end:14px}
  */
 export function renderPage({ page, locale, source, settings, siteUrl }) {
   const def = localeOf(locale);
-  const other = PAGES.find((p) => p.id !== page.id);
+  const other = PAGES.find((p) => p.id === page.footer);
+  if (!other) throw new Error(`${page.id}: the footer page "${page.footer}" is not one of the documents`);
   const { meta, body } = parseSource(source, `${page.prefix}-${locale}.md`);
   const langLinks = LOCALES.map((l) => {
     const current = l.code === locale ? ' aria-current="page"' : '';
@@ -312,10 +338,13 @@ export function renderPage({ page, locale, source, settings, siteUrl }) {
     PUBLISHER_NAME: settings.publisherName,
     CONTACT_EMAIL: settings.contactEmail,
     EFFECTIVE_DATE: dateInWords(settings.effectiveDate, def.intl),
+    TERMS_EFFECTIVE_DATE: dateInWords(settings.termsEffectiveDate, def.intl),
     MINIMUM_AGE: new Intl.NumberFormat(def.intl, { useGrouping: false }).format(settings.minimumAge),
     SITE_URL: siteUrl,
     PRIVACY_URL: `${siteUrl}${pagePath('privacy', locale)}`,
     DELETE_URL: `${siteUrl}${pagePath('delete-account', locale)}`,
+    SUPPORT_URL: `${siteUrl}${pagePath('support', locale)}`,
+    TERMS_URL: `${siteUrl}${pagePath('terms', locale)}`,
   };
   const englishLink = locale === DEFAULT_LOCALE ? '' : `<a href="${pagePath(page.id, DEFAULT_LOCALE)}" hreflang="en" lang="en" dir="ltr">English</a>`;
   const html = [
@@ -394,6 +423,23 @@ export function existingPages(root = ROOT) {
   return found.sort();
 }
 
+/** The marker of an English placeholder source that still waits for its translation (see the header). */
+export const UNTRANSLATED_MARKER = 'TODO-TRANSLATE';
+
+/** Sources (project-relative, forward slashes) that still carry the marker; empty when every page is translated. */
+export function untranslatedSources(root = ROOT) {
+  const found = [];
+  for (const page of PAGES) {
+    for (const l of LOCALES) {
+      const file = sourceFile(root, page, l.code);
+      if (existsSync(file) && readFileSync(file, 'utf8').includes(UNTRANSLATED_MARKER)) {
+        found.push(path.relative(root, file).split(path.sep).join('/'));
+      }
+    }
+  }
+  return found;
+}
+
 /** Differences between what the sources give and public/ on disk (empty = in sync). */
 export function diffWithDisk(files, root = ROOT) {
   const problems = [];
@@ -406,7 +452,7 @@ export function diffWithDisk(files, root = ROOT) {
   return problems;
 }
 
-/** Writes the pages (and removes stale files under public/privacy and public/delete-account). */
+/** Writes the pages (and removes stale files under public/<page>/ of every document). */
 export function writeAll(files, root = ROOT) {
   for (const rel of existingPages(root)) if (!files.has(rel)) rmSync(path.join(root, 'public', rel), { force: true });
   for (const [rel, html] of files) {
@@ -437,6 +483,18 @@ function main(argv) {
     }
     console.warn(`build-pages: warning - ${msg}`);
   }
+  // Placeholder sources are reported but still built, so that the tree stays consistent while the translators work.
+  let failed = false;
+  const untranslated = untranslatedSources();
+  if (untranslated.length) {
+    const msg = `${untranslated.length} source(s) still marked ${UNTRANSLATED_MARKER} (English placeholders waiting for their translation): ${untranslated.join(', ')}`;
+    if (strict) {
+      console.error(`build-pages: ${msg}`);
+      failed = true;
+    } else {
+      console.warn(`build-pages: warning - ${msg}`);
+    }
+  }
   if (check) {
     const problems = diffWithDisk(files);
     if (problems.length) {
@@ -444,11 +502,11 @@ function main(argv) {
       return 1;
     }
     console.log(`build-pages: ${files.size} pages in public/ match the sources`);
-    return 0;
+    return failed ? 1 : 0;
   }
   writeAll(files);
   console.log(`build-pages: wrote ${files.size} pages (${PAGES.map((p) => `public/${p.id}/`).join(', ')}; ${LOCALES.length} locales each)`);
-  return 0;
+  return failed ? 1 : 0;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {

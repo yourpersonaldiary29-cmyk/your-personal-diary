@@ -103,6 +103,7 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'Privacy policy',
+  'settings.privacy.termsLink': 'Terms of Use',
   'settings.privacy.title': 'Privacy',
   'settings.privacy.offlineLabel': 'Offline privacy mode',
   'settings.privacy.offlineHint': 'When this is on, the app itself may not open any network connection except to its own local server. Turn it off only if you use remote access.',

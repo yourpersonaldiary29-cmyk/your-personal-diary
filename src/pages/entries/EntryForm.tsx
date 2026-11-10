@@ -20,6 +20,7 @@ import { NumberInput } from '@/components/ui/NumberInput';
 import { TextArea } from '@/components/ui/TextArea';
 import { TextInput } from '@/components/ui/TextInput';
 import { cx } from '@/components/ui/cx';
+import { platformizeHint } from '@/utils/platform-keys';
 import { ET } from './texts';
 import { ENTRY_LIMITS, entryFieldId, type UseEntryFormResult } from './useEntryForm';
 
@@ -277,7 +278,7 @@ export function EntryForm({
           {ET.cancel}
         </Button>
         {extraActions}
-        <span className="text-muted text-small">{ET.saveHint}</span>
+        <span className="text-muted text-small">{platformizeHint(ET.saveHint)}</span>
       </div>
     </form>
   );

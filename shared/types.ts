@@ -81,6 +81,13 @@ export interface RegisterRequest {
    * policy version with the account; local developer mode neither requires nor stores it.
    */
   privacyAccepted?: boolean;
+  /**
+   * The Terms of Use (docs/apple-tasks/TERMS.md), confirmed with the SAME checkbox ("I have read the Privacy
+   * Policy and the Terms of Use, and I agree to them"): the page sends `true` together with `privacyAccepted`.
+   * A hosted server answers `400 VALIDATION` with `field: "termsAccepted"` unless it is exactly `true`, and
+   * stores the time and the terms version with the account; local developer mode neither requires nor stores it.
+   */
+  termsAccepted?: boolean;
 }
 
 export interface LoginRequest {

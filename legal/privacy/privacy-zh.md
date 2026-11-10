@@ -72,6 +72,8 @@ otherPage: 如何删除你的账户
 
 - **Windows 应用：**这些副本保存在你的 Windows 用户配置文件中的应用数据文件夹里（Microsoft Store 版本则保存在应用自己的包文件夹中）。密钥由 Windows 数据保护（DPAPI）保护，只对你的 Windows 用户有效。
 - **Android 应用：**这些副本保存在应用的私有存储中，其他应用无法读取，并且不包含在备份中。密钥由 Android Keystore 保护。
+- TODO-TRANSLATE: **Mac app:** these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named "Your Personal Diary offline key" and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.
+- TODO-TRANSLATE: **iPhone app:** these copies are kept in the app's private storage, excluded from iCloud backup. The key is kept in the iOS Keychain, available only on this device after it was unlocked once, and removed when you sign out.
 - **网站：**浏览器中只加密保存尚未上传的更改、最近 7 天的记录以及关于冲突更改的提示（见下文），但不保存你所阅读内容的副本；密钥保留在内存中，关闭页面后即消失。
 
 连接恢复后，应用会按照你操作的顺序上传你做的更改，每项更改恰好上传一次。如果同一个条目、习惯或设置也在另一台设备上被更改，则保留较新的更改，应用会用一行提示告诉你；另一个版本会在这台设备上继续供你查看，直到你关闭该提示。

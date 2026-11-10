@@ -22,6 +22,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { tr } from '@/i18n/runtime';
 import { isApp } from '@/offline/session';
 import { errorMessage } from '@/utils/errors';
+import { platformizeHint } from '@/utils/platform-keys';
 import { ST } from './texts';
 import { useSettingsSaver } from './useSettingsSaver';
 
@@ -206,7 +207,7 @@ export function SecuritySection() {
           onChange={onAutoLock}
         />
         {security && <PhoneSecurityBlock security={security} />}
-        <p className="text-muted text-small">{ST.lockNowHint}</p>
+        <p className="text-muted text-small">{platformizeHint(ST.lockNowHint)}</p>
         {offlineCopy && <p className="text-muted text-small">{tr('shell.sync.uninstallHint')}</p>}
       </div>
     </Card>

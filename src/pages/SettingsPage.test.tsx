@@ -544,13 +544,17 @@ describe('SettingsPage', () => {
       const reassurance = within(card).getByText(ST.dataReassurance);
       expect(reassurance.tagName).toBe('P');
       expect(reassurance.previousElementSibling).toBeNull();
-      // The card's one link is the privacy policy page on the diary server (docs/play-tasks/PLAY-LEGAL.md
-      // item 4), opened outside the app - never the former in-app Privacy page.
+      // The card's two links are the privacy policy page and, under it, the Terms of Use page on the diary server
+      // (docs/play-tasks/PLAY-LEGAL.md item 4, docs/apple-tasks/TERMS.md), opened outside the app - never the
+      // former in-app Privacy page.
       const links = within(card).getAllByRole('link');
-      expect(links).toHaveLength(1);
+      expect(links).toHaveLength(2);
       expect(links[0]).toHaveAccessibleName(ST.privacyPolicyLink);
       expect(links[0].getAttribute('href')).toMatch(/^https:\/\/[^/]+\/privacy\/(?:[a-z]{2}\/)?$/);
       expect(links[0]).toHaveAttribute('target', '_blank');
+      expect(links[1]).toHaveAccessibleName(ST.termsLink);
+      expect(links[1].getAttribute('href')).toMatch(/^https:\/\/[^/]+\/terms\/(?:[a-z]{2}\/)?$/);
+      expect(links[1]).toHaveAttribute('target', '_blank');
       expect(within(card).queryByRole('heading', { name: ST.lanAccess })).not.toBeInTheDocument();
       const offline = within(card).getByRole('checkbox', { name: new RegExp(`^${ST.offlineLabel}`) });
       expect(offline).toBeChecked();

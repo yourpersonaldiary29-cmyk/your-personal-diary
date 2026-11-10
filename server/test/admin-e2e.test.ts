@@ -131,6 +131,7 @@ async function register(username: string, ip: string, email = `${username}@examp
     password: PASSWORD,
     confirmPassword: PASSWORD,
     privacyAccepted: true,
+    termsAccepted: true,
   });
   expect(res.status).toBe(201);
   const body = res.body as AuthResponse;

@@ -282,6 +282,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Odblokuj blokadą ekranu tego urządzenia',
   'shell.sync.lock.deviceReason': 'Odblokuj Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Wpisz hasło, aby wysłać swoje zmiany.',
+  'shell.sync.lock.passwordOffline': 'Brak połączenia: hasło jest sprawdzane na tym urządzeniu.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Odczekaj # sekundę, zanim spróbujesz ponownie.} few {Odczekaj # sekundy, zanim spróbujesz ponownie.} many {Odczekaj # sekund, zanim spróbujesz ponownie.} other {Odczekaj # sekundy, zanim spróbujesz ponownie.}}',
   'shell.sync.drainFirst': 'Najpierw wysyłanie twoich zmian…',
   'shell.sync.drainFailed': 'Twoje zmiany nie zostały jeszcze wysłane. Spróbuj ponownie, gdy połączenie wróci.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {Usunięta zostanie też # niewysłana zmiana.} few {Usunięte zostaną też # niewysłane zmiany.} many {Usuniętych zostanie też # niewysłanych zmian.} other {Usunięte zostaną też # niewysłanej zmiany.}}',

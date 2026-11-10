@@ -71,6 +71,9 @@ const CHECKLISTS: Checklist[] = [
       'shell.retry',
       'shell.sync.lock.deviceUnlock',
       'shell.sync.lock.offline',
+      // Offline unlock by password (2026-11-08): the note under the field and the wrong-password error.
+      'shell.sync.lock.passwordOffline',
+      'shell.lock.wrongPassword',
       'shell.sync.lock.passwordToUpload',
       'shell.sync.logout.title',
       'shell.sync.logout.stay',
@@ -131,5 +134,10 @@ describe.each(CHECKLISTS)('$file quotes the app as it renders it', ({ file, labe
   it('the conflict line is the shipped sentence with the test entry as its title', () => {
     if (file !== 'docs/OFFLINE-TEST.he.md') return;
     expect(text).toContain(he('shell.sync.reason.lost', { title: 'בדיקה 3 – התנגשות' }));
+  });
+
+  it('the wait after three wrong passwords is quoted as the app renders two seconds', () => {
+    if (file !== 'docs/OFFLINE-TEST.he.md') return;
+    expect(text).toContain(sansPeriod(he('shell.sync.lock.wait', { seconds: 2 })));
   });
 });

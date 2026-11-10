@@ -8,8 +8,8 @@ import { LAST_USERNAME_KEY } from '@/utils/last-username';
 import RegisterPage, { CONSENT_ID, EMAIL_MAX_LENGTH, duplicateMessage, emailProblem, validateRegistration } from './RegisterPage';
 
 /** The privacy checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md), named by its sentence. */
-const CONSENT_HE = 'קראתי את מדיניות הפרטיות והסכמתי לה';
-const CONSENT_EN = 'I have read the Privacy policy and agree to it';
+const CONSENT_HE = 'קראתי את מדיניות הפרטיות ואת תנאי השימוש והסכמתי להם';
+const CONSENT_EN = 'I have read the Privacy Policy and the Terms of Use, and I agree to them';
 const consentBox = (name = CONSENT_HE) => screen.getByRole('checkbox', { name }) as HTMLInputElement;
 
 function renderPage(register = vi.fn().mockResolvedValue(sampleUser), route = '/register') {
@@ -59,7 +59,7 @@ describe('RegisterPage', () => {
     expect(screen.getByRole('button', { name: T.createAccount })).toBeEnabled();
   });
 
-  it('the privacy checkbox replaces the former line: its sentence carries the link to the policy, above the submit button', async () => {
+  it('ONE consent checkbox replaces the former line: its ONE sentence carries the links to the policy and the Terms of Use, above the submit button', async () => {
     const { user } = renderPage();
     expect(screen.queryByText(/ביצירת החשבון אתם מסכימים/)).toBeNull();
     const box = consentBox();
@@ -68,6 +68,12 @@ describe('RegisterPage', () => {
     expect(link.getAttribute('href')).toMatch(/^https:\/\/[^/]+\/privacy\/he\/$/);
     expect(link).toHaveAttribute('target', '_blank');
     expect(box.labels?.[0]).toContainElement(link);
+    const terms = screen.getByRole('link', { name: 'תנאי השימוש' });
+    expect(terms.getAttribute('href')).toMatch(/^https:\/\/[^/]+\/terms\/he\/$/);
+    expect(terms).toHaveAttribute('target', '_blank');
+    expect(box.labels?.[0]).toContainElement(terms);
+    expect(screen.getAllByRole('checkbox', { name: /מדיניות הפרטיות/ })).toHaveLength(1);
+    expect(box).toHaveAccessibleName('קראתי את מדיניות הפרטיות ואת תנאי השימוש והסכמתי להם');
     // Before the submit button, so it is read and ticked before creating the account.
     const submit = screen.getByRole('button', { name: T.createAccount });
     expect(box.compareDocumentPosition(submit) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
@@ -85,7 +91,8 @@ describe('RegisterPage', () => {
 
     const box = consentBox();
     expect(register).not.toHaveBeenCalled();
-    expect(T.privacyConsentRequired).toBe('כדי ליצור חשבון, יש לסמן את התיבה ובכך לאשר שקראת את מדיניות הפרטיות ושהסכמת לה.');
+    // The error names both documents (the one box confirms both).
+    expect(T.privacyConsentRequired).toBe('כדי ליצור חשבון, יש לסמן את התיבה ובכך לאשר שקראת את מדיניות הפרטיות ואת תנאי השימוש ושהסכמת להם.');
     expect(box).toHaveAttribute('aria-invalid', 'true');
     expect(box).toHaveAccessibleDescription(T.privacyConsentRequired);
     expect(box).toHaveFocus();
@@ -104,7 +111,7 @@ describe('RegisterPage', () => {
     expect(document.getElementById(`${CONSENT_ID}-error`)).toBeNull();
     await user.click(screen.getByRole('button', { name: T.createAccount }));
     await waitFor(() => expect(register).toHaveBeenCalledTimes(1));
-    expect(register).toHaveBeenCalledWith(expect.objectContaining({ username: 'dana', privacyAccepted: true }));
+    expect(register).toHaveBeenCalledWith(expect.objectContaining({ username: 'dana', privacyAccepted: true, termsAccepted: true }));
   });
 
   it('pressing Enter in a field without the tick sends nothing either', async () => {
@@ -115,8 +122,8 @@ describe('RegisterPage', () => {
     expect(consentBox()).toHaveFocus();
   });
 
-  it('a server refusal on the field privacyAccepted (a hosted server checks too) lands at the box in the client wording', async () => {
-    const register = vi.fn().mockRejectedValue(new ApiClientError(400, { code: 'VALIDATION', message: 'server text', field: 'privacyAccepted' }));
+  it.each(['privacyAccepted', 'termsAccepted'])('a server refusal on the field %s (a hosted server checks too) lands at the box in the client wording', async (field) => {
+    const register = vi.fn().mockRejectedValue(new ApiClientError(400, { code: 'VALIDATION', message: 'server text', field }));
     const { user } = renderPage(register);
     await fillValid(user);
     await user.click(screen.getByRole('button', { name: T.createAccount }));
@@ -154,7 +161,7 @@ describe('RegisterPage', () => {
     await user.click(screen.getByRole('button', { name: T.createAccount }));
 
     await waitFor(() => expect(register).toHaveBeenCalledTimes(1));
-    expect(register).toHaveBeenCalledWith(expect.objectContaining({ username: 'dana', email: 'dana@example.com', rememberMe: true, privacyAccepted: true }));
+    expect(register).toHaveBeenCalledWith(expect.objectContaining({ username: 'dana', email: 'dana@example.com', rememberMe: true, privacyAccepted: true, termsAccepted: true }));
     // Stored as the server spells it, so the login page prefills the canonical name.
     await waitFor(() => expect(window.localStorage.getItem(LAST_USERNAME_KEY)).toBe('Dana'));
     expect(await screen.findByText(T.accountCreated('דנה'))).toBeInTheDocument();
@@ -267,6 +274,7 @@ describe('RegisterPage', () => {
       confirmPassword: 'secret123',
       rememberMe: false,
       privacyAccepted: true,
+      termsAccepted: true,
     });
     expect(await screen.findByText(T.accountCreated('דנה'))).toBeInTheDocument();
     await waitFor(() => expect(currentPath()).toBe('/habits'));

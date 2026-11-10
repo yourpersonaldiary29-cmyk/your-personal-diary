@@ -30,11 +30,13 @@ const messages: Record<string, string> = {
   'auth.registerTitle': 'Sign up',
   'auth.loginTitle': 'Log in',
   'auth.noAccountYet': "Don't have an account yet?",
-  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent): {policy} = the link
-  // auth.privacyConsentLink (worded to fit this sentence); auth.privacyConsentRequired shows under the unticked box
-  'auth.privacyConsent': 'I have read the {policy} and agree to it',
-  'auth.privacyConsentLink': 'Privacy policy',
-  'auth.privacyConsentRequired': 'To create an account, tick this box to confirm that you have read the Privacy policy and agree to it.',
+  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent) - ONE box for both documents
+  // (docs/apple-tasks/TERMS.md): {policy} = the link auth.privacyConsentLink, {terms} = the link auth.termsConsentLink
+  // (each worded to fit this sentence); auth.legalConsentRequired shows under the unticked box
+  'auth.legalConsent': 'I have read the {policy} and the {terms}, and I agree to them',
+  'auth.privacyConsentLink': 'Privacy Policy',
+  'auth.termsConsentLink': 'Terms of Use',
+  'auth.legalConsentRequired': 'To create an account, tick this box to confirm that you have read the Privacy Policy and the Terms of Use and agree to them.',
   'auth.alreadyHaveAccount': 'Already have an account?',
 
   // Validation and session messages

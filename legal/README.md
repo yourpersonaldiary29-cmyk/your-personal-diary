@@ -1,15 +1,17 @@
-# legal/ - the privacy policy and the account-deletion page
+# legal/ - the privacy policy, the account-deletion page and the support page
 
-ONE privacy policy for the Android app (Google Play), the Windows app (Microsoft Store and setup file) and the
-website, in the app's 20 languages, English by default.
+ONE privacy policy for the Android app (Google Play), the Windows app (Microsoft Store and setup file), the Mac
+app (download or Mac App Store), the iPhone app (App Store, when it is published) and the website, in the app's
+20 languages, English by default - plus the account-deletion page and the support page (the App Store
+"Support URL": contact details and frequent questions) in the same languages.
 
 | What | Where |
 | --- | --- |
-| Sources (Markdown, one file per language) | `legal/privacy/privacy-<locale>.md`, `legal/delete-account/delete-account-<locale>.md` |
+| Sources (Markdown, one file per language) | `legal/privacy/privacy-<locale>.md`, `legal/delete-account/delete-account-<locale>.md`, `legal/support/support-<locale>.md` |
 | The one place for the owner's values | `legal/settings.json` - `publisherName`, `contactEmail` (both filled by the owner on 2026-10-27), `effectiveDate`, `minimumAge` |
-| Build the web pages | `node scripts/legal/build-pages.mjs` -> `public/privacy/**`, `public/delete-account/**` (`--check` compares, `--strict` also refuses unset values) |
-| Public addresses (served by the hosted server; a change goes live with the next server deploy) | `https://yourpersonaldiary.fly.dev/privacy/` and `https://yourpersonaldiary.fly.dev/delete-account/` (+ `<locale>/`) |
-| Tests | `src/components/legal/legal-pages.test.ts` (pages, placeholders, translations), `server/test/hosted-legal-pages.test.ts` (served by the hosted server) |
+| Build the web pages | `node scripts/legal/build-pages.mjs` -> `public/privacy/**`, `public/delete-account/**`, `public/support/**` (`--check` compares, `--strict` also refuses unset values and sources still marked `TODO-TRANSLATE`) |
+| Public addresses (served by the hosted server; a change goes live with the next server deploy) | `https://yourpersonaldiary.fly.dev/privacy/`, `https://yourpersonaldiary.fly.dev/delete-account/` and `https://yourpersonaldiary.fly.dev/support/` (+ `<locale>/`) |
+| Tests | `src/components/legal/legal-pages.test.ts` (pages, placeholders, translations), `scripts/legal/build-pages.test.mjs` (the generator), `server/test/hosted-legal-pages.test.ts` (served by the hosted server) |
 | Store answers | `play/policy/*.md` (Google Play), `store/policy/partner-center-privacy.md` (Microsoft Store) |
 
 Rules:

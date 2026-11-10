@@ -282,6 +282,10 @@ export const ST = {
   get privacyPolicyLink() {
     return tr('settings.privacy.policyLink');
   },
+  /** Text of the link to the Terms of Use page of the diary server (LegalPageLink page="terms"). */
+  get termsLink() {
+    return tr('settings.privacy.termsLink');
+  },
 
   // Your Personal Diary server (the published apps, the web UI it serves) -----------
   /** The reassurance of the privacy card there: stored on the server, encrypted with the password. */

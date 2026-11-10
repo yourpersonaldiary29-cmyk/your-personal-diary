@@ -283,6 +283,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Отключи със заключването на екрана на това устройство',
   'shell.sync.lock.deviceReason': 'Отключване на Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Въведете паролата си, за да качите промените си.',
+  'shell.sync.lock.passwordOffline': 'Няма връзка: паролата ви се проверява на това устройство.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Изчакайте # секунда, преди да опитате отново.} other {Изчакайте # секунди, преди да опитате отново.}}',
   'shell.sync.drainFirst': 'Първо се качват промените ви…',
   'shell.sync.drainFailed': 'Промените ви още не са качени. Опитайте отново, когато връзката се възстанови.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {Ще бъде изтрита и # промяна, която още не е качена.} other {Ще бъдат изтрити и # промени, които още не са качени.}}',

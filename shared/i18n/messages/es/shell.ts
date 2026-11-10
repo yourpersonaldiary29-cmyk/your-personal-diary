@@ -283,6 +283,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Desbloquear con el bloqueo de pantalla de este dispositivo',
   'shell.sync.lock.deviceReason': 'Desbloquear Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Introduce tu contraseña para subir tus cambios.',
+  'shell.sync.lock.passwordOffline': 'Sin conexión: tu contraseña se comprueba en este dispositivo.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Espera # segundo antes de volver a intentarlo.} other {Espera # segundos antes de volver a intentarlo.}}',
   'shell.sync.drainFirst': 'Primero se suben tus cambios…',
   'shell.sync.drainFailed': 'Tus cambios aún no se han subido. Vuelve a intentarlo cuando vuelva la conexión.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {También se eliminará # cambio aún no subido.} other {También se eliminarán # cambios aún no subidos.}}',

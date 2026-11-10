@@ -1,7 +1,7 @@
 //! Opening the diary server's legal pages in the system browser (docs/android-tasks/WINDOWS-OPENER.md).
 //!
-//! The UI links to the privacy policy and the delete-account page of the fixed diary server
-//! (src/components/legal/PrivacyPolicyLink.tsx). In the Windows app WebView2 swallows
+//! The UI links to the privacy policy, the Terms of Use, the delete-account page and the support page
+//! of the fixed diary server (src/components/legal/LegalPageLink.tsx). In the Windows app WebView2 swallows
 //! `target="_blank"` and a plain navigation would replace the app, so the page hands the address to
 //! the `open_external_url` command and the shell passes it to the platform layer
 //! (`platform::open_url`: on Windows the Windows shell, `ShellExecuteW`, which starts the user's
@@ -10,8 +10,9 @@
 //!
 //! The page decides nothing: the shell opens ONLY an absolute https address of the fixed diary
 //! server - the origin of src/config/server-default.json, the one address the UI and the window's
-//! CSP are wired to - whose path is one of the legal pages, `/privacy/...` or
-//! `/delete-account/...` (the page itself or a locale folder of it, scripts/legal/build-pages.mjs).
+//! CSP are wired to - whose path is one of the legal pages, `/privacy/...`, `/delete-account/...`,
+//! `/terms/...` or `/support/...` (the page itself or a locale folder of it, scripts/legal/build-pages.mjs;
+//! the terms and support pages: docs/apple-tasks/TERMS.md).
 //! Anything else is refused with an error and never reaches Windows: no other site, no other
 //! scheme (javascript:, file:, ms-settings:...), no local file or program, no other page of the
 //! server, no address with user-info, a port, an escape, a dot segment, a backslash, a query or a
@@ -19,15 +20,16 @@
 
 use crate::platform;
 
-/// The legal pages of the diary server the UI links to (`legalPageUrl` in PrivacyPolicyLink.tsx).
-const LEGAL_PAGE_PREFIXES: [&str; 2] = ["/privacy/", "/delete-account/"];
+/// The legal pages of the diary server the UI links to (`legalPageUrl` / `LEGAL_PAGE_PATHS` in
+/// src/components/legal/LegalPageLink.tsx - a test keeps the two lists equal).
+const LEGAL_PAGE_PREFIXES: [&str; 4] = ["/privacy/", "/delete-account/", "/terms/", "/support/"];
 
 /// Longest address accepted (bytes). The real ones are about 50.
 const MAX_URL_LEN: usize = 512;
 
 /// The error of a refused address. The address itself is not repeated.
 const REFUSED: &str =
-    "open_external_url opens only the privacy and delete-account pages of the diary server";
+    "open_external_url opens only the legal pages (privacy, terms, delete-account, support) of the diary server";
 
 /// The origin of the fixed diary server (`https://<host>`, lower case, no trailing slash), read from
 /// the same src/config/server-default.json the UI is built with, so no second copy of the address
@@ -78,7 +80,8 @@ fn parse_server_origin(json: &str) -> Option<String> {
     })
 }
 
-/// True only for `<origin>/privacy/...` or `<origin>/delete-account/...` with nothing after the page
+/// True only for `<origin>/privacy/...`, `<origin>/delete-account/...`, `<origin>/terms/...` or
+/// `<origin>/support/...` with nothing after the page
 /// but locale folders (`he/`, `pt-br/`): segments of ASCII letters, digits, '-' and '_' separated by
 /// single slashes, an optional trailing slash.
 ///
@@ -242,7 +245,7 @@ mod tests {
     #[test]
     fn accepts_the_legal_pages_of_the_diary_server() {
         let origin = origin();
-        for page in ["privacy", "delete-account"] {
+        for page in ["privacy", "delete-account", "terms", "support"] {
             for url in [
                 format!("{origin}/{page}/"),
                 format!("{origin}/{page}/he/"),
@@ -398,8 +401,43 @@ mod tests {
             format!("{origin}/privacy/#top"),
             format!("{origin}/privacy/he/#top"),
             format!("{origin}/privacy/he;x/"),
+            // The two pages added for the Terms of Use: the same rule, nothing near them.
+            format!("{origin}/terms"),
+            format!("{origin}/support"),
+            format!("{origin}/terms-of-use/"),
+            format!("{origin}/Terms/"),
+            format!("{origin}/termsX/"),
+            format!("{origin}/supportX/"),
+            format!("{origin}/terms/?x=1"),
+            format!("{origin}/support/#faq"),
+            format!("{origin}/terms/../api/"),
+            format!("{origin}/support/%2e%2e/"),
+            format!("{origin}/terms//{OTHER}/"),
+            format!("{origin}/api/terms/"),
+            format!("{origin}/api/support/"),
+            format!("https://{OTHER}/terms/"),
+            format!("http://{}/support/", host()),
         ] {
             assert_refused(&url);
+        }
+    }
+
+    #[test]
+    fn the_terms_and_support_pages_are_opened_like_the_other_legal_pages() {
+        // docs/apple-tasks/TERMS.md: /terms/ and /support/ joined the list; the address reaches the platform unchanged.
+        let origin = origin();
+        for url in [format!("{origin}/terms/"), format!("{origin}/terms/he/"), format!("{origin}/support/"), format!("{origin}/support/ja/")] {
+            let mut opened = Vec::new();
+            let result = open_checked(&url, Some(&origin), |u| {
+                opened.push(u.to_string());
+                Ok(())
+            });
+            assert_eq!(result, Ok(()), "{url:?}");
+            assert_eq!(opened, [url.clone()]);
+        }
+        // Their neighbours stay refused with the plain error, and never reach the platform.
+        for url in [format!("{origin}/terms"), format!("{origin}/terms-of-use/"), format!("{origin}/support/../api/"), format!("https://{OTHER}/terms/")] {
+            assert_eq!(open_checked(&url, Some(&origin), never_opened), Err(REFUSED.to_string()), "{url:?}");
         }
     }
 
@@ -438,11 +476,14 @@ mod tests {
 
     #[test]
     fn the_frontend_calls_this_command_for_the_same_pages() {
-        // src/components/legal/PrivacyPolicyLink.tsx - the page that invokes the command.
-        let frontend = include_str!("../../src/components/legal/PrivacyPolicyLink.tsx");
-        assert!(frontend.contains("invoke('open_external_url', { url })"), "PrivacyPolicyLink.tsx invokes open_external_url");
-        assert!(frontend.contains("page: 'privacy' | 'delete-account'"), "the same two legal pages");
+        // src/components/legal/LegalPageLink.tsx - the module that invokes the command.
+        let frontend = include_str!("../../src/components/legal/LegalPageLink.tsx");
+        assert!(frontend.contains("invoke('open_external_url', { url })"), "LegalPageLink.tsx invokes open_external_url");
+        assert!(
+            frontend.contains("LEGAL_PAGE_PATHS = ['/privacy/', '/delete-account/', '/terms/', '/support/']"),
+            "the same four legal pages"
+        );
         assert!(!frontend.contains("plugin:opener"), "the shell has no opener plugin");
-        assert_eq!(LEGAL_PAGE_PREFIXES, ["/privacy/", "/delete-account/"]);
+        assert_eq!(LEGAL_PAGE_PREFIXES, ["/privacy/", "/delete-account/", "/terms/", "/support/"]);
     }
 }

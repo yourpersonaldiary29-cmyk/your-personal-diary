@@ -72,6 +72,8 @@ otherPage: アカウントの削除方法
 
 - **Windows アプリ：**これらのコピーは、Windows ユーザープロファイル内のアプリのデータフォルダー（Microsoft Store 版ではアプリ専用のパッケージフォルダー）に保存されます。鍵は Windows のデータ保護（DPAPI）で保護され、あなたの Windows ユーザーでしか使えません。
 - **Android アプリ：**これらのコピーはアプリのプライベートストレージに保存されます。ここは他のアプリから読めず、バックアップの対象外です。鍵は Android Keystore で保護されます。
+- TODO-TRANSLATE: **Mac app:** these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named "Your Personal Diary offline key" and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.
+- TODO-TRANSLATE: **iPhone app:** these copies are kept in the app's private storage, excluded from iCloud backup. The key is kept in the iOS Keychain, available only on this device after it was unlocked once, and removed when you sign out.
 - **ウェブサイト：**ブラウザーには、まだアップロードされていない変更、直近 7 日間の記録、競合した変更についての通知（下記参照）だけが暗号化して保存され、閲覧した内容のコピーは保存されません。鍵はメモリー上にあり、ページを閉じると消えます。
 
 接続が戻ると、アプリはあなたの変更を、行った順に、それぞれちょうど 1 回ずつアップロードします。同じエントリー、習慣、設定が別のデバイスでも変更されていた場合は、新しいほうの変更が残り、アプリが 1 行でお知らせします。もう一方のバージョンは、その通知を閉じるまでこのデバイスで確認できます。

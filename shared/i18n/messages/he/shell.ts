@@ -277,6 +277,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'בטל נעילה עם נעילת המסך של המכשיר',
   'shell.sync.lock.deviceReason': 'ביטול הנעילה של Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'הזן את הסיסמה כדי להעלות את השינויים שלך.',
+  'shell.sync.lock.passwordOffline': 'אין חיבור: הסיסמה שלך נבדקת במכשיר הזה.',
+  'shell.sync.lock.wait': '{seconds, plural, one {יש להמתין שנייה אחת לפני ניסיון נוסף.} two {יש להמתין שתי שניות לפני ניסיון נוסף.} other {יש להמתין # שניות לפני ניסיון נוסף.}}',
   'shell.sync.drainFirst': 'מעלה קודם את השינויים שלך…',
   'shell.sync.drainFailed': 'השינויים שלך עוד לא הועלו. נסה שוב כשהחיבור יחזור.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {גם שינוי אחד שעוד לא הועלה יימחק.} two {גם שני שינויים שעוד לא הועלו יימחקו.} other {גם # שינויים שעוד לא הועלו יימחקו.}}',

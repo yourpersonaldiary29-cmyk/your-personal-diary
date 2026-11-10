@@ -1,7 +1,10 @@
 /**
  * "Keyboard shortcuts" dialog (Shift+?): one table per group from SHORTCUTS,
  * with <kbd> for the key combination. Every text is read in the current
- * language (group captions, column headers and descriptions).
+ * language (group captions, column headers and descriptions); the key column
+ * is `label`, the platform's wording ("Ctrl+N" / "Alt+1"; in the Mac app
+ * "⌘N" / "⌥1"). A <kbd> is always left-to-right (base.css), so a combination
+ * reads modifier-first in Hebrew and Arabic too.
  */
 import { Dialog } from '@/components/a11y/Dialog';
 import { Button } from '@/components/ui/Button';
@@ -43,7 +46,7 @@ export default function ShortcutsDialog({ open, onClose }: ShortcutsDialogProps)
               {items.map((s) => (
                 <tr key={`${group}-${s.keys}`}>
                   <td>
-                    <kbd>{s.keys}</kbd>
+                    <kbd>{s.label}</kbd>
                   </td>
                   <td>{s.description}</td>
                 </tr>

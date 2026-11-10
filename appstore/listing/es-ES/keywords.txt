@@ -1,0 +1,1 @@
+emociones,sueño,estrés,energía,bienestar,cifrado,privado,calendario,notas,recuerdos,offline

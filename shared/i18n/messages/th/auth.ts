@@ -30,11 +30,14 @@ const messages: Record<string, string> = {
   'auth.registerTitle': 'สมัครใช้งาน',
   'auth.loginTitle': 'เข้าสู่ระบบ',
   'auth.noAccountYet': 'ยังไม่มีบัญชีใช่ไหม?',
-  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent): {policy} = the link
-  // auth.privacyConsentLink (worded to fit this sentence); auth.privacyConsentRequired shows under the unticked box
-  'auth.privacyConsent': 'ฉันได้อ่านและยอมรับ{policy}แล้ว',
+  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent) - ONE box for both documents
+  // (docs/apple-tasks/TERMS.md): {policy} = the link auth.privacyConsentLink, {terms} = the link auth.termsConsentLink
+  // (each worded to fit this sentence); auth.legalConsentRequired shows under the unticked box
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'auth.legalConsent': 'I have read the {policy} and the {terms}, and I agree to them',
   'auth.privacyConsentLink': 'นโยบายความเป็นส่วนตัว',
-  'auth.privacyConsentRequired': 'หากต้องการสร้างบัญชี ให้ทำเครื่องหมายในช่องนี้เพื่อยืนยันว่าคุณได้อ่านและยอมรับนโยบายความเป็นส่วนตัวแล้ว',
+  'auth.termsConsentLink': 'Terms of Use',
+  'auth.legalConsentRequired': 'To create an account, tick this box to confirm that you have read the Privacy Policy and the Terms of Use and agree to them.',
   'auth.alreadyHaveAccount': 'มีบัญชีอยู่แล้วใช่ไหม?',
 
   // Validation and session messages

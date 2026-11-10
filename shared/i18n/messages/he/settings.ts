@@ -102,6 +102,7 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'מדיניות הפרטיות',
+  'settings.privacy.termsLink': 'תנאי השימוש',
   'settings.privacy.title': 'פרטיות',
   'settings.privacy.offlineLabel': 'מצב פרטיות לא מקוון',
   'settings.privacy.offlineHint': 'כשהמצב מופעל, התוכנה עצמה אינה מורשית לבצע חיבורי רשת, מלבד לשרת המקומי שלה. כבו אותו רק אם אתם משתמשים בגישה מרחוק.',

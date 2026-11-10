@@ -19,12 +19,13 @@
  * offline switch's hint names the diary server instead of "its own local server",
  * and phone access on the home network is not offered (there is no home network).
  *
- * The card also links to the privacy policy of the apps and the website (PrivacyPolicyLink: the page on the
- * diary server, in the UI language, opened outside the app - docs/play-tasks/PLAY-LEGAL.md item 4).
+ * The card also links to the privacy policy of the apps and the website and, under it, to the Terms of Use
+ * (LegalPageLink: the pages on the diary server, in the UI language, opened outside the app -
+ * docs/play-tasks/PLAY-LEGAL.md item 4, docs/apple-tasks/TERMS.md).
  */
 import { useState } from 'react';
 import { server as serverApi, setOfflinePrivacyMode } from '@/api';
-import { PrivacyPolicyLink } from '@/components/legal/PrivacyPolicyLink';
+import { LegalPageLink, PrivacyPolicyLink } from '@/components/legal/PrivacyPolicyLink';
 import { Alert } from '@/components/ui/Alert';
 import { Card } from '@/components/ui/Card';
 import { Checkbox } from '@/components/ui/Checkbox';
@@ -102,6 +103,10 @@ export function PrivacySection() {
         {/* The one privacy policy of the apps and the website, on the diary server (opens outside the app). */}
         <p className="text-small">
           <PrivacyPolicyLink>{ST.privacyPolicyLink}</PrivacyPolicyLink>
+        </p>
+        {/* The Terms of Use of the apps and the website, on the same server (opens outside the app). */}
+        <p className="text-small">
+          <LegalPageLink page="terms">{ST.termsLink}</LegalPageLink>
         </p>
         {error && <Alert kind="error">{error}</Alert>}
         <Checkbox

@@ -280,6 +280,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Deblochează cu blocarea ecranului acestui dispozitiv',
   'shell.sync.lock.deviceReason': 'Deblochează Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Introdu parola pentru a încărca modificările tale.',
+  'shell.sync.lock.passwordOffline': 'Fără conexiune: parola este verificată pe acest dispozitiv.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Așteaptă # secundă înainte de a încerca din nou.} few {Așteaptă # secunde înainte de a încerca din nou.} other {Așteaptă # de secunde înainte de a încerca din nou.}}',
   'shell.sync.drainFirst': 'Mai întâi se încarcă modificările tale…',
   'shell.sync.drainFailed': 'Modificările tale nu au fost încă încărcate. Încearcă din nou când revine conexiunea.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {Va fi ștearsă și # modificare încă neîncărcată.} few {Vor fi șterse și # modificări încă neîncărcate.} other {Vor fi șterse și # de modificări încă neîncărcate.}}',

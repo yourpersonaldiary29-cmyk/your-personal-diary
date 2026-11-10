@@ -38,7 +38,7 @@
 </header>
 <main>
 <h1>隐私政策 - Your Personal Diary</h1>
-<p>生效日期：2026年10月28日</p>
+<p>生效日期：2026年11月8日</p>
 <h2>简要说明</h2>
 <ul><li>Your Personal Diary 是一项服务，有三个入口：<strong>Android 应用</strong>（Google Play）、<strong>Windows 应用</strong>（Microsoft Store 或安装文件）以及<strong>网站</strong> <a href="https://yourpersonaldiary.fly.dev" dir="ltr">https://yourpersonaldiary.fly.dev</a>。三者使用同一台服务器和同一个账户。</li><li>你的日记保存在我们的服务器上，存放在一个用由你的密码派生的密钥加密的文件中。你的账户信息也保存在那里。</li><li>我们只为你运行日记而使用你的数据。没有广告，没有分析，没有跟踪，我们也不出售或共享你的数据。</li><li>请了解其局限：在你登录期间，你的日记在服务器内存中处于打开状态，而且服务器的运营者在技术上可以重置你的密码并读取你的日记。第 4 节会直白地说明这一点。</li><li>你可以随时在<strong>设置 - 删除账户</strong>中删除你的账户和日记。</li></ul>
 <h2>1. 我们是谁</h2>
@@ -61,7 +61,7 @@
 <p>在你使用本服务的每台设备上：</p>
 <ul><li>你的登录令牌（让你保持登录）、最近使用的用户名、你的语言和显示偏好，以及你最近的搜索问题（退出登录时删除）。</li></ul>
 <p><strong>没有网络连接时。</strong>如果应用无法连接到服务器，它会继续工作：你写的内容会加密保存在你的设备上，并在连接恢复时自动上传到服务器，即使应用在此期间被关闭过。在 Windows 和 Android 应用中，如果你选择了&quot;记住我&quot;，应用还会保存一份它最近向你显示内容的加密副本（最近的条目、习惯、今天的数据、日历月份和你的设置），以便你在没有连接时也能阅读；否则这份副本只在应用打开期间存在于内存中。这些副本的密钥由服务器保存在你的加密日记中；选择&quot;记住我&quot;时，Windows 和 Android 应用也会把它保存在设备上，由 Windows 数据保护或 Android Keystore 保护，以便应用在没有连接时也能打开。你的密码和恢复密钥从不保存在设备上。为了确保每项更改只上传一次，应用还会加密保存最近 7 天内已上传更改的记录。</p>
-<ul><li><strong>Windows 应用：</strong>这些副本保存在你的 Windows 用户配置文件中的应用数据文件夹里（Microsoft Store 版本则保存在应用自己的包文件夹中）。密钥由 Windows 数据保护（DPAPI）保护，只对你的 Windows 用户有效。</li><li><strong>Android 应用：</strong>这些副本保存在应用的私有存储中，其他应用无法读取，并且不包含在备份中。密钥由 Android Keystore 保护。</li><li><strong>网站：</strong>浏览器中只加密保存尚未上传的更改、最近 7 天的记录以及关于冲突更改的提示（见下文），但不保存你所阅读内容的副本；密钥保留在内存中，关闭页面后即消失。</li></ul>
+<ul><li><strong>Windows 应用：</strong>这些副本保存在你的 Windows 用户配置文件中的应用数据文件夹里（Microsoft Store 版本则保存在应用自己的包文件夹中）。密钥由 Windows 数据保护（DPAPI）保护，只对你的 Windows 用户有效。</li><li><strong>Android 应用：</strong>这些副本保存在应用的私有存储中，其他应用无法读取，并且不包含在备份中。密钥由 Android Keystore 保护。</li><li>TODO-TRANSLATE: <strong>Mac app:</strong> these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named &quot;Your Personal Diary offline key&quot; and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.</li><li>TODO-TRANSLATE: <strong>iPhone app:</strong> these copies are kept in the app's private storage, excluded from iCloud backup. The key is kept in the iOS Keychain, available only on this device after it was unlocked once, and removed when you sign out.</li><li><strong>网站：</strong>浏览器中只加密保存尚未上传的更改、最近 7 天的记录以及关于冲突更改的提示（见下文），但不保存你所阅读内容的副本；密钥保留在内存中，关闭页面后即消失。</li></ul>
 <p>连接恢复后，应用会按照你操作的顺序上传你做的更改，每项更改恰好上传一次。如果同一个条目、习惯或设置也在另一台设备上被更改，则保留较新的更改，应用会用一行提示告诉你；另一个版本会在这台设备上继续供你查看，直到你关闭该提示。</p>
 <p>如果应用提供用设备的屏幕锁解锁（Windows Hello，或 Android 的屏幕锁或指纹），验证由操作系统完成。有关你的指纹、面部或 PIN 的任何信息都不会到达应用或我们。Android 应用中的习惯提醒在手机本身上安排；不涉及任何推送服务。</p>
 <p>你自己创建的文件：<strong>备份</strong>用密码加密；<strong>导出</strong>（TXT、CSV、JSON 或 PDF）是普通的可读文件。保存位置由你决定，任何拿到导出文件的人都可以读取它。</p>

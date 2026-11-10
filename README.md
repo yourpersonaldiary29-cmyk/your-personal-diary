@@ -90,7 +90,9 @@
 ### 2.3 מדיניות הפרטיות ודף מחיקת החשבון
 
 * **מדיניות פרטיות אחת** לאפליקציית Android, לאפליקציית Windows ולאתר: `https://yourpersonaldiary.fly.dev/privacy/`, ו**דף מחיקת חשבון** (גם למי שלא יכול להיכנס): `https://yourpersonaldiary.fly.dev/delete-account/`. כל אחד מהם ב-20 השפות (`<locale>/`; אנגלית כברירת מחדל). הקישור למדיניות נמצא בכרטיס **פרטיות** בהגדרות.
-* **המקור** הוא קובצי Markdown ב-`legal/` (קובץ לכל שפה; [legal/README.md](legal/README.md)), והערכים של הבעלים (שם המפרסם, כתובת הפניות, תאריך התחולה, גיל מינימלי) נמצאים במקום אחד - `legal/settings.json`. `node scripts/legal/build-pages.mjs` בונה מהם את `public/privacy/` ואת `public/delete-account/` (`--check` משווה, `--strict` גם מסרב לערך חסר); Vite מעתיק אותם לממשק שהשרת מגיש, כך שהם עולים לאוויר עם פריסת השרת הבאה.
+* **תנאי השימוש**: `https://yourpersonaldiary.fly.dev/terms/` ו-`/terms/<locale>/` (20 השפות; המקור `legal/terms/`, תאריך התחולה `termsEffectiveDate` ב-`legal/settings.json`). בהרשמה תיבת סימון אחת מאשרת גם את מדיניות הפרטיות וגם את תנאי השימוש, והשרת שומר עם החשבון את מועד האישור ואת גרסאות שני המסמכים; בכרטיס **פרטיות** בהגדרות יש קישור גם לתנאי השימוש.
+* **דף תמיכה** (ה-Support URL של App Store Connect, וגם לכל דפדפן): `https://yourpersonaldiary.fly.dev/support/` ו-`/support/<locale>/` - פרטי הקשר של המפעיל ותשובות לשאלות נפוצות, באותן 20 שפות; המקור `legal/support/`.
+* **המקור** הוא קובצי Markdown ב-`legal/` (קובץ לכל שפה; [legal/README.md](legal/README.md)), והערכים של הבעלים (שם המפרסם, כתובת הפניות, תאריך התחולה, גיל מינימלי) נמצאים במקום אחד - `legal/settings.json`. `node scripts/legal/build-pages.mjs` בונה מהם את `public/privacy/`, את `public/delete-account/` ואת `public/support/` (`--check` משווה, `--strict` גם מסרב לערך חסר); Vite מעתיק אותם לממשק שהשרת מגיש, כך שהם עולים לאוויר עם פריסת השרת הבאה.
 * שינוי במה שהאפליקציות עושות עם מידע משנה יחד את המדיניות ב-20 השפות, את `play/policy/data-safety.md` ואת `store/policy/partner-center-privacy.md`.
 * פניות בנושא פרטיות: `yourpersonaldiary29@gmail.com`.
 

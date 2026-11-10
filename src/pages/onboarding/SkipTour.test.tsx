@@ -272,7 +272,7 @@ describe('Skip - just look around', () => {
     expect(screen.queryByRole('navigation', { name: en('shell.mainNavLabel') })).not.toBeInTheDocument();
     // The one registration form, with its privacy checkbox - unticked, the tour ticks nothing for the visitor
     // (docs/android-tasks/PRIVACY-CHECKBOX.md).
-    expect(screen.getByRole('checkbox', { name: en('auth.privacyConsent', { policy: en('auth.privacyConsentLink') }) })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: en('auth.legalConsent', { policy: en('auth.privacyConsentLink'), terms: en('auth.termsConsentLink') }) })).not.toBeChecked();
     expect(api.auth.register).not.toHaveBeenCalled();
   });
 

@@ -3,9 +3,10 @@
  * the fixed diary server in the UI language (English at /privacy/), the link opens outside the app - the
  * browser and the Android WebView follow the anchor itself, the Windows shell gets the address through its
  * `open_external_url` command (src-tauri/src/opener.rs) and, when that fails, the address is shown to open
- * by hand - and only the legal pages of the diary server are ever opened. The registration checkbox ("I have
- * read the Privacy policy and agree to it", docs/android-tasks/PRIVACY-CHECKBOX.md) and the Settings ->
- * Privacy card carry the link.
+ * by hand - and only the legal pages of the diary server are ever opened. The registration checkbox - ONE box,
+ * ONE sentence with TWO links: "I have read the Privacy Policy and the Terms of Use, and I agree to them"
+ * (docs/android-tasks/PRIVACY-CHECKBOX.md, docs/apple-tasks/TERMS.md) - and the Settings -> Privacy card carry
+ * the links.
  */
 import { useState } from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
@@ -16,6 +17,7 @@ import { DEFAULT_SERVER_URL } from '@/config/server-default';
 import { setCurrentLocale } from '@/i18n/runtime';
 import { renderWithProviders } from '@/test/render';
 import {
+  consentParts,
   isDiaryServerUrl,
   isLegalPageUrl,
   legalPageUrl,
@@ -23,6 +25,7 @@ import {
   privacyPolicyUrl,
   PrivacyPolicyLink,
   RegisterPrivacyConsent,
+  termsUrl,
 } from './PrivacyPolicyLink';
 
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn() }));
@@ -50,6 +53,9 @@ describe('addresses', () => {
     expect(privacyPolicyUrl('en')).toBe(`${DEFAULT_SERVER_URL}/privacy/`);
     expect(privacyPolicyUrl('he')).toBe(`${DEFAULT_SERVER_URL}/privacy/he/`);
     expect(legalPageUrl('delete-account', 'ar')).toBe(`${DEFAULT_SERVER_URL}/delete-account/ar/`);
+    expect(termsUrl('en')).toBe(`${DEFAULT_SERVER_URL}/terms/`);
+    expect(termsUrl('he')).toBe(`${DEFAULT_SERVER_URL}/terms/he/`);
+    expect(legalPageUrl('support', 'ja')).toBe(`${DEFAULT_SERVER_URL}/support/ja/`);
     for (const code of LOCALE_CODES) expect(isDiaryServerUrl(privacyPolicyUrl(code)), code).toBe(true);
   });
 
@@ -72,6 +78,8 @@ describe('addresses', () => {
     for (const code of LOCALE_CODES) {
       expect(isLegalPageUrl(privacyPolicyUrl(code)), code).toBe(true);
       expect(isLegalPageUrl(legalPageUrl('delete-account', code)), code).toBe(true);
+      expect(isLegalPageUrl(termsUrl(code)), code).toBe(true);
+      expect(isLegalPageUrl(legalPageUrl('support', code)), code).toBe(true);
     }
     const host = new URL(DEFAULT_SERVER_URL).host;
     for (const url of [
@@ -84,6 +92,12 @@ describe('addresses', () => {
       `${DEFAULT_SERVER_URL}/privacy/#top`,
       `${DEFAULT_SERVER_URL}/privacy/../api/`,
       `${DEFAULT_SERVER_URL}/privacy/%2e%2e/api/`,
+      `${DEFAULT_SERVER_URL}/terms`,
+      `${DEFAULT_SERVER_URL}/terms-of-use/`,
+      `${DEFAULT_SERVER_URL}/terms/?x=1`,
+      `${DEFAULT_SERVER_URL}/support/#faq`,
+      `${DEFAULT_SERVER_URL}/api/terms/`,
+      'https://example.org/terms/',
       `${DEFAULT_SERVER_URL}/privacy\\..\\api`,
       `https://${host.toUpperCase()}/privacy/`,
       `https://user@${host}/privacy/`,
@@ -135,7 +149,7 @@ describe('opening the page outside the app', () => {
   });
 
   it('Windows, the shell refuses or cannot open it: the address is shown to open by hand', async () => {
-    for (const error of ['open_external_url opens only the privacy and delete-account pages of the diary server', 'command open_external_url not found']) {
+    for (const error of ['open_external_url opens only the legal pages (privacy, terms, delete-account, support) of the diary server', 'command open_external_url not found']) {
       setTauri(true);
       invokeMock.mockReset();
       invokeMock.mockRejectedValue(error);
@@ -173,10 +187,10 @@ describe('opening the page outside the app', () => {
   });
 });
 
-describe('the registration checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md)', () => {
-  const EN_NAME = 'I have read the Privacy policy and agree to it';
+describe('the registration checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md, docs/apple-tasks/TERMS.md)', () => {
+  const EN_NAME = 'I have read the Privacy Policy and the Terms of Use, and I agree to them';
 
-  it('English: a native, required, unticked checkbox named by the sentence; "Privacy policy" in it is the link', () => {
+  it('English: ONE native, required, unticked checkbox named by ONE sentence; "Privacy Policy" and "Terms of Use" in it are the links', () => {
     renderWithProviders(<Consent />, { locale: 'en' });
     const box = screen.getByRole('checkbox', { name: EN_NAME }) as HTMLInputElement;
     expect(box).toHaveAttribute('type', 'checkbox');
@@ -184,13 +198,21 @@ describe('the registration checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md)', (
     expect(box).not.toBeChecked();
     expect(box).not.toHaveAttribute('aria-invalid');
     expect(box).not.toHaveAttribute('aria-describedby');
-    const link = screen.getByRole('link', { name: 'Privacy policy' });
+    expect(screen.getAllByRole('checkbox')).toHaveLength(1);
+    const link = screen.getByRole('link', { name: 'Privacy Policy' });
     expect(link).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/privacy/`);
     expect(link).toHaveAttribute('target', '_blank');
-    // The sentence is the box's label, with the link inside it and the "(required)" marker of the other fields.
+    const terms = screen.getByRole('link', { name: 'Terms of Use' });
+    expect(terms).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/terms/`);
+    expect(terms).toHaveAttribute('target', '_blank');
+    // The sentence is the box's label, with both links inside it and the "(required)" marker of the other fields.
     const label = box.labels?.[0] as HTMLLabelElement;
     expect(label).toContainElement(link);
+    expect(label).toContainElement(terms);
     expect(label).toHaveTextContent(`${EN_NAME}(required)`);
+    // Real links: reachable with the keyboard, in reading order (the box, then the policy, then the terms).
+    const order = [...document.querySelectorAll('input, a')];
+    expect(order).toEqual([box, link, terms]);
   });
 
   it('clicking the sentence ticks and unticks the box; Space on the focused box does too', async () => {
@@ -205,10 +227,25 @@ describe('the registration checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md)', (
     expect(box).toBeChecked();
   });
 
-  it('Hebrew: the Hebrew sentence names the box and the link opens the Hebrew page', () => {
+  it('Hebrew: the Hebrew sentence names the box and the links open the Hebrew pages', () => {
     renderWithProviders(<Consent />, { locale: 'he' });
-    expect(screen.getByRole('checkbox', { name: 'קראתי את מדיניות הפרטיות והסכמתי לה' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'קראתי את מדיניות הפרטיות ואת תנאי השימוש והסכמתי להם' })).not.toBeChecked();
     expect(screen.getByRole('link', { name: 'מדיניות הפרטיות' })).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/privacy/he/`);
+    expect(screen.getByRole('link', { name: 'תנאי השימוש' })).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/terms/he/`);
+  });
+
+  it('Windows: the terms link goes to the shell with the terms page, and the box stays unticked', async () => {
+    setTauri(true);
+    invokeMock.mockResolvedValue(undefined);
+    renderWithProviders(<Consent />, { locale: 'de' });
+    fireEvent.click(screen.getByTestId('terms-link'));
+    await waitFor(() => expect(invokeMock).toHaveBeenCalledWith('open_external_url', { url: `${DEFAULT_SERVER_URL}/terms/de/` }));
+    expect(screen.getByRole('checkbox')).not.toBeChecked();
+  });
+
+  it('the sentence is cut around both links in the order of the language', () => {
+    setCurrentLocale('en');
+    expect(consentParts()).toEqual(['I have read the ', { page: 'privacy' }, ' and the ', { page: 'terms' }, ', and I agree to them']);
   });
 
   it('an error: under the box and outside its label, tied to the box, which is marked invalid', () => {
@@ -226,27 +263,49 @@ describe('the registration checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md)', (
     setTauri(true);
     invokeMock.mockRejectedValue('command open_external_url not found');
     renderWithProviders(<Consent />, { locale: 'en' });
-    fireEvent.click(screen.getByRole('link', { name: 'Privacy policy' }));
+    fireEvent.click(screen.getByRole('link', { name: 'Privacy Policy' }));
     const address = await screen.findByTestId('privacy-policy-address');
     expect(address).toHaveTextContent(`Open this address in your web browser: ${DEFAULT_SERVER_URL}/privacy/`);
+    fireEvent.click(screen.getByRole('link', { name: 'Terms of Use' }));
+    const termsAddress = await screen.findByTestId('terms-address');
+    expect(termsAddress).toHaveTextContent(`Open this address in your web browser: ${DEFAULT_SERVER_URL}/terms/`);
     const box = screen.getByRole('checkbox', { name: EN_NAME }) as HTMLInputElement;
     expect(box.labels?.[0]).not.toContainElement(address);
+    expect(box.labels?.[0]).not.toContainElement(termsAddress);
     expect(box).not.toBeChecked();
   });
 
-  it('every language: one link slot, a link text, an error text - translated, not English copies', () => {
-    const english = { sentence: t('en', 'auth.privacyConsent', { policy: 'X' }), required: t('en', 'auth.privacyConsentRequired') };
+  it('every language: one slot for each link, two link texts, an error text - translated, not English copies', async () => {
+    const load = (specifier: string) => import(/* @vite-ignore */ specifier);
+    const { readFileSync } = (await load('node:fs')) as { readFileSync(file: string, encoding: 'utf8'): string };
+    const { fileURLToPath } = (await load('node:url')) as { fileURLToPath(url: string): string };
+    const { dirname, join } = (await load('node:path')) as { dirname(p: string): string; join(...parts: string[]): string };
+    const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+    // A catalogue still marked TODO-TRANSLATE holds the English placeholders of the terms keys (docs/apple-tasks/TERMS-DIFF.md).
+    const untranslated = (code: string, area: string) => readFileSync(join(root, 'shared', 'i18n', 'messages', code, `${area}.ts`), 'utf8').includes('TODO-TRANSLATE');
+    const english = { sentence: t('en', 'auth.legalConsent', { policy: 'X', terms: 'Y' }), required: t('en', 'auth.legalConsentRequired'), terms: t('en', 'auth.termsConsentLink') };
+    const P = String.fromCharCode(0);
+    const T = String.fromCharCode(1);
     for (const code of LOCALE_CODES) {
-      const sentence = t(code, 'auth.privacyConsent', { policy: '\u0000' });
-      expect(sentence.split('\u0000'), code).toHaveLength(2);
+      const sentence = t(code, 'auth.legalConsent', { policy: P, terms: T });
+      expect(sentence.split(P), code).toHaveLength(2);
+      expect(sentence.split(T), code).toHaveLength(2);
       expect(t(code, 'auth.privacyConsentLink').trim(), code).not.toBe('');
-      expect(t(code, 'auth.privacyConsentRequired').trim(), code).not.toBe('');
+      expect(t(code, 'auth.termsConsentLink').trim(), code).not.toBe('');
+      expect(t(code, 'auth.legalConsentRequired').trim(), code).not.toBe('');
       expect(t(code, 'settings.privacy.policyLink').trim(), code).not.toBe('');
+      expect(t(code, 'settings.privacy.termsLink').trim(), code).not.toBe('');
       expect(t(code, 'shell.legal.openInBrowser', { url: 'U' }), code).toContain('U');
-      if (code !== 'en') {
-        expect(t(code, 'auth.privacyConsent', { policy: 'X' }), code).not.toBe(english.sentence);
-        expect(t(code, 'auth.privacyConsentRequired'), code).not.toBe(english.required);
+      if (code !== 'en' && !untranslated(code, 'auth')) {
+        expect(t(code, 'auth.legalConsent', { policy: 'X', terms: 'Y' }), code).not.toBe(english.sentence);
+        expect(t(code, 'auth.legalConsentRequired'), code).not.toBe(english.required);
+        expect(t(code, 'auth.termsConsentLink'), code).not.toBe(english.terms);
       }
+    }
+    // The base writer's two languages are finished.
+    for (const area of ['auth', 'settings', 'server']) {
+      expect(untranslated('en', area), `en/${area}`).toBe(false);
+      expect(untranslated('he', area), `he/${area}`).toBe(false);
     }
   });
 
@@ -254,8 +313,12 @@ describe('the registration checkbox (docs/android-tasks/PRIVACY-CHECKBOX.md)', (
     for (const code of LOCALE_CODES) {
       const { unmount } = renderWithProviders(<Consent />, { locale: code });
       const linkText = t(code, 'auth.privacyConsentLink');
-      expect(screen.getByRole('checkbox', { name: t(code, 'auth.privacyConsent', { policy: linkText }) }), code).not.toBeChecked();
-      expect(screen.getByRole('link', { name: linkText }), code).toHaveAttribute('href', privacyPolicyUrl(code));
+      const termsText = t(code, 'auth.termsConsentLink');
+      expect(screen.getByRole('checkbox', { name: t(code, 'auth.legalConsent', { policy: linkText, terms: termsText }) }), code).not.toBeChecked();
+      expect(screen.getByTestId('privacy-policy-link'), code).toHaveAttribute('href', privacyPolicyUrl(code));
+      expect(screen.getByTestId('privacy-policy-link'), code).toHaveTextContent(linkText);
+      expect(screen.getByTestId('terms-link'), code).toHaveAttribute('href', termsUrl(code));
+      expect(screen.getByTestId('terms-link'), code).toHaveTextContent(termsText);
       unmount();
     }
   });

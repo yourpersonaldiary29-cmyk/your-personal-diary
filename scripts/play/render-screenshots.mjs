@@ -122,6 +122,37 @@
  * checked again after the ink rule and the longer offline entry: en-US, iw-IL and ar, 21 of 21 Play files
  * identical; the desktop set: 38 of 38 and 16 of 16 identical between independent renders).
  * With --keep, the screen of a failed shot is saved to <temporary folder>/failed/ for a look.
+ *
+ * APP STORE PROFILES (`--profile iphone-medium`, `--profile iphone-large`, `--profile mac`; docs/apple-tasks/SHOTS.md,
+ * sizes from docs/apple-tasks/APPSTORE-FACTS.md section 6): the App Store sets of the iPhone app (Capacitor - it
+ * embeds the same mobile UI build as the phone profile) and of the Mac app (Tauri - the same root UI build as the
+ * desktop profile), one per App Store localization of appstore/locales.json (19 folders named with Apple's locale
+ * shortcodes: en-US, he, ar-SA, zh-Hans, ja, hi, th, es-ES, pt-PT, fr-FR, it, de-DE, ro, el, pl, cs, hu, ru, tr;
+ * Bulgarian has no App Store localization and no folder). Everything above holds for them (the same hosted
+ * server from source, the fixed clock, fictional people, transport log, layout rules and determinism); what
+ * differs is the profile entry:
+ *   - iphone-medium: Apple's "iPhone with Dynamic Island (medium display)" class - the one iPhone class Apple
+ *     requires - 402x874 CSS px at device scale 3 = 1206x2622 pixels, output appstore/screenshots/iphone-6.3/<code>/.
+ *   - iphone-large: the "large display" class, 440x956 at scale 3 = 1320x2868, appstore/screenshots/iphone-6.9/<code>/
+ *     (uploaded too, so Max/Plus phones get a full-size set instead of a scaled one).
+ *     Both take the phone's SHOTS and PHONE_CHROME, sign in as the iPhone app does (device name "Phone",
+ *     localized - src/utils/platform.ts deviceName; an iPhone WebKit user agent, IPHONE_USER_AGENT) and give the
+ *     browser the language's full device locale (en-US, he-IL, zh-CN, ... - the tags of STORE_FOLDERS; Apple's
+ *     shortcodes are listing codes, not device languages).
+ *     The medium set's account card is 402 CSS px wide: where "first.surname@example.com" broke across two lines
+ *     there (ja, es, pt, ro), the user name is the first name and the surname's initial - the convention
+ *     FICTIONAL_PEOPLE already applies for fr, de, el, pl, cs, ru, bg on the Play set (IPHONE_MEDIUM_PEOPLE, the
+ *     profile's `people` hook; a profile without it - the Play, Store and large iPhone sets - uses FICTIONAL_PEOPLE
+ *     unchanged).
+ *   - mac: 1440x900 CSS px at device scale 2 = 2880x1800 pixels (16:10; the largest of the four Mac sizes Apple
+ *     accepts - the whole screen of a 15-inch Retina MacBook Pro), the desktop profile's DESKTOP_SHOTS,
+ *     DESKTOP_CHROME, wholeExcerpts and desktopOfflineEntry, the device name "Computer" (the Tauri shell's), a Mac
+ *     WebKit user agent (MAC_USER_AGENT), output appstore/screenshots/mac/<code>/.
+ * Check the three sets with `node scripts/appstore/check-screenshots.mjs`; appstore/screenshots/README.md (English)
+ * and README.he.md (Hebrew, the owner's guide) say which folder goes to which App Store Connect slot.
+ * The phone and desktop profiles are untouched by them: their PROFILES entries are byte-identical to before, and
+ * the two hooks the new profiles use (`browserLocale`, `userAgent`) are absent there, so those code paths run
+ * exactly as before (the default `browserLocaleOf`, Edge's own user agent).
  */
 import { spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -186,6 +217,73 @@ export const STORE_FOLDERS = {
   'it-IT': 'it',
   'th-TH': 'th',
   'hi-IN': 'hi',
+};
+
+/** Where the App Store sets go (APP STORE PROFILES in the header): appstore/screenshots/<set>/<Apple code>/. */
+export const APPSTORE_OUT_DIR = path.join(ROOT, 'appstore', 'screenshots');
+/** The App Store localizations of the kit (written by the LISTING package): app locale -> { folder: Apple's locale shortcode or null, appleName, note }. */
+export const APPSTORE_LOCALES_FILE = path.join(ROOT, 'appstore', 'locales.json');
+
+let appStoreFoldersCache = null;
+/**
+ * Output folder name -> app locale for the App Store profiles, from appstore/locales.json in the file's order
+ * (en-US first: the primary language): the 19 Apple locale shortcodes. A language without an App Store
+ * localization (Bulgarian: "folder": null) has no set. Read only when an App Store profile asks for it, so the
+ * Play and Store profiles never depend on the file.
+ */
+export function appStoreFolders(file = APPSTORE_LOCALES_FILE) {
+  if (file === APPSTORE_LOCALES_FILE && appStoreFoldersCache) return appStoreFoldersCache;
+  const name = path.relative(ROOT, file) || file;
+  let locales;
+  try {
+    locales = JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (e) {
+    throw new Error(`${name}: missing or unreadable (${e.code ?? e.message}) - the App Store profiles need the kit's locale list (LISTING package)`);
+  }
+  const folders = {};
+  for (const [appLocale, def] of Object.entries(locales)) {
+    if (!def || typeof def !== 'object') throw new Error(`${name}: "${appLocale}" is not an object`);
+    if (def.folder === null) continue;
+    if (typeof def.folder !== 'string' || !/^[A-Za-z]{2,3}(?:-[A-Za-z]{2,4})?$/.test(def.folder)) throw new Error(`${name}: "${appLocale}" has no valid folder (an Apple locale shortcode such as en-US, he or zh-Hans, or null)`);
+    if (folders[def.folder]) throw new Error(`${name}: folder ${def.folder} is listed twice`);
+    folders[def.folder] = appLocale;
+  }
+  if (!Object.keys(folders).length) throw new Error(`${name}: no App Store localization has a folder`);
+  if (file === APPSTORE_LOCALES_FILE) appStoreFoldersCache = folders;
+  return folders;
+}
+
+/**
+ * The device language of an App Store set: the full BCP-47 tag a phone or Mac set to that language reports
+ * (en-US, he-IL, zh-CN, ar-SA, ja-JP, ...) - the Microsoft Store tag of the same app locale (STORE_FOLDERS), the
+ * tags the desktop profile already renders with. Apple's shortcodes (he, zh-Hans, ...) name listings, not devices.
+ */
+export function deviceLocaleOf(appLocale) {
+  const tag = Object.keys(STORE_FOLDERS).find((t) => STORE_FOLDERS[t] === appLocale);
+  if (!tag) throw new Error(`no device locale for app locale "${appLocale}"`);
+  return tag;
+}
+
+/**
+ * The user agents of the Apple apps' web views (WKWebView) for the App Store profiles - what the UI's own
+ * platform checks see on the real devices (src/utils/platform.ts isMobileBrowser / deviceName; any Mac-only
+ * wording keyed on "Macintosh"). The Play and Store profiles set none (Edge's own user agent, as before).
+ */
+export const IPHONE_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148';
+export const MAC_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko)';
+
+/**
+ * User names of the iphone-medium set that differ from FICTIONAL_PEOPLE (merged over it by fictionalAccount): the
+ * account card of the 402 CSS px wide "medium" iPhone screen breaks "first.surname@example.com" across two lines
+ * in these languages (the layout rules refuse a broken address), so they get the first name and the surname's
+ * initial - the convention FICTIONAL_PEOPLE already uses for fr, de, el, pl, cs, ru and bg. Fictional, as
+ * everything else; the other profiles do not use this table.
+ */
+export const IPHONE_MEDIUM_PEOPLE = {
+  ja: { username: 'misaki.y' },
+  es: { username: 'lucia.d' },
+  pt: { username: 'marta.d' },
+  ro: { username: 'ana.p' },
 };
 
 /**
@@ -279,6 +377,77 @@ export const PROFILES = {
       return DESKTOP_SHOTS;
     },
   },
+  // The App Store profiles (APP STORE PROFILES in the header; docs/apple-tasks/SHOTS.md). The phone and desktop
+  // entries above are not changed by them. `folders` is a getter: appstore/locales.json is read only when one of
+  // these profiles is used. `browserLocale(folder, appLocale)` and `userAgent` are hooks the two older profiles
+  // do not have (shootLocale / prepareAccount fall back to browserLocaleOf and to Edge's own user agent).
+  'iphone-medium': {
+    label: 'App Store iPhone screenshots, "iPhone with Dynamic Island (medium display)" class, 1206x2622',
+    // 402 x 3 = 1206 and 874 x 3 = 2622 exactly: the points of a 6.3-inch iPhone (15/16/17 Pro size) at its 3x
+    // scale - the one iPhone screenshot class Apple requires (APPSTORE-FACTS 6.2-6.3).
+    viewport: { width: 402, height: 874 },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    /** The mobile (server-only) UI build - the build the Capacitor iPhone app embeds, as the Android app does. */
+    build: 'mobile',
+    outDir: path.join(APPSTORE_OUT_DIR, 'iphone-6.3'),
+    /** Output folder name -> app locale: Apple's locale shortcodes of appstore/locales.json (19; no Bulgarian). */
+    get folders() {
+      return appStoreFolders();
+    },
+    /** The browser language: the full device locale of the set's language (en-US, he-IL, zh-CN, ...). */
+    browserLocale: (folder, appLocale) => deviceLocaleOf(appLocale),
+    userAgent: IPHONE_USER_AGENT,
+    /** The device name the iPhone app sends at sign-in (src/utils/platform.ts deviceName: "Phone", localized). */
+    deviceName: (t) => t('shell.device.phone'),
+    /** Shorter user names where the 402 px wide account card breaks the e-mail address (IPHONE_MEDIUM_PEOPLE). */
+    people: IPHONE_MEDIUM_PEOPLE,
+  },
+  'iphone-large': {
+    label: 'App Store iPhone screenshots, "iPhone with Dynamic Island (large display)" class, 1320x2868',
+    // 440 x 3 = 1320 and 956 x 3 = 2868 exactly: the points of a 6.9-inch iPhone (Pro Max / Plus size) at its 3x
+    // scale. Not required by Apple (the medium set would be scaled up for these phones) - uploaded so that they
+    // get a full-size set (APPSTORE-FACTS 6.3).
+    viewport: { width: 440, height: 956 },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    build: 'mobile',
+    outDir: path.join(APPSTORE_OUT_DIR, 'iphone-6.9'),
+    get folders() {
+      return appStoreFolders();
+    },
+    browserLocale: (folder, appLocale) => deviceLocaleOf(appLocale),
+    userAgent: IPHONE_USER_AGENT,
+    deviceName: (t) => t('shell.device.phone'),
+  },
+  mac: {
+    label: 'App Store Mac screenshots, 2880x1800 (16:10)',
+    // 1440 x 2 = 2880 and 900 x 2 = 1800 exactly: a 1440x900-point screen at the Retina scale 2 (the whole screen
+    // of a 15-inch Retina MacBook Pro) - the largest of the four Mac sizes Apple accepts (APPSTORE-FACTS 6.5).
+    viewport: { width: 1440, height: 900 },
+    deviceScaleFactor: 2,
+    isMobile: false,
+    hasTouch: false,
+    /** The root `vite build`: the UI the Tauri window of the Mac app loads (the same build as the Windows app's). */
+    build: 'web',
+    outDir: path.join(APPSTORE_OUT_DIR, 'mac'),
+    get folders() {
+      return appStoreFolders();
+    },
+    browserLocale: (folder, appLocale) => deviceLocaleOf(appLocale),
+    userAgent: MAC_USER_AGENT,
+    chrome: DESKTOP_CHROME,
+    /** As the desktop profile: the list's excerpts of today and yesterday end at a whole sentence (prepareAccount). */
+    wholeExcerpts: 160,
+    /** The device name the Mac app sends at sign-in (src/utils/platform.ts deviceName: the Tauri shell says "Computer", localized). */
+    deviceName: (t) => t('shell.device.computer'),
+    offlineEntry: desktopOfflineEntry,
+    get shots() {
+      return DESKTOP_SHOTS;
+    },
+  },
 };
 
 /** The browser language of a set (the phone language a user would have): Play's "iw-IL" is "he-IL" on a phone. */
@@ -332,10 +501,14 @@ export const FICTIONAL_PEOPLE = {
 /** Languages that write the family name first (only the console line uses `displayName`). */
 const FAMILY_NAME_FIRST = new Set(['zh', 'ja', 'hu']);
 
-/** The fictional account of one set (no password: that is made at run time and never leaves the process). */
-export function fictionalAccount(appLocale, firstName) {
-  const person = FICTIONAL_PEOPLE[appLocale];
-  if (!person) throw new Error(`no fictional account for ${appLocale}`);
+/**
+ * The fictional account of one set (no password: that is made at run time and never leaves the process).
+ * `overrides` (a profile's `people` hook, e.g. IPHONE_MEDIUM_PEOPLE): fields merged over the language's
+ * FICTIONAL_PEOPLE entry; without it (the Play and Store profiles) the entry is used as it is.
+ */
+export function fictionalAccount(appLocale, firstName, overrides = null) {
+  if (!FICTIONAL_PEOPLE[appLocale]) throw new Error(`no fictional account for ${appLocale}`);
+  const person = { ...FICTIONAL_PEOPLE[appLocale], ...(overrides?.[appLocale] ?? {}) };
   return {
     firstName,
     lastName: person.surname,
@@ -1171,19 +1344,21 @@ export async function registerOperator(base, log) {
   const auth = await api(base, log, '/api/auth/register', {
     method: 'POST',
     locale: 'en-US',
-    // privacyAccepted: the privacy checkbox of the registration form - the hosted server creates no account without it.
-    body: { firstName: 'Server', lastName: 'Operator', username: 'operator', email: 'operator@example.com', password, confirmPassword: password, language: 'en', privacyAccepted: true },
+    // privacyAccepted + termsAccepted: the one consent checkbox of the registration form (Privacy Policy and Terms of Use) - the hosted server creates no account without both.
+    body: { firstName: 'Server', lastName: 'Operator', username: 'operator', email: 'operator@example.com', password, confirmPassword: password, language: 'en', privacyAccepted: true, termsAccepted: true },
   });
   return auth.user;
 }
 
-export async function prepareAccount({ base, log, folder, appLocale, seedContent, clock, deviceName = 'Android', wholeExcerpts = null, makeOfflineEntry = offlineEntry }) {
+export async function prepareAccount({ base, log, folder, appLocale, seedContent, clock, deviceName = 'Android', wholeExcerpts = null, makeOfflineEntry = offlineEntry, browserLocale = browserLocaleOf, people = null }) {
   clock.anchor(Date.parse(FIXED_TIME));
   const content = seedContent[appLocale];
   if (!content) throw new Error(`no seed content for ${appLocale}`);
-  const account = fictionalAccount(appLocale, content.people[0]);
+  // `people` (App Store profiles): user-name overrides of the set; the Play and Store profiles pass none.
+  const account = fictionalAccount(appLocale, content.people[0], people);
   const password = randomPassword();
-  const lang = browserLocaleOf(folder);
+  // `browserLocale` (App Store profiles): the set's device locale; the Play and Store profiles pass none (browserLocaleOf).
+  const lang = browserLocale(folder, appLocale);
   const auth = await api(base, log, '/api/auth/register', {
     method: 'POST',
     locale: lang,
@@ -1198,6 +1373,7 @@ export async function prepareAccount({ base, log, folder, appLocale, seedContent
       deviceName,
       language: appLocale,
       privacyAccepted: true,
+      termsAccepted: true,
     },
   });
   const token = auth.token;
@@ -1230,12 +1406,14 @@ export async function prepareAccount({ base, log, folder, appLocale, seedContent
 }
 
 async function shootLocale({ browser, profile, base, log, folder, appLocale, prepared, outDir, only, theme, clock, failures = null, debugDir = null }) {
-  const lang = browserLocaleOf(folder);
+  const lang = (profile.browserLocale ?? browserLocaleOf)(folder, appLocale);
   const context = await browser.newContext({
     viewport: profile.viewport,
     deviceScaleFactor: profile.deviceScaleFactor,
     isMobile: profile.isMobile,
     hasTouch: profile.hasTouch,
+    // `userAgent` (App Store profiles): the Apple web view's; the Play and Store profiles have none (Edge's own, as before).
+    ...(profile.userAgent ? { userAgent: profile.userAgent } : {}),
     locale: lang,
     timezoneId: TIME_ZONE,
     colorScheme: theme,
@@ -1425,6 +1603,8 @@ export function writeRenderLog(outDir, profile, options, sets) {
     fixedTime: FIXED_TIME,
     timeZone: TIME_ZONE,
     ui: profile.build === 'mobile' ? 'npm run mobile:build (server build) with VITE_API_BASE=http://127.0.0.1:<port>' : 'vite build with VITE_API_BASE=http://127.0.0.1:<port>',
+    // The App Store profiles only (the Play and Store logs keep their exact shape).
+    ...(profile.userAgent ? { userAgent: profile.userAgent } : {}),
     server: 'server/src/hosted.ts startHosted (DIARY_MODE=hosted) on 127.0.0.1, temporary data directory',
     sets: Object.fromEntries(Object.keys(merged).sort().map((k) => [k, merged[k]])),
   };
@@ -1483,7 +1663,7 @@ export async function renderScreenshots(options) {
       // The device name the platform's app sends at sign-in (shown in Settings -> devices): "Android" on
       // the phone (as before the desktop profile existed), the localized "Computer" in the Windows app.
       const deviceName = profile.deviceName ? profile.deviceName(await server.translator(appLocale)) : 'Android';
-      const prepared = await prepareAccount({ base, log, folder, appLocale, seedContent: server.seedContent, clock, deviceName, wholeExcerpts: profile.wholeExcerpts ?? null, makeOfflineEntry: profile.offlineEntry ?? offlineEntry });
+      const prepared = await prepareAccount({ base, log, folder, appLocale, seedContent: server.seedContent, clock, deviceName, wholeExcerpts: profile.wholeExcerpts ?? null, makeOfflineEntry: profile.offlineEntry ?? offlineEntry, browserLocale: profile.browserLocale ?? browserLocaleOf, people: profile.people ?? null });
       limiterShift += 2 * 3600_000;
       const files = await shootLocale({ browser, profile, base, log, folder, appLocale, prepared, outDir, only: options.only, theme: options.theme, clock, failures, debugDir: options.keep ? path.join(tmp, 'failed') : null });
       produced.push(...files);

@@ -288,6 +288,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'ألغِ القفل بقفل شاشة هذا الجهاز',
   'shell.sync.lock.deviceReason': 'إلغاء قفل Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'أدخل كلمة المرور لرفع تغييراتك.',
+  'shell.sync.lock.passwordOffline': 'لا يوجد اتصال: يتم التحقق من كلمة المرور على هذا الجهاز.',
+  'shell.sync.lock.wait': '{seconds, plural, zero {انتظر # ثانية قبل المحاولة مرة أخرى.} one {انتظر ثانية واحدة قبل المحاولة مرة أخرى.} two {انتظر ثانيتين قبل المحاولة مرة أخرى.} few {انتظر # ثوانٍ قبل المحاولة مرة أخرى.} many {انتظر # ثانية قبل المحاولة مرة أخرى.} other {انتظر # ثانية قبل المحاولة مرة أخرى.}}',
   'shell.sync.drainFirst': 'جارٍ رفع تغييراتك أولًا…',
   'shell.sync.drainFailed': 'لم تُرفع تغييراتك بعد. حاول مرة أخرى عند عودة الاتصال.',
   'shell.sync.deleteAccount.pending': '{count, plural, zero {سيُحذف أيضًا # تغيير لم يُرفع بعد.} one {سيُحذف أيضًا تغيير واحد لم يُرفع بعد.} two {سيُحذف أيضًا تغييران لم يُرفعا بعد.} few {ستُحذف أيضًا # تغييرات لم تُرفع بعد.} many {سيُحذف أيضًا # تغييرًا لم يُرفع بعد.} other {سيُحذف أيضًا # تغيير لم يُرفع بعد.}}',

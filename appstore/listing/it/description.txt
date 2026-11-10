@@ -1,0 +1,47 @@
+Your Personal Diary è un diario privato e intelligente per le tue parole e le tue tendenze. Scrivi della tua giornata e l’app ti aiuta a notare come sonno, umore, energia e abitudini si muovono insieme in settimane, mesi e anni.
+
+Il tuo diario è conservato nel tuo account sul server di Your Personal Diary, quindi è lo stesso su ogni dispositivo da cui accedi. La connessione serve solo per creare l’account e per il primo accesso; dopo, l’app funziona anche senza. Niente pubblicità, niente statistiche d’uso, nessun tracciamento.
+
+Scrivi la tua giornata
+- Voci con parole tue, con umore, emozioni, energia, stress, sonno, attività fisica, eventi, persone, luogo, note e tag.
+- Una pagina per ogni giorno e una cronologia di tutto il tuo diario.
+
+Abitudini e promemoria
+- Abitudini giornaliere e settimanali da spuntare man mano.
+- Promemoria facoltativi come notifiche, all’ora che scegli per ogni abitudine.
+
+Osservazioni prudenti
+- L’app cerca possibili relazioni nei tuoi dati, per esempio tra sonno e umore o tra attività fisica ed energia.
+- Le osservazioni sono formulate con cura e non affermano mai che una cosa causi un’altra.
+- «Perché vedo questa osservazione?» mostra quanti giorni sono stati esaminati e i numeri alla base.
+- Quando i dati non bastano, l’app lo dice invece di indovinare.
+
+Calendario, statistiche e ricerca
+- Un calendario mensile gregoriano, ebraico o islamico (dell’egira), con le sue festività.
+- Grafici di umore, energia, stress, sonno e abitudini nel tempo, ognuno con tabella dei dati.
+- Ricerca intelligente: chiedi nella tua lingua, per esempio «In quali giorni ho dormito meno di cinque ore?», e ottieni la risposta dal diario.
+
+Funziona anche senza connessione
+- Continua a leggere e a scrivere. Le modifiche restano cifrate sul dispositivo e si caricano da sole quando torna la connessione, anche se hai chiuso l’app nel frattempo.
+- Con «Ricordami», l’app conserva anche una copia cifrata di ciò che hai visto di recente e te la mostra anche senza connessione. Se il diario è bloccato e non c’è connessione, sbloccalo con Face ID, Touch ID oppure con il codice o la password del dispositivo.
+- Osservazioni, ricerca, statistiche, backup, esportazione e impostazioni dell’account richiedono la connessione.
+
+Privacy e sicurezza
+- Il tuo diario è archiviato sul server cifrato con una chiave derivata dalla tua password, in un file separato per ogni account. La password in sé non viene conservata.
+- Mentre sei connesso, il server apre il tuo diario nella sua memoria per mostrarlo, cercarvi e analizzarlo per te. L’informativa sulla privacy spiega chiaramente che cosa significa.
+- L’app si collega solo al server di Your Personal Diary, sempre tramite HTTPS.
+- Blocco automatico dopo un periodo di inattività e «Blocca ora» quando vuoi.
+- Password dimenticata? Reimpostala con un link o un codice inviato alla tua e-mail, e conservi il tuo diario.
+- Backup cifrato in un file che conservi dove preferisci, e ripristino da lì.
+- Esporta il diario in TXT, CSV, JSON o PDF.
+- Elimina il tuo account e tutti i suoi dati quando vuoi, dalle Impostazioni.
+
+20 lingue
+Inglese, ebraico, arabo, cinese (semplificato), giapponese, hindi, thailandese, spagnolo, portoghese, francese, italiano, tedesco, rumeno, greco, polacco, ceco, ungherese, russo, bulgaro e turco. Scegli la tua lingua quando vuoi in Impostazioni, alla voce Lingua; il tuo account la ricorda. Ebraico e arabo da destra a sinistra.
+
+Accessibilità
+- Funziona con gli screen reader: titoli chiari, campi etichettati e messaggi di stato annunciati.
+- Temi chiaro, scuro e a contrasto elevato, testo ridimensionabile e riduzione delle animazioni.
+
+Nota bene
+Your Personal Diary è uno strumento per tenere un diario personale, per persone dai 16 anni in su. Non è uno strumento medico o diagnostico, e le sue osservazioni non sono consigli medici o psicologici. Se la tua salute ti preoccupa, parlane con un professionista.

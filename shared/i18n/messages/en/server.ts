@@ -491,6 +491,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'Too many registrations from your network. Please try again later.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'To create an account, confirm that you have read the Privacy policy and agree to it. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
   'server.error.busy': 'The server is busy right now. Please try again in a moment.',
   'server.vault.quota': 'Your diary has reached the size limit of this server ({max} MB). Delete some entries to make room.',
   'server.owner.unset': 'This server has no owner configured yet. The operator must set DIARY_OWNER_ID to the owner’s account id.',

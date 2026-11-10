@@ -280,6 +280,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Feloldás az eszköz képernyőzárával',
   'shell.sync.lock.deviceReason': 'A Your Personal Diary feloldása',
   'shell.sync.lock.passwordToUpload': 'Add meg a jelszavad a módosítások feltöltéséhez.',
+  'shell.sync.lock.passwordOffline': 'Nincs kapcsolat: a jelszavadat ezen az eszközön ellenőrizzük.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Várj # másodpercet, mielőtt újra próbálkozol.} other {Várj # másodpercet, mielőtt újra próbálkozol.}}',
   'shell.sync.drainFirst': 'Előbb a módosításaid feltöltése…',
   'shell.sync.drainFailed': 'A módosításaid még nincsenek feltöltve. Próbáld újra, ha helyreáll a kapcsolat.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {# még nem feltöltött módosítás is törlődik.} other {# még nem feltöltött módosítás is törlődik.}}',

@@ -16,15 +16,17 @@
  * The e-mail address is used to log in and to reset a forgotten password (the
  * reset link and code are e-mailed to it); here only its shape is checked.
  *
- * Above the submit button sits the privacy checkbox (RegisterPrivacyConsent, docs/android-tasks/PRIVACY-CHECKBOX.md):
- * "I have read the Privacy policy and agree to it", where "Privacy policy" links to the page on the diary
- * server (opened outside the app). It replaces the former line "By creating an account, you agree to our
- * Privacy policy." - one sentence that both links the policy and takes the confirmation reads better than
- * two that say nearly the same. Without the tick no request is sent: the error appears under the box, the
- * box gets the focus and the error is announced (in full when it is the only one; otherwise the number of
+ * Above the submit button sits the consent checkbox (RegisterPrivacyConsent, docs/android-tasks/PRIVACY-CHECKBOX.md,
+ * docs/apple-tasks/TERMS.md): ONE box, ONE sentence - "I have read the Privacy Policy and the Terms of Use, and I
+ * agree to them" - where both document names link to their pages on the diary server (opened outside the app).
+ * Ticking it confirms both documents: the request carries `privacyAccepted: true` and `termsAccepted: true`.
+ * It replaced the former line "By creating an account, you agree to our Privacy policy." - one sentence that both
+ * links the documents and takes the confirmation reads better than two that say nearly the same. Without the
+ * tick no request is sent: the error appears under the box, the box gets the focus and the error is announced (in full when it is the only one; otherwise the number of
  * errors, like the fields). "Create account" stays enabled on purpose - a disabled button cannot be
  * focused and does not say why it does nothing; pressing it explains. A hosted server refuses a
- * registration without `privacyAccepted: true` as well (400, field 'privacyAccepted' - shown at the box).
+ * registration without `privacyAccepted: true` or `termsAccepted: true` as well (400, field 'privacyAccepted' /
+ * 'termsAccepted' - both shown at the box).
  *
  * The card ends with the tour button ("Skip - just look around", SkipTourButton)
  * in the Android app; it renders nothing in the Windows app and the web UI.
@@ -96,9 +98,9 @@ export function fieldId(name: FieldName): string {
   return `register-${name}`;
 }
 
-/** Id of the privacy checkbox (its error is `${CONSENT_ID}-error`); the field name the server uses for it. */
+/** Id of the consent checkbox (its error is `${CONSENT_ID}-error`); the field names the server uses for it. */
 export const CONSENT_ID = 'register-privacyAccepted';
-const CONSENT_FIELD = 'privacyAccepted';
+const CONSENT_FIELDS = ['privacyAccepted', 'termsAccepted'];
 
 /** Pure validation used by the page (exported for tests). */
 export function validateRegistration(values: Record<FieldName, string>): Errors {
@@ -189,7 +191,9 @@ export default function RegisterPage() {
         password: values.password,
         confirmPassword: values.confirmPassword,
         rememberMe,
+        // The one box confirms both documents (docs/apple-tasks/TERMS.md).
         privacyAccepted: true,
+        termsAccepted: true,
       });
       // The next login on this device starts with this name already filled in.
       setLastUsername(user.username || values.username.trim());
@@ -198,7 +202,7 @@ export default function RegisterPage() {
     } catch (err) {
       const code = errorCode(err);
       // The server's refusal of a registration without the box (a hosted server checks it too): at the box, in the client wording.
-      if (errorField(err) === CONSENT_FIELD) {
+      if (CONSENT_FIELDS.includes(errorField(err) ?? '')) {
         setPrivacyAccepted(false);
         setConsentError(T.privacyConsentRequired);
         announce(T.privacyConsentRequired, 'assertive');
@@ -275,7 +279,7 @@ export default function RegisterPage() {
           {passwordField('password', T.passwordHint(PASSWORD_MIN_LENGTH))}
           {passwordField('confirmPassword')}
           <Checkbox id="register-remember" label={T.rememberMe} hint={T.rememberMeHint} checked={rememberMe} onChange={setRememberMe} />
-          {/* "I have read the Privacy policy and agree to it" - required; the link opens outside the app. */}
+          {/* "I have read the Privacy Policy and the Terms of Use, and I agree to them" - required; the links open outside the app. */}
           <RegisterPrivacyConsent id={CONSENT_ID} checked={privacyAccepted} onChange={setConsent} error={consentError} />
           <div className="form__actions">
             <Button type="submit" loading={busy} size="lg">

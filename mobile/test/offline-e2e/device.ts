@@ -96,8 +96,8 @@ export class Device {
   }
 
   async register(user: { firstName: string; lastName: string; username: string; email: string }, password: string, rememberMe = true): Promise<SignedIn> {
-    // privacyAccepted: the ticked privacy checkbox of the registration form (the hosted server requires it).
-    const res = await auth.register({ ...user, password, confirmPassword: password, rememberMe, deviceName: this.name, privacyAccepted: true });
+    // privacyAccepted + termsAccepted: the ticked consent checkbox of the registration form (the hosted server requires both).
+    const res = await auth.register({ ...user, password, confirmPassword: password, rememberMe, deviceName: this.name, privacyAccepted: true, termsAccepted: true });
     return { auth: res, outcome: await this.afterSignIn(res) };
   }
 

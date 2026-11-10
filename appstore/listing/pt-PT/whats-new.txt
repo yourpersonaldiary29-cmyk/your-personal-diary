@@ -1,0 +1,5 @@
+Your Personal Diary 1.0 - a primeira versão.
+- O seu diário na sua própria conta, o mesmo em todos os dispositivos em que inicia sessão
+- Continua a funcionar quando a ligação falha e envia as suas alterações quando ela voltar
+- Observações cuidadosas, hábitos com lembretes, três calendários com as suas festas
+- 20 idiomas

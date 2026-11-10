@@ -808,7 +808,12 @@ describe('alias plugin: the desktop build never sees it or the shims', () => {
   it('the UI (src/) imports nothing of the core, the shims or their packages - only the two mobile start-ups, behind __MOBILE__', () => {
     const ui = sourceFiles(path.join(process.cwd(), 'src'));
     expect(ui.length).toBeGreaterThan(50);
-    expect(importsMatching(ui, /mobile\/core|@noble\/|^buffer(\/|$)|^path-browserify$|mobile-vendor:|mobile-core:/)).toEqual([]);
+    // The one @noble import the UI may have: the offline engine derives the password wrap with scrypt
+    // (src/offline/password-wrap.ts, OFFLINE-DESIGN section 13, 2026-11-08) straight from the installed
+    // package, not through the mobile shims. Anything else from @noble/ or the shims is still forbidden.
+    expect(importsMatching(ui, /mobile\/core|@noble\/|^buffer(\/|$)|^path-browserify$|mobile-vendor:|mobile-core:/)).toEqual([
+      'src/offline/password-wrap.ts: @noble/hashes/scrypt.js',
+    ]);
     // The local-core start-up (behind __MOBILE_LOCAL_CORE__) and the published server-only one (WP-H6).
     expect(importsMatching(ui, /(^|\/)mobile\//)).toEqual(['src/main.tsx: ../mobile/host/boot', 'src/main.tsx: ../mobile/host/server-mode']);
   });

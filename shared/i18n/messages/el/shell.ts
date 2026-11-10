@@ -283,6 +283,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Ξεκλείδωμα με το κλείδωμα οθόνης της συσκευής',
   'shell.sync.lock.deviceReason': 'Ξεκλείδωμα του Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Πληκτρολόγησε τον κωδικό πρόσβασης για να σταλούν οι αλλαγές σου.',
+  'shell.sync.lock.passwordOffline': 'Χωρίς σύνδεση: ο κωδικός πρόσβασής σου ελέγχεται σε αυτήν τη συσκευή.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Περίμενε # δευτερόλεπτο πριν δοκιμάσεις ξανά.} other {Περίμενε # δευτερόλεπτα πριν δοκιμάσεις ξανά.}}',
   'shell.sync.drainFirst': 'Πρώτα στέλνονται οι αλλαγές σου…',
   'shell.sync.drainFailed': 'Οι αλλαγές σου δεν έχουν σταλεί ακόμη. Δοκίμασε ξανά όταν επανέλθει η σύνδεση.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {Θα διαγραφεί επίσης # αλλαγή που δεν έχει σταλεί ακόμη.} other {Θα διαγραφούν επίσης # αλλαγές που δεν έχουν σταλεί ακόμη.}}',

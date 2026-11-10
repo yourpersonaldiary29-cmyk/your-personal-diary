@@ -281,6 +281,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Déverrouiller avec le verrouillage d’écran de cet appareil',
   'shell.sync.lock.deviceReason': 'Déverrouiller Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Saisissez votre mot de passe pour envoyer vos modifications.',
+  'shell.sync.lock.passwordOffline': 'Pas de connexion : votre mot de passe est vérifié sur cet appareil.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Attendez # seconde avant de réessayer.} other {Attendez # secondes avant de réessayer.}}',
   'shell.sync.drainFirst': 'Envoi préalable de vos modifications…',
   'shell.sync.drainFailed': 'Vos modifications n’ont pas encore été envoyées. Réessayez quand la connexion sera revenue.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {# modification pas encore envoyée sera aussi supprimée.} other {# modifications pas encore envoyées seront aussi supprimées.}}',

@@ -282,6 +282,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Odemknout zámkem obrazovky tohoto zařízení',
   'shell.sync.lock.deviceReason': 'Odemknout Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Zadej heslo, aby se nahrály tvoje změny.',
+  'shell.sync.lock.passwordOffline': 'Bez připojení: heslo se ověřuje v tomto zařízení.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Počkej # sekundu, než to zkusíš znovu.} few {Počkej # sekundy, než to zkusíš znovu.} many {Počkej # sekundy, než to zkusíš znovu.} other {Počkej # sekund, než to zkusíš znovu.}}',
   'shell.sync.drainFirst': 'Nejdřív se nahrávají tvoje změny…',
   'shell.sync.drainFailed': 'Tvoje změny ještě nebyly nahrány. Zkus to znovu, až se spojení obnoví.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {Smaže se i # změna, která ještě nebyla nahrána.} few {Smažou se i # změny, které ještě nebyly nahrány.} many {Smaže se i # změny, které ještě nebyly nahrány.} other {Smaže se i # změn, které ještě nebyly nahrány.}}',

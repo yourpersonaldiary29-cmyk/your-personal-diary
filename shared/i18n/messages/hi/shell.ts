@@ -284,6 +284,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'इस डिवाइस के स्क्रीन लॉक से अनलॉक करें',
   'shell.sync.lock.deviceReason': 'Your Personal Diary अनलॉक करें',
   'shell.sync.lock.passwordToUpload': 'अपने बदलाव अपलोड करने के लिए पासवर्ड डालें।',
+  'shell.sync.lock.passwordOffline': 'कनेक्शन नहीं है: आपका पासवर्ड इसी डिवाइस पर जाँचा जाता है।',
+  'shell.sync.lock.wait': '{seconds, plural, one {फिर से कोशिश करने से पहले # सेकंड प्रतीक्षा करें।} other {फिर से कोशिश करने से पहले # सेकंड प्रतीक्षा करें।}}',
   'shell.sync.drainFirst': 'पहले आपके बदलाव अपलोड हो रहे हैं…',
   'shell.sync.drainFailed': 'आपके बदलाव अभी अपलोड नहीं हुए हैं। कनेक्शन लौटने पर फिर से कोशिश करें।',
   'shell.sync.deleteAccount.pending': '{count, plural, one {अभी अपलोड न हुआ # बदलाव भी हटा दिया जाएगा।} other {अभी अपलोड न हुए # बदलाव भी हटा दिए जाएँगे।}}',

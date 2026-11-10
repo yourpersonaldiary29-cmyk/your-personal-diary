@@ -64,6 +64,7 @@ const registerBody = (username: string, extra: object = {}) => ({
   password: PASSWORD,
   confirmPassword: PASSWORD,
   privacyAccepted: true,
+  termsAccepted: true,
   ...extra,
 });
 

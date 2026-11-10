@@ -499,6 +499,8 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'มีการลงทะเบียนจากเครือข่ายของคุณมากเกินไป กรุณาลองใหม่อีกครั้งในภายหลัง',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'หากต้องการสร้างบัญชี ต้องยืนยันว่าคุณได้อ่านและยอมรับนโยบายความเป็นส่วนตัวแล้ว หากไม่เห็นช่องให้ทำเครื่องหมาย โปรดอัปเดตแอป',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
   'server.error.busy': 'ขณะนี้เซิร์ฟเวอร์ไม่ว่าง กรุณาลองใหม่อีกครั้งในอีกสักครู่',
   'server.vault.quota': 'ไดอารี่ของคุณมีขนาดถึงขีดจำกัดของเซิร์ฟเวอร์นี้แล้ว ({max} MB) กรุณาลบบันทึกบางรายการเพื่อเพิ่มพื้นที่ว่าง',
   'server.owner.unset': 'เซิร์ฟเวอร์นี้ยังไม่ได้กำหนดเจ้าของ ผู้ดูแลระบบต้องตั้งค่า DIARY_OWNER_ID เป็นรหัสบัญชีของเจ้าของ',

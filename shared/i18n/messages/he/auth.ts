@@ -30,11 +30,13 @@ const messages: Record<string, string> = {
   'auth.registerTitle': 'הרשמה',
   'auth.loginTitle': 'התחברות',
   'auth.noAccountYet': 'עדיין אין לך חשבון?',
-  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent): {policy} = the link
-  // auth.privacyConsentLink (worded to fit this sentence); auth.privacyConsentRequired shows under the unticked box
-  'auth.privacyConsent': 'קראתי את {policy} והסכמתי לה',
+  // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent) - ONE box for both documents
+  // (docs/apple-tasks/TERMS.md): {policy} = the link auth.privacyConsentLink, {terms} = the link auth.termsConsentLink
+  // (each worded to fit this sentence); auth.legalConsentRequired shows under the unticked box
+  'auth.legalConsent': 'קראתי את {policy} ואת {terms} והסכמתי להם',
   'auth.privacyConsentLink': 'מדיניות הפרטיות',
-  'auth.privacyConsentRequired': 'כדי ליצור חשבון, יש לסמן את התיבה ובכך לאשר שקראת את מדיניות הפרטיות ושהסכמת לה.',
+  'auth.termsConsentLink': 'תנאי השימוש',
+  'auth.legalConsentRequired': 'כדי ליצור חשבון, יש לסמן את התיבה ובכך לאשר שקראת את מדיניות הפרטיות ואת תנאי השימוש ושהסכמת להם.',
   'auth.alreadyHaveAccount': 'כבר יש לך חשבון?',
 
   // Validation and session messages

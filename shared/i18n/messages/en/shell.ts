@@ -276,6 +276,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'Unlock with this device\'s screen lock',
   'shell.sync.lock.deviceReason': 'Unlock Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'Enter your password to upload your changes.',
+  'shell.sync.lock.passwordOffline': 'No connection: your password is checked on this device.',
+  'shell.sync.lock.wait': '{seconds, plural, one {Wait # second before trying again.} other {Wait # seconds before trying again.}}',
   'shell.sync.drainFirst': 'Uploading your changes first…',
   'shell.sync.drainFailed': 'Your changes have not been uploaded yet. Try again when the connection is back.',
   'shell.sync.deleteAccount.pending': '{count, plural, one {# change not yet uploaded will be deleted too.} other {# changes not yet uploaded will be deleted too.}}',

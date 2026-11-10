@@ -284,6 +284,8 @@ const messages: Record<string, string> = {
   'shell.sync.lock.deviceUnlock': 'ปลดล็อกด้วยการล็อกหน้าจอของอุปกรณ์นี้',
   'shell.sync.lock.deviceReason': 'ปลดล็อก Your Personal Diary',
   'shell.sync.lock.passwordToUpload': 'ป้อนรหัสผ่านเพื่ออัปโหลดการเปลี่ยนแปลงของคุณ',
+  'shell.sync.lock.passwordOffline': 'ไม่มีการเชื่อมต่อ: รหัสผ่านของคุณจะถูกตรวจสอบในอุปกรณ์นี้',
+  'shell.sync.lock.wait': '{seconds, plural, other {โปรดรอ # วินาทีก่อนลองอีกครั้ง}}',
   'shell.sync.drainFirst': 'กำลังอัปโหลดการเปลี่ยนแปลงของคุณก่อน…',
   'shell.sync.drainFailed': 'การเปลี่ยนแปลงของคุณยังไม่ได้อัปโหลด โปรดลองอีกครั้งเมื่อการเชื่อมต่อกลับมา',
   'shell.sync.deleteAccount.pending': '{count, plural, other {การเปลี่ยนแปลง # รายการที่ยังไม่ได้อัปโหลดจะถูกลบด้วย}}',

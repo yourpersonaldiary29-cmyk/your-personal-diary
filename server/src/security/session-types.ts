@@ -69,6 +69,14 @@ export interface AccountRecord {
   privacyAcceptedAt?: string;
   privacyVersion?: string;
   /**
+   * The record of the Terms of Use (docs/apple-tasks/TERMS.md), confirmed with the same checkbox as the policy:
+   * when (= createdAt) and the version then published (its effective date, `TERMS_VERSION` of shared/legal.ts).
+   * Both or neither, written only by the hosted server. Absent on accounts created before the Terms of Use
+   * existed - they are not asked again - and on accounts of the local developer mode. Never sent to a client.
+   */
+  termsAcceptedAt?: string;
+  termsVersion?: string;
+  /**
    * True for the temporary guest account of the tour mode (security/guest.ts). A guest record lives
    * in memory only - it is never written to accounts.json, never listed, and never the owner.
    */

@@ -20,9 +20,10 @@
  * the set of strings the wrap accepts is the set the server accepts - a full-width digit typed through a
  * Japanese IME unlocks offline just as it does online. Nothing else is trimmed or changed.
  *
- * Measured on the development PC (Node 24, @noble/hashes 2.4.0 scryptAsync): about 60-120 ms per
- * derivation at N=2^15 (see password-wrap.test.ts, which prints the time). The async variant yields to
- * the event loop every ~10 ms so the lock screen stays responsive.
+ * Measured on the development PC (Node 24, @noble/hashes 2.4.0 scryptAsync, under vitest with other
+ * suites running): about 240 ms per derivation at N=2^15 (password-wrap.test.ts prints the figure:
+ * "password wrap: scrypt took N ms"). A wrong password costs the same as the right one. The async
+ * variant yields to the event loop every ~10 ms so the lock screen stays responsive.
  */
 import { scryptAsync } from '@noble/hashes/scrypt.js';
 import { fromBase64, ownBytes, randomBytes, subtle, toBase64, utf8, zero } from './crypto';

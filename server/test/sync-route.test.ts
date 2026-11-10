@@ -96,6 +96,7 @@ async function register(b: Booted, username: string, rememberMe = true) {
     confirmPassword: PASSWORD,
     rememberMe,
     privacyAccepted: true,
+    termsAccepted: true,
   });
   expect(res.status).toBe(201);
   const auth = res.body as AuthResponse;

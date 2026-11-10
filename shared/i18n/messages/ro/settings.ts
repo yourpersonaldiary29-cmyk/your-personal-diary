@@ -104,6 +104,8 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'Politica de confidențialitate',
+  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
+  'settings.privacy.termsLink': 'Terms of Use',
   'settings.privacy.title': 'Confidențialitate',
   'settings.privacy.offlineLabel': 'Mod de confidențialitate offline',
   'settings.privacy.offlineHint': 'Când este activat, aplicația nu poate deschide nicio conexiune la rețea, cu excepția propriului server local. Dezactivează-l doar dacă folosești accesul de la distanță.',

@@ -418,12 +418,22 @@ export class OfflineEngine {
   /**
    * Keeps the wrap the caller just made from a password in hand: in memory for this run, and at rest
    * (`meta.passwordWrap`) only when the engine is persistent - an app with "Remember me", the same rule
-   * as the wrapped key and the snapshot (section 5.1).
+   * as the wrapped key and the snapshot (section 5.1). `atRest` lets a start decide by ITS "Remember
+   * me": an engine opened persistent that is re-armed by a start without it keeps the wrap in memory only.
    */
-  async rememberPasswordWrap(wrap: PasswordWrap): Promise<void> {
+  async rememberPasswordWrap(wrap: PasswordWrap, atRest = true): Promise<void> {
     this.passwordWrap = wrap;
-    if (!this.cache.persistent) return;
+    if (!atRest || !this.cache.persistent) return;
     await this.store.tx(['meta'], 'readwrite', (t) => t.put('meta', { name: META.passwordWrap, value: wrap })).catch(this.onError);
+  }
+
+  /**
+   * Drops the wrap (memory and `meta`) before a new one is made: after a password change the wrap under
+   * the OLD password must not stay usable when the new one cannot be made (section 13, 2026-11-08 note).
+   */
+  async forgetPasswordWrap(): Promise<void> {
+    this.passwordWrap = null;
+    await this.store.tx(['meta'], 'readwrite', (t) => t.delete('meta', META.passwordWrap)).catch(this.onError);
   }
 
   /** The wrap in hand: this run's (memory), else the one at rest (an app reopened without a connection); null when neither exists. */

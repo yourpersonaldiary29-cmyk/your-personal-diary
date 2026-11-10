@@ -1,0 +1,47 @@
+Your Personal Diary, kendi sözleriniz ve kendi örüntüleriniz için özel ve akıllı bir günlüktür. Gününüzü yazarsınız; uygulama da uyku, ruh hali, enerji ve alışkanlıklarınızın haftalar, aylar ve yıllar boyunca birlikte nasıl değiştiğini fark etmenize yardımcı olur.
+
+Günlüğünüz Your Personal Diary sunucusunda size ait hesapta tutulur; bu yüzden giriş yaptığınız her cihazda aynıdır. Bağlantı yalnızca hesabı oluşturmak ve ilk girişte gerekir; sonrasında uygulama bağlantısız da çalışır. Reklam yok, analiz yok, izleme yok.
+
+Gününüzü yazın
+- Kendi sözlerinizle kayıtlar; ruh hali, duygular, enerji, stres, uyku, fiziksel aktivite, olaylar, kişiler, yer, notlar ve etiketlerle.
+- Her gün için ayrı bir sayfa ve tüm günlüğünüzün zaman çizelgesi.
+
+Alışkanlıklar ve hatırlatıcılar
+- Gün içinde işaretlediğiniz günlük ve haftalık alışkanlıklar.
+- Her alışkanlık için seçtiğiniz saatte bildirim olarak gelen isteğe bağlı hatırlatıcılar.
+
+Özenli içgörüler
+- Uygulama kendi verilerinizde olası ilişkileri arar; örneğin uyku ile ruh hali ya da fiziksel aktivite ile enerji arasında.
+- İçgörüler dikkatle ifade edilir ve asla bir şeyin başka bir şeye neden olduğunu iddia etmez.
+- "Bu içgörüyü neden aldım?" kaç günün incelendiğini ve arkasındaki sayıları gösterir.
+- Yeterli veri olmadığında uygulama tahmin yürütmek yerine bunu söyler.
+
+Takvim, istatistikler ve arama
+- Miladi, İbrani ya da Hicri takvime göre aylık takvim, o takvimin bayramlarıyla.
+- Ruh hali, enerji, stres, uyku ve alışkanlıklarınızın zaman içindeki grafikleri; her biri bir veri tablosuyla.
+- Akıllı arama: kendi dilinizde bir soru sorun, örneğin "Hangi günlerde beş saatten az uyudum?", cevabı günlüğünüzden alın.
+
+Bağlantı kopsa da çalışır
+- Okumaya ve yazmaya devam edin. Değişiklikleriniz cihazınızda şifreli olarak saklanır ve bağlantı geri geldiğinde, arada uygulamayı kapatmış olsanız bile, otomatik olarak yüklenir.
+- "Beni hatırla" seçiliyse uygulama son görüntülediklerinizin şifreli bir kopyasını da saklar ve bağlantı olmadan da gösterir. Günlük kilitliyse ve bağlantı yoksa, kilidi Face ID, Touch ID ya da cihazınızın parolasıyla açın.
+- İçgörüler, arama, istatistikler, yedekleme, dışa aktarma ve hesap ayarları için bağlantı gerekir.
+
+Gizlilik ve güvenlik
+- Günlüğünüz sunucuda, parolanızdan türetilen bir anahtarla şifrelenmiş olarak, her hesap için ayrı bir dosyada saklanır. Parolanızın kendisi saklanmaz.
+- Giriş yaptığınız sürece sunucu, günlüğünüzü göstermek, içinde aramak ve analiz etmek için onu belleğinde açar. Gizlilik politikası bunun ne anlama geldiğini açıkça anlatır.
+- Uygulama yalnızca Your Personal Diary sunucusuna ve her zaman HTTPS üzerinden bağlanır.
+- Belirli bir süre işlem yapılmadığında otomatik kilit ve istediğiniz an "Şimdi kilitle".
+- Parolanızı mı unuttunuz? E-posta adresinize gönderilen bir bağlantı ya da kodla sıfırlayın; günlüğünüz yerinde kalır.
+- İstediğiniz yerde saklayacağınız bir dosyaya şifreli yedekleme ve bu dosyadan geri yükleme.
+- Günlüğünüzü TXT, CSV, JSON veya PDF olarak dışa aktarma.
+- Hesabınızı ve tüm verilerini istediğiniz zaman Ayarlar'dan silme.
+
+20 dil
+İngilizce, İbranice, Arapça, Çince (Basitleştirilmiş), Japonca, Hintçe, Tayca, İspanyolca, Portekizce, Fransızca, İtalyanca, Almanca, Rumence, Yunanca, Lehçe, Çekçe, Macarca, Rusça, Bulgarca ve Türkçe. Dilinizi istediğiniz zaman Ayarlar'da, Dil altında seçin; hesabınız bunu hatırlar. İbranice ve Arapça sağdan sola gösterilir.
+
+Erişilebilirlik
+- Ekran okuyucularla çalışır: net başlıklar, etiketli alanlar ve sesli okunan durum mesajları.
+- Açık, koyu ve yüksek karşıtlık temaları, ayarlanabilir metin boyutu ve hareketi azaltma seçeneği.
+
+Lütfen dikkat
+Your Personal Diary, 16 yaş ve üzeri kişiler için kişisel günlük tutma aracıdır. Tıbbi ya da teşhis amaçlı bir araç değildir ve içgörüleri tıbbi veya psikolojik tavsiye değildir. Sağlığınızla ilgili endişeleriniz varsa lütfen bir uzmana danışın.
