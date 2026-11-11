@@ -517,8 +517,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'Túl sok regisztráció érkezett a hálózatodból. Kérjük, próbáld újra később.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'A fiók létrehozásához meg kell erősítened, hogy elolvastad az adatvédelmi irányelveket, és elfogadod őket. Ha nem látsz bejelölhető négyzetet, frissítsd az alkalmazást.',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': 'A fiók létrehozásához meg kell erősítened, hogy elolvastad a felhasználási feltételeket, és elfogadod őket. Ha nem látsz bejelölhető négyzetet, frissítsd az alkalmazást.',
   'server.error.busy': 'A szerver jelenleg túlterhelt. Kérjük, próbáld újra egy pillanat múlva.',
   'server.vault.quota': 'A naplód elérte a szerver méretkorlátját ({max} MB). Törölj néhány bejegyzést, hogy helyet szabadíts fel.',
   'server.owner.unset': 'Ehhez a szerverhez még nincs tulajdonos beállítva. Az üzemeltetőnek a DIARY_OWNER_ID értékét a tulajdonos fiókazonosítójára kell állítania.',

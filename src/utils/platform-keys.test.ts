@@ -20,8 +20,8 @@ import { ST } from '@/pages/settings/texts';
 import { renderWithProviders } from '@/test/render';
 import { MAC_COMMAND, MAC_OPTION, MAC_SHIFT, platformizeHint, shortcutLabel } from './platform-keys';
 
-/** U+200E LEFT-TO-RIGHT MARK: `platformizeHint` puts it before the glyph (invisible; keeps "⌘S" in order in a Hebrew or Arabic sentence). */
-const LRM = '‎';
+/** U+200E LEFT-TO-RIGHT MARK: `platformizeHint` puts it before the glyph (invisible, hence the escape; keeps "⌘S" in order in a Hebrew or Arabic sentence). */
+const LRM = '\u200E';
 
 /** Every key combination the dialog lists and its Mac wording. */
 const LABELS: [string, string][] = [
@@ -84,9 +84,23 @@ describe('shortcutLabel', () => {
     }
   });
 
-  it('several modifiers: every word becomes its glyph, in order', () => {
-    expect(shortcutLabel('Ctrl+Shift+S', true)).toBe('⌘⇧S');
-    expect(shortcutLabel('Ctrl+Alt+Delete', true)).toBe('⌘⌥Delete');
+  it('several modifiers (none in the dialog today): the glyphs in Apple\'s order Option, Shift, Command, whatever the order of the words', () => {
+    const several: [string, string][] = [
+      ['Ctrl+Shift+S', '⇧⌘S'],
+      ['Shift+Ctrl+S', '⇧⌘S'],
+      ['Ctrl+Alt+Delete', '⌥⌘Delete'],
+      ['Alt+Shift+K', '⌥⇧K'],
+      ['Shift+Alt+Ctrl+X', '⌥⇧⌘X'],
+    ];
+    for (const [keys, mac] of several) {
+      expect(shortcutLabel(keys, true), keys).toBe(mac);
+      expect(shortcutLabel(mac, true), mac).toBe(mac);
+    }
+  });
+
+  it('the key after the modifiers is kept as it is, a "+" key included', () => {
+    expect(shortcutLabel('Ctrl++', true)).toBe('⌘+');
+    expect(shortcutLabel('Ctrl+Shift++', true)).toBe('⇧⌘+');
   });
 
   it('outside the Mac app (the Windows app, the web UI) the text is returned unchanged', () => {
@@ -228,5 +242,35 @@ describe('the two render sites of the hints', () => {
     unmount();
     renderWithProviders(createElement(SecuritySection), { auth: 'authenticated' });
     expect(screen.getByText(ST.lockNowHint)).toBeInTheDocument();
+  });
+
+  it('phone app on a touch screen: no "lock with Ctrl+L" hint in the Security card (a keyboard and a fine pointer bring it back)', () => {
+    vi.stubGlobal('__MOBILE__', true);
+    const media = (fine: boolean) =>
+      vi.spyOn(window, 'matchMedia').mockImplementation(
+        (query: string) =>
+          ({
+            matches: fine && query.includes('pointer: fine'),
+            media: query,
+            onchange: null,
+            addListener: () => undefined,
+            removeListener: () => undefined,
+            addEventListener: () => undefined,
+            removeEventListener: () => undefined,
+            dispatchEvent: () => false,
+          }) as unknown as MediaQueryList,
+      );
+    try {
+      media(false);
+      const { unmount } = renderWithProviders(createElement(SecuritySection), { auth: 'authenticated' });
+      expect(screen.queryByText(ST.lockNowHint)).toBeNull();
+      unmount();
+      vi.restoreAllMocks();
+      media(true);
+      renderWithProviders(createElement(SecuritySection), { auth: 'authenticated' });
+      expect(screen.getByText(ST.lockNowHint)).toBeInTheDocument();
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });

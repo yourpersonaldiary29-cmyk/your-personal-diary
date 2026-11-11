@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: सहायता - Your Personal Diary
+description: Your Personal Diary के लिए सहायता - हमसे कैसे संपर्क करें, और पासवर्ड, साइन इन, बिना कनेक्शन के काम करने, भाषाओं, आपके डेटा और आपके खाते से जुड़े आम सवालों के जवाब।
 languages: भाषाएँ
 otherPage: गोपनीयता नीति
 ---
 
-# Support - Your Personal Diary
+# सहायता - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Your Personal Diary {{PUBLISHER_NAME}} द्वारा संचालित है। संपर्क: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})।
 
-## 1. How to contact us
+## 1. हमसे कैसे संपर्क करें
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) पर लिखें। हम 30 दिनों के भीतर जवाब देते हैं, आमतौर पर इससे काफ़ी पहले। अपने खाते से जुड़ी किसी भी बात के लिए, उस खाते में दर्ज ईमेल पते से लिखें, ताकि हम जान सकें कि यह आप ही हैं। अपना पासवर्ड कभी न भेजें: हम उसे कभी नहीं माँगते, और आपकी मदद के लिए हमें उसकी ज़रूरत नहीं है।
 
-## 2. Frequent questions
+## 2. आम सवाल
 
-### I forgot my password
+### मुझे अपना पासवर्ड याद नहीं है
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+साइन-इन स्क्रीन पर **पासवर्ड भूल गए?** चुनें और वह ईमेल पता डालें जिससे आपने पंजीकरण किया था। एक लिंक और 6 अंकों के कोड वाला संदेश संचालक के अपने ईमेल पते से भेजा जाता है; अगर यह कुछ मिनटों में नहीं आता, तो स्पैम फ़ोल्डर देखें। लिंक और कोड 30 मिनट तक मान्य हैं और केवल एक बार इस्तेमाल किए जा सकते हैं। आपकी डायरी बनी रहती है: नया पासवर्ड चुनने से कुछ भी नहीं हटता।
 
-### I cannot sign in, or the app says "too many attempts"
+### साइन इन नहीं हो पा रहा, या ऐप "बहुत अधिक प्रयास" दिखाता है
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+यूज़रनेम या ईमेल पता और पासवर्ड जाँचें (कीबोर्ड की भाषा और बड़े अक्षरों पर ध्यान दें)। 10 गलत पासवर्ड के बाद आपके नेटवर्क से साइन इन 15 मिनट के लिए लॉक हो जाता है; इंतज़ार करें, फिर दोबारा कोशिश करें। अगर आपको पासवर्ड अब याद नहीं है, तो **पासवर्ड भूल गए?** का उपयोग करें। अगर ऐप कहता है कि कनेक्शन नहीं है, तो अगला सवाल देखें।
 
-### The app says there is no connection
+### ऐप कहता है कि कनेक्शन नहीं है
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+ऐप को साइन इन, खोज, आँकड़ों और अंतर्दृष्टियों, बैकअप और निर्यात, और आपके खाते में बदलावों के लिए सर्वर की ज़रूरत होती है। बिना कनेक्शन के भी आप लिख सकते हैं: आप जो लिखते हैं वह आपके डिवाइस पर एन्क्रिप्ट होकर सहेजा जाता है, और कनेक्शन लौटने पर अपलोड हो जाता है, भले ही बीच में ऐप बंद हो गया हो। अगर आपने **मुझे याद रखें** चुना है, तो Windows, Mac, Android और iPhone ऐप आपकी हाल की एंट्रियाँ, आदतें और आज का डेटा भी डिवाइस पर रखी एन्क्रिप्टेड प्रति से खोलते हैं; आप उन्हें अपने पासवर्ड से या डिवाइस के स्क्रीन लॉक (Windows Hello, Touch ID, Face ID या फ़ोन का स्क्रीन लॉक) से अनलॉक करते हैं। डिवाइस का इंटरनेट कनेक्शन जाँचें, फिर ऐप में **अभी कोशिश करें** चुनें।
 
-### How do I change the language?
+### भाषा कैसे बदलें?
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+**सेटिंग्स** खोलें और **भाषा** कार्ड में सूची से इंटरफ़ेस की भाषा चुनें; पूरी डायरी तुरंत बदल जाती है। साइन इन करने से पहले यह चुनाव इसी डिवाइस पर रहता है; साइन इन के बाद यह आपके खाते में सहेजा जाता है, ताकि आपके दूसरे डिवाइस भी इसका पालन करें। डायरी 20 भाषाओं में उपलब्ध है।
 
-### How do I get my data out?
+### अपना डेटा बाहर कैसे निकालें?
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+**सेटिंग्स - बैकअप** में आप एक **बैकअप** बना सकते हैं: पूरी डायरी (एंट्रियाँ, आदतें और सेटिंग्स) की एन्क्रिप्टेड प्रति, ऐप के अपने फ़ॉर्मैट में, पासवर्ड से सुरक्षित, जिसे आप बाद में ऐप में बहाल कर सकते हैं। उसी पेज पर **निर्यात** आपकी एंट्रियों को पढ़ने योग्य फ़ाइल के रूप में लिखता है - TXT, CSV, JSON या PDF - पढ़ने, प्रिंट करने या किसी दूसरे प्रोग्राम के लिए। निर्यात की गई फ़ाइल एन्क्रिप्टेड नहीं होती: जिसके पास फ़ाइल है वह उसे पढ़ सकता है, इसलिए उसे डायरी जितनी ही सावधानी से रखें।
 
-### How do I delete my account?
+### अपना खाता कैसे हटाएँ?
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+साइन इन करें, **सेटिंग्स** खोलें और आख़िरी कार्ड **खाता हटाएँ** पर जाएँ: अपना पासवर्ड डालें और पुष्टि करें। इससे आपका खाता, आपकी डायरी, आदतें और सेटिंग्स सर्वर से तुरंत हट जाती हैं और आप हर डिवाइस पर साइन आउट हो जाते हैं; इसे पलटा नहीं जा सकता, और आपके द्वारा ख़ुद सहेजी गई बैकअप फ़ाइलों पर कोई असर नहीं पड़ता। अगर आप साइन इन नहीं कर सकते, तो खाता हटाने वाले पेज पर दिए गए चरणों का पालन करें: [{{DELETE_URL}}]({{DELETE_URL}})।
 
-### On which devices can I use the diary?
+### डायरी किन डिवाइसों पर इस्तेमाल की जा सकती है?
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+**Windows**, **Mac**, **Android** और **iPhone** (जब यह प्रकाशित हो जाएगा) के ऐप में, और किसी भी ब्राउज़र में वेबसाइट [{{SITE_URL}}]({{SITE_URL}}) पर। हर जगह एक ही खाता है: आप एक डिवाइस पर जो भी लिखते हैं, वह बाकी सभी डिवाइसों पर उनके जुड़ते ही दिखाई देता है।
 
-### How do reminders work?
+### रिमाइंडर कैसे काम करते हैं?
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+रिमाइंडर आदतों से जुड़े होते हैं: हर आदत का समय आप आदतों के पेज पर तय करते हैं और रिमाइंडर **सेटिंग्स - रिमाइंडर** में चालू करते हैं। फ़ोन पर ऐप सूचनाएँ दिखाने की अनुमति माँगता है; अगर आपने मना कर दिया था, तो फ़ोन की सेटिंग्स में Your Personal Diary के लिए सूचनाओं की अनुमति दें, वरना रिमाइंडर केवल तब दिखेंगे जब ऐप खुला हो। कंप्यूटर पर और ब्राउज़र में, रिमाइंडर तब दिखता है जब डायरी खुली हो। रिमाइंडर डिवाइस पर ही बनाए जाते हैं; बाहर कुछ भी नहीं भेजा जाता।
 
-### Is the app medical advice?
+### क्या यह ऐप चिकित्सा सलाह है?
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+नहीं। ऐप की अंतर्दृष्टियाँ आपकी अपनी एंट्रियों में संभावित संबंधों का वर्णन करती हैं। वे कारण और परिणाम सिद्ध नहीं करतीं और वे चिकित्सा या मनोवैज्ञानिक सलाह नहीं हैं। अगर आप अपने स्वास्थ्य या मनोदशा को लेकर चिंतित हैं, तो किसी डॉक्टर या दूसरे विशेषज्ञ से बात करें।
 
-## 3. Privacy policy and account deletion
+## 3. गोपनीयता नीति, उपयोग की शर्तें और खाता हटाना
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- गोपनीयता नीति: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - हम क्या सहेजते हैं, कहाँ, और वह कैसे सुरक्षित है।
+- उपयोग की शर्तें: [{{TERMS_URL}}]({{TERMS_URL}}) - सेवा के उपयोग के नियम, जिनमें हर व्यक्ति के लिए एक ही खाता शामिल है।
+- खाता हटाना: [{{DELETE_URL}}]({{DELETE_URL}}) - उनके लिए भी जो साइन इन नहीं कर सकते।
 
-## 4. Operator
+## 4. संचालक
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

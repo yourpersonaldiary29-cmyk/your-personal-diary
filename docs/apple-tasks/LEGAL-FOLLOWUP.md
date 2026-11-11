@@ -1,6 +1,8 @@
 # LEGAL follow-up: the privacy policy sentence for the offline unlock by password
 
-Written by the OFFLINE-PASSWORD package (2026-11-08). `legal/**` belongs to the LEGAL package, which runs in parallel, so nothing here is applied: the main session (or the LEGAL fixer) copies the sentences below into the policy. Source of truth for the behaviour: `docs/android-tasks/OFFLINE-DESIGN.md` section 13, note "2026-11-08, owner decision: offline unlock by password".
+**STATUS 2026-11-11: APPLIED - do not apply again.** Both sentences are in legal/privacy/privacy-en.md and privacy-he.md, section 5, with the aligned wording of the TERMS base writer ("each guess costing as much as against the server but with no limit on the number of tries"), and are translated into all 20 languages (LEGAL-DIFF.md item g, TERMS-DIFF.md).
+
+Written by the OFFLINE-PASSWORD package (2026-11-08). `legal/**` belonged to the LEGAL package, which ran in parallel, so nothing here was applied at the time: the main session (or the LEGAL fixer) was to copy the sentences below into the policy. Source of truth for the behaviour: `docs/android-tasks/OFFLINE-DESIGN.md` section 13, note "2026-11-08, owner decision: offline unlock by password".
 
 ## What changed in the app
 

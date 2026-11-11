@@ -501,8 +501,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'عدد كبير جدًا من التسجيلات من شبكتك. يرجى المحاولة لاحقًا.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'لإنشاء حساب، يجب تأكيد أنك قرأت سياسة الخصوصية وتوافق عليها. إذا لم يظهر مربع لتحديده، فحدِّث التطبيق.',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': 'لإنشاء حساب، يجب تأكيد أنك قرأت شروط الاستخدام وتوافق عليها. إذا لم يظهر مربع لتحديده، فحدِّث التطبيق.',
   'server.error.busy': 'الخادم مشغول الآن. يرجى المحاولة بعد لحظات.',
   'server.vault.quota': 'وصلت يومياتك إلى حد الحجم المسموح به على هذا الخادم ({max} ميغابايت). احذف بعض المدخلات لإفساح المجال.',
   'server.owner.unset': 'لم يتم تعيين مالك لهذا الخادم بعد. على المشغّل ضبط DIARY_OWNER_ID على معرّف حساب المالك.',

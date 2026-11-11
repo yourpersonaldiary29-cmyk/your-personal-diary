@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: Támogatás - Your Personal Diary
+description: Segítség a Your Personal Diary használatához - hogyan érhetsz el minket, és válaszok a gyakori kérdésekre a jelszóról, a bejelentkezésről, a kapcsolat nélküli használatról, a nyelvekről, az adataidról és a fiókodról.
 languages: Nyelvek
 otherPage: Adatvédelmi irányelvek
 ---
 
-# Support - Your Personal Diary
+# Támogatás - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+A Your Personal Diary üzemeltetője: {{PUBLISHER_NAME}}. Kapcsolat: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-## 1. How to contact us
+## 1. Hogyan érhetsz el minket
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+Írj nekünk ide: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). 30 napon belül válaszolunk, általában sokkal hamarabb. A fiókodat érintő ügyekben a fiókhoz regisztrált e-mail-címről írj, hogy tudjuk, valóban te vagy az. Soha ne küldd el a jelszavadat: sosem kérjük, és nincs rá szükségünk ahhoz, hogy segítsünk.
 
-## 2. Frequent questions
+## 2. Gyakori kérdések
 
-### I forgot my password
+### Elfelejtettem a jelszavamat
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+A bejelentkezési képernyőn válaszd az **Elfelejtetted a jelszavad?** lehetőséget, és add meg az e-mail-címet, amellyel regisztráltál. Egy linket és egy 6 jegyű kódot tartalmazó üzenet érkezik az üzemeltető saját e-mail-címéről; ha néhány percen belül nem érkezik meg, nézd meg a levélszemét (spam) mappát. A link és a kód 30 percig érvényes, és egyszer használható. A naplód megmarad: az új jelszó megadása semmit sem töröl.
 
-### I cannot sign in, or the app says "too many attempts"
+### Nem tudok bejelentkezni, vagy az alkalmazás „túl sok próbálkozást" jelez
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+Ellenőrizd a felhasználónevet vagy az e-mail-címet és a jelszót (figyelj a billentyűzet nyelvére és a nagybetűkre). 10 hibás jelszó után a bejelentkezés a hálózatodról 15 percre zárolódik; várj, majd próbáld újra. Ha már nem tudod a jelszót, használd az **Elfelejtetted a jelszavad?** lehetőséget. Ha az alkalmazás azt jelzi, hogy nincs kapcsolat, lásd a következő kérdést.
 
-### The app says there is no connection
+### Az alkalmazás azt jelzi, hogy nincs kapcsolat
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+Az alkalmazásnak a szerverre van szüksége a bejelentkezéshez, a kereséshez, a statisztikákhoz és a megállapításokhoz, a biztonsági mentésekhez és az exportáláshoz, valamint a fiókod módosításaihoz. Kapcsolat nélkül is írhatsz: amit írsz, titkosítva az eszközödre kerül, és a kapcsolat visszatérésekor feltöltődik, akkor is, ha közben bezártad az alkalmazást. Ha az **Emlékezz rám** lehetőséget választottad, a Windows-, a Mac-, az Android- és az iPhone-alkalmazás a legutóbbi bejegyzéseidet, a szokásaidat és a mai adatokat is megnyitja az eszközön lévő titkosított másolatból; ezeket a jelszavaddal vagy az eszköz képernyőzárával oldhatod fel (Windows Hello, Touch ID, Face ID vagy a telefon képernyőzára). Ellenőrizd az eszköz internetkapcsolatát, majd válaszd az alkalmazásban a **Próbáld most** lehetőséget.
 
-### How do I change the language?
+### Hogyan változtathatom meg a nyelvet?
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+Nyisd meg a **Beállítások** oldalt, és a **Nyelv** kártyán válaszd ki a listából a felület nyelvét; az egész napló azonnal átvált. Bejelentkezés előtt a választás ezen az eszközön marad meg; bejelentkezés után a fiókodba mentődik, így a többi eszközöd is követi. A napló 20 nyelven érhető el.
 
-### How do I get my data out?
+### Hogyan vihetem ki az adataimat?
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+A **Beállítások - Biztonsági mentés** részben **biztonsági mentést** készíthetsz: a teljes napló (bejegyzések, szokások és beállítások) titkosított másolatát az alkalmazás saját formátumában, jelszóval védve, amelyet később visszaállíthatsz az alkalmazásban. Ugyanezen az oldalon az **exportálás** olvasható fájlba írja a bejegyzéseidet - TXT, CSV, JSON vagy PDF formátumban - olvasáshoz, nyomtatáshoz vagy egy másik programhoz. Az exportált fájl nincs titkosítva: bárki elolvashatja, akinél a fájl van, ezért ugyanolyan gondosan őrizd, mint magát a naplót.
 
-### How do I delete my account?
+### Hogyan törölhetem a fiókomat?
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+Jelentkezz be, nyisd meg a **Beállítások** oldalt, és lépj az utolsó kártyára, a **Fiók törlése** részhez: add meg a jelszavadat, és erősítsd meg. Ez azonnal törli a szerverről a fiókodat, a naplódat, a szokásaidat és a beállításaidat, és minden eszközön kijelentkeztet; nem vonható vissza, és az általad mentett biztonsági mentési fájlokat nem érinti. Ha nem tudsz bejelentkezni, kövesd a fióktörlési oldal lépéseit: [{{DELETE_URL}}]({{DELETE_URL}}).
 
-### On which devices can I use the diary?
+### Milyen eszközökön használhatom a naplót?
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+Az alkalmazásokban: **Windows**, **Mac**, **Android** és **iPhone** (amikor megjelenik), valamint a weboldalon [{{SITE_URL}}]({{SITE_URL}}), bármelyik böngészőben. Mindenhol ugyanaz az egy fiók: amit az egyik eszközön írsz, az megjelenik a többin is, amint csatlakoznak.
 
-### How do reminders work?
+### Hogyan működnek az emlékeztetők?
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+Az emlékeztetők a szokásokhoz tartoznak: az egyes szokások időpontját a szokások oldalán állítod be, az emlékeztetőket pedig a **Beállítások - Emlékeztetők** részben kapcsolod be. Telefonon az alkalmazás engedélyt kér az értesítések megjelenítésére; ha ezt elutasítottad, engedélyezd a Your Personal Diary értesítéseit a telefon beállításaiban, különben az emlékeztetők csak akkor jelennek meg, amikor az alkalmazás nyitva van. Számítógépen és böngészőben az emlékeztető akkor jelenik meg, amikor a napló nyitva van. Az emlékeztetőket maga az eszköz hozza létre; semmi sem megy ki az eszközről.
 
-### Is the app medical advice?
+### Orvosi tanácsnak számít az alkalmazás?
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Nem. Az alkalmazás megállapításai lehetséges összefüggéseket írnak le a saját bejegyzéseidben. Nem bizonyítanak ok-okozati kapcsolatot, és nem minősülnek orvosi vagy pszichológiai tanácsnak. Ha aggódsz az egészséged vagy a hangulatod miatt, beszélj orvossal vagy más szakemberrel.
 
-## 3. Privacy policy and account deletion
+## 3. Adatvédelmi irányelvek, felhasználási feltételek és fióktörlés
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- Adatvédelmi irányelvek: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - mit tárolunk, hol, és hogyan védjük.
+- Felhasználási feltételek: [{{TERMS_URL}}]({{TERMS_URL}}) - a szolgáltatás használatának szabályai, köztük személyenként egy fiók.
+- Fióktörlés: [{{DELETE_URL}}]({{DELETE_URL}}) - azoknak is, akik nem tudnak bejelentkezni.
 
-## 4. Operator
+## 4. Üzemeltető
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

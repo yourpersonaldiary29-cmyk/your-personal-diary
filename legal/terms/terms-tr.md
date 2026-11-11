@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: Kullanım Koşulları - Your Personal Diary
+description: Your Personal Diary'nin (Windows, Mac, Android ve iPhone uygulamaları ile web sitesi; iPhone uygulaması yayımlandığında) kullanım kuralları - kimlerin kullanabileceği, kişi başına bir hesap, içeriğiniz, kabul edilebilir kullanım ve sorumluluklarımız.
 languages: Diller
 otherPage: Gizlilik Politikası
 ---
 
-# Terms of Use - Your Personal Diary
+# Kullanım Koşulları - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+Yürürlük tarihi: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+Bir çeviri İngilizce sürümden farklıysa İngilizce sürüm geçerlidir.
 
-## In short
+## Kısaca
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary ücretsiz bir günlük hizmetidir. Günlüğünüz size aittir.
+- En az {{MINIMUM_AGE}} yaşında olmalısınız ve yazılı olarak daha fazlasını onaylamadığımız sürece her kişinin **yalnızca bir hesabı** olabilir.
+- Parolanızı gizli tutun, hizmeti yasalara uygun kullanın ve sizin için önemli olanların yedeğini alın.
+- Hizmet "olduğu gibi" sunulur. Tıbbi tavsiye değildir.
+- Verilerinizi nasıl işlediğimiz Gizlilik Politikası'nda açıklanmıştır: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
 
-## 1. Who we are and what these terms cover
+## 1. Biz kimiz ve bu koşullar neleri kapsar
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary, {{PUBLISHER_NAME}} ("biz") tarafından işletilir. Bu Kullanım Koşulları; Windows uygulaması, Mac uygulaması, Android uygulaması, iPhone uygulaması (yayımlandığında) ve [{{SITE_URL}}]({{SITE_URL}}) web sitesi için geçerlidir - hepsi birlikte "hizmet". Hepsi aynı sunucuyu ve aynı hesabı kullanır.
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+Bir hesap oluşturarak veya hizmeti kullanarak bu koşulları ve Gizlilik Politikası'nı [{{PRIVACY_URL}}]({{PRIVACY_URL}}) kabul etmiş olursunuz. Bir hesap oluştururken bunu tek bir onay kutusuyla onaylarsınız. Kabul etmiyorsanız lütfen hizmeti kullanmayın.
 
-## 2. Who may use the service
+## 2. Hizmeti kimler kullanabilir
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- Hesap oluşturmak için en az {{MINIMUM_AGE}} yaşında olmalısınız.
+- Yaşadığınız yerde reşit değilseniz, ülkenizin yasaları gerektirdiğinde hizmeti yalnızca bir ebeveyninizin veya vasinizin onayıyla kullanabilirsiniz.
+- Kayıt olurken verdiğiniz bilgiler (ad, kullanıcı adı ve e-posta adresi) doğru olmalı ve e-posta adresi, ileti alabildiğiniz bir adres olmalıdır. Bunları daha sonra Ayarlar'dan değiştirebilirsiniz.
+- Sunucudaki hesap sayısını sınırlayabilir ve örneğin hizmetin iyi çalışmasını sürdürmek için yeni kayıtları istediğimiz zaman durdurabiliriz.
 
-## 3. One account per person
+## 3. Kişi başına bir hesap
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**Yalnızca bir hesap açabilir ve sürdürebilirsiniz.** Birden fazla hesap açmak veya kullanmak, yalnızca işletmecinin önceden verilmiş yazılı onayıyla mümkündür; bu onay [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) adresine e-postayla istenir. Bu onay olmadan açılan hesaplar kapatılabilir.
 
-An account is personal: do not share it with others, and do not use another person's account.
+Hesap kişiseldir: onu başkalarıyla paylaşmayın ve başka birinin hesabını kullanmayın.
 
-## 4. Your account and password
+## 4. Hesabınız ve parolanız
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- Parolanızı gizli tutun ve başka hizmetler için kullanmayın. Güçlü bir parola seçin.
+- Hesabınızla yapılanlardan siz sorumlusunuz. Başka birinin parolanızı bildiğini veya hesabınızı kullandığını düşünüyorsanız parolayı hemen değiştirin ve bize [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) adresinden bildirin.
+- **Parolanızı asla istemeyiz** - ne e-postayla, ne telefonla ne de başka bir yolla. Onu isteyen kişi biz değiliz.
+- Başkalarının da kullandığı bir cihazda "Beni hatırla"yı seçmeyin ve işiniz bitince oturumu kapatın: "Beni hatırla" ile uygulama oturumunuzu açık tutar ve cihazda şifreli kopyalar saklar; bu, Gizlilik Politikası'nın 5. bölümünde açıklanmıştır.
 
-## 5. Your content
+## 5. İçeriğiniz
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- Günlüğünüze yazdıklarınız size aittir. Üzerinde hiçbir sahiplik iddia etmeyiz.
+- İçeriğinizi yalnızca size hizmeti sunmak için saklar ve işleriz - onu korumak, göstermek, içinde arama yapmak ve tüm cihazlarınızda aynı tutmak için. Gizlilik Politikası bunun nasıl yapıldığını açıklar.
+- Günlüğünüzü okumayız. Gizlilik Politikası'nın 4. bölümü, sunucunun işletmecisinin teknik olarak neler yapabileceğini ve neyi taahhüt ettiğimizi açıkça anlatır.
+- Yazdıklarınızdan siz sorumlusunuz. Yasa dışı içerik veya başkasına ait içeriği izni olmadan saklamayın.
+- İçeriğinizi istediğiniz zaman yanınızda götürebilirsiniz: **Ayarlar - Yedekleme** şifreli bir yedek oluşturur, dışa aktarma ise kayıtlarınızı okunabilir bir dosya olarak yazar. Bu kopyalar sizindir; saklayabilir ve kullanabilirsiniz.
 
-## 6. Acceptable use
+## 6. Kabul edilebilir kullanım
 
-When you use the service, you must not:
+Hizmeti kullanırken şunları yapmamalısınız:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- hizmeti yasa dışı herhangi bir amaçla ya da birine zarar vermek, birini taciz etmek veya tehdit etmek için kullanmak;
+- güvenliğini, sınırlarını (örneğin oturum açma denemelerine ilişkin sınırları) veya diğer hesapların korumasını kırmaya ya da atlatmaya çalışmak;
+- hizmete, sunuldukları şekliyle uygulamalar ve web sitesi dışında, otomatik araçlarla (botlar, betikler, veri kazıma) erişmek;
+- sunucuyu aşırı yüklemek ya da sunucunun veya diğer kullanıcıların işleyişine müdahale etmek;
+- hizmeti yeniden satmak ya da hizmeti veya ona erişimi başkalarına sunmak;
+- yasanın izin verdiği durumlar dışında sunucuyu kopyalamak, kaynak koda dönüştürmek veya tersine mühendislikle çözümlemek;
+- hesabınızı paylaşmak veya onay olmadan birden fazla hesap kullanmak (3. bölüm).
 
-## 7. The service
+## 7. Hizmet
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- Hizmet bugün **ücretsizdir**. Bir gün herhangi bir şey için ücret almak istersek bunu önceden söyleriz ve sizin onayınız olmadan hiçbir şey ücretli hale gelmez.
+- Özellikler zamanla değişebilir, eklenebilir veya kaldırılabilir.
+- Hizmeti erişilebilir tutmayı amaçlarız, ancak her zaman erişilebilir veya hatasız olacağını vaat etmeyiz. Bakım, güncellemeler veya barındırma sorunları hizmeti kesintiye uğratabilir.
+- Sizin için önemli olanların **yedeğini alın** (Ayarlar - Yedekleme). Sunucuya ve yedeklerine özen gösteririz, ancak kaybolan içerikten yasanın gerektirdiğinin ötesinde sorumlu değiliz.
+- Bağlantı olmadan çalışma (cihazınızdaki kopyalar ve çevrimdışı mod) bir kolaylıktır. Her cihazda veya her an kullanılamayabilir.
 
-## 8. Suspension and closing an account
+## 8. Hesabın askıya alınması ve kapatılması
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- Bu koşulları ihlal eden bir hesabı - makul ölçüde mümkün olduğunda bir bildirimden sonra - askıya alabilir veya kapatabiliriz ve yasanın gerektirdiği durumlarda içeriği kaldırabiliriz.
+- Hesabınızı istediğiniz zaman kapatabilirsiniz: oturum açın ve **Ayarlar - Hesabı sil** bölümünü açın. Oturum açamıyorsanız [{{DELETE_URL}}]({{DELETE_URL}}) sayfasındaki adımları izleyin.
+- Bir hesap kapatıldığında veya silindiğinde verilerinize ne olduğu, Gizlilik Politikası'nın 7. bölümünde açıklanmıştır.
 
-## 9. If the service ends
+## 9. Hizmet sona ererse
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+Hizmeti sonlandırmaya karar verirsek, bunu sona ermesinden en az 30 gün önce [{{SITE_URL}}]({{SITE_URL}}) adresinde duyururuz. Bu süre boyunca, günlüğünüzü yanınızda götürebilmeniz için yedekleme ve dışa aktarma kullanılabilir kalır.
 
-## 10. Not medical advice
+## 10. Tıbbi tavsiye değildir
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Uygulamadaki içgörüler, kendi kayıtlarınızdaki olası ilişkileri tanımlar. Neden-sonuç ilişkisini kanıtlamaz ve tıbbi veya psikolojik tavsiye değildir. Sağlığınız veya ruh haliniz konusunda endişeleriniz varsa bir doktorla veya başka bir uzmanla konuşun.
 
-## 11. Intellectual property
+## 11. Fikri mülkiyet
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+Uygulamalar, web sitesi, bunların metinleri ve tasarımı işletmeciye aittir ve yalnızca bu koşulların izin verdiği şekilde kullanılabilir. "Your Personal Diary" hizmetin adıdır. Uygulamalarda yer alan açık kaynaklı bileşenler kendi lisanslarına tabi olmaya devam eder.
 
-## 12. Liability and warranty
+## 12. Sorumluluk ve garanti
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- Yasanın izin verdiği ölçüde hizmet, hiçbir garanti olmaksızın "olduğu gibi" ve "erişilebildiği ölçüde" (as is, as available) sunulur.
+- Yasanın izin verdiği ölçüde, kâr kaybı veya fırsat kaybı gibi dolaylı ya da sonuç olarak ortaya çıkan zararlardan sorumlu değiliz.
+- Ülkenizin emredici hukuku uyarınca tüketici olarak sahip olduğunuz haklar bu koşullardan etkilenmez.
+- Bu koşullardaki hiçbir şey, yasa gereği sınırlandırılamayan sorumluluğu sınırlamaz.
 
-## 13. Changes to these terms
+## 13. Bu koşullardaki değişiklikler
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+Hizmet veya bu koşullar değiştiğinde bu sayfayı ve en üstteki yürürlük tarihini güncelleriz. Önemli değişiklikler, uygulanmaya başlamadan önce bu sayfada duyurulur. Bir değişiklik uygulanmaya başladıktan sonra hizmeti kullanmaya devam ederseniz yeni koşulları kabul etmiş olursunuz; kabul etmiyorsanız hesabınızı istediğiniz zaman silebilirsiniz (8. bölüm). Kayıt olurken kabul ettiğiniz sürüm hesabınızla birlikte kaydedilir.
 
-## 14. Disagreements
+## 14. Anlaşmazlıklar
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+Bir şikâyetiniz veya bizimle bir anlaşmazlığınız varsa lütfen önce [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) adresine yazın - sorunu e-postayla çözmeye çalışacağız. Bu koşullardaki hiçbir şey, yaşadığınız ülkenin yasalarının size tanıdığı hakları elinizden almaz.
 
-## 15. Contact
+## 15. İletişim
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+Bu koşullarla ilgili sorular: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+Destek ve sık sorulan sorular: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

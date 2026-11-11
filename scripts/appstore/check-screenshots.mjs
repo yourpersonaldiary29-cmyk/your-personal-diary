@@ -11,6 +11,7 @@
  *                                                               with --locales <file> another locales.json and
  *                                                               with --icon <file> another icon (default: none)
  *   node scripts/appstore/check-screenshots.mjs --json          the result as JSON
+ *   node scripts/appstore/check-screenshots.mjs --no-ios        without the iPhone project's icon slot (below)
  *
  * Apple's rules, quoted in docs/apple-tasks/APPSTORE-FACTS.md section 6 (screenshot specifications, read
  * 2026-11-08) and section 7 (app icon):
@@ -39,7 +40,16 @@
  *     whose files match the files on disk (size and SHA-256), "layout": "clean" (the render's layout rules: no
  *     cut, covered or broken text), the right app language, and a transport log naming no host but 127.0.0.1
  *     with no refused request;
- *   - nothing else in appstore/screenshots but the three sets, README.md and README.he.md.
+ *   - nothing else in appstore/screenshots but the three sets, README.md and README.he.md;
+ *   - the images are NOT in the git repository (.gitignore ignores every PNG under appstore/screenshots - 418 files,
+ *     about 100 MB, made again by the render; only the READMEs and the render logs are committed): a set folder
+ *     without any localization folder (a fresh clone) gets one extra line saying so, next to the per-localization
+ *     FAILs;
+ *   - the iPhone project's App Store icon slot, once the Xcode project is on this computer (ios/, generated on the
+ *     Mac by the IOS package and copied back): App Store Connect takes the App Store icon from the build's asset
+ *     catalog (APPSTORE-FACTS 7.2), so the 1024x1024 image of ios/App/App/Assets.xcassets/AppIcon.appiconset must
+ *     be appstore/icon/AppIcon-1024.png (the same file, or the same pixels as 24-bit RGB without alpha) - not the
+ *     Capacitor template's placeholder. Without an ios/ folder the table says it was not checked.
  */
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -54,6 +64,8 @@ export const ROOT = path.resolve(HERE, '..', '..');
 export const DEFAULT_DIR = APPSTORE_OUT_DIR;
 export const DEFAULT_LOCALES_FILE = APPSTORE_LOCALES_FILE;
 export const DEFAULT_ICON = path.join(ROOT, 'appstore', 'icon', 'AppIcon-1024.png');
+/** The App Store icon slot of the iPhone app's Xcode project (ios/ is generated on the Mac by the IOS package). */
+export const DEFAULT_IOS_ICONSET = path.join(ROOT, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset');
 export const PRIMARY_LOCALE = 'en-US';
 
 export const RULES = {
@@ -174,6 +186,51 @@ export function iconProblems(buf, rules = ICON_RULES) {
   return { info, problems };
 }
 
+/** A path for the messages: relative to the project, with forward slashes. */
+const relPath = (p) => (path.relative(ROOT, p) || p).split(path.sep).join('/');
+
+/**
+ * The App Store icon slot of the iPhone app's Xcode project. App Store Connect takes the App Store icon from the
+ * uploaded build's asset catalog (APPSTORE-FACTS 7.2), so the image of AppIcon.appiconset that Contents.json names
+ * for the 1024x1024 size (the entry without "appearances"; Capacitor's template calls the file AppIcon-512@2x.png)
+ * must be appstore/icon/AppIcon-1024.png: the same file, or - when Xcode or a tool wrote it again - the same pixels
+ * as an 8-bit RGB PNG without alpha. Returns null when the Xcode project is not on this computer (no ios/ folder,
+ * four levels above `iconset`: nothing to check yet), else { file, same, problems } (same: 'file' | 'pixels' | null).
+ */
+export function iosIconProblems(iconset = DEFAULT_IOS_ICONSET, icon = DEFAULT_ICON) {
+  if (!isDir(path.resolve(iconset, '..', '..', '..', '..'))) return null;
+  const contents = path.join(iconset, 'Contents.json');
+  const fix = `copy ${relPath(icon)} over it in the Mac's Xcode project (the one that is archived - sync-to-mac.sh never copies ios/ to the Mac), keeping the file name, then copy ios/ back to the PC (appstore/icon/README.md section 2)`;
+  if (!existsSync(contents)) return { file: relPath(contents), same: null, problems: ['missing - the iPhone project has no AppIcon asset catalog (appstore/icon/README.md section 2)'] };
+  let json;
+  try {
+    json = JSON.parse(readFileSync(contents, 'utf8'));
+  } catch (e) {
+    return { file: relPath(contents), same: null, problems: [`not valid JSON (${e.message})`] };
+  }
+  const slot = (Array.isArray(json?.images) ? json.images : []).find((i) => i && i.size === '1024x1024' && !(Array.isArray(i.appearances) && i.appearances.length));
+  if (!slot) return { file: relPath(contents), same: null, problems: ['has no 1024x1024 image - the App Store icon slot of the iPhone app'] };
+  if (!slot.filename) return { file: relPath(contents), same: null, problems: [`the 1024x1024 slot is empty - put ${relPath(icon)} into it (appstore/icon/README.md section 2)`] };
+  const file = path.join(iconset, slot.filename);
+  if (!existsSync(file)) return { file: relPath(file), same: null, problems: ['missing (Contents.json names it for the 1024x1024 slot)'] };
+  if (!existsSync(icon)) return { file: relPath(file), same: null, problems: [`cannot be compared: ${relPath(icon)} is missing`] };
+  const buf = readFileSync(file);
+  const want = readFileSync(icon);
+  if (sha256(buf) === sha256(want)) return { file: relPath(file), same: 'file', problems: [] };
+  let samePixels = false;
+  try {
+    const a = decodePng(buf);
+    const b = decodePng(want);
+    samePixels = a.width === b.width && a.height === b.height && a.data.every((v, i) => i % 4 === 3 || v === b.data[i]);
+  } catch {
+    samePixels = false;
+  }
+  if (!samePixels) return { file: relPath(file), same: null, problems: [`is not the App Store icon ${relPath(icon)} (Capacitor's template icon?) - ${fix}`] };
+  const info = readPng(buf);
+  if (info.alpha) return { file: relPath(file), same: null, problems: [`the App Store icon's pixels, but with an alpha channel - the App Store icon must have none: ${fix}`] };
+  return { file: relPath(file), same: 'pixels', problems: [] };
+}
+
 function readJson(file, problems, what) {
   try {
     return JSON.parse(readFileSync(file, 'utf8'));
@@ -186,14 +243,16 @@ function readJson(file, problems, what) {
 /**
  * Checks `dir` (appstore/screenshots). Options: `localesFile` (the appstore/locales.json whose folders every set
  * must have), `sets` (SETS by default; the tests pass smaller ones), `only` (set folders to check; the others are
- * not reported), `rules`, `icon` (the icon file to check; null skips it).
+ * not reported), `rules`, `icon` (the icon file to check; null skips it), `iosIconset` (the iPhone project's
+ * AppIcon.appiconset to compare with the icon - iosIconProblems; null skips it).
  * Returns { sets: [{ profile, folder, slot, size, locales: [{ locale, appLocale, files: [{ name, bytes, width,
- * height, problems }] }] }], icon, problems, warnings, ok }.
+ * height, problems }] }] }], icon, iosIcon, problems, warnings, ok } - iosIcon: null when not asked for,
+ * { checked: false, ... } without an Xcode project on this computer, else { checked: true, file, same, problems }.
  */
-export function checkScreenshots(dir = DEFAULT_DIR, { localesFile = DEFAULT_LOCALES_FILE, sets = SETS, only = null, rules = RULES, icon = dir === DEFAULT_DIR ? DEFAULT_ICON : null } = {}) {
+export function checkScreenshots(dir = DEFAULT_DIR, { localesFile = DEFAULT_LOCALES_FILE, sets = SETS, only = null, rules = RULES, icon = dir === DEFAULT_DIR ? DEFAULT_ICON : null, iosIconset = dir === DEFAULT_DIR ? DEFAULT_IOS_ICONSET : null } = {}) {
   const problems = [];
   const warnings = [];
-  const out = { sets: [], icon: null, problems, warnings, ok: false };
+  const out = { sets: [], icon: null, iosIcon: null, problems, warnings, ok: false };
   if (!isDir(dir)) {
     problems.push(`${dir} does not exist - render the sets first (node scripts/play/render-screenshots.mjs --profile ${sets.map((s) => s.profile).join(' / ')})`);
     return out;
@@ -229,6 +288,10 @@ export function checkScreenshots(dir = DEFAULT_DIR, { localesFile = DEFAULT_LOCA
     for (const name of readdirSync(setDir).sort()) {
       if (locales.includes(name) || name === RENDER_LOG) continue;
       problems.push(`${set.folder}/${name}: not an App Store localization of ${path.basename(localesFile)} (${locales.join(' ')}) nor ${RENDER_LOG}`);
+    }
+    // A fresh clone of the git repository has the render logs but no image (the PNGs are git-ignored).
+    if (!locales.some((locale) => isDir(path.join(setDir, locale)))) {
+      problems.push(`${set.folder}/: no images at all - the PNGs are not kept in the git repository (.gitignore), so a fresh copy of the project has only ${RENDER_LOG}; render the set: node scripts/play/render-screenshots.mjs --profile ${set.profile} (appstore/screenshots/README.md section 6)`);
     }
     const log = readJson(path.join(setDir, RENDER_LOG), problems, `${set.folder}/${RENDER_LOG}`);
     if (log) {
@@ -293,6 +356,15 @@ export function checkScreenshots(dir = DEFAULT_DIR, { localesFile = DEFAULT_LOCA
       out.icon = { file: rel, bytes: buf.length, width: info?.width ?? null, height: info?.height ?? null, colorType: info?.colorType ?? null, problems: own };
     }
   }
+
+  if (iosIconset) {
+    const ios = iosIconProblems(iosIconset, icon ?? DEFAULT_ICON);
+    if (!ios) out.iosIcon = { checked: false, file: relPath(iosIconset), same: null, problems: [] };
+    else {
+      out.iosIcon = { checked: true, ...ios };
+      for (const p of ios.problems) problems.push(`${ios.file}: ${p}`);
+    }
+  }
   out.ok = problems.length === 0;
   return out;
 }
@@ -315,12 +387,17 @@ export function formatReport(result) {
     const i = result.icon;
     lines.push(`icon  ${i.problems.length ? 'FAIL' : 'ok  '} ${i.file}: ${i.width ?? '?'}x${i.height ?? '?'}${i.colorType !== undefined && i.colorType !== null ? `, PNG colour type ${i.colorType}` : ''}${i.bytes !== null ? `, ${kb(i.bytes)}` : ''}`);
   }
+  if (result.iosIcon) {
+    const i = result.iosIcon;
+    if (!i.checked) lines.push(`ios   -    the iPhone Xcode project (ios/) is not on this computer yet - its App Store icon slot is checked once it is (${i.file})`);
+    else lines.push(`ios   ${i.problems.length ? 'FAIL' : 'ok  '} ${i.file}${i.problems.length ? ': not the App Store icon (see FAIL below)' : `: the App Store icon slot holds AppIcon-1024.png (${i.same === 'file' ? 'the same file' : 'the same pixels, RGB without alpha'})`}`);
+  }
   for (const w of result.warnings) lines.push(`WARN ${w}`);
   for (const p of result.problems) lines.push(`FAIL ${p}`);
   const sets = result.sets.length;
   lines.push(
     result.ok
-      ? `check-screenshots (App Store): ${sets} set${sets === 1 ? '' : 's'}, ${images} images - every set complete for every localization of locales.json, 24-bit RGB PNG without alpha at its class's exact size (Apple: 1-10 per device size, no transparency), no image repeated between localizations, render logs clean and 127.0.0.1 only${result.icon ? `, icon ${result.icon.width}x${result.icon.height} RGB` : ''}`
+      ? `check-screenshots (App Store): ${sets} set${sets === 1 ? '' : 's'}, ${images} images - every set complete for every localization of locales.json, 24-bit RGB PNG without alpha at its class's exact size (Apple: 1-10 per device size, no transparency), no image repeated between localizations, render logs clean and 127.0.0.1 only${result.icon ? `, icon ${result.icon.width}x${result.icon.height} RGB` : ''}${result.iosIcon?.checked ? ', the iPhone project carries it' : ''}`
       : `check-screenshots (App Store): ${result.problems.length} problem(s)`,
   );
   return lines.join('\n');
@@ -337,7 +414,8 @@ if (isMain) {
   const localesFile = value('--locales') ? path.resolve(value('--locales')) : DEFAULT_LOCALES_FILE;
   const only = value('--set') ? value('--set').split(',').map((s) => s.trim()).filter(Boolean) : null;
   const icon = args.includes('--no-icon') ? null : value('--icon') ? path.resolve(value('--icon')) : dir === DEFAULT_DIR ? DEFAULT_ICON : null;
-  const result = checkScreenshots(dir, { localesFile, only, icon });
+  const iosIconset = args.includes('--no-ios') || dir !== DEFAULT_DIR ? null : DEFAULT_IOS_ICONSET;
+  const result = checkScreenshots(dir, { localesFile, only, icon, iosIconset });
   console.log(args.includes('--json') ? JSON.stringify(result, null, 2) : formatReport(result));
   process.exit(result.ok ? 0 : 1);
 }

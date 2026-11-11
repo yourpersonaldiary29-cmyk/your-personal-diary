@@ -679,15 +679,15 @@
           "bottomNav": 65
         },
         "07-offline.png": {
-          "bytes": 354575,
-          "sha256": "b5bc4cf41ec6713ecda842587f93fd121de620ce7a0c46889e56d0319c0b077c",
+          "bytes": 351849,
+          "sha256": "ff94a79b762a74aa89bf3826f7a9eb6fcdbaeaf296dd272d683b5281430e4482",
           "scrollY": 2026,
           "bottomNav": 65
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 236,
+        "requests": 56,
         "hosts": [
           "127.0.0.1"
         ],
@@ -1078,15 +1078,15 @@
           "bottomNav": 65
         },
         "07-offline.png": {
-          "bytes": 309193,
-          "sha256": "6359d9f8041789068fd7f2f31465f1e4b74898e466ac399e564c7b83d2b364fb",
+          "bytes": 310065,
+          "sha256": "bce320cc8f18632e6d0a469815185e10f25b03ebc6788e4381bc912f042207c2",
           "scrollY": 1934,
           "bottomNav": 65
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 236,
+        "requests": 56,
         "hosts": [
           "127.0.0.1"
         ],

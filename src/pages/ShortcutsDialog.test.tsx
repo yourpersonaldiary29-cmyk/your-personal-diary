@@ -78,7 +78,9 @@ describe('ShortcutsDialog: the key column follows the platform', () => {
     expect(keyColumn()).toEqual(WORDS);
   });
 
-  it('the key stays a <kbd> in the first column, so assistive technology still announces it as keyboard input', () => {
+  // How VoiceOver reads "⌘", "⌥" and "⇧" ("command", "option", "shift"?) cannot be checked here: <kbd>
+  // has no ARIA role, so a screen reader reads the glyphs as text. That is a manual check on the Mac.
+  it('the key stays a <kbd> in the first column', () => {
     tauriShell(true);
     userAgent(MAC_UA);
     renderDialog();

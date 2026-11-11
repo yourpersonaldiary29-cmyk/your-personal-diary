@@ -50,8 +50,18 @@ shown in the App Store is taken from the uploaded build.
    under that name - the file name in `Contents.json` must stay what the catalog expects.
 4. Build and archive as usual; the App Store listing and the home screen use this icon.
 
-Because `ios/` is generated on the Mac and copied back to the PC, do this once in the Mac project and copy
-`ios/` back (ENV-FINAL: the PC tree is the source of truth), or do it on the PC and sync before the next build.
+Because `ios/` is generated on the Mac, and `bash scripts/mac/sync-to-mac.sh` never copies `ios/` from the PC to the
+Mac (it keeps the Mac's own `ios/`), make this change in the Mac project - the one that is archived - and then copy
+`ios/` back to the PC (ENV-FINAL: the PC tree is the source of truth; tar over ssh). A change made only in the PC's
+copy does not reach the Mac build.
+
+**Checked:** once `ios/` is on the PC, `node scripts/appstore/check-screenshots.mjs` compares the image that
+`Contents.json` names for the 1024x1024 slot with `AppIcon-1024.png` (the same file, or the same pixels as RGB without
+alpha) and prints `ios   ok ...` or a `FAIL` that names the file to replace - Capacitor's template placeholder in
+that slot would otherwise ship with the build and is a likely App Review rejection. The same check runs in
+`node --test "scripts/**/*.test.mjs"` (the project test of `check-screenshots.test.mjs`). As of 2026-11-10 there was no
+`ios/` on the PC yet (the IOS package creates it on the Mac); its brief (`docs/apple-tasks/IOS-I1.md` step 5) puts this
+file into the slot.
 
 ### Mac app (Tauri bundle)
 
@@ -94,3 +104,14 @@ with a message - adapt `flattenSvg` in `render-icon.mjs`.
 האייפון (ב-Mac: Assets.xcassets ← AppIcon ← גוררים את הקובץ למשבצת ה-1024), ומשם אפל לוקחת אותו מהבנייה שמעלים.
 לאפליקציית ה-Mac אין מה לעשות - האייקון שלה כבר בתוך הבנייה (`icon.icns`). לבדוק שהקובץ תקין:
 `node scripts/appstore/check-screenshots.mjs` (שורת `icon ok`). ליצור מחדש: `node appstore/icon/render-icon.mjs`.
+
+**לבדוק שהאייקון באמת בתוך פרויקט האייפון (לפני ה-Archive):** אותה פקודה בודקת גם את זה, ברגע שהתיקייה `ios` נמצאת
+בפרויקט במחשב הזה - שורה שמתחילה ב-`ios`:
+- `ios   ok` - האייקון בפנים. אין מה לעשות.
+- `ios   FAIL` - בפרויקט עדיין יש את אייקון ברירת המחדל של Capacitor (אפליקציה עם אייקון כזה עלולה להידחות). מתקנים
+  **ב-Mac**, בפרויקט שממנו בונים את האפליקציה: ב-Xcode פותחים Assets.xcassets ← AppIcon וגוררים אל הריבוע של 1024
+  את הקובץ `AppIcon-1024.png` (ב-Mac הוא בתיקייה `~/Developer/my-personal-diary/appstore/icon/`). או ב-Finder:
+  מעתיקים אותו לתיקייה `ios/App/App/Assets.xcassets/AppIcon.appiconset/` **במקום** הקובץ ששורת ה-FAIL מציינת, ובאותו
+  שם בדיוק (בדרך כלל `AppIcon-512@2x.png`). תיקון במחשב (PC) לא מגיע ל-Mac - פקודת הסנכרון לא נוגעת בתיקייה `ios`
+  שב-Mac. הבדיקה במחשב קוראת את העותק של `ios` שבמחשב, ולכן היא תראה `ok` רק אחרי שהעותק הזה מתעדכן מה-Mac.
+- `ios   -    ... not on this computer yet` - פרויקט האייפון עוד לא הועתק למחשב הזה; זה לא כישלון.

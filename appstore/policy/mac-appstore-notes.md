@@ -12,7 +12,7 @@ Package ANSWERS, written 2026-11-08. The Mac app has two routes (ENV-FINAL decis
 | SKU | `ypd-mac-001` | `app-information.md` |
 | Categories | Primary Lifestyle, Secondary Productivity. For macOS the category is also set in the build and must match: the bundle carries `LSApplicationCategoryType = public.app-category.lifestyle` from `"category": "Lifestyle"` in `src-tauri/tauri.macos.conf.json` (verified in the built bundle by WP-M4, `docs/APPLE-PLAN.md` 7.1) | FACTS 2.21 |
 | Subtitle, description, keywords, promotional text, URLs | the same files as the iPhone record (`appstore/listing/<locale>/`), optionally the Mac wording of `platform-notes.md` | ENV-FINAL decision 1 |
-| Age rating | the same answers and the same override to 16+ (`age-rating.md`) | FACTS 3.7 |
+| Age rating | the same answers and the same override (`age-rating.md` section 2: the tier follows `minimumAge` in `legal/settings.json`) | FACTS 3.7 |
 | App Privacy | the same six data types (`app-privacy.md`); the Mac record answers separately | FACTS 4.1 |
 | Pricing and Availability | Free, All Countries or Regions | FACTS 2.25 |
 | Copyright | `2026 Ouriel Sebag` | FACTS 2.14 |
@@ -39,7 +39,7 @@ The offline key of the Mac app is a Keychain item. The ad-hoc and Developer ID b
 
 ## 5. The SDK / Xcode rule and the build Mac
 
-- Apple's rule "built with Xcode 26 or later" names iOS, iPadOS, tvOS, visionOS and watchOS - **not macOS** (FACTS 8.1); the upload table lists macOS apps as built with "Xcode 6 or later" (FACTS 8.4, a reading of a flattened table). So, as Apple's pages stood on 2026-11-08, the Mac App Store build has no Xcode-26 floor, and the Tauri build itself needs only the Command Line Tools - the owner's MacBook Pro on macOS Sonoma 14.6.1 may suffice for route 2 (not tested).
+- Apple's rule "built with Xcode 26 or later" names iOS, iPadOS, tvOS, visionOS and watchOS - **not macOS** (FACTS 8.1); the upload table lists macOS apps as built with "Xcode 6 or later" (FACTS 8.4, a reading of a flattened table). So, as Apple's pages stood on 2026-11-08, the Mac App Store build has no Xcode-26 floor, and the Tauri build itself needs only the Command Line Tools. **This differs from ENV-FINAL decision 8**, which assumed macOS Tahoe + Xcode 26/27 on the build Mac for route 2: Apple's published rule does not require that for a macOS app, but whether Transporter (the upload app) runs on the owner's macOS Sonoma 14.6.1 was not verified (not in FACTS), and route 2 has never been built. The owner upgrades the Mac anyway for the iPhone app (next point), so plan route 2 on the upgraded Mac - that satisfies both readings.
 - The **iPhone** app does need Xcode 26+, which runs on macOS Sequoia 15.6 or later (Xcode 26.0-26.3) or Tahoe 26.2+ (FACTS 8.2, 8.3; ANSWERS amendment 8). Since the owner's Mac must be upgraded for the iPhone app anyway (to Tahoe 26.7.2 per the sprint plan), the same upgraded Mac then serves both records.
 - Apple may extend the SDK rule to macOS at any time: check `developer.apple.com/news/upcoming-requirements/` before the first Mac upload (FACTS 8.1 source).
 

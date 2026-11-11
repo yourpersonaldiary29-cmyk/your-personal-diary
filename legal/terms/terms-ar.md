@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: شروط الاستخدام - Your Personal Diary
+description: قواعد استخدام Your Personal Diary (تطبيقات Windows وMac وAndroid وiPhone والموقع؛ وتطبيق iPhone عند نشره): من يحق له استخدامه، وحساب واحد لكل شخص، ومحتواك، والاستخدام المقبول، ومسؤولياتنا.
 languages: اللغات
 otherPage: سياسة الخصوصية
 ---
 
-# Terms of Use - Your Personal Diary
+# شروط الاستخدام - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+تاريخ السريان: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+إذا اختلفت ترجمة عن النص الإنجليزي، فإن النص الإنجليزي هو المعتمد.
 
-## In short
+## باختصار
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary خدمة يوميات مجانية. ويومياتك ملك لك.
+- يجب أن يكون عمرك {{MINIMUM_AGE}} عامًا على الأقل، ويحق لكل شخص **حساب واحد فقط** ما لم نوافق كتابيًا على أكثر من ذلك.
+- حافظ على سرية كلمة مرورك، واستخدم الخدمة وفق القانون، واحتفظ بنسخة احتياطية مما يهمك.
+- تُقدَّم الخدمة "كما هي" (as is). وهي ليست نصيحة طبية.
+- طريقة تعاملنا مع بياناتك موضحة في سياسة الخصوصية: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
 
-## 1. Who we are and what these terms cover
+## 1. من نحن وما الذي تشمله هذه الشروط
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+مشغّل Your Personal Diary هو {{PUBLISHER_NAME}} ("نحن"). تنطبق شروط الاستخدام هذه على تطبيق Windows وتطبيق Mac وتطبيق Android وتطبيق iPhone (عند نشره) والموقع [{{SITE_URL}}]({{SITE_URL}}) - ويُشار إليها معًا بـ "الخدمة". وكلها تستخدم الخادم نفسه والحساب نفسه.
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+بإنشاء حساب أو باستخدام الخدمة، فإنك توافق على هذه الشروط وعلى سياسة الخصوصية [{{PRIVACY_URL}}]({{PRIVACY_URL}}). وعند إنشاء الحساب تؤكد ذلك بمربع اختيار واحد. إذا كنت لا توافق، فالرجاء عدم استخدام الخدمة.
 
-## 2. Who may use the service
+## 2. من يحق له استخدام الخدمة
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- يجب أن يكون عمرك {{MINIMUM_AGE}} عامًا على الأقل لإنشاء حساب.
+- إذا كنت قاصرًا في المكان الذي تعيش فيه، فلا يجوز لك استخدام الخدمة إلا بموافقة أحد الوالدين أو الوصي، حيث يشترط قانون بلدك ذلك.
+- يجب أن تكون البيانات التي تقدمها عند التسجيل (الاسم واسم المستخدم وعنوان البريد الإلكتروني) صحيحة، وأن يكون عنوان البريد الإلكتروني عنوانًا يمكنك استلام الرسائل عليه. ويمكنك تغييرها لاحقًا في الإعدادات.
+- يجوز لنا أن نحدّ من عدد الحسابات على الخادم وأن نوقف التسجيلات الجديدة في أي وقت، مثلًا لكي تستمر الخدمة في العمل جيدًا.
 
-## 3. One account per person
+## 3. حساب واحد لكل شخص
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**يحق لك فتح حساب واحد فقط والاحتفاظ به.** لا يُسمح بفتح أكثر من حساب واحد أو باستخدامه إلا بموافقة كتابية مسبقة من المشغّل، تُطلب بالبريد الإلكتروني على العنوان [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). والحسابات التي تُفتح دون هذه الموافقة قد تُغلق.
 
-An account is personal: do not share it with others, and do not use another person's account.
+الحساب شخصي: لا تشاركه مع الآخرين، ولا تستخدم حساب شخص آخر.
 
-## 4. Your account and password
+## 4. حسابك وكلمة مرورك
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- حافظ على سرية كلمة مرورك ولا تستخدمها في خدمات أخرى. واختر كلمة مرور قوية.
+- أنت مسؤول عما يحدث في حسابك. إذا ظننت أن شخصًا آخر يعرف كلمة مرورك أو يستخدم حسابك، فغيّر كلمة المرور فورًا وأبلغنا على [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+- **نحن لا نطلب كلمة مرورك أبدًا** - لا بالبريد الإلكتروني ولا بالهاتف ولا بأي طريقة أخرى. ومن يطلبها منك ليس نحن.
+- على جهاز يستخدمه أشخاص آخرون أيضًا، لا تختر "تذكّرني"، وسجّل الخروج عند الانتهاء: مع "تذكّرني" يُبقيك التطبيق مسجّل الدخول ويحتفظ بنسخ مشفّرة على الجهاز، كما يوضح القسم 5 من سياسة الخصوصية.
 
-## 5. Your content
+## 5. محتواك
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- ما تكتبه في يومياتك ملك لك. ولا ندّعي أي ملكية له.
+- نحفظ محتواك ونعالجه فقط لنقدّم لك الخدمة - لحفظه وعرضه والبحث فيه وإبقائه متطابقًا على أجهزتك. وتشرح سياسة الخصوصية كيف يتم ذلك.
+- نحن لا نقرأ يومياتك. ويشرح القسم 4 من سياسة الخصوصية بوضوح ما يستطيع مشغّل الخادم فعله من الناحية التقنية، وما نتعهد به.
+- أنت مسؤول عما تكتبه. لا تحفظ محتوى غير قانوني، أو محتوى يخص شخصًا آخر دون إذنه.
+- يمكنك أخذ محتواك معك في أي وقت: تنشئ **الإعدادات - النسخ الاحتياطي** نسخة احتياطية مشفّرة، ويكتب التصدير إدخالاتك في ملف مقروء. وهذه النسخ ملك لك تحتفظ بها وتستخدمها.
 
-## 6. Acceptable use
+## 6. الاستخدام المقبول
 
-When you use the service, you must not:
+عند استخدام الخدمة، يُحظر عليك:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- استخدامها لأي غرض غير قانوني، أو لإيذاء أي شخص أو مضايقته أو تهديده؛
+- محاولة اختراق أمانها أو التحايل عليه، أو على حدودها (مثل حدود محاولات تسجيل الدخول)، أو على حماية الحسابات الأخرى؛
+- الوصول إليها بوسائل آلية (برامج روبوت أو نصوص برمجية أو جمع البيانات آليًا - scraping)، إلا عبر التطبيقات والموقع كما هي مقدَّمة؛
+- إثقال الخادم أو التشويش عليه أو على المستخدمين الآخرين؛
+- إعادة بيع الخدمة، أو عرضها أو عرض الوصول إليها على الآخرين؛
+- نسخ الخادم أو تفكيكه أو إجراء هندسة عكسية له، إلا حيث يسمح القانون بذلك؛
+- مشاركة حسابك، أو استخدام أكثر من حساب واحد دون موافقة (القسم 3).
 
-## 7. The service
+## 7. الخدمة
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- الخدمة **مجانية** اليوم. وإذا أردنا يومًا ما فرض رسوم على أي شيء، فسنعلن ذلك مسبقًا، ولن يصبح أي شيء مدفوعًا دون موافقتك.
+- قد تتغير الميزات أو تُضاف أو تُزال مع مرور الوقت.
+- نسعى إلى إبقاء الخدمة متاحة، لكننا لا نعد بأن تكون متاحة دائمًا أو خالية من الأخطاء. وقد تنقطع بسبب الصيانة أو التحديثات أو مشكلات لدى مزوّد الاستضافة.
+- **احتفظ بنسخة احتياطية** مما يهمك (الإعدادات - النسخ الاحتياطي). نحن نعتني بالخادم وبنسخه الاحتياطية، لكننا لسنا مسؤولين عن المحتوى المفقود إلا بالقدر الذي يفرضه القانون.
+- العمل دون اتصال (النسخ المحفوظة على جهازك ووضع عدم الاتصال) وسيلة للراحة. وقد لا يكون متاحًا على كل جهاز أو في كل لحظة.
 
-## 8. Suspension and closing an account
+## 8. تعليق الحساب وإغلاقه
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- يجوز لنا تعليق أو إغلاق حساب يخالف هذه الشروط - بعد إشعار حيثما كان ذلك ممكنًا بشكل معقول - ويجوز لنا إزالة محتوى حيث يفرض القانون ذلك.
+- يمكنك إغلاق حسابك في أي وقت: سجّل الدخول وافتح **الإعدادات - حذف الحساب**. وإذا لم تستطع تسجيل الدخول، فاتبع الخطوات في [{{DELETE_URL}}]({{DELETE_URL}}).
+- ما يحدث لبياناتك عند إغلاق الحساب أو حذفه موضح في القسم 7 من سياسة الخصوصية.
 
-## 9. If the service ends
+## 9. إذا انتهت الخدمة
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+إذا قررنا إنهاء الخدمة، فسنعلن ذلك على [{{SITE_URL}}]({{SITE_URL}}) قبل انتهائها بـ 30 يومًا على الأقل. وخلال هذه المدة يبقى النسخ الاحتياطي والتصدير متاحَين، لكي تتمكن من أخذ يومياتك معك.
 
-## 10. Not medical advice
+## 10. ليست نصيحة طبية
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+تصف الرؤى في التطبيق علاقات محتملة في إدخالاتك أنت. وهي لا تثبت السبب والنتيجة، وليست نصيحة طبية أو نفسية. إذا كنت قلقًا بشأن صحتك أو مزاجك، فتحدث إلى طبيب أو إلى مختص آخر.
 
-## 11. Intellectual property
+## 11. الملكية الفكرية
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+التطبيقات والموقع ونصوصها وتصميمها ملك للمشغّل، ولا يجوز استخدامها إلا بالقدر الذي تسمح به هذه الشروط. و"Your Personal Diary" هو اسم الخدمة. وتبقى المكوّنات مفتوحة المصدر المضمّنة في التطبيقات خاضعة لتراخيصها الخاصة.
 
-## 12. Liability and warranty
+## 12. المسؤولية والضمان
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- إلى الحد الذي يسمح به القانون، تُقدَّم الخدمة "كما هي" و"حسب التوفر" (as is, as available)، دون ضمانات من أي نوع.
+- إلى الحد الذي يسمح به القانون، لسنا مسؤولين عن الخسائر غير المباشرة أو التبعية، مثل خسارة الأرباح أو ضياع الفرص.
+- لا تمسّ هذه الشروط الحقوقَ التي تتمتع بها كمستهلك بموجب القانون الإلزامي في بلدك.
+- لا شيء في هذه الشروط يحدّ من مسؤولية لا يسمح القانون بالحدّ منها.
 
-## 13. Changes to these terms
+## 13. التغييرات على هذه الشروط
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+عندما تتغير الخدمة أو هذه الشروط، نحدّث هذه الصفحة وتاريخ السريان في أعلاها. ونعلن التغييرات المهمة في هذه الصفحة قبل أن تسري. وإذا واصلت استخدام الخدمة بعد سريان تغيير ما، فإنك تقبل الشروط الجديدة؛ وإذا لم تقبلها، يمكنك حذف حسابك في أي وقت (القسم 8). وتُسجَّل مع حسابك النسخةُ التي وافقت عليها عند التسجيل.
 
-## 14. Disagreements
+## 14. الخلافات
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+إذا كانت لديك شكوى أو خلاف معنا، فاكتب إلينا أولًا على [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - وسنحاول تسويته بالبريد الإلكتروني. ولا شيء في هذه الشروط ينتقص من الحقوق التي يمنحك إياها قانون البلد الذي تعيش فيه.
 
-## 15. Contact
+## 15. التواصل
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+أسئلة حول هذه الشروط: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+الدعم والأسئلة الشائعة: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

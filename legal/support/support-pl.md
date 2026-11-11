@@ -1,60 +1,61 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: Pomoc - Your Personal Diary
+description: Pomoc dotycząca Your Personal Diary - jak się z nami skontaktować oraz odpowiedzi na częste pytania o hasła, logowanie, pracę bez połączenia, języki, Twoje dane i Twoje konto.
 languages: Języki
 otherPage: Polityka prywatności
 ---
 
-# Support - Your Personal Diary
+# Pomoc - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Your Personal Diary prowadzi {{PUBLISHER_NAME}}. Kontakt: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-## 1. How to contact us
+## 1. Jak się z nami skontaktować
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+Napisz na adres [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Odpowiadamy w ciągu 30 dni, zwykle znacznie szybciej. W sprawach dotyczących Twojego konta pisz z adresu e-mail zarejestrowanego na tym koncie, abyśmy mogli sprawdzić, że to Ty. Nigdy nie wysyłaj swojego hasła: nigdy o nie nie prosimy i nie jest nam potrzebne, aby Ci pomóc.
 
-## 2. Frequent questions
+## 2. Częste pytania
 
-### I forgot my password
+### Nie pamiętam hasła
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+Na ekranie logowania wybierz **Nie pamiętasz hasła?** i wpisz adres e-mail, którego użyłeś przy rejestracji. Wiadomość z linkiem i 6-cyfrowym kodem zostanie wysłana z własnego adresu e-mail operatora; jeśli nie dotrze w ciągu kilku minut, sprawdź folder spamu. Link i kod są ważne przez 30 minut i można ich użyć tylko raz. Twój dziennik zostaje zachowany: ustawienie nowego hasła niczego nie usuwa.
 
-### I cannot sign in, or the app says "too many attempts"
+### Nie mogę się zalogować albo aplikacja pokazuje „Zbyt wiele prób"
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+Sprawdź nazwę użytkownika lub adres e-mail oraz hasło (zwróć uwagę na język klawiatury i wielkie litery). Po 10 błędnych hasłach logowanie z Twojej sieci zostaje zablokowane na 15 minut; odczekaj i spróbuj ponownie. Jeśli nie pamiętasz już hasła, użyj opcji **Nie pamiętasz hasła?**. Jeśli aplikacja pokazuje, że nie ma połączenia, zobacz następne pytanie.
 
-### The app says there is no connection
+### Aplikacja pokazuje, że nie ma połączenia
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+Aplikacja potrzebuje serwera do logowania, wyszukiwania, statystyk i spostrzeżeń, kopii zapasowych i eksportu oraz do zmian w Twoim koncie. Bez połączenia nadal możesz pisać: to, co piszesz, jest zapisywane na urządzeniu w postaci zaszyfrowanej i wysyłane, gdy połączenie wróci, nawet jeśli w międzyczasie aplikacja została zamknięta. Jeśli wybrałeś **Zapamiętaj mnie**, aplikacje na Windows, Maca, Androida i iPhone'a otwierają też ostatnie wpisy, nawyki i dzisiejsze dane z zaszyfrowanej kopii na urządzeniu; odblokowujesz je hasłem lub blokadą ekranu urządzenia (Windows Hello, Touch ID, Face ID lub blokada ekranu telefonu). Sprawdź połączenie urządzenia z internetem, a następnie wybierz w aplikacji **Spróbuj teraz**.
 
-### How do I change the language?
+### Jak zmienić język?
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+Otwórz **Ustawienia** i na karcie **Język** wybierz z listy język interfejsu; cały dziennik od razu zmienia język. Przed zalogowaniem wybór jest zapisywany na tym urządzeniu; po zalogowaniu zapisuje się na Twoim koncie, więc Twoje pozostałe urządzenia też go przejmują. Dziennik jest dostępny w 20 językach.
 
-### How do I get my data out?
+### Jak zabrać swoje dane?
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+W **Ustawienia - Kopia zapasowa** możesz utworzyć **kopię zapasową**: zaszyfrowaną kopię całego dziennika (wpisy, nawyki i ustawienia) we własnym formacie aplikacji, chronioną hasłem, którą możesz później przywrócić w aplikacji. **Eksport** na tej samej stronie zapisuje Twoje wpisy jako czytelny plik (TXT, CSV, JSON lub PDF) do czytania, drukowania lub użycia w innym programie. Plik eksportu nie jest zaszyfrowany: każdy, kto ma ten plik, może go przeczytać, więc przechowuj go równie starannie jak sam dziennik.
 
-### How do I delete my account?
+### Jak usunąć konto?
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+Zaloguj się, otwórz **Ustawienia** i przejdź do ostatniej karty, **Usuwanie konta**: wpisz hasło i potwierdź. Spowoduje to natychmiastowe usunięcie z serwera Twojego konta, dziennika, nawyków i ustawień oraz wylogowanie na wszystkich urządzeniach; tego nie da się cofnąć, a pliki kopii zapasowych zapisane przez Ciebie nie zostaną naruszone. Jeśli nie możesz się zalogować, postępuj zgodnie z instrukcjami na stronie usuwania konta: [{{DELETE_URL}}]({{DELETE_URL}}).
 
-### On which devices can I use the diary?
+### Na jakich urządzeniach mogę korzystać z dziennika?
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+W aplikacjach na **Windows**, **Maca**, **Androida** i **iPhone'a** (gdy zostanie opublikowana) oraz na stronie [{{SITE_URL}}]({{SITE_URL}}) w dowolnej przeglądarce. Wszędzie jest to jedno konto: to, co napiszesz na jednym urządzeniu, pojawia się na wszystkich pozostałych, gdy tylko się połączą.
 
-### How do reminders work?
+### Jak działają przypomnienia?
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+Przypomnienia są związane z nawykami: godzinę dla każdego nawyku ustawiasz na stronie nawyków, a przypomnienia włączasz w **Ustawienia - Przypomnienia**. Na telefonie aplikacja prosi o zgodę na wyświetlanie powiadomień; jeśli jej nie udzieliłeś, zezwól na powiadomienia Your Personal Diary w ustawieniach telefonu, w przeciwnym razie przypomnienia pojawiają się tylko wtedy, gdy aplikacja jest otwarta. Na komputerze i w przeglądarce przypomnienie pojawia się, gdy dziennik jest otwarty. Przypomnienia są tworzone na samym urządzeniu; nic nie jest wysyłane na zewnątrz.
 
-### Is the app medical advice?
+### Czy aplikacja udziela porad medycznych?
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Nie. Spostrzeżenia w aplikacji opisują możliwe zależności w Twoich własnych wpisach. Nie dowodzą związku przyczynowo-skutkowego i nie stanowią porady medycznej ani psychologicznej. Jeśli martwisz się o swoje zdrowie lub samopoczucie, porozmawiaj z lekarzem lub innym specjalistą.
 
-## 3. Privacy policy and account deletion
+## 3. Polityka prywatności, Warunki korzystania i usuwanie konta
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- Polityka prywatności: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - co przechowujemy, gdzie i jak jest to chronione.
+- Warunki korzystania: [{{TERMS_URL}}]({{TERMS_URL}}) - zasady korzystania z usługi, w tym jedno konto na osobę.
+- Usuwanie konta: [{{DELETE_URL}}]({{DELETE_URL}}) - także dla osób, które nie mogą się zalogować.
 
 ## 4. Operator
 

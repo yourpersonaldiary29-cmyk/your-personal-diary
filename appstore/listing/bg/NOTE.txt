@@ -2,7 +2,7 @@ Bulgarian (bg) - no App Store localization
 
 App Store Connect has no Bulgarian localization, so there is no place to enter Bulgarian texts for the App Store page of either record (iPhone or Mac). A reader whose device language is Bulgarian sees the primary language of the record, English (U.S.). The app itself has Bulgarian as one of its 20 languages (Settings, under Language), and the privacy and support pages exist in Bulgarian on the server: https://yourpersonaldiary.fly.dev/privacy/bg/ and https://yourpersonaldiary.fly.dev/support/bg/
 
-This folder exists only so that nobody looks for missing texts; appstore/locales.json records the same decision ("folder": null). If Apple adds Bulgarian one day: copy appstore/listing/en-US/, translate it as appstore/README.md describes, name the folder with Apple's code, put that code in locales.json and run node scripts/appstore/check-listing.mjs.
+This folder exists only so that nobody looks for missing texts; appstore/locales.json records the same decision ("folder": null). A complete Bulgarian translation of the ten files is nevertheless ready in appstore/listing/_bg/ (kept for reuse; the scripts test checks it with the same rules as the other folders). If Apple adds Bulgarian one day: delete this folder, rename appstore/listing/_bg/ to Apple's code, delete the NOTE.txt inside it, put that code in locales.json under "bg" (folder and appleName) and run node scripts/appstore/check-listing.mjs.
 
 Written 2026-11-08 (LISTING package, docs/apple-tasks/LISTING.md).
 
@@ -12,4 +12,4 @@ Written 2026-11-08 (LISTING package, docs/apple-tasks/LISTING.md).
 
 ברשימת השפות של דף האפליקציה ב-App Store Connect אין בולגרית, ולכן אין לאן להכניס טקסטים בבולגרית - לא לאפליקציית ה-iPhone ולא לאפליקציית ה-Mac. מי שהמכשיר שלו בבולגרית רואה את דף האפליקציה באנגלית (שפת הבסיס). האפליקציה עצמה כן כוללת בולגרית (הגדרות, תחת "שפה"), וגם דפי הפרטיות והתמיכה קיימים בבולגרית בשרת.
 
-התיקייה הזאת קיימת רק כדי שאף אחד לא יחפש טקסטים חסרים. אם אפל תוסיף בולגרית בעתיד - מעתיקים את התיקייה en-US, מתרגמים לפי appstore/README.md, קוראים לתיקייה בקוד של אפל ורושמים אותו ב-locales.json.
+התיקייה הזאת קיימת רק כדי שאף אחד לא יחפש טקסטים חסרים. תרגום מלא לבולגרית של כל הקבצים כבר מוכן בתיקייה appstore/listing/_bg/ (שמור לשימוש עתידי; היום לא מדביקים ממנו כלום). אם אפל תוסיף בולגרית בעתיד - מוחקים את התיקייה הזאת, משנים את השם של התיקייה _bg לקוד של אפל, מוחקים ממנה את הקובץ NOTE.txt, רושמים את הקוד ב-locales.json תחת "bg" ומריצים את הבדיקה (appstore/README.he.md סעיף 3).

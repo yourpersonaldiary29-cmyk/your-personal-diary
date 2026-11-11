@@ -57,7 +57,7 @@ Your Personal Diary,iPhone app and Mac app,SELF,5D992,MMKT,Mobility and mobile a
 | AUTHORIZATION TYPE | `MMKT` (the mass-market identifier; `ENC` is the other; `OTHER` if an adviser says neither fits) | "For AUTHORIZATION TYPE, enter ENC or MMKT." |
 | ITEM TYPE | `Mobility and mobile applications n.e.s.` (closest descriptor of the closed list; for a Mac-only line FACTS also offers `Other (please specify)`) | chosen from the 49 descriptors of (a)(6) |
 | SUBMITTER NAME / TELEPHONE / E-MAIL / MAILING ADDRESS | the owner's legal name, phone, `yourpersonaldiary29@gmail.com`, postal address without commas | 50 characters or less each |
-| NON-U.S. COMPONENTS | `NO` - the apps use only Apple's (U.S.) operating-system encryption | YES / NO / N/A, 250 or less |
+| NON-U.S. COMPONENTS | `NO` - every encryption of data in the apps is done by Apple's (U.S.) operating system. The apps also bundle open-source code that is not Apple's - the scrypt key derivation of `@noble/hashes` and, in the Mac app, the Rust SHA-256 hash (section 3) - but it encrypts no data, which this kit reads as "not an encryption component" in the sense of (a)(11) (reading, not legal advice). An adviser may prefer `N/A`, which is permitted, or `YES` if he counts that code | YES / NO / N/A, 250 or less |
 | NON-U.S. MANUFACTURING LOCATIONS | the owner's city and `Israel`, without a comma (or `N/A`) | 250 or less |
 
 The file is saved as plain text with the extension `.csv` (in Notepad: Save As > "All files" > `self-classification.csv`, encoding UTF-8).

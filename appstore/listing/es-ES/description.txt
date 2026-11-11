@@ -1,6 +1,6 @@
 Your Personal Diary es un diario privado e inteligente. Escribes sobre tu día y la aplicación te ayuda a ver cómo tu sueño, tu ánimo, tu energía y tus hábitos se mueven juntos a lo largo de semanas, meses y años.
 
-Tu diario se guarda en tu cuenta en el servidor de Your Personal Diary y es el mismo en cada dispositivo en el que inicias sesión. Necesitas conexión para crear la cuenta y para iniciar sesión la primera vez; después, la aplicación sigue funcionando sin ella. Sin anuncios, sin analíticas, sin rastreo.
+Tu diario se guarda en tu cuenta en el servidor de Your Personal Diary y es el mismo en cada dispositivo en el que inicias sesión. Necesitas conexión para crear la cuenta y para iniciar sesión la primera vez; después, la aplicación sigue funcionando sin ella. Sin anuncios, sin analítica de uso, sin rastreo.
 
 Escribe tu día
 - Entradas con tus propias palabras: estado de ánimo, emociones, energía, estrés, sueño, actividad física, acontecimientos, personas, lugar, notas y etiquetas.

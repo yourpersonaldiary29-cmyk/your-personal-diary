@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: Condiții de utilizare - Your Personal Diary
+description: Regulile de folosire a Your Personal Diary (aplicațiile pentru Windows, Mac, Android și iPhone și site-ul; aplicația iPhone când va fi publicată) - cine îl poate folosi, un singur cont de persoană, conținutul tău, folosirea acceptabilă și responsabilitățile noastre.
 languages: Limbi
 otherPage: Politica de confidențialitate
 ---
 
-# Terms of Use - Your Personal Diary
+# Condiții de utilizare - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+Data intrării în vigoare: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+Dacă o traducere diferă de versiunea în limba engleză, se aplică versiunea în limba engleză.
 
-## In short
+## Pe scurt
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary este un serviciu gratuit de jurnal. Jurnalul tău îți aparține.
+- Trebuie să ai cel puțin {{MINIMUM_AGE}} ani, iar fiecare persoană poate avea **un singur cont**, dacă nu aprobăm în scris mai multe.
+- Păstrează-ți parola secretă, folosește serviciul în mod legal și fă un backup pentru ce contează pentru tine.
+- Serviciul este oferit „ca atare". Nu este un sfat medical.
+- Cum tratăm datele tale este explicat în politica de confidențialitate: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
 
-## 1. Who we are and what these terms cover
+## 1. Cine suntem și la ce se aplică aceste condiții
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary este operat de {{PUBLISHER_NAME}} („noi"). Aceste condiții de utilizare se aplică aplicației Windows, aplicației Mac, aplicației Android, aplicației iPhone (când va fi publicată) și site-ului [{{SITE_URL}}]({{SITE_URL}}) - împreună, „serviciul". Toate folosesc același server și același cont.
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+Creând un cont sau folosind serviciul, ești de acord cu aceste condiții și cu politica de confidențialitate [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Când creezi un cont, confirmi acest lucru cu o singură casetă de bifat. Dacă nu ești de acord, te rugăm să nu folosești serviciul.
 
-## 2. Who may use the service
+## 2. Cine poate folosi serviciul
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- Trebuie să ai cel puțin {{MINIMUM_AGE}} ani ca să creezi un cont.
+- Dacă ești minor acolo unde locuiești, poți folosi serviciul doar cu acordul unui părinte sau al unui tutore, atunci când legea țării tale o cere.
+- Datele pe care le dai la înregistrare (nume, nume de utilizator și adresă de e-mail) trebuie să fie corecte, iar adresa de e-mail trebuie să fie una la care poți primi mesaje. Le poți schimba mai târziu din Setări.
+- Putem limita numărul de conturi de pe server și putem suspenda oricând înregistrările noi, de exemplu ca serviciul să funcționeze bine în continuare.
 
-## 3. One account per person
+## 3. Un singur cont de persoană
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**Poți deschide și păstra un singur cont.** Deschiderea sau folosirea mai multor conturi este permisă doar cu aprobarea prealabilă, în scris, a operatorului, cerută prin e-mail la [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Conturile deschise fără această aprobare pot fi închise.
 
-An account is personal: do not share it with others, and do not use another person's account.
+Un cont este personal: nu-l împărți cu alții și nu folosi contul altei persoane.
 
-## 4. Your account and password
+## 4. Contul și parola ta
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- Păstrează-ți parola secretă și nu o folosi pentru alte servicii. Alege una puternică.
+- Ești responsabil pentru ce se face cu contul tău. Dacă crezi că altcineva îți știe parola sau îți folosește contul, schimbă imediat parola și anunță-ne la [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+- **Nu îți cerem niciodată parola** - nici prin e-mail, nici prin telefon, nici în alt fel. Cine ți-o cere nu suntem noi.
+- Pe un dispozitiv pe care îl mai folosesc și alte persoane, nu alege „Ține-mă minte" și deconectează-te când termini: cu „Ține-mă minte", aplicația te ține conectat și păstrează copii criptate pe dispozitiv, așa cum explică secțiunea 5 din politica de confidențialitate.
 
-## 5. Your content
+## 5. Conținutul tău
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- Ce scrii în jurnal îți aparține. Nu pretindem niciun drept de proprietate asupra lui.
+- Îți păstrăm și prelucrăm conținutul doar ca să-ți furnizăm serviciul - ca să-l păstrăm, să-l afișăm, să căutăm în el și să-l menținem la fel pe dispozitivele tale. Politica de confidențialitate explică cum.
+- Nu îți citim jurnalul. Secțiunea 4 din politica de confidențialitate explică deschis ce ar putea face tehnic operatorul serverului și ce promitem.
+- Ești responsabil pentru ce scrii. Nu păstra conținut ilegal sau conținut care aparține altcuiva fără permisiunea acelei persoane.
+- Îți poți lua conținutul oricând: **Setări - Backup** creează un backup criptat, iar exportul scrie înregistrările tale într-un fișier lizibil. Aceste copii sunt ale tale, ca să le păstrezi și să le folosești.
 
-## 6. Acceptable use
+## 6. Folosirea acceptabilă
 
-When you use the service, you must not:
+Când folosești serviciul, nu ai voie:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- să-l folosești pentru ceva ilegal sau ca să faci rău cuiva, să hărțuiești sau să ameninți pe cineva;
+- să încerci să spargi sau să ocolești securitatea lui, limitele lui (de exemplu limitele pentru încercările de conectare) sau protecția altor conturi;
+- să-l accesezi prin mijloace automate (boți, scripturi, extragere automată de date), altfel decât prin aplicații și site, așa cum sunt oferite;
+- să supraîncarci serverul sau să-i perturbi funcționarea ori să-i deranjezi pe ceilalți utilizatori;
+- să revinzi serviciul sau să-l oferi altora, ori să oferi altora acces la el;
+- să copiezi, să decompilezi sau să faci inginerie inversă asupra serverului, cu excepția cazurilor în care legea o permite;
+- să-ți împarți contul sau să folosești mai mult de un cont fără aprobare (secțiunea 3).
 
-## 7. The service
+## 7. Serviciul
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- Serviciul este **gratuit** în prezent. Dacă vom vrea vreodată să cerem bani pentru ceva, vom spune dinainte, și nimic nu devine contra cost fără acordul tău.
+- Funcțiile se pot schimba, pot fi adăugate sau eliminate în timp.
+- Ne străduim ca serviciul să fie disponibil, dar nu promitem că va fi mereu disponibil sau fără erori. Întreținerea, actualizările sau problemele de găzduire îl pot întrerupe.
+- **Fă un backup** pentru ce contează pentru tine (Setări - Backup). Avem grijă de server și de backupurile lui, dar nu răspundem pentru conținutul pierdut dincolo de ce cere legea.
+- Lucrul fără conexiune (copiile de pe dispozitivul tău și modul offline) este o comoditate. Poate să nu fie disponibil pe orice dispozitiv sau în orice moment.
 
-## 8. Suspension and closing an account
+## 8. Suspendarea și închiderea unui cont
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- Putem suspenda sau închide un cont care încalcă aceste condiții - după o notificare, acolo unde acest lucru este posibil în mod rezonabil - și putem elimina conținut acolo unde legea o cere.
+- Îți poți închide contul oricând: conectează-te și deschide **Setări - Ștergerea contului**. Dacă nu te poți conecta, urmează pașii de pe [{{DELETE_URL}}]({{DELETE_URL}}).
+- Ce se întâmplă cu datele tale când un cont este închis sau șters este explicat în secțiunea 7 din politica de confidențialitate.
 
-## 9. If the service ends
+## 9. Dacă serviciul se încheie
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+Dacă decidem să încheiem serviciul, vom anunța acest lucru pe [{{SITE_URL}}]({{SITE_URL}}) cu cel puțin 30 de zile înainte de încheierea lui. În acest timp, backupul și exportul vor rămâne disponibile, ca să-ți poți lua jurnalul cu tine.
 
-## 10. Not medical advice
+## 10. Nu este un sfat medical
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Observațiile din aplicație descriu posibile legături în propriile tale înregistrări. Ele nu dovedesc cauză și efect și nu sunt sfaturi medicale sau psihologice. Dacă ești îngrijorat de sănătatea sau de starea ta, vorbește cu un medic sau cu un alt specialist.
 
-## 11. Intellectual property
+## 11. Proprietate intelectuală
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+Aplicațiile, site-ul, textele și designul lor aparțin operatorului și pot fi folosite doar așa cum permit aceste condiții. „Your Personal Diary" este numele serviciului. Componentele open-source incluse în aplicații rămân sub propriile lor licențe.
 
-## 12. Liability and warranty
+## 12. Răspundere și garanție
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- În măsura permisă de lege, serviciul este oferit „ca atare" și „în funcție de disponibilitate" (as is, as available), fără garanții de niciun fel.
+- În măsura permisă de lege, nu răspundem pentru pierderi indirecte sau consecutive, cum ar fi pierderea profitului sau a unor oportunități.
+- Drepturile pe care le ai ca consumator conform legislației obligatorii din țara ta nu sunt afectate de aceste condiții.
+- Nimic din aceste condiții nu limitează răspunderea care nu poate fi limitată prin lege.
 
-## 13. Changes to these terms
+## 13. Modificări ale acestor condiții
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+Când serviciul sau aceste condiții se schimbă, actualizăm această pagină și data intrării în vigoare de sus. Modificările importante sunt anunțate pe această pagină înainte să se aplice. Dacă folosești în continuare serviciul după ce o modificare se aplică, accepți noile condiții; dacă nu le accepți, îți poți șterge contul oricând (secțiunea 8). Versiunea cu care ai fost de acord la înregistrare este păstrată împreună cu contul tău.
 
-## 14. Disagreements
+## 14. Neînțelegeri
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+Dacă ai o plângere sau o neînțelegere cu noi, te rugăm să ne scrii mai întâi la [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - vom încerca să o rezolvăm prin e-mail. Nimic din aceste condiții nu îți ia drepturile pe care ți le dă legea țării în care locuiești.
 
 ## 15. Contact
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+Întrebări despre aceste condiții: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+Asistență și întrebări frecvente: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

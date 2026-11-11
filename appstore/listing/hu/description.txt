@@ -44,4 +44,4 @@ Akadálymentesség
 - Világos, sötét és nagy kontrasztú téma, állítható szövegméret és kevesebb animáció.
 
 Fontos tudnivaló
-A Your Personal Diary személyes naplóvezető eszköz 16 éven felülieknek. Nem orvosi vagy diagnosztikai eszköz, és a meglátásai nem orvosi vagy pszichológiai tanácsok. Ha aggódsz az egészséged miatt, fordulj szakemberhez.
+A Your Personal Diary személyes naplóvezető eszköz, 16 éves kortól használható. Nem orvosi vagy diagnosztikai eszköz, és a meglátásai nem orvosi vagy pszichológiai tanácsok. Ha aggódsz az egészséged miatt, fordulj szakemberhez.

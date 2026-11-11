@@ -138,7 +138,9 @@
  *     Both take the phone's SHOTS and PHONE_CHROME, sign in as the iPhone app does (device name "Phone",
  *     localized - src/utils/platform.ts deviceName; an iPhone WebKit user agent, IPHONE_USER_AGENT) and give the
  *     browser the language's full device locale (en-US, he-IL, zh-CN, ... - the tags of STORE_FOLDERS; Apple's
- *     shortcodes are listing codes, not device languages).
+ *     shortcodes are listing codes, not device languages). The entry written offline in shot 07 is the phone's with
+ *     its sentences joined the language's way (appStoreOfflineEntry, the profiles' `offlineEntry` hook: no space
+ *     after "。" in ja / zh-Hans; exactly the phone's text in every other language).
  *     The medium set's account card is 402 CSS px wide: where "first.surname@example.com" broke across two lines
  *     there (ja, es, pt, ro), the user name is the first name and the surname's initial - the convention
  *     FICTIONAL_PEOPLE already applies for fr, de, el, pl, cs, ru, bg on the Play set (IPHONE_MEDIUM_PEOPLE, the
@@ -146,13 +148,22 @@
  *     unchanged).
  *   - mac: 1440x900 CSS px at device scale 2 = 2880x1800 pixels (16:10; the largest of the four Mac sizes Apple
  *     accepts - the whole screen of a 15-inch Retina MacBook Pro), the desktop profile's DESKTOP_SHOTS,
- *     DESKTOP_CHROME, wholeExcerpts and desktopOfflineEntry, the device name "Computer" (the Tauri shell's), a Mac
- *     WebKit user agent (MAC_USER_AGENT), output appstore/screenshots/mac/<code>/.
+ *     DESKTOP_CHROME and wholeExcerpts, the device name "Computer" (the Tauri shell's), a Mac WebKit user agent
+ *     (MAC_USER_AGENT), output appstore/screenshots/mac/<code>/. Its shot 08 writes the iPhone sets' entry
+ *     (appStoreOfflineEntry - the phone's three sentences), not the Store set's longer desktopOfflineEntry: with the
+ *     longer text the 900 px high Mac window had no clean position at scroll 0 in 18 of 19 languages, and the nearest
+ *     one (9 px down, 33 px in de / fr / ru) needed the last-resort rule of LAYOUT RULES - a strip of the scrolled
+ *     navigation row showed under the header. With the shorter text every language is clean at scroll 0 without
+ *     it: the navigation row whole, the offline bar, the entry and the footer.
  * Check the three sets with `node scripts/appstore/check-screenshots.mjs`; appstore/screenshots/README.md (English)
  * and README.he.md (Hebrew, the owner's guide) say which folder goes to which App Store Connect slot.
  * The phone and desktop profiles are untouched by them: their PROFILES entries are byte-identical to before, and
- * the two hooks the new profiles use (`browserLocale`, `userAgent`) are absent there, so those code paths run
- * exactly as before (the default `browserLocaleOf`, Edge's own user agent).
+ * the hooks the new profiles add (`browserLocale`, `userAgent`, `people`, and `offlineEntry` on the iPhone) are
+ * absent from the phone entry (the desktop entry keeps its own desktopOfflineEntry), so those code paths run exactly
+ * as before (the default `browserLocaleOf`, Edge's own user agent, FICTIONAL_PEOPLE, offlineEntry on the phone).
+ * Edge is launched with `channel: 'msedge'` (renderScreenshots, and appstore/icon/render-icon.mjs): on a Mac,
+ * Microsoft Edge for macOS works as it is; Playwright's own Chromium would need that option removed or made
+ * configurable first (not done - every set so far was rendered with Edge on Windows).
  */
 import { spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -403,6 +414,8 @@ export const PROFILES = {
     deviceName: (t) => t('shell.device.phone'),
     /** Shorter user names where the 402 px wide account card breaks the e-mail address (IPHONE_MEDIUM_PEOPLE). */
     people: IPHONE_MEDIUM_PEOPLE,
+    /** The entry written offline in shot 07: the phone's, its sentences joined the language's way (appStoreOfflineEntry). */
+    offlineEntry: appStoreOfflineEntry,
   },
   'iphone-large': {
     label: 'App Store iPhone screenshots, "iPhone with Dynamic Island (large display)" class, 1320x2868',
@@ -421,6 +434,7 @@ export const PROFILES = {
     browserLocale: (folder, appLocale) => deviceLocaleOf(appLocale),
     userAgent: IPHONE_USER_AGENT,
     deviceName: (t) => t('shell.device.phone'),
+    offlineEntry: appStoreOfflineEntry,
   },
   mac: {
     label: 'App Store Mac screenshots, 2880x1800 (16:10)',
@@ -443,7 +457,12 @@ export const PROFILES = {
     wholeExcerpts: 160,
     /** The device name the Mac app sends at sign-in (src/utils/platform.ts deviceName: the Tauri shell says "Computer", localized). */
     deviceName: (t) => t('shell.device.computer'),
-    offlineEntry: desktopOfflineEntry,
+    /**
+     * The entry written offline in shot 08: the phone's three sentences (appStoreOfflineEntry), not the Store set's
+     * longer desktopOfflineEntry - in the 900 px high Mac window the entry page then fits at scroll 0 in every
+     * language (navigation row whole; see APP STORE PROFILES in the header).
+     */
+    offlineEntry: appStoreOfflineEntry,
     get shots() {
       return DESKTOP_SHOTS;
     },
@@ -728,6 +747,21 @@ export function desktopOfflineEntry(content) {
   const evening = typeof content.secondEntry === 'function' ? content.secondEntry('evening') : '';
   if (!walk || !met || !content.note) throw new Error('the seed content has no exercise() / peopleSentence() / people[1] / note');
   return { ...phone, body: [opener, sleep, walk, met, evening, content.note].filter(Boolean).join(content.sentenceSeparator ?? ' ') };
+}
+
+/**
+ * The entry of the App Store sets' offline shot (shot 07 of iphone-medium / iphone-large, shot 08 of mac -
+ * `PROFILES[...].offlineEntry`): the phone's (offlineEntry - the same title, the same three demo sentences, the same
+ * ratings) joined the language's way, as desktopOfflineEntry joins its sentences: no space after "。" in zh / ja
+ * (sentenceSeparator ''), one space everywhere else - so in every other language the text is exactly the phone's.
+ * The Play set keeps offlineEntry unchanged (its ja / zh texts have the space; the Play folder is frozen), the
+ * Store set desktopOfflineEntry.
+ */
+export function appStoreOfflineEntry(content) {
+  const phone = offlineEntry(content);
+  const sleep = typeof content.sleep === 'function' ? content.sleep(8, false) : '';
+  const evening = typeof content.secondEntry === 'function' ? content.secondEntry('evening') : '';
+  return { ...phone, body: [content.openers.high[0], sleep, evening].filter(Boolean).join(content.sentenceSeparator ?? ' ') };
 }
 
 /**

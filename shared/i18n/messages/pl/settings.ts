@@ -106,8 +106,7 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'Polityka prywatności',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'settings.privacy.termsLink': 'Terms of Use',
+  'settings.privacy.termsLink': 'Warunki korzystania',
   'settings.privacy.title': 'Prywatność',
   'settings.privacy.offlineLabel': 'Tryb prywatności offline',
   'settings.privacy.offlineHint':

@@ -4,7 +4,8 @@ The App Store screenshot sets of **Your Personal Diary** for the two Apple app r
 `app.yourpersonaldiary`, Capacitor) and the **Mac app** (bundle id `app.yourpersonaldiary.mac`, Tauri). One set per
 App Store Connect localization of `appstore/locales.json` (19; Bulgarian has no App Store localization), each set in
 that language with that language's demo diary, fictional accounts only. Rendered 2026-11-09, all three sets rendered again from the
-current tree on 2026-11-10 (final sprint, brief
+current tree on 2026-11-10; in the fixer pass of the same evening the Mac `08-offline.png` of all 19 localizations and
+the iPhone `07-offline.png` of `ja` and `zh-Hans` (both iPhone sets) were rendered again (final sprint, brief
 `docs/apple-tasks/SHOTS.md`, rules `docs/apple-tasks/ENV-FINAL.md`, Apple's requirements `docs/apple-tasks/APPSTORE-FACTS.md`
 sections 6 and 7). The Hebrew owner's guide is `README.he.md`; this file is the developer's reference.
 
@@ -22,6 +23,15 @@ sections 6 and 7). The Hebrew owner's guide is `README.he.md`; this file is the 
 150-450 KB. `<code>` is Apple's locale shortcode and the folder name of `appstore/listing/<code>`: `en-US` (the
 primary language), `he`, `ar-SA`, `zh-Hans`, `ja`, `hi`, `th`, `es-ES`, `pt-PT`, `fr-FR`, `it`, `de-DE`, `ro`, `el`,
 `pl`, `cs`, `hu`, `ru`, `tr`.
+
+**The images are not in the git repository.** `.gitignore` excludes every PNG under `appstore/screenshots/` (418
+files, about 100 MB, all regenerable); the repository holds only the two READMEs and the three `render-log.json`
+files. A fresh clone therefore has the set folders with their render logs and no image: the checker then reports one
+`<set>/: no images at all - the PNGs are not kept in the git repository` line per set (plus the per-localization
+FAILs), and its project test (`check-screenshots.test.mjs`, "the project's own App Store sets") is skipped with
+"the App Store PNGs are not in this copy of the project (git-ignored)". To get the images back, render the three sets
+(section 6 - the tool folder `mpd-store-tools/` is git-ignored too and has to be set up first). The play/ and store/
+screenshot sets, by contrast, are committed. Upload from the machine that rendered them, or render again.
 
 No iPad set: the iPhone app is iPhone-only (ENV-FINAL decision 2; `TARGETED_DEVICE_FAMILY = 1`, APPSTORE-FACTS 6.4),
 so Apple asks for no iPad screenshots. To add iPad later: a new profile in `scripts/play/render-screenshots.mjs`
@@ -129,6 +139,14 @@ Nothing is deployed, nothing leaves this computer (every request is logged and a
 `render-log.json` records it), and the temporary folder is deleted at the end. Full details: the header of
 `scripts/play/render-screenshots.mjs` ("HOW", "LAYOUT RULES", "DETERMINISTIC", "NETWORK", "APP STORE PROFILES").
 
+Prerequisites (present on the owner's PC): Microsoft Edge (every Windows 11 has it; the scripts launch it with
+`channel: 'msedge'`), the project's own `node_modules` (`npm install`), and `playwright-core` in the git-ignored tool
+folder `mpd-store-tools/` - `$MPD_STORE_TOOLS`, else `<project>/mpd-store-tools`, else
+`C:\Users\AVI\Projects\mpd-store-tools` (`toolDir()` in the render script). On a fresh clone, once, from the project
+root: `npm install`, then `mkdir mpd-store-tools && cd mpd-store-tools && npm init -y && npm install
+playwright-core@1.63.0 && cd ..` (1.63.0 rendered the current images; the project's own `package.json` is never
+touched). The render itself downloads nothing.
+
 Partial runs: `--locale he,ar-SA` (folder names) renders only those sets and keeps the others' log entries;
 `--only 01,07` only those shots of each set; `--keep-going` goes on after a failed shot and lists every failure at
 the end (exit 1, **no render log** - render the profile again, or the failed sets with `--locale`, once the cause is
@@ -141,13 +159,24 @@ The profile definitions (`PROFILES` in `scripts/play/render-screenshots.mjs`):
 
 | Profile | Viewport (CSS px) | Device scale | Pixels | UI build | Shots / chrome | Device locale, user agent, device name |
 | --- | --- | --- | --- | --- | --- | --- |
-| `iphone-medium` | 402 x 874 | 3 | 1206 x 2622 | mobile | `SHOTS`, `PHONE_CHROME` | the language's full tag (he-IL, zh-CN, ...), an iPhone WebKit user agent, "Phone"; `people: IPHONE_MEDIUM_PEOPLE` |
-| `iphone-large` | 440 x 956 | 3 | 1320 x 2868 | mobile | `SHOTS`, `PHONE_CHROME` | the same, without `people` |
-| `mac` | 1440 x 900 | 2 | 2880 x 1800 | web (root) | `DESKTOP_SHOTS`, `DESKTOP_CHROME`, `wholeExcerpts: 160`, `desktopOfflineEntry` | the language's full tag, a Mac WebKit user agent, "Computer" |
+| `iphone-medium` | 402 x 874 | 3 | 1206 x 2622 | mobile | `SHOTS`, `PHONE_CHROME`, `offlineEntry: appStoreOfflineEntry` | the language's full tag (he-IL, zh-CN, ...), an iPhone WebKit user agent, "Phone"; `people: IPHONE_MEDIUM_PEOPLE` |
+| `iphone-large` | 440 x 956 | 3 | 1320 x 2868 | mobile | `SHOTS`, `PHONE_CHROME`, `offlineEntry: appStoreOfflineEntry` | the same, without `people` |
+| `mac` | 1440 x 900 | 2 | 2880 x 1800 | web (root) | `DESKTOP_SHOTS`, `DESKTOP_CHROME`, `wholeExcerpts: 160`, `offlineEntry: appStoreOfflineEntry` | the language's full tag, a Mac WebKit user agent, "Computer" |
+
+`appStoreOfflineEntry` is the text the offline shot writes: the phone's three demo sentences (`offlineEntry`, the Play
+set's) joined the language's way - no space after "。" in `ja` and `zh-Hans` (the seed content's `sentenceSeparator`),
+identical to the phone's text in the 17 other localizations. The Mac takes it instead of the Store set's longer
+`desktopOfflineEntry`: in the 900 px high Mac window the longer text left no clean position at scroll 0 in 18 of 19
+localizations (the footer line sat on the window's bottom edge), and the nearest one - 9 px down, 33 px in `de-DE`,
+`fr-FR` and `ru` - needed the layout rules' last resort (`boxUnderTopBar`): the navigation row's frames ran under the
+header, and at 33 px a strip of the row showed under it like a double rule. With the shorter text every Mac
+`08-offline.png` is clean at scroll 0 without the last resort (checked in a scratch render first, then rendered into
+the kit - 19 of 19 byte-identical): the navigation row whole, the offline bar, the entry with its badge and the footer.
 
 The Play (`phone`: 432 x 768 at 2.5 = 1080 x 1920) and Store (`desktop`: 1536 x 864 at 1.25 = 1920 x 1080) profiles
-are unchanged; the hooks the App Store profiles use (`browserLocale`, `userAgent`, `people`) are absent there, so
-those code paths run exactly as before (`scripts/appstore/check-screenshots.test.mjs` asserts the two entries).
+are unchanged; the hooks the App Store profiles add (`browserLocale`, `userAgent`, `people`, and `offlineEntry` on the
+iPhone) are absent from the phone entry and the desktop entry keeps its own `desktopOfflineEntry`, so those code paths
+run exactly as before (`scripts/appstore/check-screenshots.test.mjs` asserts both entries, `people` included).
 
 Determinism: one fixed clock for server and browser, animations off, software rasterising on one thread, the same
 seed - the same tree renders the same bytes, so a re-render changes only what the UI, the translations or the demo
@@ -160,21 +189,39 @@ number changes (section 7).
   Thai and Devanagari), while an iPhone or Mac shows the same screens in San Francisco and Apple's system fonts.
   Glyph shapes, line lengths, and in a few languages the height of the bottom navigation differ slightly; the
   layout, colours, texts and content are identical. Accepted for the first release. **Re-shooting on a Mac is
-  optional:** the same script needs a Chromium-based browser for playwright-core there (Microsoft Edge for macOS, or
-  `npx playwright install chromium` inside the tool folder) and the project with `node_modules` - the build Mac has
-  neither Edge nor a Playwright browser installed (no Homebrew, little free disk), so this was not set up; the
-  profiles themselves need no change.
+  optional and not set up:** the build Mac has no Edge, no Playwright browser and no tool folder (no Homebrew, little
+  free disk). With **Microsoft Edge for macOS** installed, `playwright-core` in `mpd-store-tools/` (or
+  `$MPD_STORE_TOOLS`) and the project's `node_modules`, the scripts run unchanged. **Playwright's own Chromium** does
+  NOT work as they are: `scripts/play/render-screenshots.mjs` (`renderScreenshots`, the `chromium.launch` call) and
+  `appstore/icon/render-icon.mjs` (`renderIcon`) both launch with `channel: 'msedge'`; that option has to be removed
+  or made configurable first (e.g. read from an environment variable, defaulting to `'msedge'` so the Windows renders
+  stay byte-identical), and the browser installed with `npx playwright-core install chromium` inside the tool folder
+  (the `playwright-core` CLI installs the revision that matches its own version). The profiles need no change.
 * **No status bar, no Dynamic Island cut-out, no Mac title bar, no device frame** - page captures, as the Play and
   Store sets. Apple's specification has no such requirement for current devices (FACTS 6.1).
-* **The version in the Mac footer - re-render the Mac set after the version bump.** The desktop UI's footer shows
-  the app version, and the footer is on the screen at the bottom of the Mac shots `02-diary`, `03-entry` and
-  `08-offline`: they read **`v0.1.0`** (the version of the tree at render time). The footer prints `APP_VERSION` of
-  `shared/constants.ts` (also shown in Settings > Diagnostics as the UI version), a constant that no script or test
-  ties to `package.json`. When the version becomes 1.0.0 at the end of the sprint, that constant has to change with
-  `package.json`, `Cargo.toml` and `tauri.conf.json`; then render the Mac set again
-  (`node scripts/play/render-screenshots.mjs --profile mac`, about 8 minutes) and run the checker. If nothing else in
-  the UI changed, only those three shots per localization come out different (the render is deterministic). The
-  iPhone layout has no footer, so the iPhone sets do not show the version.
+* **The version in the Mac footer.** The desktop UI's footer shows the app version, and the footer is on the screen
+  at the bottom of the Mac shots `02-diary`, `03-entry` and `08-offline`: they read **`v0.1.0`** (bottom right; bottom
+  left in `he` / `ar-SA`). The footer prints `APP_VERSION` of `shared/constants.ts` (also Settings > Diagnostics "UI
+  version", the server's health / status / admin responses and the `version` field of the JSON export), a constant
+  that no script or test ties to `package.json` - and it is **not** on the sprint's version-bump list (ENV-FINAL:
+  `package.json`, `Cargo.toml`, `tauri.conf.json`, `version.properties`). So the shots show `v1.0.0` only if
+  `APP_VERSION` is changed too (a main-session decision: `shared/**` is frozen for the packages); then render the Mac
+  set again (`node scripts/play/render-screenshots.mjs --profile mac`, about 8 minutes) and run the checker. If nothing
+  else in the UI changed, only those three shots per localization come out different (the render is deterministic).
+  Check it by eye - the checker does not read the version: bottom right of `mac/en-US/02-diary.png` must say
+  `v1.0.0`. With `v0.1.0` the sets are still valid uploads (only the small version label is old). The iPhone layout
+  has no footer, so the iPhone sets do not show the version.
+* **The 6.3-inch iPhone set starts some screens slightly scrolled** (the 874 CSS px high screen has no other clean
+  position - at scroll 0 a chip or a line at the bottom would be cut by the bottom navigation, and the layout rules
+  take the nearest clean position): `03-entry` in 10 localizations (`en-US`, `he`, `ar-SA`, `zh-Hans`, `ja`, `hi`,
+  `th`, `fr-FR`, `cs`, `hu`; `scrollY` 47) starts with the entry's date line - its title ("A wonderful morning") is
+  under the app bar (the 6.9-inch set and the other nine localizations show it); `fr-FR/01-home.png` (`scrollY` 71)
+  starts with the top edge of the greeting card ("Bonjour Camille") under the app bar; and `07-offline.png` of
+  `en-US`, `pl` and `pt-PT` uses the layout rules' last resort (`boxUnderTopBar` in `render-log.json`): the bottoms
+  of three empty emotion-chip outlines of the previous entry show just under the app bar (their labels are hidden).
+  No text is cut anywhere. A fix would need another entry for shot 03 or a different demo text - not done (the shot-03
+  entry is the same in every set by design). The Play set has the same last-resort case in `hi-IN` and `hu-HU` 07,
+  the Store set in 03 (by 1 px) and `zh-CN` 08. The Mac set has none (see `appStoreOfflineEntry`, section 6).
 * **The iPhone offline shot shows the badge and the message, not the yellow offline bar** (the phone layout keeps
   the one-line bar above the screen, as the Play set does - section 4). The Mac shot shows the full bar.
 * The demo data is the app's own sample diary, translated per language; the dates are those of the fixed instant
@@ -186,6 +233,7 @@ number changes (section 7).
 node scripts/appstore/check-screenshots.mjs             # exit 0 and a table, or exit 1 and the problems
 node scripts/appstore/check-screenshots.mjs --set mac   # one set (iphone-6.3, iphone-6.9, mac)
 node scripts/appstore/check-screenshots.mjs --json
+node scripts/appstore/check-screenshots.mjs --no-ios    # without the iPhone project's icon slot
 node --test scripts/appstore/check-screenshots.test.mjs # its tests; also part of: node --test "scripts/**/*.test.mjs"
 ```
 
@@ -196,8 +244,15 @@ accepted only when every pixel is opaque, with a warning), exactly the set's pix
 sizes for its class, not blank, 10 KB - 8 MB; the same file is not identical (SHA-256) in two localizations (that
 would mean the language did not apply); `render-log.json` names the profile and size, has an entry per localization
 whose files match the files on disk, says `"layout": "clean"`, the right app language and a transport log of
-127.0.0.1 only. It also checks `appstore/icon/AppIcon-1024.png` (1024 x 1024, RGB, no alpha). The last line on
-success: `check-screenshots (App Store): 3 sets, 418 images - every set complete ...`.
+127.0.0.1 only. It also checks `appstore/icon/AppIcon-1024.png` (1024 x 1024, RGB, no alpha) and - once the iPhone
+Xcode project is on this computer (`ios/`, made on the Mac by the IOS package and copied back) - that the image
+`ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json` names for the 1024x1024 slot (the entry without
+`appearances`; Capacitor's template calls it `AppIcon-512@2x.png`) is that icon: the same file, or the same pixels as
+RGB without alpha. App Store Connect takes the App Store icon from the build, so Capacitor's placeholder there would
+ship (`ios  FAIL ...`, with what to copy where). Without `ios/` the table says `ios   -   ... not on this computer
+yet` (not a failure). A set folder without any localization folder (a fresh clone: the PNGs are git-ignored, section
+1) gets one `no images at all` line. The last line on success: `check-screenshots (App Store): 3 sets, 418 images -
+every set complete ...`.
 
 It cannot judge what the eye sees: language and script, right-to-left layout, font rendering (no tofu boxes), no
 English leftovers, no clipped text that the layout rules did not model. A person reads a sample after every

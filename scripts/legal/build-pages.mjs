@@ -81,8 +81,9 @@ export const DEFAULT_LOCALE = 'en';
 
 /**
  * The four documents: id = the URL path segment and the folder under public/; footer = the id of the page the
- * footer link (front matter "otherPage") leads to. The support page links to the deletion page in its body; the
- * Terms of Use link the policy, the deletion page and the support page in their body.
+ * footer link (front matter "otherPage") leads to. The other links are in the bodies: the policy links the Terms of
+ * Use (section 2, {{TERMS_URL}}); the support page links the deletion page and the Terms of Use (section 3); the
+ * Terms of Use link the policy, the deletion page and the support page.
  */
 export const PAGES = [
   { id: 'privacy', sourceDir: path.join('legal', 'privacy'), prefix: 'privacy', footer: 'delete-account' },
@@ -204,8 +205,9 @@ export function inline(text) {
       return escapeHtml(part)
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_all, label, href) => {
-          // Addresses and e-mail links read left to right inside Hebrew and Arabic text.
-          const ltr = /^(?:mailto:|https?:|\{\{)/.test(href) ? ' dir="ltr"' : '';
+          // Addresses and e-mail links read left to right inside Hebrew and Arabic text - but a link whose text is
+          // Hebrew or Arabic words (the policy's "Terms of Use" link) keeps the direction of its paragraph.
+          const ltr = /^(?:mailto:|https?:|\{\{)/.test(href) && !/[֐-ࣿיִ-﷿ﹰ-﻿]/.test(label) ? ' dir="ltr"' : '';
           return `<a href="${href}"${ltr}>${label}</a>`;
         });
     })

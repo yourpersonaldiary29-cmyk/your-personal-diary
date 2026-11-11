@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: 利用規約 - Your Personal Diary
+description: Your Personal Diary（Windows、Mac、Android、iPhone の各アプリとウェブサイト；iPhone アプリは公開後）を利用するためのルール：利用できる人、1 人 1 アカウント、あなたのコンテンツ、許容される利用、私たちの責任。
 languages: 言語
 otherPage: プライバシーポリシー
 ---
 
-# Terms of Use - Your Personal Diary
+# 利用規約 - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+発効日：{{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+翻訳と英語版の内容が異なる場合は、英語版が適用されます。
 
-## In short
+## 概要
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary は無料の日記サービスです。あなたの日記はあなたのものです。
+- {{MINIMUM_AGE}} 歳以上である必要があり、私たちが書面で追加を承認しない限り、1 人が持てるのは**1 つのアカウントだけ**です。
+- パスワードは秘密にし、本サービスを適法に利用し、大切なものはバックアップを取ってください。
+- 本サービスは「現状のまま」（as is）提供されます。医療上のアドバイスではありません。
+- 私たちがあなたのデータをどう扱うかは、プライバシーポリシーで説明しています：[{{PRIVACY_URL}}]({{PRIVACY_URL}})。
 
-## 1. Who we are and what these terms cover
+## 1. 私たちについてと、この規約の対象
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary は {{PUBLISHER_NAME}}（以下「私たち」）が運営しています。この利用規約は、Windows アプリ、Mac アプリ、Android アプリ、iPhone アプリ（公開後）、およびウェブサイト [{{SITE_URL}}]({{SITE_URL}})（以下まとめて「本サービス」）に適用されます。いずれも同じサーバーと同じアカウントを使います。
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+アカウントを作成するか本サービスを利用することで、あなたはこの規約とプライバシーポリシー [{{PRIVACY_URL}}]({{PRIVACY_URL}}) に同意したことになります。アカウント作成時には、1 つのチェックボックスでこれを確認します。同意できない場合は、本サービスを利用しないでください。
 
-## 2. Who may use the service
+## 2. 本サービスを利用できる人
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- アカウントを作成するには {{MINIMUM_AGE}} 歳以上である必要があります。
+- お住まいの地域で未成年に当たる場合、お住まいの国の法律が求めるときは、親または保護者の同意がある場合に限り本サービスを利用できます。
+- 登録時に入力する情報（名前、ユーザー名、メールアドレス）は正確でなければならず、メールアドレスはあなたがメッセージを受け取れるものでなければなりません。これらはあとで設定から変更できます。
+- 私たちは、例えば本サービスを安定して運営するために、サーバー上のアカウント数を制限したり、新規登録をいつでも一時停止したりすることがあります。
 
-## 3. One account per person
+## 3. 1 人 1 アカウント
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**開設して保持できるアカウントは 1 つだけです。**複数のアカウントを開設または利用できるのは、運営者の事前の書面による承認がある場合に限られます。承認は [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) へのメールで申請してください。承認なしに開設されたアカウントは閉鎖されることがあります。
 
-An account is personal: do not share it with others, and do not use another person's account.
+アカウントは個人のものです。他人と共有せず、他人のアカウントを使わないでください。
 
-## 4. Your account and password
+## 4. あなたのアカウントとパスワード
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- パスワードは秘密にし、ほかのサービスでは使わないでください。強いパスワードを選んでください。
+- あなたのアカウントで行われることについては、あなたが責任を負います。ほかの誰かがパスワードを知っている、またはアカウントを使っていると思われる場合は、すぐにパスワードを変更し、[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) までお知らせください。
+- **私たちがパスワードを尋ねることは決してありません**。メールでも電話でも、ほかのどんな方法でもです。パスワードを尋ねてくる人は私たちではありません。
+- ほかの人も使うデバイスでは「ログイン状態を保持する」を選ばず、使い終わったらログアウトしてください。「ログイン状態を保持する」を選ぶと、アプリはログインしたままになり、デバイスに暗号化されたコピーを保存します。詳しくはプライバシーポリシーの第 5 節をご覧ください。
 
-## 5. Your content
+## 5. あなたのコンテンツ
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- 日記に書いた内容はあなたのものです。私たちはその所有権を一切主張しません。
+- 私たちがあなたのコンテンツを保存・処理するのは、本サービスを提供するため（保存、表示、検索、そしてあなたのデバイス間で同じ状態に保つため）だけです。その方法はプライバシーポリシーで説明しています。
+- 私たちはあなたの日記を読みません。プライバシーポリシーの第 4 節では、サーバーの運営者が技術的に何をできるのか、そして私たちが何を約束するのかをわかりやすく説明しています。
+- 書いた内容についてはあなたが責任を負います。違法なコンテンツや、他人のコンテンツをその人の許可なく保存しないでください。
+- いつでもコンテンツを持ち出せます。**設定 - バックアップ**で暗号化されたバックアップを作成でき、エクスポートではエントリーを読める形式のファイルとして書き出せます。これらのコピーはあなたのもので、自由に保管し利用できます。
 
-## 6. Acceptable use
+## 6. 許容される利用
 
-When you use the service, you must not:
+本サービスを利用する際、次のことをしてはいけません。
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- 違法な目的に使うこと、または誰かを傷つけたり、嫌がらせをしたり、脅したりするために使うこと。
+- セキュリティ、制限（例えばログイン試行回数の制限）、ほかのアカウントの保護を破ったり回避したりしようとすること。
+- 提供されているアプリとウェブサイトを通じた場合を除き、自動化された手段（ボット、スクリプト、スクレイピング）でアクセスすること。
+- サーバーに過大な負荷をかけること、またはサーバーやほかの利用者を妨害すること。
+- 本サービスを転売すること、または本サービスやそのアクセスを他人に提供すること。
+- 法律で認められている場合を除き、サーバーを複製、逆コンパイル、またはリバースエンジニアリングすること。
+- アカウントを共有すること、または承認なしに複数のアカウントを使うこと（第 3 節）。
 
-## 7. The service
+## 7. 本サービス
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- 本サービスは現在**無料**です。将来何かを有料にしたい場合は事前にお知らせし、あなたの同意なしに有料になるものはありません。
+- 機能は時間とともに変更、追加、削除されることがあります。
+- 私たちは本サービスを利用できる状態に保つよう努めますが、常に利用できることやエラーがないことは約束しません。メンテナンス、アップデート、ホスティングの問題によって中断することがあります。
+- 大切なものは**バックアップを取ってください**（設定 - バックアップ）。私たちはサーバーとそのバックアップを管理していますが、法律で求められる範囲を超えて、失われたコンテンツについて責任を負いません。
+- 接続なしでの利用（デバイス上のコピーとオフラインモード）は便宜的な機能です。すべてのデバイスで、またはいつでも利用できるとは限りません。
 
-## 8. Suspension and closing an account
+## 8. アカウントの停止と閉鎖
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- この規約に違反するアカウントは、合理的に可能な場合は事前に通知したうえで、停止または閉鎖することがあります。また、法律で求められる場合はコンテンツを削除することがあります。
+- アカウントはいつでも閉鎖できます。ログインして**設定 - アカウントの削除**を開いてください。ログインできない場合は、[{{DELETE_URL}}]({{DELETE_URL}}) の手順に従ってください。
+- アカウントが閉鎖または削除されたときにデータがどうなるかは、プライバシーポリシーの第 7 節で説明しています。
 
-## 9. If the service ends
+## 9. 本サービスが終了する場合
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+本サービスを終了することにした場合は、終了の 30 日以上前に [{{SITE_URL}}]({{SITE_URL}}) でお知らせします。その間、バックアップとエクスポートは引き続き利用できるので、日記を持ち出すことができます。
 
-## 10. Not medical advice
+## 10. 医療上のアドバイスではありません
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+アプリのインサイトは、あなた自身のエントリーに見られる関係の可能性を示すものです。因果関係を証明するものではなく、医学的・心理学的な助言でもありません。健康や気分について心配がある場合は、医師やその他の専門家に相談してください。
 
-## 11. Intellectual property
+## 11. 知的財産
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+アプリ、ウェブサイト、それらの文章とデザインは運営者に帰属し、この規約で認められた範囲でのみ利用できます。「Your Personal Diary」は本サービスの名称です。アプリに含まれるオープンソースのコンポーネントには、それぞれのライセンスが引き続き適用されます。
 
-## 12. Liability and warranty
+## 12. 責任と保証
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- 法律で認められる範囲で、本サービスは「現状のまま」かつ「提供可能な範囲で」（as is, as available）提供され、いかなる種類の保証もありません。
+- 法律で認められる範囲で、私たちは逸失利益や機会の損失などの間接的または派生的な損害について責任を負いません。
+- あなたの国の強行法規に基づいて消費者として持つ権利は、この規約によって影響を受けません。
+- この規約のいかなる内容も、法律上制限できない責任を制限するものではありません。
 
-## 13. Changes to these terms
+## 13. この規約の変更
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+本サービスまたはこの規約が変わったときは、このページと冒頭の発効日を更新します。重要な変更は、適用される前にこのページでお知らせします。変更が適用された後も本サービスを使い続けた場合は、新しい規約に同意したものとみなされます。同意しない場合は、いつでもアカウントを削除できます（第 8 節）。登録時に同意したバージョンは、アカウントとともに記録されます。
 
-## 14. Disagreements
+## 14. 意見の相違
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+私たちに対して苦情や意見の相違がある場合は、まず [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) までご連絡ください。メールでの解決に努めます。この規約のいかなる内容も、あなたが住んでいる国の法律があなたに与える権利を奪うものではありません。
 
-## 15. Contact
+## 15. お問い合わせ
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+この規約に関するご質問：[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+サポートとよくある質問：[{{SUPPORT_URL}}]({{SUPPORT_URL}})

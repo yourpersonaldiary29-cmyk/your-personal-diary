@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: Condiciones de uso - Your Personal Diary
+description: Las reglas para usar Your Personal Diary (las aplicaciones para Windows, Mac, Android y iPhone y el sitio web; la de iPhone, cuando se publique): quién puede usarlo, una cuenta por persona, tu contenido, el uso aceptable y nuestras responsabilidades.
 languages: Idiomas
 otherPage: Política de privacidad
 ---
 
-# Terms of Use - Your Personal Diary
+# Condiciones de uso - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+Fecha de entrada en vigor: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+Si una traducción difiere de la versión en inglés, prevalece la versión en inglés.
 
-## In short
+## En resumen
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary es un servicio de diario gratuito. Tu diario te pertenece.
+- Debes tener al menos {{MINIMUM_AGE}} años, y cada persona puede tener **una sola cuenta**, salvo que aprobemos más por escrito.
+- Mantén tu contraseña en secreto, usa el servicio conforme a la ley y guarda una copia de seguridad de lo que te importa.
+- El servicio se ofrece "tal cual" (as is). No es consejo médico.
+- Cómo tratamos tus datos se explica en la Política de privacidad: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
 
-## 1. Who we are and what these terms cover
+## 1. Quiénes somos y qué cubren estas condiciones
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary lo opera {{PUBLISHER_NAME}} ("nosotros"). Estas Condiciones de uso se aplican a la aplicación para Windows, la aplicación para Mac, la aplicación para Android, la aplicación para iPhone (cuando se publique) y el sitio web [{{SITE_URL}}]({{SITE_URL}}); en conjunto, "el servicio". Todos usan el mismo servidor y la misma cuenta.
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+Al crear una cuenta o usar el servicio, aceptas estas condiciones y la Política de privacidad [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Al crear la cuenta, lo confirmas con una sola casilla. Si no estás de acuerdo, no uses el servicio.
 
-## 2. Who may use the service
+## 2. Quién puede usar el servicio
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- Debes tener al menos {{MINIMUM_AGE}} años para crear una cuenta.
+- Si eres menor de edad donde vives, solo puedes usar el servicio con el consentimiento de tu madre, tu padre o tu tutor legal, cuando la ley de tu país lo exija.
+- Los datos que das al registrarte (nombre, nombre de usuario y dirección de correo electrónico) deben ser exactos, y la dirección de correo debe ser una en la que puedas recibir mensajes. Puedes cambiarlos más adelante en Ajustes.
+- Podemos limitar el número de cuentas del servidor y suspender los registros nuevos en cualquier momento, por ejemplo para que el servicio siga funcionando bien.
 
-## 3. One account per person
+## 3. Una cuenta por persona
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**Solo puedes abrir y mantener una cuenta.** Abrir o usar más de una cuenta solo está permitido con la aprobación previa y por escrito del operador, que se solicita por correo electrónico a [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Las cuentas abiertas sin esa aprobación pueden cerrarse.
 
-An account is personal: do not share it with others, and do not use another person's account.
+Una cuenta es personal: no la compartas con otras personas y no uses la cuenta de otra persona.
 
-## 4. Your account and password
+## 4. Tu cuenta y tu contraseña
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- Mantén tu contraseña en secreto y no la uses en otros servicios. Elige una contraseña fuerte.
+- Eres responsable de lo que se hace con tu cuenta. Si crees que otra persona conoce tu contraseña o usa tu cuenta, cambia la contraseña de inmediato y avísanos en [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+- **Nunca te pedimos tu contraseña**: ni por correo electrónico, ni por teléfono, ni de ninguna otra forma. Quien te la pida no somos nosotros.
+- En un dispositivo que también usan otras personas, no elijas "Recordarme" y cierra la sesión al terminar: con "Recordarme", la aplicación mantiene tu sesión iniciada y guarda copias cifradas en el dispositivo, como explica la sección 5 de la Política de privacidad.
 
-## 5. Your content
+## 5. Tu contenido
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- Lo que escribes en tu diario te pertenece. No reclamamos ninguna propiedad sobre ello.
+- Guardamos y tratamos tu contenido solo para prestarte el servicio: para guardarlo, mostrarlo, buscar en él y mantenerlo igual en todos tus dispositivos. La Política de privacidad explica cómo.
+- No leemos tu diario. La sección 4 de la Política de privacidad explica con claridad lo que quien opera el servidor podría hacer técnicamente y a qué nos comprometemos.
+- Eres responsable de lo que escribes. No guardes contenido ilegal ni contenido que pertenezca a otra persona sin su permiso.
+- Puedes llevarte tu contenido en cualquier momento: **Ajustes - Copia de seguridad** crea una copia de seguridad cifrada, y la exportación escribe tus entradas como un archivo legible. Esas copias son tuyas, para guardarlas y usarlas.
 
-## 6. Acceptable use
+## 6. Uso aceptable
 
-When you use the service, you must not:
+Cuando uses el servicio, no debes:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- usarlo para nada ilegal, ni para dañar, acosar o amenazar a nadie;
+- intentar romper o eludir su seguridad, sus límites (por ejemplo, los límites de intentos de inicio de sesión) o la protección de otras cuentas;
+- acceder a él por medios automatizados (bots, scripts, scraping), salvo a través de las aplicaciones y el sitio web tal como se ofrecen;
+- sobrecargar el servidor o interferir con él o con otros usuarios;
+- revender el servicio, ni ofrecerlo a otros ni darles acceso a él;
+- copiar, descompilar o aplicar ingeniería inversa al servidor, salvo cuando la ley lo permita;
+- compartir tu cuenta, ni usar más de una cuenta sin aprobación (sección 3).
 
-## 7. The service
+## 7. El servicio
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- Hoy el servicio es **gratuito**. Si algún día queremos cobrar por algo, lo avisaremos con antelación, y nada pasará a ser de pago sin tu consentimiento.
+- Las funciones pueden cambiar, añadirse o eliminarse con el tiempo.
+- Procuramos que el servicio esté disponible, pero no prometemos que lo esté siempre ni que no tenga errores. El mantenimiento, las actualizaciones o los problemas del alojamiento pueden interrumpirlo.
+- **Guarda una copia de seguridad** de lo que te importa (Ajustes - Copia de seguridad). Cuidamos del servidor y de sus copias de seguridad, pero no respondemos del contenido perdido más allá de lo que exija la ley.
+- Trabajar sin conexión (las copias de tu dispositivo y el modo sin conexión) es una comodidad. Puede no estar disponible en todos los dispositivos ni en todo momento.
 
-## 8. Suspension and closing an account
+## 8. Suspensión y cierre de una cuenta
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- Podemos suspender o cerrar una cuenta que incumpla estas condiciones, con un aviso previo cuando sea razonablemente posible, y podemos retirar contenido cuando la ley lo exija.
+- Puedes cerrar tu cuenta en cualquier momento: inicia sesión y abre **Ajustes - Eliminar la cuenta**. Si no puedes iniciar sesión, sigue los pasos de [{{DELETE_URL}}]({{DELETE_URL}}).
+- Lo que ocurre con tus datos cuando se cierra o se elimina una cuenta se explica en la sección 7 de la Política de privacidad.
 
-## 9. If the service ends
+## 9. Si el servicio termina
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+Si decidimos poner fin al servicio, lo anunciaremos en [{{SITE_URL}}]({{SITE_URL}}) al menos 30 días antes de que termine. Durante ese tiempo, la copia de seguridad y la exportación seguirán disponibles, para que puedas llevarte tu diario.
 
-## 10. Not medical advice
+## 10. No es consejo médico
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Las conclusiones de la aplicación describen posibles relaciones en tus propias entradas. No demuestran causa y efecto y no son consejo médico ni psicológico. Si te preocupa tu salud o tu estado de ánimo, habla con un médico o con otro profesional.
 
-## 11. Intellectual property
+## 11. Propiedad intelectual
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+Las aplicaciones, el sitio web, sus textos y su diseño pertenecen al operador y solo pueden usarse como permiten estas condiciones. "Your Personal Diary" es el nombre del servicio. Los componentes de código abierto incluidos en las aplicaciones siguen sujetos a sus propias licencias.
 
-## 12. Liability and warranty
+## 12. Responsabilidad y garantía
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- En la medida en que la ley lo permita, el servicio se ofrece "tal cual" y "según disponibilidad" (as is, as available), sin garantías de ningún tipo.
+- En la medida en que la ley lo permita, no respondemos de pérdidas indirectas o consecuentes, como el lucro cesante o la pérdida de oportunidades.
+- Estas condiciones no afectan a los derechos que tienes como consumidor según las normas imperativas de tu país.
+- Nada en estas condiciones limita la responsabilidad que la ley no permite limitar.
 
-## 13. Changes to these terms
+## 13. Cambios en estas condiciones
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+Cuando cambien el servicio o estas condiciones, actualizaremos esta página y la fecha de entrada en vigor que figura arriba. Los cambios importantes se anuncian en esta página antes de que se apliquen. Si sigues usando el servicio después de que se aplique un cambio, aceptas las nuevas condiciones; si no las aceptas, puedes eliminar tu cuenta en cualquier momento (sección 8). La versión que aceptaste al registrarte queda registrada con tu cuenta.
 
-## 14. Disagreements
+## 14. Desacuerdos
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+Si tienes una queja o un desacuerdo con nosotros, escríbenos primero a [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}): intentaremos resolverlo por correo electrónico. Nada en estas condiciones te quita los derechos que te reconoce la ley del país en el que vives.
 
-## 15. Contact
+## 15. Contacto
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+Preguntas sobre estas condiciones: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+Soporte y preguntas frecuentes: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

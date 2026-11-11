@@ -19,6 +19,7 @@ import { T } from '@/constants/texts';
 import { useAnnouncer } from '@/context/AnnouncerContext';
 import { getPhoneSecurity, useLock, type PhoneSecurity, type PhoneSecurityPrefs } from '@/context/LockContext';
 import { useSettings } from '@/context/SettingsContext';
+import { shortcutHintsAvailable } from '@/hooks/useKeyboardShortcuts';
 import { tr } from '@/i18n/runtime';
 import { isApp } from '@/offline/session';
 import { errorMessage } from '@/utils/errors';
@@ -207,7 +208,8 @@ export function SecuritySection() {
           onChange={onAutoLock}
         />
         {security && <PhoneSecurityBlock security={security} />}
-        <p className="text-muted text-small">{platformizeHint(ST.lockNowHint)}</p>
+        {/* "You can also lock with Ctrl+L": only where a keyboard is in use (not on a phone's touch screen). */}
+        {shortcutHintsAvailable() && <p className="text-muted text-small">{platformizeHint(ST.lockNowHint)}</p>}
         {offlineCopy && <p className="text-muted text-small">{tr('shell.sync.uninstallHint')}</p>}
       </div>
     </Card>

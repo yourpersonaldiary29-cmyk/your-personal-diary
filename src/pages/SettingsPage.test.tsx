@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { screen, waitFor, within } from '@testing-library/react';
 import type { ServerInfo, ServerSettings, SessionInfo, UserProfile } from '@shared/types';
-import { passwordProblem } from '@shared/constants';
+import { APP_VERSION, passwordProblem } from '@shared/constants';
 import * as api from '@/api';
 import { ApiClientError, TOKEN_KEY } from '@/api';
 import { T } from '@/constants/texts';
@@ -729,7 +729,8 @@ describe('SettingsPage', () => {
       renderWithProviders(<SettingsPage />, { auth: 'authenticated' });
       const card = screen.getByRole('heading', { name: ST.diagnostics }).closest('section') as HTMLElement;
       expect(await within(card).findByText('47321')).toBeInTheDocument();
-      expect(within(card).getAllByText('0.1.0')).toHaveLength(2); // UI version and server version
+      expect(within(card).getByText(APP_VERSION)).toBeInTheDocument(); // UI version (shared/constants.ts)
+      expect(within(card).getByText('0.1.0')).toBeInTheDocument(); // server version (the mocked server answers 0.1.0)
       expect(within(card).getByText(ST.lanOff)).toBeInTheDocument();
       expect(screen.queryByText(serverInfo.dataDir)).not.toBeInTheDocument();
       expect(within(card).getByRole('button', { name: ST.showServerLog })).toBeInTheDocument();

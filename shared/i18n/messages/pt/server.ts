@@ -517,8 +517,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'Demasiadas inscrições a partir da sua rede. Tente novamente mais tarde.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'Para criar uma conta, confirme que leu e aceita a política de privacidade. Se não vir nenhuma caixa para assinalar, atualize a aplicação.',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': 'Para criar uma conta, confirme que leu e aceita os termos de utilização. Se não vir nenhuma caixa para assinalar, atualize a aplicação.',
   'server.error.busy': 'O servidor está ocupado neste momento. Tente novamente dentro de instantes.',
   'server.vault.quota': 'O seu diário atingiu o limite de tamanho deste servidor ({max} MB). Elimine algumas entradas para libertar espaço.',
   'server.owner.unset': 'Este servidor ainda não tem um proprietário configurado. O operador tem de definir DIARY_OWNER_ID com o ID da conta do proprietário.',

@@ -51,9 +51,10 @@ Reminders belong to habits: you set the time for each habit on the habits page a
 
 No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
 
-## 3. Privacy policy and account deletion
+## 3. Privacy policy, Terms of Use and account deletion
 
 - Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
+- Terms of Use: [{{TERMS_URL}}]({{TERMS_URL}}) - the rules for using the service, including one account per person.
 - Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
 
 ## 4. Operator

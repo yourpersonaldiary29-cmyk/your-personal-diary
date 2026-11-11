@@ -1,6 +1,6 @@
 [package]
 name = "your-personal-diary"
-version = "0.1.0"
+version = "1.0.0"
 description = "Your Personal Diary - desktop shell (a thin client of the Your Personal Diary server)"
 authors = ["AVI"]
 edition = "2021"

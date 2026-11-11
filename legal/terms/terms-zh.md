@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: 使用条款 - Your Personal Diary
+description: 使用 Your Personal Diary（Windows、Mac、Android 和 iPhone 应用以及网站；iPhone 应用将在发布后提供）的规则：谁可以使用、每人一个账户、你的内容、可接受的使用方式以及我们的责任。
 languages: 语言
 otherPage: 隐私政策
 ---
 
-# Terms of Use - Your Personal Diary
+# 使用条款 - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+生效日期：{{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+如果译文与英文版本有出入，以英文版本为准。
 
-## In short
+## 简要说明
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary 是一项免费的日记服务。你的日记属于你。
+- 你必须年满 {{MINIMUM_AGE}} 岁，并且每人**只能有一个账户**，除非我们书面批准更多账户。
+- 请对你的密码保密，合法使用本服务，并备份对你重要的内容。
+- 本服务按"现状"（as is）提供。它不是医疗建议。
+- 我们如何处理你的数据，请见隐私政策：[{{PRIVACY_URL}}]({{PRIVACY_URL}})。
 
-## 1. Who we are and what these terms cover
+## 1. 我们是谁，以及本条款的适用范围
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary 由 {{PUBLISHER_NAME}}（"我们"）运营。本使用条款适用于 Windows 应用、Mac 应用、Android 应用、iPhone 应用（发布后）以及网站 [{{SITE_URL}}]({{SITE_URL}})——统称"本服务"。它们都使用同一台服务器和同一个账户。
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+创建账户或使用本服务，即表示你同意本条款和隐私政策 [{{PRIVACY_URL}}]({{PRIVACY_URL}})。创建账户时，你只需勾选一个复选框即可确认这一点。如果你不同意，请不要使用本服务。
 
-## 2. Who may use the service
+## 2. 谁可以使用本服务
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- 你必须年满 {{MINIMUM_AGE}} 岁才能创建账户。
+- 如果按你居住地的规定你是未成年人，在你所在国家的法律有此要求时，你只有在父母或监护人同意的情况下才能使用本服务。
+- 你注册时提供的信息（姓名、用户名和电子邮件地址）必须准确，并且电子邮件地址必须是你能接收邮件的地址。你之后可以在设置中更改这些信息。
+- 我们可以限制服务器上的账户数量，并可随时暂停新的注册，例如为了让服务保持良好运行。
 
-## 3. One account per person
+## 3. 每人一个账户
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**你只能开设并保留一个账户。**开设或使用多个账户须事先获得运营者的书面批准，请通过电子邮件 [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) 申请。未经批准开设的账户可能会被关闭。
 
-An account is personal: do not share it with others, and do not use another person's account.
+账户是个人的：不要与他人共享，也不要使用他人的账户。
 
-## 4. Your account and password
+## 4. 你的账户和密码
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- 请对你的密码保密，不要在其他服务中使用它。请选择一个强密码。
+- 你要对使用你的账户所做的一切负责。如果你认为其他人知道你的密码或在使用你的账户，请立即更改密码，并通过 [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) 告诉我们。
+- **我们从不索要你的密码**——不会通过电子邮件、电话或任何其他方式。任何向你索要密码的人都不是我们。
+- 在其他人也会使用的设备上，请不要选择"记住我"，并在用完后退出登录：选择"记住我"后，应用会让你保持登录状态，并在设备上保存加密副本，详见隐私政策第 5 节。
 
-## 5. Your content
+## 5. 你的内容
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- 你在日记中写的内容属于你。我们不主张对其拥有任何所有权。
+- 我们存储和处理你的内容，只是为了向你提供服务——保存、显示和搜索你的内容，并使其在你的各台设备上保持一致。隐私政策说明了具体方式。
+- 我们不会阅读你的日记。隐私政策第 4 节清楚地说明了服务器运营者在技术上能够做什么，以及我们的承诺。
+- 你要对自己写的内容负责。不要存储违法内容，也不要未经许可存储属于他人的内容。
+- 你可以随时带走你的内容：**设置 - 备份**会创建加密备份，导出功能会把你的条目写成可读文件。这些副本归你所有，可自行保存和使用。
 
-## 6. Acceptable use
+## 6. 可接受的使用
 
-When you use the service, you must not:
+使用本服务时，你不得：
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- 将其用于任何违法目的，或用来伤害、骚扰或威胁任何人；
+- 试图破坏或绕过其安全措施、限制（例如登录尝试次数的限制）或对其他账户的保护；
+- 以自动化方式（机器人、脚本、数据抓取）访问本服务，但通过我们提供的应用和网站访问除外；
+- 使服务器超载，或干扰服务器或其他用户；
+- 转售本服务，或向他人提供本服务或其访问权限；
+- 复制、反编译服务器或对其进行逆向工程，但法律允许的情况除外；
+- 共享你的账户，或未经批准使用多个账户（第 3 节）。
 
-## 7. The service
+## 7. 本服务
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- 本服务目前**免费**提供。如果我们将来想对任何内容收费，会提前告知，未经你的同意，任何内容都不会变为付费。
+- 功能可能会随时间变化、增加或移除。
+- 我们努力保持服务可用，但不保证服务始终可用或没有错误。维护、更新或托管方面的问题都可能导致服务中断。
+- **请备份**对你重要的内容（设置 - 备份）。我们会照管服务器及其备份，但除法律要求外，我们不对丢失的内容承担责任。
+- 无网络时工作（设备上的副本和离线模式）只是一项便利功能。它不一定在每台设备上或任何时候都可用。
 
-## 8. Suspension and closing an account
+## 8. 账户的暂停和关闭
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- 对于违反本条款的账户，我们可以暂停或关闭——在合理可行的情况下会事先通知——并可在法律要求时删除内容。
+- 你可以随时关闭你的账户：登录后打开**设置 - 删除账户**。如果你无法登录，请按照 [{{DELETE_URL}}]({{DELETE_URL}}) 上的步骤操作。
+- 账户被关闭或删除后你的数据会如何处理，请见隐私政策第 7 节。
 
-## 9. If the service ends
+## 9. 如果服务终止
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+如果我们决定终止本服务，会至少提前 30 天在 [{{SITE_URL}}]({{SITE_URL}}) 上宣布。在此期间，备份和导出功能仍然可用，以便你带走你的日记。
 
-## 10. Not medical advice
+## 10. 不是医疗建议
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+应用中的洞察描述的是你自己条目中可能存在的关联。它们不能证明因果关系，也不是医疗或心理建议。如果你担心自己的健康或情绪，请咨询医生或其他专业人士。
 
-## 11. Intellectual property
+## 11. 知识产权
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+应用、网站及其文字和设计归运营者所有，只能在本条款允许的范围内使用。"Your Personal Diary"是本服务的名称。应用中包含的开源组件仍受其各自许可证的约束。
 
-## 12. Liability and warranty
+## 12. 责任与担保
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- 在法律允许的范围内，本服务按"现状"和"现有"（as is, as available）提供，不附带任何形式的担保。
+- 在法律允许的范围内，我们不对间接损失或后果性损失（例如利润损失或机会损失）承担责任。
+- 你作为消费者依据你所在国家的强制性法律享有的权利，不受本条款影响。
+- 本条款中的任何内容均不限制法律不允许限制的责任。
 
-## 13. Changes to these terms
+## 13. 本条款的变更
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+当服务或本条款发生变化时，我们会更新本页面及顶部的生效日期。重要变更会在生效前在本页面公布。如果你在变更生效后继续使用本服务，即表示你接受新条款；如果你不接受，可以随时删除你的账户（第 8 节）。你注册时同意的版本会随你的账户记录保存。
 
-## 14. Disagreements
+## 14. 分歧
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+如果你对我们有投诉或分歧，请先写信至 [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})——我们会尽力通过电子邮件解决。本条款中的任何内容都不会剥夺你所居住国家的法律赋予你的权利。
 
-## 15. Contact
+## 15. 联系方式
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+有关本条款的问题：[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+支持和常见问题：[{{SUPPORT_URL}}]({{SUPPORT_URL}})

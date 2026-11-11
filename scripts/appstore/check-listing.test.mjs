@@ -3,17 +3,21 @@
  *
  *   node --test scripts/appstore/check-listing.test.mjs
  *
- * 1. The real appstore/listing/en-US and he folders and the Bulgarian note pass; appstore/locales.json maps the
- *    app's 20 UI languages exactly as docs/apple-tasks/ENV-FINAL.md says (Bulgarian has no App Store localization).
- * 2. Every rule catches a broken fixture (a temp copy of en-US, he, bg and locales.json with one thing broken):
- *    the App Store Connect limits in code points, the brand name, the keyword rules, the forbidden platform terms
- *    in several scripts, file hygiene, the URLs, plain text, translation / script, completeness and the locales
- *    file - and the command line exits 1 on a problem and 0 (with the table) when clean.
+ * 1. The real kit passes: all 19 localizations of appstore/listing/ (ten field files each, both record names, keywords
+ *    within 100 UTF-8 bytes, the minimum age of legal/settings.json in every description), the Bulgarian note, and the
+ *    Bulgarian draft _bg under the same rules; appstore/locales.json maps the app's 20 UI languages exactly as
+ *    docs/apple-tasks/ENV-FINAL.md says (Bulgarian has no App Store localization).
+ * 2. Every rule catches a broken fixture (a temp copy of en-US, he, bg, locales.json and a settings.json whose
+ *    "minimumAge" is the age the real texts state, so these tests do not depend on the real legal/settings.json):
+ *    the App Store Connect limits in code points and the keyword limit in bytes, the two names, the keyword rules, the
+ *    minimum age, the forbidden platform terms in several scripts, file hygiene, the URLs, plain text, translation /
+ *    script, completeness and the locales file - and the command line exits 1 on a problem and 0 (with the table)
+ *    when clean.
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, cpSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,13 +27,21 @@ import {
   DEFAULT_LOCALES_FILE,
   FIELDS,
   FILES,
+  KEYWORD_BYTES,
+  MAC_NAME,
+  NOTE_FILE,
   ROOT,
   SCRIPTS,
   checkListing,
   count,
   keywordProblems,
+  lastParagraph,
   loadLocales,
+  loadMinimumAge,
+  minimumAgeProblems,
+  numbersIn,
   textProblems,
+  wordsOf,
 } from './check-listing.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -41,6 +53,8 @@ const EXPECTED_FOLDERS = {
   en: 'en-US', he: 'he', ar: 'ar-SA', zh: 'zh-Hans', ja: 'ja', hi: 'hi', th: 'th', es: 'es-ES', pt: 'pt-PT', fr: 'fr-FR',
   it: 'it', de: 'de-DE', ro: 'ro', el: 'el', pl: 'pl', cs: 'cs', hu: 'hu', ru: 'ru', bg: null, tr: 'tr',
 };
+/** The minimum age the real descriptions state (the last paragraph of en-US) - the fixtures' settings.json holds it. */
+const AGE_IN_TEXTS = numbersIn(lastParagraph(readFileSync(path.join(DEFAULT_LISTING_DIR, 'en-US', 'description.txt'), 'utf8')))[0];
 
 function fixture() {
   const root = mkdtempSync(path.join(os.tmpdir(), 'appstore-listing-'));
@@ -49,14 +63,16 @@ function fixture() {
   for (const folder of BASE) cpSync(path.join(DEFAULT_LISTING_DIR, folder), path.join(dir, folder), { recursive: true });
   const localesFile = path.join(root, 'locales.json');
   copyFileSync(DEFAULT_LOCALES_FILE, localesFile);
-  return { root, dir, localesFile };
+  const settingsFile = path.join(root, 'settings.json');
+  writeFileSync(settingsFile, JSON.stringify({ minimumAge: AGE_IN_TEXTS }), 'utf8');
+  return { root, dir, localesFile, settingsFile };
 }
 
 function withFixture(mutate, only = BASE) {
   const fx = fixture();
   try {
     mutate(fx.dir, fx);
-    return checkListing(fx.dir, { only, localesFile: fx.localesFile });
+    return checkListing(fx.dir, { only, localesFile: fx.localesFile, settingsFile: fx.settingsFile });
   } finally {
     rmSync(fx.root, { recursive: true, force: true });
   }
@@ -67,6 +83,11 @@ const write = (dir, folder, file, text) => writeFileSync(path.join(dir, folder, 
 
 function problemsOf(result, folder, file) {
   return result.rows.filter((r) => r.folder === folder && r.file === file).flatMap((r) => r.problems);
+}
+
+/** Every failing file of a result, one line each (readable assertion messages). */
+function failures(result) {
+  return result.rows.filter((r) => r.problems.length).map((r) => `${r.folder}/${r.file}: ${r.problems.join('; ')}`);
 }
 
 function expectProblem(result, folder, file, re) {
@@ -97,13 +118,57 @@ function withLocales(mutate) {
 // ---------------------------------------------------------------------------------------------
 test('the real en-US and he listings and the Bulgarian note pass', () => {
   const result = checkListing(DEFAULT_LISTING_DIR, { only: BASE });
-  assert.deepEqual(result.rows.filter((r) => r.problems.length), []);
+  assert.deepEqual(failures(result), []);
   assert.deepEqual(result.problems, []);
-  assert.equal(result.rows.length, 18);
+  assert.equal(result.rows.length, 2 * FILES.length);
   assert.deepEqual(result.notes, ['bg: no App Store localization (bg/NOTE.txt present)']);
   assert.ok(result.ok);
   const run = spawnSync(process.execPath, [CHECKER, '--only', 'en-US,he,bg'], { encoding: 'utf8' });
   assert.equal(run.status, 0, run.stdout + run.stderr);
+});
+
+test('the whole real kit passes: 19 localizations, ten files each, both names, keywords within 100 bytes, the minimum age', () => {
+  const result = checkListing();
+  assert.deepEqual(failures(result), []);
+  assert.deepEqual(result.problems, []);
+  const folders = [...new Set(result.rows.map((r) => r.folder))];
+  assert.equal(folders.length, 19);
+  assert.deepEqual(folders.sort(), Object.values(EXPECTED_FOLDERS).filter(Boolean).sort());
+  assert.equal(result.rows.length, 19 * FILES.length);
+  for (const folder of folders) {
+    const row = (file) => result.rows.find((r) => r.folder === folder && r.file === file);
+    assert.equal(row('name-mac.txt').chars, Array.from(MAC_NAME).length, `${folder}/name-mac.txt`);
+    assert.ok(row('keywords.txt').bytes <= KEYWORD_BYTES, `${folder}/keywords.txt: ${row('keywords.txt').bytes} bytes`);
+  }
+  const { age, problems } = loadMinimumAge();
+  assert.deepEqual(problems, []);
+  assert.equal(result.minimumAge, age);
+  assert.ok(result.ok);
+});
+
+test('the Bulgarian draft _bg (kept for reuse, skipped by the command) follows the same rules', () => {
+  const draft = path.join(DEFAULT_LISTING_DIR, '_bg');
+  assert.deepEqual(readdirSync(draft).sort(), [...FILES, NOTE_FILE].sort(), '_bg holds the field files and its NOTE.txt');
+  const root = mkdtempSync(path.join(os.tmpdir(), 'appstore-bg-draft-'));
+  try {
+    const dir = path.join(root, 'listing');
+    mkdirSync(dir);
+    cpSync(path.join(DEFAULT_LISTING_DIR, 'en-US'), path.join(dir, 'en-US'), { recursive: true });
+    cpSync(draft, path.join(dir, 'bg-BG'), { recursive: true });
+    rmSync(path.join(dir, 'bg-BG', NOTE_FILE));
+    const json = JSON.parse(readFileSync(DEFAULT_LOCALES_FILE, 'utf8'));
+    json.bg = { folder: 'bg-BG', appleName: 'Bulgarian', note: 'test only: the _bg draft under a temporary code' };
+    const localesFile = path.join(root, 'locales.json');
+    writeFileSync(localesFile, JSON.stringify(json, null, 2), 'utf8');
+    // The real legal/settings.json: the draft states the same minimum age as the 19 folders.
+    const result = checkListing(dir, { only: ['en-US', 'bg-BG'], localesFile });
+    assert.deepEqual(failures(result), []);
+    assert.deepEqual(result.problems, []);
+    assert.equal(result.rows.filter((r) => r.folder === 'bg-BG').length, FILES.length);
+    assert.ok(result.ok);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });
 
 test('appstore/locales.json maps the 20 UI languages of the app to the App Store Connect codes of ENV-FINAL', () => {
@@ -127,14 +192,18 @@ test('appstore/locales.json maps the 20 UI languages of the app to the App Store
 });
 
 test('the field files and their App Store Connect limits', () => {
-  assert.deepEqual(FILES, ['name.txt', 'subtitle.txt', 'promotional-text.txt', 'description.txt', 'keywords.txt', 'whats-new.txt', 'support-url.txt', 'privacy-url.txt', 'marketing-url.txt']);
+  assert.deepEqual(FILES, ['name.txt', 'name-mac.txt', 'subtitle.txt', 'promotional-text.txt', 'description.txt', 'keywords.txt', 'whats-new.txt', 'support-url.txt', 'privacy-url.txt', 'marketing-url.txt']);
   assert.equal(FIELDS['name.txt'].max, 30);
   assert.equal(FIELDS['name.txt'].exact, BRAND);
+  assert.equal(FIELDS['name-mac.txt'].max, 30);
+  assert.equal(FIELDS['name-mac.txt'].exact, 'Your Personal Diary for Mac');
+  assert.equal(Array.from(MAC_NAME).length, 27);
   assert.equal(FIELDS['subtitle.txt'].max, 30);
   assert.equal(FIELDS['promotional-text.txt'].max, 170);
   assert.equal(FIELDS['description.txt'].max, 4000);
   assert.equal(FIELDS['description.txt'].min, 600);
-  assert.equal(FIELDS['keywords.txt'].max, 100);
+  assert.equal(FIELDS['keywords.txt'].maxBytes, 100);
+  assert.equal(FIELDS['keywords.txt'].max, undefined, 'the keyword limit is in bytes, not characters (APPSTORE-FACTS 2.8)');
   assert.equal(FIELDS['whats-new.txt'].max, 4000);
   assert.equal(FIELDS['marketing-url.txt'].empty, true);
 });
@@ -155,16 +224,19 @@ test("limits: subtitle, promotional text, description (and its minimum), keyword
   expectProblem(withFixture((d) => write(d, 'en-US', 'promotional-text.txt', `${'Calm. '.repeat(29).trim()}\n`)), 'en-US', 'promotional-text.txt', /limit is 170/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'description.txt', `${BRAND} is a diary. ${'word '.repeat(810).trim()}\n`)), 'en-US', 'description.txt', /limit is 4000/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'description.txt', `${BRAND} is a diary for your words.\n`)), 'en-US', 'description.txt', /at least 600/);
-  expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', `${Array.from({ length: 12 }, (_, i) => `keyword${i}`).join(',')}\n`)), 'en-US', 'keywords.txt', /limit is 100/);
+  expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', `${Array.from({ length: 12 }, (_, i) => `keyword${i}`).join(',')}\n`)), 'en-US', 'keywords.txt', /limit is 100 bytes/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'whats-new.txt', `${'Better habits. '.repeat(270).trim()}\n`)), 'en-US', 'whats-new.txt', /limit is 4000/);
 });
 
-test('the name is exactly the brand in every language', () => {
+test('the names: "Your Personal Diary" (iPhone record) and "Your Personal Diary for Mac" (Mac record) in every language', () => {
   expectProblem(withFixture((d) => write(d, 'he', 'name.txt', 'היומן האישי שלך\n')), 'he', 'name.txt', /exactly "Your Personal Diary"/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'name.txt', 'Your Personal Diary - Mood Journal\n')), 'en-US', 'name.txt', /exactly/);
+  expectProblem(withFixture((d) => write(d, 'he', 'name-mac.txt', `${BRAND}\n`)), 'he', 'name-mac.txt', /exactly "Your Personal Diary for Mac"/);
+  expectProblem(withFixture((d) => write(d, 'en-US', 'name-mac.txt', 'Your Personal Diary for macOS\n')), 'en-US', 'name-mac.txt', /exactly/);
+  expectProblem(withFixture((d) => rmSync(path.join(d, 'he', 'name-mac.txt'))), 'he', 'name-mac.txt', /missing/);
 });
 
-test('keywords: one line, commas without spaces, unique, not the brand, not a word of the name or subtitle, no plural next to its singular', () => {
+test('keywords: one line, commas without spaces, unique, not the brand, not a word of the names or subtitle, no plural next to its singular', () => {
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,sleep\nstress\n')), 'en-US', 'keywords.txt', /one line/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits, sleep,stress\n')), 'en-US', 'keywords.txt', /space after a comma/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,,sleep\n')), 'en-US', 'keywords.txt', /empty keyword/);
@@ -173,45 +245,86 @@ test('keywords: one line, commas without spaces, unique, not the brand, not a wo
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,your personal diary\n')), 'en-US', 'keywords.txt', /app's name/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,journal\n')), 'en-US', 'keywords.txt', /repeats the word "journal" of the name or subtitle/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,Diary\n')), 'en-US', 'keywords.txt', /repeats the word "diary"/);
+  expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,mac\n')), 'en-US', 'keywords.txt', /repeats the word "mac"/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habit,habits\n')), 'en-US', 'keywords.txt', /plural/);
   expectProblem(withFixture((d) => write(d, 'en-US', 'keywords.txt', 'habits,ab,sleep\n')), 'en-US', 'keywords.txt', /shorter than three characters/);
   expectProblem(withFixture((d) => write(d, 'he', 'keywords.txt', 'רגשות,יומן\n')), 'he', 'keywords.txt', /repeats the word "יומן"/);
   assert.deepEqual(keywordProblems('habits,sleep,hebrew calendar', 'en', new Set(['journal'])), []);
+  // A two-character Chinese or Japanese word is a whole word (appstore/README.md section 2).
+  assert.deepEqual(keywordProblems('睡眠,日历', 'zh'), []);
 });
 
-test('keywords: the UTF-8 bytes are reported; over 100 bytes is a warning, or a failure with strictKeywordBytes', () => {
+test('keywords in Thai, Chinese and Japanese (no spaces between words) must not be a part of the name or subtitle', () => {
+  const zhSubtitle = '私密日记，记录心情与习惯';
+  const zh = keywordProblems('心情,睡眠,日记本', 'zh', new Set(wordsOf(zhSubtitle, 'zh')), zhSubtitle);
+  assert.deepEqual(zh, ['"心情" is already part of the name or subtitle - Apple indexes those already']);
+  const thSubtitle = 'ไดอารี่ส่วนตัวและติดตามอารมณ์';
+  assert.deepEqual(keywordProblems('อารมณ์,นอน', 'th', new Set(wordsOf(thSubtitle, 'th')), thSubtitle), ['"อารมณ์" is already part of the name or subtitle - Apple indexes those already']);
+  const jaSubtitle = '気分と習慣も記録する、私だけの日記';
+  assert.ok(keywordProblems('日記,睡眠', 'ja', new Set(wordsOf(jaSubtitle, 'ja')), jaSubtitle).some((p) => /"日記" is already part/.test(p)));
+  // Scripts with spaces keep the word rule only: "journaling" is not the word "journal".
+  assert.deepEqual(keywordProblems('journaling,sleep', 'en', new Set(['journal']), 'Private journal & mood tracker'), []);
+});
+
+test('keywords: the limit is 100 bytes of UTF-8 including the commas (APPSTORE-FACTS 2.8), whatever the character count', () => {
   const letters = 'אבגדהוזחטיכלמנסעפצקרשת';
   const text = `${Array.from({ length: 12 }, (_, i) => letters.slice(i, i + 5)).join(',')}\n`;
-  const soft = textProblems('he', 'keywords.txt', text, null, new Set());
-  assert.deepEqual(soft.problems, []);
-  assert.equal(soft.chars, 71);
-  assert.equal(soft.bytes, 131);
-  assert.ok(soft.warnings.some((w) => /131 bytes in UTF-8 \(71 characters\)/.test(w)), JSON.stringify(soft.warnings));
-  const strict = textProblems('he', 'keywords.txt', text, null, new Set(), { strictKeywordBytes: true });
-  assert.ok(strict.problems.some((p) => /131 bytes/.test(p)));
-  assert.deepEqual(strict.warnings, []);
-  const latin = textProblems('en', 'keywords.txt', 'habits,sleep,stress\n');
-  assert.deepEqual(latin.warnings, []);
-  assert.equal(latin.bytes, latin.chars);
-  // The option reaches the folder check and the command line; warnings never make `ok` false.
+  const he = textProblems('he', 'keywords.txt', text, null, new Set());
+  assert.equal(he.chars, 71);
+  assert.equal(he.bytes, 131);
+  assert.ok(he.problems.some((p) => /is 131 bytes of UTF-8 \(71 characters\), the limit is 100 bytes/.test(p)), JSON.stringify(he.problems));
+  // Exactly 100 bytes pass, 101 fail (Latin letters take one byte each).
+  const latin = (extra) => `${[...'abcdefghi'].map((c) => c.repeat(9)).join(',')},${'j'.repeat(9 + extra)}\n`;
+  const at = textProblems('en', 'keywords.txt', latin(1));
+  assert.equal(at.bytes, 100);
+  assert.deepEqual(at.problems, []);
+  const over = textProblems('en', 'keywords.txt', latin(2));
+  assert.equal(over.bytes, 101);
+  assert.ok(over.problems.some((p) => /101 bytes/.test(p)), JSON.stringify(over.problems));
+  // The folder check and the command line fail on it - there is no lenient mode.
   const fx = fixture();
   try {
     write(fx.dir, 'he', 'keywords.txt', text);
-    const lenient = checkListing(fx.dir, { only: BASE, localesFile: fx.localesFile });
-    assert.ok(lenient.ok, JSON.stringify(lenient.rows.filter((r) => r.problems.length)));
-    assert.ok(lenient.rows.find((r) => r.folder === 'he' && r.file === 'keywords.txt').warnings.length === 1);
-    const strictRun = checkListing(fx.dir, { only: BASE, localesFile: fx.localesFile, strictKeywordBytes: true });
-    assert.equal(strictRun.ok, false);
-    const run = spawnSync(process.execPath, [CHECKER, '--dir', fx.dir, '--locales', fx.localesFile, '--only', 'en-US,he,bg', '--strict-keyword-bytes'], { encoding: 'utf8' });
+    const result = checkListing(fx.dir, { only: BASE, localesFile: fx.localesFile, settingsFile: fx.settingsFile });
+    expectProblem(result, 'he', 'keywords.txt', /131 bytes/);
+    const run = spawnSync(process.execPath, [CHECKER, '--dir', fx.dir, '--locales', fx.localesFile, '--settings', fx.settingsFile, '--only', 'en-US,he,bg'], { encoding: 'utf8' });
     assert.equal(run.status, 1);
     assert.match(run.stdout, /^FAIL he\/keywords\.txt \(71 characters\)/m);
-    const soft2 = spawnSync(process.execPath, [CHECKER, '--dir', fx.dir, '--locales', fx.localesFile, '--only', 'en-US,he,bg'], { encoding: 'utf8' });
-    assert.equal(soft2.status, 0, soft2.stdout);
-    assert.match(soft2.stdout, /^warn he\/keywords\.txt: is 131 bytes/m);
-    assert.match(soft2.stdout, /all within the App Store limits and rules \(1 warning to read\)/);
+    assert.match(run.stdout, /the limit is 100 bytes/);
   } finally {
     rmSync(fx.root, { recursive: true, force: true });
   }
+});
+
+test('minimum age: the last paragraph of every description states legal/settings.json "minimumAge" and no other number', () => {
+  assert.equal(Number.isInteger(AGE_IN_TEXTS), true, 'the en-US description states an age in its last paragraph');
+  assert.deepEqual(numbersIn('16 歳以上'), [16]);
+  assert.deepEqual(numbersIn('لمن هم في سن ١٦ عامًا'), [16]);
+  assert.deepEqual(numbersIn('१६ वर्ष'), [16]);
+  assert.deepEqual(numbersIn('อายุ ๑๓ ปี'), [13]);
+  assert.deepEqual(numbersIn('from 13 to 16'), [13, 16]);
+  assert.deepEqual(minimumAgeProblems('Intro.\n\nPlease note\nFor people aged 13 and over.\n', 13), []);
+  assert.match(minimumAgeProblems('Intro.\n\nFor people aged 16 and over.\n', 13)[0], /"minimumAge": 13\) and no other number - it gives 16; write 13/);
+  assert.match(minimumAgeProblems('Intro.\n\nFor adults.\n', 13)[0], /it gives no number/);
+  assert.match(minimumAgeProblems('Intro.\n\nAged 13 and over; 2 tips.\n', 13)[0], /it gives 13, 2/);
+  assert.deepEqual(minimumAgeProblems('Aged 16 here.\n\nPlease note\nAged 13 and over.\n', 13), [], 'only the last paragraph counts');
+
+  // Another value in the settings fails every description and says which number to write.
+  const other = AGE_IN_TEXTS === 13 ? 14 : 13;
+  const changed = withFixture((d, fx) => writeFileSync(fx.settingsFile, JSON.stringify({ minimumAge: other }), 'utf8'));
+  for (const folder of ['en-US', 'he']) {
+    expectProblem(changed, folder, 'description.txt', new RegExp(`"minimumAge": ${other}\\) and no other number - it gives ${AGE_IN_TEXTS}; write ${other} `));
+  }
+  // A description edited to another age fails against the same settings.
+  expectProblem(
+    withFixture((d) => write(d, 'he', 'description.txt', read(d, 'he', 'description.txt').replace(`לבני ${AGE_IN_TEXTS} ומעלה`, `לבני ${other} ומעלה`))),
+    'he',
+    'description.txt',
+    new RegExp(`it gives ${other}; write ${AGE_IN_TEXTS} `),
+  );
+  // A missing or broken settings file is a problem of its own.
+  expectFolderProblem(withFixture((d, fx) => rmSync(fx.settingsFile)), /settings\.json: cannot be read/);
+  expectFolderProblem(withFixture((d, fx) => writeFileSync(fx.settingsFile, '{"minimumAge": "16"}', 'utf8')), /"minimumAge" must be a whole number of years/);
 });
 
 test('forbidden platform terms (Guideline 2.3.10) in Latin and in the other scripts; "exercise" is fine', () => {
@@ -321,15 +434,16 @@ test('locales.json itself is validated', () => {
 test('command line: exit 0 with the table when clean, exit 1 with the problems otherwise, --json', () => {
   const fx = fixture();
   try {
-    const args = ['--dir', fx.dir, '--locales', fx.localesFile];
+    const args = ['--dir', fx.dir, '--locales', fx.localesFile, '--settings', fx.settingsFile];
     let run = spawnSync(process.execPath, [CHECKER, ...args, '--only', 'en-US,he,bg'], { encoding: 'utf8' });
     assert.equal(run.status, 0, run.stdout + run.stderr);
-    assert.match(run.stdout, /^localization\s+subtitle\s+promo\s+description\s+keywords\s+kw bytes$/m);
-    assert.match(run.stdout, /^limit\s+30\s+170\s+4000\s+100\s+100$/m);
+    assert.match(run.stdout, /^localization\s+subtitle\s+promo\s+description\s+kw chars\s+kw bytes$/m);
+    assert.match(run.stdout, /^limit\s+30\s+170\s+4000\s+-\s+100$/m);
     assert.match(run.stdout, /^en-US\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+$/m);
     assert.match(run.stdout, /^he\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+$/m);
     assert.match(run.stdout, /bg: no App Store localization/);
-    assert.match(run.stdout, /2 localizations, 18 files, all within the App Store limits and rules/);
+    assert.match(run.stdout, new RegExp(`every description states the minimum age ${AGE_IN_TEXTS} of legal/settings\\.json`));
+    assert.match(run.stdout, /2 localizations, 20 files, all within the App Store limits and rules/);
 
     run = spawnSync(process.execPath, [CHECKER, ...args], { encoding: 'utf8' });
     assert.equal(run.status, 1);
@@ -347,6 +461,7 @@ test('command line: exit 0 with the table when clean, exit 1 with the problems o
     assert.equal(run.status, 1);
     const json = JSON.parse(run.stdout);
     assert.equal(json.ok, false);
+    assert.equal(json.minimumAge, AGE_IN_TEXTS);
     const subtitle = json.rows.find((r) => r.folder === 'en-US' && r.file === 'subtitle.txt');
     assert.equal(subtitle.chars, 33);
     assert.ok(subtitle.problems.some((p) => /limit is 30/.test(p)));

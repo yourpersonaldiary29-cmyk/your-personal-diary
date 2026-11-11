@@ -7,13 +7,14 @@ SIGN-IN
 The diary is kept in the user's account on our own server (https://yourpersonaldiary.fly.dev), so an account is required; the same diary appears on every device the user signs in on. Only our own accounts exist (user name or e-mail + password; no third-party login). Please tap "Log in" and use the demo account: user name "stor", with the password given in the Password field of App Review Information. No second factor, no e-mail code. The demo diary already contains sample entries and habits. Please do not delete this account or change its password; to test account deletion, create an account of your own with "Sign up" and delete it.
 
 WHERE TO FIND THINGS
+On iPhone, Settings and Backup open from the "More" button in the bottom bar; on the Mac, every page is in the navigation bar at the top of the window.
 - Delete account: Settings > Delete account (the last card). It asks for the password and immediately deletes the account, its diary, habits and settings from the server. For people who cannot sign in: https://yourpersonaldiary.fly.dev/delete-account/
 - Privacy Policy: Settings > Privacy > "Privacy policy", and on the Sign up screen. https://yourpersonaldiary.fly.dev/privacy/
 - Terms of Use: Settings > Privacy > "Terms of Use", and on the Sign up screen, where one checkbox confirms both documents. https://yourpersonaldiary.fly.dev/terms/
 - Offline mode: sign in with "Remember me" on, open a few pages, then turn on Airplane Mode. A bar says there is no connection; new entries are saved on the device, encrypted (the key is kept in the Keychain), and uploaded automatically when the connection returns.
 - Face ID / Touch ID: while offline, the lock screen offers "Unlock with this device's screen lock" (Face ID, Touch ID or the device passcode); typing the password also works offline. Lock at any time: Settings > Security > "Lock now".
 - Reminders: set a time per habit on the Habits page and turn reminders on in Settings > Reminders (notifications scheduled on the device).
-- Backup, restore and export (TXT, CSV, JSON, PDF): Settings > Backup.
+- Backup, restore and export (TXT, CSV, JSON, PDF): the Backup page (iPhone: More > Backup; Mac: "Backup" in the navigation bar).
 - Language: Settings > Language.
 
 WHY IT IS MORE THAN A WEB SITE (Guideline 4.2)

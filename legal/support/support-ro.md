@@ -1,60 +1,61 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: Asistență - Your Personal Diary
+description: Ajutor pentru Your Personal Diary - cum ne contactezi și răspunsuri la întrebări frecvente despre parole, conectare, lucrul fără conexiune, limbi, datele tale și contul tău.
 languages: Limbi
 otherPage: Politica de confidențialitate
 ---
 
-# Support - Your Personal Diary
+# Asistență - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Your Personal Diary este operat de {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-## 1. How to contact us
+## 1. Cum ne contactezi
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+Scrie-ne la [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Răspundem în cel mult 30 de zile, de obicei mult mai repede. Pentru orice privește contul tău, scrie de pe adresa de e-mail înregistrată în acel cont, ca să putem ști că ești tu. Nu trimite niciodată parola: nu ți-o cerem niciodată și nu avem nevoie de ea ca să te ajutăm.
 
-## 2. Frequent questions
+## 2. Întrebări frecvente
 
-### I forgot my password
+### Mi-am uitat parola
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+Pe ecranul de conectare alege **Ai uitat parola?** și introdu adresa de e-mail cu care te-ai înregistrat. Un mesaj cu un link și un cod de 6 cifre este trimis de pe adresa de e-mail proprie a operatorului; dacă nu sosește în câteva minute, verifică dosarul de spam. Linkul și codul sunt valabile 30 de minute și pot fi folosite o singură dată. Jurnalul tău se păstrează: alegerea unei parole noi nu șterge nimic.
 
-### I cannot sign in, or the app says "too many attempts"
+### Nu mă pot conecta sau aplicația spune „Prea multe încercări"
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+Verifică numele de utilizator sau adresa de e-mail și parola (atenție la limba tastaturii și la majuscule). După 10 parole greșite, conectarea din rețeaua ta este blocată timp de 15 minute; așteaptă, apoi încearcă din nou. Dacă nu mai știi parola, folosește **Ai uitat parola?**. Dacă aplicația spune că nu există conexiune, vezi întrebarea următoare.
 
-### The app says there is no connection
+### Aplicația spune că nu există conexiune
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+Aplicația are nevoie de server pentru conectare, căutare, statistici și observații, backupuri și exporturi și pentru modificările contului tău. Fără conexiune poți totuși să scrii: ce scrii este salvat pe dispozitiv, criptat, și încărcat când revine conexiunea, chiar dacă între timp aplicația a fost închisă. Dacă ai ales **Ține-mă minte**, aplicațiile Windows, Mac, Android și iPhone îți deschid și înregistrările recente, obiceiurile și datele de azi din copia criptată de pe dispozitiv; le deblochezi cu parola sau cu blocarea ecranului dispozitivului (Windows Hello, Touch ID, Face ID sau blocarea ecranului telefonului). Verifică conexiunea la internet a dispozitivului, apoi alege **Încearcă acum** în aplicație.
 
-### How do I change the language?
+### Cum schimb limba?
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+Deschide **Setări** și, în cardul **Limbă**, alege din listă limba interfeței; întregul jurnal se schimbă imediat. Înainte să te conectezi, alegerea este păstrată pe acest dispozitiv; după ce te conectezi, este salvată în contul tău, așa că celelalte dispozitive o urmează. Jurnalul are 20 de limbi.
 
-### How do I get my data out?
+### Cum îmi scot datele?
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+În **Setări - Backup** poți crea un **backup**: o copie criptată a întregului jurnal (înregistrări, obiceiuri și setări) în formatul propriu al aplicației, protejată cu o parolă, pe care o poți restaura mai târziu în aplicație. **Exportul** de pe aceeași pagină scrie înregistrările tale într-un fișier lizibil - TXT, CSV, JSON sau PDF - pentru citit, tipărit sau pentru alt program. Un fișier de export nu este criptat: oricine are fișierul îl poate citi, așa că păstrează-l la fel de atent ca jurnalul însuși.
 
-### How do I delete my account?
+### Cum îmi șterg contul?
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+Conectează-te, deschide **Setări** și mergi la ultimul card, **Ștergerea contului**: introdu parola și confirmă. Astfel se șterg imediat de pe server contul, jurnalul, obiceiurile și setările tale și ești deconectat de pe toate dispozitivele; acțiunea nu poate fi anulată, iar fișierele de backup pe care le-ai salvat singur nu sunt atinse. Dacă nu te poți conecta, urmează pașii de pe pagina de ștergere a contului: [{{DELETE_URL}}]({{DELETE_URL}}).
 
-### On which devices can I use the diary?
+### Pe ce dispozitive pot folosi jurnalul?
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+În aplicațiile pentru **Windows**, **Mac**, **Android** și **iPhone** (când va fi publicată) și pe site-ul [{{SITE_URL}}]({{SITE_URL}}), în orice browser. Este un singur cont peste tot: tot ce scrii pe un dispozitiv apare pe toate celelalte imediat ce se conectează.
 
-### How do reminders work?
+### Cum funcționează mementourile?
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+Mementourile țin de obiceiuri: ora pentru fiecare obicei o setezi pe pagina obiceiurilor, iar mementourile le pornești din **Setări - Mementouri**. Pe telefon, aplicația cere permisiunea de a afișa notificări; dacă ai refuzat, permite notificările pentru Your Personal Diary în setările telefonului, altfel mementourile apar doar cât timp aplicația este deschisă. Pe computer și în browser, un memento apare cât timp jurnalul este deschis. Mementourile sunt create pe dispozitivul însuși; nu se trimite nimic în afară.
 
-### Is the app medical advice?
+### Este aplicația un sfat medical?
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Nu. Observațiile din aplicație descriu posibile legături în propriile tale înregistrări. Ele nu dovedesc cauză și efect și nu sunt sfaturi medicale sau psihologice. Dacă ești îngrijorat de sănătatea sau de starea ta, vorbește cu un medic sau cu un alt specialist.
 
-## 3. Privacy policy and account deletion
+## 3. Politica de confidențialitate, condițiile de utilizare și ștergerea contului
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- Politica de confidențialitate: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - ce păstrăm, unde și cum este protejat.
+- Condiții de utilizare: [{{TERMS_URL}}]({{TERMS_URL}}) - regulile de folosire a serviciului, inclusiv un singur cont de persoană.
+- Ștergerea contului: [{{DELETE_URL}}]({{DELETE_URL}}) - și pentru oricine nu se poate conecta.
 
 ## 4. Operator
 

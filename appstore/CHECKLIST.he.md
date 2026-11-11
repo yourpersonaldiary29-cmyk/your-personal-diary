@@ -29,8 +29,9 @@
 
 ## שלב 2 - הסכמים (5 דקות)
 
-App Store Connect ← **Business** ← **Agreements**: מאשרים את ההסכם הבסיסי. **לא** חותמים על Paid Apps Agreement
-[1.10]. בלי ההסכם הזה אי אפשר ליצור רשומה [1.10].
+App Store Connect ← **Business** ← **Agreements**: מאשרים את ההסכם הבסיסי (Apple Developer Program License Agreement).
+בלי אישור ההסכם הבסיסי אי אפשר ליצור רשומה [1.10]. את Paid Apps Agreement **לא** צריך - הוא רק לאפליקציות
+בתשלום, ואיתו באים טפסי מס ופרטי בנק [1.10, 1.11].
 
 ## שלב 3 - מזהי האפליקציות (10 דקות)
 
@@ -73,15 +74,15 @@ App Store Connect ← Apps ← **+** ← New App: רשומת האייפון (`AN
 
 ## שלב 8 - מילוי השדות (2-3 שעות; רובן הדבקת טקסטים ב-19 שפות)
 
-לפי `ANSWERS.he.md`, בסדר שלו: App Information, סיווג גיל + 16+, App Privacy, Pricing and Availability, שפות,
-דף הגרסה, פרטים לבודקים.
+לפי `ANSWERS.he.md`, בסדר שלו: App Information, סיווג גיל + העלאת הדירוג לפי הגיל המינימלי (ב.2.1), App Privacy,
+Pricing and Availability, שפות, דף הגרסה, פרטים לבודקים.
 
 ## שלב 9 - צילומי מסך (שעה-שעתיים)
 
 | רשומה | משבצת | תיקייה | כמה |
 | --- | --- | --- | --- |
-| אייפון | 1206×2622 ("iPhone 6.3" Display") - **חובה** | `appstore/screenshots/iphone-6.3/<שפה>/` | 7 לכל שפה |
-| אייפון | 1320×2868 ("iPhone 6.9" Display") - רצוי | `appstore/screenshots/iphone-6.9/<שפה>/` | 7 לכל שפה |
+| אייפון | iPhone with Dynamic Island (medium display), 1206×2622 (עשויה להופיע כ-"iPhone 6.3" Display") - **חובה** | `appstore/screenshots/iphone-6.3/<שפה>/` | 7 לכל שפה |
+| אייפון | iPhone with Dynamic Island (large display), 1320×2868 (עשויה להופיע כ-"iPhone 6.9" Display") - רצוי | `appstore/screenshots/iphone-6.9/<שפה>/` | 7 לכל שפה |
 | Mac | Mac (2880×1800) - **חובה** | `appstore/screenshots/mac/<שפה>/` | 8 לכל שפה |
 
 ההוראות המלאות: `appstore/screenshots/README.he.md` סעיף 3. **אין** צילומי אייפד - האפליקציה לאייפון בלבד.

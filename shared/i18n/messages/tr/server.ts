@@ -506,8 +506,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'Ağınızdan çok fazla kayıt yapıldı. Lütfen daha sonra tekrar deneyin.',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'Hesap oluşturmak için Gizlilik Politikasını okuduğunuzu ve kabul ettiğinizi onaylamanız gerekir. İşaretlenecek bir kutu görmüyorsanız uygulamayı güncelleyin.',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': 'Hesap oluşturmak için Kullanım Koşullarını okuduğunuzu ve kabul ettiğinizi onaylamanız gerekir. İşaretlenecek bir kutu görmüyorsanız uygulamayı güncelleyin.',
   'server.error.busy': 'Sunucu şu anda meşgul. Lütfen birazdan tekrar deneyin.',
   'server.vault.quota': 'Günlüğünüz bu sunucunun boyut sınırına ulaştı ({max} MB). Yer açmak için bazı kayıtları silin.',
   'server.owner.unset': 'Bu sunucu için henüz bir sahip ayarlanmadı. İşletmecinin DIARY_OWNER_ID değerini sahibin hesap kimliği olarak ayarlaması gerekir.',

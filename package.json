@@ -1,7 +1,7 @@
 {
   "name": "your-personal-diary",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "Your Personal Diary - a smart, private, encrypted personal diary: Windows (Tauri), Android (Capacitor) and web clients of one hosted Node.js server",
   "scripts": {

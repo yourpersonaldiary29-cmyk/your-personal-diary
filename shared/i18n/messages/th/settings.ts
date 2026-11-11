@@ -103,8 +103,7 @@ const messages: Record<string, string> = {
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
   'settings.privacy.policyLink': 'นโยบายความเป็นส่วนตัว',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'settings.privacy.termsLink': 'Terms of Use',
+  'settings.privacy.termsLink': 'ข้อกำหนดการใช้งาน',
   'settings.privacy.title': 'ความเป็นส่วนตัว',
   'settings.privacy.offlineLabel': 'โหมดความเป็นส่วนตัวแบบออฟไลน์',
   'settings.privacy.offlineHint': 'เมื่อเปิดโหมดนี้ แอปจะไม่เปิดการเชื่อมต่อเครือข่ายใด ๆ ยกเว้นกับเซิร์ฟเวอร์ภายในเครื่องของตัวเอง ปิดโหมดนี้เฉพาะเมื่อคุณใช้การเข้าถึงระยะไกลเท่านั้น',

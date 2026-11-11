@@ -43,7 +43,7 @@ Rules for the translation:
 ```markdown
 ---
 title: Terms of Use - Your Personal Diary
-description: The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+description: The rules for using Your Personal Diary (the Windows, Mac and Android apps, the iPhone app when it is published, and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
 languages: Languages
 otherPage: Privacy Policy
 ---
@@ -69,6 +69,7 @@ By creating an account or using the service, you agree to these terms and to the
 ## 2. Who may use the service
 
 - You must be at least {{MINIMUM_AGE}} years old to create an account.
+- If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it.
 - The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
 - We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
 
@@ -217,17 +218,21 @@ writer placed both sentences in English and Hebrew directly after "Your password
 stored on the device." (unchanged, stays in place). The TERMS base writer has now aligned the second sentence with
 LEGAL-FOLLOWUP's recommended wording: it says again that the copy on the device can be tried **without a limit on
 the number of tries** (the server limits tries; a copy does not). The words "without needing your device
-account" of LEGAL-FOLLOWUP are deliberately left out (on Windows and the Mac the copy sits behind the user's
-DPAPI / Keychain protection, so the phrase would overstate it). Translate these two sentences - the final text -
+account" of LEGAL-FOLLOWUP are part of the final text (fixer pass, verifier finding): the password-wrapped copy
+is kept as plain JSON in the app's IndexedDB (`meta.passwordWrap`, src/offline/engine.ts
+`rememberPasswordWrap`, src/offline/password-wrap.ts), NOT behind Windows DPAPI or the Keychain - it cannot be,
+because it is what yields the key. Whoever has a copy of the profile or the disk (a backup, a Time Machine copy, a
+disk image) can attack it by guessing passwords alone, without the Windows/Mac user account. (An earlier draft of
+this file left the words out for the opposite, wrong reason.) Translate these two sentences - the final text -
 into your language, in the register of the surrounding paragraph. Nothing else in section 5 changes.
 
 English (final, in legal/privacy/privacy-en.md):
 
-> In the apps that keep that key on the device with "Remember me", the app also keeps a copy of it encrypted with a key derived from your password, so that you can unlock the app without a connection by typing your password; the password itself is not stored, and this copy is deleted together with the key - when you sign out, when the sign-in ends, or when the account is deleted. Someone with a copy of this device's data could try to guess your password against that copy, each guess costing as much as against the server but with no limit on the number of tries; a strong password is what protects it.
+> In the apps that keep that key on the device with "Remember me", the app also keeps a copy of it encrypted with a key derived from your password, so that you can unlock the app without a connection by typing your password; the password itself is not stored, and this copy is deleted together with the key - when you sign out, when the sign-in ends, or when the account is deleted. Someone with a copy of this device's data could try to guess your password against that copy without needing your device account, each guess costing as much as against the server but with no limit on the number of tries; a strong password is what protects it.
 
 Hebrew (final, in legal/privacy/privacy-he.md):
 
-> באפליקציות ששומרות את המפתח הזה במכשיר עם "זכור אותי", האפליקציה שומרת גם עותק שלו, מוצפן במפתח שנגזר מהסיסמה שלכם, כדי שתוכלו לבטל את נעילת האפליקציה בלי חיבור על ידי הקלדת הסיסמה; הסיסמה עצמה לא נשמרת, והעותק הזה נמחק יחד עם המפתח - בהתנתקות, כשהחיבור לחשבון מסתיים או כשהחשבון נמחק. מי שבידיו העתק של נתוני המכשיר הזה יכול לנסות לנחש מולו את הסיסמה שלכם, כשכל ניחוש עולה כמו מול השרת אבל בלי הגבלה על מספר הניסיונות; סיסמה חזקה היא מה שמגן עליו.
+> באפליקציות ששומרות את המפתח הזה במכשיר עם "זכור אותי", האפליקציה שומרת גם עותק שלו, מוצפן במפתח שנגזר מהסיסמה שלכם, כדי שתוכלו לבטל את נעילת האפליקציה בלי חיבור על ידי הקלדת הסיסמה; הסיסמה עצמה לא נשמרת, והעותק הזה נמחק יחד עם המפתח - בהתנתקות, כשהחיבור לחשבון מסתיים או כשהחשבון נמחק. מי שבידיו העתק של נתוני המכשיר הזה יכול לנסות לנחש מולו את הסיסמה שלכם גם בלי חשבון המשתמש של המכשיר, כשכל ניחוש עולה כמו מול השרת אבל בלי הגבלה על מספר הניסיונות; סיסמה חזקה היא מה שמגן עליו.
 
 ## 5. What else changed (no translation needed)
 
@@ -237,3 +242,23 @@ Hebrew (final, in legal/privacy/privacy-he.md):
 - `scripts/legal/build-pages.mjs` has a fourth kind, `terms` (public/terms/ and public/terms/<locale>/, footer ->
   the Privacy Policy) and the placeholders `{{TERMS_EFFECTIVE_DATE}}` and `{{TERMS_URL}}`.
 - The Windows/Mac shell (src-tauri/src/opener.rs) now opens /terms/ and /support/ pages too.
+
+## 6. Fixer pass (verifier findings) - applied in all 20 languages
+
+Already done by the LEGAL/TERMS fixer in every `legal/<kind>/<kind>-<locale>.md`; a later translator or editor
+keeps these in place (the shape test compares list items and links with English):
+
+- **Terms, section 2 - the minors sentence** (ENV-FINAL / TERMS.md amendment "MINIMUM AGE", 2026-11-10): a bullet
+  right after the age bullet: "If you are a minor where you live, you may use the service only if a parent or
+  guardian agrees, where the law of your country requires it." Hebrew (plural): "אם אתם קטינים לפי הדין במקום
+  מגוריכם, מותר לכם להשתמש בשירות רק אם הורה או אפוטרופוס מסכימים לכך, כשהחוק במדינה שלכם דורש זאת." It holds
+  for any value of `minimumAge`; no number is written.
+- **Privacy policy, section 2 - a link to the Terms of Use**: the words "the Terms of Use" in the consent-record
+  sentence are a link `[Terms of Use]({{TERMS_URL}})` (the same-language terms page).
+- **Support page, section 3** is now "Privacy policy, Terms of Use and account deletion" with a third bullet
+  between the two others: "Terms of Use: [{{TERMS_URL}}]({{TERMS_URL}}) - the rules for using the service,
+  including one account per person." So every document reaches the terms page: privacy -> terms (body), support ->
+  terms (body), terms -> privacy/delete-account/support, delete-account -> privacy.
+- **Front-matter `description`** of the policy and the terms (the page's `<meta name="description">`) keeps the
+  iPhone qualifier: "(the Android, Windows and Mac apps, the iPhone app when it is published, and the website)";
+  the other languages append "; <the iPhone app> <when it is published>" inside the same brackets.

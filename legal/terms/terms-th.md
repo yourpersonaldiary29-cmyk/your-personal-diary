@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: ข้อกำหนดการใช้งาน - Your Personal Diary
+description: กฎสำหรับการใช้ Your Personal Diary (แอป Windows แอป Mac แอป Android แอป iPhone และเว็บไซต์; แอป iPhone เมื่อเผยแพร่แล้ว) - ใครใช้ได้ หนึ่งบัญชีต่อหนึ่งคน เนื้อหาของคุณ การใช้งานที่ยอมรับได้ และความรับผิดชอบของเรา
 languages: ภาษา
 otherPage: นโยบายความเป็นส่วนตัว
 ---
 
-# Terms of Use - Your Personal Diary
+# ข้อกำหนดการใช้งาน - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+วันที่มีผลบังคับใช้: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+หากคำแปลแตกต่างจากฉบับภาษาอังกฤษ ให้ถือตามฉบับภาษาอังกฤษ
 
-## In short
+## โดยสรุป
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary เป็นบริการไดอารี่ที่ใช้ได้ฟรี ไดอารี่ของคุณเป็นของคุณ
+- คุณต้องมีอายุอย่างน้อย {{MINIMUM_AGE}} ปี และแต่ละคนมีได้**เพียงบัญชีเดียว** เว้นแต่เราจะอนุมัติให้มีมากกว่านั้นเป็นลายลักษณ์อักษร
+- เก็บรหัสผ่านเป็นความลับ ใช้บริการอย่างถูกกฎหมาย และสำรองข้อมูลสิ่งที่สำคัญสำหรับคุณ
+- บริการนี้ให้ "ตามสภาพ" และไม่ใช่คำแนะนำทางการแพทย์
+- วิธีที่เราจัดการข้อมูลของคุณอธิบายไว้ในนโยบายความเป็นส่วนตัว: [{{PRIVACY_URL}}]({{PRIVACY_URL}})
 
-## 1. Who we are and what these terms cover
+## 1. เราคือใครและข้อกำหนดนี้ครอบคลุมอะไร
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary ดำเนินการโดย {{PUBLISHER_NAME}} ("เรา") ข้อกำหนดการใช้งานนี้ใช้กับแอป Windows แอป Mac แอป Android แอป iPhone (เมื่อเผยแพร่แล้ว) และเว็บไซต์ [{{SITE_URL}}]({{SITE_URL}}) - รวมเรียกว่า "บริการ" ทั้งหมดใช้เซิร์ฟเวอร์เดียวกันและบัญชีเดียวกัน
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+การสร้างบัญชีหรือการใช้บริการหมายความว่าคุณยอมรับข้อกำหนดนี้และนโยบายความเป็นส่วนตัว [{{PRIVACY_URL}}]({{PRIVACY_URL}}) เมื่อสร้างบัญชี คุณยืนยันเรื่องนี้ด้วยช่องทำเครื่องหมายช่องเดียว หากคุณไม่ยอมรับ โปรดอย่าใช้บริการ
 
-## 2. Who may use the service
+## 2. ใครใช้บริการได้
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- คุณต้องมีอายุอย่างน้อย {{MINIMUM_AGE}} ปีจึงจะสร้างบัญชีได้
+- หากคุณยังเป็นผู้เยาว์ตามกฎหมายของที่ที่คุณอาศัยอยู่ คุณจะใช้บริการได้ก็ต่อเมื่อพ่อแม่หรือผู้ปกครองยินยอม ในกรณีที่กฎหมายของประเทศคุณกำหนดไว้
+- รายละเอียดที่คุณให้ตอนลงทะเบียน (ชื่อ ชื่อผู้ใช้ และที่อยู่อีเมล) ต้องถูกต้อง และที่อยู่อีเมลต้องเป็นที่อยู่ที่คุณรับข้อความได้ คุณเปลี่ยนรายละเอียดเหล่านี้ได้ภายหลังในการตั้งค่า
+- เราอาจจำกัดจำนวนบัญชีบนเซิร์ฟเวอร์ และอาจหยุดรับการลงทะเบียนใหม่ชั่วคราวได้ทุกเมื่อ เช่น เพื่อให้บริการทำงานได้ดีต่อไป
 
-## 3. One account per person
+## 3. หนึ่งบัญชีต่อหนึ่งคน
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**คุณเปิดและมีบัญชีได้เพียงบัญชีเดียว** การเปิดหรือใช้บัญชีมากกว่าหนึ่งบัญชีทำได้เฉพาะเมื่อได้รับการอนุมัติเป็นลายลักษณ์อักษรล่วงหน้าจากผู้ดูแล ซึ่งขอได้ทางอีเมลที่ [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) บัญชีที่เปิดโดยไม่ได้รับอนุมัติอาจถูกปิด
 
-An account is personal: do not share it with others, and do not use another person's account.
+บัญชีเป็นของส่วนตัว อย่าแชร์บัญชีกับผู้อื่น และอย่าใช้บัญชีของบุคคลอื่น
 
-## 4. Your account and password
+## 4. บัญชีและรหัสผ่านของคุณ
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- เก็บรหัสผ่านเป็นความลับ และอย่าใช้รหัสผ่านนี้กับบริการอื่น เลือกรหัสผ่านที่แข็งแรง
+- คุณต้องรับผิดชอบต่อสิ่งที่ทำผ่านบัญชีของคุณ หากคุณคิดว่ามีคนอื่นรู้รหัสผ่านหรือใช้บัญชีของคุณ ให้เปลี่ยนรหัสผ่านทันทีและแจ้งเราที่ [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+- **เราไม่เคยขอรหัสผ่านของคุณ** - ไม่ว่าทางอีเมล ทางโทรศัพท์ หรือทางอื่นใด ผู้ที่ขอรหัสผ่านไม่ใช่เรา
+- บนอุปกรณ์ที่คนอื่นใช้ด้วย อย่าเลือก "จดจำฉันไว้" และให้ออกจากระบบเมื่อใช้เสร็จ เมื่อเลือก "จดจำฉันไว้" แอปจะให้คุณอยู่ในระบบต่อไปและเก็บสำเนาที่เข้ารหัสไว้บนอุปกรณ์ ตามที่อธิบายไว้ในข้อ 5 ของนโยบายความเป็นส่วนตัว
 
-## 5. Your content
+## 5. เนื้อหาของคุณ
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- สิ่งที่คุณเขียนในไดอารี่เป็นของคุณ เราไม่อ้างความเป็นเจ้าของใดๆ ในเนื้อหานั้น
+- เราจัดเก็บและประมวลผลเนื้อหาของคุณเพื่อให้บริการแก่คุณเท่านั้น - เพื่อเก็บรักษา แสดง ค้นหา และทำให้เหมือนกันในทุกอุปกรณ์ของคุณ นโยบายความเป็นส่วนตัวอธิบายว่าทำอย่างไร
+- เราไม่อ่านไดอารี่ของคุณ ข้อ 4 ของนโยบายความเป็นส่วนตัวอธิบายอย่างตรงไปตรงมาว่าผู้ดูแลเซิร์ฟเวอร์ทำอะไรได้ในทางเทคนิค และเราสัญญาอะไรไว้
+- คุณต้องรับผิดชอบต่อสิ่งที่คุณเขียน อย่าเก็บเนื้อหาที่ผิดกฎหมาย หรือเนื้อหาที่เป็นของผู้อื่นโดยไม่ได้รับอนุญาตจากเจ้าของ
+- คุณนำเนื้อหาของคุณออกไปได้ทุกเมื่อ: **การตั้งค่า - สำรองข้อมูล** สร้างข้อมูลสำรองที่เข้ารหัส และการส่งออกจะเขียนบันทึกของคุณเป็นไฟล์ที่อ่านได้ สำเนาเหล่านี้เป็นของคุณ ให้คุณเก็บและใช้
 
-## 6. Acceptable use
+## 6. การใช้งานที่ยอมรับได้
 
-When you use the service, you must not:
+เมื่อใช้บริการ คุณต้องไม่:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- ใช้บริการเพื่อสิ่งที่ผิดกฎหมาย หรือเพื่อทำร้าย คุกคาม หรือข่มขู่ผู้ใด
+- พยายามเจาะหรือหลบเลี่ยงความปลอดภัยของบริการ ขีดจำกัดของบริการ (เช่น ขีดจำกัดจำนวนครั้งในการลงชื่อเข้าใช้) หรือการป้องกันบัญชีอื่น
+- เข้าถึงบริการด้วยวิธีอัตโนมัติ (บอต สคริปต์ การดึงข้อมูลอัตโนมัติ) ยกเว้นผ่านแอปและเว็บไซต์ตามที่เราจัดให้
+- ทำให้เซิร์ฟเวอร์ทำงานหนักเกินไป หรือรบกวนเซิร์ฟเวอร์หรือผู้ใช้อื่น
+- ขายต่อบริการ หรือเสนอบริการหรือการเข้าถึงบริการให้ผู้อื่น
+- คัดลอก ถอดรหัสโปรแกรม (decompile) หรือทำวิศวกรรมย้อนกลับกับเซิร์ฟเวอร์ ยกเว้นในกรณีที่กฎหมายอนุญาต
+- แชร์บัญชีของคุณ หรือใช้บัญชีมากกว่าหนึ่งบัญชีโดยไม่ได้รับอนุมัติ (ข้อ 3)
 
-## 7. The service
+## 7. บริการ
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- ปัจจุบันบริการนี้**ไม่มีค่าใช้จ่าย** หากวันหนึ่งเราต้องการเก็บเงินสำหรับสิ่งใด เราจะแจ้งล่วงหน้า และจะไม่มีสิ่งใดกลายเป็นแบบเสียเงินโดยไม่ได้รับความยินยอมจากคุณ
+- ฟีเจอร์อาจเปลี่ยนแปลง เพิ่มขึ้น หรือถูกนำออกไปตามเวลา
+- เราตั้งใจให้บริการพร้อมใช้งานอยู่เสมอ แต่ไม่สัญญาว่าบริการจะพร้อมใช้งานตลอดเวลาหรือปราศจากข้อผิดพลาด การบำรุงรักษา การอัปเดต หรือปัญหาของผู้ให้บริการโฮสติ้งอาจทำให้บริการหยุดชะงัก
+- **สำรองข้อมูล**สิ่งที่สำคัญสำหรับคุณ (การตั้งค่า - สำรองข้อมูล) เราดูแลเซิร์ฟเวอร์และข้อมูลสำรองของเซิร์ฟเวอร์ แต่เราไม่รับผิดชอบต่อเนื้อหาที่สูญหายเกินกว่าที่กฎหมายกำหนด
+- การทำงานโดยไม่มีการเชื่อมต่อ (สำเนาบนอุปกรณ์ของคุณและโหมดออฟไลน์) เป็นความสะดวกเพิ่มเติม อาจใช้ไม่ได้ในทุกอุปกรณ์หรือในทุกขณะ
 
-## 8. Suspension and closing an account
+## 8. การระงับและการปิดบัญชี
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- เราอาจระงับหรือปิดบัญชีที่ละเมิดข้อกำหนดนี้ - หลังจากแจ้งให้ทราบในกรณีที่ทำได้ตามสมควร - และอาจลบเนื้อหาในกรณีที่กฎหมายกำหนด
+- คุณปิดบัญชีของคุณได้ทุกเมื่อ: ลงชื่อเข้าใช้แล้วเปิด **การตั้งค่า - ลบบัญชี** หากลงชื่อเข้าใช้ไม่ได้ ให้ทำตามขั้นตอนที่ [{{DELETE_URL}}]({{DELETE_URL}})
+- สิ่งที่เกิดขึ้นกับข้อมูลของคุณเมื่อบัญชีถูกปิดหรือถูกลบ อธิบายไว้ในข้อ 7 ของนโยบายความเป็นส่วนตัว
 
-## 9. If the service ends
+## 9. หากบริการยุติลง
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+หากเราตัดสินใจยุติบริการ เราจะประกาศที่ [{{SITE_URL}}]({{SITE_URL}}) อย่างน้อย 30 วันก่อนที่บริการจะยุติ ในช่วงเวลานั้น การสำรองข้อมูลและการส่งออกจะยังใช้ได้ เพื่อให้คุณนำไดอารี่ของคุณไปด้วยได้
 
-## 10. Not medical advice
+## 10. ไม่ใช่คำแนะนำทางการแพทย์
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+ข้อมูลเชิงลึกในแอปอธิบายความสัมพันธ์ที่อาจมีในบันทึกของคุณเอง ไม่ได้พิสูจน์เหตุและผล และไม่ใช่คำแนะนำทางการแพทย์หรือจิตวิทยา หากคุณกังวลเรื่องสุขภาพหรืออารมณ์ของคุณ ให้ปรึกษาแพทย์หรือผู้เชี่ยวชาญคนอื่น
 
-## 11. Intellectual property
+## 11. ทรัพย์สินทางปัญญา
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+แอป เว็บไซต์ รวมถึงข้อความและการออกแบบของแอปและเว็บไซต์เป็นของผู้ดูแล และใช้ได้เฉพาะตามที่ข้อกำหนดนี้อนุญาต "Your Personal Diary" คือชื่อของบริการ ส่วนประกอบโอเพนซอร์สที่รวมอยู่ในแอปยังคงอยู่ภายใต้สัญญาอนุญาตของตนเอง
 
-## 12. Liability and warranty
+## 12. ความรับผิดและการรับประกัน
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- ภายในขอบเขตที่กฎหมายอนุญาต บริการนี้ให้ "ตามสภาพ" และ "ตามที่มีให้บริการ" (as is, as available) โดยไม่มีการรับประกันใดๆ
+- ภายในขอบเขตที่กฎหมายอนุญาต เราไม่รับผิดต่อความเสียหายทางอ้อมหรือความเสียหายที่เป็นผลสืบเนื่อง เช่น การสูญเสียกำไรหรือการสูญเสียโอกาส
+- สิทธิ์ที่คุณมีในฐานะผู้บริโภคตามกฎหมายบังคับของประเทศของคุณไม่ได้รับผลกระทบจากข้อกำหนดนี้
+- ไม่มีสิ่งใดในข้อกำหนดนี้จำกัดความรับผิดที่กฎหมายไม่อนุญาตให้จำกัด
 
-## 13. Changes to these terms
+## 13. การเปลี่ยนแปลงข้อกำหนดนี้
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+เมื่อบริการหรือข้อกำหนดนี้เปลี่ยนแปลง เราจะอัปเดตหน้านี้และวันที่มีผลบังคับใช้ที่ด้านบน การเปลี่ยนแปลงที่สำคัญจะประกาศในหน้านี้ก่อนมีผลใช้ หากคุณใช้บริการต่อไปหลังจากการเปลี่ยนแปลงมีผลแล้ว ถือว่าคุณยอมรับข้อกำหนดใหม่ หากคุณไม่ยอมรับ คุณลบบัญชีได้ทุกเมื่อ (ข้อ 8) ฉบับที่คุณยอมรับตอนลงทะเบียนจะถูกบันทึกไว้กับบัญชีของคุณ
 
-## 14. Disagreements
+## 14. ข้อขัดแย้ง
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+หากคุณมีข้อร้องเรียนหรือข้อขัดแย้งกับเรา โปรดเขียนถึงเราก่อนที่ [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - เราจะพยายามแก้ไขทางอีเมล ไม่มีสิ่งใดในข้อกำหนดนี้ที่ตัดสิทธิ์ซึ่งกฎหมายของประเทศที่คุณอาศัยอยู่มอบให้คุณ
 
-## 15. Contact
+## 15. ติดต่อ
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+คำถามเกี่ยวกับข้อกำหนดนี้: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+ฝ่ายสนับสนุนและคำถามที่พบบ่อย: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

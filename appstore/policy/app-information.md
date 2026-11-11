@@ -18,7 +18,8 @@ Package ANSWERS of the final sprint, written 2026-11-08. Apple facts come from `
 | Secondary Category | Productivity | Productivity | FACTS 2.21 |
 | Content Rights | does not contain, show or access third-party content | same | FACTS 2.22 |
 | License Agreement | Apple's standard EULA (nothing to upload) | same | FACTS 2.23 |
-| Age Rating | questionnaire per `age-rating.md`, then Override to Higher Age Rating = 16+ | same | FACTS 3.2-3.7 |
+| Age Rating | questionnaire per `age-rating.md`, then Override to Higher Age Rating = the lowest current tier not below `minimumAge` in `legal/settings.json` (12 or 13 -> 13+, 14-16 -> 16+, 17-18 -> 18+; `age-rating.md` section 2) | same | FACTS 3.2-3.7; minimum-age amendment 2026-11-10 |
+| Regulated Medical Devices | not a regulated medical device - answer "No" if the row asks | same | FACTS 2.29 lists the row in App Information; its question wording was not researched. The app gives no diagnosis, treatment or medical advice (privacy policy section 11; `insights.disclaimer` in `shared/i18n/messages/en/insights.ts`) |
 | Privacy Policy URL | `https://yourpersonaldiary.fly.dev/privacy/`; per localization `https://yourpersonaldiary.fly.dev/privacy/<app-locale>/` (`appstore/listing/<locale>/privacy-url.txt`) | same | FACTS 2.12; ENV-FINAL decision 12 |
 | User Privacy Choices URL | blank (optional) | blank | FACTS 2.13 (optional) - see note 3 |
 | Support URL | `https://yourpersonaldiary.fly.dev/support/` and per localization `/support/<app-locale>/` (`support-url.txt`) | same | FACTS 2.10 (must lead to contact details: the support page shows the operator's name and e-mail, `legal/support/support-en.md`) |

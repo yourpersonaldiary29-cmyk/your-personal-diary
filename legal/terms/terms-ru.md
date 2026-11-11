@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: Условия использования - Your Personal Diary
+description: Правила использования Your Personal Diary (приложения для Windows, Mac, Android и iPhone и сайт; приложение для iPhone - когда оно будет опубликовано) - кто может им пользоваться, один аккаунт на человека, ваш контент, допустимое использование и наши обязательства.
 languages: Языки
 otherPage: Политика конфиденциальности
 ---
 
-# Terms of Use - Your Personal Diary
+# Условия использования - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+Дата вступления в силу: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+Если перевод расходится с английской версией, действует английская версия.
 
-## In short
+## Коротко
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary - бесплатный сервис для ведения дневника. Ваш дневник принадлежит вам.
+- Вам должно быть не менее {{MINIMUM_AGE}} лет, и у каждого человека может быть **только один аккаунт**, если мы письменно не разрешим больше.
+- Держите пароль в секрете, пользуйтесь сервисом законно и делайте резервные копии того, что для вас важно.
+- Сервис предоставляется «как есть». Он не является медицинской консультацией.
+- Как мы обращаемся с вашими данными, объясняет политика конфиденциальности: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
 
-## 1. Who we are and what these terms cover
+## 1. Кто мы и на что распространяются эти условия
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary работает под управлением {{PUBLISHER_NAME}} («мы»). Эти условия использования распространяются на приложение для Windows, приложение для Mac, приложение для Android, приложение для iPhone (когда оно будет опубликовано) и сайт [{{SITE_URL}}]({{SITE_URL}}) - вместе «сервис». Все они используют один и тот же сервер и один и тот же аккаунт.
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+Создавая аккаунт или пользуясь сервисом, вы соглашаетесь с этими условиями и с политикой конфиденциальности [{{PRIVACY_URL}}]({{PRIVACY_URL}}). При создании аккаунта вы подтверждаете это одной отметкой. Если вы не согласны, пожалуйста, не пользуйтесь сервисом.
 
-## 2. Who may use the service
+## 2. Кто может пользоваться сервисом
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- Чтобы создать аккаунт, вам должно быть не менее {{MINIMUM_AGE}} лет.
+- Если по законам места, где вы живёте, вы несовершеннолетний, вы можете пользоваться сервисом только с согласия родителя или опекуна, если этого требует закон вашей страны.
+- Данные, которые вы указываете при регистрации (имя, имя пользователя и адрес электронной почты), должны быть точными, а адрес электронной почты должен быть таким, на который вы можете получать письма. Позже их можно изменить в настройках.
+- Мы можем ограничить число аккаунтов на сервере и в любое время приостановить регистрацию новых, например чтобы сервис продолжал хорошо работать.
 
-## 3. One account per person
+## 3. Один аккаунт на человека
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**Вы можете открыть и иметь только один аккаунт.** Открывать или использовать более одного аккаунта можно только с предварительного письменного разрешения оператора, которое запрашивается по электронной почте [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Аккаунты, открытые без такого разрешения, могут быть закрыты.
 
-An account is personal: do not share it with others, and do not use another person's account.
+Аккаунт личный: не делитесь им с другими и не пользуйтесь чужим аккаунтом.
 
-## 4. Your account and password
+## 4. Ваш аккаунт и пароль
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- Держите пароль в секрете и не используйте его для других сервисов. Выберите надёжный пароль.
+- Вы отвечаете за то, что делается с вашим аккаунтом. Если вы думаете, что кто-то ещё знает ваш пароль или пользуется вашим аккаунтом, сразу смените пароль и сообщите нам: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+- **Мы никогда не спрашиваем ваш пароль** - ни по электронной почте, ни по телефону, ни любым другим способом. Тот, кто его спрашивает, - не мы.
+- На устройстве, которым пользуются и другие люди, не выбирайте «Запомнить меня» и выходите из аккаунта, когда закончите: с «Запомнить меня» приложение сохраняет вход и хранит зашифрованные копии на устройстве, как объясняет раздел 5 политики конфиденциальности.
 
-## 5. Your content
+## 5. Ваш контент
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- То, что вы пишете в дневнике, принадлежит вам. Мы не претендуем на какие-либо права собственности на это.
+- Мы храним и обрабатываем ваш контент только для того, чтобы предоставлять вам сервис - хранить его, показывать, искать по нему и делать его одинаковым на всех ваших устройствах. Как именно, объясняет политика конфиденциальности.
+- Мы не читаем ваш дневник. Раздел 4 политики конфиденциальности прямо объясняет, что технически мог бы сделать оператор сервера и что мы обещаем.
+- Вы отвечаете за то, что пишете. Не храните незаконный контент или контент, принадлежащий другим людям, без их разрешения.
+- Вы можете забрать свой контент в любое время: **Настройки - Резервная копия** создаёт зашифрованную резервную копию, а экспорт записывает ваши записи в читаемый файл. Эти копии ваши - храните и используйте их.
 
-## 6. Acceptable use
+## 6. Допустимое использование
 
-When you use the service, you must not:
+Пользуясь сервисом, нельзя:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- использовать его для чего-либо незаконного или для того, чтобы причинять кому-либо вред, преследовать кого-либо или угрожать кому-либо;
+- пытаться взломать или обойти его защиту, его ограничения (например, ограничения на попытки входа) или защиту других аккаунтов;
+- обращаться к нему автоматизированными средствами (боты, скрипты, скрейпинг), кроме как через приложения и сайт в том виде, в каком они предлагаются;
+- перегружать сервер или мешать его работе или другим пользователям;
+- перепродавать сервис или предлагать другим его самого или доступ к нему;
+- копировать, декомпилировать сервер или подвергать его обратной разработке, кроме случаев, когда это разрешает закон;
+- делиться своим аккаунтом или использовать более одного аккаунта без разрешения (раздел 3).
 
-## 7. The service
+## 7. Сервис
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- Сейчас сервис **бесплатный**. Если мы когда-нибудь захотим брать плату за что-либо, мы сообщим об этом заранее, и ничто не станет платным без вашего согласия.
+- Функции могут со временем меняться, добавляться или удаляться.
+- Мы стремимся к тому, чтобы сервис был доступен, но не обещаем, что он всегда будет доступен и будет работать без ошибок. Обслуживание, обновления или проблемы у хостинга могут прерывать его работу.
+- **Делайте резервные копии** того, что для вас важно (Настройки - Резервная копия). Мы заботимся о сервере и его резервных копиях, но не несём ответственности за потерю контента сверх того, что требует закон.
+- Работа без подключения (копии на вашем устройстве и автономный режим) - это удобство. Она может быть доступна не на каждом устройстве и не в каждый момент.
 
-## 8. Suspension and closing an account
+## 8. Приостановка и закрытие аккаунта
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- Мы можем приостановить или закрыть аккаунт, нарушающий эти условия, - после уведомления, если это разумно возможно, - и можем удалять контент, когда этого требует закон.
+- Вы можете закрыть свой аккаунт в любое время: войдите и откройте **Настройки - Удаление аккаунта**. Если вы не можете войти, следуйте инструкциям на странице [{{DELETE_URL}}]({{DELETE_URL}}).
+- Что происходит с вашими данными, когда аккаунт закрывается или удаляется, объясняет раздел 7 политики конфиденциальности.
 
-## 9. If the service ends
+## 9. Если сервис прекратит работу
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+Если мы решим прекратить работу сервиса, мы объявим об этом на [{{SITE_URL}}]({{SITE_URL}}) не менее чем за 30 дней до его закрытия. В течение этого времени резервные копии и экспорт останутся доступными, чтобы вы могли забрать свой дневник.
 
-## 10. Not medical advice
+## 10. Не медицинская консультация
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Наблюдения в приложении описывают возможные связи в ваших собственных записях. Они не доказывают причинно-следственную связь и не являются медицинской или психологической консультацией. Если вас беспокоит здоровье или настроение, обратитесь к врачу или другому специалисту.
 
-## 11. Intellectual property
+## 11. Интеллектуальная собственность
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+Приложения, сайт, их тексты и дизайн принадлежат оператору и могут использоваться только так, как разрешают эти условия. «Your Personal Diary» - название сервиса. Компоненты с открытым исходным кодом, входящие в приложения, остаются под своими собственными лицензиями.
 
-## 12. Liability and warranty
+## 12. Ответственность и гарантии
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- В той мере, в какой это допускает закон, сервис предоставляется «как есть» и «по мере доступности» (as is, as available), без каких-либо гарантий.
+- В той мере, в какой это допускает закон, мы не несём ответственности за косвенные или последующие убытки, например упущенную выгоду или упущенные возможности.
+- Права, которые есть у вас как у потребителя по обязательному праву вашей страны, эти условия не затрагивают.
+- Ничто в этих условиях не ограничивает ответственность, которую нельзя ограничить по закону.
 
-## 13. Changes to these terms
+## 13. Изменения этих условий
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+Когда сервис или эти условия меняются, мы обновляем эту страницу и дату вступления в силу вверху. О важных изменениях мы объявляем на этой странице до того, как они начнут действовать. Если вы продолжаете пользоваться сервисом после того, как изменение вступило в силу, вы принимаете новые условия; если вы их не принимаете, вы можете в любое время удалить свой аккаунт (раздел 8). Версия, которую вы приняли при регистрации, записывается в вашем аккаунте.
 
-## 14. Disagreements
+## 14. Разногласия
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+Если у вас есть жалоба или разногласие с нами, пожалуйста, сначала напишите нам на [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - мы постараемся решить вопрос по электронной почте. Ничто в этих условиях не лишает вас прав, которые даёт вам закон страны, в которой вы живёте.
 
-## 15. Contact
+## 15. Контакты
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+Вопросы об этих условиях: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+Поддержка и частые вопросы: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

@@ -1,6 +1,6 @@
 ---
 title: Zásady ochrany osobních údajů - Your Personal Diary
-description: Jak Your Personal Diary (aplikace pro Android, aplikace pro Windows a web) ukládá a chrání tvá data.
+description: Jak Your Personal Diary (aplikace pro Android, Windows, Mac a iPhone a web; aplikace pro iPhone, až bude zveřejněna) ukládá a chrání tvá data.
 languages: Jazyky
 otherPage: Jak smazat účet
 ---
@@ -11,7 +11,7 @@ Platnost od: {{EFFECTIVE_DATE}}
 
 ## Stručně
 
-- Your Personal Diary je jedna služba se třemi vstupy: **aplikace pro Android** (Google Play), **aplikace pro Windows** (Microsoft Store nebo instalační soubor) a **web** [{{SITE_URL}}]({{SITE_URL}}). Všechny tři používají stejný server a stejný účet.
+- Your Personal Diary je jedna služba s pěti vstupy: **aplikace pro Android** (Google Play), **aplikace pro Windows** (Microsoft Store nebo instalační soubor), **aplikace pro Mac** (stažení z webu nebo Mac App Store), **aplikace pro iPhone** (App Store, až bude zveřejněna) a **web** [{{SITE_URL}}]({{SITE_URL}}). Všechny používají stejný server a stejný účet.
 - Tvůj deník je uložen na našem serveru v souboru zašifrovaném klíčem odvozeným z tvého hesla. Ukládají se tam i údaje tvého účtu.
 - Tvá data používáme jen k tomu, aby tvůj deník fungoval. Žádné reklamy, žádná analytika, žádné sledování a tvá data neprodáváme ani nesdílíme.
 - Znej hranice: dokud jsi přihlášený, server má tvůj deník otevřený v paměti a provozovatel serveru by technicky mohl obnovit tvé heslo a deník si přečíst. Oddíl 4 to vysvětluje otevřeně.
@@ -21,13 +21,13 @@ Platnost od: {{EFFECTIVE_DATE}}
 
 Službu provozuje {{PUBLISHER_NAME}} („my"), který odpovídá za tvé osobní údaje („správce"). Kontakt: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Tyto zásady platí pro aplikaci pro Android, aplikaci pro Windows a web. Všechny zobrazují stejný deník a řídí se stejnými pravidly; kde se některá aplikace chová jinak, zásady to uvádějí.
+Tyto zásady platí pro aplikaci pro Android, aplikaci pro Windows, aplikaci pro Mac, aplikaci pro iPhone (až bude zveřejněna) a web. Všechny zobrazují stejný deník a řídí se stejnými pravidly; kde se některá aplikace chová jinak, zásady to uvádějí.
 
 ## 2. Co ukládáme na serveru a kde
 
 Server běží u poskytovatele hostingu Fly.io v jeho datovém centru ve **Frankfurtu v Německu (Evropská unie)**. Ukládá se na něm:
 
-- **Údaje účtu:** tvé jméno, příjmení, uživatelské jméno a e-mailová adresa, ID účtu, jazyk, ve kterém aplikaci používáš, kdy byl účet vytvořen a kdy ses naposledy přihlásil. Při vytvoření účtu si také uchováváme záznam o tvém potvrzení, že sis tyto zásady přečetl a souhlasíš s nimi: čas potvrzení a datum účinnosti verze, kterou jsi potvrdil. Pokud změníš e-mailovou adresu, předchozí adresa a čas změny zůstanou u účtu, dokud adresu znovu nezměníš nebo účet nesmažeš. Aplikace tyto údaje nešifruje, protože je server potřebuje k přihlášení a k tomu, aby ti mohl psát; provozovatel je proto může vidět.
+- **Údaje účtu:** tvé jméno, příjmení, uživatelské jméno a e-mailová adresa, ID účtu, jazyk, ve kterém aplikaci používáš, kdy byl účet vytvořen a kdy ses naposledy přihlásil. Při vytvoření účtu si také uchováváme záznam o tvém potvrzení, že sis tyto zásady a [Podmínky používání]({{TERMS_URL}}) přečetl a souhlasíš s nimi: čas potvrzení a data účinnosti verzí, které jsi potvrdil. Pokud změníš e-mailovou adresu, předchozí adresa a čas změny zůstanou u účtu, dokud adresu znovu nezměníš nebo účet nesmažeš. Aplikace tyto údaje nešifruje, protože je server potřebuje k přihlášení a k tomu, aby ti mohl psát; provozovatel je proto může vidět.
 - **Tvé heslo:** neukládá se. Server uchovává jen hodnotu z něj odvozenou (scrypt), pomocí které heslo ověří.
 - **Tvůj deník:** záznamy (text a nepovinná pole nálada, emoce, energie, stres, spánek, pohybová aktivita, události, lidé, místo, poznámky a štítky), návyky a jejich záznamy a tvá nastavení. Každý účet má vlastní zašifrovaný soubor deníku.
 - **Přihlašovací relace:** pro každé zařízení, kde jsi přihlášený: druh zařízení („Počítač", „Telefon" nebo „Prohlížeč"), kdy relace začala, kdy byla naposledy použita a kdy skončí. Samotný přihlašovací token se ukládá jen jako hash. Se „Zapamatovat si mě" obsahuje relace také klíč tvého deníku, zašifrovaný klíčem serveru (oddíl 4).
@@ -68,17 +68,17 @@ Na každém zařízení, kde službu používáš:
 
 - tvůj přihlašovací token (abys zůstal přihlášený), poslední uživatelské jméno, nastavení jazyka a zobrazení a tvé nedávné vyhledávací dotazy (smažou se při odhlášení).
 
-**Bez připojení.** Když se aplikace nemůže spojit se serverem, funguje dál: co napíšeš, se uloží na zařízení v zašifrované podobě a po obnovení připojení se automaticky nahraje na server, i když byla aplikace mezitím zavřená. V aplikacích pro Windows a Android, pokud jsi zvolil „Zapamatovat si mě", aplikace uchovává také zašifrovanou kopii toho, co ti nedávno ukázala (nedávné záznamy, návyky, dnešní data, měsíc v kalendáři a tvá nastavení), abys to mohl číst bez připojení; jinak tato kopie existuje jen v paměti, dokud je aplikace otevřená. Klíč k těmto kopiím uchovává server uvnitř tvého zašifrovaného deníku; se „Zapamatovat si mě" ho aplikace pro Windows a Android ukládají i na zařízení, chráněný ochranou dat Windows nebo Android Keystore, aby se aplikace mohla otevřít bez připojení. Tvé heslo a klíč pro obnovení se na zařízení nikdy neukládají. Aby se každá změna nahrála právě jednou, aplikace uchovává také, zašifrovaný, záznam změn nahraných za posledních 7 dní.
+**Bez připojení.** Když se aplikace nemůže spojit se serverem, funguje dál: co napíšeš, se uloží na zařízení v zašifrované podobě a po obnovení připojení se automaticky nahraje na server, i když byla aplikace mezitím zavřená. V aplikacích pro Windows, Mac, Android a iPhone, pokud jsi zvolil „Zapamatovat si mě", aplikace uchovává také zašifrovanou kopii toho, co ti nedávno ukázala (nedávné záznamy, návyky, dnešní data, měsíc v kalendáři a tvá nastavení), abys to mohl číst bez připojení; jinak tato kopie existuje jen v paměti, dokud je aplikace otevřená. Klíč k těmto kopiím uchovává server uvnitř tvého zašifrovaného deníku; se „Zapamatovat si mě" ho aplikace pro Windows, Mac, Android a iPhone ukládají i na zařízení, chráněný ochranou dat Windows nebo pomocí Keychain v macOS, Android Keystore či Keychain v iOS, aby se aplikace mohla otevřít bez připojení. Tvé heslo a klíč pro obnovení se na zařízení nikdy neukládají. V aplikacích, které tento klíč se „Zapamatovat si mě" ukládají na zařízení, uchovává aplikace také jeho kopii zašifrovanou klíčem odvozeným z tvého hesla, abys mohl aplikaci odemknout bez připojení zadáním hesla; samotné heslo se neukládá a tato kopie se maže spolu s klíčem - když se odhlásíš, když přihlášení vyprší nebo když je účet smazán. Kdo má kopii dat tohoto zařízení, mohl by se pokusit uhodnout tvé heslo vůči této kopii, aniž by potřeboval tvůj uživatelský účet v zařízení, přičemž každý pokus stojí stejně jako vůči serveru, ale počet pokusů není omezen; chrání ji silné heslo. Aby se každá změna nahrála právě jednou, aplikace uchovává také, zašifrovaný, záznam změn nahraných za posledních 7 dní.
 
 - **Aplikace pro Windows:** tyto kopie jsou uložené v datových složkách aplikace ve tvém uživatelském profilu Windows (u verze z Microsoft Store ve vlastní složce balíčku aplikace). Klíč je chráněn ochranou dat Windows (DPAPI) a funguje jen pro tvého uživatele Windows.
 - **Aplikace pro Android:** tyto kopie jsou uložené v soukromém úložišti aplikace, které jiné aplikace nemohou číst a které je vyloučené ze záloh. Klíč je chráněn pomocí Android Keystore.
-- TODO-TRANSLATE: **Mac app:** these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named "Your Personal Diary offline key" and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.
-- TODO-TRANSLATE: **iPhone app:** these copies are kept in the app's private storage, excluded from iCloud backup. The key is kept in the iOS Keychain, available only on this device after it was unlocked once, and removed when you sign out.
+- **Aplikace pro Mac:** tyto kopie jsou uložené ve složce aplikace v Knihovně (Library) tvého uživatele (Application Support/app.yourpersonaldiary.mac). Klíč je uložen jako položka přihlašovací klíčenky (login keychain) tvého uživatele Macu s názvem „Your Personal Diary offline key" a nikdy se nesynchronizuje s iCloud Keychain; chrání ho tvé přihlašovací heslo k Macu a číst ho může jen aplikace. Kopie tvého uživatelského účtu vytvořená pomocí Migration Assistant nebo Time Machine tuto položku obsahuje, stále chráněnou tímto heslem. Až bude aplikace distribuována s podpisem Apple, položka se přesune do klíčenky, která zůstává jen na tomto Macu.
+- **Aplikace pro iPhone:** tyto kopie jsou uložené v soukromém úložišti aplikace, vyloučeném ze zálohy na iCloud. Klíč je uložen v Keychain systému iOS, je dostupný jen na tomto zařízení poté, co bylo jednou odemčeno, a při odhlášení se smaže.
 - **Web:** v prohlížeči se ukládají, zašifrované, jen dosud nenahrané změny, záznam za posledních 7 dní a poznámky o konfliktních změnách (viz níže), ale žádná kopie toho, co jsi četl; klíč zůstává v paměti a zmizí, když stránku zavřeš.
 
 Po obnovení připojení aplikace nahraje tvé změny v pořadí, v jakém jsi je provedl, každou právě jednou. Pokud byl stejný záznam, návyk nebo nastavení změněn i na jiném zařízení, ponechá se novější změna a aplikace ti to sdělí jedním řádkem; druhá verze ti zůstane na tomto zařízení k dispozici, dokud upozornění nezavřeš.
 
-Pokud aplikace nabídne odemknutí zámkem obrazovky zařízení (Windows Hello nebo zámek obrazovky či otisk prstu v Androidu), ověření provádí operační systém. Nic o tvém otisku prstu, obličeji ani PINu se nedostane do aplikace ani k nám. Připomínky návyků v aplikaci pro Android se plánují přímo v telefonu; nepoužívá se žádná služba push oznámení.
+Pokud aplikace nabídne odemknutí zámkem obrazovky zařízení (Windows Hello, Touch ID nebo heslo Macu, Face ID / Touch ID nebo kód iPhonu, případně zámek obrazovky či otisk prstu v Androidu), ověření provádí operační systém. Nic o tvém otisku prstu, obličeji ani PINu se nedostane do aplikace ani k nám. Připomínky návyků v aplikacích pro Android a iPhone se plánují přímo v zařízení; nepoužívá se žádná služba push oznámení.
 
 Soubory, které si vytvoříš sám: **záloha** je zašifrovaná heslem; **export** (TXT, CSV, JSON nebo PDF) je obyčejný čitelný soubor. Ty rozhoduješ, kam je uložíš, a kdokoli získá soubor exportu, může si ho přečíst.
 
@@ -89,7 +89,7 @@ Využíváme dva poskytovatele služeb. Data zpracovávají jen naším jménem,
 - **Fly.io, Inc.** (Spojené státy) - hosting serveru ve Frankfurtu v Německu. Její systémy uchovávají zašifrované soubory deníků, údaje účtů a další data z oddílu 2 a dostávají údaje o připojení, například IP adresy. Protože je Fly.io americká společnost, může k datům přistupovat i mimo Evropskou unii; to pokrývají její podmínky zpracování dat. Její zásady ochrany soukromí: `fly.io/legal/privacy-policy`.
 - **Google (Gmail)** - odesílá zprávy k obnovení hesla a bezpečnostní upozornění. Google dostává zprávu, tvou e-mailovou adresu a jméno a uživatelské jméno, které obsahuje. Zpráva nikdy neobsahuje nic z tvého deníku. Zásady ochrany soukromí Google: `policies.google.com/privacy`.
 
-Obchody s aplikacemi také zpracovávají data podle svých vlastních zásad ochrany soukromí, když si aplikace stahuješ: **Google Play** u aplikace pro Android a **Microsoft Store** u aplikace pro Windows (například instalace, hodnocení a hlášení o pádech, které jejich systémy shromažďují). Aplikace neobsahují jejich kód ani kód nikoho jiného, který by jim posílal data.
+Obchody s aplikacemi také zpracovávají data podle svých vlastních zásad ochrany soukromí, když si aplikace stahuješ: **Google Play** u aplikace pro Android, **Microsoft Store** u aplikace pro Windows a **App Store** a **Mac App Store** (Apple) u aplikací pro iPhone a Mac (například instalace, hodnocení a hlášení o pádech, které jejich systémy shromažďují). Aplikace neobsahují jejich kód ani kód nikoho jiného, který by jim posílal data.
 
 Tvé osobní údaje neprodáváme, nepronajímáme ani je s nikým dalším nesdílíme. Data bychom poskytli jen tehdy, kdyby to vyžadoval zákon.
 
@@ -101,7 +101,7 @@ Tvé osobní údaje neprodáváme, nepronajímáme ani je s nikým dalším nesd
 - **Šifrované archivy serveru:** aby se dalo zotavit z havárie, vytváří provozovatel přibližně jednou za měsíc šifrovaný archiv úložiště serveru; server uchovává jen 2 nejnovější a provozovatel uchovává offline nejvýše 3 nejnovější, na disku, který není připojený k internetu, takže kopie smazaného účtu z nich zmizí, jakmile je nahradí novější archivy, obvykle do tří měsíců.
 - **Smazané nebo změněné záznamy** z aplikace hned zmizí a jejich starý text se ze souboru tvého deníku na serveru smaže, když se změna uloží, o okamžik později: server smazaná data přepíše, místo aby jen označil místo jako volné. Předchozí verze souboru, kterou server uchovává pro případ, že by se uložení nezdařilo, se nahradí při dalším uložení. Text smazaný dříve, než tato ochrana existovala, se smaže, když se tvůj deník po aktualizaci poprvé otevře (například když se přihlásíš). Na serveru pak dřívější verze zůstávají jen v denních snímcích úložiště, nejvýše 30 dní, a zašifrované v nevyužitém místě jeho disku, dokud se toto místo znovu nepoužije; soubory záloh, které jsi vytvořil dříve, si text, který obsahují, ponechají. Smazáním účtu se smaže celý soubor.
 - **Pokud se nemůžeš přihlásit:** napiš na [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) z e-mailové adresy zaregistrované v tvém účtu. Žádost potvrdíme a účet smažeme do 30 dnů. Všechny podrobnosti: [{{DELETE_URL}}]({{DELETE_URL}}).
-- **Odinstalování aplikace účet nesmaže.** Pokud to chceš, nejdřív ho smaž v Nastavení. Odhlášení smaže kopie a klíč z daného zařízení; pokud ještě čekají změny na nahrání, aplikace se nejdřív zeptá. Ve Windows zůstane po odinstalování stažené verze (z instalačního souboru) zašifrovaná kopie, pokud nezvolíš smazání dat aplikace; pro jistotu se nejdřív odhlas.
+- **Odinstalování aplikace účet nesmaže.** Pokud to chceš, nejdřív ho smaž v Nastavení. Odhlášení smaže kopie a klíč z daného zařízení; pokud ještě čekají změny na nahrání, aplikace se nejdřív zeptá. Ve Windows zůstane po odinstalování stažené verze (z instalačního souboru) zašifrovaná kopie, pokud nezvolíš smazání dat aplikace; pro jistotu se nejdřív odhlas. Na Macu zůstanou po přesunutí aplikace do Koše zašifrované kopie ve tvé Knihovně (Library) a klíč ve tvé klíčence, dokud se neodhlásíš nebo je nesmažeš; nejdřív se odhlas. Smazání aplikace pro iPhone odstraní její úložiště; položka v Keychain se smaže při odhlášení - pro jistotu se nejdřív odhlas.
 - Neaktivní účty zatím automaticky nemažeme. Pokud s tím začneme, napíšeme to sem dříve, než to začne platit.
 
 ## 8. Bezpečnostní opatření
@@ -110,7 +110,7 @@ Tvé osobní údaje neprodáváme, nepronajímáme ani je s nikým dalším nesd
 - Limity pokusů o přihlášení a registraci. Po 10 špatných heslech se přihlašování z dané sítě na 15 minut zablokuje a další pokusy o přihlášení k účtu se zpomalí.
 - Deník se po určité době nečinnosti sám zamkne. Změna hesla nebo e-mailové adresy a smazání účtu vyžadují tvé heslo.
 - Klíč serveru je uložen mimo uložené soubory a server může spravovat jen provozovatel.
-- Kdo může spouštět programy jako tvůj uživatel Windows, nebo kdo má plnou kontrolu nad rootnutým telefonem, by mohl přečíst kopii uloženou pro „Zapamatovat si mě".
+- Kdo může spouštět programy jako tvůj uživatel Windows nebo Macu, nebo kdo má plnou kontrolu nad telefonem s rootem nebo jailbreakem, by mohl přečíst kopii uloženou pro „Zapamatovat si mě".
 
 Žádný systém nemůže slíbit dokonalé zabezpečení. Zvol silné heslo, které jinde nepoužíváš, udržuj svá zařízení aktuální a měj zálohu.
 

@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: الدعم - Your Personal Diary
+description: مساعدة في Your Personal Diary - كيف تتواصل معنا، وإجابات عن الأسئلة الشائعة حول كلمات المرور وتسجيل الدخول والعمل دون اتصال واللغات وبياناتك وحسابك.
 languages: اللغات
 otherPage: سياسة الخصوصية
 ---
 
-# Support - Your Personal Diary
+# الدعم - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+مشغّل Your Personal Diary هو {{PUBLISHER_NAME}}. للتواصل: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-## 1. How to contact us
+## 1. كيف تتواصل معنا
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+اكتب إلى [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). نردّ خلال 30 يومًا، وعادةً قبل ذلك بكثير. في أي أمر يخص حسابك، اكتب من عنوان البريد الإلكتروني المسجّل في ذلك الحساب، حتى نتأكد من أنك صاحبه. لا ترسل كلمة مرورك أبدًا: نحن لا نطلبها أبدًا، ولا نحتاج إليها لمساعدتك.
 
-## 2. Frequent questions
+## 2. أسئلة شائعة
 
-### I forgot my password
+### نسيت كلمة المرور
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+في شاشة تسجيل الدخول اختر **نسيت كلمة المرور؟** وأدخل عنوان البريد الإلكتروني الذي سجّلت به. تُرسَل رسالة فيها رابط ورمز من 6 أرقام من عنوان البريد الإلكتروني الخاص بالمشغّل نفسه؛ وإذا لم تصل خلال بضع دقائق، فتحقق من مجلد البريد العشوائي (spam). الرابط والرمز صالحان لمدة 30 دقيقة ولاستخدام واحد فقط. يومياتك محفوظة: اختيار كلمة مرور جديدة لا يحذف شيئًا.
 
-### I cannot sign in, or the app says "too many attempts"
+### لا أستطيع تسجيل الدخول، أو يقول التطبيق "محاولات كثيرة جدًا"
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+تحقق من اسم المستخدم أو عنوان البريد الإلكتروني ومن كلمة المرور (انتبه إلى لغة لوحة المفاتيح وإلى الأحرف الكبيرة). بعد 10 كلمات مرور خاطئة، يُقفَل تسجيل الدخول من شبكتك لمدة 15 دقيقة؛ انتظر ثم حاول مرة أخرى. إذا لم تعد تتذكر كلمة المرور، فاستخدم **نسيت كلمة المرور؟**. وإذا قال التطبيق إنه لا يوجد اتصال، فانظر السؤال التالي.
 
-### The app says there is no connection
+### يقول التطبيق إنه لا يوجد اتصال
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+يحتاج التطبيق إلى الخادم لتسجيل الدخول، وللبحث، وللإحصاءات والرؤى، وللنسخ الاحتياطية والتصدير، ولإجراء تغييرات على حسابك. ودون اتصال يمكنك أن تواصل الكتابة: ما تكتبه يُحفظ على جهازك مشفّرًا، ويُرفع عند عودة الاتصال، حتى لو أُغلق التطبيق في هذه الأثناء. وإذا اخترت **تذكّرني**، تفتح تطبيقات Windows وMac وAndroid وiPhone أيضًا إدخالاتك الأخيرة وعاداتك وبيانات اليوم من النسخة المشفّرة على الجهاز؛ وتفتح قفلها بكلمة مرورك أو بقفل شاشة الجهاز (Windows Hello أو Touch ID أو Face ID أو قفل شاشة الهاتف). تحقق من اتصال الجهاز بالإنترنت، ثم اختر **حاول الآن** في التطبيق.
 
-### How do I change the language?
+### كيف أغيّر اللغة؟
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+افتح **الإعدادات**، وفي بطاقة **اللغة** اختر لغة الواجهة من القائمة؛ فتتغير لغة اليوميات كلها فورًا. قبل تسجيل الدخول يُحفظ اختيارك على هذا الجهاز؛ وبعد تسجيل الدخول يُحفظ في حسابك، فتتبعه أجهزتك الأخرى أيضًا. تتوفر اليوميات بـ 20 لغة.
 
-### How do I get my data out?
+### كيف أُخرج بياناتي؟
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+من **الإعدادات - النسخ الاحتياطي** يمكنك إنشاء **نسخة احتياطية**: نسخة مشفّرة من اليوميات كلها (الإدخالات والعادات والإعدادات) بتنسيق التطبيق الخاص، محمية بكلمة مرور، يمكنك استعادتها لاحقًا في التطبيق. أما **التصدير** في الصفحة نفسها فيكتب إدخالاتك في ملف مقروء (TXT أو CSV أو JSON أو PDF) للقراءة أو الطباعة أو لاستخدامه في برنامج آخر. ملف التصدير غير مشفّر: يستطيع أي شخص يملك الملف قراءته، لذا احفظه بالعناية نفسها التي تحفظ بها اليوميات.
 
-### How do I delete my account?
+### كيف أحذف حسابي؟
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+سجّل الدخول، وافتح **الإعدادات** وانتقل إلى البطاقة الأخيرة، **حذف الحساب**: أدخل كلمة مرورك وأكّد. يؤدي ذلك إلى حذف حسابك ويومياتك وعاداتك وإعداداتك من الخادم فورًا، وإلى تسجيل خروجك من كل الأجهزة؛ ولا يمكن التراجع عنه، ولا تُمَسّ ملفات النسخ الاحتياطية التي حفظتها بنفسك. إذا لم تستطع تسجيل الدخول، فاتبع الخطوات في صفحة حذف الحساب: [{{DELETE_URL}}]({{DELETE_URL}}).
 
-### On which devices can I use the diary?
+### على أي أجهزة يمكنني استخدام اليوميات؟
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+في تطبيقات **Windows** و**Mac** و**Android** و**iPhone** (عند نشره)، وعلى الموقع [{{SITE_URL}}]({{SITE_URL}}) في أي متصفح. إنه حساب واحد في كل مكان: ما تكتبه على جهاز يظهر على كل الأجهزة الأخرى بمجرد اتصالها.
 
-### How do reminders work?
+### كيف تعمل التذكيرات؟
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+التذكيرات مرتبطة بالعادات: تحدد وقت كل عادة في صفحة العادات، وتفعّل التذكيرات من **الإعدادات - التذكيرات**. على الهاتف يطلب التطبيق الإذن بعرض الإشعارات؛ وإذا رفضت، فاسمح بإشعارات Your Personal Diary من إعدادات الهاتف، وإلا فلن تظهر التذكيرات إلا والتطبيق مفتوح. وعلى الكمبيوتر وفي المتصفح، يظهر التذكير ما دامت اليوميات مفتوحة. تُنشأ التذكيرات على الجهاز نفسه؛ ولا يُرسَل شيء إلى الخارج.
 
-### Is the app medical advice?
+### هل التطبيق نصيحة طبية؟
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+لا. تصف الرؤى في التطبيق علاقات محتملة في إدخالاتك أنت. وهي لا تثبت السبب والنتيجة، وليست نصيحة طبية أو نفسية. إذا كنت قلقًا بشأن صحتك أو مزاجك، فتحدث إلى طبيب أو إلى مختص آخر.
 
-## 3. Privacy policy and account deletion
+## 3. سياسة الخصوصية وشروط الاستخدام وحذف الحساب
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- سياسة الخصوصية: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - ما الذي نحفظه، وأين، وكيف يُحمى.
+- شروط الاستخدام: [{{TERMS_URL}}]({{TERMS_URL}}) - قواعد استخدام الخدمة، ومنها حساب واحد لكل شخص.
+- حذف الحساب: [{{DELETE_URL}}]({{DELETE_URL}}) - أيضًا لمن لا يستطيع تسجيل الدخول.
 
-## 4. Operator
+## 4. المشغّل
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

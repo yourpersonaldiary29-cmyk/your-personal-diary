@@ -492,8 +492,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': '来自您网络的注册次数过多。请稍后再试。',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': '要创建账户，需要确认您已阅读并同意隐私政策。如果看不到可勾选的方框，请更新应用。',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': '要创建账户，需要确认您已阅读并同意使用条款。如果看不到可勾选的方框，请更新应用。',
   'server.error.busy': '服务器当前繁忙。请稍候再试。',
   'server.vault.quota': '您的日记已达到此服务器的大小上限（{max} MB）。请删除一些记录以腾出空间。',
   'server.owner.unset': '此服务器尚未设置所有者。运营者需要将 DIARY_OWNER_ID 设置为所有者的账户 ID。',

@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: ฝ่ายสนับสนุน - Your Personal Diary
+description: ความช่วยเหลือสำหรับ Your Personal Diary - วิธีติดต่อเรา และคำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับรหัสผ่าน การลงชื่อเข้าใช้ การใช้งานโดยไม่มีการเชื่อมต่อ ภาษา ข้อมูลของคุณ และบัญชีของคุณ
 languages: ภาษา
 otherPage: นโยบายความเป็นส่วนตัว
 ---
 
-# Support - Your Personal Diary
+# ฝ่ายสนับสนุน - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Your Personal Diary ดำเนินการโดย {{PUBLISHER_NAME}} ติดต่อ: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
-## 1. How to contact us
+## 1. วิธีติดต่อเรา
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+เขียนถึงเราที่ [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) เราตอบกลับภายใน 30 วัน และมักเร็วกว่านั้นมาก สำหรับเรื่องที่เกี่ยวกับบัญชีของคุณ ให้เขียนจากที่อยู่อีเมลที่ลงทะเบียนไว้ในบัญชีนั้น เพื่อให้เรารู้ว่าเป็นคุณจริง อย่าส่งรหัสผ่านของคุณมาเด็ดขาด เราไม่เคยขอรหัสผ่าน และไม่จำเป็นต้องใช้รหัสผ่านเพื่อช่วยคุณ
 
-## 2. Frequent questions
+## 2. คำถามที่พบบ่อย
 
-### I forgot my password
+### ฉันลืมรหัสผ่าน
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+ที่หน้าจอลงชื่อเข้าใช้ ให้เลือก **ลืมรหัสผ่าน?** แล้วป้อนที่อยู่อีเมลที่คุณใช้ลงทะเบียน ข้อความที่มีลิงก์และรหัส 6 หลักจะถูกส่งมาจากที่อยู่อีเมลของผู้ดูแลเอง หากไม่ได้รับภายในไม่กี่นาที ให้ตรวจสอบโฟลเดอร์สแปม ลิงก์และรหัสใช้ได้ 30 นาทีและใช้ได้ครั้งเดียว ไดอารี่ของคุณยังอยู่ครบ การตั้งรหัสผ่านใหม่ไม่ได้ลบอะไรเลย
 
-### I cannot sign in, or the app says "too many attempts"
+### ฉันลงชื่อเข้าใช้ไม่ได้ หรือแอปแจ้งว่า "พยายามหลายครั้งเกินไป"
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+ตรวจสอบชื่อผู้ใช้หรือที่อยู่อีเมลและรหัสผ่าน (ระวังภาษาของแป้นพิมพ์และตัวพิมพ์ใหญ่) หลังจากใส่รหัสผ่านผิด 10 ครั้ง การลงชื่อเข้าใช้จากเครือข่ายของคุณจะถูกล็อกเป็นเวลา 15 นาที ให้รอแล้วลองอีกครั้ง หากคุณจำรหัสผ่านไม่ได้แล้ว ให้ใช้ **ลืมรหัสผ่าน?** หากแอปแจ้งว่าไม่มีการเชื่อมต่อ ให้ดูคำถามถัดไป
 
-### The app says there is no connection
+### แอปแจ้งว่าไม่มีการเชื่อมต่อ
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+แอปต้องใช้เซิร์ฟเวอร์เพื่อลงชื่อเข้าใช้ ค้นหา ดูสถิติและข้อมูลเชิงลึก สำรองข้อมูลและส่งออก และเปลี่ยนแปลงบัญชีของคุณ เมื่อไม่มีการเชื่อมต่อ คุณยังเขียนได้ สิ่งที่คุณเขียนจะถูกบันทึกบนอุปกรณ์ของคุณแบบเข้ารหัส และอัปโหลดเมื่อการเชื่อมต่อกลับมา แม้แอปจะถูกปิดไปในระหว่างนั้น หากคุณเลือก **จดจำฉันไว้** แอป Windows, Mac, Android และ iPhone จะเปิดบันทึกล่าสุด นิสัย และข้อมูลของวันนี้จากสำเนาที่เข้ารหัสบนอุปกรณ์ได้ด้วย คุณปลดล็อกได้ด้วยรหัสผ่านหรือการล็อกหน้าจอของอุปกรณ์ (Windows Hello, Touch ID, Face ID หรือการล็อกหน้าจอของโทรศัพท์) ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของอุปกรณ์ แล้วเลือก **ลองตอนนี้** ในแอป
 
-### How do I change the language?
+### ฉันจะเปลี่ยนภาษาได้อย่างไร
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+เปิด **การตั้งค่า** แล้วในการ์ด **ภาษา** ให้เลือกภาษาของอินเทอร์เฟซจากรายการ ไดอารี่ทั้งหมดจะเปลี่ยนทันที ก่อนลงชื่อเข้าใช้ ตัวเลือกจะถูกเก็บไว้บนอุปกรณ์นี้ หลังลงชื่อเข้าใช้ ตัวเลือกจะถูกบันทึกไว้ในบัญชีของคุณ อุปกรณ์อื่นของคุณจึงใช้ตามด้วย ไดอารี่มีให้เลือก 20 ภาษา
 
-### How do I get my data out?
+### ฉันจะนำข้อมูลของฉันออกมาได้อย่างไร
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+ใน **การตั้งค่า - สำรองข้อมูล** คุณสร้าง**ข้อมูลสำรอง**ได้ ซึ่งเป็นสำเนาที่เข้ารหัสของไดอารี่ทั้งหมด (บันทึก นิสัย และการตั้งค่า) ในรูปแบบของแอปเอง ปกป้องด้วยรหัสผ่าน และกู้คืนในแอปได้ภายหลัง ส่วน**การส่งออก**ในหน้าเดียวกันจะเขียนบันทึกของคุณเป็นไฟล์ที่อ่านได้ - TXT, CSV, JSON หรือ PDF - สำหรับอ่าน พิมพ์ หรือใช้กับโปรแกรมอื่น ไฟล์ที่ส่งออกไม่ได้เข้ารหัส ใครก็ตามที่มีไฟล์นี้อ่านได้ จึงควรเก็บรักษาอย่างระมัดระวังเหมือนไดอารี่เอง
 
-### How do I delete my account?
+### ฉันจะลบบัญชีได้อย่างไร
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+ลงชื่อเข้าใช้ เปิด **การตั้งค่า** แล้วไปที่การ์ดสุดท้าย **ลบบัญชี** ป้อนรหัสผ่านแล้วยืนยัน การทำเช่นนี้จะลบบัญชี ไดอารี่ นิสัย และการตั้งค่าของคุณออกจากเซิร์ฟเวอร์ทันที และออกจากระบบในทุกอุปกรณ์ ไม่สามารถยกเลิกได้ และไฟล์สำรองที่คุณบันทึกไว้เองจะไม่ได้รับผลกระทบ หากคุณลงชื่อเข้าใช้ไม่ได้ ให้ทำตามขั้นตอนในหน้าการลบบัญชี: [{{DELETE_URL}}]({{DELETE_URL}})
 
-### On which devices can I use the diary?
+### ฉันใช้ไดอารี่บนอุปกรณ์ใดได้บ้าง
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+ในแอปสำหรับ **Windows**, **Mac**, **Android** และ **iPhone** (เมื่อเผยแพร่แล้ว) และบนเว็บไซต์ [{{SITE_URL}}]({{SITE_URL}}) ในเบราว์เซอร์ใดก็ได้ ทุกที่ใช้บัญชีเดียวกัน สิ่งที่คุณเขียนบนอุปกรณ์หนึ่งจะปรากฏบนอุปกรณ์อื่นทั้งหมดทันทีที่อุปกรณ์เหล่านั้นเชื่อมต่อ
 
-### How do reminders work?
+### การเตือนทำงานอย่างไร
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+การเตือนเป็นส่วนหนึ่งของนิสัย คุณตั้งเวลาของแต่ละนิสัยในหน้านิสัย และเปิดการเตือนใน **การตั้งค่า - การแจ้งเตือน** บนโทรศัพท์ แอปจะขออนุญาตแสดงการแจ้งเตือน หากคุณปฏิเสธไป ให้อนุญาตการแจ้งเตือนสำหรับ Your Personal Diary ในการตั้งค่าของโทรศัพท์ มิฉะนั้นการเตือนจะแสดงเฉพาะขณะที่แอปเปิดอยู่ บนคอมพิวเตอร์และในเบราว์เซอร์ การเตือนจะแสดงขณะที่ไดอารี่เปิดอยู่ การเตือนถูกสร้างขึ้นบนอุปกรณ์เอง ไม่มีสิ่งใดถูกส่งออกไปภายนอก
 
-### Is the app medical advice?
+### แอปนี้เป็นคำแนะนำทางการแพทย์หรือไม่
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+ไม่ใช่ ข้อมูลเชิงลึกในแอปอธิบายความสัมพันธ์ที่อาจมีในบันทึกของคุณเอง ไม่ได้พิสูจน์เหตุและผล และไม่ใช่คำแนะนำทางการแพทย์หรือจิตวิทยา หากคุณกังวลเรื่องสุขภาพหรืออารมณ์ของคุณ ให้ปรึกษาแพทย์หรือผู้เชี่ยวชาญคนอื่น
 
-## 3. Privacy policy and account deletion
+## 3. นโยบายความเป็นส่วนตัว ข้อกำหนดการใช้งาน และการลบบัญชี
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- นโยบายความเป็นส่วนตัว: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - เราเก็บอะไร ที่ไหน และปกป้องอย่างไร
+- ข้อกำหนดการใช้งาน: [{{TERMS_URL}}]({{TERMS_URL}}) - กฎการใช้บริการ รวมถึงหนึ่งบัญชีต่อหนึ่งคน
+- การลบบัญชี: [{{DELETE_URL}}]({{DELETE_URL}}) - รวมถึงสำหรับผู้ที่ลงชื่อเข้าใช้ไม่ได้
 
-## 4. Operator
+## 4. ผู้ดูแล
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

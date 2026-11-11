@@ -36,7 +36,7 @@ export const LEGACY_LOCALE: Locale = 'he';
  * the same value in every locale and must never be translated.
  */
 export const APP_NAME = 'Your Personal Diary';
-export const APP_VERSION = '0.1.0';
+export const APP_VERSION = '1.0.0';
 
 /** Product name for a locale - identical in every language (see APP_NAME). */
 export function appName(_locale: Locale = LEGACY_LOCALE): string {

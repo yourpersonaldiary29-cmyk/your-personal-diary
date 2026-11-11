@@ -1,6 +1,6 @@
 ---
 title: Terms of Use - Your Personal Diary
-description: The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+description: The rules for using Your Personal Diary (the Windows, Mac and Android apps, the iPhone app when it is published, and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
 languages: Languages
 otherPage: Privacy Policy
 ---
@@ -26,6 +26,7 @@ By creating an account or using the service, you agree to these terms and to the
 ## 2. Who may use the service
 
 - You must be at least {{MINIMUM_AGE}} years old to create an account.
+- If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it.
 - The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
 - We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
 

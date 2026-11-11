@@ -33,11 +33,10 @@ const messages: Record<string, string> = {
   // Registration checkbox (src/components/legal/PrivacyPolicyLink.tsx RegisterPrivacyConsent) - ONE box for both documents
   // (docs/apple-tasks/TERMS.md): {policy} = the link auth.privacyConsentLink, {terms} = the link auth.termsConsentLink
   // (each worded to fit this sentence); auth.legalConsentRequired shows under the unticked box
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'auth.legalConsent': 'I have read the {policy} and the {terms}, and I agree to them',
+  'auth.legalConsent': 'Прочетох {policy} и {terms} и ги приемам',
   'auth.privacyConsentLink': 'политиката за поверителност',
-  'auth.termsConsentLink': 'Terms of Use',
-  'auth.legalConsentRequired': 'To create an account, tick this box to confirm that you have read the Privacy Policy and the Terms of Use and agree to them.',
+  'auth.termsConsentLink': 'условията за ползване',
+  'auth.legalConsentRequired': 'За да създадеш профил, отбележи това поле и така потвърди, че политиката за поверителност и условията за ползване са прочетени и приети от теб.',
   'auth.alreadyHaveAccount': 'Вече имате профил?',
 
   // Validation and session messages

@@ -85,6 +85,8 @@ After:
 
    > In the apps that keep that key on the device with "Remember me", the app also keeps a copy of it encrypted with a key derived from your password, so that you can unlock the app without a connection by typing your password; the password itself is not stored, and this copy is deleted together with the key - when you sign out, when the sign-in ends, or when the account is deleted. Someone with a copy of this device's data could try to guess your password against that copy, at the same cost as against the server; a strong password is what protects it.
 
+   SUPERSEDED: the final wording of the second sentence is in docs/apple-tasks/TERMS-DIFF.md section 4 and in legal/privacy/privacy-en.md ("... without needing your device account, each guess costing as much as against the server but with no limit on the number of tries; ..."). Translate that one, not the sentence above.
+
 ### (b) Section 5, the device list: two new bullets after the Android bullet (already in your file, marked)
 
 > - **Mac app:** these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named "Your Personal Diary offline key" and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.
@@ -197,9 +199,10 @@ Reminders belong to habits: you set the time for each habit on the habits page a
 
 No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
 
-## 3. Privacy policy and account deletion
+## 3. Privacy policy, Terms of Use and account deletion
 
 - Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
+- Terms of Use: [{{TERMS_URL}}]({{TERMS_URL}}) - the rules for using the service, including one account per person.
 - Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
 
 ## 4. Operator

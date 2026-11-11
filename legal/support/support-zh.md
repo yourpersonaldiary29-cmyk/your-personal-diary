@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: 支持 - Your Personal Diary
+description: Your Personal Diary 帮助 - 如何联系我们，以及关于密码、登录、无网络时使用、语言、你的数据和你的账户的常见问题解答。
 languages: 语言
 otherPage: 隐私政策
 ---
 
-# Support - Your Personal Diary
+# 支持 - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Your Personal Diary 由 {{PUBLISHER_NAME}} 运营。联系方式：[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})。
 
-## 1. How to contact us
+## 1. 如何联系我们
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+请发邮件至 [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})。我们会在 30 天内答复，通常会快得多。凡是与你的账户有关的事项，请使用该账户中登记的电子邮件地址来信，以便我们确认是你本人。切勿发送你的密码：我们从不索要密码，帮助你也不需要它。
 
-## 2. Frequent questions
+## 2. 常见问题
 
-### I forgot my password
+### 我忘记了密码
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+在登录界面选择**忘记密码？**，然后输入你注册时使用的电子邮件地址。一封包含链接和 6 位数验证码的邮件会从运营者自己的电子邮件地址发出；如果几分钟内没有收到，请检查垃圾邮件文件夹。链接和验证码的有效期为 30 分钟，且只能使用一次。你的日记会被保留：设置新密码不会删除任何内容。
 
-### I cannot sign in, or the app says "too many attempts"
+### 我无法登录，或者应用显示"尝试次数过多"
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+请检查用户名或电子邮件地址以及密码（注意键盘的输入语言和大小写）。输错 10 次密码后，来自你所在网络的登录会被锁定 15 分钟；请稍候再试。如果你已经不记得密码，请使用**忘记密码？**。如果应用显示没有连接，请参阅下一个问题。
 
-### The app says there is no connection
+### 应用显示没有连接
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+登录、搜索、统计和洞察、备份和导出以及更改你的账户都需要连接服务器。没有连接时你仍然可以写日记：你写的内容会加密保存在你的设备上，并在连接恢复时上传，即使应用在此期间被关闭过。如果你选择了**记住我**，Windows、Mac、Android 和 iPhone 应用还会从设备上的加密副本中打开你最近的条目、习惯和今天的数据；你可以用密码或设备的屏幕锁（Windows Hello、Touch ID、Face ID 或手机的屏幕锁）解锁它们。请检查设备的互联网连接，然后在应用中选择**立即重试**。
 
-### How do I change the language?
+### 如何更改语言？
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+打开**设置**，在**语言**卡片中从列表里选择界面语言；整个日记会立即切换。登录前，你的选择保存在这台设备上；登录后，它会保存到你的账户中，你的其他设备也会随之切换。日记支持 20 种语言。
 
-### How do I get my data out?
+### 如何把我的数据带走？
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+在**设置 - 备份**中，你可以创建一个**备份**：整本日记（条目、习惯和设置）的加密副本，采用应用自己的格式并受密码保护，之后可以在应用中恢复。同一页面上的**导出**会把你的条目写成可读文件（TXT、CSV、JSON 或 PDF），便于阅读、打印或在其他程序中使用。导出文件没有加密：任何拿到该文件的人都能读取它，所以请像保管日记本身一样小心保管它。
 
-### How do I delete my account?
+### 如何删除我的账户？
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+登录后打开**设置**，进入最后一张卡片**删除账户**：输入密码并确认。这会立即从服务器删除你的账户、日记、习惯和设置，并让你在所有设备上退出登录；此操作无法撤销，你自己保存的备份文件不受影响。如果你无法登录，请按照账户删除页面上的步骤操作：[{{DELETE_URL}}]({{DELETE_URL}})。
 
-### On which devices can I use the diary?
+### 我可以在哪些设备上使用日记？
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+在 **Windows**、**Mac**、**Android** 和 **iPhone**（发布后）应用中，以及在任意浏览器中通过网站 [{{SITE_URL}}]({{SITE_URL}}) 使用。所有地方都是同一个账户：你在一台设备上写的内容，在其他设备连接后就会出现在那里。
 
-### How do reminders work?
+### 提醒是如何工作的？
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+提醒属于习惯：你在习惯页面为每个习惯设置时间，并在**设置 - 提醒**中开启提醒。在手机上，应用会请求显示通知的权限；如果你拒绝了，请在手机设置中允许 Your Personal Diary 的通知，否则提醒只会在应用打开时显示。在电脑和浏览器中，提醒会在日记打开时显示。提醒是在设备本身上创建的；不会向外发送任何内容。
 
-### Is the app medical advice?
+### 这个应用提供医疗建议吗？
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+不提供。应用中的洞察描述的是你自己条目中可能存在的关联。它们不能证明因果关系，也不是医疗或心理建议。如果你担心自己的健康或情绪，请咨询医生或其他专业人士。
 
-## 3. Privacy policy and account deletion
+## 3. 隐私政策、使用条款和账户删除
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- 隐私政策：[{{PRIVACY_URL}}]({{PRIVACY_URL}}) - 我们保存什么、保存在哪里以及如何保护。
+- 使用条款：[{{TERMS_URL}}]({{TERMS_URL}}) - 使用本服务的规则，包括每人只能有一个账户。
+- 账户删除：[{{DELETE_URL}}]({{DELETE_URL}}) - 也适用于无法登录的人。
 
-## 4. Operator
+## 4. 运营者
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

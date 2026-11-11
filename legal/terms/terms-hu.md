@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: Felhasználási feltételek - Your Personal Diary
+description: A Your Personal Diary (a Windows-, a Mac-, az Android- és az iPhone-alkalmazás, valamint a weboldal; az iPhone-alkalmazás, amikor megjelenik) használatának szabályai - ki használhatja, személyenként egy fiók, a tartalmad, az elfogadható használat és a mi felelősségünk.
 languages: Nyelvek
 otherPage: Adatvédelmi irányelvek
 ---
 
-# Terms of Use - Your Personal Diary
+# Felhasználási feltételek - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+Hatályos: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+Ha egy fordítás eltér az angol változattól, az angol változat az irányadó.
 
-## In short
+## Röviden
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- A Your Personal Diary ingyenes naplószolgáltatás. A naplód a tiéd.
+- Legalább {{MINIMUM_AGE}} évesnek kell lenned, és mindenkinek **csak egy fiókja** lehet, kivéve, ha írásban többet engedélyezünk.
+- Tartsd titokban a jelszavadat, jogszerűen használd a szolgáltatást, és készíts biztonsági mentést arról, ami fontos neked.
+- A szolgáltatást „ahogy van" nyújtjuk. Nem orvosi tanács.
+- Hogy hogyan kezeljük az adataidat, azt az adatvédelmi irányelvek ismertetik: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
 
-## 1. Who we are and what these terms cover
+## 1. Kik vagyunk, és mire vonatkoznak ezek a feltételek
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+A Your Personal Diary üzemeltetője {{PUBLISHER_NAME}} („mi"). Ezek a felhasználási feltételek a Windows-alkalmazásra, a Mac-alkalmazásra, az Android-alkalmazásra, az iPhone-alkalmazásra (amikor megjelenik) és a weboldalra [{{SITE_URL}}]({{SITE_URL}}) vonatkoznak - együtt: „a szolgáltatás". Mindegyik ugyanazt a szervert és ugyanazt a fiókot használja.
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+Fiók létrehozásával vagy a szolgáltatás használatával elfogadod ezeket a feltételeket és az adatvédelmi irányelveket [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Fiók létrehozásakor ezt egyetlen jelölőnégyzettel erősíted meg. Ha nem értesz egyet velük, kérjük, ne használd a szolgáltatást.
 
-## 2. Who may use the service
+## 2. Ki használhatja a szolgáltatást
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- Fiók létrehozásához legalább {{MINIMUM_AGE}} évesnek kell lenned.
+- Ha ott, ahol élsz, kiskorúnak számítasz, a szolgáltatást csak szülő vagy gyám hozzájárulásával használhatod, amennyiben országod joga ezt előírja.
+- A regisztrációkor megadott adataidnak (név, felhasználónév és e-mail-cím) pontosnak kell lenniük, és az e-mail-címnek olyannak kell lennie, amelyen üzeneteket tudsz fogadni. Ezeket később a Beállításokban módosíthatod.
+- Korlátozhatjuk a szerveren lévő fiókok számát, és bármikor szüneteltethetjük az új regisztrációkat, például azért, hogy a szolgáltatás jól működjön.
 
-## 3. One account per person
+## 3. Személyenként egy fiók
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**Csak egy fiókot nyithatsz és tarthatsz fenn.** Egynél több fiók megnyitása vagy használata csak az üzemeltető előzetes írásos engedélyével megengedett, amelyet e-mailben kérhetsz itt: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Az engedély nélkül nyitott fiókokat megszüntethetjük.
 
-An account is personal: do not share it with others, and do not use another person's account.
+A fiók személyes: ne oszd meg másokkal, és ne használd más személy fiókját.
 
-## 4. Your account and password
+## 4. A fiókod és a jelszavad
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- Tartsd titokban a jelszavadat, és ne használd más szolgáltatásokhoz. Válassz erős jelszót.
+- Te felelsz azért, ami a fiókoddal történik. Ha úgy gondolod, hogy valaki más ismeri a jelszavadat vagy használja a fiókodat, azonnal változtasd meg a jelszót, és szólj nekünk: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+- **Soha nem kérjük el a jelszavadat** - sem e-mailben, sem telefonon, sem más módon. Aki elkéri, az nem mi vagyunk.
+- Olyan eszközön, amelyet mások is használnak, ne válaszd az „Emlékezz rám" lehetőséget, és a végén jelentkezz ki: az „Emlékezz rám" esetén az alkalmazás bejelentkezve tart, és titkosított másolatokat őriz az eszközön, ahogy az adatvédelmi irányelvek 5. pontja elmagyarázza.
 
-## 5. Your content
+## 5. A tartalmad
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- Amit a naplódba írsz, az a tiéd. Semmilyen tulajdonjogot nem formálunk rá.
+- A tartalmadat csak azért tároljuk és kezeljük, hogy nyújtsuk neked a szolgáltatást - hogy megőrizzük, megjelenítsük, kereshetővé tegyük, és minden eszközödön ugyanaz legyen. Az adatvédelmi irányelvek elmagyarázzák, hogyan.
+- Nem olvassuk a naplódat. Az adatvédelmi irányelvek 4. pontja érthetően elmagyarázza, mit tehetne technikailag a szerver üzemeltetője, és mit ígérünk.
+- Te felelsz azért, amit írsz. Ne tárolj jogellenes tartalmat, sem olyan tartalmat, amely másé, az engedélye nélkül.
+- A tartalmadat bármikor magaddal viheted: a **Beállítások - Biztonsági mentés** titkosított biztonsági mentést készít, az exportálás pedig olvasható fájlba írja a bejegyzéseidet. Ezek a másolatok a tieid: megtarthatod és használhatod őket.
 
-## 6. Acceptable use
+## 6. Elfogadható használat
 
-When you use the service, you must not:
+A szolgáltatás használata során tilos:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- jogellenes célra használni, vagy arra, hogy bárkinek árts, bárkit zaklass vagy fenyegess vele;
+- megpróbálni feltörni vagy megkerülni a biztonsági védelmét, a korlátait (például a bejelentkezési kísérletek korlátait) vagy más fiókok védelmét;
+- automatizált eszközökkel (botokkal, szkriptekkel, adatkaparással) hozzáférni, kivéve az alkalmazásokon és a weboldalon keresztül, ahogyan azokat kínáljuk;
+- túlterhelni vagy zavarni a szervert vagy más felhasználókat;
+- továbbértékesíteni a szolgáltatást, vagy azt, illetve a hozzáférést másoknak kínálni;
+- a szervert lemásolni, visszafordítani vagy visszafejteni, kivéve, ha a jogszabály ezt megengedi;
+- megosztani a fiókodat, vagy engedély nélkül egynél több fiókot használni (3. pont).
 
-## 7. The service
+## 7. A szolgáltatás
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- A szolgáltatás jelenleg **ingyenes**. Ha valaha valamiért díjat szeretnénk kérni, ezt előre jelezzük, és semmi sem válik fizetőssé a beleegyezésed nélkül.
+- A funkciók idővel változhatnak, bővülhetnek vagy megszűnhetnek.
+- Arra törekszünk, hogy a szolgáltatás elérhető legyen, de nem ígérjük, hogy mindig elérhető és hibamentes lesz. Karbantartás, frissítések vagy a tárhelyszolgáltatás problémái megszakíthatják.
+- **Készíts biztonsági mentést** arról, ami fontos neked (Beállítások - Biztonsági mentés). Gondoskodunk a szerverről és annak biztonsági mentéseiről, de az elveszett tartalomért csak a jogszabályok által előírt mértékben felelünk.
+- A kapcsolat nélküli működés (az eszközödön lévő másolatok és az offline mód) kényelmi funkció. Előfordulhat, hogy nem minden eszközön és nem minden pillanatban érhető el.
 
-## 8. Suspension and closing an account
+## 8. Fiók felfüggesztése és megszüntetése
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- Felfüggeszthetjük vagy megszüntethetjük azt a fiókot, amely megsérti ezeket a feltételeket - ahol ez észszerűen lehetséges, előzetes értesítés után -, és eltávolíthatunk tartalmat, ahol a jogszabály ezt előírja.
+- A fiókodat bármikor megszüntetheted: jelentkezz be, és nyisd meg a **Beállítások - Fiók törlése** részt. Ha nem tudsz bejelentkezni, kövesd az itt leírt lépéseket: [{{DELETE_URL}}]({{DELETE_URL}}).
+- Hogy mi történik az adataiddal, amikor egy fiókot megszüntetnek vagy törölnek, azt az adatvédelmi irányelvek 7. pontja ismerteti.
 
-## 9. If the service ends
+## 9. Ha a szolgáltatás megszűnik
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+Ha úgy döntünk, hogy megszüntetjük a szolgáltatást, ezt legalább 30 nappal a megszűnése előtt bejelentjük itt: [{{SITE_URL}}]({{SITE_URL}}). Ez idő alatt a biztonsági mentés és az exportálás elérhető marad, hogy magaddal vihesd a naplódat.
 
-## 10. Not medical advice
+## 10. Nem orvosi tanács
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Az alkalmazás megállapításai lehetséges összefüggéseket írnak le a saját bejegyzéseidben. Nem bizonyítanak ok-okozati kapcsolatot, és nem minősülnek orvosi vagy pszichológiai tanácsnak. Ha aggódsz az egészséged vagy a hangulatod miatt, beszélj orvossal vagy más szakemberrel.
 
-## 11. Intellectual property
+## 11. Szellemi tulajdon
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+Az alkalmazások, a weboldal, ezek szövegei és megjelenése az üzemeltető tulajdonát képezik, és csak úgy használhatók, ahogy ezek a feltételek megengedik. A „Your Personal Diary" a szolgáltatás neve. Az alkalmazásokban található nyílt forráskódú összetevőkre továbbra is a saját licencük vonatkozik.
 
-## 12. Liability and warranty
+## 12. Felelősség és szavatosság
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- A jogszabályok által megengedett mértékben a szolgáltatást „ahogy van" („as is") és „ahogy elérhető" („as available") alapon nyújtjuk, mindenféle szavatosság nélkül.
+- A jogszabályok által megengedett mértékben nem felelünk a közvetett vagy következményi károkért, például az elmaradt haszonért vagy az elszalasztott lehetőségért.
+- A fogyasztóként az országod kötelező jogszabályai szerint téged megillető jogokat ezek a feltételek nem érintik.
+- Ezek a feltételek semmiben sem korlátozzák azt a felelősséget, amelyet jogszabály alapján nem lehet korlátozni.
 
-## 13. Changes to these terms
+## 13. A feltételek módosítása
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+Ha a szolgáltatás vagy ezek a feltételek változnak, frissítjük ezt az oldalt és a tetején a hatálybalépés dátumát. A fontos változásokat ezen az oldalon jelentjük be, mielőtt hatályba lépnek. Ha egy változás hatálybalépése után tovább használod a szolgáltatást, elfogadod az új feltételeket; ha nem fogadod el őket, bármikor törölheted a fiókodat (8. pont). A regisztrációkor elfogadott változatot a fiókoddal együtt rögzítjük.
 
-## 14. Disagreements
+## 14. Nézeteltérések
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+Ha panaszod vagy nézeteltérésed van velünk, kérjük, először írj nekünk: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - megpróbáljuk e-mailben rendezni. Ezek a feltételek semmiben sem csorbítják azokat a jogokat, amelyeket a lakóhelyed szerinti ország joga biztosít számodra.
 
-## 15. Contact
+## 15. Kapcsolat
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+Kérdések ezekkel a feltételekkel kapcsolatban: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+Támogatás és gyakori kérdések: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: Поддержка - Your Personal Diary
+description: Помощь по Your Personal Diary - как связаться с нами и ответы на частые вопросы о паролях, входе, работе без подключения, языках, ваших данных и вашем аккаунте.
 languages: Языки
 otherPage: Политика конфиденциальности
 ---
 
-# Support - Your Personal Diary
+# Поддержка - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Сервис Your Personal Diary работает под управлением {{PUBLISHER_NAME}}. Контакт: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-## 1. How to contact us
+## 1. Как связаться с нами
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+Пишите на [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Мы отвечаем в течение 30 дней, обычно гораздо быстрее. По любым вопросам о вашем аккаунте пишите с адреса электронной почты, указанного в этом аккаунте, чтобы мы могли убедиться, что это вы. Никогда не присылайте свой пароль: мы никогда его не спрашиваем, и он не нужен нам, чтобы вам помочь.
 
-## 2. Frequent questions
+## 2. Частые вопросы
 
-### I forgot my password
+### Я забыл(а) пароль
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+На экране входа выберите **Забыли пароль?** и введите адрес электронной почты, указанный при регистрации. Письмо со ссылкой и 6-значным кодом придёт с собственного адреса электронной почты оператора; если оно не пришло в течение нескольких минут, проверьте папку «Спам». Ссылка и код действуют 30 минут, и их можно использовать один раз. Ваш дневник сохраняется: при выборе нового пароля ничего не удаляется.
 
-### I cannot sign in, or the app says "too many attempts"
+### Не получается войти, или приложение пишет «Слишком много попыток»
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+Проверьте имя пользователя или адрес электронной почты и пароль (обратите внимание на раскладку клавиатуры и заглавные буквы). После 10 неверных паролей вход из вашей сети блокируется на 15 минут; подождите и попробуйте снова. Если вы больше не помните пароль, воспользуйтесь ссылкой **Забыли пароль?**. Если приложение сообщает, что нет подключения, см. следующий вопрос.
 
-### The app says there is no connection
+### Приложение сообщает, что нет подключения
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+Сервер нужен приложению для входа, поиска, статистики и наблюдений, резервных копий и экспорта, а также для изменений в вашем аккаунте. Без подключения вы всё равно можете писать: написанное сохраняется на устройстве в зашифрованном виде и отправляется, когда связь восстановится, даже если приложение за это время закрывали. Если вы выбрали **Запомнить меня**, приложения для Windows, Mac, Android и iPhone также открывают ваши последние записи, привычки и данные за сегодня из зашифрованной копии на устройстве; вы разблокируете их паролем или блокировкой экрана устройства (Windows Hello, Touch ID, Face ID или блокировка экрана телефона). Проверьте подключение устройства к интернету, затем выберите в приложении **Повторить сейчас**.
 
-### How do I change the language?
+### Как сменить язык?
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+Откройте **Настройки** и в карточке **Язык** выберите язык интерфейса из списка; весь дневник сразу переключится. До входа выбор хранится на этом устройстве; после входа он сохраняется в вашем аккаунте, и ваши другие устройства следуют ему. Дневник доступен на 20 языках.
 
-### How do I get my data out?
+### Как получить свои данные?
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+В разделе **Настройки - Резервная копия** можно создать **резервную копию**: зашифрованную копию всего дневника (записи, привычки и настройки) в собственном формате приложения, защищённую паролем, которую потом можно восстановить в приложении. **Экспорт** на той же странице записывает ваши записи в читаемый файл - TXT, CSV, JSON или PDF - чтобы читать, печатать или открыть в другой программе. Файл экспорта не зашифрован: его может прочитать любой, у кого он есть, поэтому храните его так же бережно, как сам дневник.
 
-### How do I delete my account?
+### Как удалить аккаунт?
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+Войдите, откройте **Настройки** и перейдите к последней карточке - **Удаление аккаунта**: введите пароль и подтвердите. Это сразу удаляет с сервера ваш аккаунт, дневник, привычки и настройки и выполняет выход на всех устройствах; отменить это нельзя, а резервные копии, которые вы сохранили сами, не затрагиваются. Если вы не можете войти, следуйте инструкциям на странице удаления аккаунта: [{{DELETE_URL}}]({{DELETE_URL}}).
 
-### On which devices can I use the diary?
+### На каких устройствах можно вести дневник?
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+В приложениях для **Windows**, **Mac**, **Android** и **iPhone** (когда оно будет опубликовано), а также на сайте [{{SITE_URL}}]({{SITE_URL}}) в любом браузере. Аккаунт везде один: всё, что вы пишете на одном устройстве, появляется на остальных, как только они подключатся.
 
-### How do reminders work?
+### Как работают напоминания?
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+Напоминания относятся к привычкам: время для каждой привычки задаётся на странице привычек, а напоминания включаются в разделе **Настройки - Напоминания**. На телефоне приложение запрашивает разрешение на показ уведомлений; если вы отказали, разрешите уведомления для Your Personal Diary в настройках телефона, иначе напоминания будут появляться, только пока приложение открыто. На компьютере и в браузере напоминание появляется, пока дневник открыт. Напоминания создаются на самом устройстве; ничего никуда не отправляется.
 
-### Is the app medical advice?
+### Является ли приложение медицинской консультацией?
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+Нет. Наблюдения в приложении описывают возможные связи в ваших собственных записях. Они не доказывают причинно-следственную связь и не являются медицинской или психологической консультацией. Если вас беспокоит здоровье или настроение, обратитесь к врачу или другому специалисту.
 
-## 3. Privacy policy and account deletion
+## 3. Политика конфиденциальности, условия использования и удаление аккаунта
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- Политика конфиденциальности: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - что мы храним, где и как это защищено.
+- Условия использования: [{{TERMS_URL}}]({{TERMS_URL}}) - правила пользования сервисом, в том числе один аккаунт на человека.
+- Удаление аккаунта: [{{DELETE_URL}}]({{DELETE_URL}}) - в том числе для тех, кто не может войти.
 
-## 4. Operator
+## 4. Оператор
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

@@ -64,7 +64,7 @@ deploy/hosted/dist
 android/app/src/main/assets/public
 
 # App Store screenshots are large (2880x1800, 19 languages) and regenerable:
-# node scripts/play/render-screenshots.mjs --profile mac / --profile iphone
+# node scripts/play/render-screenshots.mjs --profile iphone-medium / --profile iphone-large / --profile mac
 appstore/screenshots/**/*.png
 
 # Local tool folder of the screenshot scripts (playwright-core, Edge profile, logs)

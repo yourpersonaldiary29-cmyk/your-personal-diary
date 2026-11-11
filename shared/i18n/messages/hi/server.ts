@@ -499,8 +499,7 @@ const messages: Record<string, string> = {
   'server.auth.tooManyRegistrations': 'आपके नेटवर्क से बहुत अधिक पंजीकरण हुए हैं। कृपया बाद में फिर से प्रयास करें।',
   // The hosted server refuses a registration without the privacy checkbox (routes/auth.ts; older apps have no box)
   'server.auth.privacyRequired': 'खाता बनाने के लिए पुष्टि करें कि आपने गोपनीयता नीति पढ़ ली है और आप इससे सहमत हैं। अगर इसके लिए कोई चेकबॉक्स नहीं दिखता, तो ऐप अपडेट करें।',
-  // TODO-TRANSLATE (docs/apple-tasks/TERMS-DIFF.md): English placeholder of the Terms-of-Use keys below - the translator replaces it and removes this line
-  'server.auth.termsRequired': 'To create an account, confirm that you have read the Terms of Use and agree to them. If you see no box to tick for this, update the app.',
+  'server.auth.termsRequired': 'खाता बनाने के लिए पुष्टि करें कि आपने उपयोग की शर्तें पढ़ ली हैं और आप इनसे सहमत हैं। अगर इसके लिए कोई चेकबॉक्स नहीं दिखता, तो ऐप अपडेट करें।',
   'server.error.busy': 'सर्वर अभी व्यस्त है। कृपया कुछ क्षण बाद फिर से प्रयास करें।',
   'server.vault.quota': 'आपकी डायरी इस सर्वर की आकार सीमा ({max} MB) तक पहुँच गई है। जगह बनाने के लिए कुछ प्रविष्टियाँ हटाएँ।',
   'server.owner.unset': 'इस सर्वर के लिए अभी तक कोई स्वामी निर्धारित नहीं है। ऑपरेटर को DIARY_OWNER_ID में स्वामी के खाते की आईडी सेट करनी होगी।',

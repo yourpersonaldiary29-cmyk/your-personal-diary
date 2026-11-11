@@ -1,6 +1,6 @@
 # Platform notes (en-US)
 
-The nine text files in this folder are shared by the two App Store Connect records: the iPhone app (bundle id `app.yourpersonaldiary`) and the Mac app (bundle id `app.yourpersonaldiary.mac`). Every sentence is written so that it is true on both, so the same files are pasted into both records.
+The ten text files in this folder serve the two App Store Connect records: the iPhone app (bundle id `app.yourpersonaldiary`) and the Mac app (bundle id `app.yourpersonaldiary.mac`). Everything is shared except the name - `name.txt` for the iPhone record, `name-mac.txt` for the Mac record (Apple allows one app name per localization in an account, `docs/apple-tasks/APPSTORE-FACTS.md` 2.3). Every other sentence is written so that it is true on both, so the same files are pasted into both records.
 
 Where a record could say something more precisely, the table gives the optional wording for that record. Using the shared sentence is always correct; the precise wording is a choice, and after any change the limits must be checked again with `node scripts/appstore/check-listing.mjs --only en-US`.
 
@@ -12,6 +12,6 @@ Where a record could say something more precisely, the table gives the optional 
 | description.txt: "Automatic lock after a period of inactivity, and "Lock now" whenever you want." | may add: "or, if you choose, whenever you leave the app" | unchanged |
 | description.txt, the Accessibility block | unchanged | may add the line "- Everything can be done with the keyboard, with shortcuts for the main actions." |
 
-Everything else - name, subtitle, promotional text, keywords, what's new and the three URLs - is identical in both records. Screenshots are per record: the iPhone sets and the Mac set under `appstore/screenshots/` (SHOTS package; its README names the folder for each device size).
+Everything else - subtitle, promotional text, keywords, what's new and the three URLs - is identical in both records. Only the name differs: `name.txt` (`Your Personal Diary`) goes into the iPhone record, `name-mac.txt` (`Your Personal Diary for Mac`) into the Mac record, in every localization. Screenshots are per record: the iPhone sets and the Mac set under `appstore/screenshots/` (SHOTS package; its README names the folder for each device size).
 
 What the texts deliberately do not say, on either record: the guest tour (not in the Apple apps), hiding the app's content in the app switcher or blocking screenshots (not promised on these platforms), keyboard shortcuts by name (they differ per platform), and anything about other platforms or stores (App Review Guideline 2.3.10).

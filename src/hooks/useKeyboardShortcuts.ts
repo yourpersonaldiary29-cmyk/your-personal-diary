@@ -6,10 +6,18 @@
  *   Shift+?          shortcuts dialog
  * Plain keys ("?") are ignored while typing in a field; Ctrl/Alt combos always
  * work. AltGr (Ctrl+Alt) is left alone so Hebrew/European layouts can type.
- * Mac app only: Option is the Mac's AltGr, so inside a field Option+digit types
- * the layout's character ("¡", "™"; "[" and "{" on a German keyboard) and
- * Option+← moves the caret one word back - macOS keeps those keys there, and
- * ⌥1..⌥0 / ⌥← navigate everywhere else (Command counts as Ctrl everywhere).
+ * On a Mac (the Mac app, and since 2026-11-11 the web UI in a Mac browser too:
+ * any Macintosh user agent), while the focus is in a text field
+ * (`isTextEntryTarget`: not a checkbox, a slider, a date field or a list): the
+ * keys macOS's text system owns there stay with macOS. Option is the Mac's
+ * AltGr, so Option+digit types the layout's character ("¡", "™"; "[" and "{"
+ * on a German keyboard) and Option+← moves the caret one word back; the
+ * physical Control key is the text system's (Control+N the next line,
+ * Control+K delete to the end of the line). ⌘N / ⌘K / ⌘L work there too,
+ * ⌥1..⌥0 / ⌥← everywhere else (Command counts as Ctrl everywhere).
+ * Windows Alt codes: Alt + numpad digits typed inside a field (Alt+0150 for
+ * "–") are Windows' way to type a character, so numpad digits with Alt are
+ * ignored there on every platform; Alt+digit on the top row still navigates.
  * Navigation honours the unsaved-changes guard.
  *
  * Phone app: the shortcuts keep working for a Bluetooth keyboard (Shift+? still opens the list),
@@ -24,7 +32,7 @@ import { NAV_ITEMS } from '@shared/constants';
 import { PATHS } from '@/constants/routes';
 import { isGuestUser, useAuth } from '@/context/AuthContext';
 import { useLock } from '@/context/LockContext';
-import { isMacApp } from '@/offline/session';
+import { isMacUserAgent } from '@/offline/session';
 import { isMobileUi } from '@/utils/mobile-ui';
 import { canGoBack } from '@/utils/navigation';
 import { confirmNavigation, hasActiveLeaveGuard } from './useUnsavedChangesGuard';
@@ -43,6 +51,32 @@ export function isEditableTarget(target: EventTarget | null): boolean {
   const tag = el.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
   return el.isContentEditable === true || el.closest('[contenteditable=""], [contenteditable="true"]') !== null;
+}
+
+/** The <input> types that take typed text and have a caret (a missing or unknown type reads as "text"). */
+const TEXT_INPUT_TYPES: ReadonlySet<string> = new Set(['text', 'search', 'email', 'url', 'tel', 'password', 'number']);
+
+/**
+ * True when the key event comes from a field you type text into: a <textarea>, an editable region or
+ * a text-like <input> (`TEXT_INPUT_TYPES`). A checkbox, a radio button, a slider, a date or time field,
+ * a file or a button input and a <select> are editable targets but not text fields.
+ */
+export function isTextEntryTarget(target: EventTarget | null): boolean {
+  if (!isEditableTarget(target)) return false;
+  const el = target as HTMLElement;
+  if (el.tagName === 'SELECT') return false;
+  if (el.tagName !== 'INPUT') return true;
+  return TEXT_INPUT_TYPES.has((el as HTMLInputElement).type);
+}
+
+/** A Mac (app or browser), focus in a text field: the keys macOS's text system owns there stay with it (module comment). */
+function macTextField(target: EventTarget | null): boolean {
+  return isTextEntryTarget(target) && typeof navigator !== 'undefined' && isMacUserAgent(navigator.userAgent);
+}
+
+/** Alt + a numpad digit inside a field: a Windows Alt code (Alt+0150 types "–"), not a shortcut. */
+function altCodeInField(e: KeyboardEvent): boolean {
+  return /^Numpad[0-9]$/.test(e.code) && isEditableTarget(e.target);
 }
 
 /**
@@ -100,8 +134,10 @@ export function useKeyboardShortcuts({ onShowShortcuts, enabled = true }: Keyboa
 
       // Alt + digit -> navigation
       if (e.altKey && !ctrl && !e.shiftKey) {
-        // Mac app, typing in a field: Option+digit / Option+← are macOS's (a character, a word back).
-        if (isEditableTarget(e.target) && isMacApp()) return;
+        // A Mac, typing in a text field: Option+digit / Option+← are macOS's (a character, a word back).
+        if (macTextField(e.target)) return;
+        // Windows, typing in a field: Alt + numpad digits is an Alt code that types a character.
+        if (altCodeInField(e)) return;
         const digit = altDigit(e);
         if (digit !== null) {
           const item = NAV_ITEMS.find((n) => n.key === digit);
@@ -121,6 +157,9 @@ export function useKeyboardShortcuts({ onShowShortcuts, enabled = true }: Keyboa
 
       // Ctrl combos
       if (ctrl && !e.altKey && !e.shiftKey) {
+        // A Mac, typing in a text field: the physical Control key is macOS's (Control+N the next line,
+        // Control+K delete to the end of the line); the Command key (⌘N, ⌘K, ⌘L) still works there.
+        if (!e.metaKey && macTextField(e.target)) return;
         const key = e.key.toLowerCase();
         if (key === 'n' && authenticated) {
           e.preventDefault();

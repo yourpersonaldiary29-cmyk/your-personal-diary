@@ -1,6 +1,6 @@
 Your Personal Diary, kendi sözleriniz ve kendi örüntüleriniz için özel ve akıllı bir günlüktür. Gününüzü yazarsınız; uygulama da uyku, ruh hali, enerji ve alışkanlıklarınızın haftalar, aylar ve yıllar boyunca birlikte nasıl değiştiğini fark etmenize yardımcı olur.
 
-Günlüğünüz Your Personal Diary sunucusunda size ait hesapta tutulur; bu yüzden giriş yaptığınız her cihazda aynıdır. Bağlantı yalnızca hesabı oluşturmak ve ilk girişte gerekir; sonrasında uygulama bağlantısız da çalışır. Reklam yok, analiz yok, izleme yok.
+Günlüğünüz Your Personal Diary sunucusunda size ait hesapta tutulur; bu yüzden giriş yaptığınız her cihazda aynıdır. Bağlantı yalnızca hesabı oluşturmak ve ilk girişte gerekir; sonrasında uygulama bağlantısız da çalışır. Reklam yok, kullanım analizi yok, izleme yok.
 
 Gününüzü yazın
 - Kendi sözlerinizle kayıtlar; ruh hali, duygular, enerji, stres, uyku, fiziksel aktivite, olaylar, kişiler, yer, notlar ve etiketlerle.

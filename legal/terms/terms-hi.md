@@ -1,114 +1,115 @@
 ---
-title: TODO-TRANSLATE Terms of Use - Your Personal Diary
-description: TODO-TRANSLATE The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+title: उपयोग की शर्तें - Your Personal Diary
+description: Your Personal Diary (Windows, Mac, Android और iPhone ऐप और वेबसाइट; iPhone ऐप प्रकाशित होने के बाद) के उपयोग के नियम - इसे कौन इस्तेमाल कर सकता है, हर व्यक्ति का एक ही खाता, आपकी सामग्री, स्वीकार्य उपयोग और हमारी ज़िम्मेदारियाँ।
 languages: भाषाएँ
 otherPage: गोपनीयता नीति
 ---
 
-# Terms of Use - Your Personal Diary
+# उपयोग की शर्तें - Your Personal Diary
 
-Effective date: {{TERMS_EFFECTIVE_DATE}}
+प्रभावी तिथि: {{TERMS_EFFECTIVE_DATE}}
 
-If a translation differs from the English version, the English version applies.
+अगर कोई अनुवाद अंग्रेज़ी संस्करण से अलग है, तो अंग्रेज़ी संस्करण लागू होगा।
 
-## In short
+## संक्षेप में
 
-- Your Personal Diary is a free diary service. Your diary belongs to you.
-- You must be at least {{MINIMUM_AGE}} years old, and each person may have **only one account** unless we approve more in writing.
-- Keep your password secret, use the service lawfully, and keep a backup of what matters to you.
-- The service is provided "as is". It is not medical advice.
-- How we handle your data is explained in the Privacy Policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}).
+- Your Personal Diary एक मुफ़्त डायरी सेवा है। आपकी डायरी आपकी है।
+- आपकी उम्र कम से कम {{MINIMUM_AGE}} वर्ष होनी चाहिए, और हर व्यक्ति के पास **केवल एक खाता** हो सकता है, जब तक हम लिखित रूप में अधिक की अनुमति न दें।
+- अपना पासवर्ड गुप्त रखें, सेवा का कानूनी रूप से उपयोग करें, और जो आपके लिए महत्वपूर्ण है उसका बैकअप रखें।
+- सेवा "जैसी है" उपलब्ध कराई जाती है। यह चिकित्सा सलाह नहीं है।
+- हम आपके डेटा को कैसे संभालते हैं, यह गोपनीयता नीति में बताया गया है: [{{PRIVACY_URL}}]({{PRIVACY_URL}})।
 
-## 1. Who we are and what these terms cover
+## 1. हम कौन हैं और ये शर्तें किन पर लागू होती हैं
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary {{PUBLISHER_NAME}} ("हम") द्वारा संचालित है। उपयोग की ये शर्तें Windows ऐप, Mac ऐप, Android ऐप, iPhone ऐप (जब यह प्रकाशित हो जाएगा) और वेबसाइट [{{SITE_URL}}]({{SITE_URL}}) पर लागू होती हैं - इन्हें मिलाकर "सेवा" कहा गया है। ये सभी एक ही सर्वर और एक ही खाते का उपयोग करते हैं।
 
-By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
+खाता बनाकर या सेवा का उपयोग करके आप इन शर्तों और गोपनीयता नीति [{{PRIVACY_URL}}]({{PRIVACY_URL}}) से सहमत होते हैं। खाता बनाते समय आप एक ही चेकबॉक्स से इसकी पुष्टि करते हैं। अगर आप सहमत नहीं हैं, तो कृपया सेवा का उपयोग न करें।
 
-## 2. Who may use the service
+## 2. सेवा का उपयोग कौन कर सकता है
 
-- You must be at least {{MINIMUM_AGE}} years old to create an account.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
-- We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
+- खाता बनाने के लिए आपकी उम्र कम से कम {{MINIMUM_AGE}} वर्ष होनी चाहिए।
+- यदि आप जहाँ रहते हैं वहाँ नाबालिग हैं, तो जहाँ आपके देश का कानून ऐसा माँगता है, आप सेवा का उपयोग केवल माता-पिता या अभिभावक की सहमति से ही कर सकते हैं।
+- पंजीकरण के समय आप जो विवरण देते हैं (नाम, यूज़रनेम और ईमेल पता) वे सही होने चाहिए, और ईमेल पता ऐसा होना चाहिए जिस पर आप संदेश पा सकें। आप इन्हें बाद में सेटिंग्स में बदल सकते हैं।
+- हम सर्वर पर खातों की संख्या सीमित कर सकते हैं और नए पंजीकरण कभी भी रोक सकते हैं, उदाहरण के लिए ताकि सेवा अच्छी तरह चलती रहे।
 
-## 3. One account per person
+## 3. हर व्यक्ति का एक ही खाता
 
-**You may open and keep only one account.** Opening or using more than one account is allowed only with the prior written approval of the operator, requested by e-mail at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). Accounts opened without it may be closed.
+**आप केवल एक खाता खोल और रख सकते हैं।** एक से अधिक खाता खोलना या इस्तेमाल करना केवल संचालक की पूर्व लिखित अनुमति से ही संभव है, जिसे [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) पर ईमेल करके माँगा जा सकता है। ऐसी अनुमति के बिना खोले गए खाते बंद किए जा सकते हैं।
 
-An account is personal: do not share it with others, and do not use another person's account.
+खाता निजी होता है: इसे दूसरों के साथ साझा न करें, और किसी दूसरे व्यक्ति का खाता इस्तेमाल न करें।
 
-## 4. Your account and password
+## 4. आपका खाता और पासवर्ड
 
-- Keep your password secret and do not use it for other services. Choose a strong one.
-- You are responsible for what is done with your account. If you think someone else knows your password or uses your account, change the password at once and tell us at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
-- **We never ask for your password** - not by e-mail, not by phone and not in any other way. Anyone who asks for it is not us.
-- On a device that other people also use, do not choose "Remember me", and sign out when you finish: with "Remember me" the app keeps you signed in and keeps encrypted copies on the device, as section 5 of the Privacy Policy explains.
+- अपना पासवर्ड गुप्त रखें और उसे दूसरी सेवाओं के लिए इस्तेमाल न करें। एक मज़बूत पासवर्ड चुनें।
+- आपके खाते से जो कुछ किया जाता है, उसकी ज़िम्मेदारी आपकी है। अगर आपको लगता है कि किसी और को आपका पासवर्ड पता है या कोई और आपका खाता इस्तेमाल कर रहा है, तो तुरंत पासवर्ड बदलें और हमें [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) पर बताएँ।
+- **हम आपका पासवर्ड कभी नहीं माँगते** - न ईमेल से, न फ़ोन पर, न किसी और तरीके से। जो भी इसे माँगता है, वह हम नहीं हैं।
+- जिस डिवाइस को दूसरे लोग भी इस्तेमाल करते हैं, उस पर "मुझे याद रखें" न चुनें, और काम ख़त्म होने पर साइन आउट करें: "मुझे याद रखें" के साथ ऐप आपको साइन इन रखता है और डिवाइस पर एन्क्रिप्टेड प्रतियाँ रखता है, जैसा कि गोपनीयता नीति का खंड 5 बताता है।
 
-## 5. Your content
+## 5. आपकी सामग्री
 
-- What you write in your diary belongs to you. We do not claim any ownership of it.
-- We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
-- We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
-- You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- आप अपनी डायरी में जो लिखते हैं, वह आपका है। हम उस पर किसी स्वामित्व का दावा नहीं करते।
+- हम आपकी सामग्री को केवल आपको सेवा देने के लिए सहेजते और संसाधित करते हैं - उसे रखने, दिखाने, उसमें खोजने और आपके डिवाइसों पर एक जैसा रखने के लिए। गोपनीयता नीति बताती है कि कैसे।
+- हम आपकी डायरी नहीं पढ़ते। गोपनीयता नीति का खंड 4 साफ़-साफ़ बताता है कि सर्वर का संचालक तकनीकी रूप से क्या कर सकता है, और हम क्या वादा करते हैं।
+- आप जो लिखते हैं, उसकी ज़िम्मेदारी आपकी है। ग़ैरकानूनी सामग्री, या किसी और की सामग्री उसकी अनुमति के बिना, न सहेजें।
+- आप अपनी सामग्री कभी भी अपने साथ ले जा सकते हैं: **सेटिंग्स - बैकअप** एक एन्क्रिप्टेड बैकअप बनाता है, और निर्यात आपकी एंट्रियों को पढ़ने योग्य फ़ाइल के रूप में लिखता है। ये प्रतियाँ आपकी हैं - इन्हें रखें और इस्तेमाल करें।
 
-## 6. Acceptable use
+## 6. स्वीकार्य उपयोग
 
-When you use the service, you must not:
+सेवा का उपयोग करते समय आप ये काम नहीं कर सकते:
 
-- use it for anything unlawful, or to harm, harass or threaten anyone;
-- try to break or get around its security, its limits (for example the limits on sign-in attempts) or the protection of other accounts;
-- access it with automated means (bots, scripts, scraping), except through the apps and the website as they are offered;
-- overload or interfere with the server or with other users;
-- resell the service, or offer it or access to it to others;
-- copy, decompile or reverse engineer the server, except where the law allows it;
-- share your account, or use more than one account without approval (section 3).
+- इसे किसी ग़ैरकानूनी काम के लिए, या किसी को नुकसान पहुँचाने, परेशान करने या धमकाने के लिए इस्तेमाल करना;
+- इसकी सुरक्षा, इसकी सीमाओं (जैसे साइन इन के प्रयासों की सीमाएँ) या दूसरे खातों की सुरक्षा को तोड़ने या उससे बचने की कोशिश करना;
+- स्वचालित साधनों (बॉट, स्क्रिप्ट, स्क्रैपिंग) से इसे एक्सेस करना, सिवाय ऐप और वेबसाइट के ज़रिए, जैसे वे उपलब्ध कराए गए हैं;
+- सर्वर पर ज़रूरत से ज़्यादा भार डालना या सर्वर या दूसरे उपयोगकर्ताओं के काम में बाधा डालना;
+- सेवा को दोबारा बेचना, या सेवा या उस तक पहुँच दूसरों को देना;
+- सर्वर की नकल करना, उसे डिकंपाइल करना या रिवर्स इंजीनियर करना, सिवाय वहाँ जहाँ कानून इसकी अनुमति देता है;
+- अपना खाता साझा करना, या बिना अनुमति के एक से अधिक खाता इस्तेमाल करना (खंड 3)।
 
-## 7. The service
+## 7. सेवा
 
-- The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
-- Features may change, be added or be removed over time.
-- We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
-- Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
+- सेवा आज **मुफ़्त** है। अगर हम कभी किसी चीज़ के लिए शुल्क लेना चाहेंगे, तो पहले से बताएँगे, और आपकी सहमति के बिना कुछ भी सशुल्क नहीं होगा।
+- समय के साथ सुविधाएँ बदल सकती हैं, जोड़ी जा सकती हैं या हटाई जा सकती हैं।
+- हम सेवा को उपलब्ध रखने का प्रयास करते हैं, लेकिन यह वादा नहीं करते कि यह हमेशा उपलब्ध या त्रुटि-रहित रहेगी। रखरखाव, अपडेट या होस्टिंग की समस्याएँ इसमें रुकावट डाल सकती हैं।
+- जो आपके लिए महत्वपूर्ण है उसका **बैकअप रखें** (सेटिंग्स - बैकअप)। हम सर्वर और उसके बैकअप का ध्यान रखते हैं, लेकिन कानून जितना ज़रूरी बनाता है उससे आगे खोई हुई सामग्री के लिए हम ज़िम्मेदार नहीं हैं।
+- बिना कनेक्शन के काम करना (आपके डिवाइस पर रखी प्रतियाँ और ऑफ़लाइन मोड) एक सुविधा है। हो सकता है यह हर डिवाइस पर या हर समय उपलब्ध न हो।
 
-## 8. Suspension and closing an account
+## 8. खाते का निलंबन और बंद करना
 
-- We may suspend or close an account that breaks these terms - after a notice where that is reasonably possible - and we may remove content where the law requires it.
-- You may close your account at any time: sign in and open **Settings - Delete account**. If you cannot sign in, follow the steps on [{{DELETE_URL}}]({{DELETE_URL}}).
-- What happens to your data when an account is closed or deleted is explained in section 7 of the Privacy Policy.
+- हम ऐसे खाते को निलंबित या बंद कर सकते हैं जो इन शर्तों का उल्लंघन करता है - जहाँ उचित रूप से संभव हो, पहले सूचना देकर - और जहाँ कानून की माँग हो, वहाँ सामग्री हटा सकते हैं।
+- आप अपना खाता कभी भी बंद कर सकते हैं: साइन इन करें और **सेटिंग्स - खाता हटाएँ** खोलें। अगर आप साइन इन नहीं कर सकते, तो [{{DELETE_URL}}]({{DELETE_URL}}) पर दिए गए चरणों का पालन करें।
+- खाता बंद होने या हटाए जाने पर आपके डेटा का क्या होता है, यह गोपनीयता नीति के खंड 7 में बताया गया है।
 
-## 9. If the service ends
+## 9. अगर सेवा बंद होती है
 
-If we decide to end the service, we will announce it on [{{SITE_URL}}]({{SITE_URL}}) at least 30 days before it ends. During that time, backup and export will remain available, so that you can take your diary with you.
+अगर हम सेवा बंद करने का निर्णय लेते हैं, तो इसके बंद होने से कम से कम 30 दिन पहले [{{SITE_URL}}]({{SITE_URL}}) पर इसकी घोषणा करेंगे। उस दौरान बैकअप और निर्यात उपलब्ध रहेंगे, ताकि आप अपनी डायरी अपने साथ ले जा सकें।
 
-## 10. Not medical advice
+## 10. चिकित्सा सलाह नहीं
 
-The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+ऐप की अंतर्दृष्टियाँ आपकी अपनी एंट्रियों में संभावित संबंधों का वर्णन करती हैं। वे कारण और परिणाम सिद्ध नहीं करतीं और वे चिकित्सा या मनोवैज्ञानिक सलाह नहीं हैं। अगर आप अपने स्वास्थ्य या मनोदशा को लेकर चिंतित हैं, तो किसी डॉक्टर या दूसरे विशेषज्ञ से बात करें।
 
-## 11. Intellectual property
+## 11. बौद्धिक संपदा
 
-The apps, the website, their texts and their design belong to the operator and may be used only as these terms allow. "Your Personal Diary" is the name of the service. Open-source components included in the apps remain under their own licences.
+ऐप, वेबसाइट, उनके टेक्स्ट और उनका डिज़ाइन संचालक के हैं और इनका उपयोग केवल उसी तरह किया जा सकता है जैसे ये शर्तें अनुमति देती हैं। "Your Personal Diary" सेवा का नाम है। ऐप में शामिल ओपन-सोर्स घटक अपने-अपने लाइसेंस के अधीन रहते हैं।
 
-## 12. Liability and warranty
+## 12. दायित्व और वारंटी
 
-- To the extent the law permits, the service is provided "as is" and "as available", without warranties of any kind.
-- To the extent the law permits, we are not liable for indirect or consequential loss, such as loss of profit or loss of opportunity.
-- The rights you have as a consumer under the mandatory law of your country are not affected by these terms.
-- Nothing in these terms limits liability that cannot be limited by law.
+- कानून जिस हद तक अनुमति देता है, उस हद तक सेवा "जैसी है" और "जैसी उपलब्ध है" (as is, as available) के आधार पर, बिना किसी प्रकार की वारंटी के, दी जाती है।
+- कानून जिस हद तक अनुमति देता है, उस हद तक हम अप्रत्यक्ष या परिणामी नुकसान, जैसे लाभ की हानि या अवसर की हानि, के लिए ज़िम्मेदार नहीं हैं।
+- आपके देश के अनिवार्य कानून के तहत उपभोक्ता के रूप में आपके जो अधिकार हैं, वे इन शर्तों से प्रभावित नहीं होते।
+- इन शर्तों में कुछ भी ऐसे दायित्व को सीमित नहीं करता जिसे कानून के तहत सीमित नहीं किया जा सकता।
 
-## 13. Changes to these terms
+## 13. इन शर्तों में बदलाव
 
-When the service or these terms change, we update this page and the effective date at the top. Important changes are announced on this page before they apply. If you continue to use the service after a change applies, you accept the new terms; if you do not accept them, you can delete your account at any time (section 8). The version you agreed to when you registered is recorded with your account.
+जब सेवा या ये शर्तें बदलती हैं, तो हम यह पेज और सबसे ऊपर दी गई प्रभावी तिथि अपडेट करते हैं। महत्वपूर्ण बदलावों की घोषणा लागू होने से पहले इसी पेज पर की जाती है। अगर कोई बदलाव लागू होने के बाद भी आप सेवा का उपयोग जारी रखते हैं, तो आप नई शर्तें स्वीकार करते हैं; अगर आप उन्हें स्वीकार नहीं करते, तो आप कभी भी अपना खाता हटा सकते हैं (खंड 8)। पंजीकरण के समय आपने जिस संस्करण पर सहमति दी थी, वह आपके खाते के साथ दर्ज किया जाता है।
 
-## 14. Disagreements
+## 14. असहमति
 
-If you have a complaint or a disagreement with us, please write to us first at [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) - we will try to settle it by e-mail. Nothing in these terms takes away the rights that the law of the country where you live gives you.
+अगर आपको हमसे कोई शिकायत या असहमति है, तो कृपया पहले हमें [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) पर लिखें - हम इसे ईमेल के ज़रिए सुलझाने की कोशिश करेंगे। आप जिस देश में रहते हैं, वहाँ का कानून आपको जो अधिकार देता है, उन्हें इन शर्तों में से कुछ भी नहीं छीनता।
 
-## 15. Contact
+## 15. संपर्क
 
-Questions about these terms: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
+इन शर्तों के बारे में सवाल: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 
 {{PUBLISHER_NAME}}
 
-Support and frequent questions: [{{SUPPORT_URL}}]({{SUPPORT_URL}})
+सहायता और आम सवाल: [{{SUPPORT_URL}}]({{SUPPORT_URL}})

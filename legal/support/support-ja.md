@@ -1,61 +1,62 @@
 ---
-title: TODO-TRANSLATE Support - Your Personal Diary
-description: TODO-TRANSLATE Help with Your Personal Diary - how to contact us, and answers to frequent questions about passwords, signing in, working without a connection, languages, your data and your account.
+title: サポート - Your Personal Diary
+description: Your Personal Diary のヘルプ - お問い合わせ方法と、パスワード、ログイン、接続がないときの利用、言語、データ、アカウントに関するよくある質問への回答。
 languages: 言語
 otherPage: プライバシーポリシー
 ---
 
-# Support - Your Personal Diary
+# サポート - Your Personal Diary
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}}. Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
+Your Personal Diary は {{PUBLISHER_NAME}} が運営しています。連絡先：[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})。
 
-## 1. How to contact us
+## 1. お問い合わせ方法
 
-Write to [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}). We answer within 30 days, usually much sooner. For anything about your account, write from the e-mail address registered in that account, so that we can tell it is you. Never send your password: we never ask for it, and we do not need it to help you.
+[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}) までメールでご連絡ください。30 日以内に、通常はもっと早くお返事します。アカウントに関することは、ご本人であることを確認できるよう、そのアカウントに登録されているメールアドレスから送ってください。パスワードは絶対に送らないでください。私たちがパスワードを尋ねることはなく、お手伝いするのにも必要ありません。
 
-## 2. Frequent questions
+## 2. よくある質問
 
-### I forgot my password
+### パスワードを忘れました
 
-On the sign-in screen choose **Forgot password?** and enter the e-mail address you registered with. A message with a link and a 6-digit code is sent from the operator's own e-mail address; if it does not arrive within a few minutes, check the spam folder. The link and the code are valid for 30 minutes and can be used once. Your diary is kept: choosing a new password deletes nothing.
+ログイン画面で**パスワードをお忘れですか？**を選び、登録したメールアドレスを入力してください。リンクと 6 桁のコードを記載したメッセージが、運営者自身のメールアドレスから送信されます。数分たっても届かない場合は、迷惑メールフォルダーを確認してください。リンクとコードの有効期間は 30 分で、使えるのは 1 回だけです。日記はそのまま残ります。新しいパスワードを設定しても何も削除されません。
 
-### I cannot sign in, or the app says "too many attempts"
+### ログインできない、または「試行回数が多すぎます」と表示される
 
-Check the user name or e-mail address and the password (mind the keyboard language and capital letters). After 10 wrong passwords, sign-in from your network is locked for 15 minutes; wait, then try again. If you no longer know the password, use **Forgot password?**. If the app says there is no connection, see the next question.
+ユーザー名またはメールアドレスとパスワードを確認してください（キーボードの入力言語や大文字・小文字に注意してください）。パスワードを 10 回間違えると、あなたのネットワークからのログインが 15 分間ロックされます。しばらく待ってから、もう一度お試しください。パスワードがもうわからない場合は、**パスワードをお忘れですか？**を使ってください。アプリに接続がないと表示される場合は、次の質問をご覧ください。
 
-### The app says there is no connection
+### アプリに接続がないと表示される
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+ログイン、検索、統計とインサイト、バックアップとエクスポート、アカウントの変更には、サーバーが必要です。接続がなくても書くことはできます。書いた内容は暗号化してデバイスに保存され、接続が戻るとアップロードされます。その間にアプリを閉じていても大丈夫です。**ログイン状態を保持する**を選んでいる場合、Windows、Mac、Android、iPhone の各アプリは、最近のエントリー、習慣、今日のデータもデバイス上の暗号化されたコピーから開きます。ロックはパスワードか、デバイスの画面ロック（Windows Hello、Touch ID、Face ID、またはスマートフォンの画面ロック）で解除します。デバイスのインターネット接続を確認してから、アプリで**今すぐ再試行**を選んでください。
 
-### How do I change the language?
+### 言語を変更するには？
 
-Open **Settings** and, in the **Language** card, choose the interface language from the list; the whole diary switches at once. Before you sign in, the choice is kept on this device; after you sign in it is saved to your account, so your other devices follow it. The diary has 20 languages.
+**設定**を開き、**言語**カードで一覧からインターフェースの言語を選んでください。日記全体がすぐに切り替わります。ログイン前は、選んだ言語はこのデバイスに保存されます。ログイン後はアカウントに保存されるので、ほかのデバイスも同じ言語になります。日記は 20 の言語に対応しています。
 
-### How do I get my data out?
+### データを取り出すには？
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+**設定 - バックアップ**で**バックアップ**を作成できます。これは日記全体（エントリー、習慣、設定）を暗号化したコピーで、アプリ独自の形式で保存され、パスワードで保護されており、あとでアプリで復元できます。同じページの**エクスポート**は、エントリーを読める形式のファイル（TXT、CSV、JSON、PDF）として書き出し、閲覧、印刷、ほかのプログラムでの利用に使えます。エクスポートしたファイルは暗号化されていません。ファイルを手に入れた人は誰でも読めるので、日記そのものと同じように大切に保管してください。
 
-### How do I delete my account?
+### アカウントを削除するには？
 
-Sign in, open **Settings** and go to the last card, **Delete account**: enter your password and confirm. This deletes your account, your diary, habits and settings from the server at once and signs you out on every device; it cannot be undone, and backup files you saved yourself are not touched. If you cannot sign in, follow the steps on the account-deletion page: [{{DELETE_URL}}]({{DELETE_URL}}).
+ログインして**設定**を開き、最後のカード**アカウントの削除**に進み、パスワードを入力して確認してください。これにより、アカウント、日記、習慣、設定がサーバーからすぐに削除され、すべてのデバイスでログアウトされます。元に戻すことはできません。自分で保存したバックアップファイルには影響しません。ログインできない場合は、アカウント削除ページの手順に従ってください：[{{DELETE_URL}}]({{DELETE_URL}})。
 
-### On which devices can I use the diary?
+### どのデバイスで日記を使えますか？
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+**Windows**、**Mac**、**Android**、**iPhone**（公開後）の各アプリと、任意のブラウザーからウェブサイト [{{SITE_URL}}]({{SITE_URL}}) で使えます。どこでも 1 つのアカウントです。あるデバイスで書いた内容は、ほかのデバイスが接続するとすぐにそちらにも表示されます。
 
-### How do reminders work?
+### リマインダーの仕組みは？
 
-Reminders belong to habits: you set the time for each habit on the habits page and turn reminders on in **Settings - Reminders**. On a phone, the app asks for permission to show notifications; if you declined, allow notifications for Your Personal Diary in the phone's settings, otherwise reminders appear only while the app is open. On the computer and in the browser, a reminder appears while the diary is open. Reminders are created on the device itself; nothing is sent out.
+リマインダーは習慣に付属するものです。習慣のページで習慣ごとに時刻を設定し、**設定 - リマインダー**でリマインダーをオンにします。スマートフォンでは、アプリが通知の表示の許可を求めます。許可しなかった場合は、スマートフォンの設定で Your Personal Diary の通知を許可してください。そうしないと、リマインダーはアプリが開いている間しか表示されません。パソコンとブラウザーでは、日記が開いている間にリマインダーが表示されます。リマインダーはデバイス上で作成され、外部には何も送信されません。
 
-### Is the app medical advice?
+### このアプリは医療上のアドバイスですか？
 
-No. The insights in the app describe possible relationships in your own entries. They do not prove cause and effect and they are not medical or psychological advice. If you are worried about your health or your mood, talk to a doctor or another professional.
+いいえ。アプリのインサイトは、あなた自身のエントリーに見られる関係の可能性を示すものです。因果関係を証明するものではなく、医学的・心理学的な助言でもありません。健康や気分について心配がある場合は、医師やその他の専門家に相談してください。
 
-## 3. Privacy policy and account deletion
+## 3. プライバシーポリシー、利用規約とアカウントの削除
 
-- Privacy policy: [{{PRIVACY_URL}}]({{PRIVACY_URL}}) - what we store, where, and how it is protected.
-- Account deletion: [{{DELETE_URL}}]({{DELETE_URL}}) - also for anyone who cannot sign in.
+- プライバシーポリシー：[{{PRIVACY_URL}}]({{PRIVACY_URL}}) - 何を、どこに保存し、どのように保護しているか。
+- 利用規約：[{{TERMS_URL}}]({{TERMS_URL}}) - 1 人 1 アカウントを含む、本サービスの利用ルール。
+- アカウントの削除：[{{DELETE_URL}}]({{DELETE_URL}}) - ログインできない方もこちらから。
 
-## 4. Operator
+## 4. 運営者
 
 {{PUBLISHER_NAME}} - [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})

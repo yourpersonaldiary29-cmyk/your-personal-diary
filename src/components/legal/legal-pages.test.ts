@@ -221,6 +221,16 @@ describe('the rendered pages', () => {
       expect(all.get('terms/index.html'), target).toContain(`href="${SITE}/${target}/"`);
       expect(all.get('terms/he/index.html'), target).toContain(`href="${SITE}/${target}/he/"`);
     }
+    // Every page reaches the Terms of Use: the policy (section 2) and the support page (section 3) link them in the
+    // same language, so the terms page is not reachable only from itself.
+    for (const l of LOCALES) {
+      const terms = l.code === 'en' ? `${SITE}/terms/` : `${SITE}/terms/${l.code}/`;
+      expect(all.get(`privacy/${l.code}/index.html`), `privacy ${l.code} -> terms`).toContain(`href="${terms}"`);
+      expect(all.get(`support/${l.code}/index.html`), `support ${l.code} -> terms`).toContain(`href="${terms}"`);
+    }
+    // A link whose text is Hebrew or Arabic words keeps the paragraph's direction; an address stays left to right.
+    expect(all.get('privacy/he/index.html')).toContain(`<a href="${SITE}/terms/he/">תנאי השימוש</a>`);
+    expect(all.get('support/he/index.html')).toContain(`<a href="${SITE}/terms/he/" dir="ltr">${SITE}/terms/he/</a>`);
   });
 
   it('the Terms of Use: fifteen numbered sections, the one-account rule on its own, the owner\'s promises, the English reference', () => {
@@ -234,7 +244,7 @@ describe('the rendered pages', () => {
     const english = all.get('terms/index.html') as string;
     expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
     expect(english).toContain('<h2>3. One account per person</h2>');
-    for (const needle of ['<strong>You may open and keep only one account.</strong>', 'prior written approval of the operator', 'Accounts opened without it may be closed.', 'at least 16 years old', '<strong>We never ask for your password</strong>', '<strong>free of charge</strong>', 'at least 30 days before it ends', 'not medical or psychological advice', 'please write to us first', 'when it is published', '12 November 2026', 'The version you agreed to when you registered is recorded with your account.']) {
+    for (const needle of ['<strong>You may open and keep only one account.</strong>', 'prior written approval of the operator', 'Accounts opened without it may be closed.', 'at least 16 years old', 'If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it.', '<strong>We never ask for your password</strong>', '<strong>free of charge</strong>', 'at least 30 days before it ends', 'not medical or psychological advice', 'please write to us first', 'when it is published', '12 November 2026', 'The version you agreed to when you registered is recorded with your account.']) {
       expect(english, needle).toContain(needle);
     }
     // English is the reference text: every other language says so near the top (the base writer's Hebrew included).
@@ -242,6 +252,13 @@ describe('the rendered pages', () => {
     const hebrew = all.get('terms/he/index.html') as string;
     expect(hebrew).toContain('הנוסח האנגלי חל');
     expect(hebrew).toContain('<h2>3. חשבון אחד לכל אדם</h2>');
+    expect(hebrew).toContain('הורה או אפוטרופוס');
+    // The minors sentence is its own bullet of section 2 in every language (age, minors, details, limits).
+    for (const l of LOCALES) {
+      const html = all.get(`terms/${l.code}/index.html`) as string;
+      const s2 = html.slice(html.indexOf('<h2>2. '), html.indexOf('<h2>3. '));
+      expect((s2.match(/<li>/g) ?? []).length, `terms ${l.code}: section 2 bullets`).toBe(4);
+    }
   });
 
   it('the support page (App Store "Support URL") shows the operator and the e-mail before the questions, then the frequent questions', () => {
@@ -274,7 +291,7 @@ describe('the rendered pages', () => {
 
   it('the policy names the four apps and the website, the hosting place, the operator\'s reset capability and the device copies', () => {
     const html = files().get('privacy/index.html') as string;
-    for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'when it is published', 'Frankfurt, Germany', 'AES-256-GCM', 'Windows Data Protection (DPAPI)', 'Android Keystore', 'macOS Keychain', 'iOS Keychain', 'Your Personal Diary offline key', 'App Store', 'Mac App Store', 'jailbroken', 'The operator can technically reset any password', 'within 30 days', 'Fly.io, Inc.', 'Gmail']) {
+    for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'when it is published', 'Frankfurt, Germany', 'AES-256-GCM', 'Windows Data Protection (DPAPI)', 'Android Keystore', 'macOS Keychain', 'iOS Keychain', 'Your Personal Diary offline key', 'App Store', 'Mac App Store', 'jailbroken', 'without needing your device account', 'no limit on the number of tries', 'The operator can technically reset any password', 'within 30 days', 'Fly.io, Inc.', 'Gmail']) {
       expect(html, needle).toContain(needle);
     }
     expect(html).toContain('at least 16 years old');
@@ -290,6 +307,7 @@ describe('the small Markdown converter', () => {
     expect(inline('a < b & "c"')).toBe('a &lt; b &amp; &quot;c&quot;');
     expect(inline('**x** `y<z>`')).toBe('<strong>x</strong> <code dir="ltr">y&lt;z&gt;</code>');
     expect(inline('[mail](mailto:a@b.test) [page](/privacy/)')).toBe('<a href="mailto:a@b.test" dir="ltr">mail</a> <a href="/privacy/">page</a>');
+    expect(inline('[תנאי השימוש](https://x.test/terms/he/) [شروط](https://x.test/terms/ar/)')).toBe('<a href="https://x.test/terms/he/">תנאי השימוש</a> <a href="https://x.test/terms/ar/">شروط</a>');
   });
 
   it('builds headings, paragraphs and lists', () => {

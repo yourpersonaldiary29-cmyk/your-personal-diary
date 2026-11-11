@@ -14,7 +14,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {
@@ -22,10 +22,12 @@ import {
   checkScreenshots,
   DEFAULT_DIR,
   DEFAULT_ICON,
+  DEFAULT_IOS_ICONSET,
   formatReport,
   fullyOpaque,
   iconProblems,
   imageProblems,
+  iosIconProblems,
   ROOT,
   RULES,
   SET_PROFILES,
@@ -35,6 +37,7 @@ import { encodePng } from '../play/render-graphics.mjs';
 import { flattenSvg, iconFileProblems, pngHeader, withSrgbChunks } from '../../appstore/icon/render-icon.mjs';
 import {
   appStoreFolders,
+  appStoreOfflineEntry,
   browserLocaleOf,
   DESKTOP_CHROME,
   DESKTOP_SHOTS,
@@ -42,6 +45,7 @@ import {
   deviceLocaleOf,
   IPHONE_USER_AGENT,
   MAC_USER_AGENT,
+  offlineEntry,
   PHONE_CHROME,
   PROFILES,
   RENDER_LOG,
@@ -181,6 +185,7 @@ test('the iPhone profiles reuse the phone shots and chrome; the mac profile the 
     assert.match(p.userAgent, /iPhone/);
     assert.equal(p.deviceName((k) => k), 'shell.device.phone');
     assert.equal(p.browserLocale('he', 'he'), 'he-IL');
+    assert.equal(p.offlineEntry, appStoreOfflineEntry, `${name}: the phone's offline entry joined the language's way`);
   }
   assert.deepEqual(PROFILES['iphone-medium'].viewport, { width: 402, height: 874 });
   assert.deepEqual(PROFILES['iphone-large'].viewport, { width: 440, height: 956 });
@@ -193,7 +198,9 @@ test('the iPhone profiles reuse the phone shots and chrome; the mac profile the 
   assert.deepEqual(mac.viewport, { width: 1440, height: 900 });
   assert.equal(mac.deviceScaleFactor, 2);
   assert.equal(mac.wholeExcerpts, PROFILES.desktop.wholeExcerpts);
-  assert.equal(mac.offlineEntry, desktopOfflineEntry);
+  // The phone's three sentences, not the Store set's longer text: the entry page then fits the 900 px Mac window at
+  // scroll 0 (the navigation row whole) in every language - see APP STORE PROFILES in render-screenshots.mjs.
+  assert.equal(mac.offlineEntry, appStoreOfflineEntry);
   assert.equal(mac.userAgent, MAC_USER_AGENT);
   assert.match(mac.userAgent, /Macintosh/);
   assert.equal(mac.deviceName((k) => k), 'shell.device.computer');
@@ -211,7 +218,7 @@ test('the Play and Store profiles are exactly as documented before the App Store
   assert.equal(phone.build, 'mobile');
   assert.equal(path.basename(path.dirname(phone.outDir)), 'play');
   assert.equal(Object.keys(phone.folders).length, 20);
-  for (const key of ['shots', 'chrome', 'deviceName', 'userAgent', 'browserLocale', 'wholeExcerpts', 'offlineEntry']) assert.equal(key in phone, false, `phone has no ${key}`);
+  for (const key of ['shots', 'chrome', 'deviceName', 'userAgent', 'browserLocale', 'wholeExcerpts', 'offlineEntry', 'people']) assert.equal(key in phone, false, `phone has no ${key}`);
   const desktop = PROFILES.desktop;
   assert.deepEqual(desktop.viewport, { width: 1536, height: 864 });
   assert.equal(desktop.deviceScaleFactor, 1.25);
@@ -225,11 +232,42 @@ test('the Play and Store profiles are exactly as documented before the App Store
   assert.equal(desktop.offlineEntry, desktopOfflineEntry);
   assert.equal(desktop.shots, DESKTOP_SHOTS);
   assert.equal(desktop.deviceName((k) => k), 'shell.device.computer');
-  for (const key of ['userAgent', 'browserLocale']) assert.equal(key in desktop, false, `desktop has no ${key}`);
+  // `people` would change the fictional accounts of the Play / Store sets (fictionalAccount overrides).
+  for (const key of ['userAgent', 'browserLocale', 'people']) assert.equal(key in desktop, false, `desktop has no ${key}`);
   assert.equal(browserLocaleOf('iw-IL'), 'he-IL');
   assert.equal(browserLocaleOf('en-US'), 'en-US');
   assert.deepEqual(Object.keys(PROFILES), ['phone', 'desktop', 'iphone-medium', 'iphone-large', 'mac']);
   assert.equal(PHONE_CHROME.top, '.mobile-shell__top');
+});
+
+test('appStoreOfflineEntry: the phone\'s offline entry with its sentences joined the language\'s way (no space after "。" in ja / zh)', () => {
+  const en = {
+    titles: { high: ['a', 'b', 'c', 'd', 'A day of small wins'] },
+    openers: { high: ['I felt really good today.'] },
+    sleep: (hours, low) => (low ? `I slept only ${hours} hours.` : `I slept ${hours} hours, quite well.`),
+    secondEntry: (slot) => (slot === 'midday' ? 'A note at midday.' : 'A short summary of the evening before sleep.'),
+  };
+  // A language with spaces between sentences (no sentenceSeparator, or ' '): exactly the phone's entry.
+  assert.equal(offlineEntry(en).body, 'I felt really good today. I slept 8 hours, quite well. A short summary of the evening before sleep.');
+  assert.deepEqual(appStoreOfflineEntry(en), offlineEntry(en));
+  assert.deepEqual(appStoreOfflineEntry({ ...en, sentenceSeparator: ' ' }), offlineEntry(en));
+  // Japanese as server/src/db/seed-content/ja.ts writes it (sentenceSeparator ''): the phone's text has a space after
+  // every "。" (the Play set keeps it - frozen), the App Store sets' none.
+  const ja = {
+    titles: { high: ['a', 'b', 'c', 'd', '小さな達成感のある一日'] },
+    openers: { high: ['今日はとても気分がよかった。'] },
+    sleep: (hours, low) => (low ? `昨夜は${hours}時間しか眠れず、やはり体にこたえた。` : `昨夜は${hours}時間、わりとよく眠れた。`),
+    secondEntry: (slot) => (slot === 'midday' ? '用事の合間に、昼のうちに少しだけ書いておく。' : '寝る前に、今夜のことを短くまとめておく。'),
+    sentenceSeparator: '',
+  };
+  assert.equal(offlineEntry(ja).body, '今日はとても気分がよかった。 昨夜は8時間、わりとよく眠れた。 寝る前に、今夜のことを短くまとめておく。');
+  const apple = appStoreOfflineEntry(ja);
+  assert.equal(apple.body, '今日はとても気分がよかった。昨夜は8時間、わりとよく眠れた。寝る前に、今夜のことを短くまとめておく。');
+  assert.equal(apple.title, '小さな達成感のある一日');
+  assert.deepEqual(apple.ratings, offlineEntry(ja).ratings);
+  // The Store set keeps its longer text, the Play set the phone's.
+  assert.equal(PROFILES.desktop.offlineEntry, desktopOfflineEntry);
+  assert.equal(PROFILES.phone.offlineEntry, undefined);
 });
 
 test('appStoreFolders: the 19 Apple shortcodes of appstore/locales.json, en-US first, Bulgarian none; a bad file is refused', () => {
@@ -386,6 +424,72 @@ test('a missing set, a missing localization, an extra folder and a stray file ar
   });
 });
 
+test('a fresh clone (the PNGs are git-ignored): a set folder with only its render log gets one line saying so', () => {
+  withFixture({}, (f, check) => {
+    for (const folder of ['en-US', 'he']) rmSync(path.join(f.dir, 'mac', folder), { recursive: true });
+    const r = check();
+    assert.ok(has(r, /^mac\/: no images at all - the PNGs are not kept in the git repository \(\.gitignore\).*--profile mac/), r.problems.join('; '));
+    assert.ok(has(r, /mac\/en-US: no screenshot set \(the primary language - required\)/));
+    assert.equal(r.problems.filter((p) => /no images at all/.test(p)).length, 1, 'only the set without images');
+  });
+});
+
+/** The iPhone project's AppIcon.appiconset under `root`, laid out as Capacitor's template does (one universal 1024 entry). */
+function writeIconset(root, { file = 'AppIcon-512@2x.png', image = null, contents } = {}) {
+  const dir = path.join(root, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset');
+  mkdirSync(dir, { recursive: true });
+  const json = contents ?? { images: [{ filename: file, idiom: 'universal', platform: 'ios', size: '1024x1024' }], info: { author: 'xcode', version: 1 } };
+  writeFileSync(path.join(dir, 'Contents.json'), JSON.stringify(json, null, 2));
+  if (image) writeFileSync(path.join(dir, file), image);
+  return dir;
+}
+
+test('the iPhone project\'s App Store icon slot: not checked before ios/ exists; the template icon, an alpha copy or an empty slot fail', () => {
+  assert.equal(DEFAULT_IOS_ICONSET, path.join(ROOT, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset'));
+  withFixture({}, (f, check) => {
+    const slot = path.join(f.root, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset');
+    // No ios/ folder yet (the IOS package makes the Xcode project on the Mac): nothing to check, no problem.
+    assert.equal(iosIconProblems(slot, f.icon), null);
+    let r = check({ iosIconset: slot });
+    assert.equal(r.ok, true, r.problems.join('; '));
+    assert.equal(r.iosIcon.checked, false);
+    assert.match(formatReport(r), /^ios {3}- {4}the iPhone Xcode project \(ios\/\) is not on this computer yet/m);
+    assert.equal(check().iosIcon, null, 'not asked for (a folder other than the project\'s)');
+    // Capacitor's template icon in the slot: a FAIL that says what to copy where.
+    writeIconset(f.root, { image: png(1024, 1024, { seed: 99 }) });
+    r = check({ iosIconset: slot });
+    assert.ok(has(r, /AppIcon\.appiconset\/AppIcon-512@2x\.png: is not the App Store icon .*AppIcon-1024\.png \(Capacitor's template icon\?\) - copy .*AppIcon-1024\.png over it in the Mac's Xcode project .*keeping the file name, then copy ios\/ back to the PC/), r.problems.join('; '));
+    assert.match(formatReport(r), /^ios {3}FAIL /m);
+    // The kit's icon copied over it (the same file): ok, and the summary says so.
+    writeFileSync(path.join(slot, 'AppIcon-512@2x.png'), readFileSync(f.icon));
+    r = check({ iosIconset: slot });
+    assert.equal(r.ok, true, r.problems.join('; '));
+    assert.deepEqual([r.iosIcon.checked, r.iosIcon.same], [true, 'file']);
+    assert.match(formatReport(r), /^ios {3}ok {3}.*AppIcon-512@2x\.png: the App Store icon slot holds AppIcon-1024\.png \(the same file\)/m);
+    assert.match(formatReport(r), /icon 1024x1024 RGB, the iPhone project carries it$/m);
+    // Written again by a tool (other bytes, the same pixels, RGB): ok; the same pixels with an alpha channel: FAIL.
+    writeFileSync(path.join(slot, 'AppIcon-512@2x.png'), withSrgbChunks(readFileSync(f.icon)));
+    assert.equal(iosIconProblems(slot, f.icon).same, 'pixels');
+    writeFileSync(path.join(slot, 'AppIcon-512@2x.png'), png(1024, 1024, { seed: 3, alpha: true }));
+    assert.ok(has(check({ iosIconset: slot }), /the App Store icon's pixels, but with an alpha channel/));
+    // Dark / tinted variants ("appearances") are not the App Store icon: only the default 1024 entry counts.
+    writeIconset(f.root, { contents: { images: [{ filename: 'dark.png', idiom: 'universal', platform: 'ios', size: '1024x1024', appearances: [{ appearance: 'luminosity', value: 'dark' }] }, { filename: 'AppIcon-512@2x.png', idiom: 'universal', platform: 'ios', size: '1024x1024' }] } });
+    writeFileSync(path.join(slot, 'AppIcon-512@2x.png'), readFileSync(f.icon));
+    assert.equal(check({ iosIconset: slot }).ok, true);
+    // An empty slot, no 1024 entry, a missing file, a missing or broken Contents.json.
+    writeIconset(f.root, { contents: { images: [{ idiom: 'universal', platform: 'ios', size: '1024x1024' }] } });
+    assert.ok(has(check({ iosIconset: slot }), /the 1024x1024 slot is empty/));
+    writeIconset(f.root, { contents: { images: [{ filename: 'x.png', idiom: 'universal', platform: 'ios', size: '512x512' }] } });
+    assert.ok(has(check({ iosIconset: slot }), /has no 1024x1024 image/));
+    writeIconset(f.root, { file: 'gone.png' });
+    assert.ok(has(check({ iosIconset: slot }), /gone\.png: missing \(Contents\.json names it/));
+    rmSync(path.join(slot, 'Contents.json'));
+    assert.ok(has(check({ iosIconset: slot }), /Contents\.json: missing - the iPhone project has no AppIcon asset catalog/));
+    writeFileSync(path.join(slot, 'Contents.json'), '{nope');
+    assert.ok(has(check({ iosIconset: slot }), /Contents\.json: not valid JSON/));
+  });
+});
+
 test('the shot list: a missing file, an extra numbered file and a wrong-size file are problems', () => {
   withFixture({}, (f, check) => {
     rmSync(path.join(f.dir, 'mac', 'en-US', '04-calendar.png'));
@@ -503,7 +607,22 @@ test('the locales file: a missing en-US is a problem; an unreadable file stops t
   assert.ok(has(r, /does not exist - render the sets first/));
 });
 
-test('the project\'s own App Store sets and icon pass (when they have been rendered)', { skip: !existsSync(DEFAULT_DIR) || !existsSync(DEFAULT_ICON) ? 'appstore/screenshots or appstore/icon/AppIcon-1024.png not rendered yet' : false }, () => {
+/**
+ * How many PNG files appstore/screenshots holds. The images are git-ignored (.gitignore; about 100 MB, made again by
+ * the render), so a fresh clone of the repository has the folders' READMEs and render logs but no image at all.
+ */
+function screenshotCount(dir = DEFAULT_DIR) {
+  if (!existsSync(dir)) return 0;
+  return readdirSync(dir, { recursive: true }).filter((name) => String(name).toLowerCase().endsWith('.png')).length;
+}
+
+const projectSkip = !existsSync(DEFAULT_ICON)
+  ? 'appstore/icon/AppIcon-1024.png not made yet (node appstore/icon/render-icon.mjs)'
+  : screenshotCount() === 0
+    ? 'the App Store PNGs are not in this copy of the project (git-ignored) - render them: appstore/screenshots/README.md section 6'
+    : false;
+
+test('the project\'s own App Store sets and icon pass (when they have been rendered)', { skip: projectSkip }, () => {
   const result = checkScreenshots();
   assert.deepEqual(result.problems, []);
   assert.equal(result.sets.length, 3);

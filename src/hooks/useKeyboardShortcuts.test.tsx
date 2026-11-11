@@ -1,14 +1,16 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { ReactNode } from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
 import { LocationDisplay, currentPath, renderWithProviders, sampleUser, type ProviderOptions } from '@/test/render';
-import { shortcutHintsAvailable, useKeyboardShortcuts } from './useKeyboardShortcuts';
+import { isEditableTarget, isTextEntryTarget, shortcutHintsAvailable, useKeyboardShortcuts } from './useKeyboardShortcuts';
 
-function Harness({ onShowShortcuts }: { onShowShortcuts?: () => void }) {
+function Harness({ onShowShortcuts, children }: { onShowShortcuts?: () => void; children?: ReactNode }) {
   useKeyboardShortcuts({ onShowShortcuts });
   return (
     <>
       <input aria-label="שדה" />
+      {children}
       <Routes>
         <Route path="*" element={<LocationDisplay />} />
       </Routes>
@@ -16,8 +18,8 @@ function Harness({ onShowShortcuts }: { onShowShortcuts?: () => void }) {
   );
 }
 
-function renderHarness(options: ProviderOptions = {}, onShowShortcuts?: () => void) {
-  return renderWithProviders(<Harness onShowShortcuts={onShowShortcuts} />, { auth: 'authenticated', route: '/', ...options });
+function renderHarness(options: ProviderOptions = {}, onShowShortcuts?: () => void, children?: ReactNode) {
+  return renderWithProviders(<Harness onShowShortcuts={onShowShortcuts}>{children}</Harness>, { auth: 'authenticated', route: '/', ...options });
 }
 
 describe('useKeyboardShortcuts', () => {
@@ -108,12 +110,15 @@ describe('useKeyboardShortcuts', () => {
   });
 });
 
-// docs/apple-tasks/MAC-UI.md: on a Mac, Option is the key that types characters (the Mac's AltGr) and
-// Option+← moves the caret one word back, so inside a field the Mac app leaves both to macOS. The
-// platform is the real `isMacApp()` of src/offline/session.ts - the Tauri shell's global AND a
-// Macintosh user agent - driven as session.test.ts does; `fireEvent` answers false when the hook
-// called preventDefault (the key was swallowed: no character typed, no caret moved).
-describe('useKeyboardShortcuts: the Option key inside a field in the Mac app', () => {
+// docs/apple-tasks/MAC-UI.md: on a Mac, Option is the key that types characters (the Mac's AltGr),
+// Option+← moves the caret one word back and the physical Control key is the text system's
+// (Control+N the next line, Control+K delete to the end of the line), so inside a text field the Mac
+// app leaves those keys to macOS. The platform is the real `isMacApp()` of src/offline/session.ts -
+// the Tauri shell's global AND a Macintosh user agent - driven as session.test.ts does; `fireEvent`
+// answers false when the hook called preventDefault (the key was swallowed: no character typed, no
+// caret moved). That the old hook swallowed these keys was shown here, in jsdom; how WKWebView acts on
+// them is macOS's documented behaviour, still to be seen once on the owner's Mac.
+describe('useKeyboardShortcuts: the Option and Control keys inside a field in the Mac app', () => {
   /** The user agents of the two desktop WebViews: WKWebView in the Mac app, WebView2 on Windows. */
   const MAC_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko)';
   const WINDOWS_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0';
@@ -173,7 +178,53 @@ describe('useKeyboardShortcuts: the Option key inside a field in the Mac app', (
     expect(lock).toHaveBeenCalledTimes(1);
   });
 
-  it('the Windows app keeps Alt+digit and Alt+← global inside a field, as before', async () => {
+  it('the physical Control key in a field is the macOS text key (Control+N the next line, Control+K delete to the end of the line): nothing swallowed, no navigation, no lock', async () => {
+    const lock = vi.fn();
+    platform(true, MAC_UA);
+    renderHarness({ route: '/diary', lock: { lock } });
+    const input = screen.getByRole('textbox', { name: 'שדה' });
+    expect(fireEvent.keyDown(input, { key: 'n', code: 'KeyN', ctrlKey: true })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'k', code: 'KeyK', ctrlKey: true })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'l', code: 'KeyL', ctrlKey: true })).toBe(true);
+    await settle();
+    expect(currentPath()).toBe('/diary');
+    expect(lock).not.toHaveBeenCalled();
+    // Outside a field Control+N still works as before; in the field Command+Control counts as Command.
+    expect(fireEvent.keyDown(window, { key: 'n', code: 'KeyN', ctrlKey: true })).toBe(false);
+    await waitFor(() => expect(currentPath()).toBe('/new'));
+    expect(fireEvent.keyDown(input, { key: 'k', code: 'KeyK', ctrlKey: true, metaKey: true })).toBe(false);
+    await waitFor(() => expect(currentPath()).toBe('/search'));
+  });
+
+  it('a focused control you do not type into (a checkbox, a slider, a date or time field, a list) keeps ⌥1..⌥0 and ⌥←: only text fields leave them to macOS', async () => {
+    platform(true, MAC_UA);
+    renderHarness(
+      { route: '/diary' },
+      undefined,
+      <>
+        <input type="checkbox" aria-label="checkbox" />
+        <input type="range" aria-label="slider" />
+        <input type="date" aria-label="date" />
+        <input type="time" aria-label="time" />
+        <select aria-label="list">
+          <option>1</option>
+        </select>
+      </>,
+    );
+    for (const name of ['checkbox', 'slider', 'date', 'time', 'list']) {
+      const control = screen.getByLabelText(name);
+      expect(fireEvent.keyDown(control, { key: '¡', code: 'Digit1', altKey: true }), name).toBe(false);
+      await waitFor(() => expect(currentPath()).toBe('/'));
+      expect(fireEvent.keyDown(control, { key: '£', code: 'Digit3', altKey: true }), name).toBe(false);
+      await waitFor(() => expect(currentPath()).toBe('/diary'));
+      expect(fireEvent.keyDown(control, { key: 'ArrowLeft', code: 'ArrowLeft', altKey: true }), name).toBe(false);
+      await waitFor(() => expect(currentPath()).toBe('/'));
+      fireEvent.keyDown(control, { key: '£', code: 'Digit3', altKey: true });
+      await waitFor(() => expect(currentPath()).toBe('/diary'));
+    }
+  });
+
+  it('the Windows app keeps Alt+digit, Alt+← and Ctrl+N global inside a field, as before', async () => {
     platform(true, WINDOWS_UA);
     renderHarness({ route: '/diary' });
     const input = screen.getByRole('textbox', { name: 'שדה' });
@@ -181,16 +232,92 @@ describe('useKeyboardShortcuts: the Option key inside a field in the Mac app', (
     await waitFor(() => expect(currentPath()).toBe('/habits'));
     expect(fireEvent.keyDown(input, { key: 'ArrowLeft', code: 'ArrowLeft', altKey: true })).toBe(false);
     await waitFor(() => expect(currentPath()).toBe('/'));
+    expect(fireEvent.keyDown(input, { key: 'n', code: 'KeyN', ctrlKey: true })).toBe(false);
+    await waitFor(() => expect(currentPath()).toBe('/new'));
   });
 
-  it('the web UI in a browser on a Mac (no app shell) keeps them global inside a field too, as before', async () => {
+  // The web UI in a browser on a Mac (Safari, Chrome; an iPad in desktop mode reports the same user
+  // agent) follows the Mac app since 2026-11-11 (formerly a known defect pinned here): inside a text
+  // field Option+digit, Option+← and the physical Control key are macOS's there too, so a German-layout
+  // user can type "[" "]" "|" "{" "}" (Option+5..9) and a US-layout one "¡" "™" "£" "∞" "§".
+  it('the web UI in a browser on a Mac (no app shell) leaves Option+digit, Option+← and Control+N inside a field to macOS too; outside a field they still navigate', async () => {
     platform(false, MAC_SAFARI_UA);
     renderHarness({ route: '/diary' });
     const input = screen.getByRole('textbox', { name: 'שדה' });
-    expect(fireEvent.keyDown(input, { key: '[', code: 'Digit5', altKey: true })).toBe(false);
+    expect(fireEvent.keyDown(input, { key: '[', code: 'Digit5', altKey: true })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'ArrowLeft', code: 'ArrowLeft', altKey: true })).toBe(true);
+    expect(fireEvent.keyDown(input, { key: 'n', code: 'KeyN', ctrlKey: true })).toBe(true);
+    await settle();
+    expect(currentPath()).toBe('/diary');
+    expect(fireEvent.keyDown(window, { key: '∞', code: 'Digit5', altKey: true })).toBe(false);
     await waitFor(() => expect(currentPath()).toBe('/habits'));
-    expect(fireEvent.keyDown(input, { key: 'ArrowLeft', code: 'ArrowLeft', altKey: true })).toBe(false);
-    await waitFor(() => expect(currentPath()).toBe('/'));
+    expect(fireEvent.keyDown(window, { key: 'n', code: 'KeyN', ctrlKey: true })).toBe(false);
+    await waitFor(() => expect(currentPath()).toBe('/new'));
+  });
+
+  it('Windows Alt codes: Alt + numpad digits inside a field type a character (Alt+0150 is "–"), so nothing is swallowed and nothing navigates; Alt + a top-row digit in a field and Alt + a numpad digit outside a field still navigate', async () => {
+    platform(true, WINDOWS_UA);
+    renderHarness({ route: '/diary' });
+    const input = screen.getByRole('textbox', { name: 'שדה' });
+    for (const digit of ['0', '1', '5', '0']) {
+      expect(fireEvent.keyDown(input, { key: digit, code: `Numpad${digit}`, altKey: true }), digit).toBe(true);
+    }
+    await settle();
+    expect(currentPath()).toBe('/diary');
+    expect(fireEvent.keyDown(input, { key: '5', code: 'Digit5', altKey: true })).toBe(false);
+    await waitFor(() => expect(currentPath()).toBe('/habits'));
+    expect(fireEvent.keyDown(window, { key: '3', code: 'Numpad3', altKey: true })).toBe(false);
+    await waitFor(() => expect(currentPath()).toBe('/diary'));
+  });
+});
+
+describe('isTextEntryTarget (the Mac guard) and isEditableTarget (the plain "?" key)', () => {
+  /** A detached element from HTML (both helpers read only the element itself and its ancestors). */
+  function element(html: string): Element {
+    const host = document.createElement('div');
+    host.innerHTML = html;
+    return host.firstElementChild as Element;
+  }
+  const TEXT_FIELDS = [
+    '<input>',
+    '<input type="text">',
+    '<input type="search">',
+    '<input type="email">',
+    '<input type="url">',
+    '<input type="tel">',
+    '<input type="password">',
+    '<input type="number">',
+    '<input type="no-such-type">',
+    '<textarea></textarea>',
+    '<div contenteditable="true"></div>',
+  ];
+  const OTHER_CONTROLS = [
+    '<input type="checkbox">',
+    '<input type="radio">',
+    '<input type="range">',
+    '<input type="date">',
+    '<input type="time">',
+    '<input type="file">',
+    '<input type="color">',
+    '<input type="button">',
+    '<input type="submit">',
+    '<select></select>',
+  ];
+
+  it('text fields - you type into them and they have a caret - are text-entry targets', () => {
+    for (const html of TEXT_FIELDS) expect(isTextEntryTarget(element(html)), html).toBe(true);
+  });
+
+  it('controls you do not type into are not, nor are other elements or the window', () => {
+    for (const html of OTHER_CONTROLS) expect(isTextEntryTarget(element(html)), html).toBe(false);
+    for (const html of ['<button></button>', '<div></div>', '<a href="#x">x</a>']) expect(isTextEntryTarget(element(html)), html).toBe(false);
+    expect(isTextEntryTarget(null)).toBe(false);
+    expect(isTextEntryTarget(window)).toBe(false);
+  });
+
+  it('isEditableTarget is unchanged: every input and a list still count, so "?" keeps being ignored on them', () => {
+    for (const html of [...TEXT_FIELDS, ...OTHER_CONTROLS]) expect(isEditableTarget(element(html)), html).toBe(true);
+    expect(isEditableTarget(element('<button></button>'))).toBe(false);
   });
 });
 

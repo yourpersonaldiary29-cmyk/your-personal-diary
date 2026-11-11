@@ -58,7 +58,7 @@
 
 * כשאין חיבור לשרת, האפליקציה מזהה זאת בעצמה ו**ממשיכה לעבוד**. בראש המסך מופיע "אין חיבור – מה שתכתוב יישמר בשרת כשהחיבור יחזור" ומספר השינויים שממתינים. כשהחיבור חוזר, השינויים עולים לפי הסדר, כל שינוי **פעם אחת בלבד**, גם אם האפליקציה נסגרה בינתיים. אותו מימוש (`src/offline/`) בשלוש הפלטפורמות.
 * **עובד בלי חיבור**: כתיבה, עריכה ומחיקה של רשומות; סימון הרגלים ועריכת סימונים; יצירה, עריכה וארכוב של הרגלים; הגדרות. **דורש חיבור** (עם הודעה ברורה): תובנות, חיפוש וסטטיסטיקה; גיבוי, שחזור וייצוא; ניהול החשבון; מחיקה וסידור מחדש של הרגלים; נתוני דוגמה; כניסה והרשמה.
-* **פתיחה בלי חיבור**: באפליקציות Windows ו-Android עם "זכור אותי" - מהעותק המוצפן שבמכשיר; אחרת, ובאתר, מופיע "אין חיבור לשרת היומן". מסך נעילה בלי חיבור נפתח ב-Windows Hello או בנעילת המסך של הטלפון (בלעדיהן - צריך חיבור).
+* **פתיחה בלי חיבור**: באפליקציות Windows, Mac ו-Android עם "זכור אותי" - מהעותק המוצפן שבמכשיר; אחרת, ובאתר, מופיע "אין חיבור לשרת היומן". מסך נעילה בלי חיבור נפתח **בסיסמת היומן** (היא נבדקת במכשיר מול עותק מוצפן של מפתח העותקים - הסיסמה עצמה לא נשמרת; אחרי 3 ניסיונות שגויים יש המתנה שגדלה עד דקה), או ב-Windows Hello, ב-Touch ID / סיסמת המק או בנעילת המסך של הטלפון.
 * **אותה רשומה בשני מכשירים**: הגרסה החדשה יותר נשארת, ורשומה שנמחקה בשרת לא חוזרת לחיים. הגרסה שהפסידה לא נעלמת: היא נשמרת במכשיר כהערה עד "אישור", ואפשר לשמור אותה כרשומה חדשה או להעתיק את הטקסט.
 * מה נשמר במכשיר - סעיף 2.2. התכנון המחייב: [`docs/android-tasks/OFFLINE-DESIGN.md`](docs/android-tasks/OFFLINE-DESIGN.md) (וגם ARCHITECTURE.md סעיף 11ג); הבדיקה הידנית: [`docs/OFFLINE-TEST.he.md`](docs/OFFLINE-TEST.he.md). מתג כיבוי בשרת: `DIARY_OFFLINE_SYNC=0` (אז הלקוחות מפסיקים ליצור עבודה לא מקוונת, ותורים קיימים עדיין מתרוקנים).
 
@@ -89,10 +89,10 @@
 
 ### 2.3 מדיניות הפרטיות ודף מחיקת החשבון
 
-* **מדיניות פרטיות אחת** לאפליקציית Android, לאפליקציית Windows ולאתר: `https://yourpersonaldiary.fly.dev/privacy/`, ו**דף מחיקת חשבון** (גם למי שלא יכול להיכנס): `https://yourpersonaldiary.fly.dev/delete-account/`. כל אחד מהם ב-20 השפות (`<locale>/`; אנגלית כברירת מחדל). הקישור למדיניות נמצא בכרטיס **פרטיות** בהגדרות.
+* **מדיניות פרטיות אחת** לאפליקציות Android,‏ Windows ו-Mac, לאפליקציית iPhone (כשתפורסם) ולאתר: `https://yourpersonaldiary.fly.dev/privacy/`, ו**דף מחיקת חשבון** (גם למי שלא יכול להיכנס): `https://yourpersonaldiary.fly.dev/delete-account/`. כל אחד מהם ב-20 השפות (`<locale>/`; אנגלית כברירת מחדל). הקישור למדיניות נמצא בכרטיס **פרטיות** בהגדרות.
 * **תנאי השימוש**: `https://yourpersonaldiary.fly.dev/terms/` ו-`/terms/<locale>/` (20 השפות; המקור `legal/terms/`, תאריך התחולה `termsEffectiveDate` ב-`legal/settings.json`). בהרשמה תיבת סימון אחת מאשרת גם את מדיניות הפרטיות וגם את תנאי השימוש, והשרת שומר עם החשבון את מועד האישור ואת גרסאות שני המסמכים; בכרטיס **פרטיות** בהגדרות יש קישור גם לתנאי השימוש.
 * **דף תמיכה** (ה-Support URL של App Store Connect, וגם לכל דפדפן): `https://yourpersonaldiary.fly.dev/support/` ו-`/support/<locale>/` - פרטי הקשר של המפעיל ותשובות לשאלות נפוצות, באותן 20 שפות; המקור `legal/support/`.
-* **המקור** הוא קובצי Markdown ב-`legal/` (קובץ לכל שפה; [legal/README.md](legal/README.md)), והערכים של הבעלים (שם המפרסם, כתובת הפניות, תאריך התחולה, גיל מינימלי) נמצאים במקום אחד - `legal/settings.json`. `node scripts/legal/build-pages.mjs` בונה מהם את `public/privacy/`, את `public/delete-account/` ואת `public/support/` (`--check` משווה, `--strict` גם מסרב לערך חסר); Vite מעתיק אותם לממשק שהשרת מגיש, כך שהם עולים לאוויר עם פריסת השרת הבאה.
+* **המקור** הוא קובצי Markdown ב-`legal/` (קובץ לכל שפה; [legal/README.md](legal/README.md)), והערכים של הבעלים (שם המפרסם, כתובת הפניות, תאריך התחולה, גיל מינימלי) נמצאים במקום אחד - `legal/settings.json`. `node scripts/legal/build-pages.mjs` בונה מהם את `public/privacy/`, את `public/delete-account/`, את `public/support/` ואת `public/terms/` (`--check` משווה, `--strict` גם מסרב לערך חסר); Vite מעתיק אותם לממשק שהשרת מגיש, כך שהם עולים לאוויר עם פריסת השרת הבאה.
 * שינוי במה שהאפליקציות עושות עם מידע משנה יחד את המדיניות ב-20 השפות, את `play/policy/data-safety.md` ואת `store/policy/partner-center-privacy.md`.
 * פניות בנושא פרטיות: `yourpersonaldiary29@gmail.com`.
 
@@ -136,6 +136,7 @@
 
 * תמיכה מלאה בקוראי מסך (נבדק מול JAWS דרך WebView2), ניווט מלא במקלדת, סדר Tab הגיוני, כותרות ברורות ו-ARIA במקומות הנכונים.
 * קיצורי מקלדת: `Alt+1..0` ניווט לפי סדר התפריט, `Ctrl+N` רשומה חדשה, `Ctrl+K` חיפוש, `Ctrl+L` נעילה, `Ctrl+S` שמירה, `Alt+←` חזרה, `Esc` סגירה, `Shift+?` רשימת הקיצורים.
+* באפליקציית ה-Mac הקיצורים מוצגים בסמלי המק (⌘N, ⌘K, ⌘L, ⌘S, ⌥1..⌥0, ⌥←, ⇧?). בכל Mac (גם באתר בדפדפן) בתוך שדה טקסט Option + ספרה מקליד תו, Option+← זז מילה אחורה ו-Control+N / Control+K עורכים טקסט כמו בכל שדה במק. ב-Windows קוד Alt בתוך שדה (Alt + ספרות במקלדת הנומרית, למשל Alt+0150 ל-–) מקליד תו ולא מנווט.
 * אף מידע לא מועבר בצבע בלבד; לכל גרף יש טבלת נתונים חלופית.
 * ערכות נושא: לפי המערכת / בהיר / כהה / ניגודיות גבוהה, וגודל גופן מתכוונן.
 
@@ -332,7 +333,7 @@ npm run android:sync           # cap sync android
 | `deploy/hosted/` | השרת ב-Fly.io: `fly.toml`, `fly.staging.toml`, `Dockerfile`, `entrypoint.sh`, `data-tools.sh`; `build/` ו-`dist/` נוצרים בבנייה |
 | `scripts/` | בנייה ובדיקות: `build-hosted.mjs`, `check-no-network.mjs`, `build-server.mjs` ו-`prepare-sidecar.mjs` (מצב מקומי), ותיקיות `hosted/`, `android/`, `play/`, `store/`, `store-shots/`, `legal/`, `mobile/` |
 | `legal/` | מדיניות הפרטיות ודף מחיקת החשבון ב-20 שפות (Markdown), ו-`settings.json` |
-| `public/` | קבצים סטטיים של הממשק: אייקונים, `manifest.webmanifest`, ודפי המדיניות שנבנו (`privacy/`, `delete-account/`) |
+| `public/` | קבצים סטטיים של הממשק: אייקונים, `manifest.webmanifest`, ודפי המדיניות שנבנו (`privacy/`, `delete-account/`, `support/`, `terms/`) |
 | `play/` | ערכת Google Play |
 | `store/` | ערכת Microsoft Store (`store/out/` נוצר בבנייה) |
 | `docs/` | התיעוד: המדריכים לבעלים (`*.he.md`), חוזה ה-API, התוכניות (`ANDROID-PLAN.md`, `HOSTED-PLAN.md`, `SYNC-PLAN.md`) ומשימות הסוכנים (`android-tasks/`, `play-tasks/`, `store-tasks/`) |
@@ -347,7 +348,17 @@ npm run android:sync           # cap sync android
 
 הערכות ל-**Google Play** ול-**Microsoft Store** מוכנות: טקסטים ב-20 שפות, גרפיקה וצילומי מסך, תשובות המדיניות והפרטיות, סקריפטי בנייה ובדיקה, ומדריכים לבעלים (סעיף 5.5). תשובת ה-App access ל-Google Play ([`play/policy/app-access.md`](play/policy/app-access.md), וגם [`docs/PLAY-RELEASE.he.md`](docs/PLAY-RELEASE.he.md) חלק ד סעיף 2) נותנת לבודקים את חשבון ההדגמה `stor`, שיש בו נתוני דוגמה; הסיסמה שלו נכתבת רק ב-Play Console. **הפרסום נדחה בהחלטת הבעלים** - עוד לא הועלה דבר לאף חנות (`play/last-upload.json`, ו-`store/identity.json` עוד לא נוצר). הבאים בתור: גרסאות ל-**Mac** ול-**iPhone**.
 
-**Mac ו-iPhone**: ההכנה ב-Windows הושלמה - התוכנית [`docs/APPLE-PLAN.md`](docs/APPLE-PLAN.md), הקוד הייעודי ל-Windows בקליפה מופרד ב-`src-tauri/src/platform/`, ופרויקט ה-Capacitor מוכן ל-iOS ([`scripts/ios/README.he.md`](scripts/ios/README.he.md)); הבנייה, החתימה וההרצה אפשריות רק במחשב Mac.
+**Mac ו-iPhone** (התוכנית: [`docs/APPLE-PLAN.md`](docs/APPLE-PLAN.md)):
+* **אפליקציית ה-Mac** נבנית במחשב ה-Mac של הבעלים, קובץ אחד ל-Intel ול-Apple Silicon (`scripts/mac/release.sh`). היום היא חתומה רק חתימה מקומית (ad-hoc), ולכן מחשבי Mac אחרים חוסמים אותה. כדי להפיץ אותה צריך תעודת Developer ID מאפל ([`docs/MAC-RELEASE.he.md`](docs/MAC-RELEASE.he.md)).
+* **אפליקציית ה-iPhone** מוכנה בקוד ([`scripts/ios/README.he.md`](scripts/ios/README.he.md)) ועוד לא נבנתה. הבנייה דורשת Xcode 26, ו-Xcode 26 דורש macOS חדש יותר מזה שמותקן היום במחשב ה-Mac.
+* **ערכת ה-App Store** מוכנה ב-[`appstore/`](appstore/README.he.md):
+  * טקסטים ב-19 השפות ש-App Store תומכת בהן;
+  * צילומי מסך של iPhone ושל Mac;
+  * אייקון;
+  * תשובות לכל השדות של App Store Connect ([`appstore/ANSWERS.he.md`](appstore/ANSWERS.he.md));
+  * רשימת משימות מאפס ועד החנות ([`appstore/CHECKLIST.he.md`](appstore/CHECKLIST.he.md)).
+
+  הפרסום מחכה להרשמה של הבעלים ל-Apple Developer Program (99 דולר לשנה).
 
 ---
 
