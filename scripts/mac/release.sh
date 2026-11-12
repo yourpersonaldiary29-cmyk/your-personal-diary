@@ -19,20 +19,26 @@
 #   YPD_MIN_FREE_GIB         free disk space required before building: default 6 for the first universal
 #                            build, 2 when src-tauri/target/universal-apple-darwin already exists.
 #   RELEASE_LOG              log file; default ~/Developer/release-<date>.log (everything is also shown).
+#   DEVELOPER_DIR            Apple's own variable: which developer tools to use. Unset = macOS's choice
+#                            (Xcode.app once it is installed, otherwise the Command Line Tools).
+#                            DEVELOPER_DIR=/Library/Developer/CommandLineTools keeps the Command Line Tools,
+#                            e.g. while the license of a newly installed Xcode has not been accepted yet.
 #   APPLE_CERTIFICATE / APPLE_CERTIFICATE_PASSWORD (CI only) are passed through to Tauri, which imports the
 #   .p12 into a temporary keychain; APPLE_ID / APPLE_PASSWORD / APPLE_TEAM_ID / APPLE_API_* are UNSET for
 #   the build on purpose, so that notarization happens exactly once, here, through NOTARY_PROFILE.
 #
-# Steps: 1 checks (macOS, node, cargo, both Rust targets, tools, disk) -> 2 npm ci only when node_modules
-# is missing -> 3 npx tauri build --bundles app --target universal-apple-darwin (signed: hardened runtime +
-# src-tauri/entitlements/developer-id.plist) -> 4 verification (lipo, codesign --verify --deep --strict,
-# Info.plist keys, Developer ID authority, secure timestamp - re-signed with explicit flags if Tauri left
-# it out) -> 5 [signed] notarize the .app (zip, notarytool submit --wait, Apple's log printed always) and
-# staple it -> 6 make-dmg.sh -> 7 [signed] codesign the DMG with the same identity (Apple: "sign the disk
-# image", docs/apple-tasks/APPSTORE-FACTS.md 9.4), notarize + staple the DMG, spctl --assess of DMG and
-# app, SHA-256, summary.
+# Steps: 1 checks (macOS, node, cargo, both Rust targets, tools, a working C compiler, disk) -> 2 npm ci
+# only when node_modules is missing -> 3 npx tauri build --bundles app --target universal-apple-darwin
+# (signed: hardened runtime + src-tauri/entitlements/developer-id.plist) -> 4 verification (lipo,
+# codesign --verify --deep --strict, Info.plist keys, Developer ID authority, secure timestamp - re-signed
+# with explicit flags if Tauri left it out) -> 5 [signed] notarize the .app (zip, notarytool submit --wait,
+# Apple's log printed always) and staple it -> 6 make-dmg.sh -> 7 [signed] codesign the DMG with the same
+# identity (Apple: "sign the disk image", docs/apple-tasks/APPSTORE-FACTS.md 9.4), notarize + staple the
+# DMG, spctl --assess of DMG and app, SHA-256, summary.
+# The whole run holds a "no idle sleep" assertion (caffeinate -i -w <this script's process>): the Mac stays
+# awake through the build and both notarization waits. Closing the lid still puts it to sleep.
 # Exit codes: 0 = signed, notarized, stapled, distributable. 2 = finished but UNSIGNED (test only).
-# 1 = a step failed; the last "release: ERROR" line says which.
+# 1 = a step failed; the last "release: ERROR" line says which (every failure ends with one).
 set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -44,7 +50,8 @@ ENTITLEMENTS="$ROOT/src-tauri/entitlements/developer-id.plist"
 TARGET_DIR="$ROOT/src-tauri/target/universal-apple-darwin"
 
 case "${1:-}" in
-  -h|--help) sed -n '2,35p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+  # --help prints the comment block at the top of this file (up to the first line that is not a comment)
+  -h|--help) awk 'NR == 1 { next } /^#/ { sub(/^# ?/, ""); print; next } { exit }' "${BASH_SOURCE[0]}"; exit 0 ;;
 esac
 OUT_DIR=${1:-"$TARGET_DIR/release/bundle/dmg"}
 NOTARY_PROFILE=${NOTARY_PROFILE:-ypd-notary}
@@ -52,17 +59,48 @@ IDENTITY=${APPLE_SIGNING_IDENTITY:-}
 STAMP=$(date +%Y%m%d-%H%M%S)
 RELEASE_LOG=${RELEASE_LOG:-"$HOME/Developer/release-$STAMP.log"}
 
-step() { printf '\n==> %s\n' "$*"; }
+CURRENT_STEP="start"
+FINISHED=""    # "signed" / "unsigned", set just before the planned exit 0 / exit 2
+DIED=""        # set by die(), which has printed its own "release: ERROR:" line
+WORK=""        # temporary folder of step 5 (mktemp)
+NOTARY_OUT=""  # temporary file of notarize() (mktemp)
+DMG_OUT=""     # temporary file of step 6 (mktemp)
+
+step() { CURRENT_STEP=$*; printf '\n==> %s\n' "$*"; }
 say()  { printf 'release: %s\n' "$*"; }
-die()  { printf '\nrelease: ERROR: %s\n' "$*" >&2; exit 1; }
+die()  { DIED=1; printf '\nrelease: ERROR: %s\n' "$*" >&2; exit 1; }
 need() { command -v "$1" >/dev/null 2>&1 || die "$2"; }
 json_escape() { printf '%s' "$1" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g'; }
-# keeps the Mac awake during the build when caffeinate exists (it always does on macOS)
-awake() { if command -v caffeinate >/dev/null 2>&1; then caffeinate -i "$@"; else "$@"; fi; }
+
+cleanup() {
+  # only what mktemp created for us is removed, never anything else
+  case "$WORK" in */ypd-release.*) if [ -d "$WORK" ]; then rm -rf "$WORK"; fi ;; esac
+  case "$NOTARY_OUT" in */ypd-notary.*) rm -f "$NOTARY_OUT" ;; esac
+  case "$DMG_OUT" in */ypd-dmg-out.*) rm -f "$DMG_OUT" ;; esac
+}
+# Every way out ends with exit 0, 2 or 1. A command that fails without a message of its own (set -e stops
+# the script right there - a Tauri usage error, cargo, tsc, PlistBuddy, ...) gets a "release: ERROR" line
+# naming the step, and exit 1 - never its own exit code (2 would read as "finished but unsigned").
+on_exit() {
+  local rc=$?
+  cleanup
+  if [ "$rc" != 0 ] && [ -z "$FINISHED" ] && [ -z "$DIED" ]; then
+    printf '\nrelease: ERROR: step "%s" failed (exit code %s) - the lines above show why\n' "$CURRENT_STEP" "$rc" >&2
+    exit 1
+  fi
+  exit "$rc"
+}
+trap on_exit EXIT
 
 mkdir -p "$(dirname "$RELEASE_LOG")"
 exec > >(tee -a "$RELEASE_LOG") 2>&1
 say "log: $RELEASE_LOG"
+# no idle sleep until this script ends: the build, then up to twice 15 minutes of waiting for Apple's
+# notary service (a Mac that falls asleep there loses the connection and the run fails)
+if command -v caffeinate >/dev/null 2>&1; then
+  caffeinate -i -w "$$" >/dev/null 2>&1 &
+  say "the Mac stays awake until the script ends (caffeinate) - keep the charger in and the lid open"
+fi
 
 # --- 1. checks ----------------------------------------------------------------------------------
 step "1/7 checks"
@@ -80,6 +118,15 @@ need plutil "plutil is missing (part of macOS)"
 need shasum "shasum is missing (part of macOS)"
 [ -x "$PLISTBUDDY" ] || die "missing $PLISTBUDDY (part of macOS)"
 say "node $(node --version), npm $(npm --version), $(cargo --version)"
+# Rust links the app with the C compiler of the active Apple developer tools. A newly installed Xcode
+# becomes the active one by itself and refuses every tool until its license is accepted: stop here, with
+# the remedy, instead of minutes later in step 3.
+CC_OUT=$(cc --version 2>&1) || die "the C compiler (cc) of the Apple developer tools does not run - Rust needs it to link the app. It says:
+$(printf '%s\n' "$CC_OUT" | head -n 4)
+After installing Xcode: open Xcode once and accept its license. Or keep the Command Line Tools:
+  DEVELOPER_DIR=/Library/Developer/CommandLineTools bash scripts/mac/release.sh
+(docs/MAC-RELEASE.he.md section 9)"
+say "developer tools: $(xcrun --find cc 2>/dev/null || printf 'cc'), $(printf '%s\n' "$CC_OUT" | head -n 1)"
 for t in aarch64-apple-darwin x86_64-apple-darwin; do
   rustup target list --installed | grep -qx "$t" || die "Rust target $t is not installed - run:  rustup target add $t"
 done
@@ -123,7 +170,7 @@ if [ -d node_modules ]; then
   say "node_modules present - npm ci skipped"
 else
   say "node_modules missing - running npm ci"
-  npm ci
+  npm ci || die "npm ci failed - check the internet connection and run the script again"
 fi
 
 # --- 3. build -----------------------------------------------------------------------------------
@@ -135,13 +182,13 @@ if [ "$SIGNED" = 1 ]; then
   (
     export APPLE_SIGNING_IDENTITY="$IDENTITY"
     unset APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID APPLE_API_ISSUER APPLE_API_KEY APPLE_API_KEY_PATH
-    awake npx tauri build --bundles app --target universal-apple-darwin --config "$OVERLAY"
-  )
+    npx tauri build --bundles app --target universal-apple-darwin --config "$OVERLAY"
+  ) || die "the universal build failed - the first error is in the lines above (docs/MAC-RELEASE.he.md section 9)"
 else
   (
     unset APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID APPLE_API_ISSUER APPLE_API_KEY APPLE_API_KEY_PATH
-    awake npx tauri build --bundles app --target universal-apple-darwin
-  )
+    npx tauri build --bundles app --target universal-apple-darwin
+  ) || die "the universal build failed - the first error is in the lines above (docs/MAC-RELEASE.he.md section 9)"
 fi
 
 # --- 4. verification ----------------------------------------------------------------------------
@@ -170,7 +217,8 @@ if [ "$SIGNED" = 1 ]; then
     # notarization requires a secure timestamp (APPSTORE-FACTS.md 9.2); sign the bundle again with every
     # flag explicit - the bundle has one executable and no nested code, so no --deep is needed
     say "the signature has no secure timestamp - re-signing the bundle with explicit flags"
-    codesign --force --options runtime --timestamp --entitlements "$ENTITLEMENTS" --sign "$IDENTITY" "$APP"
+    codesign --force --options runtime --timestamp --entitlements "$ENTITLEMENTS" --sign "$IDENTITY" "$APP" \
+      || die "re-signing the app with a secure timestamp failed (is the Mac online? the timestamp comes from Apple's server)"
     codesign --verify --deep --strict --verbose=2 "$APP" || die "codesign verification failed after re-signing"
     SIGN_INFO=$(codesign -dvv "$APP" 2>&1 || true)
     printf '%s\n' "$SIGN_INFO" | grep -q '^Timestamp=' || die "still no secure timestamp after re-signing (is the Mac online? the timestamp comes from Apple's server)"
@@ -181,23 +229,17 @@ else
 fi
 
 # --- 5. notarization of the app -----------------------------------------------------------------
-WORK=""
-cleanup() {
-  # only the folder mktemp created for us is removed, never anything else
-  case "$WORK" in */ypd-release.*) if [ -d "$WORK" ]; then rm -rf "$WORK"; fi ;; esac
-}
-trap cleanup EXIT
-
 # notarize <file> <label>: submits a .zip or .dmg, waits, then prints Apple's log - always, because Apple
 # says to read it even when the status is Accepted (it may list warnings that become errors later)
 notarize() {
-  local file=$1 label=$2 out id status
-  out=$(mktemp "${TMPDIR:-/tmp}/ypd-notary.XXXXXX")
+  local file=$1 label=$2 id status
+  NOTARY_OUT=$(mktemp "${TMPDIR:-/tmp}/ypd-notary.XXXXXX")
   say "submitting $label to Apple's notary service and waiting for the verdict (usually 1-15 minutes)"
-  xcrun notarytool submit "$file" --keychain-profile "$NOTARY_PROFILE" --wait 2>&1 | tee "$out" || true
-  id=$(awk '/^ *id:/ {print $2; exit}' "$out")
-  status=$(awk '/^ *status:/ {print $2}' "$out" | tail -1)
-  rm -f "$out"
+  xcrun notarytool submit "$file" --keychain-profile "$NOTARY_PROFILE" --wait 2>&1 | tee "$NOTARY_OUT" || true
+  id=$(awk '/^ *id:/ {print $2; exit}' "$NOTARY_OUT")
+  status=$(awk '/^ *status:/ {print $2}' "$NOTARY_OUT" | tail -1)
+  rm -f "$NOTARY_OUT"
+  NOTARY_OUT=""
   if [ -n "$id" ]; then
     say "Apple's log for submission $id (read the \"issues\" list even when the status is Accepted):"
     xcrun notarytool log "$id" --keychain-profile "$NOTARY_PROFILE" || true
@@ -215,10 +257,10 @@ if [ "$SIGNED" = 1 ]; then
   step "5/7 notarizing and stapling the app"
   WORK=$(mktemp -d "${TMPDIR:-/tmp}/ypd-release.XXXXXX")
   ZIP="$WORK/$PRODUCT.zip"
-  ditto -c -k --keepParent "$APP" "$ZIP"
+  ditto -c -k --keepParent "$APP" "$ZIP" || die "cannot zip the app for the notary service"
   notarize "$ZIP" "the app"
-  xcrun stapler staple "$APP"
-  xcrun stapler validate "$APP"
+  xcrun stapler staple "$APP" || die "stapling the ticket to the app failed - wait a minute and run the script again (docs/MAC-RELEASE.he.md section 9, stapler)"
+  xcrun stapler validate "$APP" || die "the ticket stapled to the app does not validate"
 else
   step "5/7 notarization skipped (no signing identity)"
 fi
@@ -226,20 +268,22 @@ fi
 # --- 6. DMG -------------------------------------------------------------------------------------
 step "6/7 DMG"
 DMG_OUT=$(mktemp "${TMPDIR:-/tmp}/ypd-dmg-out.XXXXXX")
-bash "$SCRIPT_DIR/make-dmg.sh" "$APP" "$OUT_DIR" | tee "$DMG_OUT"
+# make-dmg.sh's messages on stderr take the same pipe, so they stay in order with its other lines
+bash "$SCRIPT_DIR/make-dmg.sh" "$APP" "$OUT_DIR" 2>&1 | tee "$DMG_OUT" || die "make-dmg.sh failed - its \"make-dmg: ERROR\" line or the command output above says why"
 DMG=$(sed -n 's/^DMG: //p' "$DMG_OUT" | tail -1)
 rm -f "$DMG_OUT"
+DMG_OUT=""
 [ -n "$DMG" ] && [ -f "$DMG" ] || die "make-dmg.sh did not report a DMG"
 
 # --- 7. notarization of the DMG, Gatekeeper, summary --------------------------------------------
 if [ "$SIGNED" = 1 ]; then
   step "7/7 signing, notarizing and stapling the DMG, Gatekeeper assessment"
   # Apple: sign the disk image with the code-signing identity before notarizing it (APPSTORE-FACTS.md 9.4)
-  codesign --sign "$IDENTITY" --timestamp --identifier "$IDENTIFIER" "$DMG"
+  codesign --sign "$IDENTITY" --timestamp --identifier "$IDENTIFIER" "$DMG" || die "signing the DMG failed (is the Mac online? the timestamp comes from Apple's server)"
   codesign --verify --verbose=2 "$DMG" || die "the DMG signature does not verify"
   notarize "$DMG" "the DMG"
-  xcrun stapler staple "$DMG"
-  xcrun stapler validate "$DMG"
+  xcrun stapler staple "$DMG" || die "stapling the ticket to the DMG failed - wait a minute and run the script again (docs/MAC-RELEASE.he.md section 9, stapler)"
+  xcrun stapler validate "$DMG" || die "the ticket stapled to the DMG does not validate"
   say "Gatekeeper assessment of the DMG (expected: accepted, source=Notarized Developer ID)"
   spctl --assess --type open --context context:primary-signature --verbose=2 "$DMG" || die "Gatekeeper rejects the DMG"
   say "Gatekeeper assessment of the app (expected: accepted, source=Notarized Developer ID)"
@@ -256,6 +300,7 @@ if [ "$SIGNED" = 1 ]; then
   printf 'log:     %s\n' "$RELEASE_LOG"
   printf 'next:    give users the DMG and the .sha256 file (docs/MAC-RELEASE.he.md section 6)\n'
   printf '=======================================================\n'
+  FINISHED=signed
   exit 0
 else
   step "7/7 summary"
@@ -276,5 +321,6 @@ else
   printf 'sha256:  %s\n' "$SHA"
   printf 'log:     %s\n' "$RELEASE_LOG"
   printf 'exit code 2 = finished, but unsigned\n'
+  FINISHED=unsigned
   exit 2
 fi

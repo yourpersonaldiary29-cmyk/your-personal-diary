@@ -16,34 +16,49 @@
 |---|---|---|
 | Node.js | 24.20.0 | `~/Developer/tools/node` |
 | Rust (דרך rustup) | 1.99.1, יעדים `aarch64-apple-darwin` ו-`x86_64-apple-darwin` (יעד ה-Intel נוסף ב-8.11.2026, 147 MB) | `~/.cargo`, `~/.rustup` |
-| Xcode Command Line Tools | Apple clang 16, macOS SDK 15.2 | `/Library/Developer/CommandLineTools` (אתה אישרת את ההתקנה על המסך) |
+| Xcode Command Line Tools | 27.2 (מ-11.11.2026): Apple clang 21.0.0, macOS SDK 27.2, `notarytool` 1.1.4. עד 11.11.2026: Apple clang 16, macOS SDK 15.2 | `/Library/Developer/CommandLineTools` (אתה אישרת את ההתקנה על המסך) |
 
-אין Xcode מלא - לא צריך אותו לאפליקציית ה-Mac (הוא נדרש רק ל-iPhone ול-App Store).
+**עדכון 11.11.2026:** ה-Mac עודכן ל-**macOS 27.2.1** (build 26B131), ו-Command Line Tools עודכנו ל-27.2 (בטבלה). גרסה 1.0.0 נבנתה כבר עם הכלים החדשים (SDK 27.2); בנייה 3, שמותקנת אצלך, נבנתה עם הישנים (SDK 15.2).
+
+**Xcode המלא** - אתה מתקין אותו עכשיו מה-App Store. הוא נדרש ל-iPhone ולהעלאה ל-App Store; לאפליקציית ה-Mac הוא לא נחוץ. **כשההתקנה מסתיימת:** לפתוח את Xcode פעם אחת, ללחוץ **Agree** על הרישיון ולהקליד את סיסמת ה-Mac. עד שעושים את זה, macOS עלול להעביר את כלי הבנייה ל-Xcode, והבנייה נעצרת עם `You have not agreed to the Xcode license agreements` (פתרון: `docs/MAC-RELEASE.he.md` סעיף 9).
 
 **העותק של הפרויקט ב-Mac:** `~/Developer/my-personal-diary`. מקור האמת הוא המחשב (PC): כל שינוי נעשה שם, ואז מועתק ל-Mac בהעתקה **חד-כיוונית** (PC ← Mac), שמשאירה ב-Mac רק את מה שנבנה שם (`node_modules`, `dist`, `src-tauri/target`, `src-tauri/gen/schemas`, `ios/`). קובץ שה-Mac מייצר וצריך לשמור - בעיקר `src-tauri/Cargo.lock` אחרי הוספת רכיב - מועתק מיד בחזרה ל-PC, לפני ההעתקה הבאה.
 
 **הבנייה** (ב-Terminal של ה-Mac, או מרחוק). מ-8.11.2026 הבנייה הרשמית היא **אוניברסלית** - קובץ אחד לשבבי Apple ולמעבדי Intel:
 
 ```bash
+export PATH="$HOME/Developer/tools/node/bin:$HOME/.cargo/bin:$PATH"
 cd ~/Developer/my-personal-diary
 caffeinate -i npx tauri build --bundles app --target universal-apple-darwin
 ```
+
+השורה הראשונה נחוצה בכל חלון Terminal חדש: Node ו-Rust לא הותקנו "למערכת" (בכוונה), ובלעדיה מופיע `zsh: command not found: npx`.
 
 האפליקציה נוצרת כאן:
 
 `~/Developer/my-personal-diary/src-tauri/target/universal-apple-darwin/release/bundle/macos/Your Personal Diary.app`
 
-(הבנייה הישנה, ל-Apple silicon בלבד - `caffeinate -i npx tauri build --bundles app`, תוצאה ב-`src-tauri/target/release/bundle/macos/` - עדיין עובדת ומהירה יותר, ומתאימה לבדיקות מקומיות.) לוקח 1.5 עד 3 דקות כשכבר נבנה פעם אחת (`caffeinate` שומר שה-Mac לא יירדם באמצע); בנייה אוניברסלית ראשונה לוקחת יותר (8.11.2026: ראו `docs/MAC-RELEASE.he.md`). להפצה - DMG, חתימה ו-Notarization - משתמשים בפקודה האחת `bash scripts/mac/release.sh`, שמוסברת ב-`docs/MAC-RELEASE.he.md`.
+(הבנייה הישנה, ל-Apple silicon בלבד - `caffeinate -i npx tauri build --bundles app`, תוצאה ב-`src-tauri/target/release/bundle/macos/` - עדיין עובדת ומהירה יותר, ומתאימה לבדיקות מקומיות. **שימו לב:** מה שנמצא שם היום הוא בנייה 3 הישנה - גרסה 0.1.0 מ-7.11.2026 - עד שבונים אותה מחדש; לא מתקינים ממנה.) לוקח 1.5 עד 3 דקות כשכבר נבנה פעם אחת (`caffeinate` שומר שה-Mac לא יירדם באמצע); בנייה אוניברסלית ראשונה לוקחת יותר (8.11.2026: ראו `docs/MAC-RELEASE.he.md`). להפצה - DMG, חתימה ו-Notarization - משתמשים בפקודה האחת `bash scripts/mac/release.sh`, שמוסברת ב-`docs/MAC-RELEASE.he.md`.
 
-**ההתקנה ל-Applications** (עושים יחד איתך): סוגרים את האפליקציה (Cmd+Q), ואז:
+**ההתקנה ל-Applications** (עושים יחד איתך). הדרך הפשוטה: לפתוח את קובץ ה-DMG ולגרור את האפליקציה ל-Applications (`docs/MAC-RELEASE.he.md` סעיף 5.1). מ-Terminal - קודם סוגרים את האפליקציה (Cmd+Q), ובודקים מה עומד להיות מותקן:
 
 ```bash
 cd ~/Developer/my-personal-diary
-rm -rf "/Applications/Your Personal Diary.app"
-ditto "src-tauri/target/release/bundle/macos/Your Personal Diary.app" "/Applications/Your Personal Diary.app"
+NEW="src-tauri/target/universal-apple-darwin/release/bundle/macos/Your Personal Diary.app"
+/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$NEW/Contents/Info.plist"
+lipo -archs "$NEW/Contents/MacOS/your-personal-diary"
 ```
 
-זה מחליף רק את האפליקציה. היומן שלך נמצא בשרת; מה שנשמר ב-Mac (ההעדפות, העותק המוצפן לעבודה בלי חיבור, פריט ה-Keychain) נשאר במקומו. אפליקציה שנבנתה ב-Mac הזה נפתחת בלי אזהרה; ב-Mac אחר היא תיחסם עד החתימה הרשמית (סעיף 4).
+השורה השלישית מדפיסה את הגרסה שעומדת להיות מותקנת - היא חייבת להיות הגרסה החדשה (היום `1.0.0`), והרביעית `x86_64 arm64`. אם לא - עוצרים ובונים קודם (למעלה). אם כן, באותו חלון:
+
+```bash
+ditto "$NEW" "/Applications/.Your Personal Diary.new.app" &&
+  { [ ! -d "/Applications/Your Personal Diary.app" ] || mv "/Applications/Your Personal Diary.app" "/Applications/.Your Personal Diary.old.app"; } &&
+  mv "/Applications/.Your Personal Diary.new.app" "/Applications/Your Personal Diary.app" &&
+  rm -rf "/Applications/.Your Personal Diary.old.app"
+```
+
+ההעתקה הולכת קודם לשם זמני ומוסתר ליד הישנה, ורק כשהיא הצליחה מחליפים ביניהן (`&&`: כל שורה רצה רק אם הקודמת הצליחה) - כך העתקה שנכשלה באמצע לא משאירה את ה-Mac בלי אפליקציה. זה מחליף רק את האפליקציה. היומן שלך נמצא בשרת; מה שנשמר ב-Mac (ההעדפות, העותק המוצפן לעבודה בלי חיבור, פריט ה-Keychain) נשאר במקומו. אפליקציה שנבנתה ב-Mac הזה נפתחת בלי אזהרה; ב-Mac אחר היא תיחסם עד החתימה הרשמית (סעיף 4).
 
 **הבדיקות של קוד ה-Mac:** `cd ~/Developer/my-personal-diary/src-tauri && cargo test --lib` - ב-7.11.2026: 76 בדיקות, כולן עברו, אף אחת לא דולגה.
 
@@ -99,6 +114,11 @@ ditto "src-tauri/target/release/bundle/macos/Your Personal Diary.app" "/Applicat
 * **DMG:** `scripts/mac/make-dmg.sh` יוצר ובודק DMG עם `hdiutil` בלבד; קיים DMG של הבנייה האוניברסלית לבדיקה שלך (חתימה עצמית, בלי Notarization).
 * **מכונת ההפצה:** `scripts/mac/release.sh` - פקודה אחת לבנייה, חתימה ב-Developer ID, Notarization, הצמדת האישור, DMG ובדיקת Gatekeeper; `scripts/mac/build-appstore.sh` למסלול ה-Mac App Store (לא נבדק); קובצי ההרשאות ב-`src-tauri/entitlements/`; `src-tauri/Info.plist` עם הצהרת ההצפנה וזכויות היוצרים, קטגוריה Lifestyle.
 
+**נכנס ב-12.11.2026 (אחרי העדכון של ה-Mac ל-macOS 27.2.1):**
+* הבנייה האוניברסלית נבנתה מחדש כ**גרסה 1.0.0** (`release.sh` בלי תעודה: קוד יציאה 2, כמתוכנן), ונוצר `Your Personal Diary_1.0.0_universal.dmg`. גם היא **לא הותקנה** אצלך; ההתקנה נעשית יחד עם הסשן הראשי.
+* `release.sh` מחזיק עכשיו את ה-Mac ער לכל אורך ההרצה (גם בהמתנות ל-Notarization), וכל כישלון בו מסתיים בשורת `release: ERROR` ובקוד יציאה 1; הוא בודק כבר בהתחלה שכלי הבנייה של אפל עובדים (רישיון Xcode). `make-dmg.sh` מסביר את שורות האזהרה החדשות של `hdiutil` ב-macOS 27.
+* בסעיף 1: פקודת ה-PATH נוספה לפקודת הבנייה, וההתקנה ל-Applications לוקחת עכשיו את הבנייה האוניברסלית (קודם היא לקחה בטעות את בנייה 3 הישנה) ומחליפה את האפליקציה בבטחה.
+
 **לפני הפצה למחשבי Mac אחרים - מה שרק אתה יכול לעשות:**
 * **חשבון ותעודה (WP-M4, הצד של אפל):** חברות ב-Apple Developer Program (99 דולר לשנה), תעודת Developer ID Application, סיסמה ייעודית ל-Notarization ופרופיל `ypd-notary` - צעד אחר צעד ב-`docs/MAC-RELEASE.he.md` סעיף 2. אחרי זה ההפצה היא `bash scripts/mac/release.sh`. בלי זה Mac אחר חוסם את האפליקציה ("לא ניתן לבדוק אותה").
 * **מדיניות הפרטיות:** משפט על ה-Keychain של אפל ועל אפליקציות ה-Mac וה-iPhone - מטופל בחבילת LEGAL של אותו ספרינט (`legal/**`, תאריך תוקף 8.11.2026). הנוסח הנכון למצב של היום: הפריט נשמר ב-login keychain של המשתמש במק, לא מסונכרן ל-iCloud, ויכול לעבור למק אחר רק יחד עם ה-keychain כולו (העברת מחשב או שחזור מגיבוי) - לא "למכשיר הזה בלבד" עד שיש פרופיל הקצאה.
@@ -116,6 +136,7 @@ ditto "src-tauri/target/release/bundle/macos/Your Personal Diary.app" "/Applicat
 * MacBook Pro 16" 2021, Apple M1 Max, 32 GB, macOS Sonoma 14.6.1. About 19 GB free on the data volume after the build; `src-tauri/target` on the Mac is about 2.7 GB.
 * Node 24.20.0 + npm 11.19 in `~/Developer/tools/node`; Rust 1.99.1 stable via rustup (`--no-modify-path`, minimal profile: no clippy / rustfmt), target `aarch64-apple-darwin` only, in `~/.cargo` / `~/.rustup`; Xcode Command Line Tools (Apple clang 16.0.0, macOS SDK 15.2). No Homebrew, no sudo, no full Xcode, shell profiles untouched: remote commands start with `export PATH="$HOME/Developer/tools/node/bin:$HOME/.cargo/bin:$PATH"`.
 * The Mac sleeps after a minute of idle and drops off the network: start `caffeinate -ims -t 28800` (nohup) at the beginning of a session.
+* **Update 2026-11-11/12:** the owner upgraded the Mac to **macOS 27.2.1 (26B131)**; about 70 GiB free. The Command Line Tools were updated to **27.2** on 2026-11-11 (`pkgutil --pkg-info=com.apple.pkg.CLTools_Executables`: 27.2.0.0.1792721180): Apple clang 21.0.0 (clang-2100.4.1.1), `MacOSX27.2.sdk`, `notarytool` 1.1.4 (43), `stapler`, `vtool`; still no `altool`. Both Rust targets are installed. The 1.0.0 universal build links SDK 27.2 (`vtool -show-build`: minos 12.3, sdk 27.2 on both slices) while build 3 used SDK 15.2 - the SDK 27.2 build had not been opened by 2026-11-12 (the main session's install smoke test covers it). The owner is installing Xcode.app from the App Store. No developer directory is pinned (`/var/db/xcode_select_link` does not exist), so once `/Applications/Xcode.app` exists the tool shims (`cc`, `clang`, `lipo`, `xcrun ...`) are expected to use it ("default search mechanism", `man xcode-select`) and to refuse to run until its license is accepted; `DEVELOPER_DIR=/Library/Developer/CommandLineTools` keeps the Command Line Tools without sudo.
 
 ### B. Sync and lockfile
 
@@ -126,10 +147,13 @@ ditto "src-tauri/target/release/bundle/macos/Your Personal Diary.app" "/Applicat
 ### C. Build, verify, install
 
 ```bash
-cd ~/Developer/my-personal-diary && caffeinate -i npx tauri build --bundles app
-codesign --verify --deep --strict --verbose=2 "src-tauri/target/release/bundle/macos/Your Personal Diary.app"
+export PATH="$HOME/Developer/tools/node/bin:$HOME/.cargo/bin:$PATH"
+cd ~/Developer/my-personal-diary && caffeinate -i npx tauri build --bundles app --target universal-apple-darwin
+codesign --verify --deep --strict --verbose=2 "src-tauri/target/universal-apple-darwin/release/bundle/macos/Your Personal Diary.app"
 cd src-tauri && cargo test --lib
 ```
+
+* Without `--target universal-apple-darwin` the build is Apple-silicon only and lands in `src-tauri/target/release/bundle/macos/` (builds 1-3 were made that way); the install of section 1 takes the universal output and checks its version first.
 
 * `src-tauri/tauri.macos.conf.json` (merged by Tauri on macOS only): `identifier` `app.yourpersonaldiary.mac` (Tauri warns that `com.mydiary.app` ends with `.app`, the bundle extension), `bundle.targets` `["app"]`, `bundle.macOS.minimumSystemVersion` `12.3`, `bundle.macOS.signingIdentity` `"-"` (ad-hoc: `flags=0x10002(adhoc,runtime)`, no team). Notarization is skipped (no credentials).
 * WP-M2 build (2026-11-06): EXIT 0 in about 1m20s of Rust (release, LTO); `codesign --verify --deep --strict`: "valid on disk", "satisfies its Designated Requirement"; the binary links `Security`, `LocalAuthentication` and `CoreFoundation`. Not installed by the build: installing (section 1) is done with the owner.
@@ -179,8 +203,9 @@ cd src-tauri && cargo test --lib
 * The real Touch ID / password dialog and its answers (only the non-interactive path ran, plus a zero-second bound that invalidates a context mid-evaluation); the login keychain itself - the app's path `data_protection: true` runs in one test, on the temporary keychain and behind the -34018 probe, but the login keychain's lock state, its access dialogs in a GUI session and an entitled build's data-protection path (none exists yet) are out of the tests' reach; notifications from the bundle; the opener in the GUI.
 * The vault and the unlock run in the app once `src/main.tsx` installs the Tauri adapter - this release (D1, section 4). The legal-page opener runs regardless: `PrivacyPolicyLink.tsx` invokes `open_external_url` whenever `isTauri()`.
 
-### I. Missing before distribution (state of 2026-11-08, after package MAC-M4)
+### I. Missing before distribution (state of 2026-11-08, after package MAC-M4; re-checked 2026-11-12)
 
 * Done by MAC-M4 (details and the verified numbers: `docs/MAC-RELEASE.he.md`, appendix B): the universal build (`rustup target add x86_64-apple-darwin` done; `npx tauri build --bundles app --target universal-apple-darwin` built and verified, ad-hoc), `scripts/mac/make-dmg.sh` (hdiutil, UDZO on HFS+, verified by mount + cmp), `scripts/mac/release.sh` (the whole route 1: Developer ID signing with the hardened runtime and `src-tauri/entitlements/developer-id.plist`, `notarytool submit --wait` through the keychain profile `ypd-notary`, code-signing of the DMG, stapling of app and DMG, `spctl --assess`), `scripts/mac/build-appstore.sh` (route 2, `--dry-run` only), `src-tauri/Info.plist` (`ITSAppUsesNonExemptEncryption`, `NSHumanReadableCopyright`) and `bundle.category` (verified in the built plist). Tauri's own DMG bundler (`bundle.targets` `["app", "dmg"]`) is not used: it needs Finder/AppleScript for the window layout, and the build Mac is driven over SSH.
+* Re-run on 2026-11-12 on macOS 27.2.1 with the Command Line Tools 27.2: version 1.0.0 universal (ad-hoc), `release.sh` without credentials exit 2 in 157 s, `Your Personal Diary_1.0.0_universal.dmg`; then the MAC-M4 fixer hardened `release.sh` (one `caffeinate -i -w` for the whole run, an EXIT trap that turns every unhandled failure into `release: ERROR` + exit 1, a `cc --version` check for an unaccepted Xcode license) and `make-dmg.sh` (hdiutil's macOS 27 "deprecated" warnings shown on lines of their own with a note). Details: `docs/MAC-RELEASE.he.md` appendix B.
 * Still missing, and only the owner can supply it: the Apple Developer Program membership, a Developer ID Application certificate and the `ypd-notary` notarytool profile - then the signed path of `release.sh` runs for the first time (untested until then), including `spctl --assess` on a second Mac user. Optionally a Developer ID provisioning profile with the keychain entitlements (data-protection keychain).
 * The Keychain sentence in the privacy policy is the LEGAL package of the same sprint (`legal/**`, effective date 2026-11-08; the wording of section 4: the login keychain of the user, not synced to iCloud, travels only with the whole keychain); a Mac wording for `shell.sync.lock.deviceReason`; the owner's decisions on `Alt`+digit shortcuts and the startup language (decided for this sprint: English stays). (The adapter wiring in `src/main.tsx` landed on 2026-11-07, D1.)

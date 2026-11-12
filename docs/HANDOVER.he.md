@@ -32,7 +32,8 @@
 | `Your Personal Diary - Microsoft Store` | כל מה שצריך לפרסום ב-Microsoft Store: מדריך, טקסטים ב-20 שפות, צילומי מסך, לוגו ותשובות לטפסים. |
 | `Your Personal Diary - Google Play` | אותו דבר בשביל Google Play. |
 | `Your Personal Diary - App Store` | אותו דבר בשביל App Store של אפל (iPhone ו-Mac). |
-| `Your Personal Diary - source.zip` | עותק של כל הקוד והמסמכים, למקרה שאין גישה ל-GitHub. |
+| `Your Personal Diary - source - 1.0.0.zip` | עותק של כל הקוד, המסמכים וצילומי המסך, כולל כל ההיסטוריה של המאגר, למקרה שאין גישה ל-GitHub. אין בו סודות. |
+| `Your Personal Diary - App Store` במק | עותק של תיקיית ה-App Store נמצא גם במחשב ה-Mac, בתיקייה Developer שבתיקיית הבית: ב-Finder בוחרים Go ← Home ← Developer. |
 
 בכל תיקייה של חנות יש קובץ שמתחיל ב-"1 - מדריך - פתח אותי קודם". הוא אומר מה עושים ובאיזה סדר.
 

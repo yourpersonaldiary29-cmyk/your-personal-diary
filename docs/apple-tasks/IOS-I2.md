@@ -54,7 +54,7 @@ STEP 7 - BACK TO THE PC:
   - node scripts/check-no-network.mjs (it scans ios/App/App);
   - node --test "scripts/**/*.test.mjs".
 
-STEP 8 - DOCUMENTATION:
+STEP 8 - DOCUMENTATION (note: an interactive zsh on the owner's Mac has interactivecomments OFF, so a command written with a trailing "# comment" fails when he copies it - e.g. scripts/ios/README.he.md line 41 "xcodebuild -version  # Xcode 26 ..." and "npm run mobile:build   # ..."; move every comment to its own line or into the Hebrew text around the code block. The kit pages are rendered by scripts/lib/guide-html.mjs: one ``` block per command group renders as one copyable block):
 - scripts/ios/README.he.md gets a dated status block at the top, in Hebrew, for the owner:
   - what exists in ios/ now;
   - what is still left: signing with his Apple ID in Xcode (Signing & Capabilities > Team);

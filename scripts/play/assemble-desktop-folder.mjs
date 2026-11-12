@@ -1,31 +1,62 @@
 // Builds the owner's Google Play folder next to the project folder (C:\Users\AVI\Projects - the owner keeps the
-// kit folders there, not on the Desktop) from the Play kit (read-only on the project). Optional argument: another
-// destination folder (a test run). An existing destination is refused.
+// kit folders there, not on the Desktop) from the Play kit (read-only on the project). An existing destination is
+// refused.
+//   node scripts/play/assemble-desktop-folder.mjs                             -> <parent of the project>\Your Personal Diary - Google Play
+//   node scripts/play/assemble-desktop-folder.mjs <folder>                    -> any other new folder (a test run)
+//   node scripts/play/assemble-desktop-folder.mjs --refresh-guides [<folder>] -> re-render only the Hebrew guide pages
+// The guides are rendered by scripts/lib/guide-html.mjs (code blocks, "* " bullets and links included).
 import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
-const proj = 'C:/Users/AVI/Projects/my-personal-diary';
-const { mdToHtml, mdToPlain } = await import(pathToFileURL(path.join(proj, 'store', 'render.mjs')).href);
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { guidePage, guideToHtml } from '../lib/guide-html.mjs';
+
+const proj = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const { mdToPlain } = await import(pathToFileURL(path.join(proj, 'store', 'render.mjs')).href);
 const settings = JSON.parse(readFileSync(path.join(proj, 'legal', 'settings.json'), 'utf8'));
-const dst = process.argv[2] ? path.resolve(process.argv[2]) : path.join(path.dirname(proj), 'Your Personal Diary - Google Play');
-if (existsSync(dst)) { console.error('exists already - not overwriting'); process.exit(1); }
+const args = process.argv.slice(2);
+const refresh = args.includes('--refresh-guides');
+const target = args.find((a) => !a.startsWith('--'));
+const dst = target ? path.resolve(target) : path.join(path.dirname(proj), 'Your Personal Diary - Google Play');
+if (refresh ? !existsSync(dst) : existsSync(dst)) {
+  console.error(refresh ? `no such folder to refresh: ${dst}` : `exists already - not overwriting: ${dst}`);
+  process.exit(1);
+}
+const fill = (s) =>
+  s
+    .replaceAll('{{PUBLISHER_NAME}}', settings.publisherName)
+    .replaceAll('{{CONTACT_EMAIL}}', settings.contactEmail)
+    .replaceAll('{{REVIEW_USERNAME}}', 'stor')
+    .replaceAll('{{REVIEW_PASSWORD}}', '(type the password only in Play Console)');
+const htmlFrom = (src, out) => {
+  const r = guideToHtml(fill(readFileSync(src, 'utf8')));
+  writeFileSync(out, guidePage(r.title, r.body));
+};
+const GUIDES = [
+  [path.join(proj, 'docs', 'PLAY-RELEASE.he.md'), '1 - מדריך - פתח אותי קודם.html'],
+  [path.join(proj, 'play', 'README.he.md'), '1b - מה יש בתיקייה.html'],
+  [path.join(proj, 'play', 'screenshots', 'README.he.md'), path.join('3 - צילומי מסך לפי שפה', 'הסבר על הצילומים.html')],
+];
+const writeGuides = () => {
+  for (const [src, rel] of GUIDES) {
+    mkdirSync(path.dirname(path.join(dst, rel)), { recursive: true });
+    htmlFrom(src, path.join(dst, rel));
+  }
+};
+if (refresh) {
+  writeGuides();
+  console.log(`refreshed ${GUIDES.length} guide pages in ${dst}`);
+  process.exit(0);
+}
+
 mkdirSync(dst);
-const fill = (s) => s.replaceAll('{{PUBLISHER_NAME}}', settings.publisherName).replaceAll('{{CONTACT_EMAIL}}', settings.contactEmail)
-  .replaceAll('{{REVIEW_USERNAME}}', 'stor').replaceAll('{{REVIEW_PASSWORD}}', '(type the password only in Play Console)');
-const page = (title, body) => `<!DOCTYPE html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title}</title>\n<style>\n:root{color-scheme:light dark;--bg:#fff;--text:#1c2430;--accent:#1f5fa8;--line:#d5dbe3;--box:#f3f6fa}\n@media (prefers-color-scheme:dark){:root{--bg:#14181f;--text:#e8ecf2;--accent:#8fc1ff;--line:#3a4352;--box:#1d232d}}\nbody{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,Arial,sans-serif;line-height:1.7}\nmain{max-width:52rem;margin:0 auto;padding:1.5rem 1.25rem 3rem}\nh2{margin-top:2.2rem;padding-top:1rem;border-top:1px solid var(--line)}\ncode{direction:ltr;unicode-bidi:isolate;background:var(--box);border:1px solid var(--line);border-radius:.25rem;padding:.05rem .3rem;font-family:Consolas,monospace;overflow-wrap:anywhere;user-select:all}\npre{direction:ltr;background:var(--box);padding:.75rem;overflow-x:auto}\ntable{border-collapse:collapse;width:100%}td,th{border:1px solid var(--line);padding:.4rem .6rem;text-align:start;vertical-align:top}\na{color:var(--accent)}\n</style>\n</head>\n<body><main>\n${body}\n</main></body>\n</html>\n`;
-// 1 guide
-const g = mdToHtml(fill(readFileSync(path.join(proj, 'docs', 'PLAY-RELEASE.he.md'), 'utf8')));
-writeFileSync(path.join(dst, '1 - מדריך - פתח אותי קודם.html'), page(g.title, g.body));
-const r = mdToHtml(fill(readFileSync(path.join(proj, 'play', 'README.he.md'), 'utf8')));
-writeFileSync(path.join(dst, '1b - מה יש בתיקייה.html'), page(r.title, r.body));
 // 2 texts, 3 screenshots, 4 graphics
 cpSync(path.join(proj, 'play', 'listing'), path.join(dst, '2 - טקסטים לחנות לפי שפה'), { recursive: true });
 const shotsDst = path.join(dst, '3 - צילומי מסך לפי שפה');
 mkdirSync(shotsDst);
 for (const d of readdirSync(path.join(proj, 'play', 'screenshots'), { withFileTypes: true })) if (d.isDirectory()) cpSync(path.join(proj, 'play', 'screenshots', d.name), path.join(shotsDst, d.name), { recursive: true });
-const sr = mdToHtml(readFileSync(path.join(proj, 'play', 'screenshots', 'README.he.md'), 'utf8'));
-writeFileSync(path.join(shotsDst, 'הסבר על הצילומים.html'), page(sr.title, sr.body));
 cpSync(path.join(proj, 'play', 'graphics'), path.join(dst, '4 - אייקון ותמונת כותרת'), { recursive: true });
+// 1, 1b and the screenshots explanation - the Hebrew guides as web pages
+writeGuides();
 // 5 policy answers as plain text
 const pol = path.join(dst, '5 - תשובות לטפסים של Google');
 mkdirSync(pol);
@@ -40,5 +71,5 @@ writeFileSync(path.join(dst, 'קישורים.txt'), bom + ['מדיניות פר�
 const count = (p, f) => readdirSync(p, { recursive: true }).filter(f).length;
 console.log('folder:', dst);
 console.log('listing langs:', readdirSync(path.join(dst, '2 - טקסטים לחנות לפי שפה')).length, '| screenshot langs:', readdirSync(shotsDst, { withFileTypes: true }).filter((d) => d.isDirectory()).length, '| png:', count(shotsDst, (n) => String(n).endsWith('.png')));
-const leftovers = readdirSync(dst, { recursive: true }).filter((n) => /\.(txt|html)$/.test(n)).filter((n) => readFileSync(path.join(dst, n), 'utf8').includes('{{'));
+const leftovers = readdirSync(dst, { recursive: true }).filter((n) => /\.(txt|html)$/.test(n)).filter((n) => readFileSync(path.join(dst, n), 'utf8').replace(/\{\{\.\.\.\}\}/g, '').includes('{{'));
 console.log('files with placeholders left:', leftovers.length ? leftovers : 'none');

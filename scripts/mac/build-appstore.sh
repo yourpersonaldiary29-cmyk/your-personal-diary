@@ -5,8 +5,9 @@
 # productbuild, optionally validated and uploaded. Owner's guide: docs/MAC-RELEASE.he.md section 8.
 #
 # UNTESTED END TO END: the project had no Apple credentials, no provisioning profile and no Xcode when this
-# was written (2026-11-08). Only `bash -n` and `--dry-run` ran on the build Mac. Apple's current upload
-# rules are in docs/apple-tasks/APPSTORE-FACTS.md section 9 - read it before the first real run.
+# was written (2026-11-08). Only `bash -n` and `--dry-run` ran on the build Mac (again on 2026-11-12, macOS
+# 27.2.1 with the Command Line Tools 27.2). Apple's current upload rules are in
+# docs/apple-tasks/APPSTORE-FACTS.md section 9 - read it before the first real run.
 #
 # Usage:  bash scripts/mac/build-appstore.sh [--dry-run] [--upload] [--out <folder>]
 #   --dry-run   print every command with the values it would use (<PLACEHOLDERS> for missing variables)
@@ -31,13 +32,17 @@
 #                                  Connect needs a higher value for every new upload of the same version.
 #   APPLE_API_KEY_ID, APPLE_API_ISSUER   App Store Connect API key for --upload; altool finds the key
 #                                  file AuthKey_<ID>.p8 in ~/.appstoreconnect/private_keys/ or ~/private_keys/
+#   DEVELOPER_DIR                  Apple's own variable: which developer tools to use. Unset = macOS's
+#                                  choice (Xcode.app once it is installed - then altool exists - otherwise
+#                                  the Command Line Tools). A newly installed Xcode must be opened once to
+#                                  accept its license first (docs/MAC-RELEASE.he.md section 9).
 #
 # What Tauri does with the overlay this script passes (Tauri 2, "App Store" guide,
 # https://v2.tauri.app/distribute/app-store/): bundle.macOS.entitlements = the generated entitlements
 # file, bundle.macOS.files = {"embedded.provisionprofile": <profile>} copies the profile to
 # Contents/embedded.provisionprofile, bundle.macOS.signingIdentity = the distribution certificate,
 # bundle.macOS.bundleVersion = CFBundleVersion. The .pkg then comes from
-#   xcrun productbuild --component "<app>" /Applications --sign "<installer identity>" "<pkg>"
+#   xcrun productbuild --sign "<installer identity>" --component "<app>" /Applications "<pkg>"
 # ("/Applications" here is the install location recorded inside the package, nothing is written there).
 set -euo pipefail
 
@@ -57,7 +62,8 @@ while [ $# -gt 0 ]; do
     --dry-run) DRY=1 ;;
     --upload) UPLOAD=1 ;;
     --out) shift; [ $# -gt 0 ] || { echo "build-appstore: --out needs a folder" >&2; exit 1; }; OUT_DIR=$1 ;;
-    -h|--help) sed -n '2,42p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    # --help prints the comment block at the top of this file (up to the first line that is not a comment)
+    -h|--help) awk 'NR == 1 { next } /^#/ { sub(/^# ?/, ""); print; next } { exit }' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) echo "build-appstore: unknown argument: $1 (see --help)" >&2; exit 1 ;;
   esac
   shift
@@ -115,10 +121,12 @@ VERSION=$(plutil -extract version raw -o - "$CONF") || die "cannot read \"versio
 PRODUCT=$(plutil -extract productName raw -o - "$CONF") || die "cannot read \"productName\" from $CONF"
 IDENTIFIER=$(plutil -extract identifier raw -o - "$MAC_CONF") || die "cannot read \"identifier\" from $MAC_CONF"
 say "product \"$PRODUCT\" version $VERSION, bundle identifier $IDENTIFIER"
-XCODE_PATH=$(xcode-select -p 2>/dev/null || true)
+# the active developer directory: DEVELOPER_DIR when it is set, otherwise the system's choice
+XCODE_PATH=${DEVELOPER_DIR:-$(xcode-select -p 2>/dev/null || true)}
 case "$XCODE_PATH" in
   *CommandLineTools*) say "NOTE: only the Command Line Tools are selected ($XCODE_PATH). The build and the .pkg work with them; the upload then needs the Transporter app, because altool ships with Xcode.app only (APPSTORE-FACTS.md 8.4-8.5, 9.6)." ;;
-  *) say "developer directory: $XCODE_PATH" ;;
+  "") say "NOTE: no developer directory found - install the Command Line Tools (xcode-select --install) or Xcode" ;;
+  *) say "developer directory: $XCODE_PATH (a newly installed Xcode must be opened once to accept its license; until then its tools stop with \"You have not agreed to the Xcode license agreements\" - docs/MAC-RELEASE.he.md section 9)" ;;
 esac
 
 require APPLE_TEAM_ID APPSTORE_APP_IDENTITY APPSTORE_INSTALLER_IDENTITY APPSTORE_PROVISIONING_PROFILE

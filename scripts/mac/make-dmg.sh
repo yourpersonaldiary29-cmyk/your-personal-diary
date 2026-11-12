@@ -30,6 +30,11 @@
 # later and some third-party tools cannot read them), keeps the symlink and the signed app intact, and
 # the user copies the app onto an APFS disk anyway. Our app itself requires macOS 12.3, so both would
 # work; HFS+ is simply the format with no known reader problem.
+#
+# macOS 27 prints "hdiutil: WARNING: '...' is deprecated. Please use 'diskutil image ...' instead." for
+# hdiutil create, attach and detach. The verbs still work (verified on macOS 27.2.1, 2026-11-12); the script
+# shows hdiutil's messages after each hdiutil step, on lines of their own, and one note that they are
+# expected. Replacements for a future macOS that removes them: docs/MAC-RELEASE.he.md, appendix A.
 set -euo pipefail
 
 say() { printf 'make-dmg: %s\n' "$*"; }
@@ -43,7 +48,8 @@ CONF="$ROOT/src-tauri/tauri.conf.json"
 PLISTBUDDY=/usr/libexec/PlistBuddy
 
 case "${1:-}" in
-  -h|--help) sed -n '2,30p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 0 ;;
+  # --help prints the comment block at the top of this file (up to the first line that is not a comment)
+  -h|--help) awk 'NR == 1 { next } /^#/ { sub(/^# ?/, ""); print; next } { exit }' "${BASH_SOURCE[0]}"; exit 0 ;;
 esac
 
 APP=${1:-"$ROOT/src-tauri/target/universal-apple-darwin/release/bundle/macos/Your Personal Diary.app"}
@@ -86,19 +92,40 @@ codesign --verify --deep --strict --verbose=2 "$APP" || die "the app's code sign
 DMG="$OUT_DIR/${APP_NAME}_${VERSION}_${ARCH_TAG}.dmg"
 
 # --- 2. staging folder --------------------------------------------------------------------------
-STAGE=$(mktemp -d "${TMPDIR:-/tmp}/ypd-dmg-stage.XXXXXX")
+STAGE=""
 MNT=""
+HD_ERR=""
 cleanup() {
   if [ -n "$MNT" ] && [ -d "$MNT" ]; then
     hdiutil detach "$MNT" >/dev/null 2>&1 || hdiutil detach "$MNT" -force >/dev/null 2>&1 || true
     rmdir "$MNT" 2>/dev/null || true
   fi
-  # only the folder mktemp created for us is removed, never anything else
+  # only what mktemp created for us is removed, never anything else
   case "$STAGE" in
     */ypd-dmg-stage.*) if [ -d "$STAGE" ]; then rm -rf "$STAGE"; fi ;;
   esac
+  case "$HD_ERR" in */ypd-dmg-err.*) rm -f "$HD_ERR" ;; esac
 }
 trap cleanup EXIT
+STAGE=$(mktemp -d "${TMPDIR:-/tmp}/ypd-dmg-stage.XXXXXX")
+HD_ERR=$(mktemp "${TMPDIR:-/tmp}/ypd-dmg-err.XXXXXX")
+
+# hd <hdiutil arguments...>: runs hdiutil and shows what it printed on stderr only after it finished,
+# so that a warning can never run into the middle of its "created: ..." line; returns hdiutil's exit code
+HD_NOTED=0
+hd() {
+  local rc=0
+  hdiutil "$@" 2>"$HD_ERR" || rc=$?
+  if [ -s "$HD_ERR" ]; then
+    cat "$HD_ERR" >&2
+    if [ "$HD_NOTED" = 0 ] && grep -q 'is deprecated' "$HD_ERR"; then
+      HD_NOTED=1
+      say "note: this macOS calls some hdiutil commands \"deprecated\" (the WARNING lines) - they still work, nothing to do" >&2
+    fi
+  fi
+  : > "$HD_ERR"
+  return "$rc"
+}
 
 say "staging a copy of the app"
 ditto "$APP" "$STAGE/$APP_NAME.app"
@@ -107,14 +134,15 @@ ln -s /Applications "$STAGE/Applications"
 # --- 3. the image -------------------------------------------------------------------------------
 mkdir -p "$OUT_DIR"
 say "creating $DMG"
-hdiutil create -volname "$VOLNAME" -srcfolder "$STAGE" -ov -format UDZO -fs HFS+ -imagekey zlib-level=9 "$DMG"
+hd create -volname "$VOLNAME" -srcfolder "$STAGE" -ov -format UDZO -fs HFS+ -imagekey zlib-level=9 "$DMG" \
+  || die "hdiutil create failed - its message is above (an older DMG of the same name still mounted? eject it in Finder)"
 
 # --- 4. verification ----------------------------------------------------------------------------
 say "verifying the image checksums"
-hdiutil verify "$DMG"
+hd verify "$DMG" || die "hdiutil verify rejects $DMG"
 MNT=$(mktemp -d "${TMPDIR:-/tmp}/ypd-dmg-mnt.XXXXXX")
 say "mounting read-only at $MNT (not shown in Finder)"
-hdiutil attach "$DMG" -nobrowse -readonly -mountpoint "$MNT" >/dev/null
+hd attach "$DMG" -nobrowse -readonly -mountpoint "$MNT" >/dev/null || die "cannot mount $DMG"
 cmp "$BIN" "$MNT/$APP_NAME.app/Contents/MacOS/$EXE" || die "the binary inside the DMG differs from $BIN"
 codesign --verify --deep --strict "$MNT/$APP_NAME.app" || die "the app inside the DMG does not verify"
 if [ -L "$MNT/Applications" ] && [ "$(readlink "$MNT/Applications")" = /Applications ]; then
@@ -122,7 +150,7 @@ if [ -L "$MNT/Applications" ] && [ "$(readlink "$MNT/Applications")" = /Applicat
 else
   die "the Applications link is missing in the image"
 fi
-hdiutil detach "$MNT" >/dev/null || { sleep 2; hdiutil detach "$MNT" >/dev/null; } || die "cannot detach $MNT"
+hd detach "$MNT" >/dev/null || { sleep 2; hd detach "$MNT" >/dev/null; } || die "cannot detach $MNT"
 rmdir "$MNT" 2>/dev/null || true
 MNT=""
 
