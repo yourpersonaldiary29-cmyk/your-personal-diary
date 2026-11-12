@@ -1,9 +1,9 @@
 // Your Personal Diary - the iOS side of the local Capacitor plugin `DiaryOffline`.
 //
-// STATUS: DRAFT, NEVER COMPILED. Written on Windows (docs/APPLE-PLAN.md WP-A2), where no Swift
-// compiler and no iOS SDK exist. The first Mac build compiles, reviews and tests it (WP-I2,
-// scripts/ios/README.he.md). It is security code: read it line by line before it ships, and run
-// the checks listed at the end of this header on a real iPhone.
+// STATUS: written on Windows (docs/APPLE-PLAN.md WP-A2); compiled for the first time on the owner's
+// Mac on 2026-11-12 (Xcode 27.2, iOS 27.2 SDK; package IOS-I2) with no error and no warning. Not run
+// on a real iPhone yet (scripts/ios/README.he.md). It is security code: read it line by line before
+// it ships, and run the checks listed at the end of this header on a real iPhone.
 //
 // JavaScript contract: mobile/plugins/diary-offline/index.ts. The engine's seams built on it:
 // mobile/platform/offline.ts. Android side (the behaviour this file mirrors, method by method):

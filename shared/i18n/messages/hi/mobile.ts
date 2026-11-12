@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'दूसरे ऐप पर जाने या स्क्रीन बंद होने पर डायरी लॉक हो जाती है; आपका पासवर्ड उसे फिर खोलता है।',
   'mobile.security.privacyScreen': 'हाल के ऐप्स में सामग्री छिपाएँ और स्क्रीनशॉट रोकें',
   'mobile.security.privacyScreenHint': 'हाल के ऐप्स की स्क्रीन में ऐप एक खाली कार्ड की तरह दिखता है और उसके स्क्रीनशॉट रोके जाते हैं।',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'ऐप स्विचर में सामग्री छिपाएँ',
+  'mobile.security.privacyScreenIosHint': 'ऐप स्विचर में ऐप एक खाली स्क्रीन की तरह दिखता है। iPhone पर ऐप्स स्क्रीनशॉट नहीं रोक सकते।',
   'mobile.security.biometric': 'फ़िंगरप्रिंट या चेहरे से अनलॉक करें',
   'mobile.security.biometricHint': 'केवल लॉक स्क्रीन के लिए। साइन इन और संवेदनशील बदलावों की पुष्टि के लिए हमेशा पासवर्ड चाहिए।',
   'mobile.security.biometricUnavailable': 'इस फ़ोन में फ़िंगरप्रिंट या चेहरे से अनलॉक सेट नहीं है।',

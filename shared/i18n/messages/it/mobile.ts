@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Il diario si blocca quando passi a un\'altra app o lo schermo si spegne; la tua password lo riapre.',
   'mobile.security.privacyScreen': 'Nascondi il contenuto nelle app recenti e blocca gli screenshot',
   'mobile.security.privacyScreenHint': 'Nella schermata delle app recenti l\'app appare come una scheda vuota e i suoi screenshot sono bloccati.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Nascondi il contenuto nello switcher applicazioni',
+  'mobile.security.privacyScreenIosHint': 'Nello switcher applicazioni l’app appare come una schermata vuota. Su iPhone le app non possono bloccare gli screenshot.',
   'mobile.security.biometric': 'Sblocca con impronta o volto',
   'mobile.security.biometricHint': 'Solo per la schermata di blocco. L\'accesso e la conferma di modifiche delicate richiedono sempre la password.',
   'mobile.security.biometricUnavailable': 'Su questo telefono non è configurato lo sblocco con impronta o volto.',

@@ -11,9 +11,13 @@ import { optimisticEntry, optimisticNewHabit } from '../optimistic';
 /** What the device showed for an entry before a change (calendar counts, tag counts, moves). */
 export type PrevEntry = Pick<Entry, 'date' | 'title' | 'tags' | 'people' | 'location'>;
 
+/**
+ * `ackedAt`: when the journal entry an acknowledged effect comes from was acknowledged (device ms,
+ * `JournalEntry.appliedAt`), so a record cached after it can be told apart; absent on a pending effect.
+ */
 export type EntryEffect =
-  | { type: 'upsert'; entry: Entry; pending: boolean; prev?: PrevEntry; created: boolean }
-  | { type: 'delete'; id: number; pending: boolean; prev?: PrevEntry };
+  | { type: 'upsert'; entry: Entry; pending: boolean; prev?: PrevEntry; created: boolean; ackedAt?: number }
+  | { type: 'delete'; id: number; pending: boolean; prev?: PrevEntry; ackedAt?: number };
 
 export type HabitEffect =
   /** A whole habit: created offline (pending) or the server's answer (journal). */
@@ -163,18 +167,18 @@ export function buildEffects(src: EffectSources): Effects {
       case 'entry.update': {
         if (r.outcome === 'gone') {
           const id = displayIdOf(src, 'entry', j.queued);
-          if (id !== null) fx.entries.push({ type: 'delete', id, pending: false, prev });
+          if (id !== null) fx.entries.push({ type: 'delete', id, pending: false, prev, ackedAt: j.appliedAt });
         } else if (KEEPS_RECORD.has(r.outcome) && r.record && 'body' in r.record) {
-          fx.entries.push({ type: 'upsert', entry: r.record as Entry, pending: false, prev, created: op.kind === 'entry.create' });
+          fx.entries.push({ type: 'upsert', entry: r.record as Entry, pending: false, prev, created: op.kind === 'entry.create', ackedAt: j.appliedAt });
         }
         break;
       }
       case 'entry.delete': {
         const id = displayIdOf(src, 'entry', j.queued);
         if (r.outcome === 'conflict-lost' && r.record && 'body' in r.record) {
-          fx.entries.push({ type: 'upsert', entry: r.record as Entry, pending: false, prev, created: false });
+          fx.entries.push({ type: 'upsert', entry: r.record as Entry, pending: false, prev, created: false, ackedAt: j.appliedAt });
         } else if (r.outcome !== 'stale' && id !== null) {
-          fx.entries.push({ type: 'delete', id, pending: false, prev });
+          fx.entries.push({ type: 'delete', id, pending: false, prev, ackedAt: j.appliedAt });
         }
         break;
       }

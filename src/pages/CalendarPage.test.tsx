@@ -1,12 +1,14 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, screen, waitFor, within } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
 import { traditionLabel } from '@shared/calendars';
 import { monthViewContaining, monthViewFor } from '@shared/calendars/month-view';
 import type { AppSettings, CalendarDay, CalendarMonth } from '@shared/types';
 import * as api from '@/api';
-import { setCurrentLocale } from '@/i18n/runtime';
+import { setCurrentLocale, tr } from '@/i18n/runtime';
 import { pinLocaleForTests } from '@/i18n/test-utils';
+import { bootDevice, DANA, installWebCrypto, resetOfflineTestEnv, waitForAsync } from '@/offline/test-utils/env';
+import { FakeSyncServer } from '@/offline/test-utils/fake-sync-server';
 import { CX, ET } from '@/pages/entries';
 import { LocationDisplay, currentPath, politeRegion, renderWithProviders } from '@/test/render';
 import { daysInMonth, todayIso } from '@/utils/dates';
@@ -631,5 +633,136 @@ describe('CalendarPage calendar systems', () => {
     expect(within(screen.getByRole('combobox', { name: 'Month' })).getAllByRole('option')[0]).toHaveTextContent('Tishri');
     expect(within(screen.getByRole('combobox', { name: 'Year' })).getByRole('option', { name: '5787' })).toBeInTheDocument();
     expect(within(screen.getByRole('region', { name: 'Holiday legend' })).getByText('Jewish holidays and observances')).toBeInTheDocument();
+  });
+});
+
+describe('CalendarPage without a connection: every calendar system (OFFLINE-CALENDARS)', () => {
+  let server: FakeSyncServer;
+  let real: typeof import('@/api');
+
+  beforeAll(async () => {
+    installWebCrypto();
+    real = await vi.importActual<typeof import('@/api')>('@/api');
+  });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    server = new FakeSyncServer();
+    // The page reads through the REAL api and its offline facade (the engine `bootDevice` arms), not canned answers.
+    vi.mocked(api.calendar.month).mockImplementation((year: number, month: number) => real.calendar.month(year, month));
+    vi.mocked(api.calendar.range).mockImplementation((from: string, to: string) => real.calendar.range(from, to));
+  });
+
+  afterEach(async () => {
+    await resetOfflineTestEnv();
+  });
+
+  /** A device with "Remember me" whose start-up warm-up has run (its last request when no entry is recent: the locations). */
+  async function device() {
+    const booted = await bootDevice({ server, rememberMe: true, app: true });
+    await waitForAsync(async () => (await booted.engine.cache.get('/api/entries/meta/locations')) !== null, 6000);
+    return booted;
+  }
+
+  function tableOf(caption: HTMLElement): HTMLElement {
+    return caption.closest('table') as HTMLElement;
+  }
+
+  function cell(table: HTMLElement, date: string): HTMLElement {
+    const el = table.querySelector<HTMLElement>(`button[data-date="${date}"]`);
+    if (!el) throw new Error(`no cell for ${date}`);
+    return el;
+  }
+
+  /** No error box on the page: neither "not saved on this device yet" nor "needs a connection". */
+  function expectNoError(): void {
+    expect(document.querySelector('.alert--error')).toBeNull();
+    expect(screen.queryByText(tr('shell.sync.notCachedYet'))).toBeNull();
+    expect(screen.queryByText(tr('shell.sync.needsConnection'))).toBeNull();
+  }
+
+  /** A grid of `days` days that says it was put together from this device, and no error. */
+  function expectPartialGrid(table: HTMLElement, days: number): void {
+    expect(within(table).getAllByRole('button')).toHaveLength(days);
+    expect(screen.getByTestId('partial-view-hint')).toHaveTextContent(tr('shell.sync.partialView'));
+    expectNoError();
+  }
+
+  it('Hebrew and Hijri months (and a Gregorian one) never viewed online show their grid with the entries and the partial note', async () => {
+    server.seedEntry(DANA, { title: 'ראש השנה', date: '2026-09-12', mood: 8 });
+    const sukkot = server.seedEntry(DANA, { title: 'סוכות', date: '2026-10-03' });
+    const eve = server.seedEntry(DANA, { title: 'ערב רמדאן', date: '2026-02-18' });
+    server.seedEntry(DANA, { title: 'איפטאר', date: '2026-03-10', mood: 9 });
+    await device();
+    // Online the device showed September and March (Gregorian months) and opened two entries - never Tishrei or Ramadan.
+    await real.calendar.month(2026, 9);
+    await real.calendar.month(2026, 3);
+    await real.entries.get(sukkot.id);
+    await real.entries.get(eve.id);
+    server.mode = 'down';
+
+    // Tishrei 5787: 12 September - 11 October 2026 (September from its cached month, 3 October from its cached entry).
+    const hebrew = renderPage('/calendar?system=hebrew&year=5787&month=1');
+    let table = tableOf(await screen.findByText('תשרי תשפ״ז', { selector: 'caption' }));
+    expect(api.calendar.range).toHaveBeenCalledWith('2026-09-12', '2026-10-11');
+    expectPartialGrid(table, 30);
+    expect(cell(table, '2026-09-12')).toHaveTextContent(ET.entryMarker(1));
+    expect(cell(table, '2026-09-12')).toHaveTextContent(ET.moodCell('8'));
+    expect(cell(table, '2026-10-03')).toHaveTextContent(ET.entryMarker(1));
+    expect(cell(table, '2026-09-20')).not.toHaveTextContent(ET.entryMarker(1));
+    // The holidays are computed on the device as always.
+    expect(within(cell(table, '2026-09-12')).getByText('ראש השנה').closest('.holiday-badge')).toHaveAttribute('data-tradition', 'jewish');
+    hebrew.unmount();
+
+    // Ramadan 1447: 18 February - 19 March 2026 (February from its cached entry, March from its cached month).
+    const hijri = renderPage('/calendar?system=hijri&year=1447&month=9');
+    table = tableOf(await screen.findByText('רמדאן 1447', { selector: 'caption' }));
+    expectPartialGrid(table, 30);
+    expect(cell(table, '2026-02-18')).toHaveTextContent(ET.entryMarker(1));
+    expect(cell(table, '2026-03-10')).toHaveTextContent(ET.entryMarker(1));
+    expect(cell(table, '2026-03-10')).toHaveTextContent(ET.moodCell('9'));
+    hijri.unmount();
+
+    // October 2026: a Gregorian month never viewed either.
+    renderPage('/calendar?year=2026&month=10');
+    table = tableOf(await screen.findByText('אוקטובר 2026', { selector: 'caption' }));
+    expectPartialGrid(table, 31);
+    expect(cell(table, '2026-10-03')).toHaveTextContent(ET.entryMarker(1));
+  });
+
+  it('with the Hebrew calendar chosen, the warm-up keeps today\'s Hebrew month: offline a bare /calendar shows it whole', async () => {
+    window.localStorage.setItem(CALENDAR_SYSTEM_KEY, JSON.stringify('hebrew'));
+    await device();
+    server.mode = 'down';
+    renderPage('/calendar');
+    const expected = monthViewContaining('hebrew', todayIso(), 'he');
+    const table = tableOf(await screen.findByText(expected.title, { selector: 'caption' }));
+    expect(within(table).getAllByRole('button')).toHaveLength(expected.length);
+    // The answer the warm-up cached, not one put together: no partial note, and no error.
+    expect(screen.queryByTestId('partial-view-hint')).toBeNull();
+    expectNoError();
+  });
+
+  it('a month put together with no cached day of its past shows the habits of the device on its past days, as online', async () => {
+    server.seedHabit(DANA, { name: 'מים', target: 1 });
+    const walk = server.seedEntry(DANA, { title: 'הליכה', date: '2026-10-03' });
+    await device();
+    await real.entries.get(walk.id);
+    server.mode = 'down';
+
+    // October 2026: no cached calendar answer covers it.
+    const october = renderPage('/calendar?year=2026&month=10');
+    let table = tableOf(await screen.findByText('אוקטובר 2026', { selector: 'caption' }));
+    expectPartialGrid(table, 31);
+    for (const date of ['2026-10-01', '2026-10-03', '2026-10-31']) expect(cell(table, date)).toHaveTextContent(ET.habitsCell(0, 1));
+    expect(cell(table, '2026-10-03')).toHaveTextContent(ET.entryMarker(1));
+    october.unmount();
+
+    // Tishrei 5787 (12 September - 11 October 2026): the same.
+    renderPage('/calendar?system=hebrew&year=5787&month=1');
+    table = tableOf(await screen.findByText('תשרי תשפ״ז', { selector: 'caption' }));
+    expectPartialGrid(table, 30);
+    for (const date of ['2026-09-12', '2026-10-03', '2026-10-11']) expect(cell(table, date)).toHaveTextContent(ET.habitsCell(0, 1));
+    expect(cell(table, '2026-10-03')).toHaveTextContent(ET.entryMarker(1));
   });
 });

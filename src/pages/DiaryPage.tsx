@@ -373,6 +373,8 @@ export default function DiaryPage() {
           </Button>
         </Alert>
       )}
+      {/* Offline, a year never viewed online is put together from what the device holds (OFFLINE-CALENDARS). */}
+      <PartialViewHint value={yearDays.data} />
       {yearDays.data && (
         <table className="month-table">
           <caption className="visually-hidden">{range.label}</caption>

@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'O diário bloqueia quando muda para outra aplicação ou o ecrã se apaga; a sua palavra-passe volta a abri-lo.',
   'mobile.security.privacyScreen': 'Ocultar o conteúdo nas aplicações recentes e bloquear capturas de ecrã',
   'mobile.security.privacyScreenHint': 'A aplicação aparece como um cartão em branco no ecrã de aplicações recentes e as capturas de ecrã são bloqueadas.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Ocultar o conteúdo no seletor de apps',
+  'mobile.security.privacyScreenIosHint': 'A aplicação aparece como um ecrã em branco no seletor de apps. No iPhone, as aplicações não conseguem bloquear as capturas de ecrã.',
   'mobile.security.biometric': 'Desbloquear com impressão digital ou rosto',
   'mobile.security.biometricHint': 'Apenas para o ecrã de bloqueio. Iniciar sessão e confirmar alterações sensíveis pedem sempre a palavra-passe.',
   'mobile.security.biometricUnavailable': 'Este telemóvel não tem desbloqueio por impressão digital ou rosto configurado.',

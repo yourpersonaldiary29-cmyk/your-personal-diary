@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': '他のアプリに切り替えたときや画面が消えたときに日記をロックします。パスワードで再び開けます。',
   'mobile.security.privacyScreen': '最近使ったアプリで内容を隠し、スクリーンショットを禁止',
   'mobile.security.privacyScreenHint': '最近使ったアプリの画面では空白のカードとして表示され、スクリーンショットは撮れません。',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'アプリスイッチャーで内容を隠す',
+  'mobile.security.privacyScreenIosHint': 'アプリスイッチャーでは空白の画面として表示されます。iPhoneでは、アプリがスクリーンショットを禁止することはできません。',
   'mobile.security.biometric': '指紋または顔でロック解除',
   'mobile.security.biometricHint': 'ロック画面のみ。ログインや重要な変更の確認には常にパスワードが必要です。',
   'mobile.security.biometricUnavailable': 'この端末では指紋または顔によるロック解除が設定されていません。',

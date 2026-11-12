@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'ไดอารี่จะล็อกเมื่อสลับไปแอปอื่นหรือหน้าจอดับ รหัสผ่านของคุณใช้เปิดอีกครั้ง',
   'mobile.security.privacyScreen': 'ซ่อนเนื้อหาในแอปล่าสุดและบล็อกการจับภาพหน้าจอ',
   'mobile.security.privacyScreenHint': 'แอปจะแสดงเป็นการ์ดว่างในหน้าจอแอปล่าสุด และไม่สามารถจับภาพหน้าจอของแอปได้',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'ซ่อนเนื้อหาในแถบสลับแอป',
+  'mobile.security.privacyScreenIosHint': 'แอปจะแสดงเป็นหน้าจอว่างในแถบสลับแอป บน iPhone แอปไม่สามารถบล็อกการจับภาพหน้าจอได้',
   'mobile.security.biometric': 'ปลดล็อกด้วยลายนิ้วมือหรือใบหน้า',
   'mobile.security.biometricHint': 'สำหรับหน้าจอล็อกเท่านั้น การเข้าสู่ระบบและการยืนยันการเปลี่ยนแปลงที่สำคัญต้องใช้รหัสผ่านเสมอ',
   'mobile.security.biometricUnavailable': 'โทรศัพท์เครื่องนี้ยังไม่ได้ตั้งค่าการปลดล็อกด้วยลายนิ้วมือหรือใบหน้า',

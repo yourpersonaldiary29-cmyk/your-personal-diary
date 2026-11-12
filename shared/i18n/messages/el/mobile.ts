@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Το ημερολόγιο κλειδώνει όταν μεταβαίνετε σε άλλη εφαρμογή ή σβήνει η οθόνη· ο κωδικός σας το ανοίγει ξανά.',
   'mobile.security.privacyScreen': 'Απόκρυψη περιεχομένου στις πρόσφατες εφαρμογές και αποκλεισμός στιγμιότυπων οθόνης',
   'mobile.security.privacyScreenHint': 'Η εφαρμογή εμφανίζεται ως κενή κάρτα στην οθόνη πρόσφατων εφαρμογών και τα στιγμιότυπα οθόνης της αποκλείονται.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Απόκρυψη περιεχομένου στην εναλλαγή εφαρμογών',
+  'mobile.security.privacyScreenIosHint': 'Η εφαρμογή εμφανίζεται ως κενή οθόνη στην εναλλαγή εφαρμογών. Στο iPhone, οι εφαρμογές δεν μπορούν να αποκλείσουν τα στιγμιότυπα οθόνης.',
   'mobile.security.biometric': 'Ξεκλείδωμα με δακτυλικό αποτύπωμα ή πρόσωπο',
   'mobile.security.biometricHint': 'Μόνο για την οθόνη κλειδώματος. Η σύνδεση και η επιβεβαίωση ευαίσθητων αλλαγών ζητούν πάντα τον κωδικό.',
   'mobile.security.biometricUnavailable': 'Σε αυτό το τηλέφωνο δεν έχει ρυθμιστεί ξεκλείδωμα με δακτυλικό αποτύπωμα ή πρόσωπο.',

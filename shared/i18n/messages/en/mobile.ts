@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'The diary locks when you switch to another app or the screen turns off; your password opens it again.',
   'mobile.security.privacyScreen': 'Hide content in recent apps and block screenshots',
   'mobile.security.privacyScreenHint': 'The app shows a blank card in the recent-apps screen and screenshots of it are blocked.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Hide content in the app switcher',
+  'mobile.security.privacyScreenIosHint': 'The app shows a blank screen in the app switcher. On iPhone, apps cannot block screenshots.',
   'mobile.security.biometric': 'Unlock with fingerprint or face',
   'mobile.security.biometricHint': 'Only for the lock screen. Signing in and confirming sensitive changes always ask for your password.',
   'mobile.security.biometricUnavailable': 'No fingerprint or face unlock is set up on this phone.',

@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'A napló zárolódik, ha másik alkalmazásra vált vagy kialszik a képernyő; a jelszava nyitja meg újra.',
   'mobile.security.privacyScreen': 'Tartalom elrejtése a legutóbbi alkalmazások között és képernyőképek tiltása',
   'mobile.security.privacyScreenHint': 'Az alkalmazás üres kártyaként jelenik meg a legutóbbi alkalmazások képernyőjén, és nem készíthető róla képernyőkép.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Tartalom elrejtése az alkalmazásváltóban',
+  'mobile.security.privacyScreenIosHint': 'Az alkalmazás üres képernyőként jelenik meg az alkalmazásváltóban. Az iPhone-on az alkalmazások nem tudják megakadályozni a képernyőképek készítését.',
   'mobile.security.biometric': 'Feloldás ujjlenyomattal vagy arccal',
   'mobile.security.biometricHint': 'Csak a lezárási képernyőhöz. A bejelentkezés és az érzékeny módosítások megerősítése mindig jelszót kér.',
   'mobile.security.biometricUnavailable': 'Ezen a telefonon nincs beállítva ujjlenyomatos vagy arcfelismeréses feloldás.',

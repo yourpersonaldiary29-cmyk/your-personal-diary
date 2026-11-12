@@ -1,8 +1,8 @@
 // Your Personal Diary - the iOS side of the local Capacitor plugin `DiaryBiometric`.
 //
-// STATUS: DRAFT, NEVER COMPILED. Written on Windows (docs/APPLE-PLAN.md WP-A2), where no Swift
-// compiler and no iOS SDK exist. The first Mac build compiles and reviews it (WP-I2,
-// scripts/ios/README.he.md).
+// STATUS: written on Windows (docs/APPLE-PLAN.md WP-A2); compiled for the first time on the owner's
+// Mac on 2026-11-12 (Xcode 27.2, iOS 27.2 SDK; package IOS-I2) with no error and no warning
+// (scripts/ios/README.he.md).
 //
 // JavaScript contract: mobile/plugins/diary-biometric/index.ts. Android side:
 // android/app/src/main/java/com/mydiary/app/plugins/DiaryBiometricPlugin.java.

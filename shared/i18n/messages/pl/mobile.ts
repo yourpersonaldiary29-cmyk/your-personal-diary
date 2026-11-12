@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Dziennik blokuje się po przejściu do innej aplikacji lub wygaszeniu ekranu; hasło otwiera go ponownie.',
   'mobile.security.privacyScreen': 'Ukryj treść w ostatnich aplikacjach i blokuj zrzuty ekranu',
   'mobile.security.privacyScreenHint': 'Aplikacja jest pustą kartą na ekranie ostatnich aplikacji, a zrzuty ekranu z niej są blokowane.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Ukryj treść w przełączniku aplikacji',
+  'mobile.security.privacyScreenIosHint': 'Aplikacja jest widoczna w przełączniku aplikacji jako pusty ekran. Na iPhonie aplikacje nie mogą blokować zrzutów ekranu.',
   'mobile.security.biometric': 'Odblokuj odciskiem palca lub twarzą',
   'mobile.security.biometricHint': 'Tylko dla ekranu blokady. Logowanie i potwierdzanie wrażliwych zmian zawsze wymagają hasła.',
   'mobile.security.biometricUnavailable': 'Na tym telefonie nie skonfigurowano odblokowania odciskiem palca ani twarzą.',

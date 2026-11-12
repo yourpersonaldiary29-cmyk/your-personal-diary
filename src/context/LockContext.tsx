@@ -151,7 +151,7 @@ export function useLock(): LockContextValue {
 export interface PhoneSecurityPrefs {
   /** "Lock when I leave the app" (default on). */
   lockOnLeave: boolean;
-  /** "Hide content in recent apps and block screenshots" (default on). */
+  /** The privacy screen (default on): Android FLAG_SECURE; on iOS only a cover in the app switcher. */
   privacyScreen: boolean;
   /** "Unlock with fingerprint or face" (default off; shown only when `PhoneSecurity.biometric` exists). */
   biometricUnlock: boolean;

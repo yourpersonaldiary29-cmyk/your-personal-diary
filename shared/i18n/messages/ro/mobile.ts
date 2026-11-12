@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Jurnalul se blochează când treceți la altă aplicație sau când ecranul se stinge; parola dvs. îl deschide din nou.',
   'mobile.security.privacyScreen': 'Ascunde conținutul în aplicațiile recente și blochează capturile de ecran',
   'mobile.security.privacyScreenHint': 'Aplicația apare ca un card gol în ecranul aplicațiilor recente, iar capturile de ecran ale ei sunt blocate.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Ascunde conținutul în comutatorul de aplicații',
+  'mobile.security.privacyScreenIosHint': 'Aplicația apare ca un ecran gol în comutatorul de aplicații. Pe iPhone, aplicațiile nu pot bloca capturile de ecran.',
   'mobile.security.biometric': 'Deblocare cu amprentă sau față',
   'mobile.security.biometricHint': 'Doar pentru ecranul de blocare. Autentificarea și confirmarea modificărilor sensibile cer întotdeauna parola.',
   'mobile.security.biometricUnavailable': 'Pe acest telefon nu este configurată deblocarea cu amprentă sau față.',

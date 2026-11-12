@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Дневникът се заключва при преминаване към друго приложение или при изгасване на екрана; паролата ви го отваря отново.',
   'mobile.security.privacyScreen': 'Скриване на съдържанието в скорошните приложения и блокиране на екранни снимки',
   'mobile.security.privacyScreenHint': 'Приложението се показва като празна карта в екрана със скорошни приложения, а екранните му снимки са блокирани.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Скриване на съдържанието в превключвателя на приложения',
+  'mobile.security.privacyScreenIosHint': 'Приложението се показва като празен екран в превключвателя на приложения. На iPhone приложенията не могат да блокират екранните снимки.',
   'mobile.security.biometric': 'Отключване с пръстов отпечатък или лице',
   'mobile.security.biometricHint': 'Само за заключения екран. Влизането и потвърждаването на чувствителни промени винаги изискват паролата.',
   'mobile.security.biometricUnavailable': 'На този телефон не е настроено отключване с пръстов отпечатък или лице.',

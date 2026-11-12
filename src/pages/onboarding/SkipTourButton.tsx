@@ -29,6 +29,7 @@ import { useToast } from '@/context/ToastContext';
 import { tr } from '@/i18n/runtime';
 import { errorMessage } from '@/utils/errors';
 import { isMobileUi } from '@/utils/mobile-ui';
+import { platformName } from '@/utils/platform';
 
 /**
  * Whether the tour is offered: never outside the Android app (`phoneUi` false: the Windows app, the
@@ -39,6 +40,11 @@ import { isMobileUi } from '@/utils/mobile-ui';
  */
 export function tourOffered(info: ServerInfo | null, phoneUi: boolean = isMobileUi()): boolean {
   if (!phoneUi) return false;
+  // The iPhone app shares the phone UI but has no tour (docs/apple-tasks/ENV-FINAL.md decision 10:
+  // an Android-only feature; App Review gets the demo account). Behind the compile-time __MOBILE__
+  // (folded to false in the desktop / browser build) so platformName and its Capacitor lookup never
+  // reach the desktop bundle (mobile/test/desktop-dist-clean.test.ts).
+  if (typeof __MOBILE__ !== 'undefined' && __MOBILE__ && platformName() === 'ios') return false;
   if (!info) return true;
   return info.guestTour === true || info.mode !== 'hosted';
 }

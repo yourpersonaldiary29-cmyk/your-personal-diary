@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'تُقفل اليوميات عند الانتقال إلى تطبيق آخر أو انطفاء الشاشة؛ وكلمة مرورك تفتحها من جديد.',
   'mobile.security.privacyScreen': 'إخفاء المحتوى في التطبيقات الأخيرة ومنع لقطات الشاشة',
   'mobile.security.privacyScreenHint': 'يظهر التطبيق كبطاقة فارغة في شاشة التطبيقات الأخيرة، وتُمنع لقطات الشاشة له.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'إخفاء المحتوى في مبدّل التطبيقات',
+  'mobile.security.privacyScreenIosHint': 'يظهر التطبيق كشاشة فارغة في مبدّل التطبيقات. على iPhone، لا يمكن للتطبيقات منع لقطات الشاشة.',
   'mobile.security.biometric': 'فتح القفل ببصمة الإصبع أو الوجه',
   'mobile.security.biometricHint': 'لشاشة القفل فقط. تسجيل الدخول وتأكيد التغييرات الحساسة يتطلبان كلمة المرور دائمًا.',
   'mobile.security.biometricUnavailable': 'لم يُعدّ فتح القفل ببصمة الإصبع أو الوجه على هذا الهاتف.',

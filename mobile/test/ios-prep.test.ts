@@ -528,10 +528,20 @@ describe('the privacy manifest (mobile/ios-app/PrivacyInfo.xcprivacy)', () => {
     expect(listOf(manifest.NSPrivacyTrackingDomains)).toEqual([]);
   });
 
-  it('collects name, e-mail address, user id and the diary - linked to the user, not for tracking, for the app only', () => {
+  it('collects name, e-mail address, user id, the diary and its health / fitness fields - linked to the user, not for tracking, for the app only', () => {
+    // The six types of the App Privacy answers (appstore/policy/app-privacy.md section 1,
+    // docs/apple-tasks/ENV-FINAL.md decision 4): Health = the optional sleep / stress fields,
+    // Fitness = the optional physical-activity fields of an entry.
     const collected = listOf(manifest.NSPrivacyCollectedDataTypes).map(dictOf);
     expect(collected.map((c) => c.NSPrivacyCollectedDataType).sort()).toEqual(
-      ['NSPrivacyCollectedDataTypeEmailAddress', 'NSPrivacyCollectedDataTypeName', 'NSPrivacyCollectedDataTypeOtherUserContent', 'NSPrivacyCollectedDataTypeUserID'].sort(),
+      [
+        'NSPrivacyCollectedDataTypeEmailAddress',
+        'NSPrivacyCollectedDataTypeFitness',
+        'NSPrivacyCollectedDataTypeHealth',
+        'NSPrivacyCollectedDataTypeName',
+        'NSPrivacyCollectedDataTypeOtherUserContent',
+        'NSPrivacyCollectedDataTypeUserID',
+      ].sort(),
     );
     for (const entry of collected) {
       expect(entry.NSPrivacyCollectedDataTypeLinked).toBe(true);

@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Das Tagebuch wird gesperrt, wenn Sie zu einer anderen App wechseln oder der Bildschirm ausgeht; Ihr Passwort öffnet es wieder.',
   'mobile.security.privacyScreen': 'Inhalt in den letzten Apps verbergen und Screenshots blockieren',
   'mobile.security.privacyScreenHint': 'Die App erscheint in der Übersicht der letzten Apps als leere Karte, und Screenshots von ihr werden blockiert.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Inhalt im App-Umschalter verbergen',
+  'mobile.security.privacyScreenIosHint': 'Die App erscheint im App-Umschalter als leerer Bildschirm. Auf dem iPhone können Apps keine Screenshots blockieren.',
   'mobile.security.biometric': 'Mit Fingerabdruck oder Gesicht entsperren',
   'mobile.security.biometricHint': 'Nur für den Sperrbildschirm. Anmelden und das Bestätigen sensibler Änderungen verlangen immer das Passwort.',
   'mobile.security.biometricUnavailable': 'Auf diesem Telefon ist kein Entsperren per Fingerabdruck oder Gesicht eingerichtet.',

@@ -3,8 +3,9 @@ import { screen, waitFor, within } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
 import type { CalendarDay, EntrySummary } from '@shared/types';
 import * as api from '@/api';
-import { setCurrentLocale } from '@/i18n/runtime';
+import { setCurrentLocale, tr } from '@/i18n/runtime';
 import { pinLocaleForTests } from '@/i18n/test-utils';
+import { markPartial } from '@/offline/engine';
 import { ET } from '@/pages/entries';
 import { LocationDisplay, politeRegion, renderWithProviders } from '@/test/render';
 import DiaryPage, { diaryRange, groupByDay, monthSummaries, shiftAnchor } from './DiaryPage';
@@ -222,6 +223,19 @@ describe('DiaryPage', () => {
     );
     // The pressed month button is gone with the table: focus lands on the selected tab, not on <body>.
     expect(screen.getByRole('tab', { name: ET.viewMonth })).toHaveFocus();
+  });
+
+  it('year view: a year put together offline from what is on the device says so; an answer of the server does not', async () => {
+    const { user } = renderPage('/diary?date=2026-09-07');
+    await user.click(screen.getByRole('tab', { name: ET.viewYear }));
+    await screen.findByRole('row', { name: /ספטמבר/ });
+    expect(screen.queryByTestId('partial-view-hint')).toBeNull();
+
+    vi.mocked(api.calendar.range).mockResolvedValue(markPartial([calendarDay({ date: '2025-03-04', entryCount: 1, hasEntry: true })]));
+    await user.click(screen.getByRole('button', { name: ET.previous }));
+    await waitFor(() => expect(api.calendar.range).toHaveBeenLastCalledWith('2025-01-01', '2025-12-31'));
+    expect(await screen.findByTestId('partial-view-hint')).toHaveTextContent(tr('shell.sync.partialView'));
+    expect(within(screen.getByRole('row', { name: /מרץ/ })).getByText(ET.entriesCount(1))).toBeInTheDocument();
   });
 
   it('"load more" moves focus to the first newly loaded entry', async () => {

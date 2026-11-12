@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': '切换到其他应用或屏幕关闭时日记会锁定；输入密码即可再次打开。',
   'mobile.security.privacyScreen': '在最近任务中隐藏内容并阻止截屏',
   'mobile.security.privacyScreenHint': '应用在最近任务界面显示为空白卡片，并且无法对其截屏。',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': '在 App 切换器中隐藏内容',
+  'mobile.security.privacyScreenIosHint': '应用在 App 切换器中显示为空白画面。在 iPhone 上，应用无法阻止截屏。',
   'mobile.security.biometric': '使用指纹或面容解锁',
   'mobile.security.biometricHint': '仅用于锁定屏幕。登录和确认敏感更改始终需要密码。',
   'mobile.security.biometricUnavailable': '此手机未设置指纹或面容解锁。',

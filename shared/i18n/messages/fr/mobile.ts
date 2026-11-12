@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Le journal se verrouille quand vous passez à une autre application ou que l\'écran s\'éteint ; votre mot de passe le rouvre.',
   'mobile.security.privacyScreen': 'Masquer le contenu dans les applications récentes et bloquer les captures d\'écran',
   'mobile.security.privacyScreenHint': 'L\'application apparaît comme une carte vide dans l\'écran des applications récentes et ses captures d\'écran sont bloquées.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Masquer le contenu dans le sélecteur d’apps',
+  'mobile.security.privacyScreenIosHint': 'L’application apparaît comme un écran vide dans le sélecteur d’apps. Sur l’iPhone, les applications ne peuvent pas bloquer les captures d’écran.',
   'mobile.security.biometric': 'Déverrouiller par empreinte ou visage',
   'mobile.security.biometricHint': 'Uniquement pour l\'écran de verrouillage. La connexion et la confirmation de modifications sensibles demandent toujours le mot de passe.',
   'mobile.security.biometricUnavailable': 'Aucun déverrouillage par empreinte ou visage n\'est configuré sur ce téléphone.',

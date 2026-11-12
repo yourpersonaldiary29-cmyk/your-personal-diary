@@ -2,9 +2,12 @@
  * "Security" card: auto-lock delay and a "lock now" button.
  * The auto-lock timer itself runs in App (useAutoLock) from settings.autoLockMinutes.
  *
- * Phone (Android app) only: the device settings "Lock when I leave the app" (default on), "Hide
- * content in recent apps and block screenshots" (default on) and - when the build offers it -
- * "Unlock with fingerprint or face", which asks for the account password once to turn on.
+ * Phone (Android / iPhone app) only: the device settings "Lock when I leave the app" (default on),
+ * the privacy screen (default on) and - when the build offers it - "Unlock with fingerprint or
+ * face", which asks for the account password once to turn on. The privacy screen promises what the
+ * platform does: on Android "Hide content in recent apps and block screenshots" (FLAG_SECURE), on
+ * the iPhone "Hide content in the app switcher" - iOS lets no app block screenshots
+ * (mobile/plugins/diary-privacy-screen/ios/DiaryPrivacyScreenPlugin.swift).
  */
 import { useEffect, useState, type FormEvent } from 'react';
 import { Alert } from '@/components/ui/Alert';
@@ -23,6 +26,7 @@ import { shortcutHintsAvailable } from '@/hooks/useKeyboardShortcuts';
 import { tr } from '@/i18n/runtime';
 import { isApp } from '@/offline/session';
 import { errorMessage } from '@/utils/errors';
+import { platformName } from '@/utils/platform';
 import { platformizeHint } from '@/utils/platform-keys';
 import { ST } from './texts';
 import { useSettingsSaver } from './useSettingsSaver';
@@ -39,6 +43,11 @@ function PhoneSecurityBlock({ security }: { security: PhoneSecurity }) {
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // The iPhone covers the app switcher only - iOS has no FLAG_SECURE, so its wording does not promise
+  // blocked screenshots. Behind the compile-time __MOBILE__ (folded to false in the desktop / browser
+  // build) so platformName and its Capacitor lookup never reach the desktop bundle
+  // (mobile/test/desktop-dist-clean.test.ts).
+  const ios = typeof __MOBILE__ !== 'undefined' && __MOBILE__ && platformName() === 'ios';
 
   useEffect(() => security.subscribe(setPrefs), [security]);
   useEffect(() => {
@@ -112,8 +121,8 @@ function PhoneSecurityBlock({ security }: { security: PhoneSecurity }) {
       />
       <Checkbox
         id="settings-privacy-screen"
-        label={tr('mobile.security.privacyScreen')}
-        hint={tr('mobile.security.privacyScreenHint')}
+        label={ios ? tr('mobile.security.privacyScreenIos') : tr('mobile.security.privacyScreen')}
+        hint={ios ? tr('mobile.security.privacyScreenIosHint') : tr('mobile.security.privacyScreenHint')}
         checked={prefs.privacyScreen}
         onChange={toggle((value) => security.setPrivacyScreen(value))}
       />

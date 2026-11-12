@@ -1,8 +1,9 @@
 // Your Personal Diary - the iOS side of the local Capacitor plugin `DiaryPrivacyScreen`.
 //
-// STATUS: DRAFT, NEVER COMPILED. Written on Windows (docs/APPLE-PLAN.md WP-A2), where no Swift
-// compiler and no iOS SDK exist. The first Mac build compiles, reviews and tests it (WP-I2,
-// scripts/ios/README.he.md). Until then nothing here is proven beyond "it follows the contract".
+// STATUS: written on Windows (docs/APPLE-PLAN.md WP-A2); compiled for the first time on the owner's
+// Mac on 2026-11-12 (Xcode 27.2, iOS 27.2 SDK; package IOS-I2) with no error and no warning. Until
+// it runs on a real iPhone (scripts/ios/README.he.md section 8, row 8) nothing here is proven beyond
+// "it compiles and follows the contract".
 //
 // JavaScript contract: mobile/plugins/diary-privacy-screen/index.ts (`setEnabled`, `isEnabled`).
 // Android side: android/app/src/main/java/com/mydiary/app/plugins/DiaryPrivacyScreenPlugin.java.
@@ -13,8 +14,8 @@
 // when the plugin loads - before the page is loaded - exactly as the Java side keeps its own copy.
 //
 // What it does NOT do on iOS: block screenshots. Android's FLAG_SECURE has no public equivalent,
-// so the setting's text must not promise it there (the `mobile.security.privacyScreen*` texts of
-// shared/i18n say "block screenshots" today - WP-I2 gives iOS its own wording, in 20 languages).
+// so the setting's text does not promise it there: on iOS the Security card shows
+// `mobile.security.privacyScreenIos*` ("Hide content in the app switcher", 20 languages, 2026-11-12).
 //
 // Why willResignActive and not didEnterBackground: iOS takes the app-switcher snapshot after the
 // app entered the background, but the live window is already visible in the switcher while the app

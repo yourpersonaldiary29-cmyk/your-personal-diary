@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'היומן ננעל כשעוברים לאפליקציה אחרת או כשהמסך כבה; הסיסמה פותחת אותו שוב.',
   'mobile.security.privacyScreen': 'הסתרת התוכן באפליקציות האחרונות וחסימת צילומי מסך',
   'mobile.security.privacyScreenHint': 'האפליקציה מוצגת כקלף ריק במסך האפליקציות האחרונות, וצילומי מסך שלה חסומים.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'הסתרת התוכן במחליף האפליקציות',
+  'mobile.security.privacyScreenIosHint': 'האפליקציה מוצגת כמסך ריק במחליף האפליקציות. באייפון אפליקציות לא יכולות לחסום צילומי מסך.',
   'mobile.security.biometric': 'פתיחה בטביעת אצבע או בזיהוי פנים',
   'mobile.security.biometricHint': 'רק למסך הנעילה. כניסה ואישור שינויים רגישים תמיד דורשים את הסיסמה.',
   'mobile.security.biometricUnavailable': 'בטלפון הזה לא מוגדרת פתיחה בטביעת אצבע או בזיהוי פנים.',

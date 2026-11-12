@@ -12,20 +12,26 @@
  * Reads in the allow-list: while the data layer is online, fetch with a 10 s timeout, write the answer
  * through to the cache and apply the still-pending operations; on a lost connection (or from the
  * first failure on) serve the cached view with the overlay; a view that was never cached is
- * synthesised from cached records when possible (`isPartialView`), else `NotCachedError`.
+ * synthesised from cached records when possible (`isPartialView`), else `NotCachedError`. A calendar
+ * month of any system (Gregorian `/api/calendar/month`, Hebrew / Hijri `/api/calendar/range`) always
+ * can be: `knownCalendarDays` (OFFLINE-CALENDARS).
  */
 import type { AppSettings, CalendarDay, CalendarMonth, DaySummary, Entry, EntryFilter, EntryInput, EntryPage, Habit, HabitInput, HabitLog, HabitLogInput, HabitWithProgress, HomeSummary, TagCount } from '@shared/types';
 import type { SyncOp, SyncOpResult } from '@shared/sync';
 import { ApiClientError, isApiClientError, isConnectionError, request, withQuery, type Query } from '@/api/client';
 import { DEFAULT_APP_SETTINGS } from '@/constants/settings';
 import { tr } from '@/i18n/runtime';
+import { readStoredSystem } from '@/utils/calendar-extras';
+import { CALENDAR_MAX_YEAR, CALENDAR_MIN_YEAR, resolveView } from '@/utils/calendar-years';
 import { todayIso } from '@/utils/dates';
+import { parseUrl, type CachedValue } from './cache';
 import { randomUuid } from './crypto';
 import { NotCachedError, markPartial, type BuiltWrite, type OfflineEngine, type ViewKind } from './engine';
+import { JOURNAL_KEEP_MS } from './journal';
 import { markPending, optimisticEntry, optimisticHabit, optimisticLog, optimisticNewHabit, optimisticSettings } from './optimistic';
 import { overlayDays, overlayMonth } from './overlay/calendar';
 import { overlayDay } from './overlay/days';
-import { entryToSummary, type Effects } from './overlay/effects';
+import { addDaysIso, compareDateTimeId, entryToSummary, NO_EFFECTS, type Effects } from './overlay/effects';
 import { overlayEntry, overlayEntryPage, synthesiseEntryPage } from './overlay/entries';
 import { overlayHabits, overlayProgress } from './overlay/habits';
 import { overlayHome } from './overlay/home';
@@ -138,7 +144,12 @@ async function cachedEntries(e: OfflineEngine): Promise<Entry[]> {
   return [...byId.values()];
 }
 
-async function calendarContext(e: OfflineEngine, fx: Effects) {
+/**
+ * The overlay context of a calendar view: the habits known and the cached day views of the dates the
+ * effects touch. With `only` (a view put together from several cached answers), just the dates inside
+ * [only.from, only.to] - the overlay reads no other - each read once for all the answers (`only.dayViews`).
+ */
+async function calendarContext(e: OfflineEngine, fx: Effects, only?: { from: string; to: string; dayViews: Map<string, Entry[] | null> }) {
   const ctx = await e.context(fx);
   const cacheByDate = new Map<string, Entry[] | null>();
   // The overlay is synchronous: preload the cached day views of the dates the effects touch.
@@ -147,7 +158,13 @@ async function calendarContext(e: OfflineEngine, fx: Effects) {
     if (ef.prev) dates.add(ef.prev.date);
     if (ef.type === 'upsert') dates.add(ef.entry.date);
   }
-  for (const date of dates) cacheByDate.set(date, await e.cachedDayEntries(date));
+  for (const date of dates) {
+    if (!only) cacheByDate.set(date, await e.cachedDayEntries(date));
+    else if (date >= only.from && date <= only.to) {
+      if (!only.dayViews.has(date)) only.dayViews.set(date, await e.cachedDayEntries(date));
+      cacheByDate.set(date, only.dayViews.get(date) ?? null);
+    }
+  }
   return { ...ctx, dayEntries: (date: string) => cacheByDate.get(date) ?? null };
 }
 
@@ -273,19 +290,21 @@ const readMonth = (original: AnyFn, year: number, month: number) =>
       query: { year, month },
       view: 'month',
       overlay: async (e, m, fx) => overlayMonth(m, fx, await calendarContext(e, fx)),
+      // Every day of the month, as the month answer reports them: the days known (`knownCalendarDays`, the
+      // changes applied), the rest empty - with the habit total of `knownCalendarDays` on past days, 0 on future ones.
+      // A month the server refuses (server/src/stats/calendar.ts: years 1970-2200, months 1-12) is never put together.
       synthesise: async (e, fx) => {
+        if (!Number.isInteger(year) || year < CALENDAR_MIN_YEAR || year > CALENDAR_MAX_YEAR || !Number.isInteger(month) || month < 1 || month > 12) return null;
         const mm = String(month).padStart(2, '0');
-        const daysIn = new Date(Date.UTC(year, month, 0)).getUTCDate();
-        const entries = (await cachedEntries(e)).filter((en) => en.date.startsWith(`${year}-${mm}-`));
-        const days: CalendarDay[] = [];
+        const first = `${year}-${mm}-01`;
+        const last = `${year}-${mm}-${String(new Date(Date.UTC(year, month, 0)).getUTCDate()).padStart(2, '0')}`;
+        const known = await knownCalendarDays(e, first, last, fx);
+        if (!known) return null;
+        const byDate = new Map(known.days.map((d) => [d.date, d] as const));
         const today = todayIso();
-        for (let d = 1; d <= daysIn; d++) {
-          const date = `${year}-${mm}-${String(d).padStart(2, '0')}`;
-          const ofDay = entries.filter((en) => en.date === date);
-          days.push({ date, mood: null, energy: null, stress: null, sleepHours: null, hasEntry: ofDay.length > 0, entryCount: ofDay.length, habitsCompleted: 0, habitsTotal: 0, titles: ofDay.map((en) => en.title).filter(Boolean) });
-          void today;
-        }
-        return overlayMonth({ year, month, days }, fx, await calendarContext(e, fx));
+        const days: CalendarDay[] = [];
+        for (let date = first; date <= last; date = addDaysIso(date, 1)) days.push(byDate.get(date) ?? emptyDay(date, date <= today ? known.habitsTotal : 0));
+        return { year, month, days };
       },
     },
     () => original(year, month),
@@ -293,12 +312,205 @@ const readMonth = (original: AnyFn, year: number, month: number) =>
 
 const readRange = (original: AnyFn, from: string, to: string) =>
   cachedRead<CalendarDay[]>(
-    { path: '/api/calendar/range', query: { from, to }, view: 'range', overlay: async (e, days, fx) => overlayRange(days, from, to, fx, await calendarContext(e, fx)) },
+    {
+      path: '/api/calendar/range',
+      query: { from, to },
+      view: 'range',
+      overlay: async (e, days, fx) => overlayRange(days, from, to, fx, await calendarContext(e, fx)),
+      // A Hebrew or Hijri month (or any range) never cached: put together from what the device knows, the changes applied.
+      synthesise: async (e, fx) => (await knownCalendarDays(e, from, to, fx))?.days ?? null,
+    },
     () => original(from, to),
   );
 
 function overlayRange(days: CalendarDay[], from: string, to: string, fx: Effects, ctx: Awaited<ReturnType<typeof calendarContext>>): CalendarDay[] {
   return overlayDays(days, from, to, fx, ctx).filter((d) => d.entryCount > 0 || d.habitsCompleted > 0 || days.some((o) => o.date === d.date));
+}
+
+// ---------------------------------------------------------------------------
+// Calendar months the cache never held (section 4.6 "Missing views"; OFFLINE-CALENDARS)
+// ---------------------------------------------------------------------------
+
+/** The longest range the server answers (server/src/stats/calendar.ts MAX_RANGE_DAYS): a longer one is never put together. */
+const CALENDAR_MAX_DAYS = 400;
+
+/** A civil day `YYYY-MM-DD` that exists, as the server checks it (server/src/util/dates.ts `isIsoDate`): it refuses any other. */
+function isIsoDay(s: string): boolean {
+  const m = typeof s === 'string' ? /^(\d{4})-(\d{2})-(\d{2})$/.exec(s) : null;
+  if (!m) return false;
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return false;
+  const dt = new Date(Date.UTC(y, mo - 1, d));
+  return dt.getUTCFullYear() === y && dt.getUTCMonth() === mo - 1 && dt.getUTCDate() === d;
+}
+
+/** A cached calendar answer: when it arrived, the civil days it covers and the days it reports. */
+interface CalendarSource {
+  cachedAt: number;
+  /** A month answer reports every day it covers; a range answer only the days that had data. */
+  kind: 'month' | 'range';
+  from: string;
+  to: string;
+  days: readonly CalendarDay[];
+}
+
+function emptyDay(date: string, habitsTotal: number): CalendarDay {
+  return { date, mood: null, energy: null, stress: null, sleepHours: null, hasEntry: false, entryCount: 0, habitsCompleted: 0, habitsTotal, titles: [] };
+}
+
+/**
+ * The cached month and range answers (of any calendar system) that cover a day of [from, to], the most
+ * recent first - only those cached within the journal's 7 days (`JOURNAL_KEEP_MS`, the rule of
+ * `knownEntries`). The overlay of an older answer may lack changes this device made after it (the journal
+ * forgets them after 7 days): its days could hide an entry created since or bring back one deleted since,
+ * so they come from the entries the device holds instead.
+ */
+async function calendarSources(e: OfflineEngine, from: string, to: string): Promise<CalendarSource[]> {
+  const since = e.now() - JOURNAL_KEEP_MS;
+  const out: CalendarSource[] = [];
+  for (const c of await e.cache.allOf<CalendarMonth>('calMonth')) {
+    const days = Array.isArray(c.value?.days) ? c.value.days : [];
+    if (c.cachedAt >= since && days.length) out.push({ cachedAt: c.cachedAt, kind: 'month', from: days[0].date, to: days[days.length - 1].date, days });
+  }
+  for (const c of await e.cache.allOf<CalendarDay[]>('calRange')) {
+    if (c.cachedAt < since) continue;
+    const { params } = parseUrl(c.url);
+    const f = params.get('from') ?? '';
+    const t = params.get('to') ?? '';
+    if (isIsoDay(f) && isIsoDay(t) && f <= t && Array.isArray(c.value)) out.push({ cachedAt: c.cachedAt, kind: 'range', from: f, to: t, days: c.value });
+  }
+  // Of two answers that arrived at the same moment, the month answer (it reports every day it covers).
+  return out.filter((s) => s.from <= to && s.to >= from).sort((a, b) => b.cachedAt - a.cachedAt || (a.kind === b.kind ? 0 : a.kind === 'month' ? -1 : 1));
+}
+
+/**
+ * What this device knows of the civil days [from, to] of a calendar view the cache never held, with the
+ * changes made since on top. Every calendar system asks for its months by civil days, so a Hebrew or Hijri
+ * month is put together exactly like a Gregorian one:
+ *  - a day covered by a cached calendar answer of the last 7 days (`calendarSources`: a month or a range, of
+ *    any system) comes from the most recently cached of them, with the overlay of THAT answer: the journal
+ *    entries acknowledged after it was cached, then every pending operation - a change the answer already
+ *    holds is never counted twice;
+ *  - a day no such answer covers comes from the cached entries of that date (`entryDays`).
+ * `days` keeps the range answer's semantics: only the days with data, ascending (a day a cached range
+ * answer listed stays even when the changes emptied it, as `overlayRange` keeps it). A day an answer
+ * reported keeps its habit total; every other day gets `habitsTotal` when it is past, 0 when it is future.
+ * `habitsTotal` is the habit total of the reported past days - the rule of `mergeViewDays` on the calendar
+ * page - or, when no answer reports a past day of the window, what the server reports on every past day:
+ * the habits not archived, as this device knows them (`activeHabitCount`). Null for a window the server
+ * refuses (days that do not exist, `from` after `to`, longer than 400 days).
+ */
+async function knownCalendarDays(e: OfflineEngine, from: string, to: string, fx: Effects): Promise<{ days: CalendarDay[]; habitsTotal: number } | null> {
+  if (!isIsoDay(from) || !isIsoDay(to) || from > to) return null;
+  const dates: string[] = [];
+  for (let date = from; date <= to; date = addDaysIso(date, 1)) {
+    if (dates.length === CALENDAR_MAX_DAYS) return null;
+    dates.push(date);
+  }
+  const today = todayIso();
+  const sources = await calendarSources(e, from, to);
+  const owner = new Map<string, CalendarSource>();
+  for (const date of dates) {
+    const s = sources.find((c) => c.from <= date && c.to >= date);
+    if (s) owner.set(date, s);
+  }
+  const known = new Map<string, CalendarDay>();
+  /** The days a cached answer listed itself (they keep their habit total) and the highest total of its past ones. */
+  const reported = new Set<string>();
+  let reportedTotal: number | null = null;
+  const dayViews = new Map<string, Entry[] | null>();
+  for (const s of new Set(owner.values())) {
+    // The answer's own part of the window: a change on any other day never reaches a day it owns.
+    const lo = s.from > from ? s.from : from;
+    const hi = s.to < to ? s.to : to;
+    const sfx = await e.effects(s.cachedAt);
+    const listed = new Set(s.days.map((d) => d.date));
+    for (const d of overlayDays(s.days, lo, hi, sfx, await calendarContext(e, sfx, { from: lo, to: hi, dayViews }))) {
+      if (owner.get(d.date) !== s) continue;
+      if (listed.has(d.date)) {
+        reported.add(d.date);
+        if (d.date <= today) reportedTotal = Math.max(reportedTotal ?? 0, d.habitsTotal);
+      }
+      if (d.entryCount > 0 || d.habitsCompleted > 0 || (s.kind === 'range' && listed.has(d.date))) known.set(d.date, d);
+    }
+  }
+  const uncovered = new Set(dates.filter((date) => !owner.has(date)));
+  if (uncovered.size) for (const d of await entryDays(e, uncovered, from, to, fx)) known.set(d.date, d);
+  const habitsTotal = reportedTotal ?? (from <= today ? await activeHabitCount(e) : 0);
+  const days = [...known.values()].map((d) => (reported.has(d.date) ? d : { ...d, habitsTotal: d.date <= today ? habitsTotal : 0 }));
+  return { days: days.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0)), habitsTotal };
+}
+
+/**
+ * The habit total the server reports on a past day (server/src/stats/calendar.ts `activeHabitCount`): the
+ * habits not archived, as this device knows them - the most recently cached habit list with the changes
+ * acknowledged and pending since (no list cached: the habits created on this device).
+ */
+async function activeHabitCount(e: OfflineEngine): Promise<number> {
+  let newest: CachedValue<Habit[]> | null = null;
+  for (const c of await e.cache.allOf<Habit[]>('habits')) if (Array.isArray(c.value) && (!newest || c.cachedAt > newest.cachedAt)) newest = c;
+  return overlayHabits(newest?.value ?? [], false, await e.effects(newest?.cachedAt ?? 0)).length;
+}
+
+/** What the calendar counts of an entry: a full entry, or the summary of a cached entry list (no `updatedAt`). */
+type KnownEntry = Pick<Entry, 'id' | 'date' | 'time' | 'title'> & { updatedAt?: string };
+
+/**
+ * Every entry this device holds a record of, by id, each from its most recently cached record (`at`: when
+ * that record was cached): the single entries (this device's acknowledged writes keep them current), and
+ * the entries of the day views and the summaries of the entry lists (the warm-up's last 30 days, the
+ * diary's lists) cached within the journal's 7 days. An older day view or list is left out: it may still
+ * hold an entry this device deleted after the journal forgot the deletion, while anything cached since was
+ * read after every deletion the journal lost.
+ */
+async function knownEntries(e: OfflineEngine): Promise<Map<number, { at: number; entry: KnownEntry }>> {
+  const newest = new Map<number, { at: number; entry: KnownEntry }>();
+  const keep = (entry: KnownEntry | undefined, at: number) => {
+    if (!entry || typeof entry.id !== 'number' || typeof entry.date !== 'string') return;
+    const cur = newest.get(entry.id);
+    if (!cur || at >= cur.at) newest.set(entry.id, { at, entry });
+  };
+  const since = e.now() - JOURNAL_KEEP_MS;
+  for (const c of await e.cache.allOf<EntryPage>('entriesList')) if (c.cachedAt >= since) for (const s of c.value?.items ?? []) keep(s, c.cachedAt);
+  for (const c of await e.cache.allOf<DaySummary>('day')) if (c.cachedAt >= since) for (const en of c.value?.entries ?? []) keep(en, c.cachedAt);
+  for (const c of [...(await e.cache.allOf<Entry>('entry30')), ...(await e.cache.allOf<Entry>('entry'))]) keep(c.value, c.cachedAt);
+  return newest;
+}
+
+/**
+ * The days of `dates` (none covered by a cached calendar answer) as the entries this device knows show
+ * them (`knownEntries`): hasEntry, entryCount and titles (no averages: the device may not hold every entry
+ * of the day), with every pending change and every acknowledged one applied by id - so an entry deleted
+ * since never comes back from an older cached day view or list - except an acknowledged change older than
+ * the record held (a full record updated later, or any record cached after the change was acknowledged: a
+ * list read since shows the entry as the server had it then) - plus the habit logs of this device on those
+ * days. Only the days with data; their habit totals are the caller's.
+ */
+async function entryDays(e: OfflineEngine, dates: ReadonlySet<string>, from: string, to: string, fx: Effects): Promise<CalendarDay[]> {
+  const byId = await knownEntries(e);
+  for (const ef of fx.entries) {
+    if (ef.type === 'delete') {
+      byId.delete(ef.id);
+      continue;
+    }
+    const held = byId.get(ef.entry.id);
+    const heldIsNewer = !!held && ((held.entry.updatedAt ?? '') > ef.entry.updatedAt || (ef.ackedAt !== undefined && held.at > ef.ackedAt));
+    if (ef.pending || !heldIsNewer) byId.set(ef.entry.id, { at: ef.ackedAt ?? Number.POSITIVE_INFINITY, entry: ef.entry });
+  }
+  const ofDate = new Map<string, KnownEntry[]>();
+  for (const { entry: en } of byId.values()) {
+    if (!dates.has(en.date)) continue;
+    const list = ofDate.get(en.date);
+    if (list) list.push(en);
+    else ofDate.set(en.date, [en]);
+  }
+  const base: CalendarDay[] = [...ofDate].map(([date, list]) => {
+    const sorted = [...list].sort(compareDateTimeId);
+    return { ...emptyDay(date, 0), hasEntry: true, entryCount: sorted.length, titles: sorted.map((en) => en.title).filter(Boolean) };
+  });
+  // The entries are applied above and the habit totals are the caller's: only the logs are left to lay over.
+  const ctx = await e.context(fx);
+  return overlayDays(base, from, to, { ...NO_EFFECTS, logs: fx.logs }, { today: ctx.today, habits: ctx.habits }).filter((d) => dates.has(d.date) && (d.entryCount > 0 || d.habitsCompleted > 0));
 }
 
 const readHome = (original: AnyFn) =>
@@ -657,12 +869,35 @@ const SPECS: Record<GroupName, Record<string, Handler>> = {
 
 export const WARM_UP_MIN_GAP_MS = 15 * 60_000;
 
-/** The GETs of the warm-up, in order (about 16, sequential): settings, habits, today's progress, home, the current month, recent entries, meta. */
+/**
+ * The request the calendar page makes for today's month (a bare /calendar: `resolveView` with no year or
+ * month) in the calendar system this device shows (`readStoredSystem`), when that is not the Gregorian one
+ * - the same from / to, so the warmed answer is the page's cache key. Null for the Gregorian calendar (its
+ * month is warmed as `/api/calendar/month`) or when the month cannot be computed here.
+ */
+function preferredCalendarRange(today: string): { from: string; to: string } | null {
+  try {
+    const system = readStoredSystem();
+    if (system === 'gregorian') return null;
+    const view = resolveView(system, null, null, today);
+    return { from: view.firstDay, to: view.lastDay };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The GETs of the warm-up, in order (about 16, sequential): settings, habits, today's progress, home, the
+ * current month (and today's month of the Hebrew or Hijri calendar when the device shows one), recent
+ * entries, meta.
+ */
 export async function warmUp(e: OfflineEngine): Promise<void> {
   const today = todayIso();
   const [y, m] = [Number(today.slice(0, 4)), Number(today.slice(5, 7))];
   const from = new Date(Date.UTC(y, m - 1, Number(today.slice(8, 10)) - 30)).toISOString().slice(0, 10);
-  const gets: { path: string; query?: Query; view: ViewKind; date?: string }[] = [
+  const preferred = preferredCalendarRange(today);
+  /** `optional`: its failure does not end the warm-up. */
+  const gets: { path: string; query?: Query; view: ViewKind; date?: string; optional?: boolean }[] = [
     { path: '/api/settings', view: 'settings' },
     { path: '/api/habits', query: { includeArchived: false }, view: 'habits' },
     { path: '/api/habits', query: { includeArchived: true }, view: 'habits' },
@@ -670,6 +905,7 @@ export async function warmUp(e: OfflineEngine): Promise<void> {
     { path: '/api/habits/progress', query: { date: today }, view: 'progress', date: today },
     { path: '/api/home', view: 'home' },
     { path: '/api/calendar/month', query: { year: y, month: m }, view: 'month' },
+    ...(preferred ? [{ path: '/api/calendar/range', query: { from: preferred.from, to: preferred.to }, view: 'range' as const, optional: true }] : []),
     { path: '/api/entries', query: { from, to: today, limit: 500 }, view: 'entries' },
     { path: '/api/entries/meta/tags', view: 'counts' },
     { path: '/api/entries/meta/people', view: 'counts' },
@@ -686,6 +922,7 @@ export async function warmUp(e: OfflineEngine): Promise<void> {
         for (const s of (value as EntryPage).items) if (!recentDates.includes(s.date) && recentDates.length < 7) recentDates.push(s.date);
       }
     } catch {
+      if (g.optional) continue;
       return; // the connection went: the next warm-up tries again
     }
   }

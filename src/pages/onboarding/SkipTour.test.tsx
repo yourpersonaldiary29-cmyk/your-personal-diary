@@ -170,6 +170,23 @@ describe('Skip - just look around', () => {
     }
   });
 
+  it('iPhone app (Capacitor, platform ios) with the same hosted server: never offered, on none of the three screens (ENV-FINAL decision 10)', async () => {
+    vi.stubGlobal('Capacitor', { isNativePlatform: () => true, getPlatform: () => 'ios' });
+    act(() => setServerInfo({ ...hostedInfo }));
+    expect(tourOffered({ ...hostedInfo }, true)).toBe(false);
+    expect(tourOffered(null, true)).toBe(false);
+    for (const [route, title] of [
+      ['/', () => T.welcomeTitle],
+      ['/login', () => T.loginTitle],
+      ['/register', () => T.registerTitle],
+    ] as const) {
+      const view = renderApp(route);
+      expect(await screen.findByRole('heading', { level: 1, name: title() })).toBeInTheDocument();
+      expect(skipButton()).not.toBeInTheDocument();
+      view.unmount();
+    }
+  });
+
   it('Android app: a hosted server that turned the tour off (guestTour: false) hides it', async () => {
     act(() => setServerInfo({ ...hostedInfo, guestTour: false }));
     renderApp('/');

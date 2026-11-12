@@ -1,9 +1,9 @@
 // Your Personal Diary - the iOS side of the local Capacitor plugin `DiaryFiles`.
 //
-// STATUS: DRAFT, NEVER COMPILED. Written on Windows (docs/APPLE-PLAN.md WP-A2), where no Swift
-// compiler and no iOS SDK exist. The first Mac build compiles, reviews and tests it (WP-I2,
-// scripts/ios/README.he.md). Every UIKit behaviour this file relies on is listed at the end of
-// this header as a check for a real iPhone.
+// STATUS: written on Windows (docs/APPLE-PLAN.md WP-A2); compiled for the first time on the owner's
+// Mac on 2026-11-12 (Xcode 27.2, iOS 27.2 SDK; package IOS-I2) with no error and no warning. Not run
+// on a real iPhone yet (scripts/ios/README.he.md section 8): every UIKit behaviour this file relies
+// on is listed at the end of this header as a check for a real iPhone.
 //
 // JavaScript contract: mobile/plugins/diary-files/index.ts; the chunking and the order of the
 // calls: mobile/platform/files.ts (`saveToDeviceIos`, `pickFile`, `readOpenedFile`,

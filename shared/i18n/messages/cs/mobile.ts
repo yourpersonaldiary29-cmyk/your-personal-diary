@@ -41,6 +41,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Deník se zamkne při přepnutí do jiné aplikace nebo při zhasnutí obrazovky; heslo jej znovu otevře.',
   'mobile.security.privacyScreen': 'Skrýt obsah v posledních aplikacích a blokovat snímky obrazovky',
   'mobile.security.privacyScreenHint': 'Aplikace se v přehledu posledních aplikací zobrazí jako prázdná karta a její snímky obrazovky jsou blokovány.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Skrýt obsah v přepínači aplikací',
+  'mobile.security.privacyScreenIosHint': 'Aplikace se v přepínači aplikací zobrazí jako prázdná obrazovka. Na iPhonu aplikace nemohou blokovat snímky obrazovky.',
   'mobile.security.biometric': 'Odemknout otiskem prstu nebo obličejem',
   'mobile.security.biometricHint': 'Jen pro zamykací obrazovku. Přihlášení a potvrzení citlivých změn vždy vyžadují heslo.',
   'mobile.security.biometricUnavailable': 'V tomto telefonu není nastaveno odemykání otiskem prstu ani obličejem.',

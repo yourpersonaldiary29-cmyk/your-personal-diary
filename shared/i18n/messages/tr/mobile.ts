@@ -40,6 +40,9 @@ const messages: Record<string, string> = {
   'mobile.security.lockOnLeaveHint': 'Başka bir uygulamaya geçtiğinizde veya ekran kapandığında günlük kilitlenir; parolanız onu yeniden açar.',
   'mobile.security.privacyScreen': 'Son uygulamalarda içeriği gizle ve ekran görüntüsünü engelle',
   'mobile.security.privacyScreenHint': 'Uygulama, son uygulamalar ekranında boş bir kart olarak görünür ve ekran görüntüsü alınamaz.',
+  // The same setting on the iPhone (SecuritySection.tsx): iOS covers the app switcher only; no app can block screenshots there.
+  'mobile.security.privacyScreenIos': 'Uygulama değiştiricide içeriği gizle',
+  'mobile.security.privacyScreenIosHint': 'Uygulama değiştiricide bu uygulama boş bir ekran olarak görünür. iPhone’da uygulamalar ekran görüntüsü alınmasını engelleyemez.',
   'mobile.security.biometric': 'Parmak izi veya yüzle kilidi aç',
   'mobile.security.biometricHint': 'Yalnızca kilit ekranı için. Oturum açma ve hassas değişiklikleri onaylama her zaman parola ister.',
   'mobile.security.biometricUnavailable': 'Bu telefonda parmak izi veya yüzle kilit açma ayarlanmamış.',

@@ -1,13 +1,15 @@
 PACKAGE IOS-I2 - the iPhone app with the REAL Xcode on the owner's Mac (replaces the deferred IOS-I1, which assumed no Xcode). Work over SSH exactly as docs/apple-tasks/ENV-FINAL.md says (Mac section; the Mac is the owner's personal computer).
 
-STATE (2026-11-11): the owner upgraded the Mac to macOS Tahoe and installed Xcode himself. There is still no ios/ folder. scripts/ios/README.he.md holds the one-time steps. mobile/ios-app/* and mobile/plugins/*/ios/*.swift are the files prepared on Windows. mobile/test/ios-prep.test.ts un-skips its "generated iOS project" describe as soon as ios/App/App.xcodeproj/project.pbxproj exists - it is the acceptance test on the PC. The iOS app is a thin client of the production server https://yourpersonaldiary.fly.dev, the same as Android.
+STATE (checked by the main session 2026-11-12 18:52): macOS 27.2.1 (not Tahoe 26 - the App Store offered 27), Xcode 27.2 (27B52) installed by the owner, xcode-select -p = /Applications/Xcode.app/Contents/Developer, xcodebuild -checkFirstLaunchStatus = 0 and xcodebuild -license check = 0, iOS 27.2 SDK and iOS 27.2 Simulator SDK present, 63 GiB free, Mac address 192.168.68.112 (connect with -o HostKeyAlias=192.168.68.103; sync with MAC_HOST=192.168.68.112 bash scripts/mac/sync-to-mac.sh). The iOS 27.2 SIMULATOR RUNTIME was missing: the main session started "xcodebuild -downloadPlatform iOS" at 18:53 (8.32 GB, log ~/Developer/ios-platform-download.log, last line "EXIT <code>" when done) - do not start a second download; step 6 waits for it (below).
+DEPENDENCY RULE: scripts/ios/README.he.md step 2 adds @capacitor/ios with an exact version. The PC tree is the truth, so run that npm install on the PC first (Git Bash, the project root; package.json and package-lock.json change there), then sync, then run npm install (or npm ci) on the Mac so its node_modules has the package.
+The owner upgraded the Mac and installed Xcode himself. There is still no ios/ folder. scripts/ios/README.he.md holds the one-time steps. mobile/ios-app/* and mobile/plugins/*/ios/*.swift are the files prepared on Windows. mobile/test/ios-prep.test.ts un-skips its "generated iOS project" describe as soon as ios/App/App.xcodeproj/project.pbxproj exists - it is the acceptance test on the PC. The iOS app is a thin client of the production server https://yourpersonaldiary.fly.dev, the same as Android.
 
 STEP 1 - PRECONDITIONS (read-only checks on the Mac). STOP and report, changing nothing, if any of these fails:
-- sw_vers shows 26.x.
+- sw_vers shows 26.x or newer (27.2.1 today).
 - xcode-select -p is /Applications/Xcode.app/Contents/Developer. If it still points to the CommandLineTools, switching needs sudo, which only the owner may run: "sudo xcode-select -s /Applications/Xcode.app/Contents/Developer".
 - xcodebuild -version prints a version.
 - xcodebuild -checkFirstLaunchStatus exits 0. Otherwise the owner opens Xcode once and accepts the license.
-- xcrun simctl list runtimes lists an iOS runtime. Otherwise the owner downloads the iOS platform in Xcode > Settings > Components.
+- The iOS Simulator runtime is NOT a stop condition: it is being downloaded (see STATE), and only step 6 needs it.
 - df -h / shows at least 25 GB free.
 - node, npm and cargo are found with the PATH line of ENV-FINAL. Start the caffeinate guard.
 
@@ -39,7 +41,7 @@ STEP 5 - BUILD FOR THE SIMULATOR (no signing):
 - A compile error in a prepared Swift file is fixed on the PC (mobile/plugins/*/ios, mobile/ios-app), then you sync again. The two copies must stay identical.
 - Record the warnings that matter (missing files, deprecated APIs used by our code).
 
-STEP 6 - RUN IT HEADLESS IN THE SIMULATOR:
+STEP 6 - RUN IT HEADLESS IN THE SIMULATOR (first wait for the runtime: poll "xcrun simctl list runtimes" once a minute, up to 60 minutes, until it lists iOS 27.2; if it never appears, or ~/Developer/ios-platform-download.log ends with a non-zero EXIT, mark step 6 not-run with the log's last lines and go on with step 7):
 - Commands: xcrun simctl boot <an iPhone device of the installed runtime>, xcrun simctl install booted <the .app>, xcrun simctl launch booted app.yourpersonaldiary. Never "open -a Simulator" and no other GUI.
 - Wait about 10 s, then take xcrun simctl io booted screenshot of the first screen (the sign-in screen). Take the offline screen too if the README describes how.
 - Do NOT register or sign in. The app talks to the PRODUCTION server, and a test account there would be real data.

@@ -499,7 +499,7 @@ Before the first operation it ensures the AOK and epoch are fresh (`GET /api/syn
 | `/api/habits/progress?date=D` | last 7 dates | today |
 | `/api/habits/status?from&to` | LRU 3 | — |
 | `/api/home` | 1 | yes |
-| `/api/calendar/month?year&month`, `/api/calendar/range` | LRU 6 each | current month |
+| `/api/calendar/month?year&month`, `/api/calendar/range` | LRU 6 each | current month; when the device shows the Hebrew or Hijri calendar, also today's month of it (the page's own `/api/calendar/range`) |
 | `/api/entries?…` list pages | LRU 12 | last 30 days, `limit=500` |
 | `/api/entries/:id` | everything from the last 30 days, plus LRU 200 | — |
 | `/api/entries/day/:date` | LRU 31 | the 7 most recent dates with entries |
@@ -541,6 +541,7 @@ Before the first operation it ensures the AOK and epoch are fresh (`GET /api/syn
 **Missing views.**
 - A view that was never cached is synthesised from cached records when possible, with the hint `shell.sync.partialView`.
 - Otherwise the page shows `shell.sync.notCachedYet`.
+- Every calendar system works offline (2026-11-12, OFFLINE-CALENDARS): a Gregorian `/api/calendar/month` or a Hebrew / Hijri `/api/calendar/range` that was never cached is built from what the device has - each day from the most recently cached month or range answer of the last 7 days that covers it (with that answer's own overlay; an older answer may lack this device's changes the journal has forgotten, so it is not used), otherwise from the entries the device holds for that date, with the pending changes on top, and a past day no answer reported takes the habit total of the reported past days or, when there are none, the number of active habits the device knows (what the server reports) - so a calendar month of any system is shown with `shell.sync.partialView`, never `shell.sync.notCachedYet` (only a window the server itself refuses stays `notCachedYet`), and the warm-up also caches today's month of the calendar system the device shows.
 
 **Pages re-run.** `useApi(..., { offline: true })` subscribes to the engine's data version. It is bumped after each acknowledgement and each refreshed view, and also through the BroadcastChannel.
 

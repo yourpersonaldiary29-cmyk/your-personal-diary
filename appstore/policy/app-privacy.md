@@ -55,16 +55,16 @@ Apple has no IP-address data type. The server receives the connecting IP address
 
 ## 5. The privacy manifest of the iPhone app (`PrivacyInfo.xcprivacy`)
 
-The template is `mobile/ios-app/PrivacyInfo.xcprivacy` (copied on the Mac to `ios/App/App/PrivacyInfo.xcprivacy`, `scripts/ios/README.he.md`). Checked against the table above on 2026-11-08:
+The manifest is `mobile/ios-app/PrivacyInfo.xcprivacy`. Since 2026-11-12 the Xcode project references that file in place (there is no copy in `ios/`; `scripts/ios/README.he.md` step 5.3). Checked against the table above on 2026-11-08, and again on 2026-11-12 after the Health and Fitness entries were added:
 
-| Key | Template today | Must be |
+| Key | In the file (2026-11-12) | Must be |
 | --- | --- | --- |
 | `NSPrivacyTracking` | `false` | `false` - correct |
 | `NSPrivacyTrackingDomains` | empty array | empty - correct |
-| `NSPrivacyCollectedDataTypes` | Name, EmailAddress, UserID, OtherUserContent - each linked, not tracking, purpose AppFunctionality | **add two entries** of the same shape: `NSPrivacyCollectedDataTypeHealth` and `NSPrivacyCollectedDataTypeFitness` (linked `true`, tracking `false`, purposes `NSPrivacyCollectedDataTypePurposeAppFunctionality`). The template itself names this as the owner decision; decision 4 has now taken it ("Health, Fitness - collected"). Without them the manifest contradicts the App Store Connect answers. |
+| `NSPrivacyCollectedDataTypes` | Name, EmailAddress, UserID, OtherUserContent, Health, Fitness - each linked, not tracking, purpose AppFunctionality | correct: the entries `NSPrivacyCollectedDataTypeHealth` and `NSPrivacyCollectedDataTypeFitness` (linked `true`, tracking `false`, purposes `NSPrivacyCollectedDataTypePurposeAppFunctionality`) were added on 2026-11-12 (package IOS-I2), as decision 4 requires ("Health, Fitness - collected"). Without them the manifest would contradict the App Store Connect answers. |
 | `NSPrivacyAccessedAPITypes` | UserDefaults `CA92.1`; FileTimestamp `C617.1` | correct (FACTS 4.9): `CA92.1` covers `@capacitor/preferences` and the app's own `UserDefaults` keys (`DiaryOfflinePlugin.swift` wrapped-users list, `DiaryPrivacyScreenPlugin.swift` setting); `C617.1` covers `@capacitor/filesystem` on files inside the app container. The import picker uses `UIDocumentPickerViewController(..., asCopy: true)` (`mobile/plugins/diary-files/ios/DiaryFilesPlugin.swift`), so the file read is a copy inside the container, and the only metadata read is `.fileSizeKey`, which is not in the FileTimestamp API list of FACTS 4.9. `3B52.1` is therefore not needed; add it only if Xcode's privacy report (Product > Archive > Generate Privacy Report) names the document picker. |
 
-Who changes it: the IOS package / the developer on the Mac (the file is not in this package's ownership). The Mac app has no manifest; FACTS 4.8 calls a data-types-only manifest in the Mac bundle "harmless and recommended for the Mac App Store route" - an open point for the Mac App Store build (`mac-appstore-notes.md`).
+Who changes it: a developer, in `mobile/ios-app/PrivacyInfo.xcprivacy` itself (the Xcode project bundles that very file; it is not in this package's ownership), together with this table. The Mac app has no manifest; FACTS 4.8 calls a data-types-only manifest in the Mac bundle "harmless and recommended for the Mac App Store route" - an open point for the Mac App Store build (`mac-appstore-notes.md`).
 
 ## 6. When to update
 
