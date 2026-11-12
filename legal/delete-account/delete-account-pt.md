@@ -7,11 +7,11 @@ otherPage: Política de privacidade
 
 # Your Personal Diary - eliminar a sua conta
 
-Esta página destina-se às aplicações **Your Personal Diary** para Android e Windows e ao site [{{SITE_URL}}]({{SITE_URL}}), publicados por {{PUBLISHER_NAME}}. Uma única conta funciona em todos, por isso eliminá-la uma vez elimina-a em todo o lado. Não precisa de instalar a aplicação para eliminar a sua conta.
+Esta página destina-se às aplicações **Your Personal Diary** para Windows, Mac e Android e ao site [{{SITE_URL}}]({{SITE_URL}}), publicados por {{PUBLISHER_NAME}}. Uma única conta funciona em todos, por isso eliminá-la uma vez elimina-a em todo o lado. Não precisa de instalar a aplicação para eliminar a sua conta.
 
 ## Elimine-a por si próprio (imediato)
 
-1. Abra a aplicação Your Personal Diary no Android ou no Windows, ou aceda a [{{SITE_URL}}]({{SITE_URL}}) em qualquer navegador.
+1. Abra a aplicação Your Personal Diary no Windows, no Mac ou no Android, ou aceda a [{{SITE_URL}}]({{SITE_URL}}) em qualquer navegador.
 2. Inicie sessão com o seu nome de utilizador ou endereço de e-mail e a sua palavra-passe.
 3. Abra **Definições** e vá até ao último cartão, **Eliminar a conta**.
 4. Introduza a palavra-passe, assinale que compreende que a ação não pode ser anulada e confirme.

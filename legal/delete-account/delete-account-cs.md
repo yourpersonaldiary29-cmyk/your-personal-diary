@@ -7,11 +7,11 @@ otherPage: Zásady ochrany osobních údajů
 
 # Your Personal Diary - smazání účtu
 
-Tato stránka se týká aplikací **Your Personal Diary** pro Android a Windows a webu [{{SITE_URL}}]({{SITE_URL}}), které vydává {{PUBLISHER_NAME}}. Jeden účet funguje všude, takže jedním smazáním ho smažeš všude. Ke smazání účtu nemusíš aplikaci instalovat.
+Tato stránka se týká aplikací **Your Personal Diary** pro Windows, Mac a Android a webu [{{SITE_URL}}]({{SITE_URL}}), které vydává {{PUBLISHER_NAME}}. Jeden účet funguje všude, takže jedním smazáním ho smažeš všude. Ke smazání účtu nemusíš aplikaci instalovat.
 
 ## Smaž ho sám (okamžitě)
 
-1. Otevři aplikaci Your Personal Diary v Androidu nebo ve Windows, nebo přejdi na [{{SITE_URL}}]({{SITE_URL}}) v libovolném prohlížeči.
+1. Otevři aplikaci Your Personal Diary ve Windows, na Macu nebo v Androidu, nebo přejdi na [{{SITE_URL}}]({{SITE_URL}}) v libovolném prohlížeči.
 2. Přihlas se uživatelským jménem nebo e-mailovou adresou a heslem.
 3. Otevři **Nastavení** a přejdi na poslední kartu, **Smazání účtu**.
 4. Zadej heslo, zaškrtni, že rozumíš, že to nelze vrátit zpět, a potvrď.

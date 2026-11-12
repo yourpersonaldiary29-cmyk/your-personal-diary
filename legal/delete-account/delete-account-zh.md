@@ -7,11 +7,11 @@ otherPage: 隐私政策
 
 # Your Personal Diary - 删除你的账户
 
-本页面适用于 **Your Personal Diary** 的 Android 和 Windows 应用以及网站 [{{SITE_URL}}]({{SITE_URL}})，发布者为 {{PUBLISHER_NAME}}。同一个账户在所有这些地方通用，因此删除一次即可在所有地方删除。删除账户无需安装应用。
+本页面适用于 **Your Personal Diary** 的 Windows、Mac 和 Android 应用以及网站 [{{SITE_URL}}]({{SITE_URL}})，发布者为 {{PUBLISHER_NAME}}。同一个账户在所有这些地方通用，因此删除一次即可在所有地方删除。删除账户无需安装应用。
 
 ## 自行删除（立即生效）
 
-1. 在 Android 或 Windows 上打开 Your Personal Diary 应用，或在任意浏览器中访问 [{{SITE_URL}}]({{SITE_URL}})。
+1. 在 Windows、Mac 或 Android 上打开 Your Personal Diary 应用，或在任意浏览器中访问 [{{SITE_URL}}]({{SITE_URL}})。
 2. 用你的用户名或电子邮件地址和密码登录。
 3. 打开**设置**，转到最后一张卡片**删除账户**。
 4. 输入密码，勾选你了解此操作无法撤销，然后确认。

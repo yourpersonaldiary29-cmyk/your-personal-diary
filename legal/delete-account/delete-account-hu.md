@@ -7,11 +7,11 @@ otherPage: Adatvédelmi irányelvek
 
 # Your Personal Diary - fiók törlése
 
-Ez az oldal a {{PUBLISHER_NAME}} által kiadott **Your Personal Diary** Android- és Windows-alkalmazásra, valamint a [{{SITE_URL}}]({{SITE_URL}}) weboldalra vonatkozik. Egy fiók mindegyikben működik, így egyetlen törléssel mindenhonnan törlődik. A fiók törléséhez nem kell telepítened az alkalmazást.
+Ez az oldal a {{PUBLISHER_NAME}} által kiadott **Your Personal Diary** Windows-, Mac- és Android-alkalmazásra, valamint a [{{SITE_URL}}]({{SITE_URL}}) weboldalra vonatkozik. Egy fiók mindegyikben működik, így egyetlen törléssel mindenhonnan törlődik. A fiók törléséhez nem kell telepítened az alkalmazást.
 
 ## Töröld magad (azonnal)
 
-1. Nyisd meg a Your Personal Diary alkalmazást Androidon vagy Windowson, vagy nyisd meg a [{{SITE_URL}}]({{SITE_URL}}) címet bármely böngészőben.
+1. Nyisd meg a Your Personal Diary alkalmazást Windowson, Macen vagy Androidon, vagy nyisd meg a [{{SITE_URL}}]({{SITE_URL}}) címet bármely böngészőben.
 2. Jelentkezz be a felhasználóneveddel vagy az e-mail-címeddel és a jelszavaddal.
 3. Nyisd meg a **Beállítások** menüt, és lépj az utolsó kártyára, a **Fiók törlése** részhez.
 4. Add meg a jelszavadat, jelöld be, hogy tudomásul veszed, hogy ez nem vonható vissza, és erősítsd meg.

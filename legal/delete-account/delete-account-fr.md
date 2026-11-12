@@ -7,11 +7,11 @@ otherPage: Politique de confidentialité
 
 # Your Personal Diary - supprimer votre compte
 
-Cette page concerne les applications **Your Personal Diary** pour Android et Windows et le site web [{{SITE_URL}}]({{SITE_URL}}), publiés par {{PUBLISHER_NAME}}. Un même compte fonctionne partout : le supprimer une fois le supprime partout. Vous n'avez pas besoin d'installer l'application pour supprimer votre compte.
+Cette page concerne les applications **Your Personal Diary** pour Windows, Mac et Android et le site web [{{SITE_URL}}]({{SITE_URL}}), publiés par {{PUBLISHER_NAME}}. Un même compte fonctionne partout : le supprimer une fois le supprime partout. Vous n'avez pas besoin d'installer l'application pour supprimer votre compte.
 
 ## Supprimez-le vous-même (immédiat)
 
-1. Ouvrez l'application Your Personal Diary sur Android ou Windows, ou allez sur [{{SITE_URL}}]({{SITE_URL}}) dans n'importe quel navigateur.
+1. Ouvrez l'application Your Personal Diary sur Windows, Mac ou Android, ou allez sur [{{SITE_URL}}]({{SITE_URL}}) dans n'importe quel navigateur.
 2. Connectez-vous avec votre nom d'utilisateur ou votre adresse e-mail et votre mot de passe.
 3. Ouvrez **Paramètres** et allez à la dernière carte, **Supprimer le compte**.
 4. Saisissez votre mot de passe, cochez la case indiquant que vous comprenez que l'action est irréversible, puis confirmez.

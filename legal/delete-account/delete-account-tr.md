@@ -7,11 +7,11 @@ otherPage: Gizlilik Politikası
 
 # Your Personal Diary - hesabınızı silin
 
-Bu sayfa, {{PUBLISHER_NAME}} tarafından yayımlanan Android ve Windows için **Your Personal Diary** uygulamaları ile [{{SITE_URL}}]({{SITE_URL}}) web sitesi içindir. Tek bir hesap hepsinde çalışır, bu yüzden bir kez silmek hesabı her yerden siler. Hesabınızı silmek için uygulamayı yüklemeniz gerekmez.
+Bu sayfa, {{PUBLISHER_NAME}} tarafından yayımlanan Windows, Mac ve Android için **Your Personal Diary** uygulamaları ile [{{SITE_URL}}]({{SITE_URL}}) web sitesi içindir. Tek bir hesap hepsinde çalışır, bu yüzden bir kez silmek hesabı her yerden siler. Hesabınızı silmek için uygulamayı yüklemeniz gerekmez.
 
 ## Kendiniz silin (hemen)
 
-1. Android veya Windows'ta Your Personal Diary uygulamasını açın ya da herhangi bir tarayıcıda [{{SITE_URL}}]({{SITE_URL}}) adresine gidin.
+1. Windows, Mac veya Android'de Your Personal Diary uygulamasını açın ya da herhangi bir tarayıcıda [{{SITE_URL}}]({{SITE_URL}}) adresine gidin.
 2. Kullanıcı adınız veya e-posta adresiniz ve parolanızla oturum açın.
 3. **Ayarlar**'ı açın ve son kart olan **Hesabı sil** bölümüne gidin.
 4. Parolanızı girin, bu işlemin geri alınamayacağını anladığınızı işaretleyin ve onaylayın.

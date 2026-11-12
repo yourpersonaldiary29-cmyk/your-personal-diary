@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
- * Builds the owner's App Store folder (default: Desktop\"Your Personal Diary - App Store") from the
+ * Builds the owner's App Store folder (default: "Your Personal Diary - App Store" next to the project folder,
+ * i.e. C:\Users\AVI\Projects - the owner keeps the kit folders there, not on the Desktop) from the
  * App Store kit in appstore/, the same way scripts/play/assemble-desktop-folder.mjs builds the Google
  * Play folder. Read-only on the project; it never overwrites: an existing destination is refused.
  *
- *   node scripts/appstore/assemble-desktop-folder.mjs              -> Desktop\Your Personal Diary - App Store
+ *   node scripts/appstore/assemble-desktop-folder.mjs              -> <parent of the project>\Your Personal Diary - App Store
  *   node scripts/appstore/assemble-desktop-folder.mjs <folder>     -> any other new folder (a test run)
  *
  * The screenshots (appstore/screenshots/**.png) are git-ignored: render them first
@@ -18,7 +19,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const proj = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const { mdToHtml, mdToPlain } = await import(pathToFileURL(path.join(proj, 'store', 'render.mjs')).href);
 const settings = JSON.parse(readFileSync(path.join(proj, 'legal', 'settings.json'), 'utf8'));
-const dst = process.argv[2] ? path.resolve(process.argv[2]) : path.join(process.env.USERPROFILE ?? '', 'Desktop', 'Your Personal Diary - App Store');
+const dst = process.argv[2] ? path.resolve(process.argv[2]) : path.join(path.dirname(proj), 'Your Personal Diary - App Store');
 if (existsSync(dst)) {
   console.error(`exists already - not overwriting: ${dst}`);
   process.exit(1);

@@ -1,11 +1,13 @@
-// Builds the owner's Google Play folder on the Desktop from the Play kit (read-only on the project).
+// Builds the owner's Google Play folder next to the project folder (C:\Users\AVI\Projects - the owner keeps the
+// kit folders there, not on the Desktop) from the Play kit (read-only on the project). Optional argument: another
+// destination folder (a test run). An existing destination is refused.
 import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 const proj = 'C:/Users/AVI/Projects/my-personal-diary';
 const { mdToHtml, mdToPlain } = await import(pathToFileURL(path.join(proj, 'store', 'render.mjs')).href);
 const settings = JSON.parse(readFileSync(path.join(proj, 'legal', 'settings.json'), 'utf8'));
-const dst = path.join(process.env.USERPROFILE, 'Desktop', 'Your Personal Diary - Google Play');
+const dst = process.argv[2] ? path.resolve(process.argv[2]) : path.join(path.dirname(proj), 'Your Personal Diary - Google Play');
 if (existsSync(dst)) { console.error('exists already - not overwriting'); process.exit(1); }
 mkdirSync(dst);
 const fill = (s) => s.replaceAll('{{PUBLISHER_NAME}}', settings.publisherName).replaceAll('{{CONTACT_EMAIL}}', settings.contactEmail)

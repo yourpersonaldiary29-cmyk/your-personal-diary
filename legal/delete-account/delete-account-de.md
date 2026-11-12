@@ -7,11 +7,11 @@ otherPage: Datenschutzerklärung
 
 # Your Personal Diary - Konto löschen
 
-Diese Seite gilt für die Apps **Your Personal Diary** für Android und Windows und die Website [{{SITE_URL}}]({{SITE_URL}}), veröffentlicht von {{PUBLISHER_NAME}}. Ein Konto funktioniert überall, deshalb löscht ein einmaliges Löschen es überall. Du musst die App nicht installieren, um dein Konto zu löschen.
+Diese Seite gilt für die Apps **Your Personal Diary** für Windows, Mac und Android und die Website [{{SITE_URL}}]({{SITE_URL}}), veröffentlicht von {{PUBLISHER_NAME}}. Ein Konto funktioniert überall, deshalb löscht ein einmaliges Löschen es überall. Du musst die App nicht installieren, um dein Konto zu löschen.
 
 ## Selbst löschen (sofort)
 
-1. Öffne die App Your Personal Diary unter Android oder Windows, oder rufe [{{SITE_URL}}]({{SITE_URL}}) in einem beliebigen Browser auf.
+1. Öffne die App Your Personal Diary unter Windows, auf dem Mac oder unter Android, oder rufe [{{SITE_URL}}]({{SITE_URL}}) in einem beliebigen Browser auf.
 2. Melde dich mit deinem Benutzernamen oder deiner E-Mail-Adresse und deinem Passwort an.
 3. Öffne **Einstellungen** und gehe zur letzten Karte, **Konto löschen**.
 4. Gib dein Passwort ein, bestätige per Häkchen, dass sich das nicht rückgängig machen lässt, und bestätige.

@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /**
- * Builds the owner's Microsoft Store folder (default: Desktop\"Your Personal Diary - Microsoft Store")
+ * Builds the owner's Microsoft Store folder (default: "Your Personal Diary - Microsoft Store" next to the
+ * project folder, i.e. C:\Users\AVI\Projects - the owner keeps the kit folders there, not on the Desktop)
  * from the Store kit, like scripts/play/assemble-desktop-folder.mjs does for Google Play and
  * scripts/appstore/assemble-desktop-folder.mjs for the App Store. Read-only on the project except that it
  * first runs `node store/render.mjs` (which rewrites the generated, git-ignored store/out/). It never
  * overwrites: an existing destination is refused.
  *
- *   node scripts/store/assemble-desktop-folder.mjs            -> Desktop\Your Personal Diary - Microsoft Store
+ *   node scripts/store/assemble-desktop-folder.mjs            -> <parent of the project>\Your Personal Diary - Microsoft Store
  *   node scripts/store/assemble-desktop-folder.mjs <folder>   -> any other new folder (a test run)
  */
 import { execFileSync } from 'node:child_process';
@@ -15,7 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const proj = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const dst = process.argv[2] ? path.resolve(process.argv[2]) : path.join(process.env.USERPROFILE ?? '', 'Desktop', 'Your Personal Diary - Microsoft Store');
+const dst = process.argv[2] ? path.resolve(process.argv[2]) : path.join(path.dirname(proj), 'Your Personal Diary - Microsoft Store');
 if (existsSync(dst)) {
   console.error(`exists already - not overwriting: ${dst}`);
   process.exit(1);

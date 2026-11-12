@@ -365,7 +365,7 @@ export function renderPage({ page, locale, source, settings, siteUrl }) {
     '<body>',
     '<div class="wrap">',
     '<header>',
-    `<p class="brand" lang="en" dir="ltr">${BRAND}</p>`,
+    `<p class="brand"><bdi lang="en" dir="ltr">${BRAND}</bdi></p>`,
     `<nav aria-label="${escapeHtml(meta.languages)}"><ul class="langs">${langLinks}</ul></nav>`,
     '</header>',
     '<main>',

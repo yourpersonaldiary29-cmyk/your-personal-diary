@@ -7,11 +7,11 @@ otherPage: Informativa sulla privacy
 
 # Your Personal Diary - eliminare il tuo account
 
-Questa pagina riguarda le app **Your Personal Diary** per Android e Windows e il sito web [{{SITE_URL}}]({{SITE_URL}}), pubblicati da {{PUBLISHER_NAME}}. Lo stesso account funziona ovunque, quindi eliminarlo una volta lo elimina dappertutto. Non è necessario installare l'app per eliminare l'account.
+Questa pagina riguarda le app **Your Personal Diary** per Windows, Mac e Android e il sito web [{{SITE_URL}}]({{SITE_URL}}), pubblicati da {{PUBLISHER_NAME}}. Lo stesso account funziona ovunque, quindi eliminarlo una volta lo elimina dappertutto. Non è necessario installare l'app per eliminare l'account.
 
 ## Eliminalo da solo (subito)
 
-1. Apri l'app Your Personal Diary su Android o Windows, oppure vai su [{{SITE_URL}}]({{SITE_URL}}) con qualsiasi browser.
+1. Apri l'app Your Personal Diary su Windows, Mac o Android, oppure vai su [{{SITE_URL}}]({{SITE_URL}}) con qualsiasi browser.
 2. Accedi con il nome utente o l'indirizzo e-mail e la password.
 3. Apri **Impostazioni** e vai all'ultima scheda, **Eliminazione dell'account**.
 4. Inserisci la password, spunta che hai capito che l'operazione non si può annullare e conferma.

@@ -7,11 +7,11 @@ otherPage: Politica de confidențialitate
 
 # Your Personal Diary - ștergerea contului
 
-Această pagină este pentru aplicațiile **Your Personal Diary** pentru Android și Windows și pentru site-ul [{{SITE_URL}}]({{SITE_URL}}), publicate de {{PUBLISHER_NAME}}. Un singur cont funcționează peste tot, deci o singură ștergere îl șterge de peste tot. Nu trebuie să instalezi aplicația ca să-ți ștergi contul.
+Această pagină este pentru aplicațiile **Your Personal Diary** pentru Windows, Mac și Android și pentru site-ul [{{SITE_URL}}]({{SITE_URL}}), publicate de {{PUBLISHER_NAME}}. Un singur cont funcționează peste tot, deci o singură ștergere îl șterge de peste tot. Nu trebuie să instalezi aplicația ca să-ți ștergi contul.
 
 ## Șterge-l singur (imediat)
 
-1. Deschide aplicația Your Personal Diary pe Android sau Windows ori intră pe [{{SITE_URL}}]({{SITE_URL}}) în orice browser.
+1. Deschide aplicația Your Personal Diary pe Windows, Mac sau Android ori intră pe [{{SITE_URL}}]({{SITE_URL}}) în orice browser.
 2. Conectează-te cu numele de utilizator sau adresa de e-mail și parola.
 3. Deschide **Setări** și mergi la ultimul card, **Ștergerea contului**.
 4. Introdu parola, bifează că înțelegi că acțiunea nu poate fi anulată și confirmă.

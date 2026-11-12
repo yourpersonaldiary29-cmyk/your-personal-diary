@@ -7,11 +7,11 @@ otherPage: プライバシーポリシー
 
 # Your Personal Diary - アカウントの削除
 
-このページは、{{PUBLISHER_NAME}} が公開している Android と Windows 向けの **Your Personal Diary** アプリ、およびウェブサイト [{{SITE_URL}}]({{SITE_URL}}) についてのものです。1 つのアカウントがすべてで使えるため、1 回削除すればすべての場所から削除されます。アカウントを削除するためにアプリをインストールする必要はありません。
+このページは、{{PUBLISHER_NAME}} が公開している Windows、Mac、Android 向けの **Your Personal Diary** アプリ、およびウェブサイト [{{SITE_URL}}]({{SITE_URL}}) についてのものです。1 つのアカウントがすべてで使えるため、1 回削除すればすべての場所から削除されます。アカウントを削除するためにアプリをインストールする必要はありません。
 
 ## 自分で削除する（即時）
 
-1. Android または Windows で Your Personal Diary アプリを開くか、任意のブラウザーで [{{SITE_URL}}]({{SITE_URL}}) にアクセスします。
+1. Windows、Mac または Android で Your Personal Diary アプリを開くか、任意のブラウザーで [{{SITE_URL}}]({{SITE_URL}}) にアクセスします。
 2. ユーザー名またはメールアドレスとパスワードでログインします。
 3. **設定**を開き、最後のカード**アカウントの削除**に進みます。
 4. パスワードを入力し、元に戻せないことを理解した旨にチェックを入れて、確認します。

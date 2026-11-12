@@ -102,7 +102,7 @@ const messages: Record<string, string> = {
 
   // Privacy card (src/pages/settings/PrivacySection.tsx)
   // Link to the privacy policy page of the diary server (src/components/legal/PrivacyPolicyLink.tsx)
-  'settings.privacy.policyLink': 'Privacy policy',
+  'settings.privacy.policyLink': 'Privacy Policy',
   'settings.privacy.termsLink': 'Terms of Use',
   'settings.privacy.title': 'Privacy',
   'settings.privacy.offlineLabel': 'Offline privacy mode',
