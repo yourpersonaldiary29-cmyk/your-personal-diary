@@ -65,9 +65,32 @@ const writeGuides = () => {
   }
 };
 
+// 5 - the policy answers (English, as plain text that Notepad shows well) and the review notes as they are
+const POLICY_DIR = '5 - תשובות לטפסים של אפל (באנגלית)';
+const policyNames = {
+  'app-privacy.md': 'App Privacy - פרטיות האפליקציה.txt',
+  'age-rating.md': 'Age Rating - דירוג גיל.txt',
+  'export-compliance.md': 'Export Compliance - הצפנה.txt',
+  'app-information.md': 'App Information - פרטי האפליקציה.txt',
+  'testflight.md': 'TestFlight - בדיקות.txt',
+  'mac-appstore-notes.md': 'Mac App Store - מה שונה במק.txt',
+};
+const writePolicies = () => {
+  const polDst = path.join(dst, POLICY_DIR);
+  mkdirSync(polDst, { recursive: true });
+  for (const [src, out] of Object.entries(policyNames)) {
+    writeFileSync(path.join(polDst, out), BOM + mdToPlain(fill(readFileSync(path.join(kit, 'policy', src), 'utf8'))).replace(/\r?\n/g, '\r\n'));
+  }
+  writeFileSync(
+    path.join(polDst, 'App Review Notes - הערות לבודקים (להדביק כמו שהוא).txt'),
+    BOM + readFileSync(path.join(kit, 'policy', 'review-notes.txt'), 'utf8').replace(/\r?\n/g, '\r\n'),
+  );
+};
+
 if (refresh) {
   writeGuides();
-  console.log(`refreshed ${GUIDES.length} guide pages in ${dst}`);
+  writePolicies();
+  console.log(`refreshed ${GUIDES.length} guide pages and ${Object.keys(policyNames).length + 1} policy texts in ${dst}`);
   process.exit(0);
 }
 
@@ -94,24 +117,8 @@ const iconDst = path.join(dst, '4 - אייקון');
 mkdirSync(iconDst);
 for (const f of ['AppIcon-1024.png', 'README.md']) cpSync(path.join(kit, 'icon', f), path.join(iconDst, f));
 
-// 5 - the policy answers (English, as plain text that Notepad shows well) and the review notes as they are
-const polDst = path.join(dst, '5 - תשובות לטפסים של אפל (באנגלית)');
-mkdirSync(polDst);
-const policyNames = {
-  'app-privacy.md': 'App Privacy - פרטיות האפליקציה.txt',
-  'age-rating.md': 'Age Rating - דירוג גיל.txt',
-  'export-compliance.md': 'Export Compliance - הצפנה.txt',
-  'app-information.md': 'App Information - פרטי האפליקציה.txt',
-  'testflight.md': 'TestFlight - בדיקות.txt',
-  'mac-appstore-notes.md': 'Mac App Store - מה שונה במק.txt',
-};
-for (const [src, out] of Object.entries(policyNames)) {
-  writeFileSync(path.join(polDst, out), BOM + mdToPlain(fill(readFileSync(path.join(kit, 'policy', src), 'utf8'))).replace(/\r?\n/g, '\r\n'));
-}
-writeFileSync(
-  path.join(polDst, 'App Review Notes - הערות לבודקים (להדביק כמו שהוא).txt'),
-  BOM + readFileSync(path.join(kit, 'policy', 'review-notes.txt'), 'utf8').replace(/\r?\n/g, '\r\n'),
-);
+// 5 - the policy answers
+writePolicies();
 
 // 1, 1b, 1c, the screenshots explanation and 6 - the Hebrew guides as web pages
 writeGuides();
