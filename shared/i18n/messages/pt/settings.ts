@@ -493,6 +493,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} usados, {free} livres ({percent})',
   'settings.server.diskLow':
     'Só {percent} do disco está livre. Aumente o volume em breve (fly volumes extend, consulte o manual de operações): quando o disco fica cheio, deixa de ser possível guardar alterações.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Suficiente para',
+  'settings.server.capacityValue':
+    'Cerca de {count, plural, one {{users} utilizador} many {{users} de utilizadores} other {{users} utilizadores}} (a escrever todos os dias durante dois a três anos); pelo menos {atQuota} mesmo que cada diário esgote a quota de {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Cerca de {count, plural, one {{users} utilizador} many {{users} de utilizadores} other {{users} utilizadores}} (a escrever todos os dias durante dois a três anos)',
+  'settings.server.capacityHint':
+    'Como é calculado: cada conta ocupa no disco cerca de {copies, plural, one {# vez} other {# vezes}} o tamanho do seu diário (o diário e a sua cópia de segurança, e ambos outra vez em cada um dos dois arquivos do servidor), {percent} do disco fica livre e cada diário conta como {size}. Hoje o diário médio tem {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Como é calculado: cada conta ocupa no disco cerca de {copies, plural, one {# vez} other {# vezes}} o tamanho do seu diário (o diário e a sua cópia de segurança, e ambos outra vez em cada um dos dois arquivos do servidor), {percent} do disco fica livre e cada diário conta como {size}. Ainda não há diários.',
+  'settings.server.capacityNote':
+    'O limite de contas ({max}) é superior a esta estimativa. Antes de o número de contas se aproximar da estimativa, aumente o volume ou reduza DIARY_MAX_ACCOUNTS (consulte o manual de operações).',
   'settings.server.storage': 'Gravação no disco',
   'settings.server.storageOk': 'Normal',
   'settings.server.storageFailed': 'Com falhas: a gravação está a falhar',

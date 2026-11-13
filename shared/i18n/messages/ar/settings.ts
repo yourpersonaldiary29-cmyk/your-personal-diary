@@ -466,6 +466,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} مستخدمة، {free} متاحة ({percent})',
   'settings.server.diskLow':
     'المساحة المتاحة على القرص {percent} فقط. يُرجى توسيع وحدة التخزين قريبًا (fly volumes extend، راجع دليل التشغيل): عندما يمتلئ القرص لا يمكن حفظ التغييرات بعد ذلك.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'السعة التقديرية',
+  'settings.server.capacityValue':
+    'نحو {count, plural, zero {{users} مستخدم} one {مستخدم واحد} two {مستخدمَين} few {{users} مستخدمين} many {{users} مستخدمًا} other {{users} مستخدم}} (يكتبون كل يوم لمدة سنتين إلى ثلاث سنوات)؛ و{atQuota} على الأقل حتى لو بلغت يوميات كل مستخدم حدها الأقصى البالغ {quota}',
+  'settings.server.capacityValueNoQuota':
+    'نحو {count, plural, zero {{users} مستخدم} one {مستخدم واحد} two {مستخدمَين} few {{users} مستخدمين} many {{users} مستخدمًا} other {{users} مستخدم}} (يكتبون كل يوم لمدة سنتين إلى ثلاث سنوات)',
+  'settings.server.capacityHint':
+    'طريقة التقدير: يشغل كل حساب على القرص نحو {copies, plural, zero {# ضعف} one {# ضعف} two {ضعفَي} few {# أضعاف} many {# ضعفًا} other {# ضعف}} حجم يومياته (اليوميات ونسختها الاحتياطية، وكلتاهما مرة أخرى في كلٍّ من أرشيفَي الخادم)، ويبقى {percent} من القرص فارغًا، وتُحتسب يوميات كل حساب بحجم {size}. متوسط حجم اليوميات اليوم {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'طريقة التقدير: يشغل كل حساب على القرص نحو {copies, plural, zero {# ضعف} one {# ضعف} two {ضعفَي} few {# أضعاف} many {# ضعفًا} other {# ضعف}} حجم يومياته (اليوميات ونسختها الاحتياطية، وكلتاهما مرة أخرى في كلٍّ من أرشيفَي الخادم)، ويبقى {percent} من القرص فارغًا، وتُحتسب يوميات كل حساب بحجم {size}. لا توجد يوميات بعد.',
+  'settings.server.capacityNote':
+    'حد الحسابات ({max}) أعلى من هذا التقدير. قبل أن يقترب عدد الحسابات من التقدير، يُرجى توسيع وحدة التخزين أو خفض DIARY_MAX_ACCOUNTS (راجع دليل التشغيل).',
   'settings.server.storage': 'الحفظ على القرص',
   'settings.server.storageOk': 'سليم',
   'settings.server.storageFailed': 'غير سليم - الحفظ يفشل',

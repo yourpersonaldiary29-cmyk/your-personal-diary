@@ -62,7 +62,12 @@ export function serverArchiveFixture(overrides: Partial<ServerArchiveInfo> = {})
   };
 }
 
-/** GET /api/server/status of a healthy hosted server with no archive yet (fictional numbers). */
+/**
+ * GET /api/server/status of a healthy hosted server with no archive yet (fictional numbers). Its
+ * capacity is the model's answer for the 3 GiB disk: 12 diaries of 96 KB on average (below the 1 MiB
+ * of a typical diary), each account 6 x 1 MiB, 435 typical users - more than the ceiling of 100
+ * accounts, so no note - and 43 at the 10 MiB quota.
+ */
 export function serverStatusFixture(overrides: Partial<ServerStatus> = {}): ServerStatus {
   return {
     version: '0.1.0',
@@ -91,6 +96,17 @@ export function serverStatusFixture(overrides: Partial<ServerStatus> = {}): Serv
     archives: [],
     archiveBusy: false,
     archiveRetryAfterSec: 0,
+    capacity: {
+      usableBytes: 2_738_041_651,
+      averageDiaryBytes: 96 * 1024,
+      diaries: 12,
+      perUserTypicalBytes: 6 * 1024 * 1024,
+      usersTypical: 435,
+      usersAtQuota: 43,
+      countedDiaryBytes: 1024 * 1024,
+      copies: 6,
+      keptFreePct: 15,
+    },
     ...overrides,
   };
 }

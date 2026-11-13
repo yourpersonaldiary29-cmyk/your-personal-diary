@@ -442,6 +442,15 @@ const messages: Record<string, string> = {
   'settings.server.disk': '磁盘',
   'settings.server.diskValue': '已用 {used}，可用 {free}（{percent}）',
   'settings.server.diskLow': '磁盘可用空间仅剩 {percent}。请尽快扩容存储卷（fly volumes extend，见运维手册）：磁盘满了以后将无法再保存更改。',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': '可容纳',
+  'settings.server.capacityValue': '约 {count, plural, other {{users} 位用户}}（每天写日记，坚持两到三年）；即使每本日记都用满 {quota} 的配额，也至少可容纳 {atQuota} 位用户',
+  'settings.server.capacityValueNoQuota': '约 {count, plural, other {{users} 位用户}}（每天写日记，坚持两到三年）',
+  'settings.server.capacityHint':
+    '估算方法：每个账户在磁盘上约占其日记大小的 {copies} 倍（日记本身和它的安全副本，服务器保留的两份归档中又各有这两者），磁盘保留 {percent} 的空闲空间，每本日记按 {size} 计算。目前日记的平均大小为 {average}。',
+  'settings.server.capacityHintNoDiaries':
+    '估算方法：每个账户在磁盘上约占其日记大小的 {copies} 倍（日记本身和它的安全副本，服务器保留的两份归档中又各有这两者），磁盘保留 {percent} 的空闲空间，每本日记按 {size} 计算。目前还没有日记。',
+  'settings.server.capacityNote': '账户上限（{max}）高于这一估算。在账户数量接近估算值之前，请扩容存储卷或调低 DIARY_MAX_ACCOUNTS（见运维手册）。',
   'settings.server.storage': '保存到磁盘',
   'settings.server.storageOk': '正常',
   'settings.server.storageFailed': '不正常 - 保存失败',

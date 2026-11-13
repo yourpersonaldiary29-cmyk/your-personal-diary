@@ -494,6 +494,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} usados, {free} libres ({percent})',
   'settings.server.diskLow':
     'Solo queda libre el {percent} del disco. Amplía el volumen pronto (fly volumes extend, consulta el manual de operaciones): cuando el disco se llena, los cambios ya no se pueden guardar.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Suficiente para',
+  'settings.server.capacityValue':
+    'Aproximadamente {count, plural, one {{users} usuario} many {{users} de usuarios} other {{users} usuarios}} (escribiendo cada día durante dos o tres años); al menos {atQuota} aunque cada diario llene su cuota de {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Aproximadamente {count, plural, one {{users} usuario} many {{users} de usuarios} other {{users} usuarios}} (escribiendo cada día durante dos o tres años)',
+  'settings.server.capacityHint':
+    'Cómo se calcula: cada cuenta ocupa en el disco aproximadamente {copies, plural, one {# vez} other {# veces}} el tamaño de su diario (el diario y su copia de seguridad, y ambos otra vez en cada uno de los dos archivos del servidor), el {percent} del disco queda libre y cada diario cuenta como {size}. Hoy el diario medio ocupa {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Cómo se calcula: cada cuenta ocupa en el disco aproximadamente {copies, plural, one {# vez} other {# veces}} el tamaño de su diario (el diario y su copia de seguridad, y ambos otra vez en cada uno de los dos archivos del servidor), el {percent} del disco queda libre y cada diario cuenta como {size}. Todavía no hay diarios.',
+  'settings.server.capacityNote':
+    'El límite de cuentas ({max}) es mayor que esta estimación. Antes de que el número de cuentas se acerque a la estimación, amplía el volumen o baja DIARY_MAX_ACCOUNTS (consulta el manual de operaciones).',
   'settings.server.storage': 'Guardado en el disco',
   'settings.server.storageOk': 'Correcto',
   'settings.server.storageFailed': 'Con fallos: no se puede guardar',

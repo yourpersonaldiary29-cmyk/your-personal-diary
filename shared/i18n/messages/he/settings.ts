@@ -447,6 +447,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} בשימוש, {free} פנויים ({percent})',
   'settings.server.diskLow':
     'רק {percent} מהדיסק פנויים. יש להגדיל את הדיסק בקרוב (fly volumes extend, ראו ספר התפעול): כשהדיסק מלא, שינויים כבר לא נשמרים.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'מספיק עבור',
+  'settings.server.capacityValue':
+    'בערך {count, plural, one {משתמש אחד} two {שני משתמשים} other {{users} משתמשים}} (שכותבים כל יום במשך שנתיים-שלוש); לפחות {atQuota} גם אם כל יומן יתמלא עד המכסה של {quota}',
+  'settings.server.capacityValueNoQuota':
+    'בערך {count, plural, one {משתמש אחד} two {שני משתמשים} other {{users} משתמשים}} (שכותבים כל יום במשך שנתיים-שלוש)',
+  'settings.server.capacityHint':
+    'איך זה מחושב: כל חשבון תופס בדיסק בערך פי {copies} מגודל היומן שלו (היומן ועותק הביטחון שלו, ושניהם שוב בכל אחד משני ארכיוני השרת), {percent} מהדיסק נשארים פנויים, וכל יומן נספר כ-{size}. גודל יומן ממוצע היום: {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'איך זה מחושב: כל חשבון תופס בדיסק בערך פי {copies} מגודל היומן שלו (היומן ועותק הביטחון שלו, ושניהם שוב בכל אחד משני ארכיוני השרת), {percent} מהדיסק נשארים פנויים, וכל יומן נספר כ-{size}. עדיין אין יומנים.',
+  'settings.server.capacityNote':
+    'תקרת החשבונות ({max}) גבוהה מההערכה הזו. לפני שמספר החשבונות מתקרב להערכה, כדאי להגדיל את הדיסק או להוריד את DIARY_MAX_ACCOUNTS (ראו ספר התפעול).',
   'settings.server.storage': 'שמירה לדיסק',
   'settings.server.storageOk': 'תקינה',
   'settings.server.storageFailed': 'לא תקינה - השמירה נכשלת',

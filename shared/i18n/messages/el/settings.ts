@@ -503,6 +503,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} σε χρήση, {free} ελεύθερα ({percent})',
   'settings.server.diskLow':
     'Μόνο το {percent} του δίσκου είναι ελεύθερο. Μεγάλωσε σύντομα τον τόμο (fly volumes extend, δες το εγχειρίδιο λειτουργίας): όταν ο δίσκος γεμίσει, οι αλλαγές δεν μπορούν πια να αποθηκευτούν.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Αρκεί για',
+  'settings.server.capacityValue':
+    'Περίπου {count, plural, one {{users} χρήστη} other {{users} χρήστες}} (που γράφουν κάθε μέρα για δύο με τρία χρόνια)· τουλάχιστον {atQuota} ακόμη κι αν κάθε ημερολόγιο γεμίσει το όριο των {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Περίπου {count, plural, one {{users} χρήστη} other {{users} χρήστες}} (που γράφουν κάθε μέρα για δύο με τρία χρόνια)',
+  'settings.server.capacityHint':
+    'Πώς υπολογίζεται: κάθε λογαριασμός πιάνει στον δίσκο περίπου {copies, plural, one {# φορά} other {# φορές}} το μέγεθος του ημερολογίου του (το ημερολόγιο και το αντίγραφο ασφαλείας του, και τα δύο ξανά σε καθεμία από τις δύο αρχειοθετήσεις του διακομιστή), το {percent} του δίσκου μένει ελεύθερο και κάθε ημερολόγιο μετράει ως {size}. Σήμερα ένα ημερολόγιο έχει κατά μέσο όρο {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Πώς υπολογίζεται: κάθε λογαριασμός πιάνει στον δίσκο περίπου {copies, plural, one {# φορά} other {# φορές}} το μέγεθος του ημερολογίου του (το ημερολόγιο και το αντίγραφο ασφαλείας του, και τα δύο ξανά σε καθεμία από τις δύο αρχειοθετήσεις του διακομιστή), το {percent} του δίσκου μένει ελεύθερο και κάθε ημερολόγιο μετράει ως {size}. Δεν υπάρχουν ακόμη ημερολόγια.',
+  'settings.server.capacityNote':
+    'Το όριο λογαριασμών ({max}) είναι πάνω από αυτή την εκτίμηση. Πριν ο αριθμός των λογαριασμών πλησιάσει την εκτίμηση, μεγάλωσε τον τόμο ή μείωσε το DIARY_MAX_ACCOUNTS (δες το εγχειρίδιο λειτουργίας).',
   'settings.server.storage': 'Αποθήκευση στον δίσκο',
   'settings.server.storageOk': 'Κανονική',
   'settings.server.storageFailed': 'Μη κανονική - η αποθήκευση αποτυγχάνει',

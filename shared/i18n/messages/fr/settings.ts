@@ -467,6 +467,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} utilisés, {free} libres ({percent})',
   'settings.server.diskLow':
     'Il ne reste que {percent} d’espace libre sur le disque. Agrandissez bientôt le volume (fly volumes extend, voir le manuel d’exploitation) : quand le disque est plein, les modifications ne peuvent plus être enregistrées.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Suffisant pour',
+  'settings.server.capacityValue':
+    'Environ {count, plural, one {{users} utilisateur} many {{users} d’utilisateurs} other {{users} utilisateurs}} (en écrivant chaque jour pendant deux à trois ans) ; au moins {atQuota} même si chaque journal remplit son quota de {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Environ {count, plural, one {{users} utilisateur} many {{users} d’utilisateurs} other {{users} utilisateurs}} (en écrivant chaque jour pendant deux à trois ans)',
+  'settings.server.capacityHint':
+    'Comment c’est estimé : chaque compte occupe sur le disque environ {copies} fois la taille de son journal (le journal et sa copie de sécurité, puis les deux à nouveau dans chacune des deux archives du serveur), {percent} du disque reste libre et chaque journal compte pour {size}. Aujourd’hui, un journal fait en moyenne {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Comment c’est estimé : chaque compte occupe sur le disque environ {copies} fois la taille de son journal (le journal et sa copie de sécurité, puis les deux à nouveau dans chacune des deux archives du serveur), {percent} du disque reste libre et chaque journal compte pour {size}. Il n’y a pas encore de journal.',
+  'settings.server.capacityNote':
+    'La limite de comptes ({max}) est supérieure à cette estimation. Avant que le nombre de comptes n’approche de l’estimation, agrandissez le volume ou baissez DIARY_MAX_ACCOUNTS (voir le manuel d’exploitation).',
   'settings.server.storage': 'Enregistrement sur le disque',
   'settings.server.storageOk': 'Normal',
   'settings.server.storageFailed': 'En échec : l’enregistrement échoue',

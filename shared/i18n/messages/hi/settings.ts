@@ -463,6 +463,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} इस्तेमाल में, {free} खाली ({percent})',
   'settings.server.diskLow':
     'डिस्क में सिर्फ़ {percent} जगह खाली है। जल्द ही वॉल्यूम बढ़ाएँ (fly volumes extend, रनबुक देखें): डिस्क भर जाने पर बदलाव सहेजे नहीं जा सकते।',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'अनुमानित क्षमता',
+  'settings.server.capacityValue':
+    'लगभग {count, plural, one {{users} उपयोगकर्ता} other {{users} उपयोगकर्ता}} (जो दो से तीन साल तक रोज़ लिखें); कम से कम {atQuota}, भले ही हर डायरी अपनी {quota} की सीमा तक भर जाए',
+  'settings.server.capacityValueNoQuota':
+    'लगभग {count, plural, one {{users} उपयोगकर्ता} other {{users} उपयोगकर्ता}} (जो दो से तीन साल तक रोज़ लिखें)',
+  'settings.server.capacityHint':
+    'अनुमान कैसे लगाया गया: हर खाता डिस्क पर अपनी डायरी के आकार की लगभग {copies} गुना जगह लेता है (डायरी और उसकी सुरक्षा कॉपी, और सर्वर के दोनों आर्काइव में से हर एक में ये दोनों फिर से), डिस्क का {percent} खाली रखा जाता है, और हर डायरी को {size} गिना जाता है। आज औसत डायरी {average} की है।',
+  'settings.server.capacityHintNoDiaries':
+    'अनुमान कैसे लगाया गया: हर खाता डिस्क पर अपनी डायरी के आकार की लगभग {copies} गुना जगह लेता है (डायरी और उसकी सुरक्षा कॉपी, और सर्वर के दोनों आर्काइव में से हर एक में ये दोनों फिर से), डिस्क का {percent} खाली रखा जाता है, और हर डायरी को {size} गिना जाता है। अभी कोई डायरी नहीं है।',
+  'settings.server.capacityNote':
+    'खातों की सीमा ({max}) इस अनुमान से ज़्यादा है। खातों की संख्या अनुमान के क़रीब पहुँचने से पहले वॉल्यूम बढ़ाएँ या DIARY_MAX_ACCOUNTS घटाएँ (रनबुक देखें)।',
   'settings.server.storage': 'डिस्क पर सहेजना',
   'settings.server.storageOk': 'ठीक है',
   'settings.server.storageFailed': 'ठीक नहीं - सहेजना विफल हो रहा है',

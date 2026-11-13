@@ -466,6 +466,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} usati, {free} liberi ({percent})',
   'settings.server.diskLow':
     'Sul disco è libero solo il {percent}. Ingrandisci presto il volume (fly volumes extend, vedi il manuale operativo): quando il disco è pieno, le modifiche non possono più essere salvate.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Basta per',
+  'settings.server.capacityValue':
+    'Circa {count, plural, one {{users} utente} many {{users} di utenti} other {{users} utenti}} (scrivendo ogni giorno per due o tre anni); almeno {atQuota} anche se ogni diario esaurisce la sua quota di {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Circa {count, plural, one {{users} utente} many {{users} di utenti} other {{users} utenti}} (scrivendo ogni giorno per due o tre anni)',
+  'settings.server.capacityHint':
+    'Come si stima: ogni account occupa sul disco circa {copies, plural, one {# volta} other {# volte}} la dimensione del suo diario (il diario e la sua copia di sicurezza, ed entrambi di nuovo in ciascuno dei due archivi del server), il {percent} del disco resta libero e ogni diario conta come {size}. Oggi il diario medio occupa {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Come si stima: ogni account occupa sul disco circa {copies, plural, one {# volta} other {# volte}} la dimensione del suo diario (il diario e la sua copia di sicurezza, ed entrambi di nuovo in ciascuno dei due archivi del server), il {percent} del disco resta libero e ogni diario conta come {size}. Non ci sono ancora diari.',
+  'settings.server.capacityNote':
+    'Il limite di account ({max}) è più alto di questa stima. Prima che il numero di account si avvicini alla stima, ingrandisci il volume o abbassa DIARY_MAX_ACCOUNTS (vedi il manuale operativo).',
   'settings.server.storage': 'Salvataggio su disco',
   'settings.server.storageOk': 'Regolare',
   'settings.server.storageFailed': 'Non regolare: il salvataggio non riesce',

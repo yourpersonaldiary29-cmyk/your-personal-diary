@@ -487,6 +487,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} foglalt, {free} szabad ({percent})',
   'settings.server.diskLow':
     'A lemeznek már csak {percent} része szabad. Hamarosan növeld a kötet méretét (fly volumes extend, lásd az üzemeltetési kézikönyvet): ha a lemez megtelik, a módosításokat nem lehet többé menteni.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Becsült kapacitás',
+  'settings.server.capacityValue':
+    'Körülbelül {count, plural, one {{users} felhasználó} other {{users} felhasználó}} (akik két-három évig minden nap írnak); legalább {atQuota} akkor is, ha minden napló eléri a kvótát ({quota})',
+  'settings.server.capacityValueNoQuota':
+    'Körülbelül {count, plural, one {{users} felhasználó} other {{users} felhasználó}} (akik két-három évig minden nap írnak)',
+  'settings.server.capacityHint':
+    'Így becsüljük: minden fiók naplója nagyjából {copies} példányban foglal helyet a lemezen (maga a napló és a biztonsági másolata, majd mindkettő még egyszer a két szerverarchívum mindegyikében), a lemez {percent} része szabadon marad, és minden naplót {size} méretűnek számolunk. Ma egy napló átlagosan {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Így becsüljük: minden fiók naplója nagyjából {copies} példányban foglal helyet a lemezen (maga a napló és a biztonsági másolata, majd mindkettő még egyszer a két szerverarchívum mindegyikében), a lemez {percent} része szabadon marad, és minden naplót {size} méretűnek számolunk. Még nincs egy napló sem.',
+  'settings.server.capacityNote':
+    'A fiókok felső határa ({max}) magasabb ennél a becslésnél. Mielőtt a fiókok száma megközelítené a becslést, növeld a kötet méretét, vagy csökkentsd a DIARY_MAX_ACCOUNTS értékét (lásd az üzemeltetési kézikönyvet).',
   'settings.server.storage': 'Mentés a lemezre',
   'settings.server.storageOk': 'Rendben',
   'settings.server.storageFailed': 'Nincs rendben - a mentés nem sikerül',

@@ -44,7 +44,8 @@ export const SVT = {
   get accounts() {
     return tr('settings.server.accounts');
   },
-  accountsValue: (count: number, max: number) => tr('settings.server.accountsValue', { count, max }),
+  // Both numbers arrive formatted with the language's grouping ("4", "5,000"), like the rest of the card.
+  accountsValue: (count: string, max: string) => tr('settings.server.accountsValue', { count, max }),
   get registrations() {
     return tr('settings.server.registrations');
   },
@@ -53,6 +54,17 @@ export const SVT = {
   },
   diskValue: (used: string, free: string, percent: string) => tr('settings.server.diskValue', { used, free, percent }),
   diskLow: (percent: string) => tr('settings.server.diskLow', { percent }),
+  // "Enough for" (ServerStatus.capacity): `count` picks the plural form, `users` / `atQuota` / `max` are
+  // the numbers already formatted with the language's grouping ("2,800"), the sizes come from
+  // formatServerBytes and the percentage from formatPercent; `copies` is the server's own factor.
+  get capacity() {
+    return tr('settings.server.capacity');
+  },
+  capacityValue: (count: number, users: string, atQuota: string, quota: string) => tr('settings.server.capacityValue', { count, users, atQuota, quota }),
+  capacityValueNoQuota: (count: number, users: string) => tr('settings.server.capacityValueNoQuota', { count, users }),
+  capacityHint: (copies: number, percent: string, size: string, average: string) => tr('settings.server.capacityHint', { copies, percent, size, average }),
+  capacityHintNoDiaries: (copies: number, percent: string, size: string) => tr('settings.server.capacityHintNoDiaries', { copies, percent, size }),
+  capacityNote: (max: string) => tr('settings.server.capacityNote', { max }),
   get storage() {
     return tr('settings.server.storage');
   },

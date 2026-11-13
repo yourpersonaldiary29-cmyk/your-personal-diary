@@ -497,6 +497,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} заети, {free} свободни ({percent})',
   'settings.server.diskLow':
     'Свободни са само {percent} от диска. Скоро увеличете тома (fly volumes extend, вижте наръчника за поддръжка): когато дискът се запълни, промените вече не могат да се запазват.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Стига за',
+  'settings.server.capacityValue':
+    'Около {count, plural, one {{users} потребител} other {{users} потребители}} (които пишат всеки ден в продължение на две-три години); поне {atQuota}, дори ако всеки дневник запълни квотата си от {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Около {count, plural, one {{users} потребител} other {{users} потребители}} (които пишат всеки ден в продължение на две-три години)',
+  'settings.server.capacityHint':
+    'Как се изчислява: всеки профил заема на диска около {copies, plural, one {# път} other {# пъти}} повече място от дневника си (самия дневник и резервното му копие, и двете още веднъж във всеки от двата архива на сървъра), {percent} от диска остават свободни, а всеки дневник се брои за {size}. Днес средният дневник е {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Как се изчислява: всеки профил заема на диска около {copies, plural, one {# път} other {# пъти}} повече място от дневника си (самия дневник и резервното му копие, и двете още веднъж във всеки от двата архива на сървъра), {percent} от диска остават свободни, а всеки дневник се брои за {size}. Все още няма дневници.',
+  'settings.server.capacityNote':
+    'Ограничението за профили ({max}) е по-високо от тази оценка. Преди броят на профилите да се доближи до оценката, увеличете тома или намалете DIARY_MAX_ACCOUNTS (вижте наръчника за поддръжка).',
   'settings.server.storage': 'Запазване на диска',
   'settings.server.storageOk': 'Наред',
   'settings.server.storageFailed': 'Не е наред - запазването е неуспешно',

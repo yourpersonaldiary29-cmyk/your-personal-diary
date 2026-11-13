@@ -2,15 +2,18 @@
  * The owner's "Server" card (docs/android-tasks/SERVER-CARD.md item 1): shown only with the hosted
  * server and only to its owner (`isServerOwner === true` - absent on local and older servers, false for
  * everyone else and a guest; a 403 hides it too); the status (version, uptime, accounts, registrations,
- * disk with the low-space warning, saving, last save, memory, last archive with the 30-day reminder),
- * read on open and with Refresh only; "Prepare server archive" (password + passphrase twice, checked
- * like the server checks them; the server's answers shown at the right field); the archive list with
- * the exact download and check commands and their Copy buttons; English and Hebrew (RTL).
+ * disk with the low-space warning, how many users the disk is enough for - the server's estimate with
+ * grouped numbers of two significant digits, how it is made in the server's own numbers, a gentle note
+ * only while the account ceiling is above it -, the account ceiling grouped like the rest, saving,
+ * last save, memory, last archive with the 30-day reminder), read on open and with Refresh only;
+ * "Prepare server archive" (password + passphrase twice, checked like the server checks them; the
+ * server's answers shown at the right field); the archive list with the exact download and check
+ * commands and their Copy buttons; English and Hebrew (RTL).
  */
 import { useState, type ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, screen, waitFor, within } from '@testing-library/react';
-import { SERVER_ARCHIVE_PASSPHRASE_MIN, type ServerInfo, type ServerSettings } from '@shared/types';
+import { SERVER_ARCHIVE_PASSPHRASE_MIN, type ServerCapacity, type ServerInfo, type ServerSettings, type ServerStatus } from '@shared/types';
 import * as api from '@/api';
 import { __resetConnectionForTests, ApiClientError, setServerInfo } from '@/api';
 import { T } from '@/constants/texts';
@@ -28,6 +31,7 @@ import {
   SERVER_READY_ID,
   ServerSection,
   archiveFormErrors,
+  capacityCount,
   passphraseLength,
 } from './ServerSection';
 import { SVT, formatServerBytes, formatUptime } from './serverTexts';
@@ -134,6 +138,15 @@ describe('helpers', () => {
     expect(formatUptime(45 * 60)).toMatch(/45/);
     expect(formatUptime(3 * 86_400 + 7200)).toMatch(/3/);
   });
+
+  it('shows the capacity counts with two significant digits from 100 on - a lower bound rounded down', () => {
+    // After "About": the nearest (production's 2,842 -> 2,800; 20 GiB's 2,901 -> 2,900).
+    expect([0, 1, 2, 43, 99, 100, 109, 435, 999, 2_842, 2_901, 5_684, 12_345].map((n) => capacityCount(n))).toEqual([
+      0, 1, 2, 43, 99, 100, 110, 440, 1_000, 2_800, 2_900, 5_700, 12_000,
+    ]);
+    // "at least": never above the exact count (284 -> 280, 568 -> 560), so it stays true.
+    expect([0, 43, 99, 109, 284, 290, 568, 999, 2_842].map((n) => capacityCount(n, true))).toEqual([0, 43, 99, 100, 280, 290, 560, 990, 2_800]);
+  });
 });
 
 describe('who sees the Server card', () => {
@@ -196,7 +209,8 @@ describe('the status', () => {
     await within(await screen.findByRole('heading', { level: 2, name: SVT.title }).then(() => card())).findByText(SVT.version, { selector: 'dt' });
     expect(valueOf(SVT.version)).toBe('0.1.0');
     expect(valueOf(SVT.uptime)).toBe(formatUptime(3 * 86_400 + 2 * 3600));
-    expect(valueOf(SVT.accounts)).toBe(SVT.accountsValue(12, 100));
+    expect(valueOf(SVT.accounts)).toBe(SVT.accountsValue('12', '100'));
+    expect(valueOf(SVT.accounts)).toBe('12 of at most 100');
     expect(valueOf(SVT.registrations)).toBe('2');
     expect(valueOf(SVT.disk)).toBe(SVT.diskValue('1 GB', '2 GB', '66%'));
     expect(valueOf(SVT.storage)).toContain(SVT.storageOk);
@@ -232,6 +246,156 @@ describe('the status', () => {
     expect(SVT.archiveDueOld(30)).toContain('30');
   });
 
+  describe('how many users the disk is enough for (capacity)', () => {
+    /** The model's answer for a 20 GiB volume (server/test/hosted-capacity.test.ts): 4 diaries of 92 KB on average, each account 6 x 1 MiB. */
+    const CAPACITY_20_GIB: ServerCapacity = {
+      usableBytes: 18_253_611_008,
+      averageDiaryBytes: 92 * 1024,
+      diaries: 4,
+      perUserTypicalBytes: 6 * 1024 * 1024,
+      usersTypical: 2_901,
+      usersAtQuota: 290,
+      countedDiaryBytes: 1024 * 1024,
+      copies: 6,
+      keptFreePct: 15,
+    };
+    /** Production on 2026-11-13: the size its statfs reports (20,545,068 KiB) gives 2,842 and 284. */
+    const CAPACITY_PRODUCTION: ServerCapacity = { ...CAPACITY_20_GIB, usableBytes: 17_882_427_187, usersTypical: 2_842, usersAtQuota: 284 };
+    /** A 20 GiB server whose account ceiling (2,000) is below the estimate. */
+    const volume20 = (overrides: Parameters<typeof serverStatusFixture>[0] = {}) =>
+      serverStatusFixture({
+        accounts: 4,
+        maxAccounts: 2000,
+        disk: { totalBytes: 20 * 1024 ** 3, freeBytes: 19 * 1024 ** 3, freePct: 95 },
+        capacity: CAPACITY_20_GIB,
+        ...overrides,
+      });
+    /** The parts of the "Enough for" row's value. */
+    function capacityRow(term = SVT.capacity) {
+      const dd = within(card()).getByText(term, { selector: 'dt' }).nextElementSibling as HTMLElement;
+      return {
+        value: dd.querySelector('.server-card__capacity')?.textContent ?? null,
+        hint: dd.querySelector('.server-card__capacity-hint')?.textContent ?? null,
+        note: dd.querySelector('.server-card__capacity-note')?.textContent ?? null,
+      };
+    }
+
+    it('English: right after the disk, with grouped numbers, the quota and one line on how it is estimated - no note under the ceiling', async () => {
+      vi.mocked(api.server.status).mockResolvedValue(volume20());
+      renderCard();
+      await within(await waitFor(card)).findByText(SVT.capacity, { selector: 'dt' });
+      const terms = within(card()).getAllByRole('term').map((dt) => dt.textContent);
+      expect(terms.indexOf(SVT.capacity)).toBe(terms.indexOf(SVT.disk) + 1);
+      expect(capacityRow()).toEqual({
+        value: 'About 2,900 users (writing every day for two to three years); at least 290 even if every diary fills its 10.0 MB quota',
+        hint: 'How it is estimated: each account takes about 6 times its diary on the disk (the diary and its safety copy, and both again in each of the two server archives), 15% of the disk stays free, and a diary counts as 1.0 MB. Today the average diary is 92.0 KB.',
+        note: null,
+      });
+      expect(capacityRow().value).toBe(SVT.capacityValue(2900, '2,900', '290', formatServerBytes(10 * 1024 * 1024)));
+      // An estimate, not a warning: no alert box of the card says anything about it.
+      for (const alert of card().querySelectorAll('.alert')) expect(alert.textContent).not.toContain('2,900');
+    });
+
+    it('Hebrew: the same row in Hebrew, the numbers grouped', async () => {
+      vi.mocked(api.server.status).mockResolvedValue(volume20());
+      renderCard('he');
+      const heading = await screen.findByRole('heading', { level: 2, name: he('settings.server.title') });
+      await within(heading.closest('section') as HTMLElement).findByText('מספיק עבור', { selector: 'dt' });
+      expect(capacityRow('מספיק עבור')).toEqual({
+        value: 'בערך 2,900 משתמשים (שכותבים כל יום במשך שנתיים-שלוש); לפחות 290 גם אם כל יומן יתמלא עד המכסה של 10.0 MB',
+        hint: 'איך זה מחושב: כל חשבון תופס בדיסק בערך פי 6 מגודל היומן שלו (היומן ועותק הביטחון שלו, ושניהם שוב בכל אחד משני ארכיוני השרת), 15% מהדיסק נשארים פנויים, וכל יומן נספר כ-1.0 MB. גודל יומן ממוצע היום: 92.0 KB.',
+        note: null,
+      });
+    });
+
+    it('production (ceiling 5000 above the 2,842 estimate): rounded counts, the note, and the ceiling grouped the same in both rows', async () => {
+      vi.mocked(api.server.status).mockResolvedValue(volume20({ maxAccounts: 5000, capacity: CAPACITY_PRODUCTION }));
+      renderCard();
+      await within(await waitFor(card)).findByText(SVT.capacity, { selector: 'dt' });
+      expect(capacityRow()).toMatchObject({
+        // 2,842 to the nearest two digits; the lower bound 284 rounded down, so "at least" stays true.
+        value: 'About 2,800 users (writing every day for two to three years); at least 280 even if every diary fills its 10.0 MB quota',
+        note: 'The account limit (5,000) is higher than this estimate. Before the number of accounts gets close to the estimate, grow the volume or lower DIARY_MAX_ACCOUNTS (see the runbook).',
+      });
+      expect(valueOf(SVT.accounts)).toBe('4 of at most 5,000');
+      // The note is plain text, not a warning box.
+      for (const alert of card().querySelectorAll('.alert')) expect(alert.textContent).not.toContain('5,000');
+    });
+
+    it('a gentle note only while the account ceiling is above the exact estimate', async () => {
+      vi.mocked(api.server.status).mockResolvedValue(volume20({ maxAccounts: 6000 }));
+      const { user } = renderCard();
+      await within(await waitFor(card)).findByText(SVT.capacity, { selector: 'dt' });
+      expect(capacityRow().note).toBe(
+        'The account limit (6,000) is higher than this estimate. Before the number of accounts gets close to the estimate, grow the volume or lower DIARY_MAX_ACCOUNTS (see the runbook).',
+      );
+      expect(valueOf(SVT.accounts)).toBe('4 of at most 6,000');
+      // More accounts than the quota estimate (290) is nothing alarming either: no extra text for it.
+      expect(within(card()).queryByText(/fly volumes extend/)).not.toBeInTheDocument();
+      // A ceiling equal to the exact estimate (2,901), below it or no new accounts at all (0): no note.
+      const accountsText: Record<number, string> = { 2901: '700 of at most 2,901', 2000: '700 of at most 2,000', 0: '700' };
+      for (const maxAccounts of [2901, 2000, 0]) {
+        vi.mocked(api.server.status).mockResolvedValueOnce(volume20({ maxAccounts, accounts: 700 }));
+        await user.click(within(card()).getByRole('button', { name: SVT.refresh }));
+        await waitFor(() => expect(valueOf(SVT.accounts)).toBe(accountsText[maxAccounts]));
+        expect({ maxAccounts, note: capacityRow().note }).toEqual({ maxAccounts, note: null });
+      }
+    });
+
+    it('explains the estimate with the server\'s own numbers, not the app\'s constants', async () => {
+      // A server with another model (say 3 archives: 8 copies, 10 % kept free) and diaries of 2 MiB on average.
+      const other: ServerCapacity = {
+        ...CAPACITY_20_GIB,
+        averageDiaryBytes: 2 * 1024 * 1024,
+        countedDiaryBytes: 2 * 1024 * 1024,
+        copies: 8,
+        keptFreePct: 10,
+        perUserTypicalBytes: 16 * 1024 * 1024,
+        usersTypical: 1_152,
+        usersAtQuota: 230,
+      };
+      vi.mocked(api.server.status).mockResolvedValue(volume20({ capacity: other }));
+      renderCard();
+      await within(await waitFor(card)).findByText(SVT.capacity, { selector: 'dt' });
+      expect(capacityRow()).toMatchObject({
+        value: 'About 1,200 users (writing every day for two to three years); at least 230 even if every diary fills its 10.0 MB quota',
+        hint: SVT.capacityHint(8, '10%', '2.0 MB', '2.0 MB'),
+      });
+      expect(capacityRow().hint).toContain('about 8 times its diary');
+      expect(capacityRow().hint).toContain('10% of the disk stays free, and a diary counts as 2.0 MB');
+    });
+
+    it('without a quota only the typical estimate; without diaries the hint says so', async () => {
+      vi.mocked(api.server.status).mockResolvedValue(
+        volume20({ maxDiaryBytes: 0, capacity: { ...CAPACITY_20_GIB, usersAtQuota: null, averageDiaryBytes: null, diaries: 0 } }),
+      );
+      renderCard();
+      await within(await waitFor(card)).findByText(SVT.capacity, { selector: 'dt' });
+      expect(capacityRow()).toEqual({
+        value: 'About 2,900 users (writing every day for two to three years)',
+        hint: 'How it is estimated: each account takes about 6 times its diary on the disk (the diary and its safety copy, and both again in each of the two server archives), 15% of the disk stays free, and a diary counts as 1.0 MB. There are no diaries yet.',
+        note: null,
+      });
+    });
+
+    it('no row when the disk could not be measured (capacity null) or the server does not send it (older server)', async () => {
+      vi.mocked(api.server.status).mockResolvedValue(serverStatusFixture({ disk: null, capacity: null }));
+      const { user } = renderCard();
+      await within(await waitFor(card)).findByText(SVT.version, { selector: 'dt' });
+      expect(within(card()).queryByText(SVT.capacity, { selector: 'dt' })).not.toBeInTheDocument();
+      const { capacity: _left, ...older } = serverStatusFixture({ accounts: 13 });
+      vi.mocked(api.server.status).mockResolvedValueOnce(older as ServerStatus);
+      await user.click(within(card()).getByRole('button', { name: SVT.refresh }));
+      await waitFor(() => expect(valueOf(SVT.accounts)).toBe(SVT.accountsValue('13', '100')));
+      expect(within(card()).queryByText(SVT.capacity, { selector: 'dt' })).not.toBeInTheDocument();
+      // The default fixture (3 GiB: 435 and 43) has it, below the disk; 435 shows as "About 440", 43 exactly.
+      vi.mocked(api.server.status).mockResolvedValueOnce(serverStatusFixture());
+      await user.click(within(card()).getByRole('button', { name: SVT.refresh }));
+      expect(await within(card()).findByText(SVT.capacity, { selector: 'dt' })).toBeInTheDocument();
+      expect(capacityRow().value).toBe('About 440 users (writing every day for two to three years); at least 43 even if every diary fills its 10.0 MB quota');
+    });
+  });
+
   it('reads the status on open and with Refresh only (no polling), and announces the refresh', async () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     try {
@@ -244,7 +408,7 @@ describe('the status', () => {
       expect(api.server.status).toHaveBeenCalledTimes(1);
       vi.mocked(api.server.status).mockResolvedValueOnce(serverStatusFixture({ accounts: 13 }));
       await user.click(within(card()).getByRole('button', { name: SVT.refresh }));
-      await waitFor(() => expect(valueOf(SVT.accounts)).toBe(SVT.accountsValue(13, 100)));
+      await waitFor(() => expect(valueOf(SVT.accounts)).toBe(SVT.accountsValue('13', '100')));
       expect(api.server.status).toHaveBeenCalledTimes(2);
       await waitFor(() => expect(politeRegion()).toHaveTextContent(SVT.refreshed));
     } finally {
@@ -414,11 +578,18 @@ describe('languages', () => {
     const { LOCALE_CODES, hasMessage, getCatalog } = await import('@shared/i18n');
     const keys = Object.keys(getCatalog('en')).filter((k) => k.startsWith('settings.server.'));
     expect(keys.length).toBeGreaterThan(50);
+    const capacityKeys = keys.filter((k) => k.startsWith('settings.server.capacity'));
+    expect(capacityKeys).toHaveLength(6);
     for (const code of LOCALE_CODES) {
       for (const key of keys) expect(hasMessage(code, key), `${code} ${key}`).toBe(true);
       if (code !== 'en') {
         expect(getCatalog(code)['settings.server.intro']).toContain('Your Personal Diary');
         expect(getCatalog(code)['settings.server.archive.passphraseWarning']).not.toBe(getCatalog('en')['settings.server.archive.passphraseWarning']);
+      }
+      // "Enough for": translated, and every number comes from the formatters (none is written into the text).
+      for (const key of capacityKeys) {
+        if (code !== 'en') expect(getCatalog(code)[key], `${code} ${key}`).not.toBe(getCatalog('en')[key]);
+        expect(getCatalog(code)[key], `${code} ${key}`).not.toMatch(/\d/);
       }
     }
   });

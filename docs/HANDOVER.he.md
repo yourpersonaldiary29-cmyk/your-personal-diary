@@ -28,7 +28,7 @@
 
 | התיקייה | מה בתוכה |
 |---|---|
-| `Your Personal Diary - installers` | קובצי ההתקנה האחרונים (Windows ו-Android). מתקינים בלחיצה כפולה. |
+| `Your Personal Diary - installers` | קובצי ההתקנה האחרונים: ל-Windows, לאנדרואיד ול-Mac (קובץ DMG), עם טביעת האצבע של כל קובץ (SHA-256). בתיקייה גם הקובץ "Mac ו-iPhone - איך מתקינים": ל-iPhone אין קובץ התקנה, ואפליקציה מותקנת בו רק דרך Xcode, TestFlight או App Store. |
 | `Your Personal Diary - Microsoft Store` | כל מה שצריך לפרסום ב-Microsoft Store: מדריך, טקסטים ב-20 שפות, צילומי מסך, לוגו ותשובות לטפסים. |
 | `Your Personal Diary - Google Play` | אותו דבר בשביל Google Play. |
 | `Your Personal Diary - App Store` | אותו דבר בשביל App Store של אפל (iPhone ו-Mac). |

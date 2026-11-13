@@ -485,6 +485,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} obsazeno, {free} volno ({percent})',
   'settings.server.diskLow':
     'Na disku zbývá jen {percent} volného místa. Brzy zvětši svazek (fly volumes extend, viz provozní příručka): když se disk zaplní, změny už nepůjde uložit.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Stačí pro',
+  'settings.server.capacityValue':
+    'Přibližně {count, plural, one {{users} uživatele} few {{users} uživatele} many {{users} uživatele} other {{users} uživatelů}} (kteří píšou každý den dva až tři roky); nejméně {atQuota}, i kdyby každý deník zaplnil svůj limit {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Přibližně {count, plural, one {{users} uživatele} few {{users} uživatele} many {{users} uživatele} other {{users} uživatelů}} (kteří píšou každý den dva až tři roky)',
+  'settings.server.capacityHint':
+    'Jak se to odhaduje: každý účet zabere na disku zhruba {copies}krát tolik místa co jeho deník (deník a jeho bezpečnostní kopie, a obojí ještě jednou v každém ze dvou archivů serveru), {percent} disku zůstává volných a každý deník se počítá jako {size}. Dnes má průměrný deník {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Jak se to odhaduje: každý účet zabere na disku zhruba {copies}krát tolik místa co jeho deník (deník a jeho bezpečnostní kopie, a obojí ještě jednou v každém ze dvou archivů serveru), {percent} disku zůstává volných a každý deník se počítá jako {size}. Zatím tu nejsou žádné deníky.',
+  'settings.server.capacityNote':
+    'Limit účtů ({max}) je vyšší než tento odhad. Než se počet účtů k odhadu přiblíží, zvětši svazek nebo sniž DIARY_MAX_ACCOUNTS (viz provozní příručka).',
   'settings.server.storage': 'Ukládání na disk',
   'settings.server.storageOk': 'V pořádku',
   'settings.server.storageFailed': 'Není v pořádku - ukládání selhává',

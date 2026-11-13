@@ -447,6 +447,15 @@ const messages: Record<string, string> = {
   'settings.server.disk': 'ディスク',
   'settings.server.diskValue': '使用 {used}、空き {free}（{percent}）',
   'settings.server.diskLow': 'ディスクの空きは {percent} しかありません。早めにボリュームを拡張してください（fly volumes extend、運用手順書を参照）。ディスクがいっぱいになると、変更を保存できなくなります。',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': '収容人数の目安',
+  'settings.server.capacityValue': '約 {count, plural, other {{users} 人}}（毎日書き続けて二、三年分の場合）。すべての日記が上限の {quota} に達しても、少なくとも {atQuota} 人',
+  'settings.server.capacityValueNoQuota': '約 {count, plural, other {{users} 人}}（毎日書き続けて二、三年分の場合）',
+  'settings.server.capacityHint':
+    '見積もりの方法：各アカウントはディスク上で日記の約 {copies} 倍の容量を使います（日記本体とその安全用コピー、さらにサーバーの二つのアーカイブそれぞれにその両方）。ディスクの {percent} は空けておき、日記はそれぞれ {size} として数えます。現在の日記の平均は {average} です。',
+  'settings.server.capacityHintNoDiaries':
+    '見積もりの方法：各アカウントはディスク上で日記の約 {copies} 倍の容量を使います（日記本体とその安全用コピー、さらにサーバーの二つのアーカイブそれぞれにその両方）。ディスクの {percent} は空けておき、日記はそれぞれ {size} として数えます。まだ日記はありません。',
+  'settings.server.capacityNote': 'アカウントの上限（{max}）はこの見積もりを上回っています。アカウント数が見積もりに近づく前に、ボリュームを拡張するか DIARY_MAX_ACCOUNTS を下げてください（運用手順書を参照）。',
   'settings.server.storage': 'ディスクへの保存',
   'settings.server.storageOk': '正常',
   'settings.server.storageFailed': '異常 - 保存に失敗しています',

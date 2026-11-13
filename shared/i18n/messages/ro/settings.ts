@@ -466,6 +466,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} folosiți, {free} liberi ({percent})',
   'settings.server.diskLow':
     'Pe disc mai este liber doar {percent}. Mărește volumul curând (fly volumes extend, vezi manualul de operare): când discul este plin, modificările nu mai pot fi salvate.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Ajunge pentru',
+  'settings.server.capacityValue':
+    'Aproximativ {count, plural, one {{users} utilizator} few {{users} utilizatori} other {{users} de utilizatori}} (care scriu zilnic timp de doi-trei ani); cel puțin {atQuota} chiar dacă fiecare jurnal își umple cota de {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Aproximativ {count, plural, one {{users} utilizator} few {{users} utilizatori} other {{users} de utilizatori}} (care scriu zilnic timp de doi-trei ani)',
+  'settings.server.capacityHint':
+    'Cum se estimează: fiecare cont ocupă pe disc cam {copies, plural, one {o dată} few {de # ori} other {de # de ori}} dimensiunea jurnalului său (jurnalul și copia lui de siguranță, apoi amândouă încă o dată în fiecare dintre cele două arhive ale serverului), {percent} din disc rămâne liber, iar fiecare jurnal se socotește la {size}. Azi un jurnal are în medie {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Cum se estimează: fiecare cont ocupă pe disc cam {copies, plural, one {o dată} few {de # ori} other {de # de ori}} dimensiunea jurnalului său (jurnalul și copia lui de siguranță, apoi amândouă încă o dată în fiecare dintre cele două arhive ale serverului), {percent} din disc rămâne liber, iar fiecare jurnal se socotește la {size}. Încă nu există jurnale.',
+  'settings.server.capacityNote':
+    'Limita de conturi ({max}) este mai mare decât această estimare. Înainte ca numărul de conturi să se apropie de estimare, mărește volumul sau scade DIARY_MAX_ACCOUNTS (vezi manualul de operare).',
   'settings.server.storage': 'Salvare pe disc',
   'settings.server.storageOk': 'Funcționează',
   'settings.server.storageFailed': 'Nu funcționează - salvarea eșuează',

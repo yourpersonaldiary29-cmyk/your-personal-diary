@@ -17,19 +17,29 @@
  * (security/storage-health.ts) and the free space of the data volume. It does no crypto and no
  * disk write - `fs.statfs` is the only call, and its failure only blanks `freePct`.
  *
+ * The status also says how many users the volume is enough for (`ServerStatus.capacity`, the model
+ * of `ServerCapacity` in shared/types.ts): `serverCapacity(...)` from the size of the volume (less
+ * the blocks the file system keeps for root - `volumeStats(...)`, the same single statfs call) and the
+ * sizes of the diaries in `<dataDir>/users/` (`diaryFiles(...)` - a directory listing and `stat`
+ * only; no diary is opened).
+ *
  * The archive writer is injected (`HostedAppOptions.archive`, built in hosted.ts): this file is
  * bundled into the desktop sidecar and the Android core too, so it imports nothing of it.
  */
 import fs from 'node:fs';
+import path from 'node:path';
 import { Router, type NextFunction, type Request, type Response } from 'express';
 import { APP_VERSION } from '@shared/constants';
 import {
   SERVER_ARCHIVE_DUE_DAYS,
   SERVER_ARCHIVE_PASSPHRASE_MAX,
   SERVER_ARCHIVE_PASSPHRASE_MIN,
+  SERVER_CAPACITY_COPIES,
   SERVER_DISK_LOW_PCT,
+  SERVER_TYPICAL_DIARY_BYTES,
   type ServerArchiveInfo,
   type ServerArchiveResult,
+  type ServerCapacity,
   type ServerStatus,
 } from '@shared/types';
 import type { AppDeps } from '../app';
@@ -50,17 +60,102 @@ import { ctxOf, requireAuth } from '../middleware/auth';
 import { isGuestContext } from '../security/guest';
 import { storageHealth } from '../security/storage-health';
 
-/** Free / total bytes of the file system holding `dir`; null when the platform cannot say. */
-export function diskStats(dir: string): { totalBytes: number; freeBytes: number; freePct: number } | null {
+/** The file system holding the data directory, as one `fs.statfs` call reports it. */
+export interface VolumeStats {
+  /** `ServerStatus.disk`: total bytes, and free bytes = what an unprivileged process may still fill (`bavail`). */
+  disk: { totalBytes: number; freeBytes: number; freePct: number };
+  /**
+   * Free bytes only root may fill (ext4 keeps 5 % by default: `bfree - bavail`); 0 when there are none
+   * or the platform does not say. The hosted server runs as the unprivileged user `diary`
+   * (deploy/hosted/entrypoint.sh), so these bytes are never its own.
+   */
+  reservedBytes: number;
+}
+
+/** The volume holding `dir`; null when the platform cannot say. */
+export function volumeStats(dir: string): VolumeStats | null {
   try {
     const s = fs.statfsSync(dir);
-    const totalBytes = Number(s.blocks) * Number(s.bsize);
-    const freeBytes = Number(s.bavail) * Number(s.bsize);
+    const bsize = Number(s.bsize);
+    const totalBytes = Number(s.blocks) * bsize;
+    const freeBytes = Number(s.bavail) * bsize;
     if (!Number.isFinite(totalBytes) || totalBytes <= 0 || !Number.isFinite(freeBytes)) return null;
-    return { totalBytes, freeBytes, freePct: Math.floor((freeBytes / totalBytes) * 100) };
+    const reservedBytes = (Number(s.bfree) - Number(s.bavail)) * bsize;
+    return {
+      disk: { totalBytes, freeBytes, freePct: Math.floor((freeBytes / totalBytes) * 100) },
+      reservedBytes: Number.isFinite(reservedBytes) && reservedBytes > 0 ? reservedBytes : 0,
+    };
   } catch {
     return null;
   }
+}
+
+/** Free / total bytes of the file system holding `dir`; null when the platform cannot say. */
+export function diskStats(dir: string): VolumeStats['disk'] | null {
+  return volumeStats(dir)?.disk ?? null;
+}
+
+/** End of a diary's file name in `<dataDir>/users/` (`<account id>.mpd`, security/vault.ts); `.mpd.prev` and `.mpd.tmp` do not end so. */
+const DIARY_FILE_SUFFIX = '.mpd';
+
+/** How many diaries a users folder holds and their total size in bytes. */
+export interface DiaryFiles {
+  count: number;
+  totalBytes: number;
+}
+
+/**
+ * The diaries in `usersDir`: the `<id>.mpd` files only - not their `.mpd.prev` safety copies, a
+ * `.mpd.tmp` being written, other files or folders. A listing and `stat` per diary: no diary is opened
+ * or read. A missing (or unreadable) folder counts as no diaries; a file removed meanwhile is skipped.
+ */
+export async function diaryFiles(usersDir: string): Promise<DiaryFiles> {
+  let entries: fs.Dirent[];
+  try {
+    entries = await fs.promises.readdir(usersDir, { withFileTypes: true });
+  } catch {
+    return { count: 0, totalBytes: 0 };
+  }
+  let count = 0;
+  let totalBytes = 0;
+  for (const entry of entries) {
+    // A Dirent never follows a link: a symbolic link is neither a file nor counted.
+    if (!entry.isFile() || !entry.name.endsWith(DIARY_FILE_SUFFIX)) continue;
+    try {
+      const st = await fs.promises.stat(path.join(usersDir, entry.name));
+      if (!st.isFile()) continue;
+      count += 1;
+      totalBytes += st.size;
+    } catch {
+      /* removed meanwhile (an account was deleted) */
+    }
+  }
+  return { count, totalBytes };
+}
+
+/**
+ * How many users a volume of `totalBytes` is enough for (`ServerCapacity`; the model is documented
+ * there): every account costs `SERVER_CAPACITY_COPIES` times its diary, a diary counts as the larger
+ * of today's mean and `SERVER_TYPICAL_DIARY_BYTES`, and the `SERVER_DISK_LOW_PCT` warning margin
+ * stays free, as do the `reservedBytes` only root may fill (`VolumeStats`). `maxDiaryBytes` 0 = no
+ * quota (`usersAtQuota` null).
+ */
+export function serverCapacity(totalBytes: number, diaries: DiaryFiles, maxDiaryBytes: number, reservedBytes = 0): ServerCapacity {
+  const usableBytes = Math.max(0, Math.floor((totalBytes * (100 - SERVER_DISK_LOW_PCT)) / 100) - reservedBytes);
+  const averageDiaryBytes = diaries.count > 0 ? Math.round(diaries.totalBytes / diaries.count) : null;
+  const countedDiaryBytes = Math.max(averageDiaryBytes ?? 0, SERVER_TYPICAL_DIARY_BYTES);
+  const perUserTypicalBytes = SERVER_CAPACITY_COPIES * countedDiaryBytes;
+  return {
+    usableBytes,
+    averageDiaryBytes,
+    diaries: diaries.count,
+    perUserTypicalBytes,
+    usersTypical: Math.floor(usableBytes / perUserTypicalBytes),
+    usersAtQuota: maxDiaryBytes > 0 ? Math.floor(usableBytes / (SERVER_CAPACITY_COPIES * maxDiaryBytes)) : null,
+    countedDiaryBytes,
+    copies: SERVER_CAPACITY_COPIES,
+    keptFreePct: SERVER_DISK_LOW_PCT,
+  };
 }
 
 /** The `GET /api/health` body of a hosted server. */
@@ -116,7 +211,8 @@ export function serverStatusRouter(deps: AppDeps): Router {
       const startedAt = hosted.startedAt ?? deps.getListenInfo().startedAt;
       const storage = storageHealth();
       const metrics = hosted.metrics?.() ?? { openVaults: 0, liveSessions: 0, guests: 0 };
-      const disk = diskStats(deps.config.dataDir);
+      const volume = volumeStats(deps.config.dataDir);
+      const disk = volume?.disk ?? null;
       const archive = hosted.archive;
       const archives = archive?.list() ?? [];
       const status: ServerStatus = {
@@ -146,6 +242,9 @@ export function serverStatusRouter(deps: AppDeps): Router {
         archives,
         archiveBusy: archive?.busy() ?? false,
         archiveRetryAfterSec: archive ? Math.ceil(archive.cooldownRemainingMs() / 1000) : 0,
+        capacity: volume
+          ? serverCapacity(volume.disk.totalBytes, await diaryFiles(deps.config.usersDir), hosted.maxDiaryBytes, volume.reservedBytes)
+          : null,
       };
       res.json(status);
     } catch (e) {

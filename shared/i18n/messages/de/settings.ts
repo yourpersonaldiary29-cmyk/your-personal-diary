@@ -467,6 +467,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} belegt, {free} frei ({percent})',
   'settings.server.diskLow':
     'Nur noch {percent} des Datenträgers sind frei. Vergrößere das Volume bald (fly volumes extend, siehe Betriebshandbuch): Wenn der Datenträger voll ist, können keine Änderungen mehr gespeichert werden.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Reicht für',
+  'settings.server.capacityValue':
+    'Etwa {count, plural, one {{users} Benutzer} other {{users} Benutzer}} (bei täglichem Schreiben über zwei bis drei Jahre); mindestens {atQuota}, selbst wenn jedes Tagebuch sein Kontingent von {quota} ausschöpft',
+  'settings.server.capacityValueNoQuota':
+    'Etwa {count, plural, one {{users} Benutzer} other {{users} Benutzer}} (bei täglichem Schreiben über zwei bis drei Jahre)',
+  'settings.server.capacityHint':
+    'So wird geschätzt: Jedes Konto belegt auf dem Datenträger etwa das {copies}-Fache seines Tagebuchs (das Tagebuch und seine Sicherheitskopie, und beides noch einmal in jedem der beiden Serverarchive), {percent} des Datenträgers bleiben frei, und jedes Tagebuch zählt mit {size}. Heute ist ein Tagebuch im Schnitt {average} groß.',
+  'settings.server.capacityHintNoDiaries':
+    'So wird geschätzt: Jedes Konto belegt auf dem Datenträger etwa das {copies}-Fache seines Tagebuchs (das Tagebuch und seine Sicherheitskopie, und beides noch einmal in jedem der beiden Serverarchive), {percent} des Datenträgers bleiben frei, und jedes Tagebuch zählt mit {size}. Es gibt noch keine Tagebücher.',
+  'settings.server.capacityNote':
+    'Die Kontogrenze ({max}) liegt über dieser Schätzung. Bevor sich die Zahl der Konten der Schätzung nähert, vergrößere das Volume oder senke DIARY_MAX_ACCOUNTS (siehe Betriebshandbuch).',
   'settings.server.storage': 'Speichern auf dem Datenträger',
   'settings.server.storageOk': 'In Ordnung',
   'settings.server.storageFailed': 'Nicht in Ordnung - das Speichern schlägt fehl',

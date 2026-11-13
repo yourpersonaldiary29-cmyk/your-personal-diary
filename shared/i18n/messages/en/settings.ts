@@ -453,6 +453,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} used, {free} free ({percent})',
   'settings.server.diskLow':
     'Only {percent} of the disk is free. Enlarge the volume soon (fly volumes extend, see the runbook): when the disk is full, changes can no longer be saved.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Enough for',
+  'settings.server.capacityValue':
+    'About {count, plural, one {{users} user} other {{users} users}} (writing every day for two to three years); at least {atQuota} even if every diary fills its {quota} quota',
+  'settings.server.capacityValueNoQuota':
+    'About {count, plural, one {{users} user} other {{users} users}} (writing every day for two to three years)',
+  'settings.server.capacityHint':
+    'How it is estimated: each account takes about {copies} times its diary on the disk (the diary and its safety copy, and both again in each of the two server archives), {percent} of the disk stays free, and a diary counts as {size}. Today the average diary is {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'How it is estimated: each account takes about {copies} times its diary on the disk (the diary and its safety copy, and both again in each of the two server archives), {percent} of the disk stays free, and a diary counts as {size}. There are no diaries yet.',
+  'settings.server.capacityNote':
+    'The account limit ({max}) is higher than this estimate. Before the number of accounts gets close to the estimate, grow the volume or lower DIARY_MAX_ACCOUNTS (see the runbook).',
   'settings.server.storage': 'Saving to the disk',
   'settings.server.storageOk': 'OK',
   'settings.server.storageFailed': 'Not OK - saving is failing',

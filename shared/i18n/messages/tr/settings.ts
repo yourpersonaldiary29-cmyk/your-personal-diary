@@ -474,6 +474,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} kullanılıyor, {free} boş ({percent})',
   'settings.server.diskLow':
     'Diskin yalnızca {percent} kadarı boş. Birimi yakında büyütün (fly volumes extend, işletim kılavuzuna bakın): disk dolduğunda değişiklikler artık kaydedilemez.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Yetecek kullanıcı sayısı',
+  'settings.server.capacityValue':
+    'Yaklaşık {count, plural, one {{users} kullanıcı} other {{users} kullanıcı}} (iki-üç yıl boyunca her gün yazıldığında); her günlük {quota} kotasını doldursa bile en az {atQuota}',
+  'settings.server.capacityValueNoQuota':
+    'Yaklaşık {count, plural, one {{users} kullanıcı} other {{users} kullanıcı}} (iki-üç yıl boyunca her gün yazıldığında)',
+  'settings.server.capacityHint':
+    'Nasıl hesaplanıyor: her hesap diskte günlüğünün yaklaşık {copies} katı yer kaplar (günlüğün kendisi ve güvenlik kopyası, ayrıca ikisi de sunucunun iki arşivinin her birinde bir kez daha), diskin {percent} kadarı boş bırakılır ve her günlük {size} sayılır. Bugün ortalama bir günlük {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Nasıl hesaplanıyor: her hesap diskte günlüğünün yaklaşık {copies} katı yer kaplar (günlüğün kendisi ve güvenlik kopyası, ayrıca ikisi de sunucunun iki arşivinin her birinde bir kez daha), diskin {percent} kadarı boş bırakılır ve her günlük {size} sayılır. Henüz hiç günlük yok.',
+  'settings.server.capacityNote':
+    'Hesap sınırı ({max}) bu tahminden yüksek. Hesap sayısı tahmine yaklaşmadan önce birimi büyütün veya DIARY_MAX_ACCOUNTS değerini düşürün (işletim kılavuzuna bakın).',
   'settings.server.storage': 'Diske kaydetme',
   'settings.server.storageOk': 'Sorunsuz',
   'settings.server.storageFailed': 'Sorunlu - kaydetme başarısız oluyor',

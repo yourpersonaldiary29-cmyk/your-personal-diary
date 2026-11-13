@@ -494,6 +494,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': 'занято {used}, свободно {free} ({percent})',
   'settings.server.diskLow':
     'На диске свободно только {percent}. Скоро увеличьте том (fly volumes extend, см. руководство по эксплуатации): когда диск заполнится, изменения больше нельзя будет сохранить.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Вместимость',
+  'settings.server.capacityValue':
+    'Примерно {count, plural, one {{users} пользователь} few {{users} пользователя} many {{users} пользователей} other {{users} пользователя}} (при ежедневных записях в течение двух-трёх лет); не меньше {atQuota}, даже если каждый дневник заполнит свою квоту {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Примерно {count, plural, one {{users} пользователь} few {{users} пользователя} many {{users} пользователей} other {{users} пользователя}} (при ежедневных записях в течение двух-трёх лет)',
+  'settings.server.capacityHint':
+    'Как это считается: каждый аккаунт занимает на диске примерно в {copies, plural, one {# раз} few {# раза} many {# раз} other {# раза}} больше места, чем его дневник (сам дневник и его страховочная копия, и оба ещё раз в каждом из двух архивов сервера), {percent} диска остаётся свободным, а каждый дневник засчитывается как {size}. Сейчас средний дневник занимает {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Как это считается: каждый аккаунт занимает на диске примерно в {copies, plural, one {# раз} few {# раза} many {# раз} other {# раза}} больше места, чем его дневник (сам дневник и его страховочная копия, и оба ещё раз в каждом из двух архивов сервера), {percent} диска остаётся свободным, а каждый дневник засчитывается как {size}. Дневников пока нет.',
+  'settings.server.capacityNote':
+    'Лимит аккаунтов ({max}) выше этой оценки. Прежде чем число аккаунтов приблизится к оценке, увеличьте том или уменьшите DIARY_MAX_ACCOUNTS (см. руководство по эксплуатации).',
   'settings.server.storage': 'Сохранение на диск',
   'settings.server.storageOk': 'В порядке',
   'settings.server.storageFailed': 'Не в порядке - сохранение не удаётся',

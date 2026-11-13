@@ -13,9 +13,11 @@
  *   - The routes themselves answer 403 to everyone else; a 403 of `GET /api/server/status` hides the card.
  *
  * Status: version, uptime, accounts (with the ceiling), registrations in the last 24 hours, disk used /
- * free with a clear warning under 15 % free (`diskLow`), whether saving works (`storageOk`), the last
- * successful save, memory in use and the last archive, with a reminder when there is none or it is
- * older than 30 days (`archiveDue`). Read when the card opens and with "Refresh" - never polled.
+ * free with a clear warning under 15 % free (`diskLow`), how many users the disk is enough for (the
+ * server's estimate `capacity` with two significant digits, one line on how it is made and a gentle
+ * note when the account ceiling is above it - never a warning), whether saving works (`storageOk`),
+ * the last successful save, memory in use and the last archive, with a reminder when there is none or
+ * it is older than 30 days (`archiveDue`). Read when the card opens and with "Refresh" - never polled.
  *
  * Archive: "Prepare server archive" opens a small form - the account password (checked by the server
  * under the same confirmation lockout as the Mail card) and a passphrase of at least 12 characters typed
@@ -38,6 +40,7 @@ import {
   SERVER_ARCHIVE_PASSPHRASE_MIN,
   type ServerArchiveInfo,
   type ServerArchiveResult,
+  type ServerCapacity,
 } from '@shared/types';
 import { server as serverApi, ApiClientError } from '@/api';
 import { Alert } from '@/components/ui/Alert';
@@ -100,6 +103,48 @@ export function archiveFormErrors(password: string, passphrase: string, repeat: 
 function archiveInfoOf(result: ServerArchiveResult): ServerArchiveInfo {
   const { fileName, path, sizeBytes, sha256, createdAt, downloadCommand, hashCommand } = result;
   return { fileName, path, sizeBytes, sha256, createdAt, downloadCommand, hashCommand };
+}
+
+/**
+ * A count of the "Enough for" row as the card shows it: from 100 on with two significant digits - to
+ * the nearest after "About" (2,842 -> 2,800), down for the lower bound (284 -> 280, so "at least"
+ * stays true) - and smaller counts exactly. The API keeps the exact numbers.
+ */
+export function capacityCount(count: number, lowerBound = false): number {
+  if (!Number.isFinite(count) || count < 100) return count;
+  const step = 10 ** (String(Math.floor(count)).length - 2);
+  return (lowerBound ? Math.floor(count / step) : Math.round(count / step)) * step;
+}
+
+/**
+ * The value of the "Enough for" row (`ServerStatus.capacity`): the estimate with the numbers in the
+ * language's grouping and two significant digits ("About 2,800 users ...; at least 280 even if every
+ * diary fills its 10.0 MB quota" - the second part only with a quota), one line on how it is made (in
+ * the server's own numbers: `copies`, `keptFreePct`, `countedDiaryBytes`), and - only when the account
+ * ceiling is above the exact estimate - a gentle note on what to do before the accounts get there.
+ * Nothing here is a warning: it is an estimate.
+ */
+function CapacityValue({ capacity, maxAccounts, maxDiaryBytes }: { capacity: ServerCapacity; maxAccounts: number; maxDiaryBytes: number }) {
+  const typical = capacityCount(capacity.usersTypical);
+  const users = formatNumber(typical);
+  const value =
+    capacity.usersAtQuota === null
+      ? SVT.capacityValueNoQuota(typical, users)
+      : SVT.capacityValue(typical, users, formatNumber(capacityCount(capacity.usersAtQuota, true)), formatServerBytes(maxDiaryBytes));
+  // How the server made it: an app built with other constants still explains the numbers next to it.
+  const size = formatServerBytes(capacity.countedDiaryBytes);
+  const kept = formatPercent(capacity.keptFreePct / 100);
+  const hint =
+    capacity.averageDiaryBytes === null
+      ? SVT.capacityHintNoDiaries(capacity.copies, kept, size)
+      : SVT.capacityHint(capacity.copies, kept, size, formatServerBytes(capacity.averageDiaryBytes));
+  return (
+    <>
+      <span className="server-card__capacity">{value}</span>
+      <span className="server-card__capacity-hint">{hint}</span>
+      {maxAccounts > capacity.usersTypical && <span className="server-card__capacity-note">{SVT.capacityNote(formatNumber(maxAccounts))}</span>}
+    </>
+  );
 }
 
 /** One archive on the volume: name, time, size, SHA-256 and the two commands. */
@@ -319,16 +364,24 @@ function ServerCard({ publicUrl }: { publicUrl?: string }) {
 
   const disk = status.disk;
   const freePercent = disk ? formatPercent(disk.freePct / 100) : '';
+  // Absent in the answer of a server from before the estimate: no row, as when the disk is not measured.
+  const capacity = status.capacity ?? null;
   const nextAt = status.archiveRetryAfterSec > 0 ? formatClock(nowHHMM(new Date(readAt + status.archiveRetryAfterSec * 1000))) : null;
   const items: DefinitionItem[] = [
     { term: SVT.version, value: <span className="ltr">{status.version}</span> },
     { term: SVT.uptime, value: formatUptime(status.uptimeSec) },
-    { term: SVT.accounts, value: status.maxAccounts > 0 ? SVT.accountsValue(status.accounts, status.maxAccounts) : formatNumber(status.accounts) },
+    {
+      term: SVT.accounts,
+      value: status.maxAccounts > 0 ? SVT.accountsValue(formatNumber(status.accounts), formatNumber(status.maxAccounts)) : formatNumber(status.accounts),
+    },
     { term: SVT.registrations, value: formatNumber(status.registrationsLast24h) },
     {
       term: SVT.disk,
       value: disk ? SVT.diskValue(formatServerBytes(Math.max(0, disk.totalBytes - disk.freeBytes)), formatServerBytes(disk.freeBytes), freePercent) : null,
     },
+    ...(capacity
+      ? [{ term: SVT.capacity, value: <CapacityValue capacity={capacity} maxAccounts={status.maxAccounts} maxDiaryBytes={status.maxDiaryBytes} /> }]
+      : []),
     {
       term: SVT.storage,
       value: status.storageOk ? (

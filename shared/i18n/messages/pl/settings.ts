@@ -488,6 +488,18 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': '{used} zajęte, {free} wolne ({percent})',
   'settings.server.diskLow':
     'Na dysku zostało tylko {percent} wolnego miejsca. Wkrótce powiększ wolumin (fly volumes extend, zobacz podręcznik obsługi): gdy dysk się zapełni, zmian nie będzie można zapisać.',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'Wystarczy dla',
+  'settings.server.capacityValue':
+    'Około {count, plural, one {{users} użytkownika} few {{users} użytkowników} many {{users} użytkowników} other {{users} użytkownika}} (piszących codziennie przez dwa–trzy lata); co najmniej {atQuota}, nawet jeśli każdy dziennik wypełni swój limit {quota}',
+  'settings.server.capacityValueNoQuota':
+    'Około {count, plural, one {{users} użytkownika} few {{users} użytkowników} many {{users} użytkowników} other {{users} użytkownika}} (piszących codziennie przez dwa–trzy lata)',
+  'settings.server.capacityHint':
+    'Jak to jest szacowane: każde konto zajmuje na dysku mniej więcej {copies, plural, one {# raz} few {# razy} many {# razy} other {# raza}} tyle miejsca co jego dziennik (dziennik i jego kopia bezpieczeństwa, a do tego jedno i drugie jeszcze raz w każdym z dwóch archiwów serwera), {percent} dysku pozostaje wolne, a każdy dziennik liczy się jako {size}. Dziś przeciętny dziennik ma {average}.',
+  'settings.server.capacityHintNoDiaries':
+    'Jak to jest szacowane: każde konto zajmuje na dysku mniej więcej {copies, plural, one {# raz} few {# razy} many {# razy} other {# raza}} tyle miejsca co jego dziennik (dziennik i jego kopia bezpieczeństwa, a do tego jedno i drugie jeszcze raz w każdym z dwóch archiwów serwera), {percent} dysku pozostaje wolne, a każdy dziennik liczy się jako {size}. Nie ma jeszcze żadnych dzienników.',
+  'settings.server.capacityNote':
+    'Limit kont ({max}) jest wyższy niż to oszacowanie. Zanim liczba kont zbliży się do oszacowania, powiększ wolumin albo obniż DIARY_MAX_ACCOUNTS (zobacz podręcznik obsługi).',
   'settings.server.storage': 'Zapis na dysk',
   'settings.server.storageOk': 'Działa',
   'settings.server.storageFailed': 'Nie działa - zapis się nie udaje',

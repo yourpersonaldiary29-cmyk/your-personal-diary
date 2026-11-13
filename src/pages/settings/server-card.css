@@ -30,6 +30,26 @@
   }
 }
 
+/*
+ * "Enough for" (the capacity estimate): the estimate, then on lines of their own how it is made (quiet,
+ * smaller) and, only when the account ceiling is above the estimate, the note - plain text, not a warning.
+ */
+.server-card__capacity,
+.server-card__capacity-hint,
+.server-card__capacity-note {
+  display: block;
+}
+
+.server-card__capacity-hint {
+  margin-block-start: var(--space-1);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.server-card__capacity-note {
+  margin-block-start: var(--space-1);
+}
+
 .server-card__ok {
   font-weight: 600;
   color: var(--color-success);

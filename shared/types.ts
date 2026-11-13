@@ -918,10 +918,63 @@ export interface ServerStatus {
   archiveBusy: boolean;
   /** Seconds until `POST /api/server/archive` is accepted again (one per 10 minutes); 0 = now. */
   archiveRetryAfterSec: number;
+  /**
+   * 2026-11-13: how many users the volume is enough for - an estimate (`ServerCapacity`), the card's
+   * "Enough for" row right after the disk. Null when the disk could not be measured. Servers before
+   * this field do not send it; the card then shows no such row.
+   */
+  capacity: ServerCapacity | null;
+}
+
+/**
+ * `ServerStatus.capacity`: how many users the data volume is enough for, computed by
+ * `GET /api/server/status` from the size of the volume and the diaries on it (only their sizes - no
+ * diary is opened). The model:
+ *   usableBytes         = floor(disk.totalBytes x (100 - SERVER_DISK_LOW_PCT) / 100) - reserved, at least 0
+ *                         (reserved = the blocks the file system keeps for root, statfs bfree - bavail)
+ *   countedDiaryBytes   = max(averageDiaryBytes ?? 0, SERVER_TYPICAL_DIARY_BYTES)
+ *   perUserTypicalBytes = SERVER_CAPACITY_COPIES x countedDiaryBytes
+ *   usersTypical        = floor(usableBytes / perUserTypicalBytes)
+ *   usersAtQuota        = floor(usableBytes / (SERVER_CAPACITY_COPIES x maxDiaryBytes)); null without a quota
+ * With a 20 GiB volume: about 2,900 typical users, and 290 even if every diary fills a 10 MiB quota.
+ * The counts are exact here; the card shows them with two significant digits ("About 2,900", "at
+ * least 290" - a lower bound rounded down) and explains them with `copies`, `keptFreePct` and
+ * `countedDiaryBytes`, the server's own numbers, so an app built with other constants still agrees.
+ */
+export interface ServerCapacity {
+  /**
+   * The bytes the estimate may fill: the volume except the `SERVER_DISK_LOW_PCT` warning margin and
+   * the blocks the file system keeps for root (ext4's reserve, statfs `bfree - bavail`: the server
+   * runs as an unprivileged user and can never fill them); 0 at least.
+   */
+  usableBytes: number;
+  /**
+   * Mean size of the diaries on the volume today (`users/<id>.mpd`, not their `.mpd.prev` safety
+   * copies), rounded to whole bytes; null when there is none.
+   */
+  averageDiaryBytes: number | null;
+  /** How many diaries (`users/<id>.mpd` files) that mean was taken over. */
+  diaries: number;
+  /** What one account is counted at on the volume: `copies` x `countedDiaryBytes`. */
+  perUserTypicalBytes: number;
+  /** Users the volume is enough for when every diary is typical (two to three years of daily writing). */
+  usersTypical: number;
+  /** Users it is enough for even if every diary fills the quota (`maxDiaryBytes`); null when there is no quota. */
+  usersAtQuota: number | null;
+  /** What one diary is counted at: the larger of `averageDiaryBytes` and `SERVER_TYPICAL_DIARY_BYTES`. */
+  countedDiaryBytes: number;
+  /** `SERVER_CAPACITY_COPIES` of the server that made the estimate: how many times its diary one account costs. */
+  copies: number;
+  /** `SERVER_DISK_LOW_PCT` of that server: the percent of the volume the estimate leaves free. */
+  keptFreePct: number;
 }
 
 /** Below this much free space (percent of the volume) `ServerStatus.diskLow` is true. */
 export const SERVER_DISK_LOW_PCT = 15;
+/** Every account costs about this many times its diary on the volume: the `.mpd` and its `.mpd.prev`, and both again in each of the 2 archives kept there (an uncompressed tar, hosted/archive.ts). */
+export const SERVER_CAPACITY_COPIES = 6;
+/** A typical diary for `ServerCapacity.usersTypical`: two to three years of daily writing (the sample data makes about 1 KB a day). */
+export const SERVER_TYPICAL_DIARY_BYTES = 1024 * 1024;
 /** An archive older than this many days makes `ServerStatus.archiveDue` true. */
 export const SERVER_ARCHIVE_DUE_DAYS = 30;
 /** Shortest passphrase `POST /api/server/archive` accepts (characters, after NFKC normalisation). */

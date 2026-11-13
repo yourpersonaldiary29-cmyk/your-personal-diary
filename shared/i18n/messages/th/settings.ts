@@ -459,6 +459,17 @@ const messages: Record<string, string> = {
   'settings.server.diskValue': 'ใช้ไป {used} ว่าง {free} ({percent})',
   'settings.server.diskLow':
     'ดิสก์เหลือที่ว่างเพียง {percent} โปรดขยายวอลุ่มเร็ว ๆ นี้ (fly volumes extend ดูคู่มือการดูแลระบบ) เมื่อดิสก์เต็มจะบันทึกการเปลี่ยนแปลงไม่ได้อีก',
+  // "Enough for" row (ServerStatus.capacity, 2026-11-13): {count} picks the plural form; {users}, {atQuota} and {max} arrive formatted with the grouping of the language
+  'settings.server.capacity': 'รองรับได้',
+  'settings.server.capacityValue':
+    'ประมาณ {count, plural, other {{users} คน}} (ที่เขียนทุกวันเป็นเวลาสองถึงสามปี) และอย่างน้อย {atQuota} คน แม้ไดอารี่ทุกเล่มจะใช้เต็มโควตา {quota}',
+  'settings.server.capacityValueNoQuota': 'ประมาณ {count, plural, other {{users} คน}} (ที่เขียนทุกวันเป็นเวลาสองถึงสามปี)',
+  'settings.server.capacityHint':
+    'วิธีประมาณ: แต่ละบัญชีใช้พื้นที่ดิสก์ประมาณ {copies} เท่าของขนาดไดอารี่ (ตัวไดอารี่และสำเนาสำรองเพื่อความปลอดภัย และมีทั้งสองอย่างนี้ซ้ำในไฟล์เก็บถาวรทั้งสองไฟล์ของเซิร์ฟเวอร์ ไฟล์ละชุด) เว้นดิสก์ว่างไว้ {percent} และนับไดอารี่แต่ละเล่มเป็น {size} ปัจจุบันไดอารี่มีขนาดเฉลี่ย {average}',
+  'settings.server.capacityHintNoDiaries':
+    'วิธีประมาณ: แต่ละบัญชีใช้พื้นที่ดิสก์ประมาณ {copies} เท่าของขนาดไดอารี่ (ตัวไดอารี่และสำเนาสำรองเพื่อความปลอดภัย และมีทั้งสองอย่างนี้ซ้ำในไฟล์เก็บถาวรทั้งสองไฟล์ของเซิร์ฟเวอร์ ไฟล์ละชุด) เว้นดิสก์ว่างไว้ {percent} และนับไดอารี่แต่ละเล่มเป็น {size} ขณะนี้ยังไม่มีไดอารี่',
+  'settings.server.capacityNote':
+    'ขีดจำกัดจำนวนบัญชี ({max}) สูงกว่าค่าประมาณนี้ ก่อนที่จำนวนบัญชีจะเข้าใกล้ค่าประมาณ โปรดขยายวอลุ่มหรือลด DIARY_MAX_ACCOUNTS (ดูคู่มือการดูแลระบบ)',
   'settings.server.storage': 'การบันทึกลงดิสก์',
   'settings.server.storageOk': 'ปกติ',
   'settings.server.storageFailed': 'ไม่ปกติ - การบันทึกล้มเหลว',
