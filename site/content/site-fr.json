@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - un journal privé avec habitudes et observations prudentes",
+  "description": "Racontez votre journée, suivez votre humeur et vos habitudes, et repérez des tendances au fil du temps. Un journal privé en 20 langues. Gratuit, sans publicité ni pistage.",
+  "skipLink": "Aller au contenu",
+  "languagesLabel": "Langue",
+  "nav": {
+    "label": "Menu du site",
+    "about": "À propos de l’application",
+    "terms": "Conditions d'utilisation",
+    "faq": "Questions et réponses",
+    "privacy": "Politique de confidentialité",
+    "downloads": "Téléchargements",
+    "contact": "Nous contacter"
+  },
+  "hero": {
+    "heading": "Un journal privé qui vous aide à repérer vos propres tendances",
+    "lead": "Racontez votre journée avec vos propres mots. Si vous le souhaitez, ajoutez votre humeur, votre sommeil et vos habitudes. Au fil des semaines, des mois et des années, {{BRAND}} signale des tendances dans vos propres entrées et indique les chiffres derrière chacune.",
+    "openAction": "Ouvrir dans votre navigateur",
+    "note": "Gratuit. Sans publicité, sans statistiques d’usage, sans pistage."
+  },
+  "features": {
+    "heading": "Ce que vous pouvez faire",
+    "items": [
+      {
+        "title": "Écrire votre journée",
+        "text": "Des entrées avec vos propres mots. Si vous le souhaitez, ajoutez l’humeur, les émotions, l’énergie, le stress, le sommeil, l’activité physique, les personnes, le lieu et des étiquettes. Chaque jour a sa propre page, et une chronologie présente l’ensemble du journal."
+      },
+      {
+        "title": "Habitudes et rappels",
+        "text": "Des habitudes quotidiennes et hebdomadaires à cocher au fil de la journée, avec séries et progression. Des rappels facultatifs à l’heure que vous choisissez pour chaque habitude."
+      },
+      {
+        "title": "Observations prudentes",
+        "text": "L’application cherche des liens possibles dans vos propres données, par exemple entre le sommeil et l’humeur. Les observations sont formulées avec soin et n’affirment jamais qu’une chose en cause une autre. Quand les données ne suffisent pas, l’application le dit au lieu de deviner."
+      },
+      {
+        "title": "Calendrier",
+        "text": "Un calendrier mensuel grégorien, hébraïque ou hégirien, avec les fêtes du calendrier choisi."
+      },
+      {
+        "title": "Statistiques et recherche intelligente",
+        "text": "Des graphiques de l’humeur, de l’énergie, du stress, du sommeil et des habitudes dans le temps, chacun avec un tableau de données. Posez une question dans votre langue, par exemple « Quels jours ai-je dormi moins de cinq heures ? », et obtenez la réponse tirée de votre journal."
+      },
+      {
+        "title": "Fonctionne hors ligne et se synchronise",
+        "text": "Un compte, le même journal sur chaque appareil. Si la connexion est coupée, continuez à lire et à écrire : vos modifications sont conservées chiffrées sur votre appareil et envoyées dès que la connexion revient."
+      },
+      {
+        "title": "20 langues",
+        "text": "Toute l’application en 20 langues. Changez de langue à tout moment dans les Paramètres. L’hébreu et l’arabe s’affichent de droite à gauche."
+      },
+      {
+        "title": "Accessibilité",
+        "text": "Compatible avec les lecteurs d’écran : titres clairs, champs étiquetés et messages d’état annoncés. Thèmes clair, sombre et à contraste élevé, taille du texte réglable et option pour réduire les animations. Sur un ordinateur, tout peut se faire au clavier."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "À quoi cela ressemble",
+    "items": [
+      {
+        "caption": "Accueil : aujourd’hui en un coup d’œil",
+        "alt": "L’écran Accueil sur un téléphone : un message d’accueil avec la date, le nombre d’entrées du jour, la série d’écriture et les moyennes des sept derniers jours."
+      },
+      {
+        "caption": "Une entrée : vos mots, avec l’humeur, le sommeil et plus encore",
+        "alt": "Une entrée sur un téléphone : son titre et sa date, les notes d’humeur, d’énergie, de stress et de sommeil, l’activité physique, les émotions et le texte libre."
+      },
+      {
+        "caption": "Habitudes : objectifs, séries et progression",
+        "alt": "L’écran Habitudes sur un téléphone : une habitude avec son objectif quotidien, sa série en cours, sa réalisation sur les 30 derniers jours et la quantité du jour."
+      },
+      {
+        "caption": "Observations : une formulation prudente, chiffres à l’appui",
+        "alt": "L’écran Observations sur un téléphone : deux tendances du dernier mois, chacune portant la mention « Tendance faible », avec la période examinée et un bouton qui explique l’observation."
+      },
+      {
+        "caption": "Le même journal sur un ordinateur",
+        "alt": "L’écran Accueil sur un ordinateur : le menu avec toutes les sections, le résumé de la journée et les moyennes des sept derniers jours."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Votre vie privée",
+    "lead": "Un journal, c’est personnel. Voici ce qu’il advient du vôtre.",
+    "items": [
+      "Sans publicité, sans statistiques d’usage et sans pistage. Nous ne vendons ni ne partageons vos données.",
+      "Votre journal est stocké chiffré sur le serveur {{BRAND}}, dans un fichier distinct pour chaque compte. Votre mot de passe lui-même n’est pas stocké.",
+      "Les applications et le site web se connectent uniquement au serveur {{BRAND}}, toujours en HTTPS.",
+      "Pendant votre session, le serveur ouvre votre journal dans sa mémoire pour l’afficher, y faire des recherches et l’analyser pour vous. La politique de confidentialité explique clairement ce que cela signifie.",
+      "Emportez votre journal à tout moment : un fichier de sauvegarde chiffré que vous conservez, ou un export en TXT, CSV, JSON ou PDF.",
+      "Supprimez votre compte et toutes ses données à tout moment dans les Paramètres."
+    ],
+    "policyLink": "Lire la politique de confidentialité"
+  },
+  "faq": {
+    "heading": "Questions et réponses",
+    "lead": "Des réponses courtes sur {{BRAND}} : ce que c’est et ce que cela fait, comment votre journal est conservé et protégé, votre compte et l’installation des applications.",
+    "groups": [
+      "À propos de l’application",
+      "Écriture et fonctions",
+      "Appareils et mode hors connexion",
+      "Confidentialité et sécurité",
+      "Votre compte",
+      "Installation et mises à jour"
+    ],
+    "items": [
+      {
+        "q": "Qu’est-ce que {{BRAND}} ?",
+        "a": "Un journal privé. Vous racontez votre journée avec vos propres mots et, si vous le souhaitez, vous ajoutez votre humeur, votre sommeil, vos habitudes et d’autres éléments. Au fil des semaines, des mois et des années, l’application signale des tendances dans vos propres entrées et indique les chiffres derrière chacune. Elle fonctionne dans un navigateur et comme application pour Windows, Android et Mac, avec un seul compte pour l’ensemble."
+      },
+      {
+        "q": "Est-ce gratuit ?",
+        "a": "Oui. {{BRAND}} est gratuit, sans publicité et sans achats dans l’application. Si nous voulons un jour faire payer quelque chose, nous l’annoncerons à l’avance, et rien ne devient payant sans votre accord."
+      },
+      {
+        "q": "Qui le publie ?",
+        "a": "{{BRAND}} est publié et exploité par {{PUBLISHER_NAME}}. Pour nous joindre, utilisez le [[contact|formulaire de contact]] en bas de cette page, ou écrivez à l’adresse e-mail indiquée à côté."
+      },
+      {
+        "q": "Quels appareils puis-je utiliser ?",
+        "a": "Un ordinateur sous Windows 10 ou 11, un Mac sous macOS 12.3 ou version ultérieure, un téléphone Android sous Android 7.0 ou version ultérieure, et n’importe quel navigateur récent sur un ordinateur ou un téléphone. Les fichiers d’installation se trouvent sur la page [[downloads|Téléchargements]]. L’application iPhone n’est pas encore disponible. C’est un seul compte partout : ce que vous écrivez sur un appareil apparaît sur les autres."
+      },
+      {
+        "q": "Dans quelles langues l’application est-elle disponible ?",
+        "a": "En 20 langues : anglais, hébreu, arabe, chinois (simplifié), japonais, hindi, thaï, espagnol, portugais, français, italien, allemand, roumain, grec, polonais, tchèque, hongrois, russe, bulgare et turc. Vous pouvez changer de langue à tout moment dans Paramètres, et votre compte garde votre choix. L’hébreu et l’arabe s’affichent de droite à gauche."
+      },
+      {
+        "q": "Est-ce un outil médical ?",
+        "a": "Non. {{BRAND}} est un outil de journal personnel. Ce n’est pas un outil médical ni de diagnostic, et ses observations ne sont pas des conseils médicaux ou psychologiques. Si votre santé vous inquiète, parlez-en à un professionnel qualifié."
+      },
+      {
+        "q": "Puis-je l’essayer sans compte ?",
+        "a": "Dans l’application Android, oui. Sur le premier écran, choisissez « Passer - juste jeter un œil » et découvrez l’application avec des données d’exemple. Rien de ce que vous y écrivez n’est enregistré, et la visite se termine d’elle-même au bout de 30 minutes. Dans les applications Windows et Mac et dans le navigateur, il faut un compte ; sa création est gratuite."
+      },
+      {
+        "q": "Que peut contenir une entrée du journal ?",
+        "a": "Un titre et un texte libre avec vos propres mots. Si vous le souhaitez, ajoutez votre humeur, vos émotions, votre énergie, votre stress, votre sommeil, votre activité physique, des événements marquants, les personnes que vous avez vues, un lieu, des notes et des étiquettes. Vous pouvez écrire plusieurs entrées par jour. Chaque jour a sa propre page, et une chronologie présente l’ensemble du journal."
+      },
+      {
+        "q": "Comment fonctionnent les habitudes et les rappels ?",
+        "a": "Vous créez des habitudes quotidiennes ou hebdomadaires, chacune avec un objectif, et vous les cochez au fur et à mesure. L’application affiche votre série et la part de l’objectif atteinte. Les rappels sont liés aux habitudes : vous réglez l’heure de chaque habitude sur la page Habitudes et vous activez les rappels dans Paramètres, sous Rappels. Sur un téléphone Android qui autorise les notifications de l’application, le rappel arrive même quand l’application est fermée ; sur un ordinateur et dans le navigateur, il apparaît pendant que le journal est ouvert. Les rappels sont créés sur l’appareil lui-même ; rien n’est envoyé à l’extérieur."
+      },
+      {
+        "q": "Que sont les observations, et comment voir les chiffres derrière l’une d’elles ?",
+        "a": "Les observations sont des liens possibles que l’application trouve dans vos propres entrées, par exemple entre le sommeil et l’humeur, ou entre l’activité physique et l’énergie. Elles sont formulées avec prudence et n’affirment jamais qu’une chose en cause une autre. Sur chaque observation, « Pourquoi cette observation ? » indique combien de jours ont été examinés et les chiffres sur lesquels elle repose. Quand les données ne suffisent pas, l’application le dit au lieu de deviner."
+      },
+      {
+        "q": "Quels calendriers puis-je utiliser ?",
+        "a": "Trois : le calendrier grégorien, le calendrier hébraïque et le calendrier hégirien (islamique). Vous en choisissez un sur la page Calendrier, et le mois affiche alors les numéros des jours et les fêtes de ce calendrier. Les dates et les fêtes islamiques suivent le calendrier Umm al-Qura et peuvent être décalées d’un jour."
+      },
+      {
+        "q": "Qu’est-ce que la recherche intelligente ?",
+        "a": "Une recherche qui accepte une question dans votre propre langue, par exemple « Quels jours ai-je dormi moins de cinq heures ? » ou « Quand ai-je écrit que j’étais fatigué ? ». L’application montre comment elle a compris la question, la réponse, ainsi que les jours et les entrées qui correspondent. Les questions sont traitées sur le serveur et n’y sont pas conservées."
+      },
+      {
+        "q": "Que montrent les statistiques ?",
+        "a": "Des graphiques de votre humeur, de votre énergie, de votre stress, de votre sommeil, de votre activité physique et de vos habitudes dans le temps, pour la période de votre choix, des 7 derniers jours à l’ensemble du journal. Chaque graphique est accompagné d’un court résumé en mots et d’un tableau de données, pour que les chiffres puissent être lus sans le graphique."
+      },
+      {
+        "q": "Dans quels formats puis-je exporter mon journal ?",
+        "a": "TXT, CSV, JSON et PDF, pour l’ensemble du journal ou pour une période donnée. Un fichier CSV contient uniquement les entrées ; les autres formats peuvent aussi inclure vos habitudes. Un export est un fichier ordinaire et lisible, pas un fichier chiffré : toute personne qui a le fichier peut le lire, alors conservez-le avec autant de soin que le journal lui-même."
+      },
+      {
+        "q": "L’application fonctionne-t-elle hors connexion ?",
+        "a": "Oui, une fois que vous êtes connecté. Si la connexion est coupée, vous pouvez continuer à lire et à écrire. Vos modifications sont conservées chiffrées sur votre appareil et envoyées automatiquement dès que la connexion revient, même si vous avez fermé l’application entre-temps. Avec « Se souvenir de moi », les applications s’ouvrent aussi sans connexion et affichent ce que vous avez consulté récemment. La création d’un compte, la connexion, les observations, la recherche, les statistiques, la sauvegarde, l’export et les modifications de votre compte nécessitent une connexion."
+      },
+      {
+        "q": "Puis-je l’utiliser sur plusieurs appareils ?",
+        "a": "Oui. Votre journal est conservé dans votre compte sur le serveur de {{BRAND}} : vous vous connectez avec le même compte sur chaque appareil et vous retrouvez tout. Ce que vous modifiez sur un appareil apparaît sur les autres dès qu’ils se connectent. Dans Paramètres, Appareils connectés liste les appareils sur lesquels vous êtes connecté, et vous pouvez déconnecter n’importe lequel d’entre eux."
+      },
+      {
+        "q": "Que se passe-t-il si je modifie la même entrée sur deux appareils ?",
+        "a": "La modification la plus récente est conservée, et l’application vous le signale en une ligne. L’autre version reste disponible sur cet appareil jusqu’à ce que vous fermiez ce message : vous pouvez la lire, copier son texte ou l’enregistrer comme nouvelle entrée."
+      },
+      {
+        "q": "Puis-je l’utiliser dans un navigateur, sans rien installer ?",
+        "a": "Oui. [[webapp|Ouvrez la version web]] dans n’importe quel navigateur récent, sur un ordinateur ou un téléphone, et connectez-vous avec le même compte. Le navigateur ne garde aucune copie de ce que vous lisez. Si la connexion est coupée pendant que le journal est ouvert, vous pouvez continuer à écrire : vos modifications sont conservées chiffrées dans le navigateur et envoyées dès que la connexion revient."
+      },
+      {
+        "q": "À quoi sert « Se souvenir de moi » ?",
+        "a": "Cette option vous garde connecté sur cet appareil jusqu’à 90 jours au lieu de 12 heures. Dans les applications Windows, Mac et Android, elle conserve aussi une copie chiffrée de ce que vous avez consulté récemment, pour que l’application puisse s’ouvrir et l’afficher sans connexion. Sur les écrans de connexion et d’inscription, elle est cochée par défaut : sur un appareil que d’autres personnes utilisent aussi, décochez-la et déconnectez-vous quand vous avez terminé."
+      },
+      {
+        "q": "Où mon journal est-il conservé ?",
+        "a": "Dans votre propre compte sur le serveur de {{BRAND}}, dans un fichier chiffré distinct pour chaque compte. Le serveur fonctionne chez l’hébergeur Fly.io, dans son centre de données de Francfort, en Allemagne. Les applications et le navigateur affichent tous ce même journal. La [[privacy|Politique de confidentialité]] indique précisément ce qui est conservé et où."
+      },
+      {
+        "q": "Qui peut lire mon journal ?",
+        "a": "Vous, avec votre mot de passe : le fichier du journal est chiffré avec une clé dérivée de celui-ci. Sachez toutefois quelles en sont les limites. Pendant votre session, le serveur a votre journal ouvert dans sa mémoire. Et quiconque contrôle le serveur et ses secrets - l’exploitant et, en principe, l’hébergeur - pourrait techniquement réinitialiser le mot de passe de n’importe quel compte et lire son journal sans connaître le mot de passe. Nous nous engageons à ne pas le faire, nous n’avons aucun outil pour cela, et nos outils d’administration n’ouvrent jamais un journal. La section 4 de la [[privacy|Politique de confidentialité]] l’explique clairement."
+      },
+      {
+        "q": "Est-il chiffré de bout en bout ?",
+        "a": "Non. Votre journal est chiffré dans son fichier sur le serveur (AES-256-GCM, avec une clé dérivée de votre mot de passe) et pendant son trajet jusqu’au serveur (HTTPS). Mais pendant votre session, le serveur l’ouvre dans sa mémoire pour l’afficher, y faire des recherches et l’analyser pour vous. Le serveur conserve aussi une clé de récupération pour que « Mot de passe oublié ? » fonctionne sans perdre votre journal ; grâce à elle, quiconque contrôle le serveur pourrait techniquement réinitialiser un mot de passe et lire le journal. Si vous n’êtes pas prêt à vous fier à notre engagement de ne pas le faire, ne conservez dans le service rien que vous ne voudriez pas que quelqu’un d’autre lise."
+      },
+      {
+        "q": "Y a-t-il de la publicité ou du pistage ?",
+        "a": "Non. Il n’y a ni publicité, ni statistiques d’usage, ni pistage, dans les applications, dans la version web ou sur ce site. Nous ne vendons ni ne partageons vos données, et votre journal n’est jamais utilisé pour entraîner une IA. Les applications et la version web se connectent uniquement au serveur de {{BRAND}}, toujours en HTTPS."
+      },
+      {
+        "q": "Comment le journal est-il verrouillé ?",
+        "a": "Il se verrouille de lui-même après une période d’inactivité ; vous choisissez la durée dans Paramètres, sous Sécurité, et « Verrouiller maintenant » le verrouille immédiatement. Votre mot de passe le rouvre. Dans l’application Android, vous pouvez aussi le faire se verrouiller chaque fois que vous quittez l’application, et l’ouvrir avec votre empreinte digitale ou votre visage. Lorsqu’une application propose le verrouillage de l’écran de votre appareil à la place du mot de passe (Windows Hello, Touch ID ou le mot de passe du Mac, ou le verrouillage de l’écran Android), la vérification est effectuée par le système d’exploitation : rien de votre empreinte, de votre visage ou de votre code PIN ne parvient à l’application ni à nous."
+      },
+      {
+        "q": "Et si j’oublie mon mot de passe ?",
+        "a": "Sur l’écran de connexion, choisissez « Mot de passe oublié ? » et saisissez l’adresse e-mail avec laquelle vous vous êtes inscrit. Vous recevez un message avec un lien et un code à 6 chiffres, valables 30 minutes et utilisables une seule fois. Si le message n’arrive pas en quelques minutes, vérifiez le dossier des spams. Ouvrez le lien, ou saisissez le code dans l’application, et choisissez un nouveau mot de passe ; vous êtes alors déconnecté sur tous vos appareils. Votre journal est conservé : rien n’est supprimé."
+      },
+      {
+        "q": "Comment sauvegarder mon journal et le restaurer ?",
+        "a": "Ouvrez Sauvegarde dans le menu (dans l’application Android, sous Plus) et créez un fichier de sauvegarde : une copie chiffrée de tout le journal (entrées, habitudes et paramètres), protégée par un mot de passe, que vous conservez où vous voulez. Pour restaurer, choisissez ce fichier sur la même page et saisissez son mot de passe. La restauration remplace le journal actuel par le contenu du fichier, alors créez d’abord une sauvegarde du journal actuel."
+      },
+      {
+        "q": "Comment supprimer mon compte ?",
+        "a": "Connectez-vous, ouvrez Paramètres et allez à la dernière carte, Supprimer le compte : saisissez votre mot de passe et confirmez. Votre compte, votre journal, vos habitudes et vos paramètres sont aussitôt supprimés du serveur, et vous êtes déconnecté sur tous vos appareils. Cette action est irréversible. Les copies dans les sauvegardes du serveur lui-même disparaissent dans les délais indiqués dans la [[privacy|Politique de confidentialité]]. Si vous ne pouvez pas vous connecter, la [[delete|page de suppression du compte]] explique comment faire."
+      },
+      {
+        "q": "Quel âge faut-il avoir ?",
+        "a": "Vous devez avoir au moins {{MINIMUM_AGE}} ans pour créer un compte. Si vous êtes mineur là où vous vivez, vous ne pouvez utiliser le service qu’avec l’accord d’un parent ou d’un tuteur, lorsque la loi de votre pays l’exige."
+      },
+      {
+        "q": "Pourquoi mon appareil m’avertit-il quand j’installe un fichier de ce site ?",
+        "a": "Parce que le fichier ne vient pas d’une boutique d’applications, et que les fichiers Windows et Mac ne sont pas encore signés avec un certificat d’éditeur. Windows peut afficher « Windows a protégé votre ordinateur » : choisissez Informations complémentaires, puis Exécuter quand même. macOS n’ouvre pas l’application la première fois et peut même indiquer qu’elle est endommagée : ne la placez pas dans la Corbeille, mais ouvrez Réglages Système, puis Confidentialité et sécurité (sous macOS 12 : Préférences Système, puis Sécurité et confidentialité), et choisissez Ouvrir quand même. Android vous demande d’autoriser votre navigateur ou votre gestionnaire de fichiers à installer des applications (sous Android 7 : Sources inconnues). La page [[downloads|Téléchargements]] donne les étapes pour chaque système, ainsi qu’une somme de contrôle SHA-256 pour chaque fichier, afin de vérifier que votre copie n’a pas été modifiée."
+      },
+      {
+        "q": "Comment passer à une nouvelle version ?",
+        "a": "Les applications de ce site ne se mettent pas à jour d’elles-mêmes. Quand la page [[downloads|Téléchargements]] indique une version plus récente, téléchargez son fichier et installez-le comme la première fois ; il remplace la version que vous avez. Votre journal est conservé dans votre compte sur le serveur, donc une mise à jour ne le modifie pas. Si un téléphone Android refuse d’installer le nouveau fichier par-dessus l’ancienne application, vérifiez d’abord que l’application indique que toutes les modifications sont enregistrées sur le serveur, puis désinstallez l’ancienne application et installez le nouveau fichier."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Téléchargements",
+    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux et dans le navigateur.",
+    "tabsLabel": "Système d’exploitation",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Fichier",
+      "version": "Version",
+      "size": "Taille"
+    },
+    "captions": {
+      "windows": "Fichiers d’installation pour Windows, de la version la plus récente à la plus ancienne",
+      "android": "Fichiers d’installation pour Android, de la version la plus récente à la plus ancienne",
+      "mac": "Fichiers d’installation pour Mac, de la version la plus récente à la plus ancienne"
+    },
+    "requires": {
+      "windows": "Nécessite Windows 10 ou Windows 11 (64 bits).",
+      "android": "Nécessite Android 7.0 ou version ultérieure.",
+      "mac": "Nécessite macOS 12.3 ou version ultérieure, sur un Mac avec puce Apple ou avec processeur Intel."
+    },
+    "install": {
+      "windows": "Ce fichier d’installation ne vient pas du Microsoft Store et n’est pas encore signé avec un certificat d’éditeur. Votre navigateur peut d’abord vous avertir que ce fichier n’est pas fréquemment téléchargé (choisissez de le conserver), et quand vous l’ouvrez, Windows peut afficher « Windows a protégé votre ordinateur » : choisissez Informations complémentaires, puis Exécuter quand même. L’installation vous demande votre langue et installe l’application pour votre propre compte Windows, sans mot de passe administrateur.",
+      "android": "Ce fichier s’installe directement, sans passer par Google Play. Quand vous ouvrez le fichier téléchargé, Android vous demande d’autoriser votre navigateur ou votre gestionnaire de fichiers à installer des applications ; sous Android 7, ce réglage s’appelle Sources inconnues. Autorisez-le, revenez au fichier et choisissez Installer.",
+      "mac": "Ouvrez l’image disque, faites glisser l’application dans le dossier Applications et ouvrez-la depuis ce dossier. L’application n’est pas encore signée avec un certificat de développeur Apple : la première fois, macOS ne l’ouvre donc pas, et le message peut même indiquer que l’application est endommagée. Ne la placez pas dans la Corbeille : fermez le message, ouvrez Réglages Système, puis Confidentialité et sécurité, faites défiler vers le bas et choisissez Ouvrir quand même (sous macOS 12 : Préférences Système, puis Sécurité et confidentialité, puis Ouvrir quand même), saisissez le mot de passe de votre Mac si on vous le demande, et choisissez Ouvrir."
+    },
+    "checkFile": "Vérifier le fichier",
+    "checkText": "Chaque fichier a une somme de contrôle SHA-256. Si le fichier que vous avez téléchargé en a une autre, le téléchargement est endommagé ou le fichier a été modifié : ne l’installez pas. Pour voir la somme de contrôle d’un fichier, tapez Get-FileHash suivi du nom du fichier dans Windows PowerShell, ou shasum -a 256 suivi du nom du fichier dans le Terminal d’un Mac. Les majuscules et les minuscules sont considérées comme identiques.",
+    "moreHeading": "Navigateur et iPhone",
+    "web": "Rien à installer : {{BRAND}} fonctionne aussi dans n’importe quel navigateur récent, sur un ordinateur ou un téléphone. [[webapp|Ouvrez-le dans votre navigateur]].",
+    "iphone": "Il n’y a pas de fichier d’installation pour iPhone : les applications iPhone s’installent depuis l’App Store. L’application iPhone n’est pas encore disponible.",
+    "iphoneStore": "Sur un iPhone, l’application s’installe depuis l’App Store.",
+    "storeLinks": {
+      "googlePlay": "Disponible sur Google Play",
+      "appStoreIphone": "Télécharger dans l’App Store",
+      "appStoreMac": "Télécharger dans le Mac App Store",
+      "microsoftStore": "Obtenir sur Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Nous contacter",
+    "lead": "Une question, une remarque ou un problème ? Écrivez-nous par e-mail, ou remplissez le formulaire et nous vous répondrons par e-mail.",
+    "required": "Tous les champs sont obligatoires.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse e-mail",
+    "message": "Votre message",
+    "honeypot": "Laissez ce champ vide",
+    "notice": "Votre nom, votre adresse e-mail et votre message nous sont envoyés par e-mail pour que nous puissions vous répondre. Ils ne sont pas conservés sur le serveur. Pour en savoir plus, consultez la [[privacy|Politique de confidentialité]].",
+    "send": "Envoyer",
+    "sentTitle": "Votre message a été envoyé",
+    "sentText": "Merci de nous avoir écrit. Nous vous répondrons par e-mail, à l’adresse que vous avez indiquée. Nous répondons sous 30 jours, généralement bien plus tôt.",
+    "errorTitle": "Votre message n’a pas été envoyé",
+    "errorText": "Un problème est survenu et votre message ne nous est pas parvenu. Revenez en arrière, vérifiez votre adresse e-mail et réessayez dans un moment, ou écrivez-nous par e-mail : {{CONTACT_EMAIL}}",
+    "backHome": "Retour à la page d’accueil"
+  },
+  "footer": {
+    "languagesLabel": "Toutes les langues",
+    "change": "Changer",
+    "rights": "Tous droits réservés."
+  }
+}

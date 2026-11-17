@@ -20,6 +20,9 @@
  *   - the tour (POST /api/auth/guest) is public under strict limits (HOSTED-IMPL item 9, which
  *     supersedes plan 4c: tours per address bucket and hour, a cap of concurrent guests, a lifetime
  *     after which a guest ends by itself, nothing persisted; DIARY_MAX_GUESTS=0 unmounts it);
+ *   - the contact form of the public site (docs/site-tasks/SITE.md section 5, hosted/contact.ts):
+ *     POST /api/contact turns a form post into one e-mail to the contact address, under its own
+ *     limits; nothing of a message is stored or logged; DIARY_CONTACT_FORM=off switches it off;
  *   - no disk paths (2.3).
  *
  * The only outbound connection of a hosted server is the SMTP host of the Mail card (5.8).
@@ -33,6 +36,7 @@ import type { HostedEnv, ServerConfig } from './config';
 import { ApiError } from './errors';
 import { AdminToken, adminTokenPath } from './hosted/admin-token';
 import { createArchiveController, type ArchiveOptions } from './hosted/archive';
+import { createContactForm, type ContactForm, type ContactFormOptions } from './hosted/contact';
 import { createGuestGate, createRegistrationGate } from './hosted/policy';
 import type { HostedAppOptions } from './hosted/types';
 import { nodeSmtpTransport } from './mail/node-transport';
@@ -77,6 +81,8 @@ export interface HostedStartOptions {
   archive?: Partial<Omit<ArchiveOptions, 'dataDir'>>;
   /** Where the per-boot admin token goes (tests); default: `env.adminTokenFile`, else `<dataDir>/.admin-token`. */
   adminTokenFile?: string;
+  /** Contact form options (tests: another recipient, other limits). The mail service, the public address and the switch come from the composition. */
+  contact?: Partial<Omit<ContactFormOptions, 'mail' | 'publicUrl' | 'extraHosts' | 'enabled'>>;
 }
 
 export interface RunningHosted {
@@ -92,6 +98,8 @@ export interface RunningHosted {
   registration: HostedAppOptions['registration'];
   /** This boot's admin token (its file and whether it is in force - tests). */
   adminToken: AdminToken;
+  /** The contact form of the public site (its limiter - tests). */
+  contact: ContactForm;
   stop(): Promise<void>;
 }
 
@@ -191,6 +199,9 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
   const adminToken = new AdminToken(opts.adminTokenFile ?? adminTokenPath(config.dataDir, env.adminTokenFile));
   // `deps` is built below; the router reads it only while it handles a deletion.
   const admin = adminRouter({ auth, token: adminToken, deps: () => deps, ownerId, registration: () => env.registration, log });
+  // The contact form of the public site: one e-mail per message through the owner's mail settings.
+  // Its counters live in memory only; DIARY_CONTACT_FORM=off leaves the route mounted and answering "not sent".
+  const contact = createContactForm({ mail, publicUrl: env.publicUrl, extraHosts: env.extraHosts, enabled: env.contactForm, now, log, ...opts.contact });
 
   const hosted: HostedAppOptions = {
     publicHost: env.publicHost,
@@ -215,6 +226,7 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
     offlineSync: env.offlineSync,
     ...(tour ? { guests: createGuestGate({ perHour: env.guestsPerHour, max: env.maxGuests, lifetimeMinutes: env.guestMinutes, now, log }) } : {}),
     admin,
+    contact: contact.handler,
   };
 
   const deps: AppDeps & { remote: RemoteController; mail: MailController; passwordReset: PasswordResetController } = {
@@ -257,6 +269,7 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
     passwordReset,
     registration,
     adminToken,
+    contact,
     stop: async () => {
       if (stopped) return;
       stopped = true;
@@ -264,7 +277,9 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
       adminToken.revoke();
       await closeServer(server);
       // Give e-mails being handed over a moment (each SMTP step has its own timeout anyway).
-      await Promise.race([passwordReset.idle(), new Promise((r) => setTimeout(r, 3000).unref?.())]);
+      await Promise.race([Promise.all([passwordReset.idle(), contact.idle()]), new Promise((r) => setTimeout(r, 3000).unref?.())]);
+      // The contact form's counters and their timer go with the process.
+      contact.stop();
       await auth.shutdown();
       configureKdfGate(null);
       say('stopped');

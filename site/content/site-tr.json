@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - alışkanlıklar ve özenli içgörüler sunan özel bir günlük",
+  "description": "Gününüzü yazın, ruh halinizi ve alışkanlıklarınızı takip edin, zaman içindeki örüntüleri fark edin. 20 dilde özel bir günlük. Ücretsiz; reklam yok, izleme yok.",
+  "skipLink": "İçeriğe geçin",
+  "languagesLabel": "Dil",
+  "nav": {
+    "label": "Site menüsü",
+    "about": "Uygulama hakkında",
+    "terms": "Kullanım Koşulları",
+    "faq": "Sorular ve yanıtlar",
+    "privacy": "Gizlilik Politikası",
+    "downloads": "İndirmeler",
+    "contact": "Bize ulaşın"
+  },
+  "hero": {
+    "heading": "Kendi örüntülerinizi fark etmenize yardımcı olan özel bir günlük",
+    "lead": "Gününüzü kendi sözlerinizle yazın. İsterseniz ruh halinizi, uykunuzu ve alışkanlıklarınızı da ekleyin. {{BRAND}} haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir.",
+    "openAction": "Tarayıcınızda açın",
+    "note": "Ücretsiz. Reklam yok, kullanım analizi yok, izleme yok."
+  },
+  "features": {
+    "heading": "Neler yapabilirsiniz",
+    "items": [
+      {
+        "title": "Gününüzü yazın",
+        "text": "Kendi sözlerinizle kayıtlar. İsterseniz ruh hali, duygular, enerji, stres, uyku, fiziksel aktivite, kişiler, yer ve etiketler ekleyin. Her günün kendi sayfası vardır; zaman çizelgesi de günlüğün tamamını gösterir."
+      },
+      {
+        "title": "Alışkanlıklar ve hatırlatıcılar",
+        "text": "Gün içinde işaretlediğiniz günlük ve haftalık alışkanlıklar, seri ve ilerleme bilgileriyle. Her alışkanlık için seçtiğiniz saatte isteğe bağlı hatırlatıcılar."
+      },
+      {
+        "title": "Özenli içgörüler",
+        "text": "Uygulama kendi verilerinizde olası ilişkileri arar; örneğin uyku ile ruh hali arasında. İçgörüler dikkatle ifade edilir ve hiçbir zaman bir şeyin başka bir şeye neden olduğunu iddia etmez. Yeterli veri olmadığında uygulama tahmin yürütmek yerine bunu söyler."
+      },
+      {
+        "title": "Takvim",
+        "text": "Miladi, İbrani ya da Hicri takvime göre aylık takvim; seçtiğiniz takvimin bayramları ve özel günleriyle."
+      },
+      {
+        "title": "İstatistikler ve akıllı arama",
+        "text": "Ruh hali, enerji, stres, uyku ve alışkanlıklarınızın zaman içindeki grafikleri; her biri bir veri tablosuyla. Kendi dilinizde bir soru sorun, örneğin \"Hangi günlerde beş saatten az uyudum?\", yanıtı günlüğünüzden alın."
+      },
+      {
+        "title": "Çevrimdışı çalışır ve eşitlenir",
+        "text": "Tek hesap, her cihazda aynı günlük. Bağlantı koparsa okumaya ve yazmaya devam edin: değişiklikleriniz cihazınızda şifreli olarak saklanır ve bağlantı geri geldiğinde yüklenir."
+      },
+      {
+        "title": "20 dil",
+        "text": "Uygulamanın tamamı 20 dilde. Dili istediğiniz zaman Ayarlar’dan değiştirebilirsiniz. İbranice ve Arapça sağdan sola gösterilir."
+      },
+      {
+        "title": "Erişilebilirlik",
+        "text": "Ekran okuyucularla çalışır: net başlıklar, etiketli alanlar ve sesli okunan durum mesajları. Açık, koyu ve yüksek karşıtlık temaları, ayarlanabilir metin boyutu ve hareketi azaltma seçeneği. Bilgisayarda her şey klavyeyle yapılabilir."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Nasıl görünüyor",
+    "items": [
+      {
+        "caption": "Ana sayfa: bir bakışta bugün",
+        "alt": "Telefonda Ana sayfa ekranı: tarihle birlikte bir karşılama, bugünkü kayıt sayısı, yazma serisi ve son yedi günün ortalamaları."
+      },
+      {
+        "caption": "Bir kayıt: kendi sözleriniz, ruh hali, uyku ve daha fazlasıyla",
+        "alt": "Telefonda bir kayıt: başlığı ve tarihi, ruh hali, enerji, stres ve uyku puanları, egzersiz, duygular ve serbest metin."
+      },
+      {
+        "caption": "Alışkanlıklar: hedefler, seriler ve ilerleme",
+        "alt": "Telefonda Alışkanlıklar ekranı: günlük hedefi, mevcut serisi, son 30 gündeki tamamlanma oranı ve bugünkü miktarıyla bir alışkanlık."
+      },
+      {
+        "caption": "İçgörüler: dikkatli ifadeler ve arkalarındaki sayılar",
+        "alt": "Telefonda İçgörüler ekranı: son aya ait iki eğilim; her biri zayıf örüntü olarak işaretlenmiş, incelenen dönemle ve içgörüyü açıklayan bir düğmeyle."
+      },
+      {
+        "caption": "Aynı günlük bilgisayarda",
+        "alt": "Bilgisayarda Ana sayfa ekranı: tüm bölümlerin yer aldığı menü, bugünün özeti ve son yedi günün ortalamaları."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Gizliliğiniz",
+    "lead": "Günlük kişiseldir. Sizinkine neler olduğunu burada anlatıyoruz.",
+    "items": [
+      "Reklam yok, kullanım analizi yok, izleme yok. Verilerinizi satmayız ve paylaşmayız.",
+      "Günlüğünüz {{BRAND}} sunucusunda şifreli olarak, her hesap için ayrı bir dosyada saklanır. Parolanızın kendisi saklanmaz.",
+      "Uygulamalar ve web sitesi yalnızca {{BRAND}} sunucusuna ve her zaman HTTPS üzerinden bağlanır.",
+      "Oturumunuz açıkken sunucu, günlüğünüzü size gösterebilmek, içinde arama yapabilmek ve onu analiz edebilmek için belleğinde açar. Gizlilik politikası bunun ne anlama geldiğini açıkça anlatır.",
+      "Günlüğünüzü istediğiniz zaman yanınıza alabilirsiniz: sizde kalan şifreli bir yedek dosyası ya da TXT, CSV, JSON veya PDF olarak dışa aktarma.",
+      "Hesabınızı ve tüm verilerini istediğiniz zaman Ayarlar’dan silebilirsiniz."
+    ],
+    "policyLink": "Gizlilik politikasını okuyun"
+  },
+  "faq": {
+    "heading": "Sorular ve yanıtlar",
+    "lead": "{{BRAND}} hakkında kısa yanıtlar: ne olduğu ve ne yaptığı, günlüğünüzün nasıl saklandığı ve korunduğu, hesabınız ve uygulamaların kurulumu.",
+    "groups": [
+      "Uygulama hakkında",
+      "Yazma ve özellikler",
+      "Cihazlar ve çevrimdışı çalışma",
+      "Gizlilik ve güvenlik",
+      "Hesabınız",
+      "Kurulum ve güncelleme"
+    ],
+    "items": [
+      {
+        "q": "{{BRAND}} nedir?",
+        "a": "Özel bir günlük. Gününüzü kendi sözlerinizle yazarsınız ve isterseniz ruh halinizi, uykunuzu, alışkanlıklarınızı ve daha fazlasını eklersiniz. Uygulama haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir. Tarayıcıda ve Windows, Android ve Mac için bir uygulama olarak çalışır; hepsinde tek bir hesap kullanılır."
+      },
+      {
+        "q": "Ücretsiz mi?",
+        "a": "Evet. {{BRAND}} ücretsizdir; reklam ve uygulama içi satın alma yoktur. Bir gün bir şey için ücret almak istersek bunu önceden söyleriz ve hiçbir şey sizin onayınız olmadan ücretli hale gelmez."
+      },
+      {
+        "q": "Uygulamayı kim yayımlıyor?",
+        "a": "{{BRAND}}, {{PUBLISHER_NAME}} tarafından yayımlanır ve işletilir. Bize ulaşmak için bu sayfanın altındaki [[contact|iletişim formunu]] kullanın veya formun yanında gösterilen e-posta adresine yazın."
+      },
+      {
+        "q": "Hangi cihazları kullanabilirim?",
+        "a": "Windows 10 veya 11 yüklü bir bilgisayar, macOS 12.3 veya üstü yüklü bir Mac, Android 7.0 veya üstü yüklü bir Android telefon ve bir bilgisayarda ya da telefonda herhangi bir güncel tarayıcı. Kurulum dosyaları [[downloads|İndirmeler]] sayfasındadır. iPhone uygulaması henüz kullanılamıyor. Her yerde tek bir hesap vardır: bir cihazda yazdıklarınız diğerlerinde de görünür."
+      },
+      {
+        "q": "Hangi dillerde kullanılabilir?",
+        "a": "20 dilde: İngilizce, İbranice, Arapça, Çince (Basitleştirilmiş), Japonca, Hintçe, Tayca, İspanyolca, Portekizce, Fransızca, İtalyanca, Almanca, Rumence, Yunanca, Lehçe, Çekçe, Macarca, Rusça, Bulgarca ve Türkçe. Dili istediğiniz zaman Ayarlar'dan değiştirebilirsiniz; hesabınız seçiminizi saklar. İbranice ve Arapça sağdan sola gösterilir."
+      },
+      {
+        "q": "Tıbbi bir araç mı?",
+        "a": "Hayır. {{BRAND}} kişisel günlük tutmaya yarayan bir araçtır. Tıbbi ya da teşhis amaçlı bir araç değildir ve içgörüleri tıbbi veya psikolojik tavsiye niteliği taşımaz. Sağlığınızla ilgili endişeleriniz varsa lütfen yetkin bir uzmana danışın."
+      },
+      {
+        "q": "Hesap olmadan deneyebilir miyim?",
+        "a": "Android uygulamasında evet. İlk ekranda \"Atla - sadece göz atmak istiyorum\" seçeneğini seçin ve uygulamayı örnek verilerle keşfedin. Orada yazdığınız hiçbir şey kaydedilmez ve tur 30 dakika sonra kendiliğinden sona erer. Windows ve Mac uygulamalarında ve tarayıcıda bir hesap gerekir; hesap oluşturmak ücretsizdir."
+      },
+      {
+        "q": "Bir günlük kaydı neler içerebilir?",
+        "a": "Bir başlık ve kendi sözlerinizle serbest bir metin. İsterseniz ruh halinizi, duygularınızı, enerjinizi, stresinizi, uykunuzu, fiziksel aktivitenizi, önemli olayları, görüştüğünüz kişileri, bir yeri, notları ve etiketleri ekleyin. Bir günde birden fazla kayıt yazabilirsiniz. Her günün kendi sayfası vardır; zaman çizelgesi de günlüğün tamamını gösterir."
+      },
+      {
+        "q": "Alışkanlıklar ve hatırlatıcılar nasıl çalışır?",
+        "a": "Her birinin bir hedefi olan günlük veya haftalık alışkanlıklar oluşturur ve yaptıkça işaretlersiniz. Uygulama serinizi ve hedefin ne kadarını tamamladığınızı gösterir. Hatırlatıcılar alışkanlıklara bağlıdır: her alışkanlığın saatini Alışkanlıklar sayfasında belirlersiniz, hatırlatıcıları da Ayarlar'da, Hatırlatıcılar bölümünde açarsınız. Uygulamaya bildirim izni veren bir Android telefonda hatırlatıcı, uygulama kapalıyken de gelir; bilgisayarda ve tarayıcıda ise günlük açıkken görünür. Hatırlatıcılar cihazın kendisinde oluşturulur; dışarıya hiçbir şey gönderilmez."
+      },
+      {
+        "q": "İçgörüler nedir ve bir içgörünün arkasındaki sayıları nasıl görürüm?",
+        "a": "İçgörüler, uygulamanın kendi kayıtlarınızda bulduğu olası ilişkilerdir; örneğin uyku ile ruh hali ya da fiziksel aktivite ile enerji arasında. Dikkatle ifade edilirler ve bir şeyin başka bir şeye neden olduğunu asla iddia etmezler. Her içgörüde \"Bu içgörüyü neden aldım?\" kaç günün incelendiğini ve arkasındaki sayıları gösterir. Yeterli veri olmadığında uygulama tahmin yürütmek yerine bunu söyler."
+      },
+      {
+        "q": "Hangi takvimleri kullanabilirim?",
+        "a": "Üç takvimi: Gregoryen, İbrani ve Hicri (İslami) takvim. Birini Takvim sayfasında seçersiniz; ay görünümü de o takvimin gün numaralarını ve bayramlarını gösterir. İslami tarihler ve bayramlar Ümmü'l-Kura takvimine göredir ve bir gün kayabilir."
+      },
+      {
+        "q": "Akıllı arama nedir?",
+        "a": "Kendi dilinizde bir soru kabul eden bir arama; örneğin \"Hangi günlerde beş saatten az uyudum?\" veya \"Yorgun olduğumu ne zaman yazdım?\". Uygulama soruyu nasıl anladığını, yanıtı ve eşleşen günleri ve kayıtları gösterir. Sorular sunucuda yanıtlanır ve orada saklanmaz."
+      },
+      {
+        "q": "İstatistikler neyi gösterir?",
+        "a": "Ruh halinizin, enerjinizin, stresinizin, uykunuzun, fiziksel aktivitenizin ve alışkanlıklarınızın zaman içindeki grafiklerini; son 7 günden günlüğün tamamına kadar seçtiğiniz bir dönem için. Her grafikle birlikte kısa bir yazılı özet ve bir veri tablosu gelir; böylece sayılar grafik olmadan da okunabilir."
+      },
+      {
+        "q": "Günlüğümü hangi biçimlerde dışa aktarabilirim?",
+        "a": "Günlüğün tamamı veya bir tarih aralığı için TXT, CSV, JSON ve PDF. CSV dosyası yalnızca kayıtları içerir; diğer biçimler alışkanlıklarınızı da içerebilir. Dışa aktarılan dosya şifreli değil, sıradan ve okunabilir bir dosyadır: dosyaya sahip olan herkes onu okuyabilir, bu yüzden onu günlüğün kendisi kadar özenle saklayın."
+      },
+      {
+        "q": "Çevrimdışı çalışır mı?",
+        "a": "Evet, oturum açtıktan sonra. Bağlantı koparsa okumaya ve yazmaya devam edebilirsiniz. Değişiklikleriniz cihazınızda şifreli olarak saklanır ve bağlantı geri geldiğinde, arada uygulamayı kapatmış olsanız bile, otomatik olarak yüklenir. \"Beni hatırla\" ile uygulamalar bağlantı olmadan da açılır ve son görüntülediklerinizi gösterir. Hesap oluşturmak, oturum açmak, içgörüler, arama, istatistikler, yedekleme, dışa aktarma ve hesabınızdaki değişiklikler için bağlantı gerekir."
+      },
+      {
+        "q": "Birden fazla cihazda kullanabilir miyim?",
+        "a": "Evet. Günlüğünüz {{BRAND}} sunucusundaki hesabınızda saklanır; bu yüzden her cihazda aynı hesapla oturum açarsınız ve her şey oradadır. Bir cihazda değiştirdikleriniz, diğer cihazlar bağlandığında onlarda da görünür. Ayarlar'daki Bağlı cihazlar bölümü oturumu açık olan cihazları listeler ve bunlardan herhangi birinin bağlantısını kesebilirsiniz."
+      },
+      {
+        "q": "Aynı kaydı iki cihazda değiştirirsem ne olur?",
+        "a": "Daha yeni değişiklik korunur ve uygulama bunu size tek satırla bildirir. Diğer sürüm, notu kapatana kadar o cihazda kalır: onu okuyabilir, metnini kopyalayabilir veya yeni bir kayıt olarak kaydedebilirsiniz."
+      },
+      {
+        "q": "Hiçbir şey kurmadan tarayıcıda kullanabilir miyim?",
+        "a": "Evet. [[webapp|Web sürümünü]] bir bilgisayarda veya telefonda herhangi bir güncel tarayıcıda açın ve aynı hesapla oturum açın. Tarayıcı okuduklarınızın kopyasını saklamaz. Günlük açıkken bağlantı koparsa yazmaya devam edebilirsiniz: değişiklikleriniz tarayıcıda şifreli olarak saklanır ve bağlantı geri geldiğinde yüklenir."
+      },
+      {
+        "q": "\"Beni hatırla\" ne işe yarar?",
+        "a": "O cihazda oturumunuzu 12 saat yerine 90 güne kadar açık tutar. Windows, Mac ve Android uygulamalarında ayrıca son görüntülediklerinizin şifreli bir kopyasını saklar; böylece uygulama bağlantı olmadan açılıp bunları gösterebilir. Oturum açma ve kaydolma ekranlarında başlangıçta işaretlidir: başkalarının da kullandığı bir cihazda işareti kaldırın ve işiniz bitince oturumu kapatın."
+      },
+      {
+        "q": "Günlüğüm nerede saklanıyor?",
+        "a": "{{BRAND}} sunucusundaki kendi hesabınızda, her hesap için ayrı ve şifreli bir dosyada. Sunucu, barındırma sağlayıcısı Fly.io'nun Frankfurt'taki (Almanya) veri merkezinde çalışır. Uygulamaların ve tarayıcının hepsi bu tek günlüğü gösterir. Neyin nerede saklandığını [[privacy|Gizlilik Politikası]] tam olarak açıklar."
+      },
+      {
+        "q": "Günlüğümü kim okuyabilir?",
+        "a": "Parolanızla siz: günlük dosyası, parolanızdan türetilen bir anahtarla şifrelenir. Yine de sınırları bilmenizi isteriz. Oturumunuz açıkken sunucu günlüğünüzü belleğinde açık tutar. Sunucuyu ve onun gizli bilgilerini kontrol eden kişi - işletmeci ve ilke olarak barındırma sağlayıcısı - teknik olarak herhangi bir hesabın parolasını sıfırlayıp o hesabın günlüğünü parolayı bilmeden okuyabilir. Bunu yapmayacağımıza söz veriyoruz; bunun için bir aracımız yok ve yönetim araçlarımız hiçbir zaman bir günlüğü açmaz. [[privacy|Gizlilik Politikasının]] 4. bölümü bunu açıkça anlatır."
+      },
+      {
+        "q": "Uçtan uca şifreli mi?",
+        "a": "Hayır. Günlüğünüz sunucudaki dosyasında (AES-256-GCM, parolanızdan türetilen bir anahtarla) ve oraya giderken (HTTPS) şifrelidir. Ancak oturumunuz açıkken sunucu, günlüğünüzü size gösterebilmek, içinde arama yapabilmek ve onu analiz edebilmek için belleğinde açar. Sunucu ayrıca \"Parolanızı mı unuttunuz?\" özelliği günlüğünüzü kaybetmeden çalışabilsin diye bir kurtarma anahtarı saklar; bu anahtarla, sunucuyu kontrol eden kişi teknik olarak bir parolayı sıfırlayıp günlüğü okuyabilir. Bunu yapmayacağımıza dair sözümüze güvenmek istemiyorsanız, hizmette başka birinin okumasını istemeyeceğiniz hiçbir şey saklamayın."
+      },
+      {
+        "q": "Reklam veya izleme var mı?",
+        "a": "Hayır. Uygulamalarda, web sürümünde veya bu sitede reklam, kullanım analizi ya da izleme yoktur. Verilerinizi satmayız ve paylaşmayız; günlüğünüz hiçbir zaman bir yapay zekâyı eğitmek için kullanılmaz. Uygulamalar ve web sürümü yalnızca {{BRAND}} sunucusuna, her zaman HTTPS üzerinden bağlanır."
+      },
+      {
+        "q": "Günlük nasıl kilitlenir?",
+        "a": "Bir süre işlem yapılmadığında kendiliğinden kilitlenir; süreyi Ayarlar'da, Güvenlik bölümünde seçersiniz; \"Şimdi kilitle\" ise günlüğü hemen kilitler. Parolanız onu yeniden açar. Android uygulamasında, uygulamadan her çıktığınızda kilitlenmesini de sağlayabilir ve parmak izinizle veya yüzünüzle açabilirsiniz. Bir uygulama parola yerine cihazınızın ekran kilidini sunduğunda (Windows Hello, Touch ID veya Mac parolası ya da Android ekran kilidi), kontrolü işletim sistemi yapar: parmak iziniz, yüzünüz veya PIN'iniz hakkında hiçbir bilgi uygulamaya veya bize ulaşmaz."
+      },
+      {
+        "q": "Parolamı unutursam ne olur?",
+        "a": "Oturum açma ekranında \"Parolanızı mı unuttunuz?\" seçeneğini seçin ve kaydolurken kullandığınız e-posta adresini girin. 30 dakika geçerli olan ve bir kez kullanılabilen bir bağlantı ile 6 haneli bir kod içeren bir ileti alırsınız. İleti birkaç dakika içinde gelmezse istenmeyen posta klasörünü kontrol edin. Bağlantıyı açın veya kodu uygulamaya girin ve yeni bir parola seçin; ardından tüm cihazlarda oturumunuz kapatılır. Günlüğünüz korunur: hiçbir şey silinmez."
+      },
+      {
+        "q": "Günlüğümü nasıl yedeklerim ve geri yüklerim?",
+        "a": "Menüden Yedekleme'yi açın (Android uygulamasında Diğer altında) ve bir yedek dosyası oluşturun: günlüğün tamamının (kayıtlar, alışkanlıklar ve ayarlar) parolayla korunan şifreli bir kopyası; onu istediğiniz yerde saklarsınız. Geri yüklemek için aynı sayfada bu dosyayı seçin ve parolasını girin. Geri yükleme, mevcut günlüğün yerine dosyanın içeriğini koyar; bu yüzden önce mevcut günlüğün bir yedeğini oluşturun."
+      },
+      {
+        "q": "Hesabımı nasıl silerim?",
+        "a": "Oturum açın, Ayarlar'ı açın ve son kart olan Hesabı sil'e gidin: parolanızı girin ve onaylayın. Hesabınız, günlüğünüz, alışkanlıklarınız ve ayarlarınız sunucudan hemen silinir ve tüm cihazlarda oturumunuz kapatılır. Bu işlem geri alınamaz. Sunucunun kendi yedeklerindeki kopyalar, [[privacy|Gizlilik Politikasında]] belirtilen süreler içinde kaybolur. Oturum açamıyorsanız [[delete|hesap silme sayfası]] ne yapmanız gerektiğini açıklar."
+      },
+      {
+        "q": "Kaç yaşında olmalıyım?",
+        "a": "Hesap oluşturmak için en az {{MINIMUM_AGE}} yaşında olmalısınız. Yaşadığınız yerde reşit değilseniz, ülkenizin yasası bunu gerektiriyorsa hizmeti yalnızca bir ebeveyn veya vasi onay verirse kullanabilirsiniz."
+      },
+      {
+        "q": "Bu siteden bir dosya kurduğumda cihazım neden uyarı veriyor?",
+        "a": "Çünkü dosya bir uygulama mağazasından gelmiyor ve Windows ile Mac dosyaları henüz bir yayıncı sertifikasıyla imzalanmadı. Windows \"Windows bilgisayarınızı korudu\" mesajını gösterebilir: önce \"Ek bilgi\", sonra \"Yine de çalıştır\" seçeneğini seçin. macOS uygulamayı ilk seferde açmaz, hatta hasarlı olduğunu söyleyebilir: onu Çöp Sepeti'ne taşımayın; \"Sistem Ayarları\"nı, ardından \"Gizlilik ve Güvenlik\"i açın (macOS 12'de: \"Sistem Tercihleri\", ardından \"Güvenlik ve Gizlilik\") ve \"Yine de Aç\"ı seçin. Android, tarayıcınızın veya dosya yöneticinizin uygulama yüklemesine izin vermenizi ister (Android 7'de: \"Bilinmeyen kaynaklar\"). [[downloads|İndirmeler]] sayfasında her sistem için adımlar ve kopyanızın değişmediğini kontrol etmeniz için her dosyanın SHA-256 sağlama toplamı bulunur."
+      },
+      {
+        "q": "Yeni bir sürüme nasıl güncellerim?",
+        "a": "Bu sitedeki uygulamalar kendilerini güncellemez. [[downloads|İndirmeler]] sayfasında daha yeni bir sürüm listelendiğinde onun dosyasını indirin ve ilk seferde yaptığınız gibi kurun; dosya, sahip olduğunuz sürümün yerini alır. Günlüğünüz sunucudaki hesabınızda saklandığı için güncelleme onu değiştirmez. Bir Android telefon yeni dosyayı eski uygulamanın üzerine yüklemeyi reddederse, önce uygulamanın tüm değişikliklerin sunucuya kaydedildiğini söylediğinden emin olun, sonra eski uygulamayı kaldırın ve yeni dosyayı yükleyin."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "İndirmeler",
+    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde ve tarayıcıda çalışır.",
+    "tabsLabel": "İşletim sistemi",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Dosya",
+      "version": "Sürüm",
+      "size": "Boyut"
+    },
+    "captions": {
+      "windows": "Windows için kurulum dosyaları, en yeni sürüm başta",
+      "android": "Android için kurulum dosyaları, en yeni sürüm başta",
+      "mac": "Mac için kurulum dosyaları, en yeni sürüm başta"
+    },
+    "requires": {
+      "windows": "Windows 10 veya Windows 11 (64 bit) gerekir.",
+      "android": "Android 7.0 veya üstü gerekir.",
+      "mac": "Apple çipli veya Intel işlemcili bir Mac'te macOS 12.3 veya üstü gerekir."
+    },
+    "install": {
+      "windows": "Bu kurulum dosyası Microsoft Store'dan gelmiyor ve henüz bir yayıncı sertifikasıyla imzalanmadı. Tarayıcınız önce bu dosyanın sık indirilmediği konusunda uyarabilir (dosyayı saklamayı seçin); dosyayı açtığınızda da Windows \"Windows bilgisayarınızı korudu\" mesajını gösterebilir: önce \"Ek bilgi\", sonra \"Yine de çalıştır\" seçeneğini seçin. Kurulum dilinizi sorar ve uygulamayı yönetici parolası gerekmeden kendi Windows hesabınız için kurar.",
+      "android": "Bu dosya Google Play üzerinden değil, doğrudan yüklenir. İndirilen dosyayı açtığınızda Android, tarayıcınızın veya dosya yöneticinizin uygulama yüklemesine izin vermenizi ister; Android 7'de bu ayarın adı \"Bilinmeyen kaynaklar\"dır. İzin verin, dosyaya geri dönün ve \"Yükle\" seçeneğini seçin.",
+      "mac": "Disk görüntüsünü açın, uygulamayı \"Uygulamalar\" klasörüne sürükleyin ve oradan açın. Uygulama henüz bir Apple geliştirici sertifikasıyla imzalanmadığı için macOS onu ilk seferde açmaz; mesaj, uygulamanın hasarlı olduğunu bile söyleyebilir. Onu Çöp Sepeti'ne taşımayın: mesajı kapatın, \"Sistem Ayarları\"nı ve ardından \"Gizlilik ve Güvenlik\"i açın, aşağı kaydırın ve \"Yine de Aç\"ı seçin (macOS 12'de: \"Sistem Tercihleri\", ardından \"Güvenlik ve Gizlilik\", ardından \"Yine de Aç\"), istenirse Mac parolanızı girin ve \"Aç\"ı seçin."
+    },
+    "checkFile": "Dosyayı kontrol edin",
+    "checkText": "Her dosyanın bir SHA-256 sağlama toplamı vardır. İndirdiğiniz dosyanınki farklıysa indirme hasarlıdır ya da dosya değiştirilmiştir: onu kurmayın. Bir dosyanın sağlama toplamını görmek için Windows PowerShell'de Get-FileHash ve dosya adını, Mac'te Terminal'de ise shasum -a 256 ve dosya adını yazın. Büyük ve küçük harfler aynı sayılır.",
+    "moreHeading": "Tarayıcı ve iPhone",
+    "web": "Kurulacak bir şey yok: {{BRAND}} bir bilgisayarda veya telefonda herhangi bir güncel tarayıcıda da çalışır. [[webapp|Tarayıcınızda açın]].",
+    "iphone": "iPhone için kurulum dosyası yoktur: iPhone uygulamaları App Store'dan yüklenir. iPhone uygulaması henüz kullanılamıyor.",
+    "iphoneStore": "iPhone'da uygulama App Store'dan yüklenir.",
+    "storeLinks": {
+      "googlePlay": "Google Play'den edinin",
+      "appStoreIphone": "App Store'dan indirin",
+      "appStoreMac": "Mac App Store'dan indirin",
+      "microsoftStore": "Microsoft Store'dan edinin"
+    }
+  },
+  "contact": {
+    "heading": "Bize ulaşın",
+    "lead": "Sorunuz, geri bildiriminiz veya bir sorununuz mu var? Bize e-postayla yazın ya da formu doldurun, size e-postayla yanıt verelim.",
+    "required": "Tüm alanlar zorunludur.",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "email": "E-posta adresi",
+    "message": "Mesajınız",
+    "honeypot": "Bu alanı boş bırakın",
+    "notice": "Adınız, e-posta adresiniz ve mesajınız, size yanıt verebilmemiz için bize e-postayla gönderilir. Sunucuda saklanmazlar. Ayrıntılar [[privacy|Gizlilik Politikasında]].",
+    "send": "Gönder",
+    "sentTitle": "Mesajınız gönderildi",
+    "sentText": "Yazdığınız için teşekkür ederiz. Verdiğiniz adrese e-postayla yanıt vereceğiz. 30 gün içinde, genellikle çok daha önce yanıt veririz.",
+    "errorTitle": "Mesajınız gönderilemedi",
+    "errorText": "Bir sorun oluştu ve mesajınız bize ulaşmadı. Lütfen geri dönün, e-posta adresinizi kontrol edin ve biraz sonra yeniden deneyin ya da bize e-postayla yazın: {{CONTACT_EMAIL}}",
+    "backHome": "Ana sayfaya dön"
+  },
+  "footer": {
+    "languagesLabel": "Tüm diller",
+    "change": "Değiştir",
+    "rights": "Tüm hakları saklıdır."
+  }
+}

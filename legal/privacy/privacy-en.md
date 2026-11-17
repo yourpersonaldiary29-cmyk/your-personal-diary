@@ -13,7 +13,7 @@ Effective date: {{EFFECTIVE_DATE}}
 
 - Your Personal Diary is one service with five ways in: the **Android app** (Google Play), the **Windows app** (Microsoft Store or a setup file), the **Mac app** (a download or the Mac App Store), the **iPhone app** (App Store, when it is published) and the **website** [{{SITE_URL}}]({{SITE_URL}}). All of them use the same server and the same account.
 - Your diary is kept on our server in a file encrypted with a key derived from your password. Your account details are kept there too.
-- We use your data only to run your diary for you. No advertising, no analytics, no tracking, and we do not sell or share your data.
+- We use your data only to run your diary for you and to answer you when you write to us. No advertising, no analytics, no tracking, and we do not sell or share your data.
 - Please know the limits: while you are signed in, the server has your diary open in its memory, and the operator of the server could technically reset your password and read your diary. Section 4 explains this plainly.
 - You can delete your account and your diary at any time in **Settings - Delete account**.
 
@@ -38,12 +38,13 @@ The server runs at the hosting provider Fly.io, in its data centre in **Frankfur
 
 **The tour** ("Skip - just look around", in the Android app) creates a temporary guest diary with sample data. It exists only in the server's memory, ends by itself after 30 minutes and is never stored.
 
-Like every website, the server and the hosting provider receive your device's IP address when it connects. The server uses it only in its memory: to limit how many requests can come from one network (sign-in, registration and the other account functions, password reset, the tour and backups) and for the sign-in lockout. These counters cover at most the last 24 hours, and the address is never written to the log or to the storage.
+Like every website, the server and the hosting provider receive your device's IP address when it connects. The server uses it only in its memory: to limit how many requests can come from one network (sign-in, registration and the other account functions, password reset, the tour, backups and the contact form on our website) and for the sign-in lockout. These counters cover at most the last 24 hours, and the address is never written to the log or to the storage.
 
 ## 3. How we use your data
 
 - **To provide the service:** signing in, keeping your diary and making it the same on all your devices, search, statistics and insights about your own entries, backups, exports and reminders. Search questions are answered on the server and are not kept there.
 - **E-mail:** only for your password reset messages and for security notices (your password was changed with a reset message; the e-mail address of your account was changed). They are written in the language kept with your account details; the server does not open your diary to write them. No newsletters and no marketing.
+- **The contact form on our website:** the first name, last name, e-mail address and message you type into it are sent to our mailbox by e-mail, together with the language of the page and the time it was sent. They are not stored on the server. We use them only to answer you, and we keep the correspondence in our mailbox only for as long as we need it for that. The server counts in its memory how many messages come from one network address, as it does for the other functions (section 2). The legal basis is our legitimate interest in answering you (GDPR Article 6(1)(f)).
 - **Never:** no advertising, no analytics or tracking tools, no profiling, no selling of data, and no use of your diary to train any AI.
 
 Legal basis (for users in the European Union and similar laws): we process your data to provide the service you signed up for (performance of a contract, GDPR Article 6(1)(b)) and to keep it secure (our legitimate interest, Article 6(1)(f): attempt limits, lockouts, the technical log). Your diary may contain sensitive information, for example about your health or beliefs, if you choose to write it. We process it only to keep it for you and show it to you, because you asked us to by writing it (your explicit consent, Article 9(2)(a)); you can remove it at any time by editing or deleting entries (section 7 says how the old text is erased).
@@ -87,7 +88,7 @@ Files you create yourself: a **backup** is encrypted with a password; an **expor
 We use two service providers. They process data only on our behalf, to run the service:
 
 - **Fly.io, Inc.** (United States) - hosting of the server in Frankfurt, Germany. Its systems hold the encrypted diary files, the account details and the other data of section 2, and receive connection data such as IP addresses. Because Fly.io is a US company, it may access the data from outside the European Union; this is covered by its data processing terms. Its privacy policy: `fly.io/legal/privacy-policy`.
-- **Google (Gmail)** - sends the password reset messages and security notices. Google receives the message, your e-mail address, and the first name and user name in it. A message never contains anything from your diary. Google's privacy policy: `policies.google.com/privacy`.
+- **Google (Gmail)** - sends the password reset messages and security notices. Google receives the message, your e-mail address, and the first name and user name in it. A message never contains anything from your diary. Messages from the contact form on our website (section 3) are also sent with Gmail, and our mailbox is a Gmail mailbox, so Google receives what you typed into the form - your first name, last name, e-mail address and message - with the language of the page and the time it was sent. Google's privacy policy: `policies.google.com/privacy`.
 
 The app stores also process data under their own privacy policies when you download the apps: **Google Play** for the Android app, the **Microsoft Store** for the Windows app, and the **App Store** and the **Mac App Store** (Apple) for the iPhone and Mac apps (for example installations, ratings and crash reports that their systems collect). The apps contain no code from them or from anyone else that sends data to them.
 

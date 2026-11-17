@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - un diario privato con abitudini e osservazioni prudenti",
+  "description": "Scrivi della tua giornata, segui umore e abitudini e scopri tendenze nel tempo. Un diario privato in 20 lingue. Gratuito, senza pubblicità né tracciamento.",
+  "skipLink": "Vai al contenuto",
+  "languagesLabel": "Lingua",
+  "nav": {
+    "label": "Menu del sito",
+    "about": "Informazioni sull’app",
+    "terms": "Condizioni d'uso",
+    "faq": "Domande e risposte",
+    "privacy": "Informativa sulla privacy",
+    "downloads": "Download",
+    "contact": "Contattaci"
+  },
+  "hero": {
+    "heading": "Un diario privato che ti aiuta a notare le tue tendenze",
+    "lead": "Scrivi della tua giornata con parole tue. Se vuoi, aggiungi umore, sonno e abitudini. Nel corso di settimane, mesi e anni, {{BRAND}} segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna.",
+    "openAction": "Apri nel tuo browser",
+    "note": "Gratuito. Niente pubblicità, niente statistiche d’uso, nessun tracciamento."
+  },
+  "features": {
+    "heading": "Cosa puoi fare",
+    "items": [
+      {
+        "title": "Scrivi la tua giornata",
+        "text": "Voci con parole tue. Se vuoi, aggiungi umore, emozioni, energia, stress, sonno, attività fisica, persone, luogo e tag. Ogni giorno ha la sua pagina, e una cronologia mostra tutto il diario."
+      },
+      {
+        "title": "Abitudini e promemoria",
+        "text": "Abitudini giornaliere e settimanali da spuntare man mano, con serie e progressi. Promemoria facoltativi all’ora che scegli per ogni abitudine."
+      },
+      {
+        "title": "Osservazioni prudenti",
+        "text": "L’app cerca possibili relazioni nei tuoi dati, per esempio tra sonno e umore. Le osservazioni sono formulate con cura e non affermano mai che una cosa causi un’altra. Quando i dati non bastano, l’app lo dice invece di tirare a indovinare."
+      },
+      {
+        "title": "Calendario",
+        "text": "Un calendario mensile gregoriano, ebraico o islamico (Egira), con le festività del calendario che scegli."
+      },
+      {
+        "title": "Statistiche e ricerca intelligente",
+        "text": "Grafici di umore, energia, stress, sonno e abitudini nel tempo, ognuno con una tabella dei dati. Fai una domanda nella tua lingua, per esempio “In quali giorni ho dormito meno di cinque ore?”, e ottieni la risposta dal tuo diario."
+      },
+      {
+        "title": "Funziona offline e si sincronizza",
+        "text": "Un account, lo stesso diario su ogni dispositivo. Se la connessione cade, continua a leggere e a scrivere: le modifiche vengono conservate cifrate sul tuo dispositivo e caricate quando la connessione torna."
+      },
+      {
+        "title": "20 lingue",
+        "text": "Tutta l’app in 20 lingue. Cambia lingua in qualsiasi momento nelle Impostazioni. Ebraico e arabo sono mostrati da destra a sinistra."
+      },
+      {
+        "title": "Accessibilità",
+        "text": "Funziona con gli screen reader: titoli chiari, campi con etichette e messaggi di stato annunciati. Temi chiaro, scuro e a contrasto elevato, dimensione del testo regolabile e un’opzione per ridurre le animazioni. Su un computer, tutto si può fare con la tastiera."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Come si presenta",
+    "items": [
+      {
+        "caption": "Home: oggi a colpo d’occhio",
+        "alt": "La schermata Home su un telefono: un saluto con la data, il numero di voci di oggi, la serie di scrittura e le medie degli ultimi sette giorni."
+      },
+      {
+        "caption": "Una voce: le tue parole, con umore, sonno e altro",
+        "alt": "Una voce su un telefono: il titolo e la data, le valutazioni di umore, energia, stress e sonno, l’attività fisica, le emozioni e il testo libero."
+      },
+      {
+        "caption": "Abitudini: obiettivi, serie e progressi",
+        "alt": "La schermata Abitudini su un telefono: un’abitudine con il suo obiettivo giornaliero, la serie attuale, il completamento negli ultimi 30 giorni e la quantità di oggi."
+      },
+      {
+        "caption": "Osservazioni: formulate con cura, con i numeri alla base",
+        "alt": "La schermata Osservazioni su un telefono: due tendenze dell’ultimo mese, ciascuna indicata come tendenza debole, con il periodo esaminato e un pulsante che spiega l’osservazione."
+      },
+      {
+        "caption": "Lo stesso diario su un computer",
+        "alt": "La schermata Home su un computer: il menu con tutte le sezioni, il riepilogo di oggi e le medie degli ultimi sette giorni."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "La tua privacy",
+    "lead": "Un diario è personale. Ecco che cosa succede al tuo.",
+    "items": [
+      "Niente pubblicità, niente statistiche d’uso e nessun tracciamento. Non vendiamo né condividiamo i tuoi dati.",
+      "Il tuo diario è archiviato cifrato sul server di {{BRAND}}, in un file separato per ogni account. La tua password in sé non viene conservata.",
+      "Le app e il sito web si collegano solo al server di {{BRAND}}, sempre tramite HTTPS.",
+      "Mentre hai effettuato l’accesso, il server apre il tuo diario nella sua memoria per mostrarlo, cercarvi e analizzarlo per te. L’informativa sulla privacy spiega chiaramente che cosa significa.",
+      "Porta il diario con te in qualsiasi momento: un file di backup cifrato che conservi tu, oppure un’esportazione in TXT, CSV, JSON o PDF.",
+      "Elimina il tuo account e tutti i suoi dati in qualsiasi momento dalle Impostazioni."
+    ],
+    "policyLink": "Leggi l’informativa sulla privacy"
+  },
+  "faq": {
+    "heading": "Domande e risposte",
+    "lead": "Risposte brevi su {{BRAND}}: che cos’è e che cosa fa, come viene conservato e protetto il tuo diario, il tuo account e l’installazione delle app.",
+    "groups": [
+      "Informazioni sull’app",
+      "Scrittura e funzioni",
+      "Dispositivi e uso offline",
+      "Privacy e sicurezza",
+      "Il tuo account",
+      "Installazione e aggiornamenti"
+    ],
+    "items": [
+      {
+        "q": "Che cos’è {{BRAND}}?",
+        "a": "Un diario privato. Scrivi della tua giornata con parole tue e, se vuoi, aggiungi umore, sonno, abitudini e altro. Nel corso di settimane, mesi e anni, l’app segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna. Funziona in un browser e come app per Windows, Android e Mac, con un solo account per tutte le versioni."
+      },
+      {
+        "q": "È gratuito?",
+        "a": "Sì. {{BRAND}} è gratuito, senza pubblicità e senza acquisti nell’app. Se un giorno vorremo far pagare qualcosa, lo diremo in anticipo, e nulla diventerà a pagamento senza il tuo consenso."
+      },
+      {
+        "q": "Chi lo pubblica?",
+        "a": "{{BRAND}} è pubblicato e gestito da {{PUBLISHER_NAME}}. Per contattarci, usa il [[contact|modulo di contatto]] in fondo a questa pagina, oppure scrivi all’indirizzo e-mail indicato accanto."
+      },
+      {
+        "q": "Quali dispositivi posso usare?",
+        "a": "Un computer con Windows 10 o 11, un Mac con macOS 12.3 o versioni successive, un telefono Android con Android 7.0 o versioni successive, e qualsiasi browser moderno su computer o telefono. I file di installazione si trovano nella pagina [[downloads|Download]]. L’app per iPhone non è ancora disponibile. È un solo account ovunque: quello che scrivi su un dispositivo compare sugli altri."
+      },
+      {
+        "q": "In quali lingue è disponibile?",
+        "a": "In 20 lingue: inglese, ebraico, arabo, cinese (semplificato), giapponese, hindi, thailandese, spagnolo, portoghese, francese, italiano, tedesco, rumeno, greco, polacco, ceco, ungherese, russo, bulgaro e turco. Puoi cambiare lingua in qualsiasi momento in Impostazioni, e il tuo account ricorda la tua scelta. L’ebraico e l’arabo vengono mostrati da destra a sinistra."
+      },
+      {
+        "q": "È uno strumento medico?",
+        "a": "No. {{BRAND}} è uno strumento per tenere un diario personale. Non è uno strumento medico o diagnostico, e le sue osservazioni non sono consigli medici o psicologici. Se la tua salute ti preoccupa, parlane con un professionista qualificato."
+      },
+      {
+        "q": "Posso provarlo senza account?",
+        "a": "Nell’app Android, sì. Nella prima schermata scegli “Salta - voglio solo dare un’occhiata” ed esplora l’app con dati di esempio. Niente di ciò che scrivi lì viene salvato, e il tour termina da solo dopo 30 minuti. Nelle app per Windows e Mac e nel browser serve un account; crearlo è gratuito."
+      },
+      {
+        "q": "Che cosa può contenere una voce del diario?",
+        "a": "Un titolo e un testo libero con parole tue. Se vuoi, aggiungi umore, emozioni, energia, stress, sonno, attività fisica, eventi significativi, le persone che hai incontrato, un luogo, note e tag. Puoi scrivere più di una voce al giorno. Ogni giorno ha la sua pagina, e una cronologia mostra tutto il diario."
+      },
+      {
+        "q": "Come funzionano abitudini e promemoria?",
+        "a": "Imposti abitudini giornaliere o settimanali, ciascuna con un obiettivo, e le spunti man mano. L’app mostra la tua serie e quanta parte dell’obiettivo hai completato. I promemoria fanno parte delle abitudini: imposti l’orario di ogni abitudine nella pagina Abitudini e attivi i promemoria in Impostazioni, sotto Promemoria. Su un telefono Android che consente le notifiche dell’app, il promemoria arriva anche quando l’app è chiusa; su un computer e nel browser compare mentre il diario è aperto. I promemoria vengono creati sul dispositivo stesso; non viene inviato nulla all’esterno."
+      },
+      {
+        "q": "Che cosa sono le osservazioni, e come vedo i numeri dietro ciascuna?",
+        "a": "Le osservazioni sono possibili relazioni che l’app trova nelle tue voci, per esempio tra sonno e umore, o tra attività fisica ed energia. Sono formulate con cautela e non affermano mai che una cosa ne causi un’altra. In ogni osservazione, “Perché vedo questa osservazione?” mostra quanti giorni sono stati esaminati e i numeri su cui si basa. Quando i dati non bastano, l’app lo dice invece di tirare a indovinare."
+      },
+      {
+        "q": "Quali calendari posso usare?",
+        "a": "Tre: il calendario gregoriano, quello ebraico e quello dell’Egira (islamico). Ne scegli uno nella pagina Calendario, e il mese mostra allora i numeri dei giorni e le festività di quel calendario. Le date e le festività islamiche seguono il calendario Umm al-Qura e possono spostarsi di un giorno."
+      },
+      {
+        "q": "Che cos’è la ricerca intelligente?",
+        "a": "Una ricerca che accetta una domanda nella tua lingua, come “In quali giorni ho dormito meno di cinque ore?” o “Quando ho scritto che ero stanco?”. L’app mostra come ha capito la domanda, la risposta, e i giorni e le voci che corrispondono. Le domande ricevono risposta sul server e non vi vengono conservate."
+      },
+      {
+        "q": "Che cosa mostrano le statistiche?",
+        "a": "Grafici di umore, energia, stress, sonno, attività fisica e abitudini nel tempo, per un periodo a tua scelta, dagli ultimi 7 giorni all’intero diario. Ogni grafico ha un breve riepilogo a parole e una tabella dei dati, così i numeri si possono leggere anche senza il grafico."
+      },
+      {
+        "q": "In quali formati posso esportare il mio diario?",
+        "a": "TXT, CSV, JSON e PDF, per l’intero diario o per un intervallo di date. Un file CSV contiene solo le voci; gli altri formati possono includere anche le tue abitudini. Un’esportazione è un normale file leggibile, non cifrato: chiunque abbia il file può leggerlo, quindi conservalo con la stessa cura del diario."
+      },
+      {
+        "q": "Funziona offline?",
+        "a": "Sì, dopo che hai effettuato l’accesso. Se la connessione cade, puoi continuare a leggere e a scrivere. Le modifiche vengono conservate cifrate sul tuo dispositivo e caricate automaticamente quando la connessione torna, anche se nel frattempo hai chiuso l’app. Con “Ricordami”, le app si aprono anche senza connessione e mostrano ciò che hai visto di recente. Creare un account, accedere, le osservazioni, la ricerca, le statistiche, il backup, l’esportazione e le modifiche al tuo account richiedono una connessione."
+      },
+      {
+        "q": "Posso usarlo su più dispositivi?",
+        "a": "Sì. Il tuo diario è conservato nel tuo account sul server di {{BRAND}}, quindi accedi con lo stesso account su ogni dispositivo e trovi tutto. Ciò che modifichi su un dispositivo compare sugli altri quando si collegano. In Impostazioni, Dispositivi collegati elenca i dispositivi su cui hai effettuato l’accesso, e puoi scollegarne uno qualsiasi."
+      },
+      {
+        "q": "Che cosa succede se modifico la stessa voce su due dispositivi?",
+        "a": "Viene mantenuta la modifica più recente, e l’app te lo segnala in una riga. L’altra versione resta disponibile su quel dispositivo finché non chiudi l’avviso: puoi leggerla, copiarne il testo o salvarla come nuova voce."
+      },
+      {
+        "q": "Posso usarlo in un browser, senza installare niente?",
+        "a": "Sì. [[webapp|Apri la versione web]] in qualsiasi browser moderno, su computer o telefono, e accedi con lo stesso account. Il browser non conserva alcuna copia di ciò che leggi. Se la connessione cade mentre il diario è aperto, puoi continuare a scrivere: le modifiche vengono conservate cifrate nel browser e caricate quando la connessione torna."
+      },
+      {
+        "q": "A che cosa serve “Ricordami”?",
+        "a": "Ti mantiene connesso su quel dispositivo fino a 90 giorni invece di 12 ore. Nelle app per Windows, Mac e Android conserva anche una copia cifrata di ciò che hai visto di recente, così l’app può aprirsi e mostrarlo senza connessione. Nelle schermate di accesso e di registrazione è selezionato per impostazione predefinita: su un dispositivo usato anche da altre persone, deselezionalo ed esci dall’account quando hai finito."
+      },
+      {
+        "q": "Dove viene conservato il mio diario?",
+        "a": "Nel tuo account sul server di {{BRAND}}, in un file cifrato separato per ogni account. Il server si trova presso il fornitore di hosting Fly.io, nel suo data center di Francoforte, in Germania. Le app e il browser mostrano tutti questo stesso diario. L’[[privacy|Informativa sulla privacy]] dice esattamente che cosa viene conservato e dove."
+      },
+      {
+        "q": "Chi può leggere il mio diario?",
+        "a": "Tu, con la tua password: il file del diario è cifrato con una chiave derivata da essa. Tieni presente però i limiti. Mentre hai effettuato l’accesso, il server ha il tuo diario aperto nella sua memoria. E chi controlla il server e i suoi segreti - il gestore e, in linea di principio, il fornitore di hosting - potrebbe tecnicamente reimpostare la password di qualsiasi account e leggerne il diario senza conoscere la password. Ci impegniamo a non farlo, non abbiamo alcuno strumento per farlo, e i nostri strumenti di amministrazione non aprono mai un diario. La sezione 4 dell’[[privacy|Informativa sulla privacy]] lo spiega chiaramente."
+      },
+      {
+        "q": "È crittografato end-to-end?",
+        "a": "No. Il tuo diario è cifrato nel suo file sul server (AES-256-GCM, con una chiave derivata dalla tua password) e durante il percorso fino al server (HTTPS). Ma mentre hai effettuato l’accesso, il server lo apre nella sua memoria per mostrarlo, fare ricerche al suo interno e analizzarlo per te. Il server conserva anche una chiave di recupero perché “Password dimenticata?” funzioni senza perdere il diario; con essa, chi controlla il server potrebbe tecnicamente reimpostare una password e leggere il diario. Se non sei disposto a fidarti del nostro impegno a non farlo, non conservare nel servizio nulla che non vorresti fosse letto da altri."
+      },
+      {
+        "q": "Ci sono pubblicità o tracciamento?",
+        "a": "No. Non ci sono pubblicità, statistiche d’uso o tracciamento, né nelle app, né nella versione web, né su questo sito. Non vendiamo né condividiamo i tuoi dati, e il tuo diario non viene mai usato per addestrare alcuna IA. Le app e la versione web si collegano solo al server di {{BRAND}}, sempre tramite HTTPS."
+      },
+      {
+        "q": "Come si blocca il diario?",
+        "a": "Si blocca da solo dopo un periodo di inattività; scegli il tempo in Impostazioni, sotto Sicurezza, e “Blocca ora” lo blocca subito. La tua password lo riapre. Nell’app Android puoi anche farlo bloccare ogni volta che esci dall’app, e aprirlo con l’impronta digitale o il volto. Quando un’app offre il blocco schermo del tuo dispositivo al posto della password (Windows Hello, Touch ID o la password del Mac, oppure il blocco schermo di Android), il controllo viene svolto dal sistema operativo: nulla della tua impronta, del tuo volto o del tuo PIN arriva all’app o a noi."
+      },
+      {
+        "q": "E se dimentico la password?",
+        "a": "Nella schermata di accesso scegli “Password dimenticata?” e inserisci l’indirizzo e-mail con cui ti sei registrato. Ricevi un messaggio con un link e un codice di 6 cifre, validi per 30 minuti e utilizzabili una sola volta. Se il messaggio non arriva entro pochi minuti, controlla la cartella dello spam. Apri il link, oppure inserisci il codice nell’app, e scegli una nuova password; verrai quindi disconnesso da tutti i dispositivi. Il tuo diario viene mantenuto: non viene eliminato nulla."
+      },
+      {
+        "q": "Come faccio il backup del diario e come lo ripristino?",
+        "a": "Apri Backup nel menu (nell’app Android, sotto Altro) e crea un file di backup: una copia cifrata dell’intero diario (voci, abitudini e impostazioni), protetta da una password, che conservi dove preferisci. Per ripristinare, scegli quel file nella stessa pagina e inserisci la sua password. Il ripristino sostituisce il diario attuale con il contenuto del file, quindi crea prima un backup del diario attuale."
+      },
+      {
+        "q": "Come elimino il mio account?",
+        "a": "Accedi, apri Impostazioni e vai all’ultima scheda, Eliminazione dell’account: inserisci la tua password e conferma. Il tuo account, il tuo diario, le tue abitudini e le tue impostazioni vengono eliminati subito dal server, e vieni disconnesso da tutti i dispositivi. L’operazione non può essere annullata. Le copie nei backup del server stesso scompaiono entro i tempi indicati nell’[[privacy|Informativa sulla privacy]]. Se non riesci ad accedere, la [[delete|pagina sull’eliminazione dell’account]] spiega che cosa fare."
+      },
+      {
+        "q": "Quanti anni devo avere?",
+        "a": "Devi avere almeno {{MINIMUM_AGE}} anni per creare un account. Se nel paese in cui vivi sei minorenne, puoi usare il servizio solo con il consenso di un genitore o tutore, dove la legge del tuo paese lo richiede."
+      },
+      {
+        "q": "Perché il mio dispositivo mi avvisa quando installo un file da questo sito?",
+        "a": "Perché il file non proviene da uno store di app, e i file per Windows e Mac non sono ancora firmati con un certificato dell’editore. Windows può mostrare “Windows ha protetto il PC”: scegli Ulteriori informazioni, poi Esegui comunque. macOS non apre l’app la prima volta e può persino dire che è danneggiata: non spostarla nel Cestino, ma apri Impostazioni di Sistema, poi Privacy e sicurezza (su macOS 12: Preferenze di Sistema, poi Sicurezza e Privacy), e scegli Apri comunque. Android ti chiede di consentire al browser o al gestore di file di installare app (su Android 7: Origini sconosciute). La pagina [[downloads|Download]] riporta i passaggi per ogni sistema, e un checksum SHA-256 per ogni file, per verificare che la tua copia non sia stata modificata."
+      },
+      {
+        "q": "Come aggiorno a una nuova versione?",
+        "a": "Le app di questo sito non si aggiornano da sole. Quando la pagina [[downloads|Download]] elenca una versione più recente, scarica il suo file e installalo come la prima volta; sostituisce la versione che hai. Il tuo diario è conservato nel tuo account sul server, quindi un aggiornamento non lo modifica. Se un telefono Android si rifiuta di installare il nuovo file sopra la vecchia app, verifica prima che l’app indichi che tutte le modifiche sono salvate sul server, poi disinstalla la vecchia app e installa il nuovo file."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Download",
+    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app e nel browser.",
+    "tabsLabel": "Sistema operativo",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "File",
+      "version": "Versione",
+      "size": "Dimensione"
+    },
+    "captions": {
+      "windows": "File di installazione per Windows, dalla versione più recente",
+      "android": "File di installazione per Android, dalla versione più recente",
+      "mac": "File di installazione per Mac, dalla versione più recente"
+    },
+    "requires": {
+      "windows": "Richiede Windows 10 o Windows 11 (64 bit).",
+      "android": "Richiede Android 7.0 o versioni successive.",
+      "mac": "Richiede macOS 12.3 o versioni successive, su un Mac con chip Apple o con processore Intel."
+    },
+    "install": {
+      "windows": "Questo file di installazione non proviene da Microsoft Store e non è ancora firmato con un certificato dell’editore. Il browser potrebbe prima avvisarti che il file non viene scaricato comunemente (scegli di mantenerlo), e quando lo apri, Windows può mostrare “Windows ha protetto il PC”: scegli Ulteriori informazioni, poi Esegui comunque. L’installazione chiede la tua lingua e installa l’app per il tuo account Windows, senza password di amministratore.",
+      "android": "Questo file si installa direttamente, non tramite Google Play. Quando apri il file scaricato, Android ti chiede di consentire al browser o al gestore di file di installare app; su Android 7 questa impostazione si chiama Origini sconosciute. Consentilo, torna al file e scegli Installa.",
+      "mac": "Apri l’immagine disco, trascina l’app nella cartella Applicazioni e aprila da lì. L’app non è ancora firmata con un certificato sviluppatore Apple, quindi la prima volta macOS non la apre, e il messaggio può persino dire che l’app è danneggiata. Non spostarla nel Cestino: chiudi il messaggio, apri Impostazioni di Sistema, poi Privacy e sicurezza, scorri in basso e scegli Apri comunque (su macOS 12: Preferenze di Sistema, poi Sicurezza e Privacy, poi Apri comunque), inserisci la password del Mac se richiesta e scegli Apri."
+    },
+    "checkFile": "Verifica il file",
+    "checkText": "Ogni file ha un checksum SHA-256. Se il file che hai scaricato ne ha uno diverso, il download è danneggiato o il file è stato modificato: non installarlo. Per vedere il checksum di un file, digita Get-FileHash e il nome del file in Windows PowerShell, oppure shasum -a 256 e il nome del file nel Terminale di un Mac. Maiuscole e minuscole sono considerate uguali.",
+    "moreHeading": "Browser e iPhone",
+    "web": "Niente da installare: {{BRAND}} funziona anche in qualsiasi browser moderno, su computer o telefono. [[webapp|Aprilo nel browser]].",
+    "iphone": "Non esiste un file di installazione per iPhone: le app per iPhone si installano da App Store. L’app per iPhone non è ancora disponibile.",
+    "iphoneStore": "Su iPhone, l’app si installa da App Store.",
+    "storeLinks": {
+      "googlePlay": "Disponibile su Google Play",
+      "appStoreIphone": "Scarica su App Store",
+      "appStoreMac": "Scarica su Mac App Store",
+      "microsoftStore": "Ottienilo da Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Contattaci",
+    "lead": "Domande, opinioni o un problema? Scrivici per e-mail, oppure compila il modulo e ti risponderemo per e-mail.",
+    "required": "Tutti i campi sono obbligatori.",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "email": "Indirizzo e-mail",
+    "message": "Il tuo messaggio",
+    "honeypot": "Lascia vuoto questo campo",
+    "notice": "Il tuo nome, il tuo indirizzo e-mail e il tuo messaggio ci vengono inviati per e-mail perché possiamo risponderti. Non vengono conservati sul server. Maggiori dettagli nell’[[privacy|Informativa sulla privacy]].",
+    "send": "Invia",
+    "sentTitle": "Il tuo messaggio è stato inviato",
+    "sentText": "Grazie per averci scritto. Ti risponderemo per e-mail, all’indirizzo che hai indicato. Rispondiamo entro 30 giorni, di solito molto prima.",
+    "errorTitle": "Il tuo messaggio non è stato inviato",
+    "errorText": "Qualcosa non ha funzionato e il tuo messaggio non ci è arrivato. Torna indietro, controlla il tuo indirizzo e-mail e riprova tra poco, oppure scrivici per e-mail: {{CONTACT_EMAIL}}",
+    "backHome": "Torna alla home page"
+  },
+  "footer": {
+    "languagesLabel": "Tutte le lingue",
+    "change": "Cambia",
+    "rights": "Tutti i diritti riservati."
+  }
+}

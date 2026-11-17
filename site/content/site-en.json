@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - a private diary with habits and gentle insights",
+  "description": "Write about your day, follow your mood and habits, and notice patterns over time. A private diary in 20 languages. Free, with no ads and no tracking.",
+  "skipLink": "Skip to the content",
+  "languagesLabel": "Language",
+  "nav": {
+    "label": "Site menu",
+    "about": "About the app",
+    "terms": "Terms of Use",
+    "faq": "Questions and answers",
+    "privacy": "Privacy Policy",
+    "downloads": "Downloads",
+    "contact": "Contact us"
+  },
+  "hero": {
+    "heading": "A private diary that helps you notice your own patterns",
+    "lead": "Write about your day in your own words. Add your mood, sleep and habits if you like. Over weeks, months and years, {{BRAND}} points out patterns in your own entries and shows the numbers behind each one.",
+    "openAction": "Open in your browser",
+    "note": "Free. No ads, no analytics, no tracking."
+  },
+  "features": {
+    "heading": "What you can do",
+    "items": [
+      {
+        "title": "Write your day",
+        "text": "Entries in your own words. If you like, add mood, emotions, energy, stress, sleep, physical activity, people, place and tags. Every day has its own page, and a timeline shows the whole diary."
+      },
+      {
+        "title": "Habits and reminders",
+        "text": "Daily and weekly habits that you tick off as you go, with streaks and progress. Optional reminders at the time you choose for each habit."
+      },
+      {
+        "title": "Gentle insights",
+        "text": "The app looks for possible relationships in your own data, for example between sleep and mood. Insights are worded carefully and never claim that one thing causes another. When there is not enough data, the app says so instead of guessing."
+      },
+      {
+        "title": "Calendar",
+        "text": "A month calendar in the Gregorian, Hebrew or Hijri calendar, with the holidays of the calendar you choose."
+      },
+      {
+        "title": "Statistics and smart search",
+        "text": "Charts of your mood, energy, stress, sleep and habits over time, each with a data table. Ask a question in your own language, such as \"On which days did I sleep less than five hours?\", and get the answer from your diary."
+      },
+      {
+        "title": "Works offline and syncs",
+        "text": "One account, the same diary on every device. If the connection drops, keep reading and writing: your changes are kept encrypted on your device and uploaded when the connection returns."
+      },
+      {
+        "title": "20 languages",
+        "text": "The whole app in 20 languages. Change the language at any time in Settings. Hebrew and Arabic are shown right to left."
+      },
+      {
+        "title": "Accessibility",
+        "text": "Works with screen readers: clear headings, labelled fields and announced status messages. Light, dark and high-contrast themes, adjustable text size and a reduce-motion option. On a computer, everything can be done with the keyboard."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "What it looks like",
+    "items": [
+      {
+        "caption": "Home: today at a glance",
+        "alt": "The Home screen on a phone: a greeting with the date, the number of entries today, the writing streak and the averages of the last seven days."
+      },
+      {
+        "caption": "An entry: your words, with mood, sleep and more",
+        "alt": "An entry on a phone: its title and date, the ratings for mood, energy, stress and sleep, the exercise, the emotions and the free text."
+      },
+      {
+        "caption": "Habits: targets, streaks and progress",
+        "alt": "The Habits screen on a phone: one habit with its daily target, its current streak, the completion in the last 30 days and the amount for today."
+      },
+      {
+        "caption": "Insights: careful wording, with the numbers behind them",
+        "alt": "The Insights screen on a phone: two trends from the last month, each marked as a weak pattern, with the period that was checked and a button that explains the insight."
+      },
+      {
+        "caption": "The same diary on a computer",
+        "alt": "The Home screen on a computer: the menu with all the sections, the summary of today and the averages of the last seven days."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Your privacy",
+    "lead": "A diary is personal. This is what happens to yours.",
+    "items": [
+      "No ads, no analytics and no tracking. We do not sell or share your data.",
+      "Your diary is stored encrypted on the {{BRAND}} server, in a separate file for each account. Your password itself is not stored.",
+      "The apps and the website connect only to the {{BRAND}} server, always over HTTPS.",
+      "While you are signed in, the server opens your diary in its memory to show, search and analyse it for you. The privacy policy explains plainly what this means.",
+      "Take your diary with you at any time: an encrypted backup file that you keep, or an export to TXT, CSV, JSON or PDF.",
+      "Delete your account and all of its data at any time in Settings."
+    ],
+    "policyLink": "Read the privacy policy"
+  },
+  "faq": {
+    "heading": "Questions and answers",
+    "lead": "Short answers about {{BRAND}}: what it is and what it does, how your diary is kept and protected, your account, and installing the apps.",
+    "groups": [
+      "About the app",
+      "Writing and features",
+      "Devices and working offline",
+      "Privacy and security",
+      "Your account",
+      "Installing and updating"
+    ],
+    "items": [
+      {
+        "q": "What is {{BRAND}}?",
+        "a": "A private diary. You write about your day in your own words and, if you like, add your mood, sleep, habits and more. Over weeks, months and years, the app points out patterns in your own entries and shows the numbers behind each one. It runs in a browser and as an app for Windows, Android and Mac, with one account for all of them."
+      },
+      {
+        "q": "Is it free?",
+        "a": "Yes. {{BRAND}} is free, with no ads and no purchases inside the app. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement."
+      },
+      {
+        "q": "Who publishes it?",
+        "a": "{{BRAND}} is published and operated by {{PUBLISHER_NAME}}. To reach us, use the [[contact|contact form]] at the bottom of this page, or write to the e-mail address shown with it."
+      },
+      {
+        "q": "Which devices can I use?",
+        "a": "A computer with Windows 10 or 11, a Mac with macOS 12.3 or later, an Android phone with Android 7.0 or later, and any modern browser on a computer or a phone. The installation files are on the [[downloads|Downloads]] page. The iPhone app is not available yet. It is one account everywhere: what you write on one device appears on the others."
+      },
+      {
+        "q": "Which languages is it available in?",
+        "a": "In 20 languages: English, Hebrew, Arabic, Chinese (Simplified), Japanese, Hindi, Thai, Spanish, Portuguese, French, Italian, German, Romanian, Greek, Polish, Czech, Hungarian, Russian, Bulgarian and Turkish. You can change the language at any time in Settings, and your account keeps your choice. Hebrew and Arabic are shown right to left."
+      },
+      {
+        "q": "Is it a medical tool?",
+        "a": "No. {{BRAND}} is a personal journaling tool. It is not a medical or diagnostic tool, and its insights are not medical or psychological advice. If you are worried about your health, please talk to a qualified professional."
+      },
+      {
+        "q": "Can I try it without an account?",
+        "a": "In the Android app, yes. On the first screen choose \"Skip - just look around\" and explore the app with sample data. Nothing you write there is saved, and the tour ends by itself after 30 minutes. In the Windows and Mac apps and in the browser you need an account; creating one is free."
+      },
+      {
+        "q": "What can a diary entry hold?",
+        "a": "A title and free text in your own words. If you like, add your mood, emotions, energy, stress, sleep, physical activity, significant events, the people you met, a place, notes and tags. You can write more than one entry a day. Every day has its own page, and a timeline shows the whole diary."
+      },
+      {
+        "q": "How do habits and reminders work?",
+        "a": "You set up daily or weekly habits, each with a target, and tick them off as you go. The app shows your streak and how much of the target you completed. Reminders belong to habits: you set the time for each habit on the Habits page and turn reminders on in Settings, under Reminders. On an Android phone that allows notifications for the app, a reminder arrives even when the app is closed; on a computer and in the browser it appears while the diary is open. Reminders are created on the device itself; nothing is sent out."
+      },
+      {
+        "q": "What are insights, and how do I see the numbers behind one?",
+        "a": "Insights are possible relationships that the app finds in your own entries, for example between sleep and mood, or between physical activity and energy. They are worded carefully and never claim that one thing causes another. On every insight, \"Why did I get this insight?\" shows how many days were checked and the numbers behind it. When there is not enough data, the app says so instead of guessing."
+      },
+      {
+        "q": "Which calendars can I use?",
+        "a": "Three: the Gregorian, the Hebrew and the Hijri (Islamic) calendar. You choose one on the Calendar page, and the month then shows the day numbers and the holidays of that calendar. Islamic dates and holidays follow the Umm al-Qura calendar and may shift by one day."
+      },
+      {
+        "q": "What is smart search?",
+        "a": "A search that takes a question in your own language, such as \"On which days did I sleep less than five hours?\" or \"When did I write that I was tired?\". The app shows how it understood the question, the answer, and the days and entries that match. Questions are answered on the server and are not kept there."
+      },
+      {
+        "q": "What do the statistics show?",
+        "a": "Charts of your mood, energy, stress, sleep, physical activity and habits over time, for a period you choose, from the last 7 days to the whole diary. Every chart comes with a short summary in words and a data table, so the numbers can be read without the chart."
+      },
+      {
+        "q": "In which formats can I export my diary?",
+        "a": "TXT, CSV, JSON and PDF, for the whole diary or for a range of dates. A CSV file contains the entries only; the other formats can include your habits too. An export is an ordinary readable file, not an encrypted one: anyone who has the file can read it, so keep it as carefully as the diary itself."
+      },
+      {
+        "q": "Does it work offline?",
+        "a": "Yes, once you have signed in. If the connection drops, you can keep reading and writing. Your changes are kept encrypted on your device and uploaded automatically when the connection returns, even if you closed the app in between. With \"Remember me\", the apps also open without a connection and show what you viewed recently. Creating an account, signing in, insights, search, statistics, backup, export and changes to your account need a connection."
+      },
+      {
+        "q": "Can I use it on several devices?",
+        "a": "Yes. Your diary is kept in your account on the {{BRAND}} server, so you sign in with the same account on each device and everything is there. What you change on one device appears on the others when they connect. In Settings, Connected devices lists the devices that are signed in, and you can disconnect any of them."
+      },
+      {
+        "q": "What happens if I change the same entry on two devices?",
+        "a": "The newer change is kept, and the app tells you so in one line. The other version stays available on that device until you dismiss the note: you can read it, copy its text or save it as a new entry."
+      },
+      {
+        "q": "Can I use it in a browser, without installing anything?",
+        "a": "Yes. [[webapp|Open the web version]] in any modern browser, on a computer or a phone, and sign in with the same account. The browser keeps no copy of what you read. If the connection drops while the diary is open, you can go on writing: your changes are kept encrypted in the browser and uploaded when the connection returns."
+      },
+      {
+        "q": "What does \"Remember me\" do?",
+        "a": "It keeps you signed in on that device for up to 90 days instead of 12 hours. In the Windows, Mac and Android apps it also keeps an encrypted copy of what you viewed recently, so that the app can open and show it without a connection. On the sign-in and sign-up screens it is ticked at first: on a device that other people also use, clear it, and sign out when you finish."
+      },
+      {
+        "q": "Where is my diary kept?",
+        "a": "In your own account on the {{BRAND}} server, in a separate encrypted file for each account. The server runs at the hosting provider Fly.io, in its data centre in Frankfurt, Germany. The apps and the browser all show this one diary. The [[privacy|Privacy Policy]] says exactly what is stored and where."
+      },
+      {
+        "q": "Who can read my diary?",
+        "a": "You, with your password: the diary file is encrypted with a key derived from it. Please know the limits, though. While you are signed in, the server has your diary open in its memory. And whoever controls the server and its secrets - the operator, and in principle the hosting provider - could technically reset the password of any account and read its diary without knowing the password. We promise not to do this, we have no tool for it, and our administration tools never open a diary. Section 4 of the [[privacy|Privacy Policy]] explains this plainly."
+      },
+      {
+        "q": "Is it end-to-end encrypted?",
+        "a": "No. Your diary is encrypted in its file on the server (AES-256-GCM, with a key derived from your password) and on its way there (HTTPS). But while you are signed in, the server opens it in its memory to show, search and analyse it for you. The server also keeps a recovery key so that \"Forgot password?\" works without losing your diary; with it, whoever controls the server could technically reset a password and read the diary. If you are not willing to rely on our promise not to do this, do not keep anything in the service that you would not want anyone else to read."
+      },
+      {
+        "q": "Are there ads or tracking?",
+        "a": "No. There is no advertising, no analytics and no tracking, in the apps, in the web version or on this site. We do not sell or share your data, and your diary is never used to train any AI. The apps and the web version connect only to the {{BRAND}} server, always over HTTPS."
+      },
+      {
+        "q": "How is the diary locked?",
+        "a": "It locks itself after a period without activity; you choose the time in Settings, under Security, and \"Lock now\" locks it at once. Your password opens it again. In the Android app you can also have it lock whenever you leave the app, and open it with your fingerprint or face. Where an app offers the screen lock of your device instead of the password (Windows Hello, Touch ID or the Mac password, or the Android screen lock), the check is done by the operating system: nothing about your fingerprint, face or PIN reaches the app or us."
+      },
+      {
+        "q": "What if I forget my password?",
+        "a": "On the sign-in screen choose \"Forgot password?\" and enter the e-mail address you registered with. You get a message with a link and a 6-digit code, which are valid for 30 minutes and can be used once. If the message does not arrive within a few minutes, check the spam folder. Open the link, or enter the code in the app, and choose a new password; you are then signed out on every device. Your diary is kept: nothing is deleted."
+      },
+      {
+        "q": "How do I back up my diary and restore it?",
+        "a": "Open Backup in the menu (in the Android app, under More) and create a backup file: an encrypted copy of the whole diary (entries, habits and settings), protected by a password, which you keep wherever you choose. To restore, choose that file on the same page and enter its password. Restoring replaces the current diary with the contents of the file, so create a backup of the current diary first."
+      },
+      {
+        "q": "How do I delete my account?",
+        "a": "Sign in, open Settings and go to the last card, Delete account: enter your password and confirm. Your account, your diary, your habits and your settings are deleted from the server at once, and you are signed out on every device. This cannot be undone. Copies in the server's own backups disappear within the times stated in the [[privacy|Privacy Policy]]. If you cannot sign in, the [[delete|account-deletion page]] explains what to do."
+      },
+      {
+        "q": "How old must I be?",
+        "a": "You must be at least {{MINIMUM_AGE}} years old to create an account. If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it."
+      },
+      {
+        "q": "Why does my device warn me when I install a file from this site?",
+        "a": "Because the file is not from an app store, and the Windows and Mac files are not signed with a publisher certificate yet. Windows may show \"Windows protected your PC\": choose More info, then Run anyway. macOS does not open the app the first time and may even say that it is damaged: do not move it to the Bin (Trash), but open System Settings, then Privacy & Security (on macOS 12: System Preferences, then Security & Privacy), and choose Open Anyway. Android asks you to allow your browser or file manager to install apps (on Android 7: Unknown sources). The [[downloads|Downloads]] page has the steps for each system, and a SHA-256 checksum for every file to check that your copy is unchanged."
+      },
+      {
+        "q": "How do I update to a new version?",
+        "a": "The apps from this site do not update themselves. When the [[downloads|Downloads]] page lists a newer version, download its file and install it as you did the first time; it replaces the version you have. Your diary is kept in your account on the server, so an update does not change it. If an Android phone refuses to install the new file over the old app, first make sure the app says that all changes are saved on the server, then uninstall the old app and install the new file."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Downloads",
+    "lead": "Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them and in the browser.",
+    "tabsLabel": "Operating system",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "File",
+      "version": "Version",
+      "size": "Size"
+    },
+    "captions": {
+      "windows": "Installation files for Windows, newest version first",
+      "android": "Installation files for Android, newest version first",
+      "mac": "Installation files for Mac, newest version first"
+    },
+    "requires": {
+      "windows": "Needs Windows 10 or Windows 11 (64-bit).",
+      "android": "Needs Android 7.0 or later.",
+      "mac": "Needs macOS 12.3 or later, on a Mac with Apple silicon or with an Intel processor."
+    },
+    "install": {
+      "windows": "This setup file does not come from Microsoft Store and is not signed with a publisher certificate yet. Your browser may first warn that the file is not commonly downloaded (choose to keep it), and when you open it, Windows may show \"Windows protected your PC\": choose More info, then Run anyway. The setup asks for your language and installs the app for your own Windows account, without an administrator password.",
+      "android": "This file is installed directly, not through Google Play. When you open the downloaded file, Android asks you to allow your browser or file manager to install apps; on Android 7 this setting is called Unknown sources. Allow it, go back to the file and choose Install.",
+      "mac": "Open the disk image, drag the app to the Applications folder and open it from there. The app is not signed with an Apple developer certificate yet, so the first time macOS does not open it, and the message may even say that the app is damaged. Do not move it to the Bin (Trash): close the message, open System Settings, then Privacy & Security, scroll down and choose Open Anyway (on macOS 12: System Preferences, then Security & Privacy, then Open Anyway), enter your Mac password if asked, and choose Open."
+    },
+    "checkFile": "Check the file",
+    "checkText": "Each file has a SHA-256 checksum. If the file you downloaded has a different one, the download is damaged or the file was changed: do not install it. To see the checksum of a file, type Get-FileHash and the file name in Windows PowerShell, or shasum -a 256 and the file name in the Terminal of a Mac. Capital and small letters count as the same.",
+    "moreHeading": "Browser and iPhone",
+    "web": "Nothing to install: {{BRAND}} also works in any modern browser, on a computer or a phone. [[webapp|Open it in your browser]].",
+    "iphone": "There is no installation file for iPhone: iPhone apps are installed from the App Store. The iPhone app is not available yet.",
+    "iphoneStore": "On an iPhone, the app is installed from the App Store.",
+    "storeLinks": {
+      "googlePlay": "Get it on Google Play",
+      "appStoreIphone": "Download on the App Store",
+      "appStoreMac": "Download on the Mac App Store",
+      "microsoftStore": "Get it from Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Contact us",
+    "lead": "Questions, feedback or a problem? Write to us by e-mail, or fill in the form and we will answer by e-mail.",
+    "required": "All fields are required.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "E-mail address",
+    "message": "Your message",
+    "honeypot": "Leave this field empty",
+    "notice": "Your name, e-mail address and message are sent to us by e-mail so that we can answer you. They are not stored on the server. More in the [[privacy|Privacy Policy]].",
+    "send": "Send",
+    "sentTitle": "Your message was sent",
+    "sentText": "Thank you for writing. We will answer by e-mail, at the address you gave. We answer within 30 days, usually much sooner.",
+    "errorTitle": "Your message was not sent",
+    "errorText": "Something went wrong and your message did not reach us. Please go back, check your e-mail address and try again in a little while, or write to us by e-mail: {{CONTACT_EMAIL}}",
+    "backHome": "Back to the home page"
+  },
+  "footer": {
+    "languagesLabel": "All languages",
+    "change": "Change",
+    "rights": "All rights reserved."
+  }
+}

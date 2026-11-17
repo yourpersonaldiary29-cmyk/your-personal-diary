@@ -36,6 +36,11 @@ kill_timeout = "20s"
   # After the owner's first registration: copy the Account ID from Settings -> Account here and
   # deploy again. Until then nobody has the owner cards (plan 2.3) - that is intended.
   # DIARY_OWNER_ID = "u_0123456789abcdef"
+  # The contact form of the public site (POST /api/contact; docs/site-tasks/SITE.md section 5, and the
+  # contact form chapter of docs/HOSTED-RUNBOOK.he.md): on by default. "off" keeps the route and answers
+  # every message with the site's "not sent" page - no e-mail is sent. Any other value stops the start.
+  # The quick way when spam arrives: `fly secrets set DIARY_CONTACT_FORM=off` (secrets win over [env]).
+  # DIARY_CONTACT_FORM = "on"
 
 [[mounts]]
   source = "diary_data"

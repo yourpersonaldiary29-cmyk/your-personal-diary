@@ -13,7 +13,7 @@ Platnost od: {{EFFECTIVE_DATE}}
 
 - Your Personal Diary je jedna služba s pěti vstupy: **aplikace pro Android** (Google Play), **aplikace pro Windows** (Microsoft Store nebo instalační soubor), **aplikace pro Mac** (stažení z webu nebo Mac App Store), **aplikace pro iPhone** (App Store, až bude zveřejněna) a **web** [{{SITE_URL}}]({{SITE_URL}}). Všechny používají stejný server a stejný účet.
 - Tvůj deník je uložen na našem serveru v souboru zašifrovaném klíčem odvozeným z tvého hesla. Ukládají se tam i údaje tvého účtu.
-- Tvá data používáme jen k tomu, aby tvůj deník fungoval. Žádné reklamy, žádná analytika, žádné sledování a tvá data neprodáváme ani nesdílíme.
+- Tvá data používáme jen k tomu, aby tvůj deník fungoval, a k tomu, abychom ti odpověděli, když nám napíšeš. Žádné reklamy, žádná analytika, žádné sledování a tvá data neprodáváme ani nesdílíme.
 - Znej hranice: dokud jsi přihlášený, server má tvůj deník otevřený v paměti a provozovatel serveru by technicky mohl obnovit tvé heslo a deník si přečíst. Oddíl 4 to vysvětluje otevřeně.
 - Účet i deník můžeš kdykoli smazat v **Nastavení - Smazání účtu**.
 
@@ -38,12 +38,13 @@ Server běží u poskytovatele hostingu Fly.io v jeho datovém centru ve **Frank
 
 **Prohlídka** („Přeskočit - chci se jen porozhlédnout" v aplikaci pro Android) vytvoří dočasný deník hosta s ukázkovými daty. Existuje jen v paměti serveru, po 30 minutách sám skončí a nikdy se neukládá.
 
-Jako u každého webu dostávají server a poskytovatel hostingu IP adresu tvého zařízení, když se připojí. Server ji používá jen ve své paměti: k omezení počtu požadavků, které mohou přijít z jedné sítě (přihlášení, registrace a ostatní funkce účtu, obnovení hesla, prohlídka a zálohy), a pro blokaci přihlášení. Tato počítadla pokrývají nejvýše posledních 24 hodin a adresa se nikdy nezapisuje do protokolu ani do úložiště.
+Jako u každého webu dostávají server a poskytovatel hostingu IP adresu tvého zařízení, když se připojí. Server ji používá jen ve své paměti: k omezení počtu požadavků, které mohou přijít z jedné sítě (přihlášení, registrace a ostatní funkce účtu, obnovení hesla, prohlídka, zálohy a kontaktní formulář na našem webu), a pro blokaci přihlášení. Tato počítadla pokrývají nejvýše posledních 24 hodin a adresa se nikdy nezapisuje do protokolu ani do úložiště.
 
 ## 3. Jak tvá data používáme
 
 - **K poskytování služby:** přihlašování, ukládání deníku a jeho shoda na všech tvých zařízeních, vyhledávání, statistiky a postřehy o tvých vlastních záznamech, zálohy, exporty a připomínky. Na vyhledávací dotazy se odpovídá na serveru a neukládají se tam.
 - **E-mail:** jen pro tvé zprávy k obnovení hesla a pro bezpečnostní upozornění (tvé heslo bylo změněno pomocí zprávy k obnovení; e-mailová adresa tvého účtu byla změněna). Píší se v jazyce uloženém u údajů tvého účtu; server kvůli nim neotevírá tvůj deník. Žádné zpravodaje a žádný marketing.
+- **Kontaktní formulář na našem webu:** jméno, příjmení, e-mailová adresa a zpráva, které do něj napíšeš, se odešlou e-mailem do naší e-mailové schránky spolu s jazykem stránky a časem odeslání. Neukládají se na serveru. Používáme je jen k tomu, abychom ti odpověděli, a korespondenci uchováváme v naší e-mailové schránce jen tak dlouho, jak ji k tomu potřebujeme. Server ve své paměti počítá, kolik zpráv přichází z jedné síťové adresy, stejně jako u ostatních funkcí (oddíl 2). Právním základem je náš oprávněný zájem na tom, abychom ti odpověděli (čl. 6 odst. 1 písm. f) GDPR).
 - **Nikdy:** žádné reklamy, žádné analytické ani sledovací nástroje, žádné profilování, žádný prodej dat a žádné použití tvého deníku k trénování jakékoli AI.
 
 Právní základ (pro uživatele v Evropské unii a obdobné zákony): tvá data zpracováváme, abychom poskytli službu, ke které ses zaregistroval (plnění smlouvy, čl. 6 odst. 1 písm. b) GDPR), a abychom ji udrželi v bezpečí (náš oprávněný zájem, čl. 6 odst. 1 písm. f): limity pokusů, blokace, technický protokol). Tvůj deník může obsahovat citlivé informace, například o tvém zdraví nebo přesvědčení, pokud se je rozhodneš zapsat. Zpracováváme je jen proto, abychom ti je uchovali a zobrazili, protože jsi nás o to požádal tím, že jsi je zapsal (tvůj výslovný souhlas, čl. 9 odst. 2 písm. a)); kdykoli je můžeš odstranit úpravou nebo smazáním záznamů (oddíl 7 uvádí, jak se starý text maže).
@@ -87,7 +88,7 @@ Soubory, které si vytvoříš sám: **záloha** je zašifrovaná heslem; **expo
 Využíváme dva poskytovatele služeb. Data zpracovávají jen naším jménem, aby služba fungovala:
 
 - **Fly.io, Inc.** (Spojené státy) - hosting serveru ve Frankfurtu v Německu. Její systémy uchovávají zašifrované soubory deníků, údaje účtů a další data z oddílu 2 a dostávají údaje o připojení, například IP adresy. Protože je Fly.io americká společnost, může k datům přistupovat i mimo Evropskou unii; to pokrývají její podmínky zpracování dat. Její zásady ochrany soukromí: `fly.io/legal/privacy-policy`.
-- **Google (Gmail)** - odesílá zprávy k obnovení hesla a bezpečnostní upozornění. Google dostává zprávu, tvou e-mailovou adresu a jméno a uživatelské jméno, které obsahuje. Zpráva nikdy neobsahuje nic z tvého deníku. Zásady ochrany soukromí Google: `policies.google.com/privacy`.
+- **Google (Gmail)** - odesílá zprávy k obnovení hesla a bezpečnostní upozornění. Google dostává zprávu, tvou e-mailovou adresu a jméno a uživatelské jméno, které obsahuje. Zpráva nikdy neobsahuje nic z tvého deníku. Také zprávy z kontaktního formuláře na našem webu (oddíl 3) se odesílají přes Gmail a naše e-mailová schránka je schránka Gmail, takže Google dostává to, co jsi do formuláře napsal - tvé jméno, příjmení, e-mailovou adresu a zprávu - spolu s jazykem stránky a časem odeslání. Zásady ochrany soukromí Google: `policies.google.com/privacy`.
 
 Obchody s aplikacemi také zpracovávají data podle svých vlastních zásad ochrany soukromí, když si aplikace stahuješ: **Google Play** u aplikace pro Android, **Microsoft Store** u aplikace pro Windows a **App Store** a **Mac App Store** (Apple) u aplikací pro iPhone a Mac (například instalace, hodnocení a hlášení o pádech, které jejich systémy shromažďují). Aplikace neobsahují jejich kód ani kód nikoho jiného, který by jim posílal data.
 

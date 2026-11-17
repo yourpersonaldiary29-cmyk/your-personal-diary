@@ -2,6 +2,7 @@
  * MIME message builder for the SMTP client (RFC 5322 / 2045 / 2046 / 2047) - no dependencies.
  *
  *   From: Your Personal Diary <sender@example.com>
+ *   Reply-To: <visitor@example.com>         (only for a message that asks for it: `MailContent.replyTo`)
  *   To: user@example.com
  *   Subject: =?UTF-8?B?...?=                 (RFC 2047 encoded-words, split on character boundaries)
  *   Date: Tue, 29 Sep 2026 10:00:00 +0000
@@ -39,6 +40,12 @@ export interface MailContent {
   text: string;
   /** HTML body (UTF-8, a complete small document). */
   html: string;
+  /**
+   * Where an answer goes instead of the sender: the `Reply-To` header (the visitor's address of a
+   * contact-form message, hosted/contact.ts). Checked like the other two addresses before it reaches
+   * the header. Absent = no such header, and the message is byte for byte what it always was.
+   */
+  replyTo?: string;
 }
 
 export interface BuiltMessage {
@@ -111,10 +118,15 @@ export function dotStuff(data: string): string {
 export function buildMessage(from: string, content: MailContent, now: Date = new Date()): BuiltMessage {
   if (!isMailAddress(from)) throw new Error('invalid sender address');
   if (!isMailAddress(content.to)) throw new Error('invalid recipient address');
+  // The same shape check as the two addresses above: a value that fails it never reaches the header.
+  const replyTo = content.replyTo;
+  if (replyTo !== undefined && !isMailAddress(replyTo)) throw new Error('invalid reply-to address');
   const boundary = `mpd_${randomBytes(12).toString('hex')}`;
   const messageId = `<${randomBytes(16).toString('hex')}@${domainOf(from)}>`;
   const headers = [
     `From: "${MAIL_FROM_NAME}" <${from}>`,
+    // Only when asked for: without the field the header list is exactly the one it always was.
+    ...(replyTo !== undefined ? [`Reply-To: <${replyTo}>`] : []),
     `To: <${content.to}>`,
     `Subject: ${encodeHeaderWords(content.subject)}`,
     `Date: ${rfc5322Date(now)}`,

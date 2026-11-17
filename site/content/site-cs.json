@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - soukromý deník s návyky a opatrnými postřehy",
+  "description": "Piš o svém dni, měj přehled o náladě a návycích a časem si všímej vzorců. Soukromý deník ve 20 jazycích. Zdarma, bez reklam a bez sledování.",
+  "skipLink": "Přeskočit na obsah",
+  "languagesLabel": "Jazyk",
+  "nav": {
+    "label": "Nabídka webu",
+    "about": "O aplikaci",
+    "terms": "Podmínky používání",
+    "faq": "Otázky a odpovědi",
+    "privacy": "Zásady ochrany osobních údajů",
+    "downloads": "Ke stažení",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "heading": "Soukromý deník, který ti pomáhá všímat si vlastních vzorců",
+    "lead": "Piš o svém dni vlastními slovy. Jestli chceš, přidej náladu, spánek a návyky. V průběhu týdnů, měsíců a let {{BRAND}} upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí.",
+    "openAction": "Otevřít v prohlížeči",
+    "note": "Zdarma. Žádné reklamy, žádná analytika, žádné sledování."
+  },
+  "features": {
+    "heading": "Co můžeš dělat",
+    "items": [
+      {
+        "title": "Zapisuj svůj den",
+        "text": "Záznamy vlastními slovy. Jestli chceš, přidej náladu, emoce, energii, stres, spánek, pohyb, lidi, místo a štítky. Každý den má vlastní stránku a časová osa ukazuje celý deník."
+      },
+      {
+        "title": "Návyky a připomínky",
+        "text": "Denní a týdenní návyky, které si během dne odškrtáváš, se sériemi a pokrokem. Volitelné připomínky v čase, který si zvolíš pro každý návyk."
+      },
+      {
+        "title": "Opatrné postřehy",
+        "text": "Aplikace hledá možné souvislosti ve tvých vlastních datech, například mezi spánkem a náladou. Postřehy jsou formulované opatrně a nikdy netvrdí, že jedna věc způsobuje druhou. Když dat není dost, aplikace to řekne, místo aby hádala."
+      },
+      {
+        "title": "Kalendář",
+        "text": "Měsíční kalendář gregoriánský, židovský nebo islámský (hidžra), se svátky zvoleného kalendáře."
+      },
+      {
+        "title": "Statistiky a chytré hledání",
+        "text": "Grafy nálady, energie, stresu, spánku a návyků v čase, každý i s tabulkou dat. Zeptej se svým jazykem, například „Ve kterých dnech trval můj spánek méně než pět hodin?“, a dostaneš odpověď ze svého deníku."
+      },
+      {
+        "title": "Funguje offline a synchronizuje se",
+        "text": "Jeden účet, stejný deník na každém zařízení. Když vypadne připojení, čti a piš dál: změny se uloží zašifrované ve tvém zařízení a nahrají se, jakmile se připojení obnoví."
+      },
+      {
+        "title": "20 jazyků",
+        "text": "Celá aplikace ve 20 jazycích. Jazyk můžeš kdykoli změnit v Nastavení. Hebrejština a arabština se zobrazují zprava doleva."
+      },
+      {
+        "title": "Přístupnost",
+        "text": "Funguje se čtečkami obrazovky: jasné nadpisy, popsaná pole a ohlašované stavové zprávy. Světlý, tmavý a vysoce kontrastní motiv, nastavitelná velikost textu a možnost omezit animace. Na počítači se dá všechno ovládat klávesnicí."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Jak to vypadá",
+    "items": [
+      {
+        "caption": "Domů: dnešek na první pohled",
+        "alt": "Obrazovka Domů na telefonu: pozdrav s datem, počet dnešních záznamů, série psaní a průměry za posledních sedm dní."
+      },
+      {
+        "caption": "Záznam: tvoje slova, k tomu nálada, spánek a další",
+        "alt": "Záznam na telefonu: název a datum, hodnocení nálady, energie, stresu a spánku, cvičení, emoce a volný text."
+      },
+      {
+        "caption": "Návyky: cíle, série a pokrok",
+        "alt": "Obrazovka Návyky na telefonu: jeden návyk s denním cílem, aktuální sérií, plněním za posledních 30 dní a dnešním množstvím."
+      },
+      {
+        "caption": "Postřehy: opatrná formulace a čísla, která za nimi stojí",
+        "alt": "Obrazovka Postřehy na telefonu: dva trendy za poslední měsíc, každý označený jako slabý vzorec, se zkoumaným obdobím a tlačítkem, které postřeh vysvětlí."
+      },
+      {
+        "caption": "Stejný deník na počítači",
+        "alt": "Obrazovka Domů na počítači: nabídka se všemi sekcemi, přehled dneška a průměry za posledních sedm dní."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Tvoje soukromí",
+    "lead": "Deník je osobní věc. Tady je, co se s tím tvým děje.",
+    "items": [
+      "Žádné reklamy, žádná analytika a žádné sledování. Tvá data neprodáváme ani nesdílíme.",
+      "Tvůj deník je na serveru {{BRAND}} uložený zašifrovaný, pro každý účet v samostatném souboru. Samotné heslo se neukládá.",
+      "Aplikace i web se připojují výhradně k serveru {{BRAND}}, vždy přes HTTPS.",
+      "Dokud trvá tvé přihlášení, server otevírá tvůj deník ve své paměti, aby ti ho mohl zobrazovat, prohledávat a analyzovat. Co to znamená, srozumitelně vysvětlují zásady ochrany osobních údajů.",
+      "Deník si můžeš kdykoli vzít s sebou: jako zašifrovaný záložní soubor, který si necháš u sebe, nebo jako export do TXT, CSV, JSON nebo PDF.",
+      "Účet a všechna jeho data můžeš kdykoli smazat v Nastavení."
+    ],
+    "policyLink": "Přečíst zásady ochrany osobních údajů"
+  },
+  "faq": {
+    "heading": "Otázky a odpovědi",
+    "lead": "Krátké odpovědi o {{BRAND}}: co to je a co dělá, jak je tvůj deník uložen a chráněn, tvůj účet a instalace aplikací.",
+    "groups": [
+      "O aplikaci",
+      "Psaní a funkce",
+      "Zařízení a práce offline",
+      "Soukromí a zabezpečení",
+      "Tvůj účet",
+      "Instalace a aktualizace"
+    ],
+    "items": [
+      {
+        "q": "Co je {{BRAND}}?",
+        "a": "Soukromý deník. Píšeš o svém dni vlastními slovy a jestli chceš, přidáš náladu, spánek, návyky a další. V průběhu týdnů, měsíců a let aplikace upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí. Funguje v prohlížeči a jako aplikace pro Windows, Android a Mac, s jedním účtem pro všechny."
+      },
+      {
+        "q": "Je zdarma?",
+        "a": "Ano. {{BRAND}} je zdarma, bez reklam a bez nákupů v aplikaci. Pokud bychom někdy chtěli za něco účtovat poplatek, oznámíme to předem a nic se nestane placeným bez tvého souhlasu."
+      },
+      {
+        "q": "Kdo aplikaci vydává?",
+        "a": "{{BRAND}} vydává a provozuje {{PUBLISHER_NAME}}. Pokud nás chceš kontaktovat, použij [[contact|kontaktní formulář]] dole na této stránce nebo napiš na e-mailovou adresu uvedenou u něj."
+      },
+      {
+        "q": "Která zařízení můžu používat?",
+        "a": "Počítač s Windows 10 nebo 11, Mac se systémem macOS 12.3 nebo novějším, telefon s Androidem 7.0 nebo novějším a jakýkoli moderní prohlížeč v počítači nebo v telefonu. Instalační soubory najdeš na stránce [[downloads|Ke stažení]]. Aplikace pro iPhone zatím není k dispozici. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se i na ostatních."
+      },
+      {
+        "q": "V jakých jazycích je k dispozici?",
+        "a": "Ve 20 jazycích: angličtině, hebrejštině, arabštině, čínštině (zjednodušené), japonštině, hindštině, thajštině, španělštině, portugalštině, francouzštině, italštině, němčině, rumunštině, řečtině, polštině, češtině, maďarštině, ruštině, bulharštině a turečtině. Jazyk můžeš kdykoli změnit v Nastavení a tvůj účet si tvou volbu zapamatuje. Hebrejština a arabština se zobrazují zprava doleva."
+      },
+      {
+        "q": "Je to zdravotnický nástroj?",
+        "a": "Ne. {{BRAND}} je nástroj pro osobní deník. Není to zdravotnický ani diagnostický nástroj a jeho postřehy nejsou lékařskou ani psychologickou radou. Pokud tě něco ohledně zdraví znepokojuje, obrať se na kvalifikovaného odborníka."
+      },
+      {
+        "q": "Můžu si aplikaci vyzkoušet bez účtu?",
+        "a": "V aplikaci pro Android ano. Na první obrazovce zvol „Přeskočit - chci se jen porozhlédnout“ a prozkoumej aplikaci s ukázkovými daty. Nic, co tam napíšeš, se neuloží, a prohlídka po 30 minutách sama skončí. V aplikacích pro Windows a Mac a v prohlížeči potřebuješ účet; jeho vytvoření je zdarma."
+      },
+      {
+        "q": "Co může záznam obsahovat?",
+        "a": "Nadpis a volný text vlastními slovy. Jestli chceš, přidej náladu, emoce, energii, stres, spánek, pohyb, důležité události, lidi, se kterými ses potkal, místo, poznámky a štítky. Za den můžeš napsat víc než jeden záznam. Každý den má vlastní stránku a časová osa ukazuje celý deník."
+      },
+      {
+        "q": "Jak fungují návyky a připomínky?",
+        "a": "Nastavíš si denní nebo týdenní návyky, každý s vlastním cílem, a průběžně je odškrtáváš. Aplikace ukazuje tvou sérii a to, jakou část cíle jsi splnil. Připomínky patří k návykům: čas pro každý návyk nastavíš na stránce Návyky a připomínky zapneš v Nastavení, v části Připomínky. V telefonu s Androidem, který aplikaci povoluje oznámení, připomínka přijde, i když je aplikace zavřená; v počítači a v prohlížeči se zobrazí, dokud je deník otevřený. Připomínky se vytvářejí přímo v zařízení; nic se neodesílá ven."
+      },
+      {
+        "q": "Co jsou postřehy a jak zjistím, jaká čísla za nimi stojí?",
+        "a": "Postřehy jsou možné souvislosti, které aplikace najde ve tvých vlastních záznamech, například mezi spánkem a náladou nebo mezi pohybem a energií. Jsou formulované opatrně a nikdy netvrdí, že jedna věc způsobuje druhou. U každého postřehu ukáže „Proč vidím tento postřeh?“, kolik dní bylo prověřeno, a čísla, která za ním stojí. Když není dost dat, aplikace to řekne, místo aby hádala."
+      },
+      {
+        "q": "Které kalendáře můžu používat?",
+        "a": "Tři: gregoriánský, hebrejský a hidžrí (islámský) kalendář. Jeden si vybereš na stránce Kalendář a měsíc pak ukazuje čísla dnů a svátky tohoto kalendáře. Islámská data a svátky se řídí kalendářem Umm al-Qura a mohou se posunout o jeden den."
+      },
+      {
+        "q": "Co je chytré hledání?",
+        "a": "Hledání, které přijme otázku ve tvém jazyce, například „Ve kterých dnech jsem spal méně než pět hodin?“ nebo „Kdy jsem psal, že jsem unavený?“. Aplikace ukáže, jak otázku pochopila, odpověď a dny a záznamy, které odpovídají. Na otázky se odpovídá na serveru a neukládají se tam."
+      },
+      {
+        "q": "Co ukazují statistiky?",
+        "a": "Grafy tvé nálady, energie, stresu, spánku, pohybu a návyků v čase, za období, které si zvolíš, od posledních 7 dnů po celý deník. Ke každému grafu patří krátké slovní shrnutí a tabulka dat, takže čísla lze přečíst i bez grafu."
+      },
+      {
+        "q": "Do jakých formátů můžu deník exportovat?",
+        "a": "TXT, CSV, JSON a PDF, pro celý deník nebo pro zvolené období. Soubor CSV obsahuje jen záznamy; ostatní formáty mohou zahrnovat i návyky. Export je obyčejný čitelný soubor, ne zašifrovaný: kdokoli, kdo soubor má, si ho může přečíst, takže ho uchovávej stejně pečlivě jako samotný deník."
+      },
+      {
+        "q": "Funguje offline?",
+        "a": "Ano, jakmile se přihlásíš. Když vypadne připojení, můžeš dál číst i psát. Změny se uloží zašifrované ve tvém zařízení a automaticky se nahrají, jakmile se připojení obnoví, i když mezitím aplikaci zavřeš. S volbou „Zapamatovat si mě“ se aplikace otevřou i bez připojení a ukážou, co sis nedávno prohlížel. Vytvoření účtu, přihlášení, postřehy, hledání, statistiky, záloha, export a změny účtu vyžadují připojení."
+      },
+      {
+        "q": "Můžu aplikaci používat na více zařízeních?",
+        "a": "Ano. Tvůj deník je uložený ve tvém účtu na serveru {{BRAND}}, takže se na každém zařízení přihlásíš stejným účtem a všechno tam najdeš. Co změníš na jednom zařízení, objeví se na ostatních, jakmile se připojí. V Nastavení najdeš v části Připojená zařízení seznam zařízení, na kterých jsi přihlášený, a kterékoli z nich můžeš odpojit."
+      },
+      {
+        "q": "Co se stane, když stejný záznam změním na dvou zařízeních?",
+        "a": "Zachová se novější změna a aplikace ti to oznámí jedním řádkem. Druhá verze zůstane na tom zařízení k dispozici, dokud upozornění nezavřeš: můžeš si ji přečíst, zkopírovat její text nebo ji uložit jako nový záznam."
+      },
+      {
+        "q": "Můžu deník používat v prohlížeči, bez instalace čehokoli?",
+        "a": "Ano. [[webapp|Otevři webovou verzi]] v jakémkoli moderním prohlížeči, v počítači nebo v telefonu, a přihlas se stejným účtem. Prohlížeč si neuchovává žádnou kopii toho, co čteš. Když vypadne připojení, zatímco je deník otevřený, můžeš psát dál: změny se uloží zašifrované v prohlížeči a nahrají se, jakmile se připojení obnoví."
+      },
+      {
+        "q": "Co dělá „Zapamatovat si mě“?",
+        "a": "Udrží tě přihlášeného na daném zařízení až 90 dní místo 12 hodin. V aplikacích pro Windows, Mac a Android navíc uchovává zašifrovanou kopii toho, co sis nedávno prohlížel, aby se aplikace mohla otevřít a zobrazit to bez připojení. Na obrazovkách přihlášení a registrace je ve výchozím stavu zaškrtnuté: na zařízení, které používají i jiní lidé, zaškrtnutí zruš a po skončení se odhlas."
+      },
+      {
+        "q": "Kde je můj deník uložený?",
+        "a": "Ve tvém vlastním účtu na serveru {{BRAND}}, v samostatném zašifrovaném souboru pro každý účet. Server běží u poskytovatele hostingu Fly.io, v jeho datovém centru ve Frankfurtu v Německu. Aplikace i prohlížeč ukazují tento jediný deník. [[privacy|Zásady ochrany osobních údajů]] přesně uvádějí, co se ukládá a kde."
+      },
+      {
+        "q": "Kdo může číst můj deník?",
+        "a": "Ty, se svým heslem: soubor deníku je zašifrovaný klíčem, který je z něj odvozený. Je ale dobré znát hranice. Dokud jsi přihlášený, má server tvůj deník otevřený ve své paměti. A kdo ovládá server a jeho tajné údaje - provozovatel a v zásadě i poskytovatel hostingu - by mohl technicky resetovat heslo kteréhokoli účtu a přečíst si jeho deník, aniž by heslo znal. Slibujeme, že to neuděláme, nemáme k tomu žádný nástroj a naše administrační nástroje deník nikdy neotevírají. Srozumitelně to vysvětluje oddíl 4 [[privacy|Zásad ochrany osobních údajů]]."
+      },
+      {
+        "q": "Je šifrovaný end-to-end?",
+        "a": "Ne. Tvůj deník je zašifrovaný ve svém souboru na serveru (AES-256-GCM, klíčem odvozeným z tvého hesla) a na cestě k němu (HTTPS). Dokud jsi ale přihlášený, server ho otevírá ve své paměti, aby ti ho mohl zobrazovat, prohledávat a analyzovat. Server také uchovává klíč pro obnovení, aby „Zapomenuté heslo?“ fungovalo bez ztráty deníku; s ním by kdokoli, kdo ovládá server, mohl technicky resetovat heslo a přečíst deník. Pokud se nechceš spolehnout na náš slib, že to neuděláme, neukládej do služby nic, co bys nechtěl, aby četl někdo jiný."
+      },
+      {
+        "q": "Jsou tu reklamy nebo sledování?",
+        "a": "Ne. Nejsou tu žádné reklamy, žádná analytika ani sledování - v aplikacích, ve webové verzi ani na tomto webu. Tvá data neprodáváme ani nesdílíme a tvůj deník se nikdy nepoužívá k trénování žádné umělé inteligence. Aplikace a webová verze se připojují jen k serveru {{BRAND}}, vždy přes HTTPS."
+      },
+      {
+        "q": "Jak se deník zamyká?",
+        "a": "Zamkne se sám po určité době nečinnosti; dobu zvolíš v Nastavení, v části Zabezpečení, a „Zamknout hned“ ho zamkne okamžitě. Heslo ho znovu otevře. V aplikaci pro Android ho můžeš nechat zamykat i pokaždé, když aplikaci opustíš, a otevírat ho otiskem prstu nebo obličejem. Tam, kde aplikace místo hesla nabízí zámek obrazovky tvého zařízení (Windows Hello, Touch ID nebo heslo Macu, případně zámek obrazovky Androidu), provádí ověření operační systém: nic o tvém otisku prstu, obličeji ani PINu se nedostane k aplikaci ani k nám."
+      },
+      {
+        "q": "Co když zapomenu heslo?",
+        "a": "Na přihlašovací obrazovce zvol „Zapomenuté heslo?“ a zadej e-mailovou adresu, se kterou ses registroval. Dostaneš zprávu s odkazem a 6místným kódem, které platí 30 minut a lze je použít jednou. Pokud zpráva nepřijde do několika minut, podívej se do složky se spamem. Otevři odkaz nebo zadej kód v aplikaci a zvol nové heslo; pak budeš odhlášen na všech zařízeních. Tvůj deník zůstane zachován: nic se nemaže."
+      },
+      {
+        "q": "Jak deník zálohovat a obnovit?",
+        "a": "V nabídce otevři Záloha (v aplikaci pro Android v části Více) a vytvoř záložní soubor: zašifrovanou kopii celého deníku (záznamů, návyků a nastavení) chráněnou heslem, kterou si uložíš, kam chceš. Při obnovení zvol tento soubor na stejné stránce a zadej jeho heslo. Obnovení nahradí současný deník obsahem souboru, proto si nejdřív vytvoř zálohu současného deníku."
+      },
+      {
+        "q": "Jak smažu svůj účet?",
+        "a": "Přihlas se, otevři Nastavení a přejdi na poslední kartu, Smazání účtu: zadej heslo a potvrď. Tvůj účet, deník, návyky a nastavení se ze serveru okamžitě smažou a budeš odhlášen na všech zařízeních. Tento krok nelze vrátit zpět. Kopie ve vlastních zálohách serveru zmizí ve lhůtách uvedených v [[privacy|Zásadách ochrany osobních údajů]]. Pokud se nemůžeš přihlásit, [[delete|stránka o smazání účtu]] vysvětluje, co dělat."
+      },
+      {
+        "q": "Kolik mi musí být let?",
+        "a": "K vytvoření účtu ti musí být alespoň {{MINIMUM_AGE}} let. Pokud jsi v místě, kde žiješ, nezletilý, můžeš službu používat jen se souhlasem rodiče nebo zákonného zástupce, pokud to vyžaduje právo tvé země."
+      },
+      {
+        "q": "Proč mě zařízení varuje, když instaluji soubor z tohoto webu?",
+        "a": "Protože soubor nepochází z obchodu s aplikacemi a soubory pro Windows a Mac zatím nejsou podepsané certifikátem vydavatele. Windows může zobrazit „Systém Windows ochránil váš počítač“: zvol Další informace a potom Přesto spustit. macOS aplikaci napoprvé neotevře a může dokonce hlásit, že je poškozená: nepřesouvej ji do Koše, ale otevři Nastavení systému, potom Soukromí a zabezpečení (v macOS 12: Předvolby systému, potom Zabezpečení a soukromí) a zvol Přesto otevřít. Android tě požádá, abys prohlížeči nebo správci souborů povolil instalovat aplikace (v Androidu 7: Neznámé zdroje). Na stránce [[downloads|Ke stažení]] jsou postupy pro každý systém a ke každému souboru kontrolní součet SHA-256, kterým ověříš, že tvá kopie není změněná."
+      },
+      {
+        "q": "Jak aktualizuji na novou verzi?",
+        "a": "Aplikace z tohoto webu se samy neaktualizují. Když stránka [[downloads|Ke stažení]] uvádí novější verzi, stáhni její soubor a nainstaluj ho stejně jako poprvé; nahradí verzi, kterou máš. Tvůj deník je uložený ve tvém účtu na serveru, takže ho aktualizace nezmění. Pokud telefon s Androidem odmítne nainstalovat nový soubor přes starou aplikaci, nejdřív se ujisti, že aplikace hlásí, že jsou všechny změny uložené na serveru, potom starou aplikaci odinstaluj a nainstaluj nový soubor."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Ke stažení",
+    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich i v prohlížeči.",
+    "tabsLabel": "Operační systém",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Soubor",
+      "version": "Verze",
+      "size": "Velikost"
+    },
+    "captions": {
+      "windows": "Instalační soubory pro Windows, od nejnovější verze",
+      "android": "Instalační soubory pro Android, od nejnovější verze",
+      "mac": "Instalační soubory pro Mac, od nejnovější verze"
+    },
+    "requires": {
+      "windows": "Vyžaduje Windows 10 nebo Windows 11 (64bitový).",
+      "android": "Vyžaduje Android 7.0 nebo novější.",
+      "mac": "Vyžaduje macOS 12.3 nebo novější, na Macu s čipem Apple nebo s procesorem Intel."
+    },
+    "install": {
+      "windows": "Tento instalační soubor nepochází z Microsoft Store a zatím není podepsaný certifikátem vydavatele. Prohlížeč může nejdřív upozornit, že se soubor běžně nestahuje (zvol, že si ho chceš ponechat), a když ho otevřeš, Windows může zobrazit „Systém Windows ochránil váš počítač“: zvol Další informace a potom Přesto spustit. Instalátor se zeptá na jazyk a nainstaluje aplikaci pro tvůj vlastní účet Windows, bez hesla správce.",
+      "android": "Tento soubor se instaluje přímo, ne přes Google Play. Když stažený soubor otevřeš, Android tě požádá, abys prohlížeči nebo správci souborů povolil instalovat aplikace; v Androidu 7 se toto nastavení jmenuje Neznámé zdroje. Povol to, vrať se k souboru a zvol Instalovat.",
+      "mac": "Otevři obraz disku, přetáhni aplikaci do složky Aplikace a otevři ji odtamtud. Aplikace zatím není podepsaná certifikátem vývojáře Apple, takže ji macOS napoprvé neotevře a zpráva může dokonce hlásit, že je aplikace poškozená. Nepřesouvej ji do Koše: zavři zprávu, otevři Nastavení systému, potom Soukromí a zabezpečení, sjeď dolů a zvol Přesto otevřít (v macOS 12: Předvolby systému, potom Zabezpečení a soukromí, potom Přesto otevřít), zadej heslo k Macu, pokud se zobrazí výzva, a zvol Otevřít."
+    },
+    "checkFile": "Ověř soubor",
+    "checkText": "Každý soubor má kontrolní součet SHA-256. Pokud má stažený soubor jiný, stahování je poškozené nebo byl soubor změněn: neinstaluj ho. Kontrolní součet souboru zjistíš tak, že ve Windows PowerShell napíšeš Get-FileHash a název souboru, nebo v aplikaci Terminal na Macu shasum -a 256 a název souboru. Na velikosti písmen nezáleží.",
+    "moreHeading": "Prohlížeč a iPhone",
+    "web": "Není potřeba nic instalovat: {{BRAND}} funguje i v jakémkoli moderním prohlížeči, v počítači nebo v telefonu. [[webapp|Otevři ho v prohlížeči]].",
+    "iphone": "Pro iPhone instalační soubor neexistuje: aplikace pro iPhone se instalují z App Store. Aplikace pro iPhone zatím není k dispozici.",
+    "iphoneStore": "Na iPhonu se aplikace instaluje z App Store.",
+    "storeLinks": {
+      "googlePlay": "Stáhnout z Google Play",
+      "appStoreIphone": "Stáhnout z App Store",
+      "appStoreMac": "Stáhnout z Mac App Store",
+      "microsoftStore": "Stáhnout z Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Napiš nám",
+    "lead": "Máš otázku, připomínku nebo problém? Napiš nám e-mail, nebo vyplň formulář a my ti odpovíme e-mailem.",
+    "required": "Všechna pole jsou povinná.",
+    "firstName": "Jméno",
+    "lastName": "Příjmení",
+    "email": "E-mailová adresa",
+    "message": "Tvá zpráva",
+    "honeypot": "Toto pole nech prázdné",
+    "notice": "Tvé jméno, e-mailová adresa a zpráva se nám odešlou e-mailem, abychom ti mohli odpovědět. Neukládají se na serveru. Více v [[privacy|Zásadách ochrany osobních údajů]].",
+    "send": "Odeslat",
+    "sentTitle": "Tvá zpráva byla odeslána",
+    "sentText": "Děkujeme za zprávu. Odpovíme e-mailem na adresu, kterou jsi zadal. Odpovídáme do 30 dnů, obvykle mnohem dřív.",
+    "errorTitle": "Tvá zpráva nebyla odeslána",
+    "errorText": "Něco se pokazilo a tvá zpráva k nám nedorazila. Vrať se, zkontroluj svou e-mailovou adresu a za chvíli to zkus znovu, nebo nám napiš e-mail: {{CONTACT_EMAIL}}",
+    "backHome": "Zpět na úvodní stránku"
+  },
+  "footer": {
+    "languagesLabel": "Všechny jazyky",
+    "change": "Změnit",
+    "rights": "Všechna práva vyhrazena."
+  }
+}

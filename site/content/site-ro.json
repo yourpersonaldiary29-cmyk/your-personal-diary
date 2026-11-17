@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - un jurnal privat cu obiceiuri și observații prudente",
+  "description": "Scrie despre ziua ta, urmărește dispoziția și obiceiurile și observă tipare în timp. Un jurnal privat în 20 de limbi. Gratuit, fără reclame și fără urmărire.",
+  "skipLink": "Salt la conținut",
+  "languagesLabel": "Limbă",
+  "nav": {
+    "label": "Meniul site-ului",
+    "about": "Despre aplicație",
+    "terms": "Condiții de utilizare",
+    "faq": "Întrebări și răspunsuri",
+    "privacy": "Politica de confidențialitate",
+    "downloads": "Descărcări",
+    "contact": "Contactează-ne"
+  },
+  "hero": {
+    "heading": "Un jurnal privat care te ajută să-ți observi propriile tipare",
+    "lead": "Scrie despre ziua ta cu propriile cuvinte. Dacă vrei, adaugă dispoziția, somnul și obiceiurile. De-a lungul săptămânilor, lunilor și anilor, {{BRAND}} îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia.",
+    "openAction": "Deschide în browser",
+    "note": "Gratuit. Fără reclame, fără analize de utilizare, fără urmărire."
+  },
+  "features": {
+    "heading": "Ce poți face",
+    "items": [
+      {
+        "title": "Notează-ți ziua",
+        "text": "Însemnări cu propriile cuvinte. Dacă vrei, adaugă dispoziția, emoțiile, energia, stresul, somnul, activitatea fizică, persoanele, locul și etichete. Fiecare zi are propria pagină, iar o cronologie arată întregul jurnal."
+      },
+      {
+        "title": "Obiceiuri și mementouri",
+        "text": "Obiceiuri zilnice și săptămânale pe care le bifezi pe parcurs, cu serii și progres. Mementouri opționale la ora pe care o alegi pentru fiecare obicei."
+      },
+      {
+        "title": "Observații prudente",
+        "text": "Aplicația caută legături posibile în propriile tale date, de exemplu între somn și dispoziție. Observațiile sunt formulate cu grijă și nu susțin niciodată că un lucru îl cauzează pe altul. Când datele nu sunt suficiente, aplicația spune asta în loc să ghicească."
+      },
+      {
+        "title": "Calendar",
+        "text": "Un calendar lunar gregorian, ebraic sau hijri (islamic), cu sărbătorile calendarului ales."
+      },
+      {
+        "title": "Statistici și căutare inteligentă",
+        "text": "Grafice ale dispoziției, energiei, stresului, somnului și obiceiurilor în timp, fiecare cu un tabel de date. Pune o întrebare în limba ta, de exemplu „În ce zile am dormit mai puțin de cinci ore?”, și primește răspunsul din jurnal."
+      },
+      {
+        "title": "Funcționează offline și se sincronizează",
+        "text": "Un cont, același jurnal pe orice dispozitiv. Dacă se întrerupe conexiunea, continuă să citești și să scrii: modificările tale se păstrează criptate pe dispozitivul tău și se încarcă atunci când revine conexiunea."
+      },
+      {
+        "title": "20 de limbi",
+        "text": "Întreaga aplicație în 20 de limbi. Schimbă limba oricând din Setări. Ebraica și araba sunt afișate de la dreapta la stânga."
+      },
+      {
+        "title": "Accesibilitate",
+        "text": "Funcționează cu cititoare de ecran: titluri clare, câmpuri etichetate și mesaje de stare anunțate. Teme luminoasă, întunecată și cu contrast ridicat, dimensiune reglabilă a textului și o opțiune de reducere a animațiilor. Pe computer, totul se poate face din tastatură."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Cum arată",
+    "items": [
+      {
+        "caption": "Acasă: ziua de azi dintr-o privire",
+        "alt": "Ecranul Acasă pe un telefon: un salut cu data, numărul de însemnări de azi, seria de scris și mediile ultimelor șapte zile."
+      },
+      {
+        "caption": "O însemnare: cuvintele tale, cu dispoziție, somn și altele",
+        "alt": "O însemnare pe un telefon: titlul și data, evaluările pentru dispoziție, energie, stres și somn, sportul, emoțiile și textul liber."
+      },
+      {
+        "caption": "Obiceiuri: ținte, serii și progres",
+        "alt": "Ecranul Obiceiuri pe un telefon: un obicei cu ținta zilnică, seria curentă, îndeplinirea din ultimele 30 de zile și cantitatea de azi."
+      },
+      {
+        "caption": "Observații: formulate cu grijă, cu cifrele din spatele lor",
+        "alt": "Ecranul Observații pe un telefon: două tendințe din ultima lună, fiecare marcată ca tipar slab, cu perioada analizată și un buton care explică observația."
+      },
+      {
+        "caption": "Același jurnal pe computer",
+        "alt": "Ecranul Acasă pe un computer: meniul cu toate secțiunile, rezumatul zilei de azi și mediile ultimelor șapte zile."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Confidențialitatea ta",
+    "lead": "Un jurnal este ceva personal. Iată ce se întâmplă cu al tău.",
+    "items": [
+      "Fără reclame, fără analize de utilizare și fără urmărire. Nu vindem și nu partajăm datele tale.",
+      "Jurnalul tău este stocat criptat pe serverul {{BRAND}}, într-un fișier separat pentru fiecare cont. Parola în sine nu este stocată.",
+      "Aplicațiile și site-ul se conectează doar la serverul {{BRAND}}, mereu prin HTTPS.",
+      "Cât timp ești conectat, serverul îți deschide jurnalul în memoria sa, ca să ți-l poată afișa, căuta și analiza. Politica de confidențialitate explică simplu ce înseamnă asta.",
+      "Ia-ți jurnalul cu tine oricând: un fișier de backup criptat, pe care îl păstrezi tu, sau un export în TXT, CSV, JSON sau PDF.",
+      "Șterge-ți contul și toate datele lui oricând, din Setări."
+    ],
+    "policyLink": "Citește politica de confidențialitate"
+  },
+  "faq": {
+    "heading": "Întrebări și răspunsuri",
+    "lead": "Răspunsuri scurte despre {{BRAND}}: ce este și ce face, cum este păstrat și protejat jurnalul tău, contul tău și instalarea aplicațiilor.",
+    "groups": [
+      "Despre aplicație",
+      "Scrisul și funcțiile",
+      "Dispozitive și lucrul fără conexiune",
+      "Confidențialitate și securitate",
+      "Contul tău",
+      "Instalare și actualizare"
+    ],
+    "items": [
+      {
+        "q": "Ce este {{BRAND}}?",
+        "a": "Un jurnal privat. Scrii despre ziua ta cu propriile cuvinte și, dacă vrei, adaugi dispoziția, somnul, obiceiurile și altele. De-a lungul săptămânilor, lunilor și anilor, aplicația îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia. Funcționează în browser și ca aplicație pentru Windows, Android și Mac, cu un singur cont pentru toate."
+      },
+      {
+        "q": "Este gratuit?",
+        "a": "Da. {{BRAND}} este gratuit, fără reclame și fără cumpărături în aplicație. Dacă vom dori vreodată să cerem bani pentru ceva, vom anunța din timp și nimic nu devine contra cost fără acordul tău."
+      },
+      {
+        "q": "Cine îl publică?",
+        "a": "{{BRAND}} este publicat și administrat de {{PUBLISHER_NAME}}. Ca să ne contactezi, folosește [[contact|formularul de contact]] din partea de jos a acestei pagini sau scrie la adresa de e-mail afișată lângă el."
+      },
+      {
+        "q": "Ce dispozitive pot folosi?",
+        "a": "Un computer cu Windows 10 sau 11, un Mac cu macOS 12.3 sau o versiune ulterioară, un telefon Android cu Android 7.0 sau o versiune ulterioară și orice browser modern pe computer sau pe telefon. Fișierele de instalare se află pe pagina [[downloads|Descărcări]]. Aplicația pentru iPhone nu este încă disponibilă. Este un singur cont peste tot: ce scrii pe un dispozitiv apare și pe celelalte."
+      },
+      {
+        "q": "În ce limbi este disponibil?",
+        "a": "În 20 de limbi: engleză, ebraică, arabă, chineză (simplificată), japoneză, hindi, thailandeză, spaniolă, portugheză, franceză, italiană, germană, română, greacă, poloneză, cehă, maghiară, rusă, bulgară și turcă. Poți schimba limba oricând din Setări, iar contul tău îți păstrează alegerea. Ebraica și araba sunt afișate de la dreapta la stânga."
+      },
+      {
+        "q": "Este un instrument medical?",
+        "a": "Nu. {{BRAND}} este un instrument pentru jurnalul personal. Nu este un instrument medical sau de diagnostic, iar observațiile sale nu sunt sfaturi medicale sau psihologice. Dacă îți faci griji pentru sănătatea ta, vorbește cu un specialist calificat."
+      },
+      {
+        "q": "Pot să-l încerc fără cont?",
+        "a": "În aplicația Android, da. Pe primul ecran alege „Omite - vreau doar să arunc o privire” și explorează aplicația cu date de exemplu. Nimic din ce scrii acolo nu se salvează, iar turul se încheie singur după 30 de minute. În aplicațiile pentru Windows și Mac și în browser ai nevoie de un cont; crearea lui este gratuită."
+      },
+      {
+        "q": "Ce poate conține o însemnare?",
+        "a": "Un titlu și text liber, cu propriile cuvinte. Dacă vrei, adaugă dispoziția, emoțiile, energia, stresul, somnul, activitatea fizică, evenimentele importante, persoanele pe care le-ai întâlnit, un loc, notițe și etichete. Poți scrie mai multe însemnări pe zi. Fiecare zi are propria pagină, iar o cronologie arată întregul jurnal."
+      },
+      {
+        "q": "Cum funcționează obiceiurile și mementourile?",
+        "a": "Îți stabilești obiceiuri zilnice sau săptămânale, fiecare cu un obiectiv, și le bifezi pe parcurs. Aplicația îți arată câte zile la rând ai reușit și cât din obiectiv ai îndeplinit. Mementourile țin de obiceiuri: setezi ora pentru fiecare obicei pe pagina Obiceiuri și activezi mementourile din Setări, la Mementouri. Pe un telefon Android care permite notificări pentru aplicație, mementoul sosește chiar și când aplicația este închisă; pe computer și în browser apare cât timp jurnalul este deschis. Mementourile sunt create chiar pe dispozitiv; nu se trimite nimic în afară."
+      },
+      {
+        "q": "Ce sunt observațiile și cum văd cifrele din spatele unei observații?",
+        "a": "Observațiile sunt posibile legături pe care aplicația le găsește în propriile tale însemnări, de exemplu între somn și dispoziție sau între activitatea fizică și energie. Sunt formulate cu grijă și nu afirmă niciodată că un lucru îl cauzează pe altul. La fiecare observație, „De ce văd această observație?” arată câte zile au fost verificate și cifrele din spatele ei. Când nu există destule date, aplicația spune asta în loc să ghicească."
+      },
+      {
+        "q": "Ce calendare pot folosi?",
+        "a": "Trei: calendarul gregorian, cel ebraic și cel hijri (islamic). Alegi unul pe pagina Calendar, iar luna arată apoi numerele zilelor și sărbătorile acelui calendar. Datele și sărbătorile islamice urmează calendarul Umm al-Qura și se pot decala cu o zi."
+      },
+      {
+        "q": "Ce este căutarea inteligentă?",
+        "a": "O căutare care acceptă o întrebare în limba ta, de exemplu „În ce zile am dormit mai puțin de cinci ore?” sau „Când am scris că eram obosit?”. Aplicația arată cum a înțeles întrebarea, răspunsul și zilele și însemnările care se potrivesc. Întrebările primesc răspuns pe server și nu sunt păstrate acolo."
+      },
+      {
+        "q": "Ce arată statisticile?",
+        "a": "Grafice ale dispoziției, energiei, stresului, somnului, activității fizice și obiceiurilor tale în timp, pentru o perioadă aleasă de tine, de la ultimele 7 zile până la întregul jurnal. Fiecare grafic are un scurt rezumat în cuvinte și un tabel de date, ca cifrele să poată fi citite și fără grafic."
+      },
+      {
+        "q": "În ce formate îmi pot exporta jurnalul?",
+        "a": "TXT, CSV, JSON și PDF, pentru întregul jurnal sau pentru un interval de date. Un fișier CSV conține doar însemnările; celelalte formate pot include și obiceiurile. Un export este un fișier obișnuit, care se poate citi, nu unul criptat: oricine are fișierul îl poate citi, așa că păstrează-l cu aceeași grijă ca jurnalul însuși."
+      },
+      {
+        "q": "Funcționează fără conexiune la internet?",
+        "a": "Da, după ce te-ai conectat la cont. Dacă se întrerupe conexiunea, poți continua să citești și să scrii. Modificările tale se păstrează criptate pe dispozitivul tău și se încarcă automat când revine conexiunea, chiar dacă între timp ai închis aplicația. Cu „Ține-mă minte”, aplicațiile se deschid și fără conexiune și arată ce ai vizualizat recent. Crearea unui cont, conectarea, observațiile, căutarea, statisticile, backupul, exportul și modificările contului au nevoie de conexiune."
+      },
+      {
+        "q": "Îl pot folosi pe mai multe dispozitive?",
+        "a": "Da. Jurnalul tău este păstrat în contul tău pe serverul {{BRAND}}, așa că te conectezi cu același cont pe fiecare dispozitiv și găsești totul acolo. Ce modifici pe un dispozitiv apare pe celelalte când se conectează. În Setări, Dispozitive conectate arată dispozitivele pe care ești conectat și poți deconecta oricare dintre ele."
+      },
+      {
+        "q": "Ce se întâmplă dacă modific aceeași însemnare pe două dispozitive?",
+        "a": "Se păstrează modificarea mai nouă, iar aplicația îți spune asta într-un rând. Cealaltă versiune rămâne disponibilă pe acel dispozitiv până închizi nota: o poți citi, îi poți copia textul sau o poți salva ca însemnare nouă."
+      },
+      {
+        "q": "Îl pot folosi într-un browser, fără să instalez nimic?",
+        "a": "Da. [[webapp|Deschide versiunea web]] în orice browser modern, pe computer sau pe telefon, și conectează-te cu același cont. Browserul nu păstrează nicio copie a ce citești. Dacă se întrerupe conexiunea cât timp jurnalul este deschis, poți continua să scrii: modificările tale se păstrează criptate în browser și se încarcă atunci când revine conexiunea."
+      },
+      {
+        "q": "Ce face „Ține-mă minte”?",
+        "a": "Te menține conectat pe acel dispozitiv până la 90 de zile, în loc de 12 ore. În aplicațiile pentru Windows, Mac și Android păstrează și o copie criptată a ce ai vizualizat recent, ca aplicația să se poată deschide și să ți-o arate fără conexiune. Pe ecranele de conectare și de creare a contului este bifat de la început: pe un dispozitiv pe care îl folosesc și alte persoane, debifează-l și deconectează-te când termini."
+      },
+      {
+        "q": "Unde este păstrat jurnalul meu?",
+        "a": "În propriul tău cont pe serverul {{BRAND}}, într-un fișier criptat separat pentru fiecare cont. Serverul rulează la furnizorul de găzduire Fly.io, în centrul său de date din Frankfurt, Germania. Aplicațiile și browserul arată toate acest singur jurnal. [[privacy|Politica de confidențialitate]] spune exact ce se stochează și unde."
+      },
+      {
+        "q": "Cine îmi poate citi jurnalul?",
+        "a": "Tu, cu parola ta: fișierul jurnalului este criptat cu o cheie derivată din ea. Te rugăm totuși să cunoști limitele. Cât timp ești conectat, serverul are jurnalul tău deschis în memoria sa. Iar cine controlează serverul și secretele lui - operatorul și, în principiu, furnizorul de găzduire - ar putea, tehnic, să reseteze parola oricărui cont și să-i citească jurnalul fără să cunoască parola. Promitem să nu facem asta, nu avem niciun instrument pentru așa ceva, iar instrumentele noastre de administrare nu deschid niciodată un jurnal. Secțiunea 4 din [[privacy|Politica de confidențialitate]] explică simplu acest lucru."
+      },
+      {
+        "q": "Este criptat end-to-end?",
+        "a": "Nu. Jurnalul tău este criptat în fișierul său de pe server (AES-256-GCM, cu o cheie derivată din parola ta) și pe drumul până acolo (HTTPS). Dar cât timp ești conectat, serverul îl deschide în memoria sa ca să ți-l afișeze, să caute în el și să-l analizeze pentru tine. Serverul păstrează și o cheie de recuperare, ca „Ai uitat parola?” să funcționeze fără să-ți pierzi jurnalul; cu ea, cine controlează serverul ar putea, tehnic, să reseteze o parolă și să citească jurnalul. Dacă nu ești dispus să te bazezi pe promisiunea noastră că nu vom face asta, nu păstra în serviciu nimic din ce n-ai vrea să citească altcineva."
+      },
+      {
+        "q": "Există reclame sau urmărire?",
+        "a": "Nu. Nu există publicitate, analize de utilizare sau urmărire, nici în aplicații, nici în versiunea web, nici pe acest site. Nu vindem și nu partajăm datele tale, iar jurnalul tău nu este folosit niciodată pentru antrenarea vreunei inteligențe artificiale. Aplicațiile și versiunea web se conectează doar la serverul {{BRAND}}, întotdeauna prin HTTPS."
+      },
+      {
+        "q": "Cum se blochează jurnalul?",
+        "a": "Se blochează singur după o perioadă de inactivitate; alegi durata în Setări, la Securitate, iar „Blochează acum” îl blochează imediat. Parola ta îl deschide din nou. În aplicația Android îl poți face să se blocheze și ori de câte ori ieși din aplicație și îl poți deschide cu amprenta sau cu fața. Acolo unde o aplicație oferă blocarea ecranului dispozitivului tău în locul parolei (Windows Hello, Touch ID sau parola Mac-ului, ori blocarea ecranului Android), verificarea o face sistemul de operare: nimic despre amprenta, fața sau PIN-ul tău nu ajunge la aplicație sau la noi."
+      },
+      {
+        "q": "Ce fac dacă îmi uit parola?",
+        "a": "Pe ecranul de conectare alege „Ai uitat parola?” și introdu adresa de e-mail cu care te-ai înregistrat. Primești un mesaj cu un link și un cod din 6 cifre, valabile 30 de minute și utilizabile o singură dată. Dacă mesajul nu sosește în câteva minute, verifică dosarul de spam. Deschide linkul sau introdu codul în aplicație și alege o parolă nouă; apoi ești deconectat pe toate dispozitivele. Jurnalul tău se păstrează: nu se șterge nimic."
+      },
+      {
+        "q": "Cum fac backup jurnalului și cum îl restaurez?",
+        "a": "Deschide Backup din meniu (în aplicația Android, la Mai mult) și creează un fișier de backup: o copie criptată a întregului jurnal (însemnări, obiceiuri și setări), protejată cu o parolă, pe care o păstrezi unde vrei. Pentru restaurare, alege fișierul pe aceeași pagină și introdu parola lui. Restaurarea înlocuiește jurnalul actual cu conținutul fișierului, așa că mai întâi creează un backup al jurnalului actual."
+      },
+      {
+        "q": "Cum îmi șterg contul?",
+        "a": "Conectează-te, deschide Setări și mergi la ultimul card, Ștergerea contului: introdu parola și confirmă. Contul, jurnalul, obiceiurile și setările tale sunt șterse imediat de pe server și ești deconectat pe toate dispozitivele. Acest lucru nu poate fi anulat. Copiile din backupurile proprii ale serverului dispar în termenele indicate în [[privacy|Politica de confidențialitate]]. Dacă nu te poți conecta, [[delete|pagina de ștergere a contului]] explică ce ai de făcut."
+      },
+      {
+        "q": "Ce vârstă trebuie să am?",
+        "a": "Trebuie să ai cel puțin {{MINIMUM_AGE}} ani ca să creezi un cont. Dacă ești minor acolo unde locuiești, poți folosi serviciul doar cu acordul unui părinte sau tutore, acolo unde legea țării tale o cere."
+      },
+      {
+        "q": "De ce mă avertizează dispozitivul când instalez un fișier de pe acest site?",
+        "a": "Pentru că fișierul nu provine dintr-un magazin de aplicații, iar fișierele pentru Windows și Mac nu sunt încă semnate cu un certificat de editor. Windows poate afișa „Windows protected your PC” (Windows v-a protejat PC-ul): alege More info (Mai multe informații), apoi Run anyway (Rulați oricum). macOS nu deschide aplicația prima dată și poate chiar spune că este deteriorată: nu o muta în Coș, ci deschide Configurări sistem, apoi Confidențialitate și securitate (pe macOS 12: Preferințe sistem, apoi Securitate și confidențialitate) și alege Deschide oricum. Android îți cere să permiți browserului sau managerului de fișiere să instaleze aplicații (pe Android 7: Surse necunoscute). Pagina [[downloads|Descărcări]] are pașii pentru fiecare sistem și o sumă de control SHA-256 pentru fiecare fișier, ca să verifici că exemplarul tău nu a fost modificat."
+      },
+      {
+        "q": "Cum trec la o versiune nouă?",
+        "a": "Aplicațiile de pe acest site nu se actualizează singure. Când pagina [[downloads|Descărcări]] arată o versiune mai nouă, descarcă fișierul ei și instalează-l la fel ca prima dată; acesta înlocuiește versiunea pe care o ai. Jurnalul tău este păstrat în contul tău pe server, așa că o actualizare nu îl modifică. Dacă un telefon Android refuză să instaleze fișierul nou peste aplicația veche, verifică mai întâi că aplicația arată că toate modificările sunt salvate pe server, apoi dezinstalează aplicația veche și instalează fișierul nou."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Descărcări",
+    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea și în browser.",
+    "tabsLabel": "Sistem de operare",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Fișier",
+      "version": "Versiune",
+      "size": "Dimensiune"
+    },
+    "captions": {
+      "windows": "Fișiere de instalare pentru Windows, cea mai nouă versiune prima",
+      "android": "Fișiere de instalare pentru Android, cea mai nouă versiune prima",
+      "mac": "Fișiere de instalare pentru Mac, cea mai nouă versiune prima"
+    },
+    "requires": {
+      "windows": "Necesită Windows 10 sau Windows 11 (64 de biți).",
+      "android": "Necesită Android 7.0 sau o versiune ulterioară.",
+      "mac": "Necesită macOS 12.3 sau o versiune ulterioară, pe un Mac cu cip Apple sau cu procesor Intel."
+    },
+    "install": {
+      "windows": "Acest fișier de instalare nu provine din Microsoft Store și nu este încă semnat cu un certificat de editor. Browserul te poate avertiza mai întâi că fișierul nu este descărcat frecvent (alege să-l păstrezi), iar când îl deschizi, Windows poate afișa „Windows protected your PC” (Windows v-a protejat PC-ul): alege More info (Mai multe informații), apoi Run anyway (Rulați oricum). Programul de instalare îți cere limba și instalează aplicația pentru propriul tău cont Windows, fără parolă de administrator.",
+      "android": "Acest fișier se instalează direct, nu prin Google Play. Când deschizi fișierul descărcat, Android îți cere să permiți browserului sau managerului de fișiere să instaleze aplicații; pe Android 7 această setare se numește Surse necunoscute. Permite acest lucru, revino la fișier și alege Instalați.",
+      "mac": "Deschide imaginea de disc, trage aplicația în dosarul Aplicații și deschide-o de acolo. Aplicația nu este încă semnată cu un certificat de dezvoltator Apple, așa că prima dată macOS nu o deschide, iar mesajul poate chiar spune că aplicația este deteriorată. Nu o muta în Coș: închide mesajul, deschide Configurări sistem, apoi Confidențialitate și securitate, derulează în jos și alege Deschide oricum (pe macOS 12: Preferințe sistem, apoi Securitate și confidențialitate, apoi Deschide oricum), introdu parola Mac-ului dacă ți se cere și alege Deschide."
+    },
+    "checkFile": "Verifică fișierul",
+    "checkText": "Fiecare fișier are o sumă de control SHA-256. Dacă fișierul descărcat are alta, descărcarea este deteriorată sau fișierul a fost modificat: nu-l instala. Ca să vezi suma de control a unui fișier, tastează Get-FileHash și numele fișierului în Windows PowerShell sau shasum -a 256 și numele fișierului în Terminal pe Mac. Nu contează dacă literele sunt mari sau mici.",
+    "moreHeading": "Browser și iPhone",
+    "web": "Nimic de instalat: {{BRAND}} funcționează și în orice browser modern, pe computer sau pe telefon. [[webapp|Deschide-l în browser]].",
+    "iphone": "Nu există fișier de instalare pentru iPhone: aplicațiile pentru iPhone se instalează din App Store. Aplicația pentru iPhone nu este încă disponibilă.",
+    "iphoneStore": "Pe iPhone, aplicația se instalează din App Store.",
+    "storeLinks": {
+      "googlePlay": "Disponibil pe Google Play",
+      "appStoreIphone": "Descarcă din App Store",
+      "appStoreMac": "Descarcă din Mac App Store",
+      "microsoftStore": "Obține din Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Contactează-ne",
+    "lead": "Ai întrebări, păreri sau o problemă? Scrie-ne prin e-mail sau completează formularul și îți răspundem prin e-mail.",
+    "required": "Toate câmpurile sunt obligatorii.",
+    "firstName": "Prenume",
+    "lastName": "Nume",
+    "email": "Adresă de e-mail",
+    "message": "Mesajul tău",
+    "honeypot": "Lasă acest câmp gol",
+    "notice": "Numele, adresa de e-mail și mesajul tău ne sunt trimise prin e-mail, ca să-ți putem răspunde. Nu sunt stocate pe server. Mai multe în [[privacy|Politica de confidențialitate]].",
+    "send": "Trimite",
+    "sentTitle": "Mesajul tău a fost trimis",
+    "sentText": "Îți mulțumim că ne-ai scris. Îți vom răspunde prin e-mail, la adresa pe care ai indicat-o. Răspundem în cel mult 30 de zile, de obicei mult mai repede.",
+    "errorTitle": "Mesajul tău nu a fost trimis",
+    "errorText": "Ceva n-a mers bine și mesajul tău nu a ajuns la noi. Te rugăm să revii, să verifici adresa de e-mail și să încerci din nou puțin mai târziu sau să ne scrii prin e-mail: {{CONTACT_EMAIL}}",
+    "backHome": "Înapoi la pagina principală"
+  },
+  "footer": {
+    "languagesLabel": "Toate limbile",
+    "change": "Schimbă",
+    "rights": "Toate drepturile rezervate."
+  }
+}

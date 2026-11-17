@@ -13,7 +13,7 @@ Yürürlük tarihi: {{EFFECTIVE_DATE}}
 
 - Your Personal Diary, beş girişi olan tek bir hizmettir: **Android uygulaması** (Google Play), **Windows uygulaması** (Microsoft Store veya kurulum dosyası), **Mac uygulaması** (indirme veya Mac App Store), **iPhone uygulaması** (App Store, yayımlandığında) ve **web sitesi** [{{SITE_URL}}]({{SITE_URL}}). Hepsi aynı sunucuyu ve aynı hesabı kullanır.
 - Günlüğünüz, sunucumuzda parolanızdan türetilen bir anahtarla şifrelenmiş bir dosyada saklanır. Hesap bilgileriniz de orada saklanır.
-- Verilerinizi yalnızca günlüğünüzü sizin için çalıştırmak amacıyla kullanırız. Reklam yok, analiz yok, izleme yok; verilerinizi satmayız ve paylaşmayız.
+- Verilerinizi yalnızca günlüğünüzü sizin için çalıştırmak ve bize yazdığınızda size yanıt vermek amacıyla kullanırız. Reklam yok, analiz yok, izleme yok; verilerinizi satmayız ve paylaşmayız.
 - Lütfen sınırları bilin: oturumunuz açıkken sunucu günlüğünüzü belleğinde açık tutar ve sunucunun işletmecisi teknik olarak parolanızı sıfırlayıp günlüğünüzü okuyabilir. Bölüm 4 bunu açıkça anlatır.
 - Hesabınızı ve günlüğünüzü istediğiniz zaman **Ayarlar - Hesabı sil** bölümünden silebilirsiniz.
 
@@ -38,12 +38,13 @@ Sunucu, barındırma sağlayıcısı Fly.io'nun **Frankfurt, Almanya'daki (Avrup
 
 **Tur** (Android uygulamasındaki "Atla - sadece göz atmak istiyorum") örnek verilerle geçici bir misafir günlüğü oluşturur. Bu günlük yalnızca sunucunun belleğinde bulunur, 30 dakika sonra kendiliğinden sona erer ve asla saklanmaz.
 
-Her web sitesinde olduğu gibi, cihazınız bağlandığında sunucu ve barındırma sağlayıcısı cihazınızın IP adresini alır. Sunucu bunu yalnızca kendi belleğinde kullanır: tek bir ağdan kaç istek gelebileceğini sınırlamak (oturum açma, kayıt ve hesabın diğer işlevleri, parola sıfırlama, tur ve yedekler) ve oturum açma kilidi için. Bu sayaçlar en fazla son 24 saati kapsar; adres hiçbir zaman teknik günlüğe veya depolamaya yazılmaz.
+Her web sitesinde olduğu gibi, cihazınız bağlandığında sunucu ve barındırma sağlayıcısı cihazınızın IP adresini alır. Sunucu bunu yalnızca kendi belleğinde kullanır: tek bir ağdan kaç istek gelebileceğini sınırlamak (oturum açma, kayıt ve hesabın diğer işlevleri, parola sıfırlama, tur, yedekler ve web sitemizdeki iletişim formu) ve oturum açma kilidi için. Bu sayaçlar en fazla son 24 saati kapsar; adres hiçbir zaman teknik günlüğe veya depolamaya yazılmaz.
 
 ## 3. Verilerinizi nasıl kullanıyoruz
 
 - **Hizmeti sunmak için:** oturum açma, günlüğünüzü saklama ve tüm cihazlarınızda aynı tutma, arama, kendi kayıtlarınızla ilgili istatistikler ve içgörüler, yedeklemeler, dışa aktarmalar ve hatırlatıcılar. Arama soruları sunucuda yanıtlanır ve orada saklanmaz.
 - **E-posta:** yalnızca parola sıfırlama iletileriniz ve güvenlik bildirimleri için (parolanız bir sıfırlama iletisiyle değiştirildi; hesabınızın e-posta adresi değiştirildi). Bunlar hesap bilgilerinizle birlikte saklanan dilde yazılır; sunucu bunları yazmak için günlüğünüzü açmaz. Bülten yok, pazarlama yok.
+- **Web sitemizdeki iletişim formu:** forma yazdığınız ad, soyad, e-posta adresi ve mesaj, sayfanın dili ve gönderilme zamanıyla birlikte e-postayla posta kutumuza gönderilir. Sunucuda saklanmazlar. Bunları yalnızca size yanıt vermek için kullanırız ve yazışmayı posta kutumuzda yalnızca bunun için gerektiği sürece saklarız. Sunucu, diğer işlevlerde olduğu gibi (bölüm 2), tek bir ağ adresinden kaç mesaj geldiğini belleğinde sayar. Hukuki dayanak, size yanıt verme konusundaki meşru menfaatimizdir (GDPR madde 6(1)(f)).
 - **Asla:** reklam yok, analiz veya izleme aracı yok, profil çıkarma yok, veri satışı yok ve günlüğünüz hiçbir yapay zekâyı eğitmek için kullanılmaz.
 
 Hukuki dayanak (Avrupa Birliği'ndeki kullanıcılar ve benzer yasalar için): verilerinizi, kaydolduğunuz hizmeti sunmak (sözleşmenin ifası, GDPR madde 6(1)(b)) ve güvenliğini sağlamak (meşru menfaatimiz, madde 6(1)(f): deneme sınırları, kilitlemeler, teknik günlük) için işleriz. Yazmayı seçerseniz günlüğünüz hassas bilgiler içerebilir; örneğin sağlığınız veya inançlarınız hakkında. Bunları yalnızca sizin için saklamak ve size göstermek amacıyla işleriz, çünkü onları yazarak bunu bizden istemiş olursunuz (açık rızanız, madde 9(2)(a)); kayıtları düzenleyerek veya silerek bunları istediğiniz zaman kaldırabilirsiniz (eski metnin nasıl silindiğini bölüm 7 açıklar).
@@ -87,7 +88,7 @@ Kendi oluşturduğunuz dosyalar: **yedek** bir parolayla şifrelenir; **dışa a
 İki hizmet sağlayıcı kullanıyoruz. Bunlar verileri yalnızca bizim adımıza, hizmeti çalıştırmak için işler:
 
 - **Fly.io, Inc.** (Amerika Birleşik Devletleri) - sunucunun Frankfurt, Almanya'da barındırılması. Sistemlerinde şifreli günlük dosyaları, hesap bilgileri ve Bölüm 2'deki diğer veriler bulunur; IP adresleri gibi bağlantı verilerini alır. Fly.io bir ABD şirketi olduğundan verilere Avrupa Birliği dışından erişebilir; bu, şirketin veri işleme koşullarıyla düzenlenir. Gizlilik politikası: `fly.io/legal/privacy-policy`.
-- **Google (Gmail)** - parola sıfırlama iletilerini ve güvenlik bildirimlerini gönderir. Google iletiyi, e-posta adresinizi ve iletideki ad ile kullanıcı adını alır. Bir ileti asla günlüğünüzden bir şey içermez. Google'ın gizlilik politikası: `policies.google.com/privacy`.
+- **Google (Gmail)** - parola sıfırlama iletilerini ve güvenlik bildirimlerini gönderir. Google iletiyi, e-posta adresinizi ve iletideki ad ile kullanıcı adını alır. Bir ileti asla günlüğünüzden bir şey içermez. Web sitemizdeki iletişim formundan gelen mesajlar (bölüm 3) da Gmail ile gönderilir ve posta kutumuz bir Gmail posta kutusudur; bu yüzden Google forma yazdıklarınızı - adınızı, soyadınızı, e-posta adresinizi ve mesajınızı - sayfanın dili ve gönderilme zamanıyla birlikte alır. Google'ın gizlilik politikası: `policies.google.com/privacy`.
 
 Uygulamaları indirdiğinizde uygulama mağazaları da kendi gizlilik politikalarına göre veri işler: Android uygulaması için **Google Play**, Windows uygulaması için **Microsoft Store**, iPhone ve Mac uygulamaları için Apple'ın **App Store** ve **Mac App Store** mağazaları (örneğin sistemlerinin topladığı yüklemeler, puanlar ve kilitlenme raporları). Uygulamalar, onlara veri gönderen ne onların ne de başka birinin kodunu içerir.
 

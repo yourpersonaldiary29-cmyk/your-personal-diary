@@ -150,6 +150,12 @@ export interface HostedEnv {
    */
   offlineSync: boolean;
   /**
+   * The contact form of the public site (docs/site-tasks/SITE.md section 5; hosted/contact.ts):
+   * `DIARY_CONTACT_FORM=off` is the switch - `POST /api/contact` stays mounted and answers every
+   * message with the site's "your message was not sent" page, and no e-mail is sent. Unset or `on` = on.
+   */
+  contactForm: boolean;
+  /**
    * `DIARY_ADMIN_TOKEN_FILE`: where the per-boot token of the loopback admin API is written (an
    * absolute path; docs/HOSTED-PLAN.md 3.10). Unset = `<dataDir>/.admin-token`, which is also where the
    * operator tool (/app/admin.cjs) looks by default.
@@ -277,6 +283,8 @@ export function loadHostedEnv(env: NodeJS.ProcessEnv = process.env): HostedEnv {
   const bind = (env.DIARY_BIND ?? '0.0.0.0').trim() || '0.0.0.0';
   const offlineSyncRaw = (env.DIARY_OFFLINE_SYNC ?? '').trim();
   if (offlineSyncRaw !== '' && offlineSyncRaw !== '0' && offlineSyncRaw !== '1') throw new Error('DIARY_OFFLINE_SYNC must be 0 or 1');
+  const contactFormRaw = (env.DIARY_CONTACT_FORM ?? '').trim().toLowerCase();
+  if (contactFormRaw !== '' && contactFormRaw !== 'on' && contactFormRaw !== 'off') throw new Error('DIARY_CONTACT_FORM must be on or off');
   const adminTokenFile = (env.DIARY_ADMIN_TOKEN_FILE ?? '').trim();
   if (adminTokenFile && !path.isAbsolute(adminTokenFile)) throw new Error('DIARY_ADMIN_TOKEN_FILE must be an absolute path');
   return {
@@ -304,6 +312,7 @@ export function loadHostedEnv(env: NodeJS.ProcessEnv = process.env): HostedEnv {
     guestMinutes: intEnv(env, 'DIARY_GUEST_MINUTES', HOSTED_DEFAULTS.guestMinutes, 1),
     guestsPerHour: intEnv(env, 'DIARY_GUESTS_PER_HOUR', HOSTED_DEFAULTS.guestsPerHour, 1),
     offlineSync: offlineSyncRaw !== '0',
+    contactForm: contactFormRaw !== 'off',
     ...(adminTokenFile ? { adminTokenFile } : {}),
   };
 }

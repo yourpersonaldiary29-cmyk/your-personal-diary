@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - ein privates Tagebuch mit Gewohnheiten und behutsamen Erkenntnissen",
+  "description": "Schreib über deinen Tag, behalte deine Stimmung und deine Gewohnheiten im Blick und erkenne mit der Zeit Muster. Ein privates Tagebuch in 20 Sprachen. Kostenlos, ohne Werbung und ohne Tracking.",
+  "skipLink": "Zum Inhalt springen",
+  "languagesLabel": "Sprache",
+  "nav": {
+    "label": "Menü der Website",
+    "about": "Über die App",
+    "terms": "Nutzungsbedingungen",
+    "faq": "Fragen und Antworten",
+    "privacy": "Datenschutzerklärung",
+    "downloads": "Downloads",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "heading": "Ein privates Tagebuch, das dir hilft, deine eigenen Muster zu erkennen",
+    "lead": "Schreib in deinen eigenen Worten über deinen Tag. Wenn du möchtest, ergänze Stimmung, Schlaf und Gewohnheiten. Über Wochen, Monate und Jahre macht dich {{BRAND}} auf Muster in deinen eigenen Einträgen aufmerksam und zeigt zu jedem Muster die Zahlen dahinter.",
+    "openAction": "Im Browser öffnen",
+    "note": "Kostenlos. Keine Werbung, keine Nutzungsanalyse, kein Tracking."
+  },
+  "features": {
+    "heading": "Was du damit machen kannst",
+    "items": [
+      {
+        "title": "Deinen Tag festhalten",
+        "text": "Einträge in deinen eigenen Worten. Wenn du möchtest, ergänze Stimmung, Gefühle, Energie, Stress, Schlaf, Bewegung, Personen, Ort und Schlagwörter. Jeder Tag hat seine eigene Seite, und eine Zeitleiste zeigt das ganze Tagebuch."
+      },
+      {
+        "title": "Gewohnheiten und Erinnerungen",
+        "text": "Tägliche und wöchentliche Gewohnheiten, die du im Laufe des Tages abhakst, mit Serien und Fortschritt. Optionale Erinnerungen, je Gewohnheit zur Uhrzeit deiner Wahl."
+      },
+      {
+        "title": "Behutsame Erkenntnisse",
+        "text": "Die App sucht in deinen eigenen Daten nach möglichen Zusammenhängen, zum Beispiel zwischen Schlaf und Stimmung. Erkenntnisse sind vorsichtig formuliert und behaupten nie, dass das eine das andere verursacht. Wenn die Daten nicht ausreichen, sagt die App das, statt zu raten."
+      },
+      {
+        "title": "Kalender",
+        "text": "Ein Monatskalender nach gregorianischem, hebräischem oder islamischem Kalender (Hidschri), mit den Feiertagen des gewählten Kalenders."
+      },
+      {
+        "title": "Statistiken und intelligente Suche",
+        "text": "Diagramme zu Stimmung, Energie, Stress, Schlaf und Gewohnheiten im Zeitverlauf, jedes mit einer Datentabelle. Stell eine Frage in deiner Sprache, etwa „An welchen Tagen habe ich weniger als fünf Stunden geschlafen?“, und erhalte die Antwort aus deinem Tagebuch."
+      },
+      {
+        "title": "Funktioniert offline und synchronisiert sich",
+        "text": "Ein Konto, dasselbe Tagebuch auf jedem Gerät. Wenn die Verbindung abbricht, lies und schreib einfach weiter: Deine Änderungen werden verschlüsselt auf deinem Gerät gespeichert und hochgeladen, sobald die Verbindung zurück ist."
+      },
+      {
+        "title": "20 Sprachen",
+        "text": "Die ganze App in 20 Sprachen. Die Sprache kannst du jederzeit in den Einstellungen ändern. Hebräisch und Arabisch werden von rechts nach links angezeigt."
+      },
+      {
+        "title": "Barrierefreiheit",
+        "text": "Funktioniert mit Screenreadern: klare Überschriften, beschriftete Felder und angesagte Statusmeldungen. Helles, dunkles und kontrastreiches Design, anpassbare Textgröße und eine Option, Bewegung zu reduzieren. Am Computer lässt sich alles mit der Tastatur bedienen."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "So sieht es aus",
+    "items": [
+      {
+        "caption": "Startseite: heute auf einen Blick",
+        "alt": "Die Startseite auf einem Smartphone: eine Begrüßung mit dem Datum, die Zahl der heutigen Einträge, die Schreibserie und die Durchschnittswerte der letzten sieben Tage."
+      },
+      {
+        "caption": "Ein Eintrag: deine Worte, mit Stimmung, Schlaf und mehr",
+        "alt": "Ein Eintrag auf einem Smartphone: Titel und Datum, die Bewertungen für Stimmung, Energie, Stress und Schlaf, der Sport, die Gefühle und der freie Text."
+      },
+      {
+        "caption": "Gewohnheiten: Ziele, Serien und Fortschritt",
+        "alt": "Die Gewohnheiten auf einem Smartphone: eine Gewohnheit mit ihrem täglichen Ziel, ihrer aktuellen Serie, der Erfüllung in den letzten 30 Tagen und der Menge für heute."
+      },
+      {
+        "caption": "Erkenntnisse: vorsichtig formuliert, mit den Zahlen dahinter",
+        "alt": "Die Erkenntnisse auf einem Smartphone: zwei Trends aus dem letzten Monat, beide als schwaches Muster gekennzeichnet, mit dem geprüften Zeitraum und einer Schaltfläche, die die Erkenntnis erklärt."
+      },
+      {
+        "caption": "Dasselbe Tagebuch am Computer",
+        "alt": "Die Startseite auf einem Computer: das Menü mit allen Bereichen, die Übersicht über den heutigen Tag und die Durchschnittswerte der letzten sieben Tage."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Deine Privatsphäre",
+    "lead": "Ein Tagebuch ist persönlich. Das passiert mit deinem.",
+    "items": [
+      "Keine Werbung, keine Nutzungsanalyse und kein Tracking. Wir verkaufen oder teilen deine Daten nicht.",
+      "Dein Tagebuch wird verschlüsselt auf dem Server von {{BRAND}} gespeichert, in einer eigenen Datei für jedes Konto. Dein Passwort selbst wird nicht gespeichert.",
+      "Die Apps und die Website verbinden sich ausschließlich mit dem Server von {{BRAND}}, immer über HTTPS.",
+      "Solange du angemeldet bist, öffnet der Server dein Tagebuch in seinem Arbeitsspeicher, um es dir anzuzeigen, zu durchsuchen und auszuwerten. Die Datenschutzerklärung erklärt in klaren Worten, was das bedeutet.",
+      "Nimm dein Tagebuch jederzeit mit: als verschlüsselte Backup-Datei, die du selbst aufbewahrst, oder als Export im Format TXT, CSV, JSON oder PDF.",
+      "Lösche dein Konto und alle seine Daten jederzeit in den Einstellungen."
+    ],
+    "policyLink": "Datenschutzerklärung lesen"
+  },
+  "faq": {
+    "heading": "Fragen und Antworten",
+    "lead": "Kurze Antworten zu {{BRAND}}: was es ist und was es kann, wie dein Tagebuch aufbewahrt und geschützt wird, dein Konto und die Installation der Apps.",
+    "groups": [
+      "Über die App",
+      "Schreiben und Funktionen",
+      "Geräte und Offline-Nutzung",
+      "Datenschutz und Sicherheit",
+      "Dein Konto",
+      "Installieren und Aktualisieren"
+    ],
+    "items": [
+      {
+        "q": "Was ist {{BRAND}}?",
+        "a": "Ein privates Tagebuch. Du schreibst in deinen eigenen Worten über deinen Tag und ergänzt, wenn du möchtest, Stimmung, Schlaf, Gewohnheiten und mehr. Über Wochen, Monate und Jahre macht dich die App auf Muster in deinen eigenen Einträgen aufmerksam und zeigt zu jedem Muster die Zahlen dahinter. Es läuft im Browser und als App für Windows, Android und Mac, mit einem Konto für alle."
+      },
+      {
+        "q": "Ist es kostenlos?",
+        "a": "Ja. {{BRAND}} ist kostenlos, ohne Werbung und ohne Käufe in der App. Sollten wir jemals für etwas Geld verlangen wollen, sagen wir es vorher, und nichts wird ohne deine Zustimmung kostenpflichtig."
+      },
+      {
+        "q": "Wer gibt die App heraus?",
+        "a": "{{BRAND}} wird von {{PUBLISHER_NAME}} herausgegeben und betrieben. Um uns zu erreichen, nutze das [[contact|Kontaktformular]] unten auf dieser Seite oder schreib an die E-Mail-Adresse, die dort angegeben ist."
+      },
+      {
+        "q": "Welche Geräte kann ich nutzen?",
+        "a": "Einen Computer mit Windows 10 oder 11, einen Mac mit macOS 12.3 oder neuer, ein Android-Smartphone mit Android 7.0 oder neuer und jeden modernen Browser auf einem Computer oder Smartphone. Die Installationsdateien findest du auf der Seite [[downloads|Downloads]]. Die iPhone-App ist noch nicht verfügbar. Es ist überall ein und dasselbe Konto: Was du auf einem Gerät schreibst, erscheint auf den anderen."
+      },
+      {
+        "q": "In welchen Sprachen gibt es die App?",
+        "a": "In 20 Sprachen: Englisch, Hebräisch, Arabisch, Chinesisch (vereinfacht), Japanisch, Hindi, Thai, Spanisch, Portugiesisch, Französisch, Italienisch, Deutsch, Rumänisch, Griechisch, Polnisch, Tschechisch, Ungarisch, Russisch, Bulgarisch und Türkisch. Die Sprache kannst du jederzeit in den Einstellungen ändern, und dein Konto merkt sich deine Wahl. Hebräisch und Arabisch werden von rechts nach links angezeigt."
+      },
+      {
+        "q": "Ist das ein medizinisches Werkzeug?",
+        "a": "Nein. {{BRAND}} ist ein Werkzeug für dein persönliches Tagebuch. Es ist kein medizinisches oder diagnostisches Werkzeug, und seine Erkenntnisse sind keine medizinische oder psychologische Beratung. Wenn du dir Sorgen um deine Gesundheit machst, sprich bitte mit einer qualifizierten Fachperson."
+      },
+      {
+        "q": "Kann ich es ohne Konto ausprobieren?",
+        "a": "In der Android-App ja. Wähle auf dem ersten Bildschirm „Überspringen - nur umsehen“ und sieh dir die App mit Beispieldaten an. Nichts, was du dort schreibst, wird gespeichert, und der Rundgang endet nach 30 Minuten von selbst. In der Windows- und der Mac-App und im Browser brauchst du ein Konto; es zu erstellen ist kostenlos."
+      },
+      {
+        "q": "Was kann ein Tagebucheintrag enthalten?",
+        "a": "Einen Titel und freien Text in deinen eigenen Worten. Wenn du möchtest, ergänze Stimmung, Gefühle, Energie, Stress, Schlaf, Bewegung, wichtige Ereignisse, die Menschen, die du getroffen hast, einen Ort, Notizen und Schlagwörter. Du kannst mehr als einen Eintrag pro Tag schreiben. Jeder Tag hat seine eigene Seite, und eine Zeitleiste zeigt das ganze Tagebuch."
+      },
+      {
+        "q": "Wie funktionieren Gewohnheiten und Erinnerungen?",
+        "a": "Du legst tägliche oder wöchentliche Gewohnheiten an, jede mit einem Ziel, und hakst sie nach und nach ab. Die App zeigt deine Serie und wie viel vom Ziel du geschafft hast. Erinnerungen gehören zu Gewohnheiten: Die Uhrzeit legst du für jede Gewohnheit auf der Seite „Gewohnheiten“ fest, und in den Einstellungen unter „Erinnerungen“ schaltest du die Erinnerungen ein. Auf einem Android-Smartphone, das Benachrichtigungen für die App erlaubt, kommt eine Erinnerung auch dann an, wenn die App geschlossen ist; am Computer und im Browser erscheint sie, solange das Tagebuch geöffnet ist. Erinnerungen entstehen auf dem Gerät selbst; es wird nichts nach außen gesendet."
+      },
+      {
+        "q": "Was sind Erkenntnisse, und wie sehe ich die Zahlen dahinter?",
+        "a": "Erkenntnisse sind mögliche Zusammenhänge, die die App in deinen eigenen Einträgen findet, zum Beispiel zwischen Schlaf und Stimmung oder zwischen Bewegung und Energie. Sie sind vorsichtig formuliert und behaupten nie, dass das eine das andere verursacht. Bei jeder Erkenntnis zeigt „Warum sehe ich diese Erkenntnis?“, wie viele Tage geprüft wurden und welche Zahlen dahinterstehen. Wenn die Daten nicht ausreichen, sagt die App das, statt zu raten."
+      },
+      {
+        "q": "Welche Kalender kann ich nutzen?",
+        "a": "Drei: den gregorianischen, den hebräischen und den islamischen Kalender (Hidschri). Du wählst einen auf der Seite „Kalender“, und der Monat zeigt dann die Tageszahlen und die Feiertage dieses Kalenders. Islamische Daten und Feiertage richten sich nach dem Umm-al-Qura-Kalender und können sich um einen Tag verschieben."
+      },
+      {
+        "q": "Was ist die intelligente Suche?",
+        "a": "Eine Suche, der du eine Frage in deiner Sprache stellst, etwa „An welchen Tagen habe ich weniger als fünf Stunden geschlafen?“ oder „Wann habe ich geschrieben, dass ich müde war?“. Die App zeigt, wie sie die Frage verstanden hat, die Antwort und die passenden Tage und Einträge. Fragen werden auf dem Server beantwortet und dort nicht gespeichert."
+      },
+      {
+        "q": "Was zeigen die Statistiken?",
+        "a": "Diagramme zu Stimmung, Energie, Stress, Schlaf, Bewegung und Gewohnheiten im Zeitverlauf, für einen Zeitraum deiner Wahl, von den letzten 7 Tagen bis zum ganzen Tagebuch. Zu jedem Diagramm gibt es eine kurze Zusammenfassung in Worten und eine Datentabelle, sodass sich die Zahlen auch ohne das Diagramm lesen lassen."
+      },
+      {
+        "q": "In welchen Formaten kann ich mein Tagebuch exportieren?",
+        "a": "TXT, CSV, JSON und PDF, für das ganze Tagebuch oder für einen Zeitraum. Eine CSV-Datei enthält nur die Einträge; die anderen Formate können auch deine Gewohnheiten enthalten. Ein Export ist eine gewöhnliche lesbare Datei, keine verschlüsselte: Jeder, der die Datei hat, kann sie lesen. Bewahre sie deshalb so sorgfältig auf wie das Tagebuch selbst."
+      },
+      {
+        "q": "Funktioniert es offline?",
+        "a": "Ja, sobald du angemeldet bist. Wenn die Verbindung abbricht, kannst du weiterlesen und weiterschreiben. Deine Änderungen werden verschlüsselt auf deinem Gerät gespeichert und automatisch hochgeladen, sobald die Verbindung zurück ist, auch wenn du die App zwischendurch geschlossen hast. Mit „Angemeldet bleiben“ lassen sich die Apps auch ohne Verbindung öffnen und zeigen, was du dir zuletzt angesehen hast. Konto erstellen, Anmelden, Erkenntnisse, Suche, Statistiken, Backup, Export und Änderungen an deinem Konto brauchen eine Verbindung."
+      },
+      {
+        "q": "Kann ich es auf mehreren Geräten nutzen?",
+        "a": "Ja. Dein Tagebuch liegt in deinem Konto auf dem Server von {{BRAND}}. Du meldest dich also auf jedem Gerät mit demselben Konto an, und alles ist da. Was du auf einem Gerät änderst, erscheint auf den anderen, sobald sie sich verbinden. In den Einstellungen zeigt „Verbundene Geräte“ die angemeldeten Geräte, und du kannst jedes davon trennen."
+      },
+      {
+        "q": "Was passiert, wenn ich denselben Eintrag auf zwei Geräten ändere?",
+        "a": "Die neuere Änderung bleibt erhalten, und die App sagt es dir in einer Zeile. Die andere Fassung bleibt auf diesem Gerät verfügbar, bis du den Hinweis schließt: Du kannst sie lesen, ihren Text kopieren oder sie als neuen Eintrag speichern."
+      },
+      {
+        "q": "Kann ich es im Browser nutzen, ohne etwas zu installieren?",
+        "a": "Ja. [[webapp|Öffne die Webversion]] in einem beliebigen modernen Browser, auf einem Computer oder Smartphone, und melde dich mit demselben Konto an. Der Browser bewahrt keine Kopie dessen auf, was du liest. Wenn die Verbindung abbricht, während das Tagebuch geöffnet ist, kannst du weiterschreiben: Deine Änderungen werden verschlüsselt im Browser gespeichert und hochgeladen, sobald die Verbindung zurück ist."
+      },
+      {
+        "q": "Was bewirkt „Angemeldet bleiben“?",
+        "a": "Du bleibst auf diesem Gerät bis zu 90 Tage angemeldet statt 12 Stunden. In der Windows-, der Mac- und der Android-App wird außerdem eine verschlüsselte Kopie dessen aufbewahrt, was du dir zuletzt angesehen hast, damit die App sich ohne Verbindung öffnen und es anzeigen kann. Auf den Bildschirmen zum Anmelden und Registrieren ist das Häkchen zunächst gesetzt: Entferne es auf einem Gerät, das auch andere benutzen, und melde dich ab, wenn du fertig bist."
+      },
+      {
+        "q": "Wo liegt mein Tagebuch?",
+        "a": "In deinem eigenen Konto auf dem Server von {{BRAND}}, in einer eigenen verschlüsselten Datei für jedes Konto. Der Server läuft beim Hosting-Anbieter Fly.io in dessen Rechenzentrum in Frankfurt, Deutschland. Die Apps und der Browser zeigen alle dieses eine Tagebuch. Die [[privacy|Datenschutzerklärung]] sagt genau, was wo gespeichert wird."
+      },
+      {
+        "q": "Wer kann mein Tagebuch lesen?",
+        "a": "Du, mit deinem Passwort: Die Tagebuchdatei ist mit einem daraus abgeleiteten Schlüssel verschlüsselt. Du solltest aber die Grenzen kennen. Solange du angemeldet bist, hält der Server dein Tagebuch geöffnet in seinem Arbeitsspeicher. Und wer den Server und seine Geheimnisse kontrolliert - der Betreiber und grundsätzlich der Hosting-Anbieter -, könnte technisch das Passwort jedes Kontos zurücksetzen und dessen Tagebuch lesen, ohne das Passwort zu kennen. Wir versprechen, das nicht zu tun, wir haben kein Werkzeug dafür, und unsere Verwaltungswerkzeuge öffnen nie ein Tagebuch. Abschnitt 4 der [[privacy|Datenschutzerklärung]] erklärt das in klaren Worten."
+      },
+      {
+        "q": "Ist es Ende-zu-Ende-verschlüsselt?",
+        "a": "Nein. Dein Tagebuch ist in seiner Datei auf dem Server verschlüsselt (AES-256-GCM, mit einem aus deinem Passwort abgeleiteten Schlüssel) und auf dem Weg dorthin (HTTPS). Aber solange du angemeldet bist, öffnet der Server es in seinem Arbeitsspeicher, um es dir anzuzeigen, zu durchsuchen und auszuwerten. Der Server bewahrt außerdem einen Wiederherstellungsschlüssel auf, damit „Passwort vergessen?“ funktioniert, ohne dass dein Tagebuch verloren geht; damit könnte, wer den Server kontrolliert, technisch ein Passwort zurücksetzen und das Tagebuch lesen. Wenn du dich nicht auf unser Versprechen verlassen möchtest, das nicht zu tun, bewahre im Dienst nichts auf, das niemand sonst lesen soll."
+      },
+      {
+        "q": "Gibt es Werbung oder Tracking?",
+        "a": "Nein. Es gibt keine Werbung, keine Nutzungsanalyse und kein Tracking, weder in den Apps noch in der Webversion noch auf dieser Website. Wir verkaufen oder teilen deine Daten nicht, und dein Tagebuch wird nie zum Training einer KI verwendet. Die Apps und die Webversion verbinden sich ausschließlich mit dem Server von {{BRAND}}, immer über HTTPS."
+      },
+      {
+        "q": "Wie wird das Tagebuch gesperrt?",
+        "a": "Es sperrt sich nach einer Zeit ohne Aktivität selbst; die Dauer wählst du in den Einstellungen unter „Sicherheit“, und „Jetzt sperren“ sperrt es sofort. Mit deinem Passwort öffnest du es wieder. In der Android-App kannst du es außerdem jedes Mal sperren lassen, wenn du die App verlässt, und es mit Fingerabdruck oder Gesicht entsperren. Wo eine App statt des Passworts die Bildschirmsperre deines Geräts anbietet (Windows Hello, Touch ID oder das Mac-Passwort oder die Bildschirmsperre unter Android), erfolgt die Prüfung durch das Betriebssystem: Nichts über deinen Fingerabdruck, dein Gesicht oder deine PIN erreicht die App oder uns."
+      },
+      {
+        "q": "Was ist, wenn ich mein Passwort vergesse?",
+        "a": "Wähle auf dem Anmeldebildschirm „Passwort vergessen?“ und gib die E-Mail-Adresse ein, mit der du dich registriert hast. Du erhältst eine Nachricht mit einem Link und einem 6-stelligen Code, die 30 Minuten lang gültig sind und nur einmal verwendet werden können. Falls die Nachricht nicht innerhalb weniger Minuten ankommt, sieh im Spam-Ordner nach. Öffne den Link oder gib den Code in der App ein und wähle ein neues Passwort; danach bist du auf allen Geräten abgemeldet. Dein Tagebuch bleibt erhalten: Nichts wird gelöscht."
+      },
+      {
+        "q": "Wie sichere ich mein Tagebuch und stelle es wieder her?",
+        "a": "Öffne im Menü „Backup“ (in der Android-App unter „Mehr“) und erstelle eine Backup-Datei: eine verschlüsselte Kopie des gesamten Tagebuchs (Einträge, Gewohnheiten und Einstellungen), geschützt durch ein Passwort, die du aufbewahrst, wo du willst. Zum Wiederherstellen wählst du diese Datei auf derselben Seite aus und gibst ihr Passwort ein. Beim Wiederherstellen wird das aktuelle Tagebuch durch den Inhalt der Datei ersetzt; erstelle deshalb vorher ein Backup des aktuellen Tagebuchs."
+      },
+      {
+        "q": "Wie lösche ich mein Konto?",
+        "a": "Melde dich an, öffne die Einstellungen und geh zur letzten Karte, „Konto löschen“: Gib dein Passwort ein und bestätige. Dein Konto, dein Tagebuch, deine Gewohnheiten und deine Einstellungen werden sofort vom Server gelöscht, und du wirst auf allen Geräten abgemeldet. Das lässt sich nicht rückgängig machen. Kopien in den eigenen Sicherungen des Servers verschwinden innerhalb der Fristen, die in der [[privacy|Datenschutzerklärung]] stehen. Wenn du dich nicht anmelden kannst, erklärt die [[delete|Seite zum Löschen des Kontos]], was zu tun ist."
+      },
+      {
+        "q": "Wie alt muss ich sein?",
+        "a": "Um ein Konto zu erstellen, musst du mindestens {{MINIMUM_AGE}} Jahre alt sein. Wenn du dort, wo du lebst, minderjährig bist, darfst du den Dienst nur mit Zustimmung eines Elternteils oder Vormunds nutzen, sofern das Recht deines Landes dies verlangt."
+      },
+      {
+        "q": "Warum warnt mein Gerät, wenn ich eine Datei von dieser Website installiere?",
+        "a": "Weil die Datei nicht aus einem App-Store stammt und die Dateien für Windows und Mac noch nicht mit einem Herausgeberzertifikat signiert sind. Windows zeigt möglicherweise „Der Computer wurde durch Windows geschützt“: Wähle „Weitere Informationen“ und dann „Trotzdem ausführen“. macOS öffnet die App beim ersten Mal nicht und meldet vielleicht sogar, sie sei beschädigt: Lege sie nicht in den Papierkorb, sondern öffne die Systemeinstellungen, dann „Datenschutz & Sicherheit“ (unter macOS 12: Systemeinstellungen, dann „Sicherheit & Datenschutz“), und wähle „Dennoch öffnen“. Android bittet dich, deinem Browser oder Dateimanager das Installieren von Apps zu erlauben (unter Android 7: „Unbekannte Herkunft“). Auf der Seite [[downloads|Downloads]] stehen die Schritte für jedes System und zu jeder Datei eine SHA-256-Prüfsumme, mit der du prüfen kannst, ob deine Kopie unverändert ist."
+      },
+      {
+        "q": "Wie aktualisiere ich auf eine neue Version?",
+        "a": "Die Apps von dieser Website aktualisieren sich nicht selbst. Wenn auf der Seite [[downloads|Downloads]] eine neuere Version steht, lade ihre Datei herunter und installiere sie wie beim ersten Mal; sie ersetzt die Version, die du hast. Dein Tagebuch liegt in deinem Konto auf dem Server, ein Update ändert also nichts daran. Wenn ein Android-Smartphone sich weigert, die neue Datei über die alte App zu installieren, vergewissere dich zuerst, dass die App meldet, dass alle Änderungen auf dem Server gespeichert sind; deinstalliere dann die alte App und installiere die neue Datei."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Downloads",
+    "lead": "Installationsdateien von {{BRAND}} für Windows, Android und Mac. Ein Konto funktioniert in allen Apps und im Browser.",
+    "tabsLabel": "Betriebssystem",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Datei",
+      "version": "Version",
+      "size": "Größe"
+    },
+    "captions": {
+      "windows": "Installationsdateien für Windows, neueste Version zuerst",
+      "android": "Installationsdateien für Android, neueste Version zuerst",
+      "mac": "Installationsdateien für Mac, neueste Version zuerst"
+    },
+    "requires": {
+      "windows": "Benötigt Windows 10 oder Windows 11 (64-Bit).",
+      "android": "Benötigt Android 7.0 oder neuer.",
+      "mac": "Benötigt macOS 12.3 oder neuer, auf einem Mac mit Apple Chip oder mit Intel-Prozessor."
+    },
+    "install": {
+      "windows": "Diese Setup-Datei stammt nicht aus dem Microsoft Store und ist noch nicht mit einem Herausgeberzertifikat signiert. Dein Browser warnt vielleicht zuerst, dass die Datei nicht häufig heruntergeladen wird (wähle dann, sie zu behalten), und wenn du sie öffnest, zeigt Windows möglicherweise „Der Computer wurde durch Windows geschützt“: Wähle „Weitere Informationen“ und dann „Trotzdem ausführen“. Das Setup fragt nach deiner Sprache und installiert die App für dein eigenes Windows-Konto, ohne Administratorpasswort.",
+      "android": "Diese Datei wird direkt installiert, nicht über Google Play. Wenn du die heruntergeladene Datei öffnest, bittet Android dich, deinem Browser oder Dateimanager das Installieren von Apps zu erlauben; unter Android 7 heißt diese Einstellung „Unbekannte Herkunft“. Erlaube es, geh zurück zur Datei und wähle „Installieren“.",
+      "mac": "Öffne das Disk-Image, zieh die App in den Ordner „Programme“ und öffne sie von dort. Die App ist noch nicht mit einem Apple-Entwicklerzertifikat signiert; deshalb öffnet macOS sie beim ersten Mal nicht, und die Meldung sagt vielleicht sogar, die App sei beschädigt. Lege sie nicht in den Papierkorb: Schließe die Meldung, öffne die Systemeinstellungen, dann „Datenschutz & Sicherheit“, scrolle nach unten und wähle „Dennoch öffnen“ (unter macOS 12: Systemeinstellungen, dann „Sicherheit & Datenschutz“, dann „Dennoch öffnen“), gib dein Mac-Passwort ein, falls du danach gefragt wirst, und wähle „Öffnen“."
+    },
+    "checkFile": "Datei prüfen",
+    "checkText": "Zu jeder Datei gibt es eine SHA-256-Prüfsumme. Hat die Datei, die du heruntergeladen hast, eine andere, dann ist der Download beschädigt oder die Datei wurde verändert: Installiere sie nicht. Um die Prüfsumme einer Datei zu sehen, gib in Windows PowerShell Get-FileHash und den Dateinamen ein oder im Terminal eines Mac shasum -a 256 und den Dateinamen. Groß- und Kleinbuchstaben gelten als gleich.",
+    "moreHeading": "Browser und iPhone",
+    "web": "Ganz ohne Installation: {{BRAND}} funktioniert auch in jedem modernen Browser, auf einem Computer oder Smartphone. [[webapp|Im Browser öffnen]].",
+    "iphone": "Für das iPhone gibt es keine Installationsdatei: iPhone-Apps werden aus dem App Store installiert. Die iPhone-App ist noch nicht verfügbar.",
+    "iphoneStore": "Auf einem iPhone wird die App aus dem App Store installiert.",
+    "storeLinks": {
+      "googlePlay": "Jetzt bei Google Play",
+      "appStoreIphone": "Laden im App Store",
+      "appStoreMac": "Laden im Mac App Store",
+      "microsoftStore": "Aus dem Microsoft Store laden"
+    }
+  },
+  "contact": {
+    "heading": "Kontakt",
+    "lead": "Fragen, Rückmeldungen oder ein Problem? Schreib uns per E-Mail oder fülle das Formular aus, und wir antworten dir per E-Mail.",
+    "required": "Alle Felder sind Pflichtfelder.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail-Adresse",
+    "message": "Deine Nachricht",
+    "honeypot": "Dieses Feld bitte leer lassen",
+    "notice": "Dein Name, deine E-Mail-Adresse und deine Nachricht werden uns per E-Mail geschickt, damit wir dir antworten können. Sie werden nicht auf dem Server gespeichert. Mehr dazu in der [[privacy|Datenschutzerklärung]].",
+    "send": "Senden",
+    "sentTitle": "Deine Nachricht wurde gesendet",
+    "sentText": "Danke für deine Nachricht. Wir antworten per E-Mail an die Adresse, die du angegeben hast. Wir antworten innerhalb von 30 Tagen, meist deutlich früher.",
+    "errorTitle": "Deine Nachricht wurde nicht gesendet",
+    "errorText": "Etwas ist schiefgegangen, und deine Nachricht hat uns nicht erreicht. Bitte geh zurück, prüfe deine E-Mail-Adresse und versuch es in Kürze noch einmal, oder schreib uns per E-Mail: {{CONTACT_EMAIL}}",
+    "backHome": "Zurück zur Startseite"
+  },
+  "footer": {
+    "languagesLabel": "Alle Sprachen",
+    "change": "Ändern",
+    "rights": "Alle Rechte vorbehalten."
+  }
+}

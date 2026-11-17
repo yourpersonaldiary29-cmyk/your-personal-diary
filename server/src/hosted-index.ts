@@ -16,6 +16,9 @@
  *   DIARY_LOGIN_PER_MINUTE, DIARY_AUTH_GLOBAL_PER_MINUTE, DIARY_MIN_FREE_PCT, DIARY_LOG_LEVEL
  *   DIARY_MAX_GUESTS (20; 0 = no tour), DIARY_GUEST_MINUTES (30), DIARY_GUESTS_PER_HOUR (3)
  *                                the tour, POST /api/auth/guest (HOSTED-IMPL item 9)
+ *   DIARY_CONTACT_FORM           on | off, default on: the contact form of the public site,
+ *                                POST /api/contact (docs/site-tasks/SITE.md section 5); off = every
+ *                                message is answered with the site's "not sent" page
  *   DIARY_DEVICE_KEY             secret - base64 of 32 bytes; replaces <dataDir>/device.key
  *   DIARY_DEBUG_ROUTES=1         staging only: /api/debug/proxy, /api/debug/crash
  *   DIARY_STATIC_DIR             the built UI; default: the `ui/` folder next to this bundle

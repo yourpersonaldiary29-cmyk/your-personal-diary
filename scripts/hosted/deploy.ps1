@@ -4,6 +4,8 @@
 
 .DESCRIPTION
   Runs the platform-independent steps (nothing of the Windows or Android apps):
+    0. publication gate           node scripts\site\build-site.mjs --check --strict
+                                  node scripts\legal\build-pages.mjs --check --strict   (both also in -DryRun)
     1. web UI build               npm run build                      (-SkipUiBuild to reuse dist\)
     2. hosted server bundle       node scripts\build-hosted.mjs      (server agent, WP-H3; -SkipBundleBuild to reuse)
     3. image tree                 node scripts\hosted\stage-image.mjs (deploy\hosted\dist + Dockerfile checks)
@@ -70,10 +72,11 @@ $npmCmd = Find-Tool 'npm.cmd' @("$env:LOCALAPPDATA\Programs\nodejs\npm.cmd", "$e
 if (-not $nodeExe) { Fail 'node.exe not found (portable Node: %LOCALAPPDATA%\Programs\nodejs)' }
 if (-not $DryRun -and -not (Test-Path -LiteralPath $FlyctlPath -PathType Leaf)) { Fail "flyctl not found at $FlyctlPath" }
 
-<# Runs a step: printed in -DryRun, executed otherwise; a non-zero exit stops the script. Output streams to the console. #>
-function Step([string]$Title, [string]$Exe, [string[]]$Arguments, [string]$WorkingDir) {
+<# Runs a step: printed in -DryRun, executed otherwise; a non-zero exit stops the script. Output streams to the console.
+   -Always: a check that only reads files, executed in -DryRun too. -Why: said with the error when the step fails. #>
+function Step([string]$Title, [string]$Exe, [string[]]$Arguments, [string]$WorkingDir, [switch]$Always, [string]$Why = '') {
   $display = "`"$Exe`" " + ($Arguments -join ' ')
-  if ($DryRun) { Say "DRY RUN - $Title`: $display   (in $WorkingDir)"; return }
+  if ($DryRun -and -not $Always) { Say "DRY RUN - $Title`: $display   (in $WorkingDir)"; return }
   Say "$Title`: $display"
   Push-Location $WorkingDir
   $previous = $ErrorActionPreference
@@ -85,8 +88,17 @@ function Step([string]$Title, [string]$Exe, [string[]]$Arguments, [string]$Worki
     $ErrorActionPreference = $previous
     Pop-Location
   }
-  if ($code -ne 0) { Fail "$Title failed with exit code $code" }
+  if ($code -ne 0) {
+    if ($Why -ne '') { Fail "$Title failed with exit code $code - $Why" }
+    Fail "$Title failed with exit code $code"
+  }
 }
+
+# 0. Publication gate (also in -DryRun: both checks only read files) ----------------------------------------
+# An untranslated or outdated site, or legal pages in public\ that are not translated or not regenerated, are
+# never published by mistake: the deploy stops here, before anything is built or staged.
+Step 'site check' $nodeExe @('scripts/site/build-site.mjs', '--check', '--strict') $root -Always -Why 'the site is not ready to publish (a text not translated, or a page, image or installer file not right - see above). Nothing was built or deployed.'
+Step 'legal pages check' $nodeExe @('scripts/legal/build-pages.mjs', '--check', '--strict') $root -Always -Why 'the legal pages are not ready to publish (a translation missing, or public\ not regenerated - see above). Nothing was built or deployed.'
 
 # 1. UI ------------------------------------------------------------------------------------------------------
 if ($SkipUiBuild) {

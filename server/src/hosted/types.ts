@@ -133,6 +133,14 @@ export interface HostedAppOptions {
    */
   admin?: RequestHandler;
   /**
+   * The contact form of the public site (docs/site-tasks/SITE.md section 5), built by the hosted
+   * composition (hosted/contact.ts) and mounted at /api/contact behind the Host check and the security
+   * headers. It brings its own form parser (64 KB, this route only), needs no session and sets no
+   * cookie; it answers `POST /api/contact` with a 303 into the site and passes every other request on
+   * to the 404 of an unknown route. Absent = no such route (the local server; test apps built by hand).
+   */
+  contact?: RequestHandler;
+  /**
    * Offline sync (docs/android-tasks/OFFLINE-DESIGN.md §3.2): `ServerInfo.offlineSync: 1` is reported
    * unless this is `false` (the kill switch `DIARY_OFFLINE_SYNC=0`). `/api/sync` stays mounted either
    * way, so outboxes that already exist can drain.

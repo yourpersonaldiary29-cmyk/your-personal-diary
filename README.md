@@ -313,6 +313,8 @@ npm run android:sync           # cap sync android
 
 **דפי המדיניות**: `node scripts/legal/build-pages.mjs` (סעיף 2.3), לפני `npm run build` ופריסת השרת - `build-hosted.mjs` מסרב לממשק שנבנה לפני השינוי האחרון ב-`public/`.
 
+**אתר האפליקציה** (`https://yourpersonaldiary.fly.dev/about/` ו-`/about/<locale>/`, ב-20 השפות; המפרט [docs/site-tasks/SITE.md](docs/site-tasks/SITE.md), למפתח [site/README.md](site/README.md)): אתר ציבורי קטן, באנגלית כברירת מחדל, שבעה דפים לכל שפה - על האפליקציה, תנאי שימוש ומדיניות פרטיות (מאותם מקורות של `legal/`), 30 שאלות ותשובות, הורדות, ושני דפי התוצאה של טופס "צור קשר". הטקסטים ב-`site/content/`, ההגדרות ב-`site/settings.json`, ורשימת קובצי ההתקנה של דף ההורדות ב-`site/downloads.json` (גרסה חדשה: `node scripts/site/add-download.mjs`; הקבצים עצמם ב-`site/downloads/`, מחוץ ל-git). `site/site.js` מפעיל את כפתור השפה ואת הלשוניות של דף ההורדות, וכל דף עובד גם בלעדיו; הטופס שבתחתית כל דף נשלח ל-`POST /api/contact` של השרת המארח, שהופך אותו למייל אחד לכתובת הקשר ([docs/API.md](docs/API.md)). הבנייה: `node scripts/site/build-site.mjs` (`--check` בודק בלי לכתוב, `--strict` מסרב גם לטקסט שעוד לא תורגם - חובה לפני פריסה). האתר לא נכתב ל-`public/`, ולכן הוא לא נמצא באף מתקין ובאף אפליקציה: `stage-image.mjs` בונה אותו לתוך תמונת השרת (`ui/about/`), והוא עולה לאוויר עם פריסת השרת.
+
 **ערכות החנויות**
 
 | | Google Play | Microsoft Store |

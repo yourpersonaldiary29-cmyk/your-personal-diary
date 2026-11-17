@@ -59,9 +59,14 @@ store/identity.json
 # Generated bundles and kits (rebuilt by scripts; see README section 5.5)
 mobile-dist
 store/out
+site/out
 deploy/hosted/build
 deploy/hosted/dist
 android/app/src/main/assets/public
+
+# The installer files of the site's Downloads page (copied in by scripts/site/add-download.mjs;
+# site/downloads.json, the list with their sizes and SHA-256, is committed)
+site/downloads/
 
 # App Store screenshots are large (2880x1800, 19 languages) and regenerable:
 # node scripts/play/render-screenshots.mjs --profile iphone-medium / --profile iphone-large / --profile mac

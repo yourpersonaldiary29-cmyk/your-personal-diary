@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - prywatny dziennik z nawykami i ostrożnymi spostrzeżeniami",
+  "description": "Pisz o swoim dniu, obserwuj nastrój i nawyki oraz z czasem dostrzegaj wzorce. Prywatny dziennik w 20 językach. Bezpłatny, bez reklam i bez śledzenia.",
+  "skipLink": "Przejdź do treści",
+  "languagesLabel": "Język",
+  "nav": {
+    "label": "Menu witryny",
+    "about": "O aplikacji",
+    "terms": "Warunki korzystania",
+    "faq": "Pytania i odpowiedzi",
+    "privacy": "Polityka prywatności",
+    "downloads": "Pobieranie",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "heading": "Prywatny dziennik, który pomaga dostrzec własne wzorce",
+    "lead": "Pisz o swoim dniu własnymi słowami. Jeśli chcesz, dodaj nastrój, sen i nawyki. Na przestrzeni tygodni, miesięcy i lat {{BRAND}} wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich.",
+    "openAction": "Otwórz w przeglądarce",
+    "note": "Bezpłatnie. Bez reklam, bez analityki, bez śledzenia."
+  },
+  "features": {
+    "heading": "Co możesz robić",
+    "items": [
+      {
+        "title": "Zapisuj swój dzień",
+        "text": "Wpisy własnymi słowami. Jeśli chcesz, dodaj nastrój, emocje, energię, stres, sen, aktywność fizyczną, osoby, miejsce i tagi. Każdy dzień ma własną stronę, a oś czasu pokazuje cały dziennik."
+      },
+      {
+        "title": "Nawyki i przypomnienia",
+        "text": "Codzienne i cotygodniowe nawyki, które odhaczasz w ciągu dnia, z seriami i postępami. Opcjonalne przypomnienia o godzinie wybranej dla każdego nawyku."
+      },
+      {
+        "title": "Ostrożne spostrzeżenia",
+        "text": "Aplikacja szuka możliwych zależności w twoich własnych danych, na przykład między snem a nastrojem. Spostrzeżenia są formułowane ostrożnie i nigdy nie twierdzą, że jedno jest przyczyną drugiego. Gdy danych jest za mało, aplikacja mówi o tym wprost, zamiast zgadywać."
+      },
+      {
+        "title": "Kalendarz",
+        "text": "Kalendarz miesięczny gregoriański, hebrajski lub muzułmański (hidżry), ze świętami wybranego kalendarza."
+      },
+      {
+        "title": "Statystyki i inteligentne wyszukiwanie",
+        "text": "Wykresy nastroju, energii, stresu, snu i nawyków w czasie, każdy z tabelą danych. Zadaj pytanie w swoim języku, na przykład „W które dni sen trwał krócej niż pięć godzin?”, i otrzymaj odpowiedź z dziennika."
+      },
+      {
+        "title": "Działa offline i synchronizuje się",
+        "text": "Jedno konto, ten sam dziennik na każdym urządzeniu. Gdy zniknie połączenie, czytaj i pisz dalej: zmiany są przechowywane na urządzeniu w postaci zaszyfrowanej i wysyłane, gdy połączenie wróci."
+      },
+      {
+        "title": "20 języków",
+        "text": "Cała aplikacja w 20 językach. Język możesz zmienić w każdej chwili w Ustawieniach. Hebrajski i arabski są wyświetlane od prawej do lewej."
+      },
+      {
+        "title": "Dostępność",
+        "text": "Działa z czytnikami ekranu: czytelne nagłówki, opisane pola i odczytywane komunikaty o stanie. Motyw jasny, ciemny i o wysokim kontraście, regulowany rozmiar tekstu i opcja ograniczenia animacji. Na komputerze wszystko można zrobić z klawiatury."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Jak to wygląda",
+    "items": [
+      {
+        "caption": "Strona główna: dzisiejszy dzień w skrócie",
+        "alt": "Strona główna na telefonie: powitanie z datą, liczba dzisiejszych wpisów, seria pisania i średnie z ostatnich siedmiu dni."
+      },
+      {
+        "caption": "Wpis: twoje słowa, a do tego nastrój, sen i nie tylko",
+        "alt": "Wpis na telefonie: tytuł i data, oceny nastroju, energii, stresu i snu, aktywność fizyczna, emocje i treść wpisu."
+      },
+      {
+        "caption": "Nawyki: cele, serie i postępy",
+        "alt": "Ekran nawyków na telefonie: jeden nawyk z dziennym celem, obecną serią, wykonaniem w ostatnich 30 dniach i ilością na dziś."
+      },
+      {
+        "caption": "Spostrzeżenia: ostrożne sformułowania i liczby, które za nimi stoją",
+        "alt": "Ekran spostrzeżeń na telefonie: dwa trendy z ostatniego miesiąca, każdy oznaczony jako słaby wzorzec, ze sprawdzonym okresem i przyciskiem wyjaśniającym spostrzeżenie."
+      },
+      {
+        "caption": "Ten sam dziennik na komputerze",
+        "alt": "Strona główna na komputerze: menu ze wszystkimi sekcjami, podsumowanie dzisiejszego dnia i średnie z ostatnich siedmiu dni."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Twoja prywatność",
+    "lead": "Dziennik to rzecz osobista. Oto, co dzieje się z twoim.",
+    "items": [
+      "Bez reklam, bez analityki i bez śledzenia. Nie sprzedajemy ani nie udostępniamy twoich danych.",
+      "Twój dziennik jest przechowywany na serwerze {{BRAND}} w postaci zaszyfrowanej, w osobnym pliku dla każdego konta. Samo hasło nie jest przechowywane.",
+      "Aplikacje i strona internetowa łączą się wyłącznie z serwerem {{BRAND}}, zawsze przez HTTPS.",
+      "Podczas sesji serwer otwiera twój dziennik w swojej pamięci, aby go dla ciebie wyświetlać, przeszukiwać i analizować. Polityka prywatności jasno wyjaśnia, co to oznacza.",
+      "Dziennik możesz w każdej chwili zabrać ze sobą: jako zaszyfrowany plik kopii zapasowej, który przechowujesz u siebie, albo jako eksport do TXT, CSV, JSON lub PDF.",
+      "Konto i wszystkie jego dane możesz usunąć w dowolnej chwili w Ustawieniach."
+    ],
+    "policyLink": "Przeczytaj politykę prywatności"
+  },
+  "faq": {
+    "heading": "Pytania i odpowiedzi",
+    "lead": "Krótkie odpowiedzi o {{BRAND}}: czym jest i co robi, jak twój dziennik jest przechowywany i chroniony, a także o twoim koncie i instalowaniu aplikacji.",
+    "groups": [
+      "O aplikacji",
+      "Pisanie i funkcje",
+      "Urządzenia i praca offline",
+      "Prywatność i bezpieczeństwo",
+      "Twoje konto",
+      "Instalacja i aktualizacje"
+    ],
+    "items": [
+      {
+        "q": "Czym jest {{BRAND}}?",
+        "a": "Prywatnym dziennikiem. Piszesz o swoim dniu własnymi słowami i, jeśli chcesz, dodajesz nastrój, sen, nawyki i nie tylko. Na przestrzeni tygodni, miesięcy i lat aplikacja wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich. Działa w przeglądarce oraz jako aplikacja na Windows, Androida i Maca, z jednym kontem dla wszystkich."
+      },
+      {
+        "q": "Czy jest bezpłatny?",
+        "a": "Tak. {{BRAND}} jest bezpłatny, bez reklam i bez zakupów w aplikacji. Jeśli kiedyś zechcemy za coś pobierać opłaty, powiemy o tym z wyprzedzeniem i nic nie stanie się płatne bez twojej zgody."
+      },
+      {
+        "q": "Kto go wydaje?",
+        "a": "{{BRAND}} wydaje i prowadzi {{PUBLISHER_NAME}}. Aby się z nami skontaktować, użyj [[contact|formularza kontaktowego]] na dole tej strony albo napisz na adres e-mail podany obok niego."
+      },
+      {
+        "q": "Z jakich urządzeń mogę korzystać?",
+        "a": "Komputer z Windows 10 lub 11, Mac z macOS 12.3 lub nowszym, telefon z Androidem 7.0 lub nowszym oraz dowolna nowoczesna przeglądarka na komputerze lub telefonie. Pliki instalacyjne są na stronie [[downloads|Pobieranie]]. Aplikacja na iPhone'a nie jest jeszcze dostępna. Wszędzie to jedno konto: to, co napiszesz na jednym urządzeniu, pojawi się na pozostałych."
+      },
+      {
+        "q": "W jakich językach jest dostępny?",
+        "a": "W 20 językach: angielskim, hebrajskim, arabskim, chińskim (uproszczonym), japońskim, hindi, tajskim, hiszpańskim, portugalskim, francuskim, włoskim, niemieckim, rumuńskim, greckim, polskim, czeskim, węgierskim, rosyjskim, bułgarskim i tureckim. Język możesz zmienić w każdej chwili w Ustawieniach, a twoje konto zapamięta twój wybór. Hebrajski i arabski są wyświetlane od prawej do lewej."
+      },
+      {
+        "q": "Czy to narzędzie medyczne?",
+        "a": "Nie. {{BRAND}} to narzędzie do prowadzenia osobistego dziennika. Nie jest narzędziem medycznym ani diagnostycznym, a jego spostrzeżenia nie są poradą medyczną ani psychologiczną. Jeśli martwisz się o swoje zdrowie, porozmawiaj z wykwalifikowanym specjalistą."
+      },
+      {
+        "q": "Czy mogę go wypróbować bez konta?",
+        "a": "W aplikacji na Androida tak. Na pierwszym ekranie wybierz „Pomiń - chcę się tylko rozejrzeć” i poznaj aplikację na przykładowych danych. Nic, co tam napiszesz, nie zostanie zapisane, a wycieczka kończy się sama po 30 minutach. W aplikacjach na Windows i Maca oraz w przeglądarce potrzebujesz konta; jego utworzenie jest bezpłatne."
+      },
+      {
+        "q": "Co może zawierać wpis?",
+        "a": "Tytuł i swobodny tekst, pisany własnymi słowami. Jeśli chcesz, dodaj nastrój, emocje, energię, stres, sen, aktywność fizyczną, ważne wydarzenia, spotkane osoby, miejsce, notatki i tagi. Możesz napisać więcej niż jeden wpis dziennie. Każdy dzień ma własną stronę, a oś czasu pokazuje cały dziennik."
+      },
+      {
+        "q": "Jak działają nawyki i przypomnienia?",
+        "a": "Ustalasz nawyki codzienne lub cotygodniowe, każdy z własnym celem, i odhaczasz je na bieżąco. Aplikacja pokazuje twoją serię i to, jaką część celu udało ci się wykonać. Przypomnienia należą do nawyków: godzinę dla każdego nawyku ustawiasz na stronie Nawyki, a przypomnienia włączasz w Ustawieniach, w sekcji Przypomnienia. Na telefonie z Androidem, który zezwala aplikacji na powiadomienia, przypomnienie przychodzi nawet wtedy, gdy aplikacja jest zamknięta; na komputerze i w przeglądarce pojawia się, gdy dziennik jest otwarty. Przypomnienia są tworzone na samym urządzeniu; nic nie jest wysyłane na zewnątrz."
+      },
+      {
+        "q": "Czym są spostrzeżenia i jak zobaczyć liczby, które za nimi stoją?",
+        "a": "Spostrzeżenia to możliwe zależności, które aplikacja znajduje w twoich własnych wpisach, na przykład między snem a nastrojem albo między aktywnością fizyczną a energią. Są ostrożnie sformułowane i nigdy nie twierdzą, że jedno jest przyczyną drugiego. Przy każdym spostrzeżeniu „Dlaczego widzę to spostrzeżenie?” pokazuje, ile dni sprawdzono, i liczby, które za nim stoją. Gdy danych jest za mało, aplikacja mówi o tym, zamiast zgadywać."
+      },
+      {
+        "q": "Z jakich kalendarzy mogę korzystać?",
+        "a": "Z trzech: gregoriańskiego, hebrajskiego i kalendarza hidżry (islamskiego). Wybierasz jeden z nich na stronie Kalendarz, a miesiąc pokazuje wtedy numery dni i święta tego kalendarza. Daty i święta islamskie są zgodne z kalendarzem Umm al-Qura i mogą się przesunąć o jeden dzień."
+      },
+      {
+        "q": "Czym jest inteligentne wyszukiwanie?",
+        "a": "Wyszukiwaniem, które przyjmuje pytanie w twoim języku, na przykład „W które dni spałem mniej niż pięć godzin?” albo „Kiedy pisałem, że jestem zmęczony?”. Aplikacja pokazuje, jak zrozumiała pytanie, odpowiedź oraz pasujące dni i wpisy. Odpowiedzi na pytania powstają na serwerze, a same pytania nie są tam przechowywane."
+      },
+      {
+        "q": "Co pokazują statystyki?",
+        "a": "Wykresy nastroju, energii, stresu, snu, aktywności fizycznej i nawyków w czasie, za wybrany przez ciebie okres, od ostatnich 7 dni po cały dziennik. Każdy wykres ma krótkie podsumowanie słowne i tabelę danych, więc liczby można odczytać bez wykresu."
+      },
+      {
+        "q": "W jakich formatach mogę wyeksportować dziennik?",
+        "a": "TXT, CSV, JSON i PDF, dla całego dziennika lub dla zakresu dat. Plik CSV zawiera tylko wpisy; pozostałe formaty mogą obejmować także nawyki. Eksport to zwykły, czytelny plik, a nie zaszyfrowany: każdy, kto ma ten plik, może go przeczytać, więc przechowuj go równie starannie jak sam dziennik."
+      },
+      {
+        "q": "Czy działa offline?",
+        "a": "Tak, gdy już się zalogujesz. Gdy zniknie połączenie, możesz dalej czytać i pisać. Zmiany są przechowywane na urządzeniu w postaci zaszyfrowanej i wysyłane automatycznie, gdy połączenie wróci, nawet jeśli w międzyczasie aplikacja została zamknięta. Z opcją „Zapamiętaj mnie” aplikacje otwierają się także bez połączenia i pokazują ostatnio oglądane treści. Utworzenie konta, logowanie, spostrzeżenia, wyszukiwanie, statystyki, kopia zapasowa, eksport i zmiany w koncie wymagają połączenia."
+      },
+      {
+        "q": "Czy mogę korzystać z niego na kilku urządzeniach?",
+        "a": "Tak. Twój dziennik jest przechowywany na twoim koncie na serwerze {{BRAND}}, więc na każdym urządzeniu logujesz się na to samo konto i wszystko tam jest. To, co zmienisz na jednym urządzeniu, pojawi się na pozostałych, gdy się połączą. W Ustawieniach lista Połączone urządzenia pokazuje urządzenia, na których jest zalogowane twoje konto, i możesz odłączyć dowolne z nich."
+      },
+      {
+        "q": "Co się stanie, jeśli zmienię ten sam wpis na dwóch urządzeniach?",
+        "a": "Zachowywana jest nowsza zmiana, a aplikacja informuje o tym w jednym wierszu. Druga wersja pozostaje dostępna na tamtym urządzeniu, dopóki nie zamkniesz komunikatu: możesz ją przeczytać, skopiować jej tekst albo zapisać ją jako nowy wpis."
+      },
+      {
+        "q": "Czy mogę korzystać z niego w przeglądarce, bez instalowania czegokolwiek?",
+        "a": "Tak. [[webapp|Otwórz wersję internetową]] w dowolnej nowoczesnej przeglądarce, na komputerze lub telefonie, i zaloguj się na to samo konto. Przeglądarka nie przechowuje żadnej kopii tego, co czytasz. Jeśli połączenie zniknie, gdy dziennik jest otwarty, możesz pisać dalej: zmiany są przechowywane w przeglądarce w postaci zaszyfrowanej i wysyłane, gdy połączenie wróci."
+      },
+      {
+        "q": "Co robi opcja „Zapamiętaj mnie”?",
+        "a": "Utrzymuje sesję na tym urządzeniu przez maksymalnie 90 dni zamiast 12 godzin. W aplikacjach na Windows, Maca i Androida przechowuje też zaszyfrowaną kopię ostatnio oglądanych treści, aby aplikacja mogła się otworzyć i pokazać je bez połączenia. Na ekranach logowania i rejestracji jest domyślnie zaznaczona: na urządzeniu, z którego korzystają też inne osoby, odznacz ją i wyloguj się po skończeniu pracy."
+      },
+      {
+        "q": "Gdzie jest przechowywany mój dziennik?",
+        "a": "Na twoim własnym koncie na serwerze {{BRAND}}, w osobnym zaszyfrowanym pliku dla każdego konta. Serwer działa u dostawcy hostingu Fly.io, w jego centrum danych we Frankfurcie w Niemczech. Aplikacje i przeglądarka pokazują ten jeden dziennik. [[privacy|Polityka prywatności]] mówi dokładnie, co jest przechowywane i gdzie."
+      },
+      {
+        "q": "Kto może czytać mój dziennik?",
+        "a": "Ty, za pomocą swojego hasła: plik dziennika jest zaszyfrowany kluczem z niego wyprowadzonym. Pamiętaj jednak o ograniczeniach. Podczas sesji serwer ma twój dziennik otwarty w swojej pamięci. A ten, kto kontroluje serwer i jego sekrety - operator, a teoretycznie także dostawca hostingu - mógłby technicznie zresetować hasło dowolnego konta i przeczytać jego dziennik bez znajomości hasła. Obiecujemy, że tego nie zrobimy, nie mamy do tego żadnego narzędzia, a nasze narzędzia administracyjne nigdy nie otwierają dziennika. Wyjaśnia to wprost sekcja 4 [[privacy|Polityki prywatności]]."
+      },
+      {
+        "q": "Czy jest szyfrowany end-to-end?",
+        "a": "Nie. Twój dziennik jest zaszyfrowany w swoim pliku na serwerze (AES-256-GCM, kluczem wyprowadzonym z twojego hasła) i w drodze do niego (HTTPS). Jednak podczas sesji serwer otwiera go w swojej pamięci, aby go dla ciebie wyświetlać, przeszukiwać i analizować. Serwer przechowuje też klucz odzyskiwania, aby „Nie pamiętasz hasła?” działało bez utraty dziennika; dzięki niemu ten, kto kontroluje serwer, mógłby technicznie zresetować hasło i przeczytać dziennik. Jeśli nie chcesz polegać na naszej obietnicy, że tego nie zrobimy, nie przechowuj w serwisie niczego, czego nie chcesz, by przeczytał ktoś inny."
+      },
+      {
+        "q": "Czy są reklamy lub śledzenie?",
+        "a": "Nie. Nie ma reklam, analityki ani śledzenia - ani w aplikacjach, ani w wersji internetowej, ani w tej witrynie. Nie sprzedajemy ani nie udostępniamy twoich danych, a twój dziennik nigdy nie jest używany do trenowania żadnej sztucznej inteligencji. Aplikacje i wersja internetowa łączą się tylko z serwerem {{BRAND}}, zawsze przez HTTPS."
+      },
+      {
+        "q": "Jak blokuje się dziennik?",
+        "a": "Blokuje się sam po okresie bezczynności; czas wybierasz w Ustawieniach, w sekcji Bezpieczeństwo, a „Zablokuj teraz” blokuje go od razu. Twoje hasło otwiera go ponownie. W aplikacji na Androida możesz też ustawić blokadę przy każdym wyjściu z aplikacji i otwierać dziennik odciskiem palca lub twarzą. Tam, gdzie aplikacja zamiast hasła oferuje blokadę ekranu urządzenia (Windows Hello, Touch ID lub hasło Maca albo blokadę ekranu Androida), sprawdzenie wykonuje system operacyjny: nic o twoim odcisku palca, twarzy ani PIN-ie nie trafia do aplikacji ani do nas."
+      },
+      {
+        "q": "Co zrobić, jeśli zapomnę hasła?",
+        "a": "Na ekranie logowania wybierz „Nie pamiętasz hasła?” i wpisz adres e-mail podany przy rejestracji. Otrzymasz wiadomość z linkiem i 6-cyfrowym kodem, które są ważne przez 30 minut i można ich użyć raz. Jeśli wiadomość nie dotrze w ciągu kilku minut, sprawdź folder spamu. Otwórz link albo wpisz kod w aplikacji i wybierz nowe hasło; potem nastąpi wylogowanie na wszystkich urządzeniach. Twój dziennik zostaje zachowany: nic nie jest usuwane."
+      },
+      {
+        "q": "Jak zrobić kopię zapasową dziennika i ją przywrócić?",
+        "a": "Otwórz w menu stronę Kopia zapasowa (w aplikacji na Androida w sekcji Więcej) i utwórz plik kopii zapasowej: zaszyfrowaną kopię całego dziennika (wpisów, nawyków i ustawień), chronioną hasłem, którą przechowujesz, gdzie chcesz. Aby ją przywrócić, wybierz ten plik na tej samej stronie i wpisz jego hasło. Przywrócenie zastępuje obecny dziennik zawartością pliku, więc najpierw utwórz kopię zapasową obecnego dziennika."
+      },
+      {
+        "q": "Jak usunąć konto?",
+        "a": "Zaloguj się, otwórz Ustawienia i przejdź do ostatniej karty, Usuwanie konta: wpisz hasło i potwierdź. Twoje konto, dziennik, nawyki i ustawienia zostają od razu usunięte z serwera i nastąpi wylogowanie na wszystkich urządzeniach. Tego nie można cofnąć. Dane w kopiach zapasowych samego serwera znikają w terminach podanych w [[privacy|Polityce prywatności]]. Jeśli nie możesz się zalogować, [[delete|strona usuwania konta]] wyjaśnia, co zrobić."
+      },
+      {
+        "q": "Ile muszę mieć lat?",
+        "a": "Aby utworzyć konto, musisz mieć co najmniej {{MINIMUM_AGE}} lat. Jeśli w miejscu zamieszkania jesteś osobą niepełnoletnią, możesz korzystać z serwisu tylko za zgodą rodzica lub opiekuna, jeżeli wymaga tego prawo twojego kraju."
+      },
+      {
+        "q": "Dlaczego urządzenie wyświetla ostrzeżenie, gdy instaluję plik z tej witryny?",
+        "a": "Ponieważ plik nie pochodzi ze sklepu z aplikacjami, a pliki dla Windows i Maca nie są jeszcze podpisane certyfikatem wydawcy. Windows może wyświetlić komunikat „System Windows ochronił ten komputer”: wybierz Więcej informacji, a potem Uruchom mimo to. macOS przy pierwszym uruchomieniu nie otwiera aplikacji i może nawet podać, że jest uszkodzona: nie przenoś jej do Kosza, tylko otwórz Ustawienia systemowe, a potem Prywatność i ochrona (w macOS 12: Preferencje systemowe, a potem Ochrona i prywatność), i wybierz Otwórz mimo to. Android prosi o zezwolenie przeglądarce lub menedżerowi plików na instalowanie aplikacji (w Androidzie 7: Nieznane źródła). Na stronie [[downloads|Pobieranie]] są kroki dla każdego systemu oraz suma kontrolna SHA-256 każdego pliku, która pozwala sprawdzić, że twoja kopia nie została zmieniona."
+      },
+      {
+        "q": "Jak zaktualizować aplikację do nowej wersji?",
+        "a": "Aplikacje z tej witryny nie aktualizują się same. Gdy na stronie [[downloads|Pobieranie]] pojawi się nowsza wersja, pobierz jej plik i zainstaluj go tak jak za pierwszym razem; zastąpi on posiadaną wersję. Twój dziennik jest przechowywany na twoim koncie na serwerze, więc aktualizacja go nie zmienia. Jeśli telefon z Androidem odmawia zainstalowania nowego pliku na starą aplikację, najpierw upewnij się, że aplikacja pokazuje, że wszystkie zmiany są zapisane na serwerze, a potem odinstaluj starą aplikację i zainstaluj nowy plik."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Pobieranie",
+    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich oraz w przeglądarce.",
+    "tabsLabel": "System operacyjny",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Plik",
+      "version": "Wersja",
+      "size": "Rozmiar"
+    },
+    "captions": {
+      "windows": "Pliki instalacyjne dla Windows, od najnowszej wersji",
+      "android": "Pliki instalacyjne dla Androida, od najnowszej wersji",
+      "mac": "Pliki instalacyjne dla Maca, od najnowszej wersji"
+    },
+    "requires": {
+      "windows": "Wymaga systemu Windows 10 lub Windows 11 (64-bitowego).",
+      "android": "Wymaga Androida 7.0 lub nowszego.",
+      "mac": "Wymaga macOS 12.3 lub nowszego, na Macu z czipem Apple lub z procesorem Intel."
+    },
+    "install": {
+      "windows": "Ten plik instalacyjny nie pochodzi ze sklepu Microsoft Store i nie jest jeszcze podpisany certyfikatem wydawcy. Przeglądarka może najpierw ostrzec, że plik nie jest często pobierany (wybierz opcję zachowania pliku), a po jego otwarciu Windows może wyświetlić komunikat „System Windows ochronił ten komputer”: wybierz Więcej informacji, a potem Uruchom mimo to. Instalator pyta o język i instaluje aplikację dla twojego własnego konta Windows, bez hasła administratora.",
+      "android": "Ten plik instaluje się bezpośrednio, a nie przez Google Play. Gdy otworzysz pobrany plik, Android poprosi o zezwolenie przeglądarce lub menedżerowi plików na instalowanie aplikacji; w Androidzie 7 to ustawienie nazywa się Nieznane źródła. Zezwól na to, wróć do pliku i wybierz Zainstaluj.",
+      "mac": "Otwórz obraz dysku, przeciągnij aplikację do folderu Programy i otwórz ją stamtąd. Aplikacja nie jest jeszcze podpisana certyfikatem dewelopera Apple, dlatego za pierwszym razem macOS jej nie otwiera, a komunikat może nawet podać, że aplikacja jest uszkodzona. Nie przenoś jej do Kosza: zamknij komunikat, otwórz Ustawienia systemowe, a potem Prywatność i ochrona, przewiń w dół i wybierz Otwórz mimo to (w macOS 12: Preferencje systemowe, potem Ochrona i prywatność, potem Otwórz mimo to), w razie potrzeby wpisz hasło Maca i wybierz Otwórz."
+    },
+    "checkFile": "Sprawdź plik",
+    "checkText": "Każdy plik ma sumę kontrolną SHA-256. Jeśli pobrany plik ma inną, pobieranie jest uszkodzone albo plik został zmieniony: nie instaluj go. Aby zobaczyć sumę kontrolną pliku, wpisz Get-FileHash i nazwę pliku w Windows PowerShell albo shasum -a 256 i nazwę pliku w aplikacji Terminal na Macu. Wielkość liter nie ma znaczenia.",
+    "moreHeading": "Przeglądarka i iPhone",
+    "web": "Nic do instalowania: {{BRAND}} działa też w każdej nowoczesnej przeglądarce, na komputerze lub telefonie. [[webapp|Otwórz go w przeglądarce]].",
+    "iphone": "Nie ma pliku instalacyjnego dla iPhone'a: aplikacje na iPhone'a instaluje się z App Store. Aplikacja na iPhone'a nie jest jeszcze dostępna.",
+    "iphoneStore": "Na iPhonie aplikację instaluje się z App Store.",
+    "storeLinks": {
+      "googlePlay": "Pobierz z Google Play",
+      "appStoreIphone": "Pobierz z App Store",
+      "appStoreMac": "Pobierz z Mac App Store",
+      "microsoftStore": "Pobierz z Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Skontaktuj się z nami",
+    "lead": "Masz pytanie, uwagę albo problem? Napisz do nas e-mailem albo wypełnij formularz, a odpowiemy e-mailem.",
+    "required": "Wszystkie pola są wymagane.",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "email": "Adres e-mail",
+    "message": "Twoja wiadomość",
+    "honeypot": "Pozostaw to pole puste",
+    "notice": "Twoje imię i nazwisko, adres e-mail i wiadomość są wysyłane do nas e-mailem, abyśmy mogli ci odpowiedzieć. Nie są przechowywane na serwerze. Więcej w [[privacy|Polityce prywatności]].",
+    "send": "Wyślij",
+    "sentTitle": "Twoja wiadomość została wysłana",
+    "sentText": "Dziękujemy za wiadomość. Odpowiemy e-mailem na podany adres. Odpowiadamy w ciągu 30 dni, zwykle znacznie szybciej.",
+    "errorTitle": "Twoja wiadomość nie została wysłana",
+    "errorText": "Coś poszło nie tak i twoja wiadomość do nas nie dotarła. Wróć, sprawdź adres e-mail i spróbuj ponownie za chwilę albo napisz do nas e-mailem: {{CONTACT_EMAIL}}",
+    "backHome": "Powrót do strony głównej"
+  },
+  "footer": {
+    "languagesLabel": "Wszystkie języki",
+    "change": "Zmień",
+    "rights": "Wszelkie prawa zastrzeżone."
+  }
+}

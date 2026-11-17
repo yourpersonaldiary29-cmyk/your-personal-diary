@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - un diario privado con hábitos y observaciones prudentes",
+  "description": "Escribe sobre tu día, sigue tu estado de ánimo y tus hábitos y descubre patrones con el tiempo. Un diario privado en 20 idiomas. Gratis, sin anuncios ni rastreo.",
+  "skipLink": "Saltar al contenido",
+  "languagesLabel": "Idioma",
+  "nav": {
+    "label": "Menú del sitio",
+    "about": "Sobre la aplicación",
+    "terms": "Condiciones de uso",
+    "faq": "Preguntas y respuestas",
+    "privacy": "Política de privacidad",
+    "downloads": "Descargas",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "heading": "Un diario privado que te ayuda a descubrir tus propios patrones",
+    "lead": "Escribe sobre tu día con tus propias palabras. Si quieres, añade tu estado de ánimo, tu sueño y tus hábitos. A lo largo de semanas, meses y años, {{BRAND}} señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno.",
+    "openAction": "Abrir en tu navegador",
+    "note": "Gratis. Sin anuncios, sin analíticas, sin rastreo."
+  },
+  "features": {
+    "heading": "Qué puedes hacer",
+    "items": [
+      {
+        "title": "Escribe tu día",
+        "text": "Entradas con tus propias palabras. Si quieres, añade estado de ánimo, emociones, energía, estrés, sueño, actividad física, personas, lugar y etiquetas. Cada día tiene su propia página, y una cronología muestra todo el diario."
+      },
+      {
+        "title": "Hábitos y recordatorios",
+        "text": "Hábitos diarios y semanales que vas marcando sobre la marcha, con rachas y progreso. Recordatorios opcionales a la hora que elijas para cada hábito."
+      },
+      {
+        "title": "Observaciones prudentes",
+        "text": "La aplicación busca posibles relaciones en tus propios datos, por ejemplo entre el sueño y el estado de ánimo. Las observaciones se formulan con cuidado y nunca afirman que una cosa cause otra. Cuando no hay suficientes datos, la aplicación lo dice en lugar de adivinar."
+      },
+      {
+        "title": "Calendario",
+        "text": "Un calendario mensual gregoriano, hebreo o de la hégira, con las festividades del calendario que elijas."
+      },
+      {
+        "title": "Estadísticas y búsqueda inteligente",
+        "text": "Gráficos de tu estado de ánimo, energía, estrés, sueño y hábitos a lo largo del tiempo, cada uno con su tabla de datos. Haz una pregunta en tu idioma, como «¿Qué días dormí menos de cinco horas?», y obtén la respuesta de tu diario."
+      },
+      {
+        "title": "Funciona sin conexión y se sincroniza",
+        "text": "Una cuenta, el mismo diario en cada dispositivo. Si se corta la conexión, sigue leyendo y escribiendo: tus cambios se guardan cifrados en tu dispositivo y se suben cuando vuelve la conexión."
+      },
+      {
+        "title": "20 idiomas",
+        "text": "Toda la aplicación en 20 idiomas. Cambia el idioma cuando quieras en Ajustes. El hebreo y el árabe se muestran de derecha a izquierda."
+      },
+      {
+        "title": "Accesibilidad",
+        "text": "Funciona con lectores de pantalla: encabezados claros, campos etiquetados y mensajes de estado que se anuncian. Temas claro, oscuro y de alto contraste, tamaño de texto ajustable y una opción para reducir el movimiento. En un ordenador, todo se puede hacer con el teclado."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Qué aspecto tiene",
+    "items": [
+      {
+        "caption": "Inicio: hoy de un vistazo",
+        "alt": "La pantalla Inicio en un teléfono: un saludo con la fecha, el número de entradas de hoy, la racha de escritura y las medias de los últimos siete días."
+      },
+      {
+        "caption": "Una entrada: tus palabras, con estado de ánimo, sueño y más",
+        "alt": "Una entrada en un teléfono: su título y su fecha, las valoraciones de estado de ánimo, energía, estrés y sueño, el ejercicio, las emociones y el texto libre."
+      },
+      {
+        "caption": "Hábitos: objetivos, rachas y progreso",
+        "alt": "La pantalla Hábitos en un teléfono: un hábito con su objetivo diario, su racha actual, el cumplimiento en los últimos 30 días y la cantidad de hoy."
+      },
+      {
+        "caption": "Observaciones: formuladas con cuidado, con las cifras que hay detrás",
+        "alt": "La pantalla Observaciones en un teléfono: dos tendencias del último mes, cada una marcada como patrón débil, con el periodo analizado y un botón que explica la observación."
+      },
+      {
+        "caption": "El mismo diario en un ordenador",
+        "alt": "La pantalla Inicio en un ordenador: el menú con todas las secciones, el resumen de hoy y las medias de los últimos siete días."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "Tu privacidad",
+    "lead": "Un diario es algo personal. Esto es lo que pasa con el tuyo.",
+    "items": [
+      "Sin anuncios, sin analíticas y sin rastreo. No vendemos ni compartimos tus datos.",
+      "Tu diario se almacena cifrado en el servidor de {{BRAND}}, en un archivo independiente para cada cuenta. Tu contraseña en sí no se guarda.",
+      "Las aplicaciones y el sitio web solo se conectan al servidor de {{BRAND}}, siempre mediante HTTPS.",
+      "Mientras tienes la sesión iniciada, el servidor abre tu diario en su memoria para mostrarlo, buscar en él y analizarlo por ti. La política de privacidad explica con claridad lo que esto significa.",
+      "Llévate tu diario cuando quieras: un archivo de copia de seguridad cifrado que guardas tú, o una exportación a TXT, CSV, JSON o PDF.",
+      "Elimina tu cuenta y todos sus datos en cualquier momento desde Ajustes."
+    ],
+    "policyLink": "Leer la política de privacidad"
+  },
+  "faq": {
+    "heading": "Preguntas y respuestas",
+    "lead": "Respuestas breves sobre {{BRAND}}: qué es y qué hace, cómo se guarda y se protege tu diario, tu cuenta y la instalación de las aplicaciones.",
+    "groups": [
+      "Sobre la aplicación",
+      "Escritura y funciones",
+      "Dispositivos y uso sin conexión",
+      "Privacidad y seguridad",
+      "Tu cuenta",
+      "Instalación y actualización"
+    ],
+    "items": [
+      {
+        "q": "¿Qué es {{BRAND}}?",
+        "a": "Un diario privado. Escribes sobre tu día con tus propias palabras y, si quieres, añades tu estado de ánimo, tu sueño, tus hábitos y más. A lo largo de semanas, meses y años, la aplicación señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno. Funciona en el navegador y como aplicación para Windows, Android y Mac, con una sola cuenta para todo."
+      },
+      {
+        "q": "¿Es gratis?",
+        "a": "Sí. {{BRAND}} es gratis, sin anuncios y sin compras dentro de la aplicación. Si algún día queremos cobrar por algo, lo avisaremos con antelación, y nada pasará a ser de pago sin tu consentimiento."
+      },
+      {
+        "q": "¿Quién lo publica?",
+        "a": "{{BRAND}} lo publica y lo opera {{PUBLISHER_NAME}}. Para ponerte en contacto con nosotros, usa el [[contact|formulario de contacto]] que hay al final de esta página, o escribe a la dirección de correo electrónico que aparece junto a él."
+      },
+      {
+        "q": "¿Qué dispositivos puedo usar?",
+        "a": "Un ordenador con Windows 10 u 11, un Mac con macOS 12.3 o posterior, un teléfono con Android 7.0 o posterior y cualquier navegador moderno, en un ordenador o un teléfono. Los archivos de instalación están en la página [[downloads|Descargas]]. La aplicación para iPhone aún no está disponible. Es una sola cuenta en todas partes: lo que escribes en un dispositivo aparece en los demás."
+      },
+      {
+        "q": "¿En qué idiomas está disponible?",
+        "a": "En 20 idiomas: inglés, hebreo, árabe, chino (simplificado), japonés, hindi, tailandés, español, portugués, francés, italiano, alemán, rumano, griego, polaco, checo, húngaro, ruso, búlgaro y turco. Puedes cambiar el idioma cuando quieras en Ajustes, y tu cuenta conserva tu elección. El hebreo y el árabe se muestran de derecha a izquierda."
+      },
+      {
+        "q": "¿Es una herramienta médica?",
+        "a": "No. {{BRAND}} es una herramienta para llevar un diario personal. No es una herramienta médica ni de diagnóstico, y sus observaciones no son consejo médico ni psicológico. Si te preocupa tu salud, habla con un profesional cualificado."
+      },
+      {
+        "q": "¿Puedo probarlo sin una cuenta?",
+        "a": "En la aplicación para Android, sí. En la primera pantalla, elige «Omitir - solo quiero mirar» y explora la aplicación con datos de ejemplo. Nada de lo que escribas ahí se guarda, y la visita termina sola al cabo de 30 minutos. En las aplicaciones para Windows y Mac y en el navegador necesitas una cuenta; crearla es gratis."
+      },
+      {
+        "q": "¿Qué puede contener una entrada del diario?",
+        "a": "Un título y texto libre con tus propias palabras. Si quieres, añade tu estado de ánimo, emociones, energía, estrés, sueño, actividad física, acontecimientos importantes, las personas con las que estuviste, un lugar, notas y etiquetas. Puedes escribir más de una entrada al día. Cada día tiene su propia página, y una cronología muestra todo el diario."
+      },
+      {
+        "q": "¿Cómo funcionan los hábitos y los recordatorios?",
+        "a": "Creas hábitos diarios o semanales, cada uno con un objetivo, y los vas marcando sobre la marcha. La aplicación muestra tu racha y qué parte del objetivo has cumplido. Los recordatorios van con los hábitos: fijas la hora de cada hábito en la página Hábitos y activas los recordatorios en Ajustes, en Recordatorios. En un teléfono Android que permita las notificaciones de la aplicación, el recordatorio llega aunque la aplicación esté cerrada; en un ordenador y en el navegador aparece mientras el diario está abierto. Los recordatorios se crean en el propio dispositivo; no se envía nada fuera."
+      },
+      {
+        "q": "¿Qué son las observaciones y cómo veo las cifras que hay detrás de una?",
+        "a": "Las observaciones son posibles relaciones que la aplicación encuentra en tus propias entradas, por ejemplo entre el sueño y el estado de ánimo, o entre la actividad física y la energía. Se formulan con cuidado y nunca afirman que una cosa cause otra. En cada observación, «¿Por qué recibí esta observación?» muestra cuántos días se analizaron y las cifras que hay detrás. Cuando no hay suficientes datos, la aplicación lo dice en lugar de adivinar."
+      },
+      {
+        "q": "¿Qué calendarios puedo usar?",
+        "a": "Tres: el gregoriano, el hebreo y el de la hégira (islámico). Eliges uno en la página Calendario, y el mes muestra entonces los números de los días y las festividades de ese calendario. Las fechas y festividades islámicas siguen el calendario Umm al-Qura y pueden variar en un día."
+      },
+      {
+        "q": "¿Qué es la búsqueda inteligente?",
+        "a": "Una búsqueda que acepta una pregunta en tu idioma, como «¿Qué días dormí menos de cinco horas?» o «¿Cuándo escribí sobre el cansancio?». La aplicación muestra cómo ha entendido la pregunta, la respuesta, y los días y las entradas que coinciden. Las preguntas se responden en el servidor y no se guardan en él."
+      },
+      {
+        "q": "¿Qué muestran las estadísticas?",
+        "a": "Gráficos de tu estado de ánimo, energía, estrés, sueño, actividad física y hábitos a lo largo del tiempo, para el periodo que elijas, desde los últimos 7 días hasta todo el diario. Cada gráfico va acompañado de un breve resumen en palabras y de una tabla de datos, de modo que las cifras se pueden leer sin el gráfico."
+      },
+      {
+        "q": "¿En qué formatos puedo exportar mi diario?",
+        "a": "TXT, CSV, JSON y PDF, para todo el diario o para un intervalo de fechas. Un archivo CSV contiene solo las entradas; los demás formatos pueden incluir también tus hábitos. Una exportación es un archivo normal y legible, no cifrado: cualquiera que tenga el archivo puede leerlo, así que guárdalo con el mismo cuidado que el propio diario."
+      },
+      {
+        "q": "¿Funciona sin conexión?",
+        "a": "Sí, una vez que has iniciado sesión. Si se corta la conexión, puedes seguir leyendo y escribiendo. Tus cambios se guardan cifrados en tu dispositivo y se suben automáticamente cuando vuelve la conexión, aunque hayas cerrado la aplicación entretanto. Con «Recordarme», las aplicaciones también se abren sin conexión y muestran lo que has visto recientemente. Crear una cuenta, iniciar sesión, las observaciones, la búsqueda, las estadísticas, la copia de seguridad, la exportación y los cambios en tu cuenta necesitan conexión."
+      },
+      {
+        "q": "¿Puedo usarlo en varios dispositivos?",
+        "a": "Sí. Tu diario se guarda en tu cuenta en el servidor de {{BRAND}}, así que inicias sesión con la misma cuenta en cada dispositivo y lo tienes todo. Lo que cambias en un dispositivo aparece en los demás cuando se conectan. En Ajustes, Dispositivos conectados muestra los dispositivos que tienen la sesión iniciada, y puedes desconectar cualquiera de ellos."
+      },
+      {
+        "q": "¿Qué pasa si cambio la misma entrada en dos dispositivos?",
+        "a": "Se conserva el cambio más reciente, y la aplicación te lo dice en una línea. La otra versión sigue disponible en ese dispositivo hasta que cierres el aviso: puedes leerla, copiar su texto o guardarla como entrada nueva."
+      },
+      {
+        "q": "¿Puedo usarlo en un navegador, sin instalar nada?",
+        "a": "Sí. [[webapp|Abre la versión web]] en cualquier navegador moderno, en un ordenador o un teléfono, e inicia sesión con la misma cuenta. El navegador no guarda ninguna copia de lo que lees. Si se corta la conexión mientras el diario está abierto, puedes seguir escribiendo: tus cambios se guardan cifrados en el navegador y se suben cuando vuelve la conexión."
+      },
+      {
+        "q": "¿Qué hace «Recordarme»?",
+        "a": "Mantiene tu sesión iniciada en ese dispositivo hasta 90 días en lugar de 12 horas. En las aplicaciones para Windows, Mac y Android también guarda una copia cifrada de lo que has visto recientemente, para que la aplicación pueda abrirse y mostrarlo sin conexión. En las pantallas de inicio de sesión y de registro la casilla viene marcada: en un dispositivo que también usan otras personas, desmárcala y cierra sesión cuando termines."
+      },
+      {
+        "q": "¿Dónde se guarda mi diario?",
+        "a": "En tu propia cuenta en el servidor de {{BRAND}}, en un archivo cifrado independiente para cada cuenta. El servidor funciona en el proveedor de alojamiento Fly.io, en su centro de datos de Fráncfort, Alemania. Las aplicaciones y el navegador muestran todos este mismo diario. La [[privacy|Política de privacidad]] indica con exactitud qué se guarda y dónde."
+      },
+      {
+        "q": "¿Quién puede leer mi diario?",
+        "a": "Tú, con tu contraseña: el archivo del diario está cifrado con una clave derivada de ella. Pero conoce los límites. Mientras tienes la sesión iniciada, el servidor tiene tu diario abierto en su memoria. Y quien controla el servidor y sus secretos - el operador y, en principio, el proveedor de alojamiento - podría, técnicamente, restablecer la contraseña de cualquier cuenta y leer su diario sin conocer la contraseña. Prometemos no hacerlo, no tenemos ninguna herramienta para ello, y nuestras herramientas de administración nunca abren un diario. La sección 4 de la [[privacy|Política de privacidad]] lo explica con claridad."
+      },
+      {
+        "q": "¿Está cifrado de extremo a extremo?",
+        "a": "No. Tu diario está cifrado en su archivo en el servidor (AES-256-GCM, con una clave derivada de tu contraseña) y en el camino hasta él (HTTPS). Pero mientras tienes la sesión iniciada, el servidor lo abre en su memoria para mostrarlo, buscar en él y analizarlo por ti. El servidor guarda además una clave de recuperación para que «¿Has olvidado la contraseña?» funcione sin que pierdas tu diario; con ella, quien controla el servidor podría, técnicamente, restablecer una contraseña y leer el diario. Si no quieres confiar en nuestra promesa de no hacerlo, no guardes en el servicio nada que no quieras que lea otra persona."
+      },
+      {
+        "q": "¿Hay anuncios o rastreo?",
+        "a": "No. No hay publicidad, ni analíticas, ni rastreo: ni en las aplicaciones, ni en la versión web, ni en este sitio. No vendemos ni compartimos tus datos, y tu diario nunca se usa para entrenar ninguna IA. Las aplicaciones y la versión web solo se conectan al servidor de {{BRAND}}, siempre mediante HTTPS."
+      },
+      {
+        "q": "¿Cómo se bloquea el diario?",
+        "a": "Se bloquea solo tras un periodo de inactividad; eliges el tiempo en Ajustes, en Seguridad, y «Bloquear ahora» lo bloquea al instante. Tu contraseña lo vuelve a abrir. En la aplicación para Android también puedes hacer que se bloquee cada vez que sales de la aplicación, y abrirlo con tu huella o tu rostro. Cuando una aplicación ofrece el bloqueo de pantalla de tu dispositivo en lugar de la contraseña (Windows Hello, Touch ID o la contraseña del Mac, o el bloqueo de pantalla de Android), la comprobación la hace el sistema operativo: nada sobre tu huella, tu rostro o tu PIN llega a la aplicación ni a nosotros."
+      },
+      {
+        "q": "¿Qué pasa si olvido mi contraseña?",
+        "a": "En la pantalla de inicio de sesión, elige «¿Has olvidado la contraseña?» e introduce la dirección de correo electrónico con la que te registraste. Recibirás un mensaje con un enlace y un código de 6 dígitos, válidos durante 30 minutos y de un solo uso. Si el mensaje no llega en unos minutos, mira en la carpeta de correo no deseado. Abre el enlace, o introduce el código en la aplicación, y elige una contraseña nueva; después se cierra tu sesión en todos los dispositivos. Tu diario se conserva: no se elimina nada."
+      },
+      {
+        "q": "¿Cómo hago una copia de seguridad de mi diario y cómo la restauro?",
+        "a": "Abre Copia de seguridad en el menú (en la aplicación para Android, en Más) y crea un archivo de copia de seguridad: una copia cifrada de todo el diario (entradas, hábitos y ajustes), protegida con una contraseña, que guardas donde quieras. Para restaurarla, elige ese archivo en la misma página e introduce su contraseña. La restauración sustituye el diario actual por el contenido del archivo, así que antes crea una copia de seguridad del diario actual."
+      },
+      {
+        "q": "¿Cómo elimino mi cuenta?",
+        "a": "Inicia sesión, abre Ajustes y ve a la última tarjeta, Eliminar la cuenta: introduce tu contraseña y confirma. Tu cuenta, tu diario, tus hábitos y tus ajustes se eliminan del servidor al instante, y se cierra tu sesión en todos los dispositivos. Esto no se puede deshacer. Las copias que haya en las copias de seguridad del propio servidor desaparecen en los plazos indicados en la [[privacy|Política de privacidad]]. Si no puedes iniciar sesión, la [[delete|página de eliminación de la cuenta]] explica qué hacer."
+      },
+      {
+        "q": "¿Qué edad debo tener?",
+        "a": "Debes tener al menos {{MINIMUM_AGE}} años para crear una cuenta. Si eres menor de edad donde vives, solo puedes usar el servicio si tu madre, tu padre o tu tutor legal está de acuerdo, cuando la ley de tu país lo exija."
+      },
+      {
+        "q": "¿Por qué me avisa mi dispositivo cuando instalo un archivo de este sitio?",
+        "a": "Porque el archivo no procede de una tienda de aplicaciones, y los archivos para Windows y Mac todavía no están firmados con un certificado de editor. Windows puede mostrar «Windows protegió su PC»: elige Más información y después Ejecutar de todas formas. macOS no abre la aplicación la primera vez e incluso puede decir que está dañada: no la muevas a la Papelera; abre Ajustes del Sistema, luego Privacidad y seguridad (en macOS 12: Preferencias del Sistema, luego Seguridad y privacidad), y elige Abrir igualmente. Android te pide que permitas a tu navegador o a tu gestor de archivos instalar aplicaciones (en Android 7: Orígenes desconocidos). La página [[downloads|Descargas]] tiene los pasos para cada sistema, y una suma de comprobación SHA-256 de cada archivo para comprobar que tu copia no ha cambiado."
+      },
+      {
+        "q": "¿Cómo actualizo a una versión nueva?",
+        "a": "Las aplicaciones de este sitio no se actualizan solas. Cuando la página [[downloads|Descargas]] muestre una versión más reciente, descarga su archivo e instálalo como la primera vez; sustituye a la versión que tienes. Tu diario se guarda en tu cuenta en el servidor, así que una actualización no lo cambia. Si un teléfono Android se niega a instalar el archivo nuevo sobre la aplicación antigua, comprueba primero que la aplicación indica que todos los cambios están guardados en el servidor, y después desinstala la aplicación antigua e instala el archivo nuevo."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Descargas",
+    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos y en el navegador.",
+    "tabsLabel": "Sistema operativo",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Archivo",
+      "version": "Versión",
+      "size": "Tamaño"
+    },
+    "captions": {
+      "windows": "Archivos de instalación para Windows, la versión más reciente primero",
+      "android": "Archivos de instalación para Android, la versión más reciente primero",
+      "mac": "Archivos de instalación para Mac, la versión más reciente primero"
+    },
+    "requires": {
+      "windows": "Requiere Windows 10 o Windows 11 (64 bits).",
+      "android": "Requiere Android 7.0 o posterior.",
+      "mac": "Requiere macOS 12.3 o posterior, en un Mac con chip de Apple o con procesador Intel."
+    },
+    "install": {
+      "windows": "Este archivo de instalación no procede de Microsoft Store y todavía no está firmado con un certificado de editor. Puede que tu navegador avise primero de que el archivo no se descarga habitualmente (elige conservarlo) y, cuando lo abras, Windows puede mostrar «Windows protegió su PC»: elige Más información y después Ejecutar de todas formas. El instalador te pregunta el idioma e instala la aplicación para tu propia cuenta de Windows, sin contraseña de administrador.",
+      "android": "Este archivo se instala directamente, no a través de Google Play. Cuando abres el archivo descargado, Android te pide que permitas a tu navegador o a tu gestor de archivos instalar aplicaciones; en Android 7 este ajuste se llama Orígenes desconocidos. Permítelo, vuelve al archivo y elige Instalar.",
+      "mac": "Abre la imagen de disco, arrastra la aplicación a la carpeta Aplicaciones y ábrela desde allí. La aplicación todavía no está firmada con un certificado de desarrollador de Apple, así que la primera vez macOS no la abre, y el mensaje puede incluso decir que la aplicación está dañada. No la muevas a la Papelera: cierra el mensaje, abre Ajustes del Sistema, luego Privacidad y seguridad, desplázate hacia abajo y elige Abrir igualmente (en macOS 12: Preferencias del Sistema, luego Seguridad y privacidad, luego Abrir igualmente), introduce la contraseña de tu Mac si te la pide y elige Abrir."
+    },
+    "checkFile": "Comprobar el archivo",
+    "checkText": "Cada archivo tiene una suma de comprobación SHA-256. Si la del archivo que has descargado es distinta, la descarga está dañada o el archivo ha sido modificado: no lo instales. Para ver la suma de comprobación de un archivo, escribe Get-FileHash y el nombre del archivo en Windows PowerShell, o shasum -a 256 y el nombre del archivo en el Terminal de un Mac. No importa si las letras están en mayúsculas o en minúsculas.",
+    "moreHeading": "Navegador y iPhone",
+    "web": "No hay nada que instalar: {{BRAND}} también funciona en cualquier navegador moderno, en un ordenador o un teléfono. [[webapp|Ábrelo en tu navegador]].",
+    "iphone": "No hay archivo de instalación para iPhone: las aplicaciones para iPhone se instalan desde el App Store. La aplicación para iPhone aún no está disponible.",
+    "iphoneStore": "En un iPhone, la aplicación se instala desde el App Store.",
+    "storeLinks": {
+      "googlePlay": "Disponible en Google Play",
+      "appStoreIphone": "Descárgalo en el App Store",
+      "appStoreMac": "Descárgalo en el Mac App Store",
+      "microsoftStore": "Consíguelo en Microsoft Store"
+    }
+  },
+  "contact": {
+    "heading": "Contacto",
+    "lead": "¿Tienes preguntas, comentarios o algún problema? Escríbenos por correo electrónico, o rellena el formulario y te responderemos por correo electrónico.",
+    "required": "Todos los campos son obligatorios.",
+    "firstName": "Nombre",
+    "lastName": "Apellidos",
+    "email": "Dirección de correo electrónico",
+    "message": "Tu mensaje",
+    "honeypot": "Deja este campo vacío",
+    "notice": "Tu nombre, tu dirección de correo electrónico y tu mensaje se nos envían por correo electrónico para que podamos responderte. No se guardan en el servidor. Más información en la [[privacy|Política de privacidad]].",
+    "send": "Enviar",
+    "sentTitle": "Tu mensaje se ha enviado",
+    "sentText": "Gracias por escribirnos. Te responderemos por correo electrónico, a la dirección que has indicado. Respondemos en un plazo de 30 días, normalmente mucho antes.",
+    "errorTitle": "Tu mensaje no se ha enviado",
+    "errorText": "Algo ha fallado y tu mensaje no nos ha llegado. Vuelve atrás, comprueba tu dirección de correo electrónico e inténtalo de nuevo dentro de un rato, o escríbenos por correo electrónico: {{CONTACT_EMAIL}}",
+    "backHome": "Volver a la página de inicio"
+  },
+  "footer": {
+    "languagesLabel": "Todos los idiomas",
+    "change": "Cambiar",
+    "rights": "Todos los derechos reservados."
+  }
+}

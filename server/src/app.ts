@@ -145,6 +145,11 @@ export function createApp(deps: AppDeps): Express {
       res.json({ ok: true, version: APP_VERSION });
     });
   }
+  // The contact form of the public site (docs/site-tasks/SITE.md section 5): hosted mode only - the
+  // local server has no such route and answers 404. The handler comes from the hosted composition
+  // (hosted/contact.ts) with its own form parser, 64 KB for this route alone; it stands here, behind
+  // the Host check and the security headers and outside every JSON parser and session check below.
+  if (hosted?.contact) app.use('/api/contact', hosted.contact);
   // Retry-After for the cross-origin apps (Windows, Android), which can read it only when it is
   // exposed (routes/sync.ts exposeRetryAfter): the archive's 429 'server.archive.tooSoon' (the Server
   // card shows "next archive from HH:MM"), the tour's 503 'server.auth.guestsFull' and the derivation

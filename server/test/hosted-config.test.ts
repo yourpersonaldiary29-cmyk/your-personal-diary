@@ -98,9 +98,35 @@ describe('loadHostedEnv', () => {
       maxGuests: 20,
       guestMinutes: 30,
       guestsPerHour: 3,
+      contactForm: true,
     });
     expect(env.clientIpHeader).toBeUndefined();
     expect(env.deviceKey).toBeUndefined();
+  });
+
+  it('DIARY_CONTACT_FORM: the contact form of the site is on unless the value is "off"; any other value stops the start', () => {
+    // On: unset, empty, or said outright.
+    for (const value of [undefined, '', '   ', 'on', 'ON', ' on ']) {
+      const env = loadHostedEnv(value === undefined ? BASE : { ...BASE, DIARY_CONTACT_FORM: value });
+      expect({ value, contactForm: env.contactForm }).toEqual({ value, contactForm: true });
+    }
+    // Off: only the word itself.
+    for (const value of ['off', 'OFF', ' Off ']) {
+      expect({ value, contactForm: loadHostedEnv({ ...BASE, DIARY_CONTACT_FORM: value }).contactForm }).toEqual({ value, contactForm: false });
+    }
+    // Anything else is a mistake the operator must hear about at start - never a form that stays on
+    // behind a value that was meant to switch it off. The message names the variable, not the value.
+    for (const value of ['0', '1', 'false', 'true', 'no', 'yes', 'disabled', 'offline', 'of', 'on,off', 'off;']) {
+      let message = '';
+      try {
+        loadHostedEnv({ ...BASE, DIARY_CONTACT_FORM: value });
+      } catch (e) {
+        message = (e as Error).message;
+      }
+      expect({ value, message }).toEqual({ value, message: 'DIARY_CONTACT_FORM must be on or off' });
+    }
+    // The switch belongs to hosted mode: the local configuration never reads it.
+    expect(loadConfig(['--data-dir', tempDataDir()], { DIARY_CONTACT_FORM: 'nonsense' }).mode).toBe('local');
   });
 
   it('reads the Fly / Railway variables', () => {
@@ -172,6 +198,7 @@ describe('loadHostedEnv', () => {
       [{ DIARY_MAX_GUESTS: 'many' }, /DIARY_MAX_GUESTS/],
       [{ DIARY_GUEST_MINUTES: '0' }, /DIARY_GUEST_MINUTES/],
       [{ DIARY_GUESTS_PER_HOUR: '0' }, /DIARY_GUESTS_PER_HOUR/],
+      [{ DIARY_CONTACT_FORM: 'disabled' }, /DIARY_CONTACT_FORM/],
     ];
     for (const [extra, re] of cases) {
       let message = '';

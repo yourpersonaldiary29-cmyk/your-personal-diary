@@ -1,0 +1,294 @@
+{
+  "title": "{{BRAND}} - privát napló szokásokkal és óvatos meglátásokkal",
+  "description": "Írj a napodról, figyeld a hangulatodat és a szokásaidat, és idővel vedd észre a mintázatokat. Privát napló 20 nyelven. Ingyenes, reklámok és követés nélkül.",
+  "skipLink": "Ugrás a tartalomra",
+  "languagesLabel": "Nyelv",
+  "nav": {
+    "label": "A webhely menüje",
+    "about": "Az alkalmazásról",
+    "terms": "Felhasználási feltételek",
+    "faq": "Kérdések és válaszok",
+    "privacy": "Adatvédelmi irányelvek",
+    "downloads": "Letöltések",
+    "contact": "Kapcsolat"
+  },
+  "hero": {
+    "heading": "Privát napló, amely segít észrevenni a saját mintázataidat",
+    "lead": "Írj a napodról a saját szavaiddal. Ha szeretnéd, add hozzá a hangulatodat, az alvásodat és a szokásaidat. Hetek, hónapok és évek alatt a {{BRAND}} rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat.",
+    "openAction": "Megnyitás böngészőben",
+    "note": "Ingyenes. Nincs reklám, nincs használati elemzés, nincs követés."
+  },
+  "features": {
+    "heading": "Mire használhatod?",
+    "items": [
+      {
+        "title": "Írd le a napodat",
+        "text": "Bejegyzések a saját szavaiddal. Ha szeretnéd, add hozzá a hangulatot, az érzelmeket, az energiát, a stresszt, az alvást, a testmozgást, az embereket, a helyet és a címkéket. Minden napnak saját oldala van, az idővonal pedig az egész naplót megmutatja."
+      },
+      {
+        "title": "Szokások és emlékeztetők",
+        "text": "Napi és heti szokások, amelyeket napközben kipipálsz, sorozatokkal és haladással. Választható emlékeztetők, minden szokáshoz az általad megadott időpontban."
+      },
+      {
+        "title": "Óvatos meglátások",
+        "text": "Az alkalmazás lehetséges összefüggéseket keres a saját adataidban, például az alvás és a hangulat között. A meglátások óvatosan fogalmaznak, és sosem állítják, hogy az egyik dolog okozza a másikat. Ha nincs elég adat, az alkalmazás ezt megmondja ahelyett, hogy találgatna."
+      },
+      {
+        "title": "Naptár",
+        "text": "Havi naptár a Gergely-naptár, a zsidó naptár vagy a hidzsra (iszlám naptár) szerint, a választott naptár ünnepeivel."
+      },
+      {
+        "title": "Statisztika és okos keresés",
+        "text": "Grafikonok a hangulatodról, energiádról, stresszedről, alvásodról és szokásaidról az idő múlásával, mindegyik adattáblázattal. Tegyél fel kérdést a saját nyelveden, például „Mely napokon aludtam kevesebb, mint öt órát?”, és a választ a naplódból kapod meg."
+      },
+      {
+        "title": "Offline is működik, és szinkronizál",
+        "text": "Egy fiók, ugyanaz a napló minden eszközön. Ha megszakad a kapcsolat, olvass és írj tovább: a módosításaid titkosítva maradnak az eszközödön, és feltöltődnek, amint visszatér a kapcsolat."
+      },
+      {
+        "title": "20 nyelv",
+        "text": "Az egész alkalmazás 20 nyelven. A nyelvet bármikor módosíthatod a Beállításokban. A héber és az arab szöveg jobbról balra jelenik meg."
+      },
+      {
+        "title": "Akadálymentesség",
+        "text": "Képernyőolvasóval is használható: egyértelmű címsorok, feliratozott mezők és felolvasott állapotüzenetek. Világos, sötét és nagy kontrasztú téma, állítható szövegméret és animációcsökkentési lehetőség. Számítógépen minden elvégezhető billentyűzettel."
+      }
+    ]
+  },
+  "screens": {
+    "heading": "Így néz ki",
+    "items": [
+      {
+        "caption": "Kezdőlap: a mai nap egy pillantásra",
+        "alt": "A Kezdőlap telefonon: üdvözlés a dátummal, a mai bejegyzések száma, az írási sorozat és az elmúlt 7 nap átlagai."
+      },
+      {
+        "caption": "Bejegyzés: a saját szavaid, hangulattal, alvással és egyebekkel",
+        "alt": "Egy bejegyzés telefonon: a címe és a dátuma, a hangulat, az energia, a stressz és az alvás értékelése, a testmozgás, az érzelmek és a szabad szöveg."
+      },
+      {
+        "caption": "Szokások: célok, sorozatok és haladás",
+        "alt": "A Szokások képernyő telefonon: egy szokás a napi céljával, a jelenlegi sorozatával, az elmúlt 30 nap teljesítésével és a mai mennyiséggel."
+      },
+      {
+        "caption": "Meglátások: óvatos megfogalmazás, a mögöttük álló számokkal",
+        "alt": "A Meglátások képernyő telefonon: két trend az elmúlt hónapból, mindkettő gyenge mintázatként megjelölve, a vizsgált időszakkal és egy gombbal, amely elmagyarázza a meglátást."
+      },
+      {
+        "caption": "Ugyanaz a napló számítógépen",
+        "alt": "A Kezdőlap számítógépen: a menü az összes résszel, a mai nap összefoglalója és az elmúlt 7 nap átlagai."
+      }
+    ]
+  },
+  "privacy": {
+    "heading": "A magánszférád",
+    "lead": "A napló személyes dolog. Ez történik a tiéddel.",
+    "items": [
+      "Nincs reklám, nincs használati elemzés és nincs követés. Nem adjuk el és nem osztjuk meg az adataidat.",
+      "A naplód titkosítva tárolódik a {{BRAND}} szerverén, minden fiókhoz külön fájlban. Magát a jelszavadat a szerver nem tárolja.",
+      "Az alkalmazások és a weboldal kizárólag a {{BRAND}} szerveréhez kapcsolódnak, mindig HTTPS-en keresztül.",
+      "Amíg be vagy jelentkezve, a szerver megnyitja a naplódat a memóriájában, hogy meg tudja mutatni, keresni tudjon benne és elemezni tudja neked. Hogy ez mit jelent, azt az adatvédelmi irányelvek közérthetően elmagyarázzák.",
+      "A naplódat bármikor magaddal viheted: titkosított mentési fájlként, amelyet te őrzöl, vagy TXT, CSV, JSON vagy PDF formátumba exportálva.",
+      "A fiókodat és minden adatát bármikor törölheted a Beállításokban."
+    ],
+    "policyLink": "Adatvédelmi irányelvek elolvasása"
+  },
+  "faq": {
+    "heading": "Kérdések és válaszok",
+    "lead": "Rövid válaszok arról, mi a {{BRAND}} és mit csinál, hogyan tároljuk és védjük a naplódat, valamint a fiókodról és az alkalmazások telepítéséről.",
+    "groups": [
+      "Az alkalmazásról",
+      "Írás és funkciók",
+      "Eszközök és offline használat",
+      "Adatvédelem és biztonság",
+      "A fiókod",
+      "Telepítés és frissítés"
+    ],
+    "items": [
+      {
+        "q": "Mi a {{BRAND}}?",
+        "a": "Egy privát napló. A saját szavaiddal írsz a napodról, és ha szeretnéd, hozzáadod a hangulatodat, az alvásodat, a szokásaidat és egyebeket. Hetek, hónapok és évek alatt az alkalmazás rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat. Böngészőben, valamint Windows-, Android- és Mac-alkalmazásként működik, mindegyikhez ugyanazzal az egy fiókkal."
+      },
+      {
+        "q": "Ingyenes?",
+        "a": "Igen. A {{BRAND}} ingyenes, nincs benne reklám és alkalmazáson belüli vásárlás. Ha valaha díjat szeretnénk kérni valamiért, előre jelezzük, és semmi sem válik fizetőssé a beleegyezésed nélkül."
+      },
+      {
+        "q": "Ki adja ki?",
+        "a": "A {{BRAND}} kiadója és üzemeltetője: {{PUBLISHER_NAME}}. Ha kapcsolatba szeretnél lépni velünk, használd az oldal alján található [[contact|kapcsolatfelvételi űrlapot]], vagy írj a mellette feltüntetett e-mail-címre."
+      },
+      {
+        "q": "Milyen eszközöket használhatok?",
+        "a": "Windows 10 vagy 11 rendszerű számítógép, macOS 12.3 vagy újabb rendszerű Mac, Android 7.0 vagy újabb rendszerű Android-telefon, valamint bármely modern böngésző számítógépen vagy telefonon. A telepítőfájlok a [[downloads|Letöltések]] oldalon találhatók. Az iPhone-alkalmazás még nem érhető el. Mindenhol egy fiók: amit az egyik eszközön írsz, megjelenik a többin is."
+      },
+      {
+        "q": "Milyen nyelveken érhető el?",
+        "a": "20 nyelven: angolul, héberül, arabul, kínaiul (egyszerűsített), japánul, hindiül, thaiul, spanyolul, portugálul, franciául, olaszul, németül, románul, görögül, lengyelül, csehül, magyarul, oroszul, bolgárul és törökül. A nyelvet bármikor módosíthatod a Beállításokban, és a fiókod megjegyzi a választásodat. A héber és az arab szöveg jobbról balra jelenik meg."
+      },
+      {
+        "q": "Orvosi eszköz ez?",
+        "a": "Nem. A {{BRAND}} személyes naplóvezető eszköz. Nem orvosi vagy diagnosztikai eszköz, és a meglátásai nem minősülnek orvosi vagy pszichológiai tanácsnak. Ha aggódsz az egészséged miatt, fordulj képzett szakemberhez."
+      },
+      {
+        "q": "Kipróbálhatom fiók nélkül?",
+        "a": "Az Android-alkalmazásban igen. Az első képernyőn válaszd a „Kihagyás - csak körülnéznék” lehetőséget, és fedezd fel az alkalmazást mintaadatokkal. Semmi sem mentődik el abból, amit ott írsz, és a bemutató 30 perc után magától véget ér. A Windows- és a Mac-alkalmazásban, valamint a böngészőben fiókra van szükséged; a létrehozása ingyenes."
+      },
+      {
+        "q": "Mit tartalmazhat egy bejegyzés?",
+        "a": "Egy címet és szabad szöveget a saját szavaiddal. Ha szeretnéd, add hozzá a hangulatodat, az érzelmeidet, az energiádat, a stresszt, az alvást, a testmozgást, a fontos eseményeket, az embereket, akikkel találkoztál, egy helyet, jegyzeteket és címkéket. Naponta több bejegyzést is írhatsz. Minden napnak saját oldala van, az idővonal pedig az egész naplót megmutatja."
+      },
+      {
+        "q": "Hogyan működnek a szokások és az emlékeztetők?",
+        "a": "Napi vagy heti szokásokat állítasz be, mindegyiket saját céllal, és menet közben kipipálod őket. Az alkalmazás megmutatja a sorozatodat és azt, hogy a cél mekkora részét teljesítetted. Az emlékeztetők a szokásokhoz tartoznak: az egyes szokások időpontját a Szokások oldalon állítod be, az emlékeztetőket pedig a Beállításokban, az Emlékeztetők résznél kapcsolod be. Ha egy Android-telefon engedélyezi az alkalmazás értesítéseit, az emlékeztető akkor is megérkezik, ha az alkalmazás be van zárva; számítógépen és böngészőben akkor jelenik meg, amikor a napló nyitva van. Az emlékeztetők magán az eszközön jönnek létre; semmi sem megy ki az eszközről."
+      },
+      {
+        "q": "Mik azok a meglátások, és hogyan láthatom a mögöttük álló számokat?",
+        "a": "A meglátások olyan lehetséges összefüggések, amelyeket az alkalmazás a saját bejegyzéseidben talál, például az alvás és a hangulat, vagy a testmozgás és az energia között. Óvatosan vannak megfogalmazva, és soha nem állítják, hogy az egyik dolog okozza a másikat. Minden meglátásnál a „Miért kaptam ezt a meglátást?” megmutatja, hány napot vizsgált meg az alkalmazás, és milyen számok állnak a meglátás mögött. Ha nincs elég adat, az alkalmazás ezt jelzi, ahelyett hogy találgatna."
+      },
+      {
+        "q": "Milyen naptárakat használhatok?",
+        "a": "Hármat: a Gergely-naptárt, a héber naptárt és a hidzsra (iszlám) naptárt. Egyet a Naptár oldalon választhatsz ki, és a hónap ezután annak a naptárnak a napszámait és ünnepeit mutatja. Az iszlám dátumok és ünnepek az Umm al-Qura naptárt követik, és egy nappal eltolódhatnak."
+      },
+      {
+        "q": "Mi az okos keresés?",
+        "a": "Olyan keresés, amely elfogad egy kérdést a saját nyelveden, például: „Melyik napokon aludtam öt óránál kevesebbet?” vagy „Mikor írtam, hogy fáradt vagyok?”. Az alkalmazás megmutatja, hogyan értelmezte a kérdést, a választ, valamint az egyező napokat és bejegyzéseket. A kérdésekre a szerveren születik válasz, és ott nem tárolódnak."
+      },
+      {
+        "q": "Mit mutat a statisztika?",
+        "a": "Grafikonokat a hangulatod, az energiád, a stressz, az alvás, a testmozgás és a szokásaid időbeli alakulásáról, egy általad választott időszakra, az utolsó 7 naptól az egész naplóig. Minden grafikonhoz rövid szöveges összefoglaló és adattáblázat tartozik, így a számok a grafikon nélkül is leolvashatók."
+      },
+      {
+        "q": "Milyen formátumokban exportálhatom a naplómat?",
+        "a": "TXT, CSV, JSON és PDF formátumban, az egész naplót vagy egy dátumtartományt. A CSV-fájl csak a bejegyzéseket tartalmazza; a többi formátum a szokásaidat is tartalmazhatja. Az export egy hétköznapi, olvasható fájl, nem titkosított: bárki elolvashatja, akinél a fájl van, ezért ugyanolyan gondosan őrizd, mint magát a naplót."
+      },
+      {
+        "q": "Működik internetkapcsolat nélkül?",
+        "a": "Igen, miután bejelentkeztél. Ha megszakad a kapcsolat, tovább olvashatsz és írhatsz. A módosításaid titkosítva maradnak az eszközödön, és automatikusan feltöltődnek, amint visszatér a kapcsolat, akkor is, ha közben bezártad az alkalmazást. Az „Emlékezz rám” beállítással az alkalmazások kapcsolat nélkül is megnyílnak, és megmutatják, amit nemrég megnéztél. A fiók létrehozásához, a bejelentkezéshez, a meglátásokhoz, a kereséshez, a statisztikához, a biztonsági mentéshez, az exportáláshoz és a fiók módosításához kapcsolat szükséges."
+      },
+      {
+        "q": "Használhatom több eszközön?",
+        "a": "Igen. A naplód a fiókodban van a {{BRAND}} szerverén, így minden eszközön ugyanazzal a fiókkal jelentkezel be, és ott találsz mindent. Amit az egyik eszközön módosítasz, az megjelenik a többin, amikor csatlakoznak. A Beállításokban a Csatlakoztatott eszközök lista mutatja, mely eszközökön vagy bejelentkezve, és bármelyiket leválaszthatod."
+      },
+      {
+        "q": "Mi történik, ha ugyanazt a bejegyzést két eszközön módosítom?",
+        "a": "Az újabb módosítás marad meg, és az alkalmazás ezt egy sorban jelzi. A másik változat azon az eszközön elérhető marad, amíg be nem zárod az értesítést: elolvashatod, kimásolhatod a szövegét, vagy új bejegyzésként mentheted."
+      },
+      {
+        "q": "Használhatom böngészőben, telepítés nélkül?",
+        "a": "Igen. [[webapp|Nyisd meg a webes verziót]] bármely modern böngészőben, számítógépen vagy telefonon, és jelentkezz be ugyanazzal a fiókkal. A böngésző nem őriz másolatot abból, amit olvasol. Ha megszakad a kapcsolat, miközben a napló nyitva van, tovább írhatsz: a módosításaid titkosítva maradnak a böngészőben, és feltöltődnek, amint visszatér a kapcsolat."
+      },
+      {
+        "q": "Mit csinál az „Emlékezz rám”?",
+        "a": "12 óra helyett legfeljebb 90 napig bejelentkezve tart azon az eszközön. A Windows-, a Mac- és az Android-alkalmazásban titkosított másolatot is őriz arról, amit nemrég megnéztél, így az alkalmazás kapcsolat nélkül is meg tud nyílni és meg tudja mutatni. A bejelentkezési és a regisztrációs képernyőn alapértelmezés szerint be van jelölve: olyan eszközön, amelyet mások is használnak, vedd ki a jelölést, és ha végeztél, jelentkezz ki."
+      },
+      {
+        "q": "Hol tárolódik a naplóm?",
+        "a": "A saját fiókodban a {{BRAND}} szerverén, minden fiókhoz külön titkosított fájlban. A szerver a Fly.io tárhelyszolgáltatónál fut, annak németországi, frankfurti adatközpontjában. Az alkalmazások és a böngésző mind ezt az egy naplót mutatják. Az [[privacy|Adatvédelmi irányelvek]] pontosan leírják, mit és hol tárolunk."
+      },
+      {
+        "q": "Ki olvashatja a naplómat?",
+        "a": "Te, a jelszavaddal: a naplófájl egy abból származtatott kulccsal van titkosítva. A korlátokat azonban érdemes ismerned. Amíg be vagy jelentkezve, a szerver memóriájában nyitva van a naplód. Aki pedig a szervert és annak titkos adatait kezeli - az üzemeltető és elvben a tárhelyszolgáltató -, technikailag bármely fiók jelszavát visszaállíthatná, és a jelszó ismerete nélkül elolvashatná a naplóját. Ígérjük, hogy ezt nem tesszük, nincs erre szolgáló eszközünk, és az adminisztrációs eszközeink soha nem nyitnak meg naplót. Az [[privacy|Adatvédelmi irányelvek]] 4. szakasza ezt közérthetően elmagyarázza."
+      },
+      {
+        "q": "Végponttól végpontig titkosított?",
+        "a": "Nem. A naplód titkosítva van a fájljában a szerveren (AES-256-GCM, a jelszavadból származtatott kulccsal) és az odavezető úton (HTTPS). Amíg azonban be vagy jelentkezve, a szerver megnyitja a memóriájában, hogy megmutassa, keressen benne és elemezze neked. A szerver egy helyreállítási kulcsot is őriz, hogy az „Elfelejtetted a jelszavad?” a napló elvesztése nélkül működjön; ennek birtokában a szervert kezelő személy technikailag visszaállíthatna egy jelszót, és elolvashatná a naplót. Ha nem akarsz arra az ígéretünkre hagyatkozni, hogy ezt nem tesszük, ne tárolj a szolgáltatásban semmit, amit nem szeretnél, hogy más elolvasson."
+      },
+      {
+        "q": "Van benne reklám vagy követés?",
+        "a": "Nem. Nincs reklám, nincs használati elemzés és nincs követés, sem az alkalmazásokban, sem a webes verzióban, sem ezen a webhelyen. Nem adjuk el és nem osztjuk meg az adataidat, és a naplódat soha nem használjuk semmilyen mesterséges intelligencia tanítására. Az alkalmazások és a webes verzió csak a {{BRAND}} szerveréhez csatlakoznak, mindig HTTPS-en keresztül."
+      },
+      {
+        "q": "Hogyan zárolódik a napló?",
+        "a": "Egy ideig tartó inaktivitás után magától zárolódik; az időt a Beállításokban, a Biztonság résznél választhatod ki, a „Zárolás most” pedig azonnal zárolja. A jelszavaddal újra megnyithatod. Az Android-alkalmazásban azt is beállíthatod, hogy mindig zárolódjon, amikor kilépsz az alkalmazásból, és ujjlenyomattal vagy arccal nyisd meg. Ahol egy alkalmazás a jelszó helyett az eszközöd képernyőzárát kínálja (Windows Hello, Touch ID vagy a Mac jelszava, illetve az Android képernyőzára), az ellenőrzést az operációs rendszer végzi: az ujjlenyomatodról, az arcodról vagy a PIN-kódodról semmi sem jut el az alkalmazáshoz vagy hozzánk."
+      },
+      {
+        "q": "Mi a teendő, ha elfelejtem a jelszavamat?",
+        "a": "A bejelentkezési képernyőn válaszd az „Elfelejtetted a jelszavad?” lehetőséget, és add meg az e-mail-címet, amellyel regisztráltál. Kapsz egy üzenetet egy hivatkozással és egy 6 jegyű kóddal, amelyek 30 percig érvényesek, és egyszer használhatók. Ha az üzenet néhány percen belül nem érkezik meg, nézd meg a levélszemét mappát. Nyisd meg a hivatkozást, vagy írd be a kódot az alkalmazásban, és válassz új jelszót; ezután minden eszközön kijelentkeztetünk. A naplód megmarad: semmi sem törlődik."
+      },
+      {
+        "q": "Hogyan készíthetek biztonsági mentést a naplómról, és hogyan állíthatom vissza?",
+        "a": "Nyisd meg a menüben a Biztonsági mentés oldalt (az Android-alkalmazásban a Továbbiak alatt), és hozz létre egy biztonsági mentési fájlt: az egész napló (bejegyzések, szokások és beállítások) titkosított, jelszóval védett másolatát, amelyet ott tárolsz, ahol szeretnéd. A visszaállításhoz válaszd ki ezt a fájlt ugyanazon az oldalon, és add meg a jelszavát. A visszaállítás a fájl tartalmával felülírja a jelenlegi naplót, ezért előbb készíts biztonsági mentést a jelenlegi naplóról."
+      },
+      {
+        "q": "Hogyan törölhetem a fiókomat?",
+        "a": "Jelentkezz be, nyisd meg a Beállításokat, és lépj az utolsó kártyára, a Fiók törlése részhez: add meg a jelszavadat, és erősítsd meg. A fiókod, a naplód, a szokásaid és a beállításaid azonnal törlődnek a szerverről, és minden eszközön kijelentkeztetünk. Ez nem vonható vissza. A szerver saját biztonsági mentéseiben lévő másolatok az [[privacy|Adatvédelmi irányelvekben]] megadott határidőkön belül tűnnek el. Ha nem tudsz bejelentkezni, a [[delete|fióktörlési oldal]] elmagyarázza, mi a teendő."
+      },
+      {
+        "q": "Hány évesnek kell lennem?",
+        "a": "Fiók létrehozásához legalább {{MINIMUM_AGE}} évesnek kell lenned. Ha ott, ahol élsz, kiskorúnak számítasz, a szolgáltatást csak szülő vagy gondviselő hozzájárulásával használhatod, ha az országod joga ezt előírja."
+      },
+      {
+        "q": "Miért figyelmeztet az eszközöm, amikor erről a webhelyről telepítek egy fájlt?",
+        "a": "Mert a fájl nem alkalmazásboltból származik, és a Windows- és Mac-fájlok még nincsenek kiadói tanúsítvánnyal aláírva. A Windows megjelenítheti „A Windows megvédte a számítógépet” üzenetet: válaszd a További információ, majd a Run anyway (Futtatás mindenképp) lehetőséget. A macOS első alkalommal nem nyitja meg az alkalmazást, és akár azt is írhatja, hogy sérült: ne helyezd a Kukába, hanem nyisd meg a Rendszerbeállításokat, majd az Adatvédelem és biztonság részt (macOS 12 alatt: Rendszerbeállítások, majd Biztonság és adatvédelem), és válaszd az Open Anyway (Megnyitás mindenképp) lehetőséget. Az Android kéri, hogy engedélyezd a böngésződnek vagy a fájlkezelődnek az alkalmazások telepítését (Android 7 alatt: Ismeretlen források). A [[downloads|Letöltések]] oldalon megtalálod az egyes rendszerek lépéseit, valamint minden fájl SHA-256 ellenőrzőösszegét, amellyel ellenőrizheted, hogy a példányod változatlan."
+      },
+      {
+        "q": "Hogyan frissíthetek új verzióra?",
+        "a": "Az erről a webhelyről származó alkalmazások nem frissítik magukat. Amikor a [[downloads|Letöltések]] oldalon újabb verzió jelenik meg, töltsd le a fájlját, és telepítsd ugyanúgy, mint először; ez lecseréli a meglévő verziót. A naplód a fiókodban van a szerveren, így egy frissítés nem változtat rajta. Ha egy Android-telefon nem hajlandó a régi alkalmazás fölé telepíteni az új fájlt, először győződj meg róla, hogy az alkalmazás szerint minden módosítás el van mentve a szerverre, majd távolítsd el a régi alkalmazást, és telepítsd az új fájlt."
+      }
+    ]
+  },
+  "downloads": {
+    "heading": "Letöltések",
+    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben és a böngészőben is.",
+    "tabsLabel": "Operációs rendszer",
+    "tabs": {
+      "windows": "Windows",
+      "android": "Android",
+      "mac": "Mac"
+    },
+    "columns": {
+      "file": "Fájl",
+      "version": "Verzió",
+      "size": "Méret"
+    },
+    "captions": {
+      "windows": "Windows-telepítőfájlok, a legújabb verzió elöl",
+      "android": "Android-telepítőfájlok, a legújabb verzió elöl",
+      "mac": "Mac-telepítőfájlok, a legújabb verzió elöl"
+    },
+    "requires": {
+      "windows": "Windows 10 vagy Windows 11 (64 bites) szükséges.",
+      "android": "Android 7.0 vagy újabb szükséges.",
+      "mac": "macOS 12.3 vagy újabb szükséges, Apple chipes vagy Intel processzoros Macen."
+    },
+    "install": {
+      "windows": "Ez a telepítőfájl nem a Microsoft Store-ból származik, és még nincs kiadói tanúsítvánnyal aláírva. A böngésződ először figyelmeztethet, hogy a fájlt nem gyakran töltik le (válaszd a megtartását), és amikor megnyitod, a Windows megjelenítheti „A Windows megvédte a számítógépet” üzenetet: válaszd a További információ, majd a Run anyway (Futtatás mindenképp) lehetőséget. A telepítő megkérdezi a nyelvet, és a saját Windows-fiókodhoz telepíti az alkalmazást, rendszergazdai jelszó nélkül.",
+      "android": "Ez a fájl közvetlenül települ, nem a Google Playen keresztül. Amikor megnyitod a letöltött fájlt, az Android kéri, hogy engedélyezd a böngésződnek vagy a fájlkezelődnek az alkalmazások telepítését; Android 7 alatt ennek a beállításnak Ismeretlen források a neve. Engedélyezd, térj vissza a fájlhoz, és válaszd a Telepítés lehetőséget.",
+      "mac": "Nyisd meg a lemezképet, húzd az alkalmazást az Alkalmazások mappába, és onnan nyisd meg. Az alkalmazás még nincs Apple fejlesztői tanúsítvánnyal aláírva, ezért a macOS első alkalommal nem nyitja meg, és az üzenet akár azt is írhatja, hogy az alkalmazás sérült. Ne helyezd a Kukába: zárd be az üzenetet, nyisd meg a Rendszerbeállításokat, majd az Adatvédelem és biztonság részt, görgess le, és válaszd az Open Anyway (Megnyitás mindenképp) lehetőséget (macOS 12 alatt: Rendszerbeállítások, majd Biztonság és adatvédelem, majd Open Anyway), add meg a Mac jelszavát, ha kéri, és válaszd a Megnyitás lehetőséget."
+    },
+    "checkFile": "A fájl ellenőrzése",
+    "checkText": "Minden fájlnak van SHA-256 ellenőrzőösszege. Ha a letöltött fájlé eltér, a letöltés sérült, vagy a fájlt módosították: ne telepítsd. Egy fájl ellenőrzőösszegét úgy láthatod, hogy a Windows PowerShell ablakában beírod a Get-FileHash parancsot és a fájl nevét, Macen pedig a Terminal alkalmazásban a shasum -a 256 parancsot és a fájl nevét. A kis- és nagybetűk között nincs különbség.",
+    "moreHeading": "Böngésző és iPhone",
+    "web": "Nincs mit telepíteni: a {{BRAND}} bármely modern böngészőben is működik, számítógépen vagy telefonon. [[webapp|Nyisd meg a böngésződben]].",
+    "iphone": "iPhone-ra nincs telepítőfájl: az iPhone-alkalmazásokat az App Store-ból kell telepíteni. Az iPhone-alkalmazás még nem érhető el.",
+    "iphoneStore": "iPhone-on az alkalmazást az App Store-ból lehet telepíteni.",
+    "storeLinks": {
+      "googlePlay": "Szerezd be: Google Play",
+      "appStoreIphone": "Letöltés az App Store-ból",
+      "appStoreMac": "Letöltés a Mac App Store-ból",
+      "microsoftStore": "Beszerzés a Microsoft Store-ból"
+    }
+  },
+  "contact": {
+    "heading": "Írj nekünk",
+    "lead": "Kérdésed, visszajelzésed vagy problémád van? Írj nekünk e-mailt, vagy töltsd ki az űrlapot, és e-mailben válaszolunk.",
+    "required": "Minden mező kitöltése kötelező.",
+    "firstName": "Keresztnév",
+    "lastName": "Vezetéknév",
+    "email": "E-mail-cím",
+    "message": "Üzeneted",
+    "honeypot": "Ezt a mezőt hagyd üresen",
+    "notice": "A nevedet, az e-mail-címedet és az üzenetedet e-mailben kapjuk meg, hogy válaszolni tudjunk. Ezeket nem tároljuk a szerveren. Bővebben az [[privacy|Adatvédelmi irányelvekben]].",
+    "send": "Küldés",
+    "sentTitle": "Elküldtük az üzenetedet",
+    "sentText": "Köszönjük, hogy írtál. E-mailben válaszolunk a megadott címre. 30 napon belül válaszolunk, általában jóval hamarabb.",
+    "errorTitle": "Nem sikerült elküldeni az üzenetedet",
+    "errorText": "Valami hiba történt, és az üzeneted nem érkezett meg hozzánk. Lépj vissza, ellenőrizd az e-mail-címedet, és próbáld újra egy kis idő múlva, vagy írj nekünk e-mailt: {{CONTACT_EMAIL}}",
+    "backHome": "Vissza a kezdőlapra"
+  },
+  "footer": {
+    "languagesLabel": "Minden nyelv",
+    "change": "Módosítás",
+    "rights": "Minden jog fenntartva."
+  }
+}
