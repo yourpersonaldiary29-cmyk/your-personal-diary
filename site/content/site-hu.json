@@ -119,7 +119,7 @@
       },
       {
         "q": "Milyen eszközöket használhatok?",
-        "a": "Windows 10 vagy 11 rendszerű számítógép, macOS 12.3 vagy újabb rendszerű Mac, Android 7.0 vagy újabb rendszerű Android-telefon, valamint bármely modern böngésző számítógépen vagy telefonon. A telepítőfájlok a [[downloads|Letöltések]] oldalon találhatók. Az iPhone-alkalmazás még nem érhető el. Mindenhol egy fiók: amit az egyik eszközön írsz, megjelenik a többin is."
+        "a": "Windows 10 vagy 11 rendszerű számítógép, macOS 12.3 vagy újabb rendszerű Mac, Android 7.0 vagy újabb rendszerű Android-telefon, iOS 16 vagy újabb rendszerű iPhone, valamint bármely modern böngésző számítógépen vagy telefonon. A telepítőfájlok a [[downloads|Letöltések]] oldalon találhatók, az iPhone-alkalmazást pedig az App Store-ból kell telepíteni. Mindenhol egy fiók: amit az egyik eszközön írsz, megjelenik a többin is."
       },
       {
         "q": "Milyen nyelveken érhető el?",
@@ -261,7 +261,7 @@
     "checkText": "Minden fájlnak van SHA-256 ellenőrzőösszege. Ha a letöltött fájlé eltér, a letöltés sérült, vagy a fájlt módosították: ne telepítsd. Egy fájl ellenőrzőösszegét úgy láthatod, hogy a Windows PowerShell ablakában beírod a Get-FileHash parancsot és a fájl nevét, Macen pedig a Terminal alkalmazásban a shasum -a 256 parancsot és a fájl nevét. A kis- és nagybetűk között nincs különbség.",
     "moreHeading": "Böngésző és iPhone",
     "web": "Nincs mit telepíteni: a {{BRAND}} bármely modern böngészőben is működik, számítógépen vagy telefonon. [[webapp|Nyisd meg a böngésződben]].",
-    "iphone": "iPhone-ra nincs telepítőfájl: az iPhone-alkalmazásokat az App Store-ból kell telepíteni. Az iPhone-alkalmazás még nem érhető el.",
+    "iphone": "iPhone-ra nincs telepítőfájl: az iPhone-alkalmazást az App Store-ból kell telepíteni.",
     "iphoneStore": "iPhone-on az alkalmazást az App Store-ból lehet telepíteni.",
     "storeLinks": {
       "googlePlay": "Szerezd be: Google Play",

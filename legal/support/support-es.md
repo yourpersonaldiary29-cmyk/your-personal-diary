@@ -41,7 +41,7 @@ Inicia sesión, abre **Ajustes** y ve a la última tarjeta, **Eliminar la cuenta
 
 ### ¿En qué dispositivos puedo usar el diario?
 
-En las aplicaciones para **Windows**, **Mac**, **Android** y **iPhone** (cuando se publique), y en el sitio web [{{SITE_URL}}]({{SITE_URL}}) desde cualquier navegador. Es una sola cuenta en todas partes: lo que escribes en un dispositivo aparece en todos los demás en cuanto se conectan.
+En las aplicaciones para **Windows**, **Mac**, **Android** y **iPhone**, y en el sitio web [{{SITE_URL}}]({{SITE_URL}}) desde cualquier navegador. Es una sola cuenta en todas partes: lo que escribes en un dispositivo aparece en todos los demás en cuanto se conectan.
 
 ### ¿Cómo funcionan los recordatorios?
 

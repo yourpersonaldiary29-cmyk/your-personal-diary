@@ -1,6 +1,6 @@
 ---
 title: Podmínky používání - Your Personal Diary
-description: Pravidla používání Your Personal Diary (aplikace pro Windows, Mac, Android a iPhone a web; aplikace pro iPhone, až bude zveřejněna): kdo ho smí používat, jeden účet na osobu, tvůj obsah, přijatelné používání a naše odpovědnost.
+description: Pravidla používání Your Personal Diary (aplikace pro Windows, Mac, Android a iPhone a web): kdo ho smí používat, jeden účet na osobu, tvůj obsah, přijatelné používání a naše odpovědnost.
 languages: Jazyky
 otherPage: Zásady ochrany osobních údajů
 ---
@@ -21,7 +21,7 @@ Pokud se překlad liší od anglické verze, platí anglická verze.
 
 ## 1. Kdo jsme a na co se tyto podmínky vztahují
 
-Your Personal Diary provozuje {{PUBLISHER_NAME}} („my"). Tyto Podmínky používání platí pro aplikaci pro Windows, aplikaci pro Mac, aplikaci pro Android, aplikaci pro iPhone (až bude zveřejněna) a web [{{SITE_URL}}]({{SITE_URL}}) - společně „služba". Všechny používají stejný server a stejný účet.
+Your Personal Diary provozuje {{PUBLISHER_NAME}} („my"). Tyto Podmínky používání platí pro aplikaci pro Windows, aplikaci pro Mac, aplikaci pro Android, aplikaci pro iPhone a web [{{SITE_URL}}]({{SITE_URL}}) - společně „služba". Všechny používají stejný server a stejný účet.
 
 Vytvořením účtu nebo používáním služby souhlasíš s těmito podmínkami a se Zásadami ochrany osobních údajů [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Při vytváření účtu to potvrzuješ jedním zaškrtávacím políčkem. Pokud nesouhlasíš, službu prosím nepoužívej.
 

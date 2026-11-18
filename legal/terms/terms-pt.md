@@ -1,6 +1,6 @@
 ---
 title: Termos de utilização - Your Personal Diary
-description: As regras de utilização do Your Personal Diary (as aplicações Windows, Mac, Android e iPhone e o site; a aplicação iPhone quando for publicada): quem o pode utilizar, uma conta por pessoa, o seu conteúdo, a utilização aceitável e as nossas responsabilidades.
+description: As regras de utilização do Your Personal Diary (as aplicações Windows, Mac, Android e iPhone e o site): quem o pode utilizar, uma conta por pessoa, o seu conteúdo, a utilização aceitável e as nossas responsabilidades.
 languages: Idiomas
 otherPage: Política de privacidade
 ---
@@ -21,7 +21,7 @@ Se uma tradução divergir da versão em inglês, prevalece a versão em inglês
 
 ## 1. Quem somos e o que estes termos abrangem
 
-O Your Personal Diary é operado por {{PUBLISHER_NAME}} ("nós"). Estes Termos de utilização aplicam-se à aplicação Windows, à aplicação Mac, à aplicação Android, à aplicação iPhone (quando for publicada) e ao site [{{SITE_URL}}]({{SITE_URL}}) - em conjunto, "o serviço". Todos utilizam o mesmo servidor e a mesma conta.
+O Your Personal Diary é operado por {{PUBLISHER_NAME}} ("nós"). Estes Termos de utilização aplicam-se à aplicação Windows, à aplicação Mac, à aplicação Android, à aplicação iPhone e ao site [{{SITE_URL}}]({{SITE_URL}}) - em conjunto, "o serviço". Todos utilizam o mesmo servidor e a mesma conta.
 
 Ao criar uma conta ou ao utilizar o serviço, aceita estes termos e a Política de privacidade [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Ao criar a conta, confirma-o com uma única caixa de verificação. Se não concordar, não utilize o serviço.
 

@@ -41,7 +41,7 @@ Melde dich an, öffne die **Einstellungen** und geh zur letzten Karte, **Konto l
 
 ### Auf welchen Geräten kann ich das Tagebuch nutzen?
 
-In den Apps für **Windows**, **Mac**, **Android** und **iPhone** (sobald sie veröffentlicht ist) und auf der Website [{{SITE_URL}}]({{SITE_URL}}) in jedem Browser. Es ist überall ein einziges Konto: Was du auf einem Gerät schreibst, erscheint auf allen anderen, sobald sie sich verbinden.
+In den Apps für **Windows**, **Mac**, **Android** und **iPhone** und auf der Website [{{SITE_URL}}]({{SITE_URL}}) in jedem Browser. Es ist überall ein einziges Konto: Was du auf einem Gerät schreibst, erscheint auf allen anderen, sobald sie sich verbinden.
 
 ### Wie funktionieren Erinnerungen?
 

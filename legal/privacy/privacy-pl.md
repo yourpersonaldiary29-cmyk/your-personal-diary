@@ -1,6 +1,6 @@
 ---
 title: Polityka prywatności - Your Personal Diary
-description: Jak Your Personal Diary (aplikacje na Androida, Windows, Maca i iPhone'a oraz strona internetowa; aplikacja na iPhone'a, gdy zostanie opublikowana) przechowuje i chroni Twoje dane.
+description: Jak Your Personal Diary (aplikacje na Androida, Windows, Maca i iPhone'a oraz strona internetowa) przechowuje i chroni Twoje dane.
 languages: Języki
 otherPage: Jak usunąć konto
 ---
@@ -11,7 +11,7 @@ Data wejścia w życie: {{EFFECTIVE_DATE}}
 
 ## W skrócie
 
-- Your Personal Diary to jedna usługa z pięcioma wejściami: **aplikacja na Androida** (Google Play), **aplikacja na Windows** (Microsoft Store lub plik instalacyjny), **aplikacja na Maca** (plik do pobrania lub Mac App Store), **aplikacja na iPhone'a** (App Store, gdy zostanie opublikowana) i **strona internetowa** [{{SITE_URL}}]({{SITE_URL}}). Wszystkie korzystają z tego samego serwera i tego samego konta.
+- Your Personal Diary to jedna usługa z pięcioma wejściami: **aplikacja na Androida** (Google Play), **aplikacja na Windows** (Microsoft Store lub plik instalacyjny), **aplikacja na Maca** (plik do pobrania lub Mac App Store), **aplikacja na iPhone'a** (App Store) i **strona internetowa** [{{SITE_URL}}]({{SITE_URL}}). Wszystkie korzystają z tego samego serwera i tego samego konta.
 - Twój dziennik jest przechowywany na naszym serwerze w pliku zaszyfrowanym kluczem pochodzącym z Twojego hasła. Tam przechowywane są też dane Twojego konta.
 - Używamy Twoich danych wyłącznie po to, by Twój dziennik działał, i po to, by Ci odpowiedzieć, gdy do nas napiszesz. Bez reklam, bez analityki, bez śledzenia, nie sprzedajemy ani nie udostępniamy Twoich danych.
 - Poznaj ograniczenia: dopóki jesteś zalogowany, serwer trzyma Twój dziennik otwarty w pamięci, a operator serwera mógłby technicznie zresetować Twoje hasło i przeczytać Twój dziennik. Sekcja 4 wyjaśnia to otwarcie.
@@ -21,7 +21,7 @@ Data wejścia w życie: {{EFFECTIVE_DATE}}
 
 Usługę prowadzi {{PUBLISHER_NAME}} („my"), który odpowiada za Twoje dane osobowe („administrator"). Kontakt: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Ta polityka dotyczy aplikacji na Androida, aplikacji na Windows, aplikacji na Maca, aplikacji na iPhone'a (gdy zostanie opublikowana) i strony internetowej. Pokazują ten sam dziennik i działają według tych samych zasad; tam, gdzie aplikacja działa inaczej, polityka to opisuje.
+Ta polityka dotyczy aplikacji na Androida, aplikacji na Windows, aplikacji na Maca, aplikacji na iPhone'a i strony internetowej. Pokazują ten sam dziennik i działają według tych samych zasad; tam, gdzie aplikacja działa inaczej, polityka to opisuje.
 
 ## 2. Co przechowujemy na serwerze i gdzie
 

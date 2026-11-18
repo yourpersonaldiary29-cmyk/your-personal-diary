@@ -1,6 +1,6 @@
 ---
 title: Kullanım Koşulları - Your Personal Diary
-description: Your Personal Diary'nin (Windows, Mac, Android ve iPhone uygulamaları ile web sitesi; iPhone uygulaması yayımlandığında) kullanım kuralları - kimlerin kullanabileceği, kişi başına bir hesap, içeriğiniz, kabul edilebilir kullanım ve sorumluluklarımız.
+description: Your Personal Diary'nin (Windows, Mac, Android ve iPhone uygulamaları ile web sitesi) kullanım kuralları - kimlerin kullanabileceği, kişi başına bir hesap, içeriğiniz, kabul edilebilir kullanım ve sorumluluklarımız.
 languages: Diller
 otherPage: Gizlilik Politikası
 ---
@@ -21,7 +21,7 @@ Bir çeviri İngilizce sürümden farklıysa İngilizce sürüm geçerlidir.
 
 ## 1. Biz kimiz ve bu koşullar neleri kapsar
 
-Your Personal Diary, {{PUBLISHER_NAME}} ("biz") tarafından işletilir. Bu Kullanım Koşulları; Windows uygulaması, Mac uygulaması, Android uygulaması, iPhone uygulaması (yayımlandığında) ve [{{SITE_URL}}]({{SITE_URL}}) web sitesi için geçerlidir - hepsi birlikte "hizmet". Hepsi aynı sunucuyu ve aynı hesabı kullanır.
+Your Personal Diary, {{PUBLISHER_NAME}} ("biz") tarafından işletilir. Bu Kullanım Koşulları; Windows uygulaması, Mac uygulaması, Android uygulaması, iPhone uygulaması ve [{{SITE_URL}}]({{SITE_URL}}) web sitesi için geçerlidir - hepsi birlikte "hizmet". Hepsi aynı sunucuyu ve aynı hesabı kullanır.
 
 Bir hesap oluşturarak veya hizmeti kullanarak bu koşulları ve Gizlilik Politikası'nı [{{PRIVACY_URL}}]({{PRIVACY_URL}}) kabul etmiş olursunuz. Bir hesap oluştururken bunu tek bir onay kutusuyla onaylarsınız. Kabul etmiyorsanız lütfen hizmeti kullanmayın.
 

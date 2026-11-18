@@ -1,6 +1,6 @@
 ---
 title: Informativa sulla privacy - Your Personal Diary
-description: Come Your Personal Diary (le app per Android, Windows, Mac e iPhone e il sito web; l'app iPhone quando sarà pubblicata) conserva e protegge i tuoi dati.
+description: Come Your Personal Diary (le app per Android, Windows, Mac e iPhone e il sito web) conserva e protegge i tuoi dati.
 languages: Lingue
 otherPage: Come eliminare il tuo account
 ---
@@ -11,7 +11,7 @@ Data di entrata in vigore: {{EFFECTIVE_DATE}}
 
 ## In breve
 
-- Your Personal Diary è un unico servizio con cinque accessi: l'**app Android** (Google Play), l'**app Windows** (Microsoft Store o un file di installazione), l'**app Mac** (un download o il Mac App Store), l'**app iPhone** (App Store, quando sarà pubblicata) e il **sito web** [{{SITE_URL}}]({{SITE_URL}}). Tutti usano lo stesso server e lo stesso account.
+- Your Personal Diary è un unico servizio con cinque accessi: l'**app Android** (Google Play), l'**app Windows** (Microsoft Store o un file di installazione), l'**app Mac** (un download o il Mac App Store), l'**app iPhone** (App Store) e il **sito web** [{{SITE_URL}}]({{SITE_URL}}). Tutti usano lo stesso server e lo stesso account.
 - Il tuo diario è conservato sul nostro server in un file cifrato con una chiave derivata dalla tua password. Anche i dati del tuo account sono conservati lì.
 - Usiamo i tuoi dati solo per far funzionare il tuo diario e per risponderti quando ci scrivi. Niente pubblicità, niente statistiche di utilizzo, niente tracciamento, e non vendiamo né condividiamo i tuoi dati.
 - Conosci i limiti: mentre hai effettuato l'accesso, il server tiene il tuo diario aperto nella sua memoria, e chi gestisce il server potrebbe tecnicamente reimpostare la tua password e leggere il tuo diario. La sezione 4 lo spiega con chiarezza.
@@ -21,7 +21,7 @@ Data di entrata in vigore: {{EFFECTIVE_DATE}}
 
 Il servizio è gestito da {{PUBLISHER_NAME}} ("noi"), che è responsabile dei tuoi dati personali (il "titolare del trattamento"). Contatto: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Questa informativa si applica all'app Android, all'app Windows, all'app Mac, all'app iPhone (quando sarà pubblicata) e al sito web. Mostrano lo stesso diario e seguono le stesse regole; dove un'app si comporta in modo diverso, questa informativa lo indica.
+Questa informativa si applica all'app Android, all'app Windows, all'app Mac, all'app iPhone e al sito web. Mostrano lo stesso diario e seguono le stesse regole; dove un'app si comporta in modo diverso, questa informativa lo indica.
 
 ## 2. Che cosa conserviamo sul server e dove
 

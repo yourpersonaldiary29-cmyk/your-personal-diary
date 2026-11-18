@@ -1,6 +1,6 @@
 ---
 title: Zásady ochrany osobních údajů - Your Personal Diary
-description: Jak Your Personal Diary (aplikace pro Android, Windows, Mac a iPhone a web; aplikace pro iPhone, až bude zveřejněna) ukládá a chrání tvá data.
+description: Jak Your Personal Diary (aplikace pro Android, Windows, Mac a iPhone a web) ukládá a chrání tvá data.
 languages: Jazyky
 otherPage: Jak smazat účet
 ---
@@ -11,7 +11,7 @@ Platnost od: {{EFFECTIVE_DATE}}
 
 ## Stručně
 
-- Your Personal Diary je jedna služba s pěti vstupy: **aplikace pro Android** (Google Play), **aplikace pro Windows** (Microsoft Store nebo instalační soubor), **aplikace pro Mac** (stažení z webu nebo Mac App Store), **aplikace pro iPhone** (App Store, až bude zveřejněna) a **web** [{{SITE_URL}}]({{SITE_URL}}). Všechny používají stejný server a stejný účet.
+- Your Personal Diary je jedna služba s pěti vstupy: **aplikace pro Android** (Google Play), **aplikace pro Windows** (Microsoft Store nebo instalační soubor), **aplikace pro Mac** (stažení z webu nebo Mac App Store), **aplikace pro iPhone** (App Store) a **web** [{{SITE_URL}}]({{SITE_URL}}). Všechny používají stejný server a stejný účet.
 - Tvůj deník je uložen na našem serveru v souboru zašifrovaném klíčem odvozeným z tvého hesla. Ukládají se tam i údaje tvého účtu.
 - Tvá data používáme jen k tomu, aby tvůj deník fungoval, a k tomu, abychom ti odpověděli, když nám napíšeš. Žádné reklamy, žádná analytika, žádné sledování a tvá data neprodáváme ani nesdílíme.
 - Znej hranice: dokud jsi přihlášený, server má tvůj deník otevřený v paměti a provozovatel serveru by technicky mohl obnovit tvé heslo a deník si přečíst. Oddíl 4 to vysvětluje otevřeně.
@@ -21,7 +21,7 @@ Platnost od: {{EFFECTIVE_DATE}}
 
 Službu provozuje {{PUBLISHER_NAME}} („my"), který odpovídá za tvé osobní údaje („správce"). Kontakt: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Tyto zásady platí pro aplikaci pro Android, aplikaci pro Windows, aplikaci pro Mac, aplikaci pro iPhone (až bude zveřejněna) a web. Všechny zobrazují stejný deník a řídí se stejnými pravidly; kde se některá aplikace chová jinak, zásady to uvádějí.
+Tyto zásady platí pro aplikaci pro Android, aplikaci pro Windows, aplikaci pro Mac, aplikaci pro iPhone a web. Všechny zobrazují stejný deník a řídí se stejnými pravidly; kde se některá aplikace chová jinak, zásady to uvádějí.
 
 ## 2. Co ukládáme na serveru a kde
 

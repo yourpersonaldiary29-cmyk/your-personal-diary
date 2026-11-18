@@ -41,7 +41,7 @@ Zaloguj się, otwórz **Ustawienia** i przejdź do ostatniej karty, **Usuwanie k
 
 ### Na jakich urządzeniach mogę korzystać z dziennika?
 
-W aplikacjach na **Windows**, **Maca**, **Androida** i **iPhone'a** (gdy zostanie opublikowana) oraz na stronie [{{SITE_URL}}]({{SITE_URL}}) w dowolnej przeglądarce. Wszędzie jest to jedno konto: to, co napiszesz na jednym urządzeniu, pojawia się na wszystkich pozostałych, gdy tylko się połączą.
+W aplikacjach na **Windows**, **Maca**, **Androida** i **iPhone'a** oraz na stronie [{{SITE_URL}}]({{SITE_URL}}) w dowolnej przeglądarce. Wszędzie jest to jedno konto: to, co napiszesz na jednym urządzeniu, pojawia się na wszystkich pozostałych, gdy tylko się połączą.
 
 ### Jak działają przypomnienia?
 

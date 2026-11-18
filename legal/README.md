@@ -1,7 +1,7 @@
 # legal/ - the privacy policy, the Terms of Use, the account-deletion page and the support page
 
 ONE privacy policy for the Android app (Google Play), the Windows app (Microsoft Store and setup file), the Mac
-app (download or Mac App Store), the iPhone app (App Store, when it is published) and the website, in the app's
+app (download or Mac App Store), the iPhone app (App Store) and the website, in the app's
 20 languages, English by default - plus the Terms of Use (confirmed together with the policy by one checkbox at registration), the
 account-deletion page and the support page (the App Store "Support URL": contact details and frequent questions)
 in the same languages.

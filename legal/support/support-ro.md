@@ -41,7 +41,7 @@ Conectează-te, deschide **Setări** și mergi la ultimul card, **Ștergerea con
 
 ### Pe ce dispozitive pot folosi jurnalul?
 
-În aplicațiile pentru **Windows**, **Mac**, **Android** și **iPhone** (când va fi publicată) și pe site-ul [{{SITE_URL}}]({{SITE_URL}}), în orice browser. Este un singur cont peste tot: tot ce scrii pe un dispozitiv apare pe toate celelalte imediat ce se conectează.
+În aplicațiile pentru **Windows**, **Mac**, **Android** și **iPhone** și pe site-ul [{{SITE_URL}}]({{SITE_URL}}), în orice browser. Este un singur cont peste tot: tot ce scrii pe un dispozitiv apare pe toate celelalte imediat ce se conectează.
 
 ### Cum funcționează mementourile?
 

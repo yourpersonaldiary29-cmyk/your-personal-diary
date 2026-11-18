@@ -41,7 +41,7 @@ Jelentkezz be, nyisd meg a **Beállítások** oldalt, és lépj az utolsó kárt
 
 ### Milyen eszközökön használhatom a naplót?
 
-Az alkalmazásokban: **Windows**, **Mac**, **Android** és **iPhone** (amikor megjelenik), valamint a weboldalon [{{SITE_URL}}]({{SITE_URL}}), bármelyik böngészőben. Mindenhol ugyanaz az egy fiók: amit az egyik eszközön írsz, az megjelenik a többin is, amint csatlakoznak.
+Az alkalmazásokban: **Windows**, **Mac**, **Android** és **iPhone**, valamint a weboldalon [{{SITE_URL}}]({{SITE_URL}}), bármelyik böngészőben. Mindenhol ugyanaz az egy fiók: amit az egyik eszközön írsz, az megjelenik a többin is, amint csatlakoznak.
 
 ### Hogyan működnek az emlékeztetők?
 

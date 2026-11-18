@@ -41,7 +41,7 @@ Přihlas se, otevři **Nastavení** a přejdi na poslední kartu, **Smazání ú
 
 ### Na jakých zařízeních můžu deník používat?
 
-V aplikacích pro **Windows**, **Mac**, **Android** a **iPhone** (až bude zveřejněna) a na webu [{{SITE_URL}}]({{SITE_URL}}) v libovolném prohlížeči. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se na všech ostatních, jakmile se připojí.
+V aplikacích pro **Windows**, **Mac**, **Android** a **iPhone** a na webu [{{SITE_URL}}]({{SITE_URL}}) v libovolném prohlížeči. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se na všech ostatních, jakmile se připojí.
 
 ### Jak fungují připomínky?
 

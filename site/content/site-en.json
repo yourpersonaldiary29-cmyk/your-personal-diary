@@ -119,7 +119,7 @@
       },
       {
         "q": "Which devices can I use?",
-        "a": "A computer with Windows 10 or 11, a Mac with macOS 12.3 or later, an Android phone with Android 7.0 or later, and any modern browser on a computer or a phone. The installation files are on the [[downloads|Downloads]] page. The iPhone app is not available yet. It is one account everywhere: what you write on one device appears on the others."
+        "a": "A computer with Windows 10 or 11, a Mac with macOS 12.3 or later, an Android phone with Android 7.0 or later, an iPhone with iOS 16 or later, and any modern browser on a computer or a phone. The installation files are on the [[downloads|Downloads]] page, and the iPhone app is installed from the App Store. It is one account everywhere: what you write on one device appears on the others."
       },
       {
         "q": "Which languages is it available in?",
@@ -261,7 +261,7 @@
     "checkText": "Each file has a SHA-256 checksum. If the file you downloaded has a different one, the download is damaged or the file was changed: do not install it. To see the checksum of a file, type Get-FileHash and the file name in Windows PowerShell, or shasum -a 256 and the file name in the Terminal of a Mac. Capital and small letters count as the same.",
     "moreHeading": "Browser and iPhone",
     "web": "Nothing to install: {{BRAND}} also works in any modern browser, on a computer or a phone. [[webapp|Open it in your browser]].",
-    "iphone": "There is no installation file for iPhone: iPhone apps are installed from the App Store. The iPhone app is not available yet.",
+    "iphone": "There is no installation file for iPhone: the iPhone app is installed from the App Store.",
     "iphoneStore": "On an iPhone, the app is installed from the App Store.",
     "storeLinks": {
       "googlePlay": "Get it on Google Play",

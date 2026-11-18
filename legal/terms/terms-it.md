@@ -1,6 +1,6 @@
 ---
 title: Condizioni d'uso - Your Personal Diary
-description: Le regole per usare Your Personal Diary (le app per Windows, Mac, Android e iPhone e il sito web; l'app iPhone quando sarà pubblicata) - chi può usarlo, un solo account per persona, i tuoi contenuti, l'uso consentito e le nostre responsabilità.
+description: Le regole per usare Your Personal Diary (le app per Windows, Mac, Android e iPhone e il sito web) - chi può usarlo, un solo account per persona, i tuoi contenuti, l'uso consentito e le nostre responsabilità.
 languages: Lingue
 otherPage: Informativa sulla privacy
 ---
@@ -21,7 +21,7 @@ Se una traduzione differisce dalla versione inglese, prevale la versione inglese
 
 ## 1. Chi siamo e a cosa si applicano queste condizioni
 
-Your Personal Diary è gestito da {{PUBLISHER_NAME}} ("noi"). Queste condizioni d'uso si applicano all'app Windows, all'app Mac, all'app Android, all'app iPhone (quando sarà pubblicata) e al sito web [{{SITE_URL}}]({{SITE_URL}}) - insieme, "il servizio". Tutti usano lo stesso server e lo stesso account.
+Your Personal Diary è gestito da {{PUBLISHER_NAME}} ("noi"). Queste condizioni d'uso si applicano all'app Windows, all'app Mac, all'app Android, all'app iPhone e al sito web [{{SITE_URL}}]({{SITE_URL}}) - insieme, "il servizio". Tutti usano lo stesso server e lo stesso account.
 
 Creando un account o usando il servizio, accetti queste condizioni e l'informativa sulla privacy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Quando crei un account, lo confermi con un'unica casella di spunta. Se non sei d'accordo, ti preghiamo di non usare il servizio.
 

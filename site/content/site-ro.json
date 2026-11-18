@@ -119,7 +119,7 @@
       },
       {
         "q": "Ce dispozitive pot folosi?",
-        "a": "Un computer cu Windows 10 sau 11, un Mac cu macOS 12.3 sau o versiune ulterioară, un telefon Android cu Android 7.0 sau o versiune ulterioară și orice browser modern pe computer sau pe telefon. Fișierele de instalare se află pe pagina [[downloads|Descărcări]]. Aplicația pentru iPhone nu este încă disponibilă. Este un singur cont peste tot: ce scrii pe un dispozitiv apare și pe celelalte."
+        "a": "Un computer cu Windows 10 sau 11, un Mac cu macOS 12.3 sau o versiune ulterioară, un telefon Android cu Android 7.0 sau o versiune ulterioară, un iPhone cu iOS 16 sau o versiune ulterioară și orice browser modern pe computer sau pe telefon. Fișierele de instalare se află pe pagina [[downloads|Descărcări]], iar aplicația pentru iPhone se instalează din App Store. Este un singur cont peste tot: ce scrii pe un dispozitiv apare și pe celelalte."
       },
       {
         "q": "În ce limbi este disponibil?",
@@ -261,7 +261,7 @@
     "checkText": "Fiecare fișier are o sumă de control SHA-256. Dacă fișierul descărcat are alta, descărcarea este deteriorată sau fișierul a fost modificat: nu-l instala. Ca să vezi suma de control a unui fișier, tastează Get-FileHash și numele fișierului în Windows PowerShell sau shasum -a 256 și numele fișierului în Terminal pe Mac. Nu contează dacă literele sunt mari sau mici.",
     "moreHeading": "Browser și iPhone",
     "web": "Nimic de instalat: {{BRAND}} funcționează și în orice browser modern, pe computer sau pe telefon. [[webapp|Deschide-l în browser]].",
-    "iphone": "Nu există fișier de instalare pentru iPhone: aplicațiile pentru iPhone se instalează din App Store. Aplicația pentru iPhone nu este încă disponibilă.",
+    "iphone": "Nu există fișier de instalare pentru iPhone: aplicația pentru iPhone se instalează din App Store.",
     "iphoneStore": "Pe iPhone, aplicația se instalează din App Store.",
     "storeLinks": {
       "googlePlay": "Disponibil pe Google Play",

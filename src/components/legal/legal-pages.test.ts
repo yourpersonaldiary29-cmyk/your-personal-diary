@@ -291,7 +291,9 @@ describe('the rendered pages', () => {
 
   it('the policy names the four apps and the website, the hosting place, the operator\'s reset capability and the device copies', () => {
     const html = files().get('privacy/index.html') as string;
-    for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'when it is published', 'Frankfurt, Germany', 'AES-256-GCM', 'Windows Data Protection (DPAPI)', 'Android Keystore', 'macOS Keychain', 'iOS Keychain', 'Your Personal Diary offline key', 'App Store', 'Mac App Store', 'jailbroken', 'without needing your device account', 'no limit on the number of tries', 'The operator can technically reset any password', 'within 30 days', 'Fly.io, Inc.', 'Gmail']) {
+    // The iPhone app is named like the others: no "when it is published" (the owner's wording of 2026-11-18).
+    expect(html).not.toContain('when it is published');
+    for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'Frankfurt, Germany', 'AES-256-GCM', 'Windows Data Protection (DPAPI)', 'Android Keystore', 'macOS Keychain', 'iOS Keychain', 'Your Personal Diary offline key', 'App Store', 'Mac App Store', 'jailbroken', 'without needing your device account', 'no limit on the number of tries', 'The operator can technically reset any password', 'within 30 days', 'Fly.io, Inc.', 'Gmail']) {
       expect(html, needle).toContain(needle);
     }
     expect(html).toContain('at least 16 years old');

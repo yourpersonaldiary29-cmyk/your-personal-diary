@@ -1,6 +1,6 @@
 ---
 title: Gizlilik Politikası - Your Personal Diary
-description: Your Personal Diary'nin (Android, Windows, Mac ve iPhone uygulamaları ile web sitesi; iPhone uygulaması yayımlandığında) verilerinizi nasıl sakladığı ve koruduğu.
+description: Your Personal Diary'nin (Android, Windows, Mac ve iPhone uygulamaları ile web sitesi) verilerinizi nasıl sakladığı ve koruduğu.
 languages: Diller
 otherPage: Hesabınızı nasıl silersiniz
 ---
@@ -11,7 +11,7 @@ Yürürlük tarihi: {{EFFECTIVE_DATE}}
 
 ## Kısaca
 
-- Your Personal Diary, beş girişi olan tek bir hizmettir: **Android uygulaması** (Google Play), **Windows uygulaması** (Microsoft Store veya kurulum dosyası), **Mac uygulaması** (indirme veya Mac App Store), **iPhone uygulaması** (App Store, yayımlandığında) ve **web sitesi** [{{SITE_URL}}]({{SITE_URL}}). Hepsi aynı sunucuyu ve aynı hesabı kullanır.
+- Your Personal Diary, beş girişi olan tek bir hizmettir: **Android uygulaması** (Google Play), **Windows uygulaması** (Microsoft Store veya kurulum dosyası), **Mac uygulaması** (indirme veya Mac App Store), **iPhone uygulaması** (App Store) ve **web sitesi** [{{SITE_URL}}]({{SITE_URL}}). Hepsi aynı sunucuyu ve aynı hesabı kullanır.
 - Günlüğünüz, sunucumuzda parolanızdan türetilen bir anahtarla şifrelenmiş bir dosyada saklanır. Hesap bilgileriniz de orada saklanır.
 - Verilerinizi yalnızca günlüğünüzü sizin için çalıştırmak ve bize yazdığınızda size yanıt vermek amacıyla kullanırız. Reklam yok, analiz yok, izleme yok; verilerinizi satmayız ve paylaşmayız.
 - Lütfen sınırları bilin: oturumunuz açıkken sunucu günlüğünüzü belleğinde açık tutar ve sunucunun işletmecisi teknik olarak parolanızı sıfırlayıp günlüğünüzü okuyabilir. Bölüm 4 bunu açıkça anlatır.
@@ -21,7 +21,7 @@ Yürürlük tarihi: {{EFFECTIVE_DATE}}
 
 Hizmet, kişisel verilerinizden sorumlu olan ("veri sorumlusu") {{PUBLISHER_NAME}} ("biz") tarafından işletilir. İletişim: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Bu politika Android uygulaması, Windows uygulaması, Mac uygulaması, iPhone uygulaması (yayımlandığında) ve web sitesi için geçerlidir. Hepsi aynı günlüğü gösterir ve aynı kurallara uyar; bir uygulamanın farklı davrandığı yerde bu politika bunu belirtir.
+Bu politika Android uygulaması, Windows uygulaması, Mac uygulaması, iPhone uygulaması ve web sitesi için geçerlidir. Hepsi aynı günlüğü gösterir ve aynı kurallara uyar; bir uygulamanın farklı davrandığı yerde bu politika bunu belirtir.
 
 ## 2. Sunucuda neleri, nerede saklıyoruz
 

@@ -1,6 +1,6 @@
 ---
 title: Política de privacidad - Your Personal Diary
-description: Cómo guarda y protege tus datos Your Personal Diary (las aplicaciones para Android, Windows, Mac y iPhone y el sitio web; la de iPhone, cuando se publique).
+description: Cómo guarda y protege tus datos Your Personal Diary (las aplicaciones para Android, Windows, Mac y iPhone y el sitio web).
 languages: Idiomas
 otherPage: Cómo eliminar tu cuenta
 ---
@@ -11,7 +11,7 @@ Fecha de entrada en vigor: {{EFFECTIVE_DATE}}
 
 ## En resumen
 
-- Your Personal Diary es un único servicio con cinco formas de acceso: la **aplicación para Android** (Google Play), la **aplicación para Windows** (Microsoft Store o un archivo de instalación), la **aplicación para Mac** (una descarga o el Mac App Store), la **aplicación para iPhone** (App Store, cuando se publique) y el **sitio web** [{{SITE_URL}}]({{SITE_URL}}). Todas usan el mismo servidor y la misma cuenta.
+- Your Personal Diary es un único servicio con cinco formas de acceso: la **aplicación para Android** (Google Play), la **aplicación para Windows** (Microsoft Store o un archivo de instalación), la **aplicación para Mac** (una descarga o el Mac App Store), la **aplicación para iPhone** (App Store) y el **sitio web** [{{SITE_URL}}]({{SITE_URL}}). Todas usan el mismo servidor y la misma cuenta.
 - Tu diario se guarda en nuestro servidor en un archivo cifrado con una clave derivada de tu contraseña. Los datos de tu cuenta también se guardan allí.
 - Usamos tus datos solo para que tu diario funcione y para responderte cuando nos escribes. Sin publicidad, sin analítica, sin seguimiento, y no vendemos ni compartimos tus datos.
 - Conoce los límites: mientras tienes la sesión iniciada, el servidor tiene tu diario abierto en su memoria, y quien opera el servidor podría, técnicamente, restablecer tu contraseña y leer tu diario. La sección 4 lo explica con claridad.
@@ -21,7 +21,7 @@ Fecha de entrada en vigor: {{EFFECTIVE_DATE}}
 
 El servicio lo opera {{PUBLISHER_NAME}} ("nosotros"), responsable de tus datos personales (el "responsable del tratamiento"). Contacto: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Esta política se aplica a la aplicación para Android, a la aplicación para Windows, a la aplicación para Mac, a la aplicación para iPhone (cuando se publique) y al sitio web. Muestran el mismo diario y siguen las mismas reglas; cuando una aplicación se comporta de otra manera, esta política lo indica.
+Esta política se aplica a la aplicación para Android, a la aplicación para Windows, a la aplicación para Mac, a la aplicación para iPhone y al sitio web. Muestran el mismo diario y siguen las mismas reglas; cuando una aplicación se comporta de otra manera, esta política lo indica.
 
 ## 2. Qué guardamos en el servidor y dónde
 

@@ -41,7 +41,7 @@ Connectez-vous, ouvrez les **Paramètres** et allez à la dernière carte, **Sup
 
 ### Sur quels appareils puis-je utiliser le journal ?
 
-Dans les applications pour **Windows**, **Mac**, **Android** et **iPhone** (lorsqu'elle sera publiée), et sur le site web [{{SITE_URL}}]({{SITE_URL}}) dans n'importe quel navigateur. C'est un seul compte partout : ce que vous écrivez sur un appareil se retrouve sur tous les autres dès qu'ils se connectent.
+Dans les applications pour **Windows**, **Mac**, **Android** et **iPhone**, et sur le site web [{{SITE_URL}}]({{SITE_URL}}) dans n'importe quel navigateur. C'est un seul compte partout : ce que vous écrivez sur un appareil se retrouve sur tous les autres dès qu'ils se connectent.
 
 ### Comment fonctionnent les rappels ?
 

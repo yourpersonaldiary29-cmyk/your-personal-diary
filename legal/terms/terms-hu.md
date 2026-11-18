@@ -1,6 +1,6 @@
 ---
 title: Felhasználási feltételek - Your Personal Diary
-description: A Your Personal Diary (a Windows-, a Mac-, az Android- és az iPhone-alkalmazás, valamint a weboldal; az iPhone-alkalmazás, amikor megjelenik) használatának szabályai - ki használhatja, személyenként egy fiók, a tartalmad, az elfogadható használat és a mi felelősségünk.
+description: A Your Personal Diary (a Windows-, a Mac-, az Android- és az iPhone-alkalmazás, valamint a weboldal) használatának szabályai - ki használhatja, személyenként egy fiók, a tartalmad, az elfogadható használat és a mi felelősségünk.
 languages: Nyelvek
 otherPage: Adatvédelmi irányelvek
 ---
@@ -21,7 +21,7 @@ Ha egy fordítás eltér az angol változattól, az angol változat az irányad�
 
 ## 1. Kik vagyunk, és mire vonatkoznak ezek a feltételek
 
-A Your Personal Diary üzemeltetője {{PUBLISHER_NAME}} („mi"). Ezek a felhasználási feltételek a Windows-alkalmazásra, a Mac-alkalmazásra, az Android-alkalmazásra, az iPhone-alkalmazásra (amikor megjelenik) és a weboldalra [{{SITE_URL}}]({{SITE_URL}}) vonatkoznak - együtt: „a szolgáltatás". Mindegyik ugyanazt a szervert és ugyanazt a fiókot használja.
+A Your Personal Diary üzemeltetője {{PUBLISHER_NAME}} („mi"). Ezek a felhasználási feltételek a Windows-alkalmazásra, a Mac-alkalmazásra, az Android-alkalmazásra, az iPhone-alkalmazásra és a weboldalra [{{SITE_URL}}]({{SITE_URL}}) vonatkoznak - együtt: „a szolgáltatás". Mindegyik ugyanazt a szervert és ugyanazt a fiókot használja.
 
 Fiók létrehozásával vagy a szolgáltatás használatával elfogadod ezeket a feltételeket és az adatvédelmi irányelveket [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Fiók létrehozásakor ezt egyetlen jelölőnégyzettel erősíted meg. Ha nem értesz egyet velük, kérjük, ne használd a szolgáltatást.
 

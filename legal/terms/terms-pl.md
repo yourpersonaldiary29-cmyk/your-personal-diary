@@ -1,6 +1,6 @@
 ---
 title: Warunki korzystania - Your Personal Diary
-description: Zasady korzystania z Your Personal Diary (aplikacje na Windows, Maca, Androida i iPhone'a oraz strona internetowa; aplikacja na iPhone'a, gdy zostanie opublikowana): kto może z niego korzystać, jedno konto na osobę, Twoje treści, dozwolone korzystanie i nasze obowiązki.
+description: Zasady korzystania z Your Personal Diary (aplikacje na Windows, Maca, Androida i iPhone'a oraz strona internetowa): kto może z niego korzystać, jedno konto na osobę, Twoje treści, dozwolone korzystanie i nasze obowiązki.
 languages: Języki
 otherPage: Polityka prywatności
 ---
@@ -21,7 +21,7 @@ Jeśli tłumaczenie różni się od wersji angielskiej, obowiązuje wersja angie
 
 ## 1. Kim jesteśmy i czego dotyczą te warunki
 
-Your Personal Diary prowadzi {{PUBLISHER_NAME}} („my"). Niniejsze Warunki korzystania dotyczą aplikacji na Windows, aplikacji na Maca, aplikacji na Androida, aplikacji na iPhone'a (gdy zostanie opublikowana) oraz strony internetowej [{{SITE_URL}}]({{SITE_URL}}) - łącznie „usługi". Wszystkie korzystają z tego samego serwera i tego samego konta.
+Your Personal Diary prowadzi {{PUBLISHER_NAME}} („my"). Niniejsze Warunki korzystania dotyczą aplikacji na Windows, aplikacji na Maca, aplikacji na Androida, aplikacji na iPhone'a oraz strony internetowej [{{SITE_URL}}]({{SITE_URL}}) - łącznie „usługi". Wszystkie korzystają z tego samego serwera i tego samego konta.
 
 Zakładając konto lub korzystając z usługi, akceptujesz te warunki oraz Politykę prywatności [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Przy zakładaniu konta potwierdzasz to jednym polem wyboru. Jeśli się nie zgadzasz, nie korzystaj z usługi.
 

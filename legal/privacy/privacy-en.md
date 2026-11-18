@@ -1,6 +1,6 @@
 ---
 title: Privacy Policy - Your Personal Diary
-description: How Your Personal Diary (the Android, Windows and Mac apps, the iPhone app when it is published, and the website) stores and protects your data.
+description: How Your Personal Diary (the Android, Windows, Mac and iPhone apps and the website) stores and protects your data.
 languages: Languages
 otherPage: How to delete your account
 ---
@@ -11,7 +11,7 @@ Effective date: {{EFFECTIVE_DATE}}
 
 ## In short
 
-- Your Personal Diary is one service with five ways in: the **Android app** (Google Play), the **Windows app** (Microsoft Store or a setup file), the **Mac app** (a download or the Mac App Store), the **iPhone app** (App Store, when it is published) and the **website** [{{SITE_URL}}]({{SITE_URL}}). All of them use the same server and the same account.
+- Your Personal Diary is one service with five ways in: the **Android app** (Google Play), the **Windows app** (Microsoft Store or a setup file), the **Mac app** (a download or the Mac App Store), the **iPhone app** (App Store) and the **website** [{{SITE_URL}}]({{SITE_URL}}). All of them use the same server and the same account.
 - Your diary is kept on our server in a file encrypted with a key derived from your password. Your account details are kept there too.
 - We use your data only to run your diary for you and to answer you when you write to us. No advertising, no analytics, no tracking, and we do not sell or share your data.
 - Please know the limits: while you are signed in, the server has your diary open in its memory, and the operator of the server could technically reset your password and read your diary. Section 4 explains this plainly.
@@ -21,7 +21,7 @@ Effective date: {{EFFECTIVE_DATE}}
 
 The service is operated by {{PUBLISHER_NAME}} ("we", "us"), who is responsible for your personal data (the "controller"). Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-This policy applies to the Android app, the Windows app, the Mac app, the iPhone app (when it is published) and the website. They show the same diary and follow the same rules; where an app behaves differently, this policy says so.
+This policy applies to the Android app, the Windows app, the Mac app, the iPhone app and the website. They show the same diary and follow the same rules; where an app behaves differently, this policy says so.
 
 ## 2. What we store on the server, and where
 

@@ -41,7 +41,7 @@ Your Personal Diary 由 {{PUBLISHER_NAME}} 运营。联系方式：[{{CONTACT_EM
 
 ### 我可以在哪些设备上使用日记？
 
-在 **Windows**、**Mac**、**Android** 和 **iPhone**（发布后）应用中，以及在任意浏览器中通过网站 [{{SITE_URL}}]({{SITE_URL}}) 使用。所有地方都是同一个账户：你在一台设备上写的内容，在其他设备连接后就会出现在那里。
+在 **Windows**、**Mac**、**Android** 和 **iPhone** 应用中，以及在任意浏览器中通过网站 [{{SITE_URL}}]({{SITE_URL}}) 使用。所有地方都是同一个账户：你在一台设备上写的内容，在其他设备连接后就会出现在那里。
 
 ### 提醒是如何工作的？
 

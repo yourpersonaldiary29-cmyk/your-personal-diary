@@ -1,6 +1,6 @@
 ---
 title: Adatvédelmi irányelvek - Your Personal Diary
-description: Hogyan tárolja és védi az adataidat a Your Personal Diary (az Android-, a Windows-, a Mac- és az iPhone-alkalmazás, valamint a weboldal; az iPhone-alkalmazás, amikor megjelenik).
+description: Hogyan tárolja és védi az adataidat a Your Personal Diary (az Android-, a Windows-, a Mac- és az iPhone-alkalmazás, valamint a weboldal).
 languages: Nyelvek
 otherPage: Hogyan törölheted a fiókodat
 ---
@@ -11,7 +11,7 @@ Hatályos: {{EFFECTIVE_DATE}}
 
 ## Röviden
 
-- A Your Personal Diary egyetlen szolgáltatás öt bejárattal: az **Android-alkalmazás** (Google Play), a **Windows-alkalmazás** (Microsoft Store vagy telepítőfájl), a **Mac-alkalmazás** (letöltés vagy a Mac App Store), az **iPhone-alkalmazás** (App Store, amikor megjelenik) és a **weboldal** [{{SITE_URL}}]({{SITE_URL}}). Mindegyik ugyanazt a szervert és ugyanazt a fiókot használja.
+- A Your Personal Diary egyetlen szolgáltatás öt bejárattal: az **Android-alkalmazás** (Google Play), a **Windows-alkalmazás** (Microsoft Store vagy telepítőfájl), a **Mac-alkalmazás** (letöltés vagy a Mac App Store), az **iPhone-alkalmazás** (App Store) és a **weboldal** [{{SITE_URL}}]({{SITE_URL}}). Mindegyik ugyanazt a szervert és ugyanazt a fiókot használja.
 - A naplódat a szerverünkön tároljuk, egy olyan fájlban, amelyet a jelszavadból származtatott kulccsal titkosítunk. A fiókod adatai is ott vannak.
 - Az adataidat csak arra használjuk, hogy működtessük neked a naplódat, és hogy válaszoljunk neked, amikor írsz nekünk. Nincs hirdetés, nincs analitika, nincs követés, és nem adjuk el és nem osztjuk meg az adataidat.
 - Ismerd a korlátokat: amíg be vagy jelentkezve, a szerver a memóriájában nyitva tartja a naplódat, és a szerver üzemeltetője technikailag vissza tudná állítani a jelszavadat, és el tudná olvasni a naplódat. A 4. szakasz ezt őszintén elmagyarázza.
@@ -21,7 +21,7 @@ Hatályos: {{EFFECTIVE_DATE}}
 
 A szolgáltatást {{PUBLISHER_NAME}} („mi") üzemelteti, aki felel a személyes adataidért (az „adatkezelő"). Kapcsolat: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Ezek az irányelvek az Android-alkalmazásra, a Windows-alkalmazásra, a Mac-alkalmazásra, az iPhone-alkalmazásra (amikor megjelenik) és a weboldalra vonatkoznak. Mindegyik ugyanazt a naplót mutatja, és ugyanazokat a szabályokat követi; ahol egy alkalmazás másként működik, azt itt jelezzük.
+Ezek az irányelvek az Android-alkalmazásra, a Windows-alkalmazásra, a Mac-alkalmazásra, az iPhone-alkalmazásra és a weboldalra vonatkoznak. Mindegyik ugyanazt a naplót mutatja, és ugyanazokat a szabályokat követi; ahol egy alkalmazás másként működik, azt itt jelezzük.
 
 ## 2. Mit tárolunk a szerveren, és hol
 

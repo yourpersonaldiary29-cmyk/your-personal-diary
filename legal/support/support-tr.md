@@ -41,7 +41,7 @@ Oturum açın, **Ayarlar** sayfasını açın ve son kart olan **Hesabı sil** k
 
 ### Günlüğü hangi cihazlarda kullanabilirim?
 
-**Windows**, **Mac**, **Android** ve **iPhone** (yayımlandığında) uygulamalarında ve herhangi bir tarayıcıda [{{SITE_URL}}]({{SITE_URL}}) web sitesinde. Her yerde tek bir hesap vardır: bir cihazda yazdığınız her şey, diğer cihazlar bağlanır bağlanmaz onlarda da olur.
+**Windows**, **Mac**, **Android** ve **iPhone** uygulamalarında ve herhangi bir tarayıcıda [{{SITE_URL}}]({{SITE_URL}}) web sitesinde. Her yerde tek bir hesap vardır: bir cihazda yazdığınız her şey, diğer cihazlar bağlanır bağlanmaz onlarda da olur.
 
 ### Hatırlatıcılar nasıl çalışır?
 

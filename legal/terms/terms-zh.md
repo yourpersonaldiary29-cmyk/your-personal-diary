@@ -1,6 +1,6 @@
 ---
 title: 使用条款 - Your Personal Diary
-description: 使用 Your Personal Diary（Windows、Mac、Android 和 iPhone 应用以及网站；iPhone 应用将在发布后提供）的规则：谁可以使用、每人一个账户、你的内容、可接受的使用方式以及我们的责任。
+description: 使用 Your Personal Diary（Windows、Mac、Android 和 iPhone 应用以及网站）的规则：谁可以使用、每人一个账户、你的内容、可接受的使用方式以及我们的责任。
 languages: 语言
 otherPage: 隐私政策
 ---
@@ -21,7 +21,7 @@ otherPage: 隐私政策
 
 ## 1. 我们是谁，以及本条款的适用范围
 
-Your Personal Diary 由 {{PUBLISHER_NAME}}（"我们"）运营。本使用条款适用于 Windows 应用、Mac 应用、Android 应用、iPhone 应用（发布后）以及网站 [{{SITE_URL}}]({{SITE_URL}})——统称"本服务"。它们都使用同一台服务器和同一个账户。
+Your Personal Diary 由 {{PUBLISHER_NAME}}（"我们"）运营。本使用条款适用于 Windows 应用、Mac 应用、Android 应用、iPhone 应用以及网站 [{{SITE_URL}}]({{SITE_URL}})——统称"本服务"。它们都使用同一台服务器和同一个账户。
 
 创建账户或使用本服务，即表示你同意本条款和隐私政策 [{{PRIVACY_URL}}]({{PRIVACY_URL}})。创建账户时，你只需勾选一个复选框即可确认这一点。如果你不同意，请不要使用本服务。
 

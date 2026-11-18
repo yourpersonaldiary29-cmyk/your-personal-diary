@@ -1,6 +1,6 @@
 ---
 title: Datenschutzerklärung - Your Personal Diary
-description: Wie Your Personal Diary (die Android-, Windows-, Mac- und iPhone-App und die Website; die iPhone-App, sobald sie veröffentlicht ist) deine Daten speichert und schützt.
+description: Wie Your Personal Diary (die Android-, Windows-, Mac- und iPhone-App und die Website) deine Daten speichert und schützt.
 languages: Sprachen
 otherPage: So löschst du dein Konto
 ---
@@ -11,7 +11,7 @@ Gültig ab: {{EFFECTIVE_DATE}}
 
 ## Kurz gesagt
 
-- Your Personal Diary ist ein einziger Dienst mit fünf Zugängen: die **Android-App** (Google Play), die **Windows-App** (Microsoft Store oder eine Setup-Datei), die **Mac-App** (ein Download oder der Mac App Store), die **iPhone-App** (App Store, sobald sie veröffentlicht ist) und die **Website** [{{SITE_URL}}]({{SITE_URL}}). Alle nutzen denselben Server und dasselbe Konto.
+- Your Personal Diary ist ein einziger Dienst mit fünf Zugängen: die **Android-App** (Google Play), die **Windows-App** (Microsoft Store oder eine Setup-Datei), die **Mac-App** (ein Download oder der Mac App Store), die **iPhone-App** (App Store) und die **Website** [{{SITE_URL}}]({{SITE_URL}}). Alle nutzen denselben Server und dasselbe Konto.
 - Dein Tagebuch liegt auf unserem Server in einer Datei, die mit einem aus deinem Passwort abgeleiteten Schlüssel verschlüsselt ist. Auch deine Kontodaten liegen dort.
 - Wir nutzen deine Daten nur, um dein Tagebuch für dich zu betreiben und um dir zu antworten, wenn du uns schreibst. Keine Werbung, keine Analyse, kein Tracking, und wir verkaufen oder teilen deine Daten nicht.
 - Kenne die Grenzen: Solange du angemeldet bist, hält der Server dein Tagebuch geöffnet in seinem Arbeitsspeicher, und der Betreiber des Servers könnte technisch dein Passwort zurücksetzen und dein Tagebuch lesen. Abschnitt 4 erklärt das offen.
@@ -21,7 +21,7 @@ Gültig ab: {{EFFECTIVE_DATE}}
 
 Der Dienst wird von {{PUBLISHER_NAME}} („wir") betrieben, der für deine personenbezogenen Daten verantwortlich ist (der „Verantwortliche"). Kontakt: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Diese Erklärung gilt für die Android-App, die Windows-App, die Mac-App, die iPhone-App (sobald sie veröffentlicht ist) und die Website. Sie zeigen dasselbe Tagebuch und folgen denselben Regeln; wo sich eine App anders verhält, steht es hier.
+Diese Erklärung gilt für die Android-App, die Windows-App, die Mac-App, die iPhone-App und die Website. Sie zeigen dasselbe Tagebuch und folgen denselben Regeln; wo sich eine App anders verhält, steht es hier.
 
 ## 2. Was wir auf dem Server speichern und wo
 

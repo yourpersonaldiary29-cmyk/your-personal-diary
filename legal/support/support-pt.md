@@ -41,7 +41,7 @@ Inicie sessão, abra as **Definições** e vá até ao último cartão, **Elimin
 
 ### Em que dispositivos posso usar o diário?
 
-Nas aplicações para **Windows**, **Mac**, **Android** e **iPhone** (quando for publicada) e no site [{{SITE_URL}}]({{SITE_URL}}), em qualquer navegador. É uma só conta em todo o lado: o que escreve num dispositivo aparece em todos os outros assim que se ligam.
+Nas aplicações para **Windows**, **Mac**, **Android** e **iPhone** e no site [{{SITE_URL}}]({{SITE_URL}}), em qualquer navegador. É uma só conta em todo o lado: o que escreve num dispositivo aparece em todos os outros assim que se ligam.
 
 ### Como funcionam os lembretes?
 

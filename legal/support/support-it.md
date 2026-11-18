@@ -41,7 +41,7 @@ Accedi, apri **Impostazioni** e vai all'ultima scheda, **Eliminazione dell'accou
 
 ### Su quali dispositivi posso usare il diario?
 
-Nelle app per **Windows**, **Mac**, **Android** e **iPhone** (quando sarà pubblicata) e sul sito web [{{SITE_URL}}]({{SITE_URL}}) in qualsiasi browser. È un solo account ovunque: ciò che scrivi su un dispositivo compare su tutti gli altri appena si collegano.
+Nelle app per **Windows**, **Mac**, **Android** e **iPhone** e sul sito web [{{SITE_URL}}]({{SITE_URL}}) in qualsiasi browser. È un solo account ovunque: ciò che scrivi su un dispositivo compare su tutti gli altri appena si collegano.
 
 ### Come funzionano i promemoria?
 

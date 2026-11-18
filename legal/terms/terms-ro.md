@@ -1,6 +1,6 @@
 ---
 title: Condiții de utilizare - Your Personal Diary
-description: Regulile de folosire a Your Personal Diary (aplicațiile pentru Windows, Mac, Android și iPhone și site-ul; aplicația iPhone când va fi publicată) - cine îl poate folosi, un singur cont de persoană, conținutul tău, folosirea acceptabilă și responsabilitățile noastre.
+description: Regulile de folosire a Your Personal Diary (aplicațiile pentru Windows, Mac, Android și iPhone și site-ul) - cine îl poate folosi, un singur cont de persoană, conținutul tău, folosirea acceptabilă și responsabilitățile noastre.
 languages: Limbi
 otherPage: Politica de confidențialitate
 ---
@@ -21,7 +21,7 @@ Dacă o traducere diferă de versiunea în limba engleză, se aplică versiunea 
 
 ## 1. Cine suntem și la ce se aplică aceste condiții
 
-Your Personal Diary este operat de {{PUBLISHER_NAME}} („noi"). Aceste condiții de utilizare se aplică aplicației Windows, aplicației Mac, aplicației Android, aplicației iPhone (când va fi publicată) și site-ului [{{SITE_URL}}]({{SITE_URL}}) - împreună, „serviciul". Toate folosesc același server și același cont.
+Your Personal Diary este operat de {{PUBLISHER_NAME}} („noi"). Aceste condiții de utilizare se aplică aplicației Windows, aplicației Mac, aplicației Android, aplicației iPhone și site-ului [{{SITE_URL}}]({{SITE_URL}}) - împreună, „serviciul". Toate folosesc același server și același cont.
 
 Creând un cont sau folosind serviciul, ești de acord cu aceste condiții și cu politica de confidențialitate [{{PRIVACY_URL}}]({{PRIVACY_URL}}). Când creezi un cont, confirmi acest lucru cu o singură casetă de bifat. Dacă nu ești de acord, te rugăm să nu folosești serviciul.
 

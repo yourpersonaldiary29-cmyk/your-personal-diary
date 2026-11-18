@@ -119,7 +119,7 @@
       },
       {
         "q": "Welche Geräte kann ich nutzen?",
-        "a": "Einen Computer mit Windows 10 oder 11, einen Mac mit macOS 12.3 oder neuer, ein Android-Smartphone mit Android 7.0 oder neuer und jeden modernen Browser auf einem Computer oder Smartphone. Die Installationsdateien findest du auf der Seite [[downloads|Downloads]]. Die iPhone-App ist noch nicht verfügbar. Es ist überall ein und dasselbe Konto: Was du auf einem Gerät schreibst, erscheint auf den anderen."
+        "a": "Einen Computer mit Windows 10 oder 11, einen Mac mit macOS 12.3 oder neuer, ein Android-Smartphone mit Android 7.0 oder neuer, ein iPhone mit iOS 16 oder neuer und jeden modernen Browser auf einem Computer oder Smartphone. Die Installationsdateien findest du auf der Seite [[downloads|Downloads]], und die iPhone-App wird aus dem App Store installiert. Es ist überall ein und dasselbe Konto: Was du auf einem Gerät schreibst, erscheint auf den anderen."
       },
       {
         "q": "In welchen Sprachen gibt es die App?",
@@ -261,7 +261,7 @@
     "checkText": "Zu jeder Datei gibt es eine SHA-256-Prüfsumme. Hat die Datei, die du heruntergeladen hast, eine andere, dann ist der Download beschädigt oder die Datei wurde verändert: Installiere sie nicht. Um die Prüfsumme einer Datei zu sehen, gib in Windows PowerShell Get-FileHash und den Dateinamen ein oder im Terminal eines Mac shasum -a 256 und den Dateinamen. Groß- und Kleinbuchstaben gelten als gleich.",
     "moreHeading": "Browser und iPhone",
     "web": "Ganz ohne Installation: {{BRAND}} funktioniert auch in jedem modernen Browser, auf einem Computer oder Smartphone. [[webapp|Im Browser öffnen]].",
-    "iphone": "Für das iPhone gibt es keine Installationsdatei: iPhone-Apps werden aus dem App Store installiert. Die iPhone-App ist noch nicht verfügbar.",
+    "iphone": "Für das iPhone gibt es keine Installationsdatei: Die iPhone-App wird aus dem App Store installiert.",
     "iphoneStore": "Auf einem iPhone wird die App aus dem App Store installiert.",
     "storeLinks": {
       "googlePlay": "Jetzt bei Google Play",

@@ -1,6 +1,6 @@
 ---
 title: 利用規約 - Your Personal Diary
-description: Your Personal Diary（Windows、Mac、Android、iPhone の各アプリとウェブサイト；iPhone アプリは公開後）を利用するためのルール：利用できる人、1 人 1 アカウント、あなたのコンテンツ、許容される利用、私たちの責任。
+description: Your Personal Diary（Windows、Mac、Android、iPhone の各アプリとウェブサイト）を利用するためのルール：利用できる人、1 人 1 アカウント、あなたのコンテンツ、許容される利用、私たちの責任。
 languages: 言語
 otherPage: プライバシーポリシー
 ---
@@ -21,7 +21,7 @@ otherPage: プライバシーポリシー
 
 ## 1. 私たちについてと、この規約の対象
 
-Your Personal Diary は {{PUBLISHER_NAME}}（以下「私たち」）が運営しています。この利用規約は、Windows アプリ、Mac アプリ、Android アプリ、iPhone アプリ（公開後）、およびウェブサイト [{{SITE_URL}}]({{SITE_URL}})（以下まとめて「本サービス」）に適用されます。いずれも同じサーバーと同じアカウントを使います。
+Your Personal Diary は {{PUBLISHER_NAME}}（以下「私たち」）が運営しています。この利用規約は、Windows アプリ、Mac アプリ、Android アプリ、iPhone アプリ、およびウェブサイト [{{SITE_URL}}]({{SITE_URL}})（以下まとめて「本サービス」）に適用されます。いずれも同じサーバーと同じアカウントを使います。
 
 アカウントを作成するか本サービスを利用することで、あなたはこの規約とプライバシーポリシー [{{PRIVACY_URL}}]({{PRIVACY_URL}}) に同意したことになります。アカウント作成時には、1 つのチェックボックスでこれを確認します。同意できない場合は、本サービスを利用しないでください。
 

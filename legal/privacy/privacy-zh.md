@@ -1,6 +1,6 @@
 ---
 title: 隐私政策 - Your Personal Diary
-description: Your Personal Diary（Android、Windows、Mac 和 iPhone 应用以及网站；iPhone 应用将在发布后提供）如何存储和保护你的数据。
+description: Your Personal Diary（Android、Windows、Mac 和 iPhone 应用以及网站）如何存储和保护你的数据。
 languages: 语言
 otherPage: 如何删除你的账户
 ---
@@ -11,7 +11,7 @@ otherPage: 如何删除你的账户
 
 ## 简要说明
 
-- Your Personal Diary 是一项服务，有五个入口：**Android 应用**（Google Play）、**Windows 应用**（Microsoft Store 或安装文件）、**Mac 应用**（直接下载或 Mac App Store）、**iPhone 应用**（App Store，发布后提供）以及**网站** [{{SITE_URL}}]({{SITE_URL}})。它们都使用同一台服务器和同一个账户。
+- Your Personal Diary 是一项服务，有五个入口：**Android 应用**（Google Play）、**Windows 应用**（Microsoft Store 或安装文件）、**Mac 应用**（直接下载或 Mac App Store）、**iPhone 应用**（App Store）以及**网站** [{{SITE_URL}}]({{SITE_URL}})。它们都使用同一台服务器和同一个账户。
 - 你的日记保存在我们的服务器上，存放在一个用由你的密码派生的密钥加密的文件中。你的账户信息也保存在那里。
 - 我们只将你的数据用于为你运行日记，以及在你给我们写信时回复你。没有广告，没有分析，没有跟踪，我们也不出售或共享你的数据。
 - 请了解其局限：在你登录期间，你的日记在服务器内存中处于打开状态，而且服务器的运营者在技术上可以重置你的密码并读取你的日记。第 4 节会直白地说明这一点。
@@ -21,7 +21,7 @@ otherPage: 如何删除你的账户
 
 本服务由 {{PUBLISHER_NAME}}（"我们"）运营，并对你的个人数据负责（"数据控制者"）。联系方式：[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})。
 
-本政策适用于 Android 应用、Windows 应用、Mac 应用、iPhone 应用（发布后）和网站。它们显示同一本日记并遵循同样的规则；如果某个应用的行为有所不同，本政策会说明。
+本政策适用于 Android 应用、Windows 应用、Mac 应用、iPhone 应用和网站。它们显示同一本日记并遵循同样的规则；如果某个应用的行为有所不同，本政策会说明。
 
 ## 2. 我们在服务器上存储什么，以及存储在哪里
 

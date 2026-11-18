@@ -1,6 +1,6 @@
 ---
 title: Politica de confidențialitate - Your Personal Diary
-description: Cum păstrează și protejează Your Personal Diary (aplicațiile pentru Android, Windows, Mac și iPhone și site-ul; aplicația iPhone când va fi publicată) datele tale.
+description: Cum păstrează și protejează Your Personal Diary (aplicațiile pentru Android, Windows, Mac și iPhone și site-ul) datele tale.
 languages: Limbi
 otherPage: Cum îți ștergi contul
 ---
@@ -11,7 +11,7 @@ Data intrării în vigoare: {{EFFECTIVE_DATE}}
 
 ## Pe scurt
 
-- Your Personal Diary este un singur serviciu cu cinci căi de acces: **aplicația Android** (Google Play), **aplicația Windows** (Microsoft Store sau un fișier de instalare), **aplicația Mac** (o descărcare sau Mac App Store), **aplicația iPhone** (App Store, când va fi publicată) și **site-ul** [{{SITE_URL}}]({{SITE_URL}}). Toate folosesc același server și același cont.
+- Your Personal Diary este un singur serviciu cu cinci căi de acces: **aplicația Android** (Google Play), **aplicația Windows** (Microsoft Store sau un fișier de instalare), **aplicația Mac** (o descărcare sau Mac App Store), **aplicația iPhone** (App Store) și **site-ul** [{{SITE_URL}}]({{SITE_URL}}). Toate folosesc același server și același cont.
 - Jurnalul tău este păstrat pe serverul nostru, într-un fișier criptat cu o cheie derivată din parola ta. Datele contului tău sunt păstrate tot acolo.
 - Folosim datele tale doar ca să-ți facem jurnalul să funcționeze și ca să-ți răspundem când ne scrii. Fără reclame, fără analize, fără urmărire și nu vindem și nu partajăm datele tale.
 - Cunoaște limitele: cât timp ești conectat, serverul ține jurnalul tău deschis în memorie, iar operatorul serverului ar putea, tehnic, să-ți reseteze parola și să-ți citească jurnalul. Secțiunea 4 explică acest lucru deschis.
@@ -21,7 +21,7 @@ Data intrării în vigoare: {{EFFECTIVE_DATE}}
 
 Serviciul este operat de {{PUBLISHER_NAME}} („noi"), care răspunde de datele tale personale („operatorul de date"). Contact: [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}}).
 
-Această politică se aplică aplicației Android, aplicației Windows, aplicației Mac, aplicației iPhone (când va fi publicată) și site-ului. Toate afișează același jurnal și urmează aceleași reguli; acolo unde o aplicație se comportă diferit, politica o spune.
+Această politică se aplică aplicației Android, aplicației Windows, aplicației Mac, aplicației iPhone și site-ului. Toate afișează același jurnal și urmează aceleași reguli; acolo unde o aplicație se comportă diferit, politica o spune.
 
 ## 2. Ce păstrăm pe server și unde
 

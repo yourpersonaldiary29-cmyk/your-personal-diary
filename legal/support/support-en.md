@@ -41,7 +41,7 @@ Sign in, open **Settings** and go to the last card, **Delete account**: enter yo
 
 ### On which devices can I use the diary?
 
-In the apps for **Windows**, **Mac**, **Android** and **iPhone** (when it is published), and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
+In the apps for **Windows**, **Mac**, **Android** and **iPhone**, and on the website [{{SITE_URL}}]({{SITE_URL}}) in any browser. It is one account everywhere: whatever you write on one device is on all the others as soon as they connect.
 
 ### How do reminders work?
 

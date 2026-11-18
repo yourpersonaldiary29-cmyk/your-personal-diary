@@ -1,6 +1,6 @@
 ---
 title: Terms of Use - Your Personal Diary
-description: The rules for using Your Personal Diary (the Windows, Mac and Android apps, the iPhone app when it is published, and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
+description: The rules for using Your Personal Diary (the Windows, Mac, Android and iPhone apps and the website): who may use it, one account per person, your content, acceptable use, and our responsibilities.
 languages: Languages
 otherPage: Privacy Policy
 ---
@@ -19,7 +19,7 @@ Effective date: {{TERMS_EFFECTIVE_DATE}}
 
 ## 1. Who we are and what these terms cover
 
-Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app (when it is published) and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
+Your Personal Diary is operated by {{PUBLISHER_NAME}} ("we", "us"). These Terms of Use apply to the Windows app, the Mac app, the Android app, the iPhone app and the website [{{SITE_URL}}]({{SITE_URL}}) - together, "the service". All of them use the same server and the same account.
 
 By creating an account or using the service, you agree to these terms and to the Privacy Policy [{{PRIVACY_URL}}]({{PRIVACY_URL}}). When you create an account, you confirm this with one checkbox. If you do not agree, please do not use the service.
 

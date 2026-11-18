@@ -119,7 +119,7 @@
       },
       {
         "q": "Která zařízení můžu používat?",
-        "a": "Počítač s Windows 10 nebo 11, Mac se systémem macOS 12.3 nebo novějším, telefon s Androidem 7.0 nebo novějším a jakýkoli moderní prohlížeč v počítači nebo v telefonu. Instalační soubory najdeš na stránce [[downloads|Ke stažení]]. Aplikace pro iPhone zatím není k dispozici. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se i na ostatních."
+        "a": "Počítač s Windows 10 nebo 11, Mac se systémem macOS 12.3 nebo novějším, telefon s Androidem 7.0 nebo novějším, iPhone se systémem iOS 16 nebo novějším a jakýkoli moderní prohlížeč v počítači nebo v telefonu. Instalační soubory najdeš na stránce [[downloads|Ke stažení]] a aplikace pro iPhone se instaluje z App Store. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se i na ostatních."
       },
       {
         "q": "V jakých jazycích je k dispozici?",
@@ -261,7 +261,7 @@
     "checkText": "Každý soubor má kontrolní součet SHA-256. Pokud má stažený soubor jiný, stahování je poškozené nebo byl soubor změněn: neinstaluj ho. Kontrolní součet souboru zjistíš tak, že ve Windows PowerShell napíšeš Get-FileHash a název souboru, nebo v aplikaci Terminal na Macu shasum -a 256 a název souboru. Na velikosti písmen nezáleží.",
     "moreHeading": "Prohlížeč a iPhone",
     "web": "Není potřeba nic instalovat: {{BRAND}} funguje i v jakémkoli moderním prohlížeči, v počítači nebo v telefonu. [[webapp|Otevři ho v prohlížeči]].",
-    "iphone": "Pro iPhone instalační soubor neexistuje: aplikace pro iPhone se instalují z App Store. Aplikace pro iPhone zatím není k dispozici.",
+    "iphone": "Pro iPhone instalační soubor neexistuje: aplikace pro iPhone se instaluje z App Store.",
     "iphoneStore": "Na iPhonu se aplikace instaluje z App Store.",
     "storeLinks": {
       "googlePlay": "Stáhnout z Google Play",
