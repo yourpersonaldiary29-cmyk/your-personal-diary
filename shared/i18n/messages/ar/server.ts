@@ -576,7 +576,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'رفض Fly.io المفتاح المخزّن على الخادم: إما أنه أُلغي أو انتهت صلاحيته، أو أن إذنًا ما ناقص. شغّل السطر المعروض هنا مرة أخرى في PowerShell على حاسوبك.',
   'server.disk.reason.flyError': 'تعذّر الوصول إلى Fly.io الآن. يُرجى المحاولة مرة أخرى بعد بضع دقائق.',
   'server.disk.error.snapshotFailed': 'تعذّر إنشاء النسخة الاحتياطية (snapshot) من القرص، لذلك لم يتغير القرص.',
-  'server.disk.error.snapshotTimeout': 'لم تكن النسخة الاحتياطية (snapshot) من القرص جاهزة بعد 10 دقائق، لذلك لم يتغير القرص.',
+  'server.disk.error.snapshotTimeout': 'لم تكن النسخة الاحتياطية (snapshot) من القرص جاهزة بعد ساعة، لذلك لم يتغير القرص.',
   'server.disk.error.unauthorized': 'رفض Fly.io المفتاح المخزّن على الخادم، لذلك لم يتغير القرص.',
   'server.disk.error.extendRefused': 'رفض Fly.io توسيع القرص، لذلك لم يتغير.',
   'server.disk.error.extendUnknown': 'لم يُجب Fly.io أثناء توسيع القرص. قد يكون القرص الآن أكبر وقد لا يكون: انظر إلى حجمه في بطاقة «الخادم» بعد بضع دقائق.',

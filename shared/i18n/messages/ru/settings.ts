@@ -661,7 +661,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'после перезапуска',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Делается резервная копия (snapshot) диска. Это может занять несколько минут; пока ничего не изменено.',
+    'Делается резервная копия (snapshot) диска. Это может занять до часа; пока ничего не изменено.',
   'settings.server.diskSize.state.extending': 'Резервная копия готова. Диск увеличивается.',
   'settings.server.diskSize.state.waiting': 'Диск увеличен. Ожидание, пока сервер увидит новый размер (не более 2 минут).',
   'settings.server.diskSize.state.needsRestart': 'Диск увеличен до {toGb} ГБ. Сервер использует новый размер только после перезапуска.',

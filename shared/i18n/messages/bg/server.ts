@@ -589,7 +589,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io отхвърли ключа, запазен на сървъра: той е отменен или е изтекъл, или липсва разрешение. Изпълнете отново показания тук ред в PowerShell на компютъра си.',
   'server.disk.reason.flyError': 'В момента няма връзка с Fly.io. Опитайте отново след няколко минути.',
   'server.disk.error.snapshotFailed': 'Резервното копие (snapshot) на диска не можа да бъде направено, затова дискът не е променен.',
-  'server.disk.error.snapshotTimeout': 'Резервното копие (snapshot) на диска не беше готово след 10 минути, затова дискът не е променен.',
+  'server.disk.error.snapshotTimeout': 'Резервното копие (snapshot) на диска не беше готово след един час, затова дискът не е променен.',
   'server.disk.error.unauthorized': 'Fly.io отхвърли ключа, запазен на сървъра, затова дискът не е променен.',
   'server.disk.error.extendRefused': 'Fly.io отказа да увеличи диска, затова той не е променен.',
   'server.disk.error.extendUnknown': 'Fly.io не отговори, докато дискът се увеличаваше. Дискът може вече да е по-голям, а може и да не е: вижте размера му в картата „Сървър“ след няколко минути.',

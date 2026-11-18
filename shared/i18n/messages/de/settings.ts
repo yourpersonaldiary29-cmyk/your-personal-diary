@@ -637,7 +637,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'nach einem Neustart',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Eine Sicherungskopie (Snapshot) des Datenträgers wird erstellt. Das kann einige Minuten dauern; bisher wurde nichts geändert.',
+    'Eine Sicherungskopie (Snapshot) des Datenträgers wird erstellt. Das kann bis zu einer Stunde dauern; bisher wurde nichts geändert.',
   'settings.server.diskSize.state.extending': 'Die Sicherungskopie ist fertig. Der Datenträger wird vergrößert.',
   'settings.server.diskSize.state.waiting': 'Der Datenträger wurde vergrößert. Es wird gewartet, bis der Server die neue Größe erkennt (höchstens 2 Minuten).',
   'settings.server.diskSize.state.needsRestart': 'Der Datenträger wurde auf {toGb} GB vergrößert. Der Server nutzt die neue Größe erst nach einem Neustart.',

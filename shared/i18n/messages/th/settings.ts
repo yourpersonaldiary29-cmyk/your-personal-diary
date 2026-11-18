@@ -623,7 +623,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'หลังรีสตาร์ต',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'กำลังสร้างสำเนาสำรอง (สแนปช็อต) ของดิสก์ อาจใช้เวลาสองสามนาที ยังไม่มีการเปลี่ยนแปลงใด ๆ',
+    'กำลังสร้างสำเนาสำรอง (สแนปช็อต) ของดิสก์ อาจใช้เวลานานถึงหนึ่งชั่วโมง ยังไม่มีการเปลี่ยนแปลงใด ๆ',
   'settings.server.diskSize.state.extending': 'สำเนาสำรองพร้อมแล้ว กำลังขยายดิสก์',
   'settings.server.diskSize.state.waiting': 'ขยายดิสก์แล้ว กำลังรอให้เซิร์ฟเวอร์เห็นขนาดใหม่ (ไม่เกิน 2 นาที)',
   'settings.server.diskSize.state.needsRestart': 'ขยายดิสก์เป็น {toGb} GB แล้ว เซิร์ฟเวอร์จะใช้ขนาดใหม่หลังจากรีสตาร์ตเท่านั้น',

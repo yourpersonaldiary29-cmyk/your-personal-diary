@@ -11,7 +11,9 @@
  * A change: one at a time; at most SERVER_DISK_CHANGES_PER_DAY started in any 24 hours (failed ones count
  * too); the new size a whole number of GB, larger than the size Fly reports and at most DIARY_DISK_MAX_GB.
  *   snapshot       the snapshots are listed, one is created and waited for until a new one is 'created'
- *                  (at most 10 minutes; a snapshot that failed or is late ends the change - nothing changed);
+ *                  (at most an hour - Fly took about 14 minutes for the 50 GB production disk, with the
+ *                  statuses 'waiting' and 'running' before 'created'; a snapshot that failed or is late ends
+ *                  the change - nothing changed);
  *   extending      the volume is extended to the new size - asked once, never again;
  *   waiting        until the file system shows the new size (at most 2 minutes) -> done;
  *   needs-restart  Fly answered that a restart is needed, or the file system did not grow in time: the owner
@@ -93,7 +95,7 @@ const GIB = 1024 ** 3;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export interface DiskTiming {
-  /** Between two looks at the snapshots, and how long a snapshot may take (10 s / 10 minutes). */
+  /** Between two looks at the snapshots, and how long a snapshot may take (10 s / an hour). */
   snapshotPollMs: number;
   snapshotTimeoutMs: number;
   /** Between two looks at the file system, and how long it may take to show the new size (5 s / 2 minutes). */
@@ -109,7 +111,7 @@ export interface DiskTiming {
 
 export const DISK_TIMING: Readonly<DiskTiming> = Object.freeze({
   snapshotPollMs: 10_000,
-  snapshotTimeoutMs: 10 * 60_000,
+  snapshotTimeoutMs: 60 * 60_000,
   fsPollMs: 5_000,
   fsTimeoutMs: 2 * 60_000,
   volumeCacheMs: 60_000,

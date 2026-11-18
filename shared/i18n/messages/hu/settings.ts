@@ -655,7 +655,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'újraindítás után',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Biztonsági másolat (snapshot) készül a lemezről. Ez néhány percig is eltarthat; még semmi sem változott.',
+    'Biztonsági másolat (snapshot) készül a lemezről. Ez akár egy óráig is eltarthat; még semmi sem változott.',
   'settings.server.diskSize.state.extending': 'A biztonsági másolat elkészült. A lemez megnövelése folyamatban.',
   'settings.server.diskSize.state.waiting': 'A lemez megnőtt. Várakozás, amíg a szerver észleli az új méretet (legfeljebb 2 perc).',
   'settings.server.diskSize.state.needsRestart': 'A lemez {toGb} GB-ra nőtt. A szerver csak újraindítás után használja az új méretet.',

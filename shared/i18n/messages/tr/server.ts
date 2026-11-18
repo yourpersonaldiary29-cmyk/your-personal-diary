@@ -581,7 +581,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io sunucuda saklanan anahtarı reddetti: anahtar iptal edilmiş ya da süresi dolmuş veya bir izin eksik. Burada gösterilen satırı bilgisayarınızda PowerShell’de yeniden çalıştırın.',
   'server.disk.reason.flyError': 'Şu anda Fly.io’ya ulaşılamıyor. Lütfen birkaç dakika sonra yeniden deneyin.',
   'server.disk.error.snapshotFailed': 'Diskin yedek kopyası (snapshot) alınamadı, bu yüzden disk değiştirilmedi.',
-  'server.disk.error.snapshotTimeout': 'Diskin yedek kopyası (snapshot) 10 dakika sonra hâlâ hazır değildi, bu yüzden disk değiştirilmedi.',
+  'server.disk.error.snapshotTimeout': 'Diskin yedek kopyası (snapshot) bir saat sonra hâlâ hazır değildi, bu yüzden disk değiştirilmedi.',
   'server.disk.error.unauthorized': 'Fly.io sunucuda saklanan anahtarı reddetti, bu yüzden disk değiştirilmedi.',
   'server.disk.error.extendRefused': 'Fly.io diski büyütmeyi reddetti, bu yüzden disk değiştirilmedi.',
   'server.disk.error.extendUnknown': 'Disk büyütülürken Fly.io yanıt vermedi. Disk şimdi daha büyük olabilir de olmayabilir de: birkaç dakika sonra Sunucu kartında boyutuna bakın.',

@@ -45,7 +45,7 @@ export const DISK_REASON_KEYS: Readonly<Record<ServerDiskReason, string>> = Obje
 export const DISK_ERROR_KEYS = Object.freeze({
   /** The snapshot could not be made (or Fly reported it failed): nothing was changed. */
   snapshotFailed: 'server.disk.error.snapshotFailed',
-  /** No snapshot was ready after 10 minutes: nothing was changed. */
+  /** No snapshot was ready after an hour (DISK_TIMING.snapshotTimeoutMs): nothing was changed. */
   snapshotTimeout: 'server.disk.error.snapshotTimeout',
   /** Fly refused the token during the change: nothing was changed. */
   unauthorized: 'server.disk.error.unauthorized',

@@ -582,7 +582,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io ha rifiutato la chiave salvata sul server: è stata revocata o è scaduta, oppure manca un’autorizzazione. Esegui di nuovo la riga mostrata qui in PowerShell sul tuo computer.',
   'server.disk.reason.flyError': 'Al momento Fly.io non è raggiungibile. Riprova tra qualche minuto.',
   'server.disk.error.snapshotFailed': 'Non è stato possibile fare la copia di backup (snapshot) del disco, quindi il disco non è stato modificato.',
-  'server.disk.error.snapshotTimeout': 'La copia di backup (snapshot) del disco non era pronta dopo 10 minuti, quindi il disco non è stato modificato.',
+  'server.disk.error.snapshotTimeout': 'La copia di backup (snapshot) del disco non era pronta dopo un’ora, quindi il disco non è stato modificato.',
   'server.disk.error.unauthorized': 'Fly.io ha rifiutato la chiave salvata sul server, quindi il disco non è stato modificato.',
   'server.disk.error.extendRefused': 'Fly.io ha rifiutato di ingrandire il disco, quindi non è stato modificato.',
   'server.disk.error.extendUnknown': 'Fly.io non ha risposto mentre il disco veniva ingrandito. Ora il disco potrebbe essere più grande oppure no: controlla la sua dimensione nella scheda “Server” tra qualche minuto.',

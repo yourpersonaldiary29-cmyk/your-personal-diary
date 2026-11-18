@@ -596,7 +596,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': '重启后',
   'settings.server.diskSize.stepLine': '{step}：{state}',
   'settings.server.diskSize.state.snapshot':
-    '正在为磁盘创建备份副本（快照）。这可能需要几分钟；目前还没有做任何更改。',
+    '正在为磁盘创建备份副本（快照）。这可能需要长达 1 小时；目前还没有做任何更改。',
   'settings.server.diskSize.state.extending': '备份副本已就绪。正在扩容磁盘。',
   'settings.server.diskSize.state.waiting': '磁盘已扩容。正在等待服务器识别新大小（最多 2 分钟）。',
   'settings.server.diskSize.state.needsRestart': '磁盘已扩容到 {toGb} GB。服务器要在重启后才会使用新大小。',

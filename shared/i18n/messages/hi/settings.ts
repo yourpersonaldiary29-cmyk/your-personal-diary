@@ -629,7 +629,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'रीस्टार्ट के बाद',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'डिस्क की बैकअप कॉपी (स्नैपशॉट) बन रही है। इसमें कुछ मिनट लग सकते हैं; अभी तक कुछ नहीं बदला गया है।',
+    'डिस्क की बैकअप कॉपी (स्नैपशॉट) बन रही है। इसमें एक घंटे तक लग सकता है; अभी तक कुछ नहीं बदला गया है।',
   'settings.server.diskSize.state.extending': 'बैकअप कॉपी तैयार है। डिस्क बड़ी की जा रही है।',
   'settings.server.diskSize.state.waiting': 'डिस्क बड़ी कर दी गई। सर्वर के नया आकार देखने का इंतज़ार हो रहा है (ज़्यादा से ज़्यादा 2 मिनट)।',
   'settings.server.diskSize.state.needsRestart': 'डिस्क {toGb} GB तक बड़ी कर दी गई। सर्वर नए आकार का इस्तेमाल रीस्टार्ट के बाद ही करता है।',

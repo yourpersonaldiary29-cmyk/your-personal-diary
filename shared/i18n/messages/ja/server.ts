@@ -568,7 +568,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io がサーバーに保存されているキーを拒否しました。キーが取り消されたか期限切れになったか、権限が不足しています。ここに表示されているコマンドを、パソコンの PowerShell でもう一度実行してください。',
   'server.disk.reason.flyError': '現在 Fly.io に接続できません。数分後にもう一度お試しください。',
   'server.disk.error.snapshotFailed': 'ディスクのバックアップコピー（スナップショット）を作成できなかったため、ディスクは変更されていません。',
-  'server.disk.error.snapshotTimeout': 'ディスクのバックアップコピー（スナップショット）が10分たっても完了しなかったため、ディスクは変更されていません。',
+  'server.disk.error.snapshotTimeout': 'ディスクのバックアップコピー（スナップショット）が1時間たっても完了しなかったため、ディスクは変更されていません。',
   'server.disk.error.unauthorized': 'Fly.io がサーバーに保存されているキーを拒否したため、ディスクは変更されていません。',
   'server.disk.error.extendRefused': 'Fly.io がディスクの拡張を拒否したため、ディスクは変更されていません。',
   'server.disk.error.extendUnknown': 'ディスクの拡張中に Fly.io から応答がありませんでした。ディスクが大きくなっているかどうかはわかりません。数分後に「サーバー」カードでサイズを確認してください。',

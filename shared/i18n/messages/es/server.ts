@@ -593,7 +593,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io ha rechazado la clave guardada en el servidor: se revocó o ha caducado, o le falta un permiso. Vuelve a ejecutar la línea que se muestra aquí en PowerShell en tu ordenador.',
   'server.disk.reason.flyError': 'No se ha podido contactar con Fly.io en este momento. Inténtalo de nuevo dentro de unos minutos.',
   'server.disk.error.snapshotFailed': 'No se pudo hacer la copia de seguridad (snapshot) del disco, así que el disco no se cambió.',
-  'server.disk.error.snapshotTimeout': 'La copia de seguridad (snapshot) del disco no estaba lista tras 10 minutos, así que el disco no se cambió.',
+  'server.disk.error.snapshotTimeout': 'La copia de seguridad (snapshot) del disco no estaba lista tras una hora, así que el disco no se cambió.',
   'server.disk.error.unauthorized': 'Fly.io rechazó la clave guardada en el servidor, así que el disco no se cambió.',
   'server.disk.error.extendRefused': 'Fly.io se negó a ampliar el disco, así que no se cambió.',
   'server.disk.error.extendUnknown': 'Fly.io no respondió mientras se ampliaba el disco. Puede que ahora el disco sea mayor o puede que no: mira su tamaño en la tarjeta «Servidor» dentro de unos minutos.',

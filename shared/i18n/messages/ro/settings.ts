@@ -633,7 +633,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'după o repornire',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Se face o copie de rezervă (snapshot) a discului. Poate dura câteva minute; încă nu s-a modificat nimic.',
+    'Se face o copie de rezervă (snapshot) a discului. Poate dura până la o oră; încă nu s-a modificat nimic.',
   'settings.server.diskSize.state.extending': 'Copia de rezervă este gata. Se mărește discul.',
   'settings.server.diskSize.state.waiting': 'Discul a fost mărit. Se așteaptă până când serverul vede dimensiunea nouă (cel mult 2 minute).',
   'settings.server.diskSize.state.needsRestart': 'Discul a fost mărit la {toGb} GB. Serverul folosește dimensiunea nouă doar după o repornire.',

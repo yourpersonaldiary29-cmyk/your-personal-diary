@@ -677,7 +677,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'μετά από επανεκκίνηση',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Δημιουργείται αντίγραφο ασφαλείας (snapshot) του δίσκου. Αυτό μπορεί να πάρει μερικά λεπτά· τίποτα δεν έχει αλλάξει ακόμη.',
+    'Δημιουργείται αντίγραφο ασφαλείας (snapshot) του δίσκου. Αυτό μπορεί να πάρει έως μία ώρα· τίποτα δεν έχει αλλάξει ακόμη.',
   'settings.server.diskSize.state.extending': 'Το αντίγραφο ασφαλείας είναι έτοιμο. Ο δίσκος μεγαλώνει.',
   'settings.server.diskSize.state.waiting': 'Ο δίσκος μεγάλωσε. Αναμονή μέχρι ο διακομιστής να δει το νέο μέγεθος (το πολύ 2 λεπτά).',
   'settings.server.diskSize.state.needsRestart': 'Ο δίσκος μεγάλωσε στα {toGb} GB. Ο διακομιστής χρησιμοποιεί το νέο μέγεθος μόνο μετά από επανεκκίνηση.',

@@ -564,7 +564,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io דחה את המפתח ששמור בשרת: הוא בוטל או שפג תוקפו, או שחסרה הרשאה. הריצו שוב את השורה שמוצגת כאן ב-PowerShell במחשב שלכם.',
   'server.disk.reason.flyError': 'אין כרגע חיבור ל-Fly.io. נסו שוב בעוד כמה דקות.',
   'server.disk.error.snapshotFailed': 'לא ניתן היה ליצור עותק גיבוי (snapshot) של הדיסק, ולכן הדיסק לא שונה.',
-  'server.disk.error.snapshotTimeout': 'עותק הגיבוי (snapshot) של הדיסק לא היה מוכן אחרי 10 דקות, ולכן הדיסק לא שונה.',
+  'server.disk.error.snapshotTimeout': 'עותק הגיבוי (snapshot) של הדיסק לא היה מוכן אחרי שעה, ולכן הדיסק לא שונה.',
   'server.disk.error.unauthorized': 'Fly.io דחה את המפתח ששמור בשרת, ולכן הדיסק לא שונה.',
   'server.disk.error.extendRefused': 'Fly.io סירב להגדיל את הדיסק, ולכן הוא לא שונה.',
   'server.disk.error.extendUnknown': 'Fly.io לא ענה בזמן שהדיסק הוגדל. ייתכן שהדיסק גדול יותר עכשיו וייתכן שלא: בדקו את הגודל שלו בכרטיס "שרת" בעוד כמה דקות.',

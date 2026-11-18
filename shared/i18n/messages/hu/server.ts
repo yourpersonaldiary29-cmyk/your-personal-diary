@@ -592,7 +592,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'A Fly.io elutasította a szerveren tárolt kulcsot: visszavonták vagy lejárt, vagy hiányzik egy jogosultság. Futtasd újra az itt látható parancsot a számítógéped PowerShelljében.',
   'server.disk.reason.flyError': 'A Fly.io most nem érhető el. Próbáld újra néhány perc múlva.',
   'server.disk.error.snapshotFailed': 'Nem sikerült biztonsági másolatot (snapshotot) készíteni a lemezről, ezért a lemez nem változott.',
-  'server.disk.error.snapshotTimeout': 'A lemez biztonsági másolata (snapshot) 10 perc után sem készült el, ezért a lemez nem változott.',
+  'server.disk.error.snapshotTimeout': 'A lemez biztonsági másolata (snapshot) egy óra után sem készült el, ezért a lemez nem változott.',
   'server.disk.error.unauthorized': 'A Fly.io elutasította a szerveren tárolt kulcsot, ezért a lemez nem változott.',
   'server.disk.error.extendRefused': 'A Fly.io elutasította a lemez megnövelését, ezért a lemez nem változott.',
   'server.disk.error.extendUnknown': 'A Fly.io nem válaszolt a lemez megnövelése közben. Lehet, hogy a lemez már nagyobb, de az is lehet, hogy nem: néhány perc múlva nézd meg a méretét a Szerver kártyán.',

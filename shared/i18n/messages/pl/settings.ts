@@ -655,7 +655,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'po ponownym uruchomieniu',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Trwa tworzenie kopii zapasowej (snapshot) dysku. Może to potrwać kilka minut; nic jeszcze nie zostało zmienione.',
+    'Trwa tworzenie kopii zapasowej (snapshot) dysku. Może to potrwać nawet godzinę; nic jeszcze nie zostało zmienione.',
   'settings.server.diskSize.state.extending': 'Kopia zapasowa jest gotowa. Trwa powiększanie dysku.',
   'settings.server.diskSize.state.waiting': 'Dysk został powiększony. Oczekiwanie, aż serwer zobaczy nowy rozmiar (najwyżej 2 minuty).',
   'settings.server.diskSize.state.needsRestart': 'Dysk został powiększony do {toGb} GB. Serwer zacznie używać nowego rozmiaru dopiero po ponownym uruchomieniu.',

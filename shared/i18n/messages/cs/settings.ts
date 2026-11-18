@@ -650,7 +650,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'po restartu',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Pořizuje se záložní kopie (snapshot) disku. Může to trvat několik minut; zatím se nic nezměnilo.',
+    'Pořizuje se záložní kopie (snapshot) disku. Může to trvat až hodinu; zatím se nic nezměnilo.',
   'settings.server.diskSize.state.extending': 'Záložní kopie je hotová. Disk se zvětšuje.',
   'settings.server.diskSize.state.waiting': 'Disk byl zvětšen. Čeká se, až server uvidí novou velikost (nejvýše 2 minuty).',
   'settings.server.diskSize.state.needsRestart': 'Disk byl zvětšen na {toGb} GB. Server novou velikost použije až po restartu.',

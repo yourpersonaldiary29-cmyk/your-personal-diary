@@ -660,7 +660,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'após um reinício',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Está a ser feita uma cópia de segurança (snapshot) do disco. Pode demorar alguns minutos; ainda não foi alterado nada.',
+    'Está a ser feita uma cópia de segurança (snapshot) do disco. Pode demorar até uma hora; ainda não foi alterado nada.',
   'settings.server.diskSize.state.extending': 'A cópia de segurança está pronta. O disco está a ser aumentado.',
   'settings.server.diskSize.state.waiting': 'O disco foi aumentado. A aguardar que o servidor veja o novo tamanho (no máximo 2 minutos).',
   'settings.server.diskSize.state.needsRestart': 'O disco foi aumentado para {toGb} GB. O servidor só usa o novo tamanho após um reinício.',

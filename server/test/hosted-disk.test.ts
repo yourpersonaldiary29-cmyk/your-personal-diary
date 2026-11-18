@@ -557,7 +557,7 @@ describe('POST /api/server/disk/extend', () => {
     expect(diskLogs(b)).toContain('disk: the restart did not happen (restart: unauthorized, HTTP 401).');
   });
 
-  it('a snapshot that fails, is refused or is not ready in 10 minutes ends the change before anything is changed', async () => {
+  it('a snapshot that fails, is refused or is not ready in an hour ends the change before anything is changed', async () => {
     const cases: Array<[FakeFlyOptions, string]> = [
       [{ snapshot: 'failed' }, DISK_ERROR_KEYS.snapshotFailed],
       [{ snapshot: 'never' }, DISK_ERROR_KEYS.snapshotTimeout],
@@ -570,7 +570,8 @@ describe('POST /api/server/disk/extend', () => {
       const disk = await info(b);
       expect({ errorKey, job: disk.job }).toMatchObject({ errorKey, job: { state: 'failed', errorKey, email: 'sent' } });
       expect({ errorKey, extends: b.fly.changes().filter((c) => c.method === 'PUT').length, size: b.fly.volume.size_gb }).toEqual({ errorKey, extends: 0, size: 50 });
-      if (errorKey === DISK_ERROR_KEYS.snapshotTimeout) expect(b.clock.t - T0).toBeGreaterThanOrEqual(10 * 60_000);
+      // Fly took about 14 minutes for the 50 GB production disk: the wait is an hour, and not less.
+      if (errorKey === DISK_ERROR_KEYS.snapshotTimeout) expect(b.clock.t - T0).toBeGreaterThanOrEqual(60 * 60_000);
       const mail = mailOf(b);
       expect(mail.subject).toBe(t('en', 'server.email.disk.failed.subject'));
       expect(mail.text).toContain(t('en', errorKey));

@@ -567,7 +567,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io refused the key stored on the server: it was revoked or has expired, or a permission is missing. Run the line shown here again in PowerShell on your computer.',
   'server.disk.reason.flyError': 'Fly.io could not be reached right now. Please try again in a few minutes.',
   'server.disk.error.snapshotFailed': 'The backup copy (snapshot) of the disk could not be made, so the disk was not changed.',
-  'server.disk.error.snapshotTimeout': 'The backup copy (snapshot) of the disk was not ready after 10 minutes, so the disk was not changed.',
+  'server.disk.error.snapshotTimeout': 'The backup copy (snapshot) of the disk was not ready after an hour, so the disk was not changed.',
   'server.disk.error.unauthorized': 'Fly.io refused the key stored on the server, so the disk was not changed.',
   'server.disk.error.extendRefused': 'Fly.io refused to enlarge the disk, so it was not changed.',
   'server.disk.error.extendUnknown': 'Fly.io did not answer while the disk was being enlarged. The disk may or may not be larger now: look at its size in the Server card in a few minutes.',

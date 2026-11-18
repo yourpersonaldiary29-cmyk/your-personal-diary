@@ -567,7 +567,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io 拒绝了服务器上存储的密钥：它已被撤销或已过期，或缺少某项权限。请在您电脑上的 PowerShell 中再次运行这里显示的命令。',
   'server.disk.reason.flyError': '目前无法连接 Fly.io。请几分钟后再试。',
   'server.disk.error.snapshotFailed': '无法创建磁盘的备份副本（快照），因此磁盘未更改。',
-  'server.disk.error.snapshotTimeout': '磁盘的备份副本（快照）在 10 分钟后仍未就绪，因此磁盘未更改。',
+  'server.disk.error.snapshotTimeout': '磁盘的备份副本（快照）在 1 小时后仍未就绪，因此磁盘未更改。',
   'server.disk.error.unauthorized': 'Fly.io 拒绝了服务器上存储的密钥，因此磁盘未更改。',
   'server.disk.error.extendRefused': 'Fly.io 拒绝扩容磁盘，因此磁盘未更改。',
   'server.disk.error.extendUnknown': '扩容磁盘时 Fly.io 没有响应。磁盘现在可能已经变大，也可能没有：请几分钟后在“服务器”卡片中查看其大小。',

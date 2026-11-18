@@ -578,7 +578,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io a refuzat cheia salvată pe server: a fost revocată sau a expirat ori lipsește o permisiune. Rulează din nou linia afișată aici în PowerShell pe computerul tău.',
   'server.disk.reason.flyError': 'Fly.io nu poate fi contactat acum. Încearcă din nou peste câteva minute.',
   'server.disk.error.snapshotFailed': 'Copia de rezervă (snapshot) a discului nu a putut fi făcută, așa că discul nu a fost modificat.',
-  'server.disk.error.snapshotTimeout': 'Copia de rezervă (snapshot) a discului nu era gata după 10 minute, așa că discul nu a fost modificat.',
+  'server.disk.error.snapshotTimeout': 'Copia de rezervă (snapshot) a discului nu era gata după o oră, așa că discul nu a fost modificat.',
   'server.disk.error.unauthorized': 'Fly.io a refuzat cheia salvată pe server, așa că discul nu a fost modificat.',
   'server.disk.error.extendRefused': 'Fly.io a refuzat să mărească discul, așa că acesta nu a fost modificat.',
   'server.disk.error.extendUnknown': 'Fly.io nu a răspuns în timp ce discul era mărit. Este posibil ca discul să fie acum mai mare, dar și să nu fie: uită-te la dimensiunea lui în cardul „Server” peste câteva minute.',

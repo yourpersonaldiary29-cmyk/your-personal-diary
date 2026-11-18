@@ -633,7 +633,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'بعد إعادة التشغيل',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'تُنشأ الآن نسخة احتياطية (snapshot) من القرص. قد يستغرق ذلك بضع دقائق؛ لم يتغير أي شيء بعد.',
+    'تُنشأ الآن نسخة احتياطية (snapshot) من القرص. قد يستغرق ذلك حتى ساعة؛ لم يتغير أي شيء بعد.',
   'settings.server.diskSize.state.extending': 'النسخة الاحتياطية جاهزة. يجري توسيع القرص.',
   'settings.server.diskSize.state.waiting': 'تم توسيع القرص. بانتظار أن يرى الخادم الحجم الجديد (دقيقتان على الأكثر).',
   'settings.server.diskSize.state.needsRestart': 'تم توسيع القرص إلى {toGb} غيغابايت. لا يستخدم الخادم الحجم الجديد إلا بعد إعادة التشغيل.',

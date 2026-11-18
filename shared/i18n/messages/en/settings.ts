@@ -623,7 +623,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'after a restart',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'A backup copy (snapshot) of the disk is being made. This can take a few minutes; nothing has been changed yet.',
+    'A backup copy (snapshot) of the disk is being made. This can take up to an hour; nothing has been changed yet.',
   'settings.server.diskSize.state.extending': 'The backup copy is ready. The disk is being enlarged.',
   'settings.server.diskSize.state.waiting': 'The disk was enlarged. Waiting until the server sees the new size (at most 2 minutes).',
   'settings.server.diskSize.state.needsRestart': 'The disk was enlarged to {toGb} GB. The server uses the new size only after a restart.',

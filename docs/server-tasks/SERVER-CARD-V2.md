@@ -122,7 +122,7 @@ pattern of `add-download.mjs` (`YourPersonalDiary-<version>-windows-x64-setup.ex
 * Routes (hosted only, owner only, HTTPS):
   * `GET /api/server/disk` -> `{ available, reason?, sizeGb, usedBytes, maxGb, pricePerGbMonth: 0.15, job, history }`.
   * `POST /api/server/disk/extend` `{ sizeGb, password }` -> 202 and a job: (1) a snapshot, waited for until it is
-    created (at most 10 minutes); (2) extend; (3) wait until the file system shows the new size (at most 2 minutes)
+    created (at most an hour: Fly took about 14 minutes for the 50 GB production disk); (2) extend; (3) wait until the file system shows the new size (at most 2 minutes)
     -> done; or, when Fly answers that a restart is needed, the state `needs-restart`.
   * `POST /api/server/disk/restart` `{ password }` -> only in the state `needs-restart`: restart this machine.
 * Rules: a whole number of GB, larger than now, at most `DIARY_DISK_MAX_GB` (default 100, read like the other hosted

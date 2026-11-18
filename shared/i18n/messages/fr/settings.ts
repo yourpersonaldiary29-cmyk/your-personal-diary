@@ -639,7 +639,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'après un redémarrage',
   'settings.server.diskSize.stepLine': '{step} : {state}',
   'settings.server.diskSize.state.snapshot':
-    'Une copie de sauvegarde (snapshot) du disque est en cours de création. Cela peut prendre quelques minutes ; rien n’a encore été modifié.',
+    'Une copie de sauvegarde (snapshot) du disque est en cours de création. Cela peut prendre jusqu’à une heure ; rien n’a encore été modifié.',
   'settings.server.diskSize.state.extending': 'La copie de sauvegarde est prête. Le disque est en cours d’agrandissement.',
   'settings.server.diskSize.state.waiting': 'Le disque a été agrandi. En attente que le serveur voie la nouvelle taille (2 minutes au plus).',
   'settings.server.diskSize.state.needsRestart': 'Le disque a été agrandi à {toGb} Go. Le serveur n’utilise la nouvelle taille qu’après un redémarrage.',

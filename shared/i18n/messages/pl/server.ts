@@ -587,7 +587,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io odrzuciło klucz zapisany na serwerze: został unieważniony lub wygasł albo brakuje uprawnienia. Uruchom ponownie pokazany tutaj wiersz w PowerShell na swoim komputerze.',
   'server.disk.reason.flyError': 'Nie można teraz połączyć się z Fly.io. Spróbuj ponownie za kilka minut.',
   'server.disk.error.snapshotFailed': 'Nie udało się utworzyć kopii zapasowej (snapshot) dysku, więc dysk nie został zmieniony.',
-  'server.disk.error.snapshotTimeout': 'Kopia zapasowa (snapshot) dysku nie była gotowa po 10 minutach, więc dysk nie został zmieniony.',
+  'server.disk.error.snapshotTimeout': 'Kopia zapasowa (snapshot) dysku nie była gotowa po godzinie, więc dysk nie został zmieniony.',
   'server.disk.error.unauthorized': 'Fly.io odrzuciło klucz zapisany na serwerze, więc dysk nie został zmieniony.',
   'server.disk.error.extendRefused': 'Fly.io odmówiło powiększenia dysku, więc nie został zmieniony.',
   'server.disk.error.extendUnknown': 'Fly.io nie odpowiedziało podczas powiększania dysku. Dysk może być teraz większy albo nie: za kilka minut sprawdź jego rozmiar na karcie „Serwer”.',

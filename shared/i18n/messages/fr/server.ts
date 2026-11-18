@@ -583,7 +583,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io a refusé la clé enregistrée sur le serveur : elle a été révoquée ou a expiré, ou une autorisation manque. Exécutez de nouveau la ligne affichée ici dans PowerShell sur votre ordinateur.',
   'server.disk.reason.flyError': 'Fly.io est injoignable pour le moment. Veuillez réessayer dans quelques minutes.',
   'server.disk.error.snapshotFailed': 'La copie de sauvegarde (snapshot) du disque n’a pas pu être créée, le disque n’a donc pas été modifié.',
-  'server.disk.error.snapshotTimeout': 'La copie de sauvegarde (snapshot) du disque n’était pas prête au bout de 10 minutes, le disque n’a donc pas été modifié.',
+  'server.disk.error.snapshotTimeout': 'La copie de sauvegarde (snapshot) du disque n’était pas prête au bout d’une heure, le disque n’a donc pas été modifié.',
   'server.disk.error.unauthorized': 'Fly.io a refusé la clé enregistrée sur le serveur, le disque n’a donc pas été modifié.',
   'server.disk.error.extendRefused': 'Fly.io a refusé d’agrandir le disque, il n’a donc pas été modifié.',
   'server.disk.error.extendUnknown': 'Fly.io n’a pas répondu pendant l’agrandissement du disque. Le disque est peut-être plus grand maintenant, peut-être pas : regardez sa taille dans la carte « Serveur » dans quelques minutes.',

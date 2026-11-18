@@ -604,7 +604,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': '再起動後',
   'settings.server.diskSize.stepLine': '{step}：{state}',
   'settings.server.diskSize.state.snapshot':
-    'ディスクのバックアップコピー（スナップショット）を作成しています。数分かかることがあります。まだ何も変更されていません。',
+    'ディスクのバックアップコピー（スナップショット）を作成しています。最大1時間かかることがあります。まだ何も変更されていません。',
   'settings.server.diskSize.state.extending': 'バックアップコピーができました。ディスクを拡張しています。',
   'settings.server.diskSize.state.waiting': 'ディスクを拡張しました。サーバーが新しいサイズを認識するのを待っています（最大2分）。',
   'settings.server.diskSize.state.needsRestart': 'ディスクを {toGb} GB に拡張しました。サーバーが新しいサイズを使うのは再起動したあとです。',

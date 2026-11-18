@@ -641,7 +641,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'yeniden başlatmadan sonra',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'Diskin yedek kopyası (snapshot) alınıyor. Bu birkaç dakika sürebilir; henüz hiçbir şey değiştirilmedi.',
+    'Diskin yedek kopyası (snapshot) alınıyor. Bu bir saate kadar sürebilir; henüz hiçbir şey değiştirilmedi.',
   'settings.server.diskSize.state.extending': 'Yedek kopya hazır. Disk büyütülüyor.',
   'settings.server.diskSize.state.waiting': 'Disk büyütüldü. Sunucunun yeni boyutu görmesi bekleniyor (en fazla 2 dakika).',
   'settings.server.diskSize.state.needsRestart': 'Disk {toGb} GB’a büyütüldü. Sunucu yeni boyutu ancak yeniden başlatıldıktan sonra kullanır.',

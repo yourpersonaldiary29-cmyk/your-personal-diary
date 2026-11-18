@@ -587,7 +587,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io odmítlo klíč uložený na serveru: byl zrušen nebo vypršel, nebo mu chybí oprávnění. Spusť příkaz zobrazený zde znovu v PowerShellu na svém počítači.',
   'server.disk.reason.flyError': 'Fly.io teď není dostupné. Zkus to prosím znovu za několik minut.',
   'server.disk.error.snapshotFailed': 'Záložní kopii (snapshot) disku se nepodařilo pořídit, proto se disk nezměnil.',
-  'server.disk.error.snapshotTimeout': 'Záložní kopie (snapshot) disku nebyla po 10 minutách hotová, proto se disk nezměnil.',
+  'server.disk.error.snapshotTimeout': 'Záložní kopie (snapshot) disku nebyla po hodině hotová, proto se disk nezměnil.',
   'server.disk.error.unauthorized': 'Fly.io odmítlo klíč uložený na serveru, proto se disk nezměnil.',
   'server.disk.error.extendRefused': 'Fly.io odmítlo disk zvětšit, proto se nezměnil.',
   'server.disk.error.extendUnknown': 'Fly.io během zvětšování disku neodpovědělo. Disk teď možná je větší, možná ne: za několik minut se podívej na jeho velikost na kartě „Server“.',

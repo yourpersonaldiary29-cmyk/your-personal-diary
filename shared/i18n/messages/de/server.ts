@@ -585,7 +585,7 @@ const messages: Record<string, string> = {
   'server.disk.reason.unauthorized': 'Fly.io hat den auf dem Server gespeicherten Schlüssel abgelehnt: Er wurde widerrufen oder ist abgelaufen, oder eine Berechtigung fehlt. Führe die hier angezeigte Zeile erneut in PowerShell auf deinem Computer aus.',
   'server.disk.reason.flyError': 'Fly.io ist gerade nicht erreichbar. Bitte versuche es in ein paar Minuten erneut.',
   'server.disk.error.snapshotFailed': 'Die Sicherungskopie (Snapshot) des Datenträgers konnte nicht erstellt werden, daher wurde der Datenträger nicht geändert.',
-  'server.disk.error.snapshotTimeout': 'Die Sicherungskopie (Snapshot) des Datenträgers war nach 10 Minuten nicht fertig, daher wurde der Datenträger nicht geändert.',
+  'server.disk.error.snapshotTimeout': 'Die Sicherungskopie (Snapshot) des Datenträgers war nach einer Stunde nicht fertig, daher wurde der Datenträger nicht geändert.',
   'server.disk.error.unauthorized': 'Fly.io hat den auf dem Server gespeicherten Schlüssel abgelehnt, daher wurde der Datenträger nicht geändert.',
   'server.disk.error.extendRefused': 'Fly.io hat das Vergrößern des Datenträgers abgelehnt, daher wurde er nicht geändert.',
   'server.disk.error.extendUnknown': 'Fly.io hat während des Vergrößerns des Datenträgers nicht geantwortet. Der Datenträger ist jetzt vielleicht größer, vielleicht auch nicht: Sieh dir in ein paar Minuten seine Größe in der Karte „Server“ an.',

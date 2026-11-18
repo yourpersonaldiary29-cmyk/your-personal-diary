@@ -610,7 +610,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepState.restart': 'אחרי הפעלה מחדש',
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
-    'עותק גיבוי (snapshot) של הדיסק נמצא בהכנה. זה יכול לקחת כמה דקות; עדיין לא שונה דבר.',
+    'עותק גיבוי (snapshot) של הדיסק נמצא בהכנה. זה יכול לקחת עד שעה; עדיין לא שונה דבר.',
   'settings.server.diskSize.state.extending': 'עותק הגיבוי מוכן. הדיסק מוגדל עכשיו.',
   'settings.server.diskSize.state.waiting': 'הדיסק הוגדל. ממתינים עד שהשרת יראה את הגודל החדש (לכל היותר 2 דקות).',
   'settings.server.diskSize.state.needsRestart': 'הדיסק הוגדל ל-{toGb} GB. השרת משתמש בגודל החדש רק אחרי הפעלה מחדש.',
