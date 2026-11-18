@@ -163,14 +163,19 @@ test('real tree: the support page shows the operator and the contact e-mail befo
   }
   const english = files.get('support/index.html');
   assert.equal((english.match(/<h3>/g) ?? []).length, 9, 'nine frequent questions');
-  assert.ok(english.includes('when it is published'), 'the iPhone app is named with its qualifier');
+  // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
+  assert.ok(!english.includes('when it is published'), 'the iPhone app is named without a qualifier');
+  assert.ok(english.includes('<strong>iPhone</strong>, and on the website'), 'the iPhone app is in the list of devices');
 });
 
 test('real tree: the English policy names the five ways in and the four key stores', () => {
   const html = buildAll({ settings: FILLED }).get('privacy/index.html');
-  for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'when it is published', 'Windows Data Protection', 'macOS Keychain', 'Android Keystore', 'iOS Keychain', 'Mac App Store', 'jailbroken']) {
+  for (const needle of ['Android app', 'Windows app', 'Mac app', 'iPhone app', 'Windows Data Protection', 'macOS Keychain', 'Android Keystore', 'iOS Keychain', 'Mac App Store', 'jailbroken']) {
     assert.ok(html.includes(needle), needle);
   }
+  // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
+  assert.ok(!html.includes('when it is published'), 'no qualifier for the iPhone app');
+  assert.ok(html.includes('the Mac app, the iPhone app and the website'), 'the iPhone app in the list the policy applies to');
 });
 
 test('settings: termsEffectiveDate is required and must be a date', () => {
@@ -191,9 +196,12 @@ test('real tree: the Terms of Use - fifteen numbered sections, the one-account r
   const files = buildAll({ settings: FILLED });
   const english = files.get('terms/index.html');
   assert.equal(english, files.get('terms/en/index.html'));
-  for (const needle of ['You may open and keep only one account.', 'prior written approval', 'at least 30 days', 'We never ask for your password', 'please write to us first', 'free of charge', 'when it is published', '12 November 2026']) {
+  for (const needle of ['You may open and keep only one account.', 'prior written approval', 'at least 30 days', 'We never ask for your password', 'please write to us first', 'free of charge', '12 November 2026']) {
     assert.ok(english.includes(needle), needle);
   }
+  // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
+  assert.ok(!english.includes('when it is published'), 'no qualifier for the iPhone app');
+  assert.ok(english.includes('the Android app, the iPhone app and the website'), 'the iPhone app in the list the terms apply to');
   for (const l of LOCALES) {
     const html = files.get(`terms/${l.code}/index.html`);
     const sections = (html.match(/<h2>\d+\. /g) ?? []).length;

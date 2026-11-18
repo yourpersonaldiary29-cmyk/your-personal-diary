@@ -244,9 +244,12 @@ describe('the rendered pages', () => {
     const english = all.get('terms/index.html') as string;
     expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
     expect(english).toContain('<h2>3. One account per person</h2>');
-    for (const needle of ['<strong>You may open and keep only one account.</strong>', 'prior written approval of the operator', 'Accounts opened without it may be closed.', 'at least 16 years old', 'If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it.', '<strong>We never ask for your password</strong>', '<strong>free of charge</strong>', 'at least 30 days before it ends', 'not medical or psychological advice', 'please write to us first', 'when it is published', '12 November 2026', 'The version you agreed to when you registered is recorded with your account.']) {
+    for (const needle of ['<strong>You may open and keep only one account.</strong>', 'prior written approval of the operator', 'Accounts opened without it may be closed.', 'at least 16 years old', 'If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it.', '<strong>We never ask for your password</strong>', '<strong>free of charge</strong>', 'at least 30 days before it ends', 'not medical or psychological advice', 'please write to us first', '12 November 2026', 'The version you agreed to when you registered is recorded with your account.']) {
       expect(english, needle).toContain(needle);
     }
+    // The iPhone app is named like the others: no "when it is published" (the owner's wording of 2026-11-18).
+    expect(english).not.toContain('when it is published');
+    expect(english).toContain('the iPhone app and the website');
     // English is the reference text: every other language says so near the top (the base writer's Hebrew included).
     expect(english).not.toContain('If a translation differs');
     const hebrew = all.get('terms/he/index.html') as string;
@@ -274,9 +277,12 @@ describe('the rendered pages', () => {
     }
     const english = all.get('support/index.html') as string;
     expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
-    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', '<strong>Settings - Backup</strong>', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', 'when it is published', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
+    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', '<strong>Settings - Backup</strong>', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
       expect(english, needle).toContain(needle);
     }
+    // The iPhone app is named like the others: no "when it is published" (the owner's wording of 2026-11-18).
+    expect(english).not.toContain('when it is published');
+    expect(english).toContain('<strong>iPhone</strong>, and on the website');
   });
 
   it('the deletion page names the app and the publisher, the steps, the e-mail route and the 30-day snapshot window', () => {

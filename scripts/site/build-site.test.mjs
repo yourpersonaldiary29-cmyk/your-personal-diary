@@ -348,7 +348,10 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
   assert.match(content.faq.items[28].a, /may even say that it is damaged: do not move it to the Bin.*on macOS 12: System Preferences, then Security & Privacy/);
   // Android 7 (the oldest the app runs on) has one switch, Unknown sources, instead of a permission per app.
   assert.match(content.downloads.install.android, /on Android 7 this setting is called Unknown sources/);
-  assert.equal(content.downloads.iphone, 'There is no installation file for iPhone: iPhone apps are installed from the App Store. The iPhone app is not available yet.');
+  // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "not available yet".
+  assert.equal(content.downloads.iphone, 'There is no installation file for iPhone: the iPhone app is installed from the App Store.');
+  assert.match(content.faq.items[3].a, /an iPhone with iOS 16 or later/);
+  for (const [where, text] of leaves) assert.ok(!/not available yet|when it is published/i.test(text), `${where}: the iPhone app is not called unpublished`);
   assert.match(content.downloads.requires.windows, /Windows 10 or Windows 11/);
   assert.match(content.downloads.requires.android, /Android 7\.0 or later/);
   assert.match(content.downloads.requires.mac, /macOS 12\.3 or later/);
