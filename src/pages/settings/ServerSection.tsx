@@ -28,6 +28,13 @@
  * passphrase is needed to restore and cannot be recovered. Passwords live in this component's state only
  * while the form is open; locking the app (Ctrl+L), Cancel, success or leaving the page forgets them.
  *
+ * Files on the Downloads page (ServerDownloads.tsx, docs/server-tasks/SERVER-CARD-V2.md A4): the
+ * installation files the public site offers per system, each with Remove, and "Publish a new version"
+ * with an upload progress bar. Disk size (ServerDisk.tsx, B3): enlarging the disk with its monthly
+ * cost, the steps of the change as they happen and, when needed, "Restart the server now"; when the
+ * button is not set up, the reason and the PowerShell line that sets it up. Both read their own state
+ * once the status is there, and again with Refresh.
+ *
  * Deletion request by e-mail (DeletionRequest.tsx, docs/android-tasks/ADMIN-TOOL.md item 3): the last
  * part of the card builds the two commands of the operator tool (find, then delete --confirm) for the
  * owner's PowerShell from the address he types - no server call; nothing in the app lists or deletes
@@ -60,6 +67,8 @@ import { errorCode, errorField, errorMessage } from '@/utils/errors';
 import { formatNumber, formatPercent } from '@/utils/format';
 import { CommandBlock } from './CommandBlock';
 import { DeletionRequest } from './DeletionRequest';
+import { ServerDisk } from './ServerDisk';
+import { ServerDownloads } from './ServerDownloads';
 import { SVT, formatServerBytes, formatUptime } from './serverTexts';
 import { ST } from './texts';
 import { useOwnerAccess } from './useOwnerCard';
@@ -185,6 +194,8 @@ function ServerCard({ publicUrl }: { publicUrl?: string }) {
   const [refused, setRefused] = useState(false);
   /** When the status on screen was read (Date.now), for the time the next archive is accepted. */
   const [readAt, setReadAt] = useState(() => Date.now());
+  /** Counts the presses of Refresh: the downloads and the disk parts read their state again with it. */
+  const [refreshCount, setRefreshCount] = useState(0);
   const announceRefresh = useRef(false);
   const load = useApi((signal) => serverApi.status(signal), [], {
     onSuccess: () => {
@@ -251,6 +262,7 @@ function ServerCard({ publicUrl }: { publicUrl?: string }) {
 
   const onRefresh = () => {
     announceRefresh.current = true;
+    setRefreshCount((n) => n + 1);
     void load.reload();
   };
 
@@ -527,6 +539,9 @@ function ServerCard({ publicUrl }: { publicUrl?: string }) {
             </>
           )}
         </section>
+
+        <ServerDownloads refresh={refreshCount} />
+        <ServerDisk refresh={refreshCount} />
 
         {deletionRequest}
       </div>

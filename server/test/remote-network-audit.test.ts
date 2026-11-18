@@ -17,7 +17,7 @@ describe('check-no-network', () => {
     for (const host of ['acme-v02.api.letsencrypt.org', 'acme-staging-v02.api.letsencrypt.org', 'www.duckdns.org']) expect(out).toContain(host);
   });
 
-  it('the remote module is the only server code importing node:https / node:dgram', () => {
+  it('the remote module - and the one Fly API module of the disk button - are the only server code importing node:https / node:dgram', () => {
     const offenders: string[] = [];
     const walk = (dir: string) => {
       for (const name of fs.readdirSync(dir)) {
@@ -27,7 +27,8 @@ describe('check-no-network', () => {
       }
     };
     walk(path.join(root, 'server', 'src'));
-    expect(offenders.every((f) => f.startsWith('server/src/remote/'))).toBe(true);
-    expect(offenders.sort()).toEqual(['server/src/remote/http.ts', 'server/src/remote/tls.ts', 'server/src/remote/upnp.ts']);
+    // The disk button's Fly API client is the audit's one exception outside remote/ (hosted-fly-network-audit.test.ts).
+    expect(offenders.every((f) => f.startsWith('server/src/remote/') || f === 'server/src/hosted/fly-volume.ts')).toBe(true);
+    expect(offenders.sort()).toEqual(['server/src/hosted/fly-volume.ts', 'server/src/remote/http.ts', 'server/src/remote/tls.ts', 'server/src/remote/upnp.ts']);
   });
 });

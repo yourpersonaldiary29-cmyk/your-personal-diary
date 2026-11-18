@@ -28,7 +28,9 @@
  * global `fetch`). The Android local-core build installs its own transport with `setApiTransport()` -
  * the requests then go to the diary core running in a Web Worker instead of over HTTP
  * (docs/ANDROID-PLAN.md, section 2). Everything else - error parsing, the token, the 401/423
- * events, Accept-Language - is the same for every transport.
+ * events, Accept-Language - is the same for every transport. The one exception is the installer
+ * upload of the hosted server's Server card (`requestRawUpload`): an XMLHttpRequest, for its upload
+ * progress, with the same headers and the same error handling.
  */
 import type { ApiErrorBody, ErrorCode } from '@shared/types';
 import { DEFAULT_SERVER_URL, developerApiBase, isLocalServerBuild, shouldBootLocalCore } from '@/config/server-default';
@@ -482,6 +484,104 @@ export async function requestUpload<T>(path: string, form: FormData): Promise<T>
   if (!res.ok) throw await failedResponse(res);
   reportServerReached();
   return (await res.json()) as T;
+}
+
+/** Options of `requestRawUpload`. */
+export interface RawUploadOptions {
+  /** Called while the body goes out: the bytes sent so far and the total (XMLHttpRequest upload progress). */
+  onProgress?: (sent: number, total: number) => void;
+  /** Called once the whole body was sent: the answer follows when the server has checked it. */
+  onSent?: () => void;
+  /** Aborts the upload; the promise then rejects with an AbortError, as `fetch` does. */
+  signal?: AbortSignal;
+}
+
+/** An abort as `fetch` reports one (`isAbortError` of src/utils/errors.ts). */
+function abortError(): Error {
+  const e = new Error('The upload was aborted.');
+  e.name = 'AbortError';
+  return e;
+}
+
+/** The error of a failed answer read as text: the same rules as `parseError` (the server's JSON error body, or the status). */
+function errorFromText(status: number, text: string): ApiClientError {
+  let body: ApiErrorBody = { code: 'OTHER', message: tr('shell.errorStatus', { status }) };
+  let fromServer = false;
+  try {
+    const parsed = (text ? JSON.parse(text) : null) as Partial<ApiErrorBody> | null;
+    if (parsed && typeof parsed.message === 'string') {
+      body = { code: (parsed.code as ErrorCode) || 'OTHER', message: parsed.message, field: parsed.field };
+      fromServer = true;
+    }
+  } catch {
+    /* not the server's JSON error body */
+  }
+  return new ApiClientError(status, body, { fromServer });
+}
+
+/**
+ * PUT of a file as the raw request body (`Content-Type: application/octet-stream`; the browser sets
+ * Content-Length from the Blob) - the installer upload of the owner's Server card. It uses an
+ * XMLHttpRequest, not the transport seam: that is the one browser API that reports upload progress,
+ * in the browser, the desktop shell and the phone WebViews alike (the route exists on the hosted
+ * server only, never on a local core). The answers are handled as `request` handles them: the parsed
+ * JSON on success; the server's JSON error as ApiClientError, a 401 forgetting the token and firing the
+ * unauthorized event, a 423 the locked event; a network failure as status 0, reported to the connection
+ * store; an abort through `signal` as an AbortError. `Retry-After` is not read: the cross-origin apps
+ * cannot see it here, and the browser would complain about the attempt.
+ */
+export async function requestRawUpload<T>(path: string, body: Blob, opts: RawUploadOptions = {}): Promise<T> {
+  const base = await getApiBase();
+  const headers = baseHeaders(getToken());
+  headers['Content-Type'] = 'application/octet-stream';
+  return new Promise<T>((resolve, reject) => {
+    const { signal } = opts;
+    if (signal?.aborted) {
+      reject(abortError());
+      return;
+    }
+    const xhr = new XMLHttpRequest();
+    const onAbort = () => xhr.abort();
+    const settle = (finish: () => void) => {
+      signal?.removeEventListener('abort', onAbort);
+      finish();
+    };
+    xhr.open('PUT', base + path);
+    for (const [name, value] of Object.entries(headers)) xhr.setRequestHeader(name, value);
+    xhr.upload.onprogress = (e) => opts.onProgress?.(e.loaded, e.lengthComputable && e.total > 0 ? e.total : body.size);
+    xhr.upload.onload = () => opts.onSent?.();
+    xhr.onabort = () => settle(() => reject(abortError()));
+    xhr.onerror = () =>
+      settle(() => {
+        reportConnectionLost();
+        reject(new ApiClientError(0, { code: 'OTHER', message: noServerMessage() }));
+      });
+    xhr.ontimeout = xhr.onerror;
+    xhr.onload = () =>
+      settle(() => {
+        const { status } = xhr;
+        if (status === 401) {
+          clearToken();
+          window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
+        }
+        if (status === 423) window.dispatchEvent(new CustomEvent(LOCKED_EVENT));
+        if (status >= 200 && status < 300) {
+          reportServerReached();
+          try {
+            resolve((xhr.responseText ? JSON.parse(xhr.responseText) : undefined) as T);
+          } catch {
+            reject(new ApiClientError(status, { code: 'OTHER', message: tr('shell.errorStatus', { status }) }));
+          }
+          return;
+        }
+        const error = errorFromText(status, xhr.responseText);
+        if (isConnectionError(error)) reportConnectionLost();
+        else reportServerReached();
+        reject(error);
+      });
+    signal?.addEventListener('abort', onAbort, { once: true });
+    xhr.send(body);
+  });
 }
 
 // ---------------------------------------------------------------------------

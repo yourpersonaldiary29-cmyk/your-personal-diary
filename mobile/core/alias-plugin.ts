@@ -103,8 +103,11 @@ export const REWRITE_PREFIX = 'mobile-core-import:';
 /** Packages that need an explicit mobile replacement (`modules`): the real ones need Node. */
 export const NODE_ONLY_PACKAGES: readonly string[] = ['express'];
 
-/** Server modules (relative to server/src, without extension) that only run under Node. */
-export const NODE_ONLY_SERVER_MODULES: readonly string[] = ['mail/node-transport', 'middleware/host-check', 'server', 'index'];
+/**
+ * Server modules (relative to server/src, without extension) that only run under Node.
+ * hosted/fly-volume is the hosted server's Fly Machines API client (node:https).
+ */
+export const NODE_ONLY_SERVER_MODULES: readonly string[] = ['mail/node-transport', 'middleware/host-check', 'server', 'index', 'hosted/fly-volume'];
 /** Server directories (relative to server/src) that only run under Node. */
 export const NODE_ONLY_SERVER_DIRS: readonly string[] = ['remote'];
 

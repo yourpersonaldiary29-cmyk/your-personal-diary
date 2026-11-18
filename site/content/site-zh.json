@@ -246,6 +246,7 @@
       "android": "Android 安装文件，最新版本在前",
       "mac": "Mac 安装文件，最新版本在前"
     },
+    "empty": "此系统暂无安装文件。",
     "requires": {
       "windows": "需要 Windows 10 或 Windows 11（64 位）。",
       "android": "需要 Android 7.0 或更高版本。",

@@ -1032,6 +1032,226 @@ export interface ServerArchiveResult extends ServerArchiveInfo {
 }
 
 // ---------------------------------------------------------------------------
+// Server card: the files of the Downloads page (docs/server-tasks/SERVER-CARD-V2.md Part A;
+// server/src/hosted/downloads.ts, server/src/routes/server-downloads.ts)
+// ---------------------------------------------------------------------------
+
+/** The platforms of the Downloads page of the public site, in tab order. */
+export type ServerDownloadPlatform = 'windows' | 'android' | 'mac';
+export const SERVER_DOWNLOAD_PLATFORMS: readonly ServerDownloadPlatform[] = ['windows', 'android', 'mac'];
+/** The kind of file each platform takes (the `accept` of the card's file input). */
+export const SERVER_DOWNLOAD_EXTENSIONS: Readonly<Record<ServerDownloadPlatform, string>> = { windows: '.exe', android: '.apk', mac: '.dmg' };
+/** Largest installer the server accepts: 300 MB (MiB, as the app counts them). */
+export const SERVER_DOWNLOAD_MAX_BYTES = 300 * 1024 * 1024;
+/** Smallest: 1 MB - anything smaller is no installer. */
+export const SERVER_DOWNLOAD_MIN_BYTES = 1024 * 1024;
+/** Uploads per 24 hours (every upload that started counts, also one that was refused afterwards). */
+export const SERVER_DOWNLOADS_PER_DAY = 10;
+/** Minutes an upload token is valid after the password was checked. */
+export const SERVER_DOWNLOAD_TOKEN_MINUTES = 15;
+
+/** One file of the Downloads page as the Server card lists it. */
+export interface ServerDownloadRow {
+  /** x.y.z */
+  version: string;
+  /** YYYY-MM-DD: the build date of a file that came with a server update; the upload date (UTC) of an uploaded one. */
+  date: string;
+  /** Its public name: the page links it as /about/files/<file>. */
+  file: string;
+  bytes: number;
+  /** Lower-case hexadecimal SHA-256 of the file. */
+  sha256: string;
+  /** 'image': came with a server update (the release routine); 'uploaded': the owner uploaded it in the Server card. */
+  source: 'image' | 'uploaded';
+}
+
+/** The e-mail about a publication or a removal (to the owner's own account address): sent, or why not. */
+export type ServerDownloadEmail = 'sent' | 'notConfigured' | 'noAddress' | 'failed';
+
+export interface ServerDownloadLimits {
+  /** `SERVER_DOWNLOAD_MAX_BYTES` of the server. */
+  maxBytes: number;
+  /** `SERVER_DOWNLOAD_MIN_BYTES` of the server. */
+  minBytes: number;
+  /** `SERVER_DOWNLOADS_PER_DAY` of the server. */
+  perDay: number;
+  /** Uploads started in the last 24 hours. */
+  usedToday: number;
+  /** `SERVER_DOWNLOAD_TOKEN_MINUTES` of the server. */
+  tokenMinutes: number;
+  /** Percent of the disk that must stay free after an upload (`SERVER_DISK_LOW_PCT`, the low-disk margin). */
+  keepFreePct: number;
+  /** Free bytes of the disk now; null when it cannot be measured. */
+  freeBytes: number | null;
+}
+
+/** `GET /api/server/downloads` (the owner over HTTPS only). */
+export interface ServerDownloads {
+  /** The list of each platform, newest version first: exactly what the Downloads page shows. */
+  platforms: Record<ServerDownloadPlatform, ServerDownloadRow[]>;
+  limits: ServerDownloadLimits;
+  /** True while an upload is running: another one is refused until it ends. */
+  busy: boolean;
+  /** Whether the e-mail about a publication or a removal would be sent now ('ready'), or why not. */
+  email: 'ready' | 'notConfigured' | 'noAddress';
+}
+
+/** Body of `POST /api/server/downloads/upload-intent`. */
+export interface ServerDownloadUploadIntent {
+  platform: ServerDownloadPlatform;
+  /** x.y.z (each part 0..9999, no leading zero); the same platform and version must not be listed yet. */
+  version: string;
+  /** The signed-in owner's account password (the confirmation lockout applies). */
+  password: string;
+  /** Remove the older versions of this platform once the file is published. Default false (the card ticks it). */
+  removeOlder?: boolean;
+  /** Optional: the size of the chosen file, so the size limits and the free space are checked before the upload starts. */
+  bytes?: number;
+}
+
+/** Answer (201) of `POST /api/server/downloads/upload-intent`. */
+export interface ServerDownloadUploadTicket {
+  /** One-time token, valid until `expiresAt` and only for the session that asked for it. */
+  token: string;
+  /** ISO time: a PUT that starts later is refused. */
+  expiresAt: string;
+  /** Where to PUT the file (raw body, `Content-Type: application/octet-stream`): `/api/server/downloads/upload/<token>`. */
+  uploadPath: string;
+  platform: ServerDownloadPlatform;
+  version: string;
+  /** The public name the server gives the file (the uploaded file's own name is ignored). */
+  file: string;
+  removeOlder: boolean;
+  maxBytes: number;
+  minBytes: number;
+}
+
+/** Body of `POST /api/server/downloads/remove`. */
+export interface ServerDownloadRemoveRequest {
+  platform: ServerDownloadPlatform;
+  version: string;
+  password: string;
+}
+
+/** Answer of an upload (201) and of a removal (200). */
+export interface ServerDownloadResult {
+  action: 'published' | 'removed';
+  /** The file published, or removed. */
+  row: ServerDownloadRow;
+  /** Older versions of the platform removed together with a publication (`removeOlder`); [] for a removal. */
+  removedOlder: ServerDownloadRow[];
+  /** The e-mail to the owner. The action itself is done whatever this says. */
+  email: ServerDownloadEmail;
+  /** The list after the action. */
+  downloads: ServerDownloads;
+}
+
+// ---------------------------------------------------------------------------
+// Server card: enlarging the disk (docs/server-tasks/SERVER-CARD-V2.md Part B; server/src/hosted/disk.ts)
+// ---------------------------------------------------------------------------
+
+/** What Fly.io charges for a GB of volume a month, in US dollars (the card's and the e-mail's monthly cost). */
+export const SERVER_DISK_PRICE_PER_GB_MONTH = 0.15;
+/** Changes of the disk size that may be started in any 24 hours (failed ones count too). */
+export const SERVER_DISK_CHANGES_PER_DAY = 3;
+/** Changes kept in `<dataDir>/disk-changes.json` and listed in `ServerDiskInfo.history`. */
+export const SERVER_DISK_HISTORY_KEEP = 10;
+
+/**
+ * Why the disk button cannot be used now (`ServerDiskInfo.reason`):
+ *   'not-fly'      the server does not run on Fly.io (no FLY_APP_NAME / FLY_MACHINE_ID);
+ *   'no-token'     the secret DIARY_FLY_API_TOKEN is not set - the card shows `setupCommand`;
+ *   'bad-token'    it is set but is not a usable token (run the setup again);
+ *   'no-volume'    Fly reports no volume attached to this machine (or DIARY_FLY_VOLUME_ID names none);
+ *   'unauthorized' Fly refused the token (revoked, expired, or a permission missing);
+ *   'fly-error'    Fly could not be reached or failed (try again later).
+ */
+export type ServerDiskReason = 'not-fly' | 'no-token' | 'bad-token' | 'no-volume' | 'unauthorized' | 'fly-error';
+
+/**
+ * Where a change of the disk size stands:
+ *   'snapshot'      the backup copy (a Fly snapshot) is being made - nothing changed yet;
+ *   'extending'     Fly is asked to enlarge the volume;
+ *   'waiting'       Fly enlarged it; waiting until the file system shows the new size (at most 2 minutes);
+ *   'needs-restart' enlarged, but the server uses the new size only after a restart (the card's button);
+ *   'restarting'    the owner asked for the restart; the server goes away for a moment;
+ *   'done'          the server uses the new size;
+ *   'failed'        it did not happen (`errorKey` says why).
+ * Open (one at a time; no new change starts meanwhile): every state but 'done' and 'failed'.
+ */
+export type ServerDiskState = 'snapshot' | 'extending' | 'waiting' | 'needs-restart' | 'restarting' | 'done' | 'failed';
+
+/**
+ * The e-mail to the owner's account address about a change: 'sent'; 'not-configured' (e-mail sending is
+ * not set up); 'no-address' (the owner account has no e-mail address); 'failed' (the mail server refused).
+ */
+export type ServerDiskEmail = 'sent' | 'not-configured' | 'no-address' | 'failed';
+
+/** One change of the disk size (the job of `POST /api/server/disk/extend`, and an entry of the history). */
+export interface ServerDiskChange {
+  /** `d_` + 12 hex digits. */
+  id: string;
+  state: ServerDiskState;
+  /** The size before the change, whole GB. */
+  fromGb: number;
+  /** The size asked for, whole GB. */
+  toGb: number;
+  /** ISO times: started, last step, finished ('done' / 'failed'; null while open). */
+  startedAt: string;
+  updatedAt: string;
+  finishedAt: string | null;
+  /**
+   * Catalogue key ('server.disk.error.*') of why the change failed - or, in 'needs-restart', why the last
+   * restart did not happen; null otherwise.
+   */
+  errorKey: string | null;
+  /**
+   * The newest e-mail about this change; null while none was due, and while the e-mail about the state just
+   * reached (needs-restart, done, failed) is still being sent - the state is published first.
+   */
+  email: ServerDiskEmail | null;
+}
+
+/** `GET /api/server/disk` (the owner over HTTPS; hosted mode only). */
+export interface ServerDiskInfo {
+  /** True when a change can be asked for: on Fly, the token set and Fly answering for the volume. */
+  available: boolean;
+  /** Why not, when `available` is false. */
+  reason?: ServerDiskReason;
+  /** The volume's size at Fly in whole GB; null when it could not be read. */
+  sizeGb: number | null;
+  /** Bytes used and the size of the file system holding the data (statfs); null when unknown. */
+  usedBytes: number | null;
+  totalBytes: number | null;
+  /** The largest size the card may ask for (`DIARY_DISK_MAX_GB`, default 100). */
+  maxGb: number;
+  /** `SERVER_DISK_PRICE_PER_GB_MONTH`. */
+  pricePerGbMonth: number;
+  /** `SERVER_DISK_CHANGES_PER_DAY`, and how many may still start in the current 24 hours. */
+  changesPerDay: number;
+  changesLeftToday: number;
+  /** When the next change may start while none is left (ISO); null otherwise. */
+  nextChangeAt: string | null;
+  /** The change of this server process - running, waiting for a restart, or the last one that ended; null when none. */
+  job: ServerDiskChange | null;
+  /** The last `SERVER_DISK_HISTORY_KEEP` changes, newest first (the job included). */
+  history: ServerDiskChange[];
+  /** The one PowerShell line that sets the button up on the owner's PC (scripts/hosted/set-disk-key.ps1). */
+  setupCommand: string;
+}
+
+/** Body of `POST /api/server/disk/extend`: the new size (whole GB, larger than now, at most `maxGb`) and the account password. */
+export interface ServerDiskExtendRequest {
+  sizeGb: number;
+  password: string;
+}
+
+/** Body of `POST /api/server/disk/restart` (only in the state 'needs-restart'). */
+export interface ServerDiskRestartRequest {
+  password: string;
+}
+
+// ---------------------------------------------------------------------------
 // Sending e-mail (password reset) - docs/API.md "שליחת דואר"
 // ---------------------------------------------------------------------------
 

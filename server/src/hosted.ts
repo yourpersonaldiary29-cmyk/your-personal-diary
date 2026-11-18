@@ -23,9 +23,20 @@
  *   - the contact form of the public site (docs/site-tasks/SITE.md section 5, hosted/contact.ts):
  *     POST /api/contact turns a form post into one e-mail to the contact address, under its own
  *     limits; nothing of a message is stored or logged; DIARY_CONTACT_FORM=off switches it off;
+ *   - the disk button of the Server card (docs/server-tasks/SERVER-CARD-V2.md Part B, hosted/disk.ts):
+ *     the owner enlarges the volume through the Fly Machines API with the secret DIARY_FLY_API_TOKEN
+ *     (snapshot first, at most DIARY_DISK_MAX_GB, 3 changes a day, an e-mail to the owner each time);
+ *     without the secret the card says what is missing;
+ *   - the files of the public site's Downloads page (docs/server-tasks/SERVER-CARD-V2.md Part A,
+ *     hosted/downloads.ts): the owner publishes and removes installer files in the Server card; the
+ *     Downloads pages and /about/files/ show and serve the image's list merged with the uploaded files.
+ *     The listener's request timeout is UPLOAD_REQUEST_TIMEOUT_MS (30 minutes, not Node's 5), so that an
+ *     upload of up to 300 MB over a slow line is not cut; every other request - an upload too, until its
+ *     one-time token and its checks have passed - must still arrive within 5 minutes (limitRequestTime);
  *   - no disk paths (2.3).
  *
- * The only outbound connection of a hosted server is the SMTP host of the Mail card (5.8).
+ * The outbound connections of a hosted server: the SMTP host of the Mail card (5.8) and - only while the
+ * owner set up the disk button - the Fly Machines API (hosted/fly-volume.ts, the one file that names its host).
  * Prints one JSON line per lifecycle event to stdout, like server.ts.
  */
 import http from 'node:http';
@@ -37,6 +48,8 @@ import { ApiError } from './errors';
 import { AdminToken, adminTokenPath } from './hosted/admin-token';
 import { createArchiveController, type ArchiveOptions } from './hosted/archive';
 import { createContactForm, type ContactForm, type ContactFormOptions } from './hosted/contact';
+import { createDiskController, type DiskOptions, type RunningDiskController } from './hosted/disk';
+import { createDownloadsController, limitRequestTime, REQUEST_TIMEOUT_MS, UPLOAD_REQUEST_TIMEOUT_MS, type DownloadsOptions } from './hosted/downloads';
 import { createGuestGate, createRegistrationGate } from './hosted/policy';
 import type { HostedAppOptions } from './hosted/types';
 import { nodeSmtpTransport } from './mail/node-transport';
@@ -83,6 +96,12 @@ export interface HostedStartOptions {
   adminTokenFile?: string;
   /** Contact form options (tests: another recipient, other limits). The mail service, the public address and the switch come from the composition. */
   contact?: Partial<Omit<ContactFormOptions, 'mail' | 'publicUrl' | 'extraHosts' | 'enabled'>>;
+  /** Disk button options (tests: a fake Fly API, a fake file system, a clock). The mail service and the owner come from the composition. */
+  disk?: Partial<Omit<DiskOptions, 'dataDir' | 'mail' | 'ownerContact'>>;
+  /** Downloads page options (tests: smaller limits, a fake free-space probe, a clock). The folders and the mail service come from the composition. */
+  downloads?: Partial<Omit<DownloadsOptions, 'dataDir' | 'staticDir' | 'mail'>>;
+  /** How long any request but an opened installer upload may take to arrive whole (tests: shorter); default REQUEST_TIMEOUT_MS. */
+  requestTimeoutMs?: number;
 }
 
 export interface RunningHosted {
@@ -100,6 +119,8 @@ export interface RunningHosted {
   adminToken: AdminToken;
   /** The contact form of the public site (its limiter - tests). */
   contact: ContactForm;
+  /** The disk button of the Server card (tests: wait for a change with `idle()`). */
+  disk: RunningDiskController;
   stop(): Promise<void>;
 }
 
@@ -202,6 +223,29 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
   // The contact form of the public site: one e-mail per message through the owner's mail settings.
   // Its counters live in memory only; DIARY_CONTACT_FORM=off leaves the route mounted and answering "not sent".
   const contact = createContactForm({ mail, publicUrl: env.publicUrl, extraHosts: env.extraHosts, enabled: env.contactForm, now, log, ...opts.contact });
+  // The disk button of the Server card: the Fly Machines API with DIARY_FLY_API_TOKEN, for the owner only.
+  // Its e-mails go through the Mail card's service to the owner account's own address, read when one is due.
+  const disk = createDiskController({
+    dataDir: config.dataDir,
+    ...(env.flyApiToken ? { token: env.flyApiToken } : {}),
+    ...(env.flyApiTokenInvalid ? { tokenInvalid: true } : {}),
+    ...(env.flyAppName ? { app: env.flyAppName } : {}),
+    ...(env.flyMachineId ? { machineId: env.flyMachineId } : {}),
+    ...(env.flyVolumeId ? { volumeId: env.flyVolumeId } : {}),
+    maxGb: env.diskMaxGb,
+    mail,
+    ownerContact: () => {
+      const id = ownerId();
+      const account = id ? auth.listAccounts().find((a) => a.id === id) : undefined;
+      return account?.email ? { to: account.email, firstName: account.firstName, ...(account.language ? { language: account.language } : {}) } : null;
+    },
+    now,
+    log,
+    ...opts.disk,
+  });
+  // The files of the Downloads page: the image's list (ui/about/files/downloads.json) merged with what the owner
+  // uploads in the Server card (<dataDir>/site/); an e-mail to the owner after every change.
+  const downloads = createDownloadsController({ dataDir: config.dataDir, ...(config.staticDir ? { staticDir: config.staticDir } : {}), mail, now, log, ...opts.downloads });
 
   const hosted: HostedAppOptions = {
     publicHost: env.publicHost,
@@ -220,6 +264,8 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
     metrics: () => ({ openVaults: auth.vaults.size, liveSessions: auth.sessions.size, guests: auth.guestCount }),
     // The encrypted server archive (WP-H8): written to <dataDir>/archive/, never served by the API.
     archive: createArchiveController({ dataDir: config.dataDir, log, ...opts.archive }),
+    disk,
+    downloads,
     startedAt,
     debugRoutes: env.debugRoutes,
     // Offline sync: the ServerInfo flag; DIARY_OFFLINE_SYNC=0 hides it (the /api/sync routes stay).
@@ -246,7 +292,14 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
     hosted,
   };
   const app = createApp(deps);
-  const server = http.createServer(app);
+  // An installer upload of the Server card may take longer than Node's default of 5 minutes (hosted/downloads.ts);
+  // every other request keeps those 5 minutes (limitRequestTime), so a body sent byte by byte holds no connection longer.
+  const requestTimeoutMs = opts.requestTimeoutMs ?? REQUEST_TIMEOUT_MS;
+  const server = http.createServer((req, res) => {
+    limitRequestTime(req, requestTimeoutMs);
+    app(req, res);
+  });
+  server.requestTimeout = UPLOAD_REQUEST_TIMEOUT_MS;
   await listen(server, port, bind);
   port = (server.address() as AddressInfo).port;
   // A new admin token for this boot, with the real port (the admin tool connects to 127.0.0.1:<port>).
@@ -270,14 +323,17 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
     registration,
     adminToken,
     contact,
+    disk,
     stop: async () => {
       if (stopped) return;
       stopped = true;
       // The token of this boot opens nothing any more, and its file goes.
       adminToken.revoke();
       await closeServer(server);
+      // A change of the disk stops waiting; what it reached is in <dataDir>/disk-changes.json for the next start.
+      disk.stop();
       // Give e-mails being handed over a moment (each SMTP step has its own timeout anyway).
-      await Promise.race([Promise.all([passwordReset.idle(), contact.idle()]), new Promise((r) => setTimeout(r, 3000).unref?.())]);
+      await Promise.race([Promise.all([passwordReset.idle(), contact.idle(), disk.idle()]), new Promise((r) => setTimeout(r, 3000).unref?.())]);
       // The contact form's counters and their timer go with the process.
       contact.stop();
       await auth.shutdown();

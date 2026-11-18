@@ -6,7 +6,7 @@
  * rules as the frontend and has no allow-list entry; the Java/Kotlin sources get JVM rules on top,
  * and the Android manifest may declare only the permissions in ALLOWED_ANDROID_PERMISSIONS.
  *
- * The exceptions (both opt-in, off by default):
+ * The exceptions (all opt-in, off by default):
  *   - REMOTE ACCESS: the code in server/src/remote/ may contact exactly the hosts in REMOTE_HOSTS
  *     (DuckDNS and Let's Encrypt) and the home router on the local network (UPnP) - and it runs
  *     only while the owner has remote access turned on or presses "Test connection". Network
@@ -15,6 +15,12 @@
  *     connection (node:net, node:tls) to the SMTP host the owner configured - and only while mail
  *     is enabled, when an e-mail is sent. It contains no URL and no HTTP client: no host is
  *     hard-coded except the suggested default name 'smtp.gmail.com' of the settings form.
+ *   - THE DISK BUTTON of the hosted server's Server card (docs/server-tasks/SERVER-CARD-V2.md B2):
+ *     the ONE file FLY_FILE may import node:https (no other network module), call https.request
+ *     in one place, with new URL(<the URL it checked>) and no host of its own, and name exactly
+ *     https://api.machines.dev (the Fly Machines API; no other URL, no plain http, no URL built from
+ *     pieces, node:https never handed on) - and it runs only while the owner set up the button (the
+ *     secret DIARY_FLY_API_TOKEN). No other scanned file may name that host in code.
  *
  * Usage: node scripts/check-no-network.mjs                 (exit code 1 on violations)
  *        node scripts/check-no-network.mjs --root=<dir>    (audit another tree: the script's own tests)
@@ -115,8 +121,9 @@ const XML_NAMESPACES = [
   'http://schemas.xmlsoap.org/soap/envelope/',
   'http://schemas.xmlsoap.org/soap/encoding/',
 ];
-/** Outbound-capable modules that only the remote-access code may import. */
-const NETWORK_MODULES = /\bfrom\s+['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]|\brequire\(['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]\)/g;
+/** Outbound-capable modules that only the remote-access code may import (statically, with require() or with import()). */
+const NETWORK_MODULES =
+  /\bfrom\s+['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]|\brequire\(['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]\)|(?<!typeof\s*)\bimport\(\s*['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]\s*\)/g;
 /**
  * Outbound calls of the Node.js core modules (the server listens with node:http / node:net, but
  * only the remote-access code may connect out). Checked in server/src and shared/ outside
@@ -134,6 +141,36 @@ const MAIL_DIR = 'server/src/mail/';
 const MAIL_FORBIDDEN_MODULES = /\bfrom\s+['"](?:node:)?(?:https|http|http2|dgram|dns)['"]|\brequire\(['"](?:node:)?(?:https|http|http2|dgram|dns)['"]\)/g;
 /** Outbound calls the mail code may not make (it only uses net.connect / tls.connect). */
 const MAIL_FORBIDDEN_CALLS = /\bfetch\(|\bhttps?\.(?:request|get)\(|\bnew\s+WebSocket\(/g;
+
+/**
+ * The disk button: the Fly Machines API client of the hosted server. Exactly this file, exactly this
+ * host over https, with node:https only - no fetch, no node:http / http2 / net / tls / dgram / dns.
+ */
+export const FLY_FILE = 'server/src/hosted/fly-volume.ts';
+export const FLY_HOST = 'api.machines.dev';
+/** Matches exactly `https://api.machines.dev` followed by a path, a quote or the end (not `.evil.example`). */
+const FLY_URL = /\bhttps:\/\/api\.machines\.dev(?=[/'"`\s]|$)/g;
+/** What the Fly module may still not import: every network module except node:https (and that one statically only). */
+const FLY_FORBIDDEN_MODULES =
+  /\bfrom\s+['"](?:node:)?(?:http|http2|net|tls|dgram|dns)['"]|\brequire\(['"](?:node:)?(?:https?|http2|net|tls|dgram|dns)['"]\)|(?<!typeof\s*)\bimport\(\s*['"](?:node:)?(?:https?|http2|net|tls|dgram|dns)['"]\s*\)/g;
+/** The host anywhere else (any case, with or without a scheme): only FLY_FILE may name it. */
+const FLY_HOST_NAMED = /api\.machines\.dev/i;
+/**
+ * The ways the Fly module could still reach another host with the one https.request it may make: its URL
+ * literal is checked, so the target must come from nowhere else - no other member of node:https (get, Agent,
+ * ...), no host / port / socket of its own in an options object, no URL built from pieces, and node:https never
+ * handed on to another module (a re-export). Its one call takes `new URL(<variable>)`, which the module's own
+ * guard checks before the call (isFlyApiUrl in nodeFlyHttp).
+ */
+const FLY_RULES = [
+  { re: /\bhttps\.(?!request\()[A-Za-z_$]/g, why: 'the Fly API module may use node:https only for https.request' },
+  { re: /\b(?:host|hostname|port|socketPath|lookup|createConnection|servername)\s*:/g, why: 'the Fly API module may not name a target of its own' },
+  { re: /\bhttps?:\/\/(?![\w.-])|['"`]https?:\/{0,2}['"`]\s*\+|\+\s*['"`]\/\//g, why: 'the Fly API module may not build a URL from pieces' },
+  { re: /\bexport\b[^;]*\bfrom\s+['"](?:node:)?https['"]|\bexport\s+(?:default\s+https\b|\{[^}]*\bhttps\b)/g, why: 'the Fly API module may not hand node:https on' },
+];
+/** Its one call: https.request(new URL(<variable>), ...). */
+const FLY_REQUEST = /\bhttps\.request\(/g;
+const FLY_REQUEST_FORM = /\bhttps\.request\(\s*new\s+URL\(\s*[\w$.]+\s*\)\s*,/;
 
 const violations = [];
 
@@ -153,7 +190,9 @@ function scan(file) {
   const rel = path.relative(root, file).split(path.sep).join('/');
   const isRemote = rel.startsWith(REMOTE_DIR);
   const isMail = rel.startsWith(MAIL_DIR);
+  const isFly = rel === FLY_FILE;
   const isJvm = JVM_FILE.test(rel);
+  let flyRequests = 0;
   lines.forEach((raw, i) => {
     if (ALLOW_LINE.some((re) => re.test(raw))) return;
     let line = raw;
@@ -169,9 +208,33 @@ function scan(file) {
         }
       }
     }
+    if (!isFly && FLY_HOST_NAMED.test(line)) {
+      violations.push(`${rel}:${i + 1}: the Fly API host ${FLY_HOST} may be named only in ${FLY_FILE}: ${raw.trim().slice(0, 120)}`);
+    }
     if (isRemote) {
       REMOTE_URL.lastIndex = 0;
       line = line.replace(REMOTE_URL, '');
+    } else if (isFly) {
+      FLY_FORBIDDEN_MODULES.lastIndex = 0;
+      if (FLY_FORBIDDEN_MODULES.test(line)) {
+        violations.push(`${rel}:${i + 1}: the Fly API module may only import node:https: ${raw.trim().slice(0, 120)}`);
+      }
+      SERVER_OUTBOUND.lastIndex = 0;
+      if (SERVER_OUTBOUND.test(line)) {
+        violations.push(`${rel}:${i + 1}: the Fly API module may only call https.request: ${raw.trim().slice(0, 120)}`);
+      }
+      FLY_URL.lastIndex = 0;
+      line = line.replace(FLY_URL, '');
+      for (const { re, why } of FLY_RULES) {
+        re.lastIndex = 0;
+        if (re.test(line)) violations.push(`${rel}:${i + 1}: ${why}: ${raw.trim().slice(0, 120)}`);
+      }
+      FLY_REQUEST.lastIndex = 0;
+      const calls = line.match(FLY_REQUEST)?.length ?? 0;
+      flyRequests += calls;
+      if (calls && !FLY_REQUEST_FORM.test(line)) {
+        violations.push(`${rel}:${i + 1}: the Fly API module's https.request must take new URL(<the checked URL>): ${raw.trim().slice(0, 120)}`);
+      }
     } else if (isMail) {
       MAIL_FORBIDDEN_MODULES.lastIndex = 0;
       if (MAIL_FORBIDDEN_MODULES.test(line)) {
@@ -192,14 +255,16 @@ function scan(file) {
       }
     }
     for (const { re, why } of FORBIDDEN) {
-      // The remote-access client itself (https requests to the hosts above, http to the LAN router).
-      if (isRemote && why === 'https client call') continue;
+      // The remote-access client itself (https requests to the hosts above, http to the LAN router), and
+      // the Fly API client (https requests to its one host).
+      if ((isRemote || isFly) && why === 'https client call') continue;
       re.lastIndex = 0;
       if (re.test(line)) {
         violations.push(`${rel}:${i + 1}: ${why}: ${raw.trim().slice(0, 120)}`);
       }
     }
   });
+  if (isFly && flyRequests > 1) violations.push(`${rel}: the Fly API module may call https.request in one place only (found ${flyRequests})`);
 }
 
 for (const d of SCAN_DIRS) {
@@ -240,8 +305,8 @@ for (const pkgPath of ['package.json', 'server/package.json']) {
 // Hosted image (docs/HOSTED-PLAN.md 5.8 rule 4): the Dockerfile and the scripts baked into the container
 // fetch nothing - no curl / wget, no ADD <url>, no URL at all; the only package install is `apk add` from
 // the base image's own repositories. The hosted server code under server/src is covered by the scans above
-// with no allow-list entry (rule 1); scripts/build-hosted.mjs refuses to write, and scripts/hosted/stage-image.mjs
-// to stage, a server-hosted.cjs that contains the code-only remote-access / shim markers of
+// with one allow-list entry (rule 1): FLY_FILE, the disk button's Fly API client, and its one host;
+// scripts/build-hosted.mjs refuses to write, and scripts/hosted/stage-image.mjs to stage, a server-hosted.cjs that contains the code-only remote-access / shim markers of
 // scripts/hosted/bundle-audit.mjs (rule 2; the plan's bare `duckdns.org` occurs in the i18n help texts).
 const HOSTED_IMAGE_FILES = ['deploy/hosted/Dockerfile', 'deploy/hosted/entrypoint.sh', 'deploy/hosted/data-tools.sh'];
 for (const relFile of HOSTED_IMAGE_FILES) {
@@ -396,5 +461,5 @@ if (violations.length) {
   process.exit(1);
 }
 console.log(
-  `✅ Network audit passed: no outbound network code or external URLs found (remote access in ${REMOTE_DIR} may contact only ${REMOTE_HOSTS.join(', ')} and the LAN router; the SMTP client in ${MAIL_DIR} only the mail server the owner configured; the Android native code opens no connections and the manifest declares only ${[...ALLOWED_ANDROID_PERMISSIONS].join(', ')}).`,
+  `✅ Network audit passed: no outbound network code or external URLs found (remote access in ${REMOTE_DIR} may contact only ${REMOTE_HOSTS.join(', ')} and the LAN router; the SMTP client in ${MAIL_DIR} only the mail server the owner configured; the disk button's ${FLY_FILE} only https://${FLY_HOST}; the Android native code opens no connections and the manifest declares only ${[...ALLOWED_ANDROID_PERMISSIONS].join(', ')}).`,
 );

@@ -6,7 +6,11 @@
  * `create(passphrase)` writes `<dataDir>/archive/your-personal-diary-server-<UTC>.mpda`:
  *
  *   a tar (ustar, PAX records for long names) of the data directory WITHOUT archive/, incoming/,
- *   logs/, tmp/, lost+found/, *.log, temporary files (*.tmp, *.temp, *.partial, *.swp, *~) and
+ *   logs/, tmp/, lost+found/, site/files/ and site/tmp/ (the installers the owner uploaded for the
+ *   Downloads page, hosted/downloads.ts: up to 300 MB each - this writer reads a file whole - and the
+ *   owner keeps them in his installers folder; their two small lists stay in the archive, so a removed
+ *   file stays removed after a restore, and a listed file that is missing then is left off the page
+ *   until it is uploaded again), *.log, temporary files (*.tmp, *.temp, *.partial, *.swp, *~) and
  *   WITHOUT any device.key file and the admin token (.admin-token) - symbolic links and other non-regular files are skipped, never
  *   followed - encrypted in chunks with AES-256-GCM under a key derived from the passphrase with
  *   scrypt (the app's own KDF: N=2^15, r=8, p=1, 16-byte salt, 64-byte secret, key = first 32
@@ -87,6 +91,8 @@ export function isArchivedPath(rel: string, isDir: boolean): boolean {
   const parts = rel.split('/');
   if (parts.some((p) => p === '' || p === '.' || p === '..')) return false;
   if (SKIP_TOP_DIRS.has(parts[0].toLowerCase()) && (parts.length > 1 || isDir)) return false;
+  // The installers of the Downloads page and the uploads in progress (see the file comment); site/*.json stay in.
+  if (parts[0] === 'site' && parts.length > 1 && (parts[1] === 'files' || parts[1] === 'tmp')) return false;
   if (parts.some((p) => p.toLowerCase() === 'lost+found')) return false;
   if (!isDir && SKIP_FILES.some((re) => re.test(parts[parts.length - 1]))) return false;
   return true;

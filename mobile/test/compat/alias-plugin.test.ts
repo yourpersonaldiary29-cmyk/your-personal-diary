@@ -272,10 +272,12 @@ describe('alias plugin: server modules that need Node.js never enter the core', 
     ['./node-transport', at('server/src/mail/service.ts')],
     ['./middleware/host-check', at('server/src/app.ts')],
     ['./host-check.js', at('server/src/middleware/access.ts')],
+    ['./fly-volume', at('server/src/hosted/disk.ts')],
+    ['../hosted/fly-volume', at('server/src/routes/server-disk.ts')],
   ];
 
   it('the lists name the modules of the inventory, and they exist in server/src', () => {
-    expect([...NODE_ONLY_SERVER_MODULES].sort()).toEqual(['index', 'mail/node-transport', 'middleware/host-check', 'server']);
+    expect([...NODE_ONLY_SERVER_MODULES].sort()).toEqual(['hosted/fly-volume', 'index', 'mail/node-transport', 'middleware/host-check', 'server']);
     expect([...NODE_ONLY_SERVER_DIRS]).toEqual(['remote']);
     for (const module of NODE_ONLY_SERVER_MODULES) expect(fs.existsSync(at(`server/src/${module}.ts`)), module).toBe(true);
     for (const dir of NODE_ONLY_SERVER_DIRS) expect(fs.statSync(at(`server/src/${dir}`)).isDirectory(), dir).toBe(true);

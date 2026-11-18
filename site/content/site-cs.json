@@ -246,6 +246,7 @@
       "android": "Instalační soubory pro Android, od nejnovější verze",
       "mac": "Instalační soubory pro Mac, od nejnovější verze"
     },
+    "empty": "Pro tento systém zatím není žádný instalační soubor.",
     "requires": {
       "windows": "Vyžaduje Windows 10 nebo Windows 11 (64bitový).",
       "android": "Vyžaduje Android 7.0 nebo novější.",

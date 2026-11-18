@@ -246,6 +246,7 @@
       "android": "Installationsdateien für Android, neueste Version zuerst",
       "mac": "Installationsdateien für Mac, neueste Version zuerst"
     },
+    "empty": "Noch keine Installationsdatei für dieses System.",
     "requires": {
       "windows": "Benötigt Windows 10 oder Windows 11 (64-Bit).",
       "android": "Benötigt Android 7.0 oder neuer.",

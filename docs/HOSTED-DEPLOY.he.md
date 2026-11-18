@@ -158,6 +158,14 @@ Google) ואת **"סיסמת אפליקציה (App Password)"** (16 האותיו
 **"שליחת מייל בדיקה"** – והמייל **חייב להגיע**. הסיסמה נשמרת מוצפנת בשרת – לא בקוד, לא במשתני סביבה, לא בצ'אט.
 אם ביצעת העברה (שלב ה') – ההגדרות כבר שם; רק לוחצים "שליחת מייל בדיקה".
 
+**כפתור הדיסק של כרטיס "שרת"** (לא חובה; אחרי שלב ו – כשהשרת רץ ואתה הבעלים – בחלון PowerShell שלך): כדי שתוכל להגדיל את הדיסק מתוך האפליקציה, השרת צריך מפתח מוגבל של Fly – הסוד `DIARY_FLY_API_TOKEN`. **רק אתה** יוצר ושומר אותו, בשורה אחת:
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\AVI\Projects\my-personal-diary\scripts\hosted\set-disk-key.ps1"
+```
+הסקריפט מוצא את המכונה ואת הדיסק, יוצר deploy token ל-5 שנים בשם "Server card disk button" ואחריו התאריך והשעה שבהם נוצר (UTC), ומגביל אותו כך שיוכל רק: לקרוא את האפליקציה; לקרוא את הדיסק האחד, לגבות אותו (צילום דיסק), להגדיל אותו ולשנות את ההגדרות שלו; ולקרוא את המכונה האחת, להפעיל, לעצור ולהפעיל אותה מחדש – **בלי למחוק שום דבר** ובלי ליצור מכונה או דיסק. אחר כך הוא בודק את המפתח בבקשות שלא משנות דבר (ועוד צילום דיסק אחד, לא מזיק), ורק אז שומר אותו (`fly secrets import`, דרך הקלט): לעדכון הבא של השרת (Enter), או מיד אם תקליד NOW (אז השרת מופעל מחדש, בערך דקה). המפתח לא מוצג, לא נכתב לקובץ ולא עובר בצ'אט. כל עוד הסוד לא בשימוש, הכרטיס מציג בדיוק את השורה הזו – גם אחרי הרצה שבחרה "בעדכון הבא", עד העדכון. הגודל הגדול ביותר שהכפתור מרשה הוא `DIARY_DISK_MAX_GB` (ברירת מחדל 100 GB; שינוי – דרך הסשן הראשי, ב-`fly.toml`).
+**הסיכון שנשאר, במשפט אחד:** אם מישהו יפרוץ פעם לשרת, הוא יוכל לקחת את המפתח ולהגדיל איתו את הדיסק ישר ב-Fly עד 500 GB (כ-75 דולר לחודש, ודיסק אי אפשר להקטין), ליצור צילומים, לשנות את הגדרות הדיסק ולעצור או להפעיל מחדש את השרת – בלי סיסמה ובלי מייל, ובלי המגבלות של הכרטיס – אבל לא למחוק את הדיסק או יומן. אז מבטלים את המפתח מיד (הפקודות כאן למטה ובספר התפעול, פרק 5א).
+לכבות את הכפתור: `flyctl secrets unset DIARY_FLY_API_TOKEN -a yourpersonaldiary` (השרת מופעל מחדש, בערך דקה). לבטל את המפתח עצמו: `flyctl tokens list -a yourpersonaldiary`, ואז `flyctl tokens revoke <המזהה>` לכל טוקן ששמו מתחיל ב-"Server card disk button" – כל הרצה של הסקריפט, גם כזו שנעצרה באמצע, יוצרת אחד חדש, ורק האחרון שנשמר הוא המפתח שבשימוש. כדי רק לראות מה הסקריפט היה עושה: הוסף `-DryRun`.
+
 ### שלב ח – גיבויים וניטור (אתה)
 
 - **גיבויי דיסק אוטומטיים:** Fly מצלם את הדיסק כל יום ושומר 30 יום (`snapshot_retention = 30` ב-`fly.toml`). לראות:
@@ -234,6 +242,7 @@ flyctl secrets unset DIARY_INVITE_CODE -a yourpersonaldiary
 | הפעלה מחדש | `flyctl machine restart -a yourpersonaldiary` (או עם מזהה המכונה מ-`status`) |
 | הדיסק והצילומים | `flyctl volumes list -a yourpersonaldiary` / `flyctl volumes snapshots list <vol-id>` |
 | אילו סודות מוגדרים (שמות בלבד, לא ערכים) | `flyctl secrets list -a yourpersonaldiary` |
+| מפתח כפתור הדיסק של כרטיס "שרת" (פעם אחת, רק אתה; אחרי שלב ו – שלב ז) | `powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\AVI\Projects\my-personal-diary\scripts\hosted\set-disk-key.ps1"` |
 | להכניס לשרת (רק אתה, לפעולות שלך) | `flyctl ssh console -a yourpersonaldiary` ואז `exit` |
 | הדומיין משלך: כתובות ותעודות (שלב י) | `flyctl ips list -a yourpersonaldiary` / `flyctl certs list -a yourpersonaldiary` / `flyctl certs check <הדומיין> -a yourpersonaldiary` |
 | חשבונית | `flyctl dashboard -a yourpersonaldiary` ← Billing |

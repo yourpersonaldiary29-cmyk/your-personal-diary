@@ -16,7 +16,7 @@
  * and an inventory: every member of a Node built-in that the core modules of server/src use
  * exists in the shim the alias plugin gives them. Core modules: server/src without the Node-only
  * modules of the plugin's lists and without the modules that import one of those as a value
- * (hosted.ts, hosted-index.ts: the plugin refuses to bundle them just the same).
+ * (hosted.ts, hosted-index.ts, hosted/disk.ts: the plugin refuses to bundle them just the same).
  */
 import nodeFs from 'node:fs';
 import nodeNet from 'node:net';
@@ -446,7 +446,8 @@ describe('inventory: what the core modules of server/src use of each Node built-
   /**
    * The modules the plugin's lists do not name but that import a Node-only module as a value: the
    * plugin refuses them just the same (hosted.ts imports mail/node-transport.ts, hosted-index.ts
-   * imports hosted.ts), so they are no core modules either. Computed to a fixpoint.
+   * imports hosted.ts, hosted/disk.ts imports hosted/fly-volume.ts), so they are no core modules
+   * either. Computed to a fixpoint.
    */
   function derivedNodeOnly(modules: string[]): Set<string> {
     const nodeOnly = new Set<string>();
@@ -528,7 +529,7 @@ describe('inventory: what the core modules of server/src use of each Node built-
   });
 
   it('knows which modules are Node-only by what they import (the plugin refuses those too)', () => {
-    expect([...derived].sort()).toEqual(['hosted', 'hosted-index']);
+    expect([...derived].sort()).toEqual(['hosted', 'hosted-index', 'hosted/disk']);
     for (const module of derived) {
       expect(valueImports(module).some((target) => isListedNodeOnly(target) || derived.has(target)), module).toBe(true);
     }

@@ -12,7 +12,16 @@
  *   vi.mocked(api.auth.login).mockResolvedValue(...);
  */
 import { vi } from 'vitest';
-import type { MailSettingsView, RemoteStatus, ServerArchiveInfo, ServerStatus } from '@shared/types';
+import type {
+  MailSettingsView,
+  RemoteStatus,
+  ServerArchiveInfo,
+  ServerDiskChange,
+  ServerDiskInfo,
+  ServerDownloadRow,
+  ServerDownloads,
+  ServerStatus,
+} from '@shared/types';
 import { DEFAULT_APP_SETTINGS } from '@/constants/settings';
 
 /**
@@ -107,6 +116,81 @@ export function serverStatusFixture(overrides: Partial<ServerStatus> = {}): Serv
       copies: 6,
       keptFreePct: 15,
     },
+    ...overrides,
+  };
+}
+
+/** One file of the Downloads page (fictional hash and size): the Windows installer of 1.0.0 that came with the server update. */
+export function serverDownloadRowFixture(overrides: Partial<ServerDownloadRow> = {}): ServerDownloadRow {
+  const version = overrides.version ?? '1.0.0';
+  return {
+    version,
+    date: '2026-11-10',
+    file: `YourPersonalDiary-${version}-windows-x64-setup.exe`,
+    bytes: 85 * 1024 * 1024,
+    sha256: 'ef'.repeat(32),
+    source: 'image',
+    ...overrides,
+  };
+}
+
+/**
+ * GET /api/server/downloads of a server with the three files of 1.0.0 that came with its update, no
+ * upload today, the e-mail ready.
+ */
+export function serverDownloadsFixture(overrides: Partial<ServerDownloads> = {}): ServerDownloads {
+  return {
+    platforms: {
+      windows: [serverDownloadRowFixture()],
+      android: [serverDownloadRowFixture({ file: 'YourPersonalDiary-1.0.0-android.apk', bytes: 40 * 1024 * 1024 })],
+      mac: [serverDownloadRowFixture({ file: 'YourPersonalDiary-1.0.0-mac-universal.dmg', bytes: 120 * 1024 * 1024 })],
+    },
+    limits: {
+      maxBytes: 300 * 1024 * 1024,
+      minBytes: 1024 * 1024,
+      perDay: 10,
+      usedToday: 0,
+      tokenMinutes: 15,
+      keepFreePct: 15,
+      freeBytes: 30 * 1024 ** 3,
+    },
+    busy: false,
+    email: 'ready',
+    ...overrides,
+  };
+}
+
+/** One change of the disk size (fictional id): 50 GB to 60 GB, just started. */
+export function serverDiskChangeFixture(overrides: Partial<ServerDiskChange> = {}): ServerDiskChange {
+  return {
+    id: 'd_0123456789ab',
+    state: 'snapshot',
+    fromGb: 50,
+    toGb: 60,
+    startedAt: '2026-11-18T10:00:00.000Z',
+    updatedAt: '2026-11-18T10:00:00.000Z',
+    finishedAt: null,
+    errorKey: null,
+    email: null,
+    ...overrides,
+  };
+}
+
+/** GET /api/server/disk of a server whose disk button is set up: 50 GB, at most 100, no change yet. */
+export function serverDiskFixture(overrides: Partial<ServerDiskInfo> = {}): ServerDiskInfo {
+  return {
+    available: true,
+    sizeGb: 50,
+    usedBytes: 2 * 1024 ** 3,
+    totalBytes: 49 * 1024 ** 3,
+    maxGb: 100,
+    pricePerGbMonth: 0.15,
+    changesPerDay: 3,
+    changesLeftToday: 3,
+    nextChangeAt: null,
+    job: null,
+    history: [],
+    setupCommand: 'powershell -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\AVI\\Projects\\my-personal-diary\\scripts\\hosted\\set-disk-key.ps1"',
     ...overrides,
   };
 }
@@ -207,7 +291,12 @@ export function createApiMock(actual: ApiModule): ApiModule {
   const serverCalls = fnGroup(['info', 'getSettings', 'updateSettings', 'health', 'status', 'archive'] as const);
   serverCalls.status.mockImplementation(async () => serverStatusFixture());
   serverCalls.archive.mockImplementation(async () => ({ ...serverArchiveFixture(), files: 5, dataBytes: 40 * 1024 * 1024, removed: [] }));
-  const server = { ...serverCalls, remote, mail };
+  // The Server card's downloads and disk parts read their state on open; the actions are set up by each test.
+  const downloads = fnGroup(['list', 'intent', 'upload', 'remove'] as const);
+  downloads.list.mockImplementation(async () => serverDownloadsFixture());
+  const disk = fnGroup(['get', 'extend', 'restart'] as const);
+  disk.get.mockImplementation(async () => serverDiskFixture());
+  const server = { ...serverCalls, remote, mail, downloads, disk };
 
   return {
     ...actual,

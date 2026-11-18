@@ -1,6 +1,7 @@
 /*
  * "Server" card (ServerSection.tsx): the status list, the archive list with the PowerShell commands
- * (left-to-right inside right-to-left pages, wrapping at phone width) and the passphrase warning.
+ * (left-to-right inside right-to-left pages, wrapping at phone width), the passphrase warning, the
+ * files of the Downloads page with the upload form, and the disk size with the steps of a change.
  * State is told by text and icon, never by colour alone.
  */
 
@@ -129,6 +130,95 @@
   min-width: 0;
 }
 
+/* "Files on the Downloads page" (ServerDownloads.tsx) and "Disk size" (ServerDisk.tsx): set off the same way. */
+.server-card__part {
+  border-block-start: 1px solid var(--color-border);
+  padding-block-start: var(--space-4);
+  min-width: 0;
+}
+
+/* The files of one system: the table scrolls sideways inside its own box (.scroll-x) at phone width. */
+.server-card__platform {
+  min-width: 0;
+}
+
+/* The box holds the visually hidden header of the Remove column too (position: absolute), so it never widens the page. */
+.server-card__platform .scroll-x {
+  position: relative;
+}
+
+.server-card__table th,
+.server-card__table td {
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.server-card__table tbody th {
+  background: transparent;
+}
+
+.server-card__table .btn {
+  white-space: nowrap;
+}
+
+/* The upload's progress bar takes the whole width of the form. */
+.server-card__progress {
+  min-width: 0;
+}
+
+/* The monthly cost of the typed size, under the "New size (GB)" field. */
+.server-card__cost {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* A change of the disk size: its steps, its state, the e-mail and, when needed, the restart. */
+.server-card__job {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  min-width: 0;
+}
+
+.server-card__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.server-card__step + .server-card__step {
+  margin-block-start: var(--space-1);
+}
+
+/* State is told by the words of each step; the mark only repeats it. */
+.server-card__step-mark {
+  display: inline-block;
+  min-inline-size: 1.5em;
+  font-weight: 700;
+}
+
+.server-card__step--done .server-card__step-mark {
+  color: var(--color-success);
+}
+
+/* The arrow of the current step points at its words in right-to-left languages too. */
+.server-card__step--current .server-card__step-mark:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+.server-card__step--current,
+.server-card__step--restart {
+  font-weight: 600;
+}
+
+.server-card__step--pending {
+  color: var(--color-text-muted);
+}
+
+.server-card__history {
+  margin: 0;
+}
+
 .server-card__code {
   margin: 0;
   padding: var(--space-2) var(--space-3);
@@ -152,7 +242,8 @@
   .server-card__warning,
   .server-card__form,
   .server-card__archive,
-  .server-card__code {
+  .server-card__code,
+  .server-card__job {
     border: 1px solid CanvasText;
   }
 }

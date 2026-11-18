@@ -11,7 +11,10 @@
  *     ui/                      the built web UI (dist/) - served by the server for every non-API path
  *     ui/about/                the public site of the app (docs/site-tasks/SITE.md): seven pages in each of
  *                              the 20 languages, site.css, site.js, img/ and files/ - the installer files of
- *                              its Downloads page (site/downloads.json; about 15 MB per version kept). Built
+ *                              its Downloads page (site/downloads.json; about 15 MB per version kept) and
+ *                              files/downloads.json, the list the pages were built from, which the hosted
+ *                              server merges with the files the owner uploads in the Server card
+ *                              (docs/server-tasks/SERVER-CARD-V2.md Part A; it is never served). Built
  *                              here by scripts/site/build-site.mjs, never into public/ or dist/: only the
  *                              hosted server gets it, no installer and no app bundle does
  *     admin.cjs                the operator tool (plan 3.10; scripts/build-hosted.mjs writes it next to the

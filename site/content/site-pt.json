@@ -246,6 +246,7 @@
       "android": "Ficheiros de instalação para Android, da versão mais recente para a mais antiga",
       "mac": "Ficheiros de instalação para Mac, da versão mais recente para a mais antiga"
     },
+    "empty": "Ainda não há nenhum ficheiro de instalação para este sistema.",
     "requires": {
       "windows": "Requer Windows 10 ou Windows 11 (64 bits).",
       "android": "Requer Android 7.0 ou posterior.",

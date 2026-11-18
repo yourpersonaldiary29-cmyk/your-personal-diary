@@ -246,6 +246,7 @@
       "android": "Fișiere de instalare pentru Android, cea mai nouă versiune prima",
       "mac": "Fișiere de instalare pentru Mac, cea mai nouă versiune prima"
     },
+    "empty": "Încă nu există niciun fișier de instalare pentru acest sistem.",
     "requires": {
       "windows": "Necesită Windows 10 sau Windows 11 (64 de biți).",
       "android": "Necesită Android 7.0 sau o versiune ulterioară.",

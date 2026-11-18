@@ -28,6 +28,8 @@ import { habitsRouter } from './routes/habits';
 import { homeRouter, insightsRouter } from './routes/insights';
 import { searchRouter } from './routes/search';
 import { serverRouter } from './routes/server';
+import { serverDiskRouter } from './routes/server-disk';
+import { serverDownloadsRouter } from './routes/server-downloads';
 import { serverStatusRouter } from './routes/server-status';
 import { settingsRouter } from './routes/settings';
 import { statsRouter } from './routes/stats';
@@ -159,6 +161,11 @@ export function createApp(deps: AppDeps): Express {
   // never sends Retry-After, and the web UI is same-origin (no CORS headers at all).
   if (hosted) app.use(['/api/server/archive', '/api/auth', '/api/backup'], exposeRetryAfter);
   if (hosted) app.use('/api/server', smallJson, serverStatusRouter(deps));
+  // The Server card's disk block (docs/server-tasks/SERVER-CARD-V2.md Part B): /api/server/disk*, hosted only.
+  if (hosted) app.use('/api/server', smallJson, serverDiskRouter(deps));
+  // The files of the Downloads page (Part A): /api/server/downloads*, hosted only. The upload itself
+  // (PUT .../upload/<token>, application/octet-stream) passes the JSON parser unread and is streamed.
+  if (hosted) app.use('/api/server', smallJson, serverDownloadsRouter(deps));
   app.use('/api/server', smallJson, serverRouter(deps));
   if (hosted) {
     // Per-bucket limit of the real client (10/min by default) and the global cap (finding 8).
@@ -188,6 +195,10 @@ export function createApp(deps: AppDeps): Express {
   // exposeRetryAfter first: the cross-origin apps must read Retry-After of every answer here.
   if (hosted) app.use('/api/sync', exposeRetryAfter, guard, refuseGuest, dataJson, syncRouter(deps));
   app.use('/api', notFoundApi);
+
+  // The public site's Downloads pages and installer files (hosted/downloads.ts): the image's list merged with
+  // the files the owner uploaded. Before the static files - /about/files/<name> is answered there or 404.
+  if (hosted?.downloads) app.use(hosted.downloads.site);
 
   // Static UI for phones / browsers ------------------------------------------
   const staticDir = deps.config.staticDir;

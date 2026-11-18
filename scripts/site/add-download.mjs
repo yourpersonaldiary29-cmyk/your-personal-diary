@@ -27,13 +27,13 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, 
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { compareVersions, DOWNLOAD_PLATFORMS, DOWNLOAD_ROW_KEYS, DOWNLOADS_DIR, DOWNLOADS_FILE, downloadsProblems, fileSha256, formatDownloads, isIsoDate, isVersion, PLATFORMS, ROOT } from './build-site.mjs';
+import { PUBLIC_NAMES } from './downloads-shared.mjs';
 
-/** The public name of the installer of a platform and a version. */
-export const PUBLIC_NAMES = {
-  windows: (version) => `YourPersonalDiary-${version}-windows-x64-setup.exe`,
-  android: (version) => `YourPersonalDiary-${version}-android.apk`,
-  mac: (version) => `YourPersonalDiary-${version}-mac-universal.dmg`,
-};
+/**
+ * The public name of the installer of a platform and a version (PUBLIC_NAMES of ./downloads-shared.mjs: the hosted
+ * server names the files the owner uploads in the Server card with the same function).
+ */
+export { PUBLIC_NAMES };
 
 export const USAGE =
   'usage: node scripts/site/add-download.mjs --platform=<windows|android|mac> --version=<x.y.z> --date=<YYYY-MM-DD> --from=<path of the installer> [--replace]\n' +

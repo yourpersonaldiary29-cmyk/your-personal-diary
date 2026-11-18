@@ -3,7 +3,9 @@
  * shared/i18n/messages/<locale>/settings.ts), resolved in the current UI language. Like `ST` / `MT`,
  * every member is a getter or a function so call sites always read the live language.
  */
-import { tr } from '@/i18n/runtime';
+import { hasMessage } from '@shared/i18n';
+import type { ServerDiskEmail, ServerDiskReason, ServerDiskState, ServerDownloadEmail, ServerDownloadPlatform } from '@shared/types';
+import { intlTag, tr } from '@/i18n/runtime';
 import { formatBytes, formatDays, formatMinutes, formatNumber } from '@/utils/format';
 
 const GIB = 1024 ** 3;
@@ -223,4 +225,234 @@ export const DRT = {
   get copyDelete() {
     return tr('settings.server.deletion.copyDelete');
   },
+};
+
+/** A monthly cost in US dollars as the current language writes money ("US$7.50" in English, "7,50 $" in German). */
+export function formatUsd(amount: number): string {
+  return new Intl.NumberFormat(intlTag(), { style: 'currency', currency: 'USD' }).format(amount);
+}
+
+/**
+ * What happened to the e-mail about an action of the card ('settings.server.email.*'): the downloads
+ * spell the reasons in camel case ('notConfigured'), the disk with hyphens ('not-configured').
+ */
+export function emailOutcome(email: ServerDownloadEmail | ServerDiskEmail): string {
+  switch (email) {
+    case 'sent':
+      return tr('settings.server.email.sent');
+    case 'notConfigured':
+    case 'not-configured':
+      return tr('settings.server.email.notConfigured');
+    case 'noAddress':
+    case 'no-address':
+      return tr('settings.server.email.noAddress');
+    default:
+      return tr('settings.server.email.failed');
+  }
+}
+
+/** "Files on the Downloads page" (ServerDownloads.tsx; keys 'settings.server.downloads.*'). */
+export const DLT = {
+  get title() {
+    return tr('settings.server.downloads.title');
+  },
+  get intro() {
+    return tr('settings.server.downloads.intro');
+  },
+  get platform() {
+    return tr('settings.server.downloads.platform');
+  },
+  /** "Windows", "Android", "Mac" - the names the server's messages use too. */
+  platformName: (platform: ServerDownloadPlatform) => tr(`settings.server.downloads.platform.${platform}`),
+  get version() {
+    return tr('settings.server.downloads.version');
+  },
+  get size() {
+    return tr('settings.server.downloads.size');
+  },
+  get date() {
+    return tr('settings.server.downloads.date');
+  },
+  get source() {
+    return tr('settings.server.downloads.source');
+  },
+  sourceName: (source: 'image' | 'uploaded') => tr(`settings.server.downloads.source.${source}`),
+  get empty() {
+    return tr('settings.server.downloads.empty');
+  },
+  get remove() {
+    return tr('settings.server.downloads.remove');
+  },
+  removeName: (version: string, platform: string) => tr('settings.server.downloads.removeName', { version, platform }),
+  removeTitle: (version: string, platform: string) => tr('settings.server.downloads.removeTitle', { version, platform }),
+  removeUploaded: (file: string) => tr('settings.server.downloads.removeUploaded', { file }),
+  removeImage: (file: string) => tr('settings.server.downloads.removeImage', { file }),
+  get removeAgain() {
+    return tr('settings.server.downloads.removeAgain');
+  },
+  removed: (version: string, platform: string) => tr('settings.server.downloads.removed', { version, platform }),
+  /** Said before an action when the e-mail about it would not be sent (`ServerDownloads.email`). */
+  emailWarning: (email: 'notConfigured' | 'noAddress') =>
+    tr(email === 'noAddress' ? 'settings.server.downloads.emailNoAddress' : 'settings.server.downloads.emailNotConfigured'),
+  get publishTitle() {
+    return tr('settings.server.downloads.publishTitle');
+  },
+  get publishIntro() {
+    return tr('settings.server.downloads.publishIntro');
+  },
+  // The four numbers arrive formatted with the language's grouping.
+  limits: (minMb: string, maxMb: string, usedToday: string, perDay: string) =>
+    tr('settings.server.downloads.limits', { minMb, maxMb, usedToday, perDay }),
+  versionHint: (version: string) => tr('settings.server.downloads.versionHint', { version }),
+  get file() {
+    return tr('settings.server.downloads.file');
+  },
+  fileHint: (extension: string) => tr('settings.server.downloads.fileHint', { extension }),
+  get fileMissing() {
+    return tr('settings.server.downloads.fileMissing');
+  },
+  fileWrongType: (extension: string, platform: string) => tr('settings.server.downloads.fileWrongType', { extension, platform }),
+  get removeOlder() {
+    return tr('settings.server.downloads.removeOlder');
+  },
+  get removeOlderHint() {
+    return tr('settings.server.downloads.removeOlderHint');
+  },
+  get upload() {
+    return tr('settings.server.downloads.upload');
+  },
+  get progress() {
+    return tr('settings.server.downloads.progress');
+  },
+  /** `percent` arrives formatted ("45%"). */
+  uploading: (percent: string) => tr('settings.server.downloads.uploading', { percent }),
+  get checking() {
+    return tr('settings.server.downloads.checking');
+  },
+  get cancel() {
+    return tr('settings.server.downloads.cancel');
+  },
+  get cancelled() {
+    return tr('settings.server.downloads.cancelled');
+  },
+  get interrupted() {
+    return tr('settings.server.downloads.interrupted');
+  },
+  get passwordAgain() {
+    return tr('settings.server.downloads.passwordAgain');
+  },
+  get busy() {
+    return tr('settings.server.downloads.busy');
+  },
+  published: (version: string, platform: string) => tr('settings.server.downloads.published', { version, platform }),
+  removedOlder: (versions: string) => tr('settings.server.downloads.removedOlder', { versions }),
+  // The form is checked before the upload in the server's own words (server.downloads.*): what the
+  // server checks again then says exactly the same.
+  get versionInvalid() {
+    return tr('server.downloads.versionInvalid');
+  },
+  exists: (platform: string, version: string) => tr('server.downloads.exists', { platform, version }),
+  tooLarge: (maxMb: number) => tr('server.downloads.tooLarge', { maxMb }),
+  tooSmall: (minMb: number) => tr('server.downloads.tooSmall', { minMb }),
+};
+
+/** The server's text of each `ServerDiskReason` (server/src/hosted/disk-errors.ts DISK_REASON_KEYS). */
+const DISK_REASON_KEYS: Readonly<Record<ServerDiskReason, string>> = {
+  'not-fly': 'server.disk.reason.notFly',
+  'no-token': 'server.disk.reason.noToken',
+  'bad-token': 'server.disk.reason.badToken',
+  'no-volume': 'server.disk.reason.noVolume',
+  unauthorized: 'server.disk.reason.unauthorized',
+  'fly-error': 'server.disk.reason.flyError',
+};
+
+/** The catalogue name of a state ('needs-restart' -> 'needsRestart'). */
+const stateKey = (state: ServerDiskState) => (state === 'needs-restart' ? 'needsRestart' : state);
+
+/** A step of a change: the backup copy, enlarging, the server using the new size. */
+export type DiskStep = 'snapshot' | 'extend' | 'use';
+/** Where a step stands; 'restart': it happens after the restart the owner asks for. */
+export type DiskStepState = 'done' | 'current' | 'pending' | 'restart';
+
+/** "Disk size" (ServerDisk.tsx; keys 'settings.server.diskSize.*'). */
+export const DKT = {
+  get title() {
+    return tr('settings.server.diskSize.title');
+  },
+  get intro() {
+    return tr('settings.server.diskSize.intro');
+  },
+  /**
+   * Why the button cannot be used, in the server's words ('server.disk.reason.*'); a reason this app
+   * does not know yet (a newer server) gets the general sentence.
+   */
+  reason: (reason: ServerDiskReason | undefined) => tr((reason && DISK_REASON_KEYS[reason]) || 'server.disk.unavailable'),
+  /** Why a change failed, or why its restart did not happen (`ServerDiskChange.errorKey`, 'server.disk.error.*'). */
+  errorText: (errorKey: string) => (errorKey.startsWith('server.disk.') && hasMessage('en', errorKey) ? tr(errorKey) : tr('shell.genericError')),
+  /** "50 GB". */
+  gigabytes: (gb: number) => tr('settings.server.gigabytes', { value: formatNumber(gb) }),
+  get sizeNow() {
+    return tr('settings.server.diskSize.sizeNow');
+  },
+  get used() {
+    return tr('settings.server.diskSize.used');
+  },
+  usedValue: (used: string, total: string, percent: string) => tr('settings.server.diskSize.usedValue', { used, total, percent }),
+  get costNow() {
+    return tr('settings.server.diskSize.costNow');
+  },
+  get changesLeft() {
+    return tr('settings.server.diskSize.changesLeft');
+  },
+  changesLeftValue: (left: string, max: string) => tr('settings.server.diskSize.changesLeftValue', { left, max }),
+  noChangesLeft: (max: number) => tr('settings.server.diskSize.noChangesLeft', { max }),
+  nextChangeAt: (time: string) => tr('settings.server.diskSize.nextChangeAt', { time }),
+  atMax: (max: string) => tr('settings.server.diskSize.atMax', { max }),
+  get formTitle() {
+    return tr('settings.server.diskSize.formTitle');
+  },
+  get newSize() {
+    return tr('settings.server.diskSize.newSize');
+  },
+  newSizeHint: (min: string, max: string) => tr('settings.server.diskSize.newSizeHint', { min, max }),
+  newSizeInvalid: (min: string, max: string) => tr('settings.server.diskSize.newSizeInvalid', { min, max }),
+  /** `size` arrives formatted, `cost` from formatUsd. */
+  cost: (size: string, cost: string) => tr('settings.server.diskSize.cost', { size, cost }),
+  get onlyGrow() {
+    return tr('settings.server.diskSize.onlyGrow');
+  },
+  get enlarge() {
+    return tr('settings.server.diskSize.enlarge');
+  },
+  changeTitle: (fromGb: string, toGb: string) => tr('settings.server.diskSize.changeTitle', { fromGb, toGb }),
+  changeStarted: (time: string) => tr('settings.server.diskSize.changeStarted', { time }),
+  step: (step: DiskStep) => tr(`settings.server.diskSize.step.${step}`),
+  stepState: (state: DiskStepState) => tr(`settings.server.diskSize.stepState.${state}`),
+  stepLine: (step: string, state: string) => tr('settings.server.diskSize.stepLine', { step, state }),
+  /** What the change is doing now, as a sentence (the sizes arrive formatted). */
+  state: (state: ServerDiskState, fromGb: string, toGb: string) => tr(`settings.server.diskSize.state.${stateKey(state)}`, { fromGb, toGb }),
+  /** The state as a short word or two for the list of changes. */
+  status: (state: ServerDiskState) => tr(`settings.server.diskSize.status.${stateKey(state)}`),
+  get restartHint() {
+    return tr('settings.server.diskSize.restartHint');
+  },
+  get restart() {
+    return tr('settings.server.diskSize.restart');
+  },
+  get notAnswering() {
+    return tr('settings.server.diskSize.notAnswering');
+  },
+  get setupCommand() {
+    return tr('settings.server.diskSize.setupCommand');
+  },
+  get setupHint() {
+    return tr('settings.server.diskSize.setupHint');
+  },
+  get copySetup() {
+    return tr('settings.server.diskSize.copySetup');
+  },
+  get historyTitle() {
+    return tr('settings.server.diskSize.historyTitle');
+  },
+  historyItem: (fromGb: string, toGb: string, state: string, time: string) => tr('settings.server.diskSize.historyItem', { fromGb, toGb, state, time }),
 };

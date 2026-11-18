@@ -556,7 +556,9 @@ describe('core import probe 3: everything the core can reach from app.ts, the ro
   });
 
   it('the Node-only server modules are not reachable from it', () => {
-    const nodeOnly = bundled.modules.filter((id) => /^server\/src\/(remote\/|server\.ts$|index\.ts$|mail\/node-transport\.ts$|middleware\/host-check\.ts$|util\/paths\.ts$)/.test(id));
+    const nodeOnly = bundled.modules.filter((id) =>
+      /^server\/src\/(remote\/|server\.ts$|index\.ts$|mail\/node-transport\.ts$|middleware\/host-check\.ts$|util\/paths\.ts$|hosted\/fly-volume\.ts$|hosted\/disk\.ts$)/.test(id),
+    );
     expect(nodeOnly).toEqual([]);
     // Nothing of the real Express, and the Node builds of sql.js / pdfkit are not in it either.
     expect(bundled.modules.filter((id) => /node_modules\/(express|body-parser|router|qs|send|serve-static)\//.test(id))).toEqual([]);

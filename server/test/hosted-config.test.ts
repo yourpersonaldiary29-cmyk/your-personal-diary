@@ -5,7 +5,7 @@
  * Fictional values only.
  */
 import { afterAll, describe, expect, it } from 'vitest';
-import { HOSTED_DEFAULTS, loadConfig, loadHostedEnv, parseDeviceKeyEnv, parsePublicUrl } from '../src/config';
+import { DISK_MAX_GB_CEILING, HOSTED_DEFAULTS, loadConfig, loadHostedEnv, parseDeviceKeyEnv, parseDiskMaxGb, parseFlyApiToken, parsePublicUrl } from '../src/config';
 import { cleanupTempDirs, tempDataDir } from './helpers';
 
 afterAll(cleanupTempDirs);
@@ -209,6 +209,55 @@ describe('loadHostedEnv', () => {
       }
       expect({ extra, message }).toEqual({ extra, message: expect.stringMatching(re) });
       for (const value of Object.values(extra)) if (value.length > 3 && !/^(invite|maybe|debug|eighty)$/.test(value)) expect(message).not.toContain(value);
+    }
+  });
+});
+
+describe('the disk button (docs/server-tasks/SERVER-CARD-V2.md Part B)', () => {
+  it('DIARY_DISK_MAX_GB: 100 by default, a whole number from 1 to 500 - any other value stops the start, by name', () => {
+    expect(HOSTED_DEFAULTS.diskMaxGb).toBe(100);
+    expect(DISK_MAX_GB_CEILING).toBe(500);
+    expect(loadHostedEnv(BASE).diskMaxGb).toBe(100);
+    expect(loadHostedEnv({ ...BASE, DIARY_DISK_MAX_GB: '' }).diskMaxGb).toBe(100);
+    for (const [raw, value] of [['1', 1], ['60', 60], ['250', 250], ['500', 500]] as const) {
+      expect({ raw, value: loadHostedEnv({ ...BASE, DIARY_DISK_MAX_GB: raw }).diskMaxGb }).toEqual({ raw, value });
+    }
+    for (const raw of ['0', '-5', '501', '1000', '50.5', 'hundred', '1e9', '   ']) {
+      let message = '';
+      try {
+        loadHostedEnv({ ...BASE, DIARY_DISK_MAX_GB: raw });
+      } catch (e) {
+        message = (e as Error).message;
+      }
+      expect({ raw, message }).toEqual({ raw, message: 'DIARY_DISK_MAX_GB must be a whole number from 1 to 500' });
+    }
+    expect(parseDiskMaxGb(undefined)).toBe(100);
+    // Hosted mode only: the local configuration never reads it.
+    expect(loadConfig(['--data-dir', tempDataDir()], { DIARY_DISK_MAX_GB: 'nonsense' }).mode).toBe('local');
+  });
+
+  it('DIARY_FLY_API_TOKEN: secret, trimmed; a value that cannot be a token leaves the button off but never stops the start or shows up', () => {
+    const macaroon = 'FlyV1 fm2_lJPECAAAAAAAAAfictional0123456789+/=,fm2_fictionalDischarge0123456789';
+    expect(loadHostedEnv(BASE).flyApiToken).toBeUndefined();
+    expect(loadHostedEnv(BASE).flyApiTokenInvalid).toBeUndefined();
+    expect(loadHostedEnv({ ...BASE, DIARY_FLY_API_TOKEN: `  ${macaroon}\n` }).flyApiToken).toBe(macaroon);
+    expect(loadHostedEnv({ ...BASE, DIARY_FLY_API_TOKEN: 'fo1_fictionalPlainToken0123' }).flyApiToken).toBe('fo1_fictionalPlainToken0123');
+    for (const bad of ['FlyV1 two parts with spaces', 'short', `FlyV1 fm2_abc\r\nX-Injected: 1${'a'.repeat(20)}`, `fm2_${'x'.repeat(16_400)}`, 'FlyV1 fm2_ünicodeToken0123456789']) {
+      const env = loadHostedEnv({ ...BASE, DIARY_FLY_API_TOKEN: bad });
+      expect({ bad: bad.slice(0, 24), token: env.flyApiToken, invalid: env.flyApiTokenInvalid }).toEqual({ bad: bad.slice(0, 24), token: undefined, invalid: true });
+    }
+    expect(parseFlyApiToken('   ')).toEqual({ invalid: false });
+    expect(parseFlyApiToken(macaroon)).toEqual({ token: macaroon, invalid: false });
+  });
+
+  it('FLY_APP_NAME / FLY_MACHINE_ID (set by Fly) are taken when well-formed; DIARY_FLY_VOLUME_ID stops the start when it is not an id', () => {
+    const env = loadHostedEnv({ ...BASE, FLY_APP_NAME: 'yourpersonaldiary', FLY_MACHINE_ID: '1781973f2f5e89', DIARY_FLY_VOLUME_ID: 'vol_x2m8y9q3fictional' });
+    expect(env).toMatchObject({ flyAppName: 'yourpersonaldiary', flyMachineId: '1781973f2f5e89', flyVolumeId: 'vol_x2m8y9q3fictional' });
+    // Not on Fly, or a value no Machines API path may carry: the button is off - the diary runs on.
+    const off = loadHostedEnv({ ...BASE, FLY_APP_NAME: 'Bad App/..', FLY_MACHINE_ID: '../machines' });
+    expect({ app: off.flyAppName, machine: off.flyMachineId, volume: off.flyVolumeId }).toEqual({ app: undefined, machine: undefined, volume: undefined });
+    for (const bad of ['../vol_1', 'vol 1', 'vol_1/extend']) {
+      expect(() => loadHostedEnv({ ...BASE, DIARY_FLY_VOLUME_ID: bad })).toThrow('DIARY_FLY_VOLUME_ID is not a Fly volume id');
     }
   });
 });

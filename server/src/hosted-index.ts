@@ -19,6 +19,12 @@
  *   DIARY_CONTACT_FORM           on | off, default on: the contact form of the public site,
  *                                POST /api/contact (docs/site-tasks/SITE.md section 5); off = every
  *                                message is answered with the site's "not sent" page
+ *   DIARY_DISK_MAX_GB            the disk button of the Server card (docs/server-tasks/SERVER-CARD-V2.md
+ *                                Part B): the largest volume size it may set, whole GB 1..500, default 100
+ *   DIARY_FLY_API_TOKEN          secret - the limited Fly.io token of the disk button, stored by the owner
+ *                                with scripts/hosted/set-disk-key.ps1; unset = the button is off
+ *   DIARY_FLY_VOLUME_ID          optional - the volume it enlarges (default: the one attached to this machine)
+ *   FLY_APP_NAME, FLY_MACHINE_ID set by Fly.io in every machine: the app and the machine of the disk button
  *   DIARY_DEVICE_KEY             secret - base64 of 32 bytes; replaces <dataDir>/device.key
  *   DIARY_DEBUG_ROUTES=1         staging only: /api/debug/proxy, /api/debug/crash
  *   DIARY_STATIC_DIR             the built UI; default: the `ui/` folder next to this bundle

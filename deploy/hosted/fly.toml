@@ -8,6 +8,9 @@
 #
 # Secrets (DIARY_DEVICE_KEY, DIARY_INVITE_CODE) are NOT here: the owner sets them from his own
 # window with scripts/hosted/set-secrets.ps1 (`fly secrets import`). Secrets override [env].
+# DIARY_FLY_API_TOKEN - the limited Fly.io key of the Server card's disk button - is a secret too, and
+# only the owner creates and stores it, with scripts/hosted/set-disk-key.ps1. Without it the button is off.
+# FLY_APP_NAME and FLY_MACHINE_ID, which that button also needs, are set by Fly in every machine.
 
 app = "yourpersonaldiary"
 primary_region = "fra"
@@ -41,6 +44,9 @@ kill_timeout = "20s"
   # every message with the site's "not sent" page - no e-mail is sent. Any other value stops the start.
   # The quick way when spam arrives: `fly secrets set DIARY_CONTACT_FORM=off` (secrets win over [env]).
   # DIARY_CONTACT_FORM = "on"
+  # The disk button of the Server card (docs/server-tasks/SERVER-CARD-V2.md Part B): the largest volume
+  # size, in whole GB from 1 to 500, the owner may set there. Default 100; any other value stops the start.
+  # DIARY_DISK_MAX_GB = "100"
 
 [[mounts]]
   source = "diary_data"

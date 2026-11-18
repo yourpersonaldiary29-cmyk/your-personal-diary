@@ -5,7 +5,9 @@
  * (and, in tests, in server/test/helpers.ts) from `HostedEnv`.
  */
 import type { Request, RequestHandler } from 'express';
-import type { ServerArchiveInfo, ServerArchiveResult } from '@shared/types';
+import type { Locale } from '@shared/i18n';
+import type { ServerArchiveInfo, ServerArchiveResult, ServerDiskChange, ServerDiskInfo } from '@shared/types';
+import type { ServerDownloadPlatform, ServerDownloadResult, ServerDownloads, ServerDownloadUploadTicket } from '@shared/types';
 import type { RegistrationMode } from '../config';
 
 /** The health answers of hosted mode (3.6). `strict` is what the external uptime monitor polls. */
@@ -77,6 +79,93 @@ export interface ArchiveController {
   create(passphrase: string): Promise<ServerArchiveResult>;
 }
 
+/** A change the route may start: the volume and the sizes (checked by `DiskController.plan`). */
+export interface DiskPlan {
+  volumeId: string;
+  fromGb: number;
+  toGb: number;
+}
+
+/**
+ * The disk button of the Server card (docs/server-tasks/SERVER-CARD-V2.md Part B2), built by
+ * server/src/hosted/disk.ts in the hosted composition only - so neither the desktop sidecar nor the
+ * Android core carries it or the Fly API client. The routes (routes/server-disk.ts) check HTTPS, the
+ * owner and the account password; everything else is checked here. Errors are `ApiError`s with the
+ * keys of hosted/disk-errors.ts.
+ */
+export interface DiskController {
+  /** `GET /api/server/disk`. Never throws: what Fly answers becomes `available` / `reason`. */
+  info(): Promise<ServerDiskInfo>;
+  /**
+   * Before the password (no call to Fly, no password attempt): 409 the reason when the button is not set
+   * up, 409 'server.disk.busy' / 'server.disk.restartFirst' while a change is open, 429 the daily limit.
+   */
+  assertCanStart(): void;
+  /**
+   * Checks the size (400: a whole number, at most the maximum, larger than the size Fly reports now - read
+   * afresh; 502 / 503 when Fly cannot say) and returns the change to start.
+   */
+  plan(sizeGb: unknown): Promise<DiskPlan>;
+  /**
+   * Starts the change - checked and claimed in one synchronous step, so of two requests only one starts
+   * (the other gets the 409 / 429 of `assertCanStart`) - and returns it (the 202 body). The e-mails about
+   * it are written in `locale`.
+   */
+  start(plan: DiskPlan, locale: Locale): ServerDiskChange;
+  /** Before the password: 409 'server.disk.noRestartNeeded' unless the change waits for a restart. */
+  assertCanRestart(): void;
+  /** The state 'restarting', and Fly is asked to restart this machine right after the answer (the 202 body). */
+  restart(): ServerDiskChange;
+}
+
+/** A checked upload intent (`DownloadsController.checkIntent`): what the token will allow. */
+export interface DownloadIntent {
+  platform: ServerDownloadPlatform;
+  version: string;
+  removeOlder: boolean;
+}
+
+/** A checked removal (`DownloadsController.checkRemove`). */
+export interface DownloadTarget {
+  platform: ServerDownloadPlatform;
+  version: string;
+}
+
+/** Where and how the e-mail about a publication or a removal goes: the owner's own account address, in his language. */
+export interface DownloadNotice {
+  /** '' when the account has no address (nothing is sent; the answer says 'noAddress'). */
+  to: string;
+  firstName: string;
+  locale: Locale;
+}
+
+/**
+ * The files of the Downloads page, managed in the Server card (docs/server-tasks/SERVER-CARD-V2.md Part A), built by
+ * server/src/hosted/downloads.ts in the hosted composition only. The routes (routes/server-downloads.ts) check HTTPS,
+ * the owner and the account password; everything else is checked here. Errors are `ApiError`s with the keys of
+ * hosted/downloads-errors.ts.
+ */
+export interface DownloadsController {
+  /**
+   * The public side, mounted by app.ts before the static files: GET / HEAD /about/files/<name> (a listed name only:
+   * the uploaded file or the image's; 404 for anything else) and the 20 Downloads pages with the merged list. Every
+   * other request passes on.
+   */
+  site: RequestHandler;
+  /** `GET /api/server/downloads`; `ownerEmail` = the owner's account address ('' = none). */
+  list(ownerEmail: string): ServerDownloads;
+  /** Before the password: the body (platform, version, removeOlder, bytes), not listed yet, not busy, the daily limit, room. */
+  checkIntent(body: Record<string, unknown>): DownloadIntent;
+  /** After the password: a one-time upload token for `sessionId` (it replaces any earlier one). */
+  issueToken(intent: DownloadIntent, sessionId: string): ServerDownloadUploadTicket;
+  /** Receives the file of `PUT /api/server/downloads/upload/<token>`, checks it, publishes it (the 201 body). */
+  upload(req: Request, token: string, sessionId: string, notice: DownloadNotice): Promise<ServerDownloadResult>;
+  /** Before the password: the body, and that the platform and version is listed (404 otherwise). */
+  checkRemove(body: Record<string, unknown>): DownloadTarget;
+  /** After the password: takes the file off the page (the 200 body). */
+  remove(target: DownloadTarget, notice: DownloadNotice): Promise<ServerDownloadResult>;
+}
+
 export interface HostedAppOptions {
   /** Lower-cased host (with a non-default port) of DIARY_PUBLIC_URL: the accepted Host header (with `extraHosts`). */
   publicHost: string;
@@ -121,6 +210,16 @@ export interface HostedAppOptions {
    * 'server.archive.unavailable' and the Server card lists no archives (test apps built by hand).
    */
   archive?: ArchiveController;
+  /**
+   * The disk button of the Server card (docs/server-tasks/SERVER-CARD-V2.md Part B). Absent =
+   * `/api/server/disk*` answer 403 'server.disk.unavailable' (test apps built by hand).
+   */
+  disk?: DiskController;
+  /**
+   * The files of the Downloads page (docs/server-tasks/SERVER-CARD-V2.md Part A). Absent = `/api/server/downloads*`
+   * answer 403 'server.downloads.unavailable' and the site's pages and installers are the static files as built.
+   */
+  downloads?: DownloadsController;
   /** When the server started (ISO); defaults to the listen info's `startedAt`. */
   startedAt?: string;
   /** Mounts /api/debug/proxy and /api/debug/crash (staging only). */

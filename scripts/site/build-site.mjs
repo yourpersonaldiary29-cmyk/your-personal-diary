@@ -23,8 +23,15 @@
  *
  * The site is hosted-only. It is NOT written into public/ (public/ goes into every client: the Windows and Mac
  * installers, the Android and iPhone bundles). scripts/hosted/stage-image.mjs calls buildSite() / writeSite()
- * while it stages the hosted image and puts the tree at ui/about/** next to the web UI, so the server needs no
- * change for the pages (server/src/app.ts: express.static before the SPA fallback).
+ * while it stages the hosted image and puts the tree at ui/about/** next to the web UI (server/src/app.ts:
+ * express.static before the SPA fallback).
+ *
+ * The Downloads pages and the installers are the one part the hosted server changes at run time
+ * (docs/server-tasks/SERVER-CARD-V2.md Part A): the owner can publish and remove installer files in the Server
+ * card. So the tree also holds files/downloads.json, the list the pages were built from, and each platform panel
+ * marks the parts that depend on the list (the rows, the checksums, the empty-state text) with HTML comments; the
+ * server writes those parts again for the list it merged, with the functions of ./downloads-shared.mjs - the same
+ * ones this builder uses, so an unchanged list gives these pages byte for byte. The tree stays complete on its own.
  *
  * Sources (nothing generated is committed):
  *   site/content/site-<locale>.json   the texts, the same keys in all 20 files (CONTENT_SCHEMA below). Plain text:
@@ -34,7 +41,8 @@
  *   site/settings.json                { "siteBaseUrl": null | "https://.../", "copyrightYear": 2026, "links": { the
  *                                     four store links, null = not published } }
  *   site/downloads.json               the installer files of the Downloads page (scripts/site/add-download.mjs
- *                                     maintains it); the files themselves are in site/downloads/ (git-ignored)
+ *                                     maintains it); the files themselves are in site/downloads/ (git-ignored).
+ *                                     Written into the tree as files/downloads.json, next to the copied files
  *   site/site.js                      the one script of the pages, published as it is
  *   legal/settings.json               the publisher name, the contact e-mail and the minimum age (one place for them)
  *   legal/terms/, legal/privacy/      the two documents, rendered with the functions of scripts/legal/build-pages.mjs
@@ -93,8 +101,27 @@ import {
 import { PLAY_LOCALES } from '../play/check-listing.mjs';
 import { FEATURE, pngInfo } from '../play/render-graphics.mjs';
 import { STORE_LOCALES } from '../store/check-listing.mjs';
+import {
+  cleanDownloads,
+  compareVersions,
+  DOWNLOAD_PLATFORMS,
+  DOWNLOAD_ROW_KEYS,
+  downloadRegions,
+  downloadsProblems,
+  FILES_DIR,
+  formatDownloads,
+  IMAGE_LIST_FILE,
+  isIsoDate,
+  isolateLatin,
+  isVersion,
+  megabytes,
+  PLATFORMS,
+  relativeHref,
+} from './downloads-shared.mjs';
 
 export { ROOT, UNTRANSLATED_MARKER };
+// The list and its markup live in ./downloads-shared.mjs (the hosted server uses them too); exported here as before.
+export { compareVersions, DOWNLOAD_PLATFORMS, DOWNLOAD_ROW_KEYS, downloadsProblems, FILES_DIR, formatDownloads, IMAGE_LIST_FILE, isIsoDate, isVersion, megabytes, PLATFORMS, relativeHref };
 
 /** The URL path segment of the site on the fixed server and the name of its folder in a built tree. */
 export const SITE_ID = 'about';
@@ -117,10 +144,9 @@ export const MAX_SCRIPT_BYTES = 8 * 1024;
 export const GENERATOR_TAG = '<meta name="generator" content="scripts/site/build-site.mjs">';
 /** The one absolute path of the site: where the contact form posts (the hosted server, SITE.md section 5). */
 export const CONTACT_ACTION = '/api/contact';
-/** The published names of the style sheet, the script and the folder of the installers, relative to the site. */
+/** The published names of the style sheet and the script, relative to the site (the installers: FILES_DIR). */
 export const CSS_NAME = 'site.css';
 export const SCRIPT_NAME = 'site.js';
-export const FILES_DIR = 'files';
 
 const slash = (p) => p.split(path.sep).join('/');
 const isObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -200,20 +226,6 @@ export function siteDir(pageId, locale) {
 /** The file of a page relative to the top of the site: 'index.html', 'he/terms/index.html'. */
 export function pageFile(pageId, locale) {
   return `${siteDir(pageId, locale)}index.html`;
-}
-
-/**
- * A relative address from the folder `fromDir` to `target`, both relative to the top of the site:
- * ('he/terms/', 'he/faq/') -> '../faq/', ('', 'he/') -> './he/', ('he/terms/', 'site.css') -> '../../site.css'.
- */
-export function relativeHref(fromDir, target) {
-  const from = fromDir.split('/').filter(Boolean);
-  const to = target.split('/');
-  const file = to.pop();
-  let common = 0;
-  while (common < from.length && common < to.length && from[common] === to[common]) common += 1;
-  const rel = `${'../'.repeat(from.length - common)}${to.slice(common).map((segment) => `${segment}/`).join('')}${file}`;
-  return rel.startsWith('../') ? rel : `./${rel}`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -319,83 +331,8 @@ export function siteBaseOf(siteSettings, siteUrl) {
 }
 
 // ---------------------------------------------------------------------------------------------
-// site/downloads.json: the installer files
+// site/downloads.json: the installer files (the rules of the list: ./downloads-shared.mjs)
 // ---------------------------------------------------------------------------------------------
-
-/** The platforms of the Downloads page, in tab order, and the kind of file each one lists. */
-export const DOWNLOAD_PLATFORMS = {
-  windows: { extension: '.exe' },
-  android: { extension: '.apk' },
-  mac: { extension: '.dmg' },
-};
-export const PLATFORMS = Object.keys(DOWNLOAD_PLATFORMS);
-export const DOWNLOAD_ROW_KEYS = ['version', 'date', 'file', 'bytes', 'sha256'];
-const VERSION_RE = /^\d{1,4}\.\d{1,4}\.\d{1,4}$/;
-/** A published file name: ASCII letters, digits, dots and hyphens; it is what the visitor's browser saves. */
-const FILE_NAME_RE = /^[A-Za-z0-9][A-Za-z0-9.-]{0,99}$/;
-
-export const isVersion = (value) => typeof value === 'string' && VERSION_RE.test(value);
-export const isIsoDate = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00Z`)) && new Date(`${value}T00:00:00Z`).toISOString().startsWith(value);
-
-/** Compares two x.y.z versions: negative when a is older than b. */
-export function compareVersions(a, b) {
-  const x = a.split('.').map(Number);
-  const y = b.split('.').map(Number);
-  for (let i = 0; i < 3; i += 1) if (x[i] !== y[i]) return x[i] - y[i];
-  return 0;
-}
-
-/**
- * What is wrong with a downloads object (empty when it is valid): the shape only, not the files. The site needs
- * at least one file for every platform; scripts/site/add-download.mjs, which fills the lists one by one, passes
- * `allowEmpty`.
- */
-export function downloadsProblems(raw, { allowEmpty = false } = {}) {
-  if (!isObject(raw)) return ['not a JSON object'];
-  const problems = [];
-  for (const platform of PLATFORMS) if (!(platform in raw)) problems.push(`"${platform}" is missing`);
-  for (const key of Object.keys(raw)) if (!PLATFORMS.includes(key)) problems.push(`unknown key "${key}"`);
-  const seen = new Map();
-  for (const platform of PLATFORMS) {
-    if (!(platform in raw)) continue;
-    const rows = raw[platform];
-    if (!Array.isArray(rows) || !(rows.length || allowEmpty)) {
-      problems.push(`"${platform}" must be a list with at least one file`);
-      continue;
-    }
-    const { extension } = DOWNLOAD_PLATFORMS[platform];
-    let ordered = true;
-    rows.forEach((row, i) => {
-      const where = `${platform}[${i}]`;
-      if (!isObject(row)) {
-        problems.push(`${where} must be an object`);
-        ordered = false;
-        return;
-      }
-      for (const key of DOWNLOAD_ROW_KEYS) if (!(key in row)) problems.push(`${where}.${key} is missing`);
-      for (const key of Object.keys(row)) if (!DOWNLOAD_ROW_KEYS.includes(key)) problems.push(`unknown key ${where}.${key}`);
-      if ('version' in row && !isVersion(row.version)) problems.push(`${where}.version must look like 1.0.0`);
-      if ('date' in row && !isIsoDate(row.date)) problems.push(`${where}.date must look like 2026-11-13`);
-      if ('file' in row) {
-        if (typeof row.file !== 'string' || !FILE_NAME_RE.test(row.file)) problems.push(`${where}.file may hold only ASCII letters, digits, dots and hyphens`);
-        else if (!row.file.toLowerCase().endsWith(extension)) problems.push(`${where}.file must end with ${extension}`);
-        else if (seen.has(row.file.toLowerCase())) problems.push(`${where}.file repeats ${seen.get(row.file.toLowerCase())}`);
-        else seen.set(row.file.toLowerCase(), where);
-      }
-      if ('bytes' in row && !(Number.isInteger(row.bytes) && row.bytes > 0)) problems.push(`${where}.bytes must be the size of the file in bytes`);
-      if ('sha256' in row && !(typeof row.sha256 === 'string' && /^[0-9a-f]{64}$/.test(row.sha256))) problems.push(`${where}.sha256 must be 64 lower-case hexadecimal digits`);
-      if (!isVersion(row.version)) ordered = false;
-    });
-    if (ordered) {
-      for (let i = 1; i < rows.length; i += 1) {
-        if (compareVersions(rows[i - 1].version, rows[i].version) <= 0) {
-          problems.push(`"${platform}": ${rows[i].version} stands after ${rows[i - 1].version} - the newest version comes first, and each version once`);
-        }
-      }
-    }
-  }
-  return problems;
-}
 
 /** Reads and validates site/downloads.json: { windows: [row, ...], android: [...], mac: [...] }. Throws with a plain reason. */
 export function readDownloads(root = ROOT, file = path.join(root, DOWNLOADS_FILE)) {
@@ -407,16 +344,7 @@ export function readDownloads(root = ROOT, file = path.join(root, DOWNLOADS_FILE
   }
   const problems = downloadsProblems(raw);
   if (problems.length) throw new Error(`${slash(path.relative(root, file))}: ${problems.join('; ')}`);
-  return Object.fromEntries(PLATFORMS.map((platform) => [platform, raw[platform].map((row) => Object.fromEntries(DOWNLOAD_ROW_KEYS.map((key) => [key, row[key]])))]));
-}
-
-/** The text of a downloads object as site/downloads.json holds it: one row per line. */
-export function formatDownloads(downloads) {
-  const lists = PLATFORMS.map((platform) => {
-    const rows = downloads[platform].map((row) => `    { ${DOWNLOAD_ROW_KEYS.map((key) => `${JSON.stringify(key)}: ${JSON.stringify(row[key])}`).join(', ')} }`);
-    return `  ${JSON.stringify(platform)}: [${rows.length ? `\n${rows.join(',\n')}\n  ` : ''}]`;
-  });
-  return `{\n${lists.join(',\n')}\n}\n`;
+  return cleanDownloads(raw);
 }
 
 /** The SHA-256 of a file, as lower-case hexadecimal digits. */
@@ -452,11 +380,6 @@ export function downloadFileProblem(dir, row, name = slash(DOWNLOADS_DIR), list 
   if (stat.size !== row.bytes) return `${name}/${row.file} is ${stat.size} bytes, ${list} says ${row.bytes}`;
   if (fileSha256(file) !== row.sha256) return `${name}/${row.file} does not have the SHA-256 that ${list} states`;
   return null;
-}
-
-/** A size in megabytes (1024 x 1024 bytes, as the app counts them) with one decimal, in the form of the language. */
-export function megabytes(bytes, intl) {
-  return new Intl.NumberFormat(intl, { style: 'unit', unit: 'megabyte', unitDisplay: 'short', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(bytes / (1024 * 1024));
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -504,6 +427,8 @@ export const CONTENT_SCHEMA = {
     tabs: platformTexts,
     columns: { file: T, version: T, size: T },
     captions: platformTexts,
+    // What a platform without a file shows (the hosted server, after the owner removed its last file).
+    empty: T,
     requires: platformTexts,
     install: platformTexts,
     checkFile: T,
@@ -1009,6 +934,8 @@ th,td{padding:.4rem 1rem;border-block-start:1px solid var(--line);text-align:sta
 thead th{font-size:.9rem;color:var(--muted);white-space:nowrap}
 td{white-space:nowrap}
 .get{display:inline-flex;align-items:center;min-height:2.75rem;font-weight:600}
+.files>.empty{padding:.75rem 1rem}
+.files:has(>.empty:not([hidden]))>table,.panel:has(>.files>.empty:not([hidden]))>.qa{display:none}
 .need{font-weight:600}
 .sums{display:grid;gap:.25rem;padding:0 1rem 1rem}
 .sums dt{margin-block-start:.5rem;font-weight:600}
@@ -1071,19 +998,8 @@ const icon = (id) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" foc
 /** og:locale wants language_TERRITORY; Arabic has no territory in the app (ar), Open Graph calls it ar_AR. */
 const ogLocale = (def) => (def.intl.includes('-') ? def.intl.replace('-', '_') : `${def.intl}_${def.intl.toUpperCase()}`);
 
-/** A run of Latin letters and digits with the spaces and marks between them: one left-to-right fragment. */
-const LATIN_RUN = /[\p{Script=Latin}\d](?:[\p{Script=Latin}\d .,:/+'&#@_-]*[\p{Script=Latin}\d%])?/gu;
-
-/** Escapes a text of a right-to-left page and isolates every Latin-only fragment and number in <bdi>. */
-function isolateLatin(text) {
-  let out = '';
-  let last = 0;
-  for (const m of text.matchAll(LATIN_RUN)) {
-    out += `${escapeHtml(text.slice(last, m.index))}<bdi>${escapeHtml(m[0])}</bdi>`;
-    last = m.index + m[0].length;
-  }
-  return out + escapeHtml(text.slice(last));
-}
+// isolateLatin (a text of a right-to-left page, escaped, with every Latin-only fragment and number in <bdi>) comes from
+// ./downloads-shared.mjs: the rows of the download tables use it on the hosted server too.
 
 const unescapeHtml = (text) => text.replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 
@@ -1201,8 +1117,6 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
    * inside it (<bdi>Google Play</bdi> in a Hebrew sentence) stays in the line instead of becoming a column.
    */
   const label = (text) => `<span>${rich(text)}</span>`;
-  /** A fixed left-to-right fragment (a file name, a checksum): isolated in every language. */
-  const ltr = (text) => `<bdi dir="ltr">${escapeHtml(text)}</bdi>`;
 
   // The page's own content ------------------------------------------------------------------------
   let title;
@@ -1301,8 +1215,10 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
     description = attr(texts.lead);
     const storeLink = (key) => `<a class="btn primary" href="${escapeHtml(siteSettings.links[key])}">${label(texts.storeLinks[key])}</a>`;
     const panel = (platform) => {
-      const rows = downloads[platform];
       const store = Object.keys(STORE_LINKS).find((key) => STORE_LINKS[key].platform === platform && siteSettings.links[key]);
+      // The parts that depend on the list, between their markers (./downloads-shared.mjs): the hosted server writes
+      // them again with the same function for the list it merged from the image and the files the owner uploaded.
+      const list = downloadRegions(platform, downloads[platform], { dir, rtl, intl: def.intl, emptyHtml: rich(texts.empty) });
       return [
         `<section class="panel" id="${platform}">`,
         `<h2>${rich(texts.tabs[platform])}</h2>`,
@@ -1312,12 +1228,10 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
         `<caption>${rich(texts.captions[platform])}</caption>`,
         `<thead><tr><th scope="col">${rich(texts.columns.file)}</th><th scope="col">${rich(texts.columns.version)}</th><th scope="col">${rich(texts.columns.size)}</th></tr></thead>`,
         '<tbody>',
-        ...rows.map(
-          (row) =>
-            `<tr data-file="${row.file}" data-bytes="${row.bytes}" data-sha256="${row.sha256}"><th scope="row"><a class="get" href="${to(`${FILES_DIR}/${row.file}`)}" download>${ltr(row.file)}</a></th><td>${literal(row.version)}</td><td>${literal(megabytes(row.bytes, def.intl))}</td></tr>`,
-        ),
+        list.rows,
         '</tbody>',
         '</table>',
+        list.empty,
         '</div>',
         `<p class="need">${rich(texts.requires[platform])}</p>`,
         `<p>${rich(texts.install[platform])}</p>`,
@@ -1325,7 +1239,7 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
         `<summary><span>${rich(texts.checkFile)}</span>${icon('chevron')}</summary>`,
         `<p>${rich(texts.checkText)}</p>`,
         '<dl class="sums">',
-        ...rows.map((row) => `<dt>${ltr(row.file)}</dt><dd><code dir="ltr">${row.sha256}</code></dd>`),
+        list.sums,
         '</dl>',
         '</details>',
         '</section>',
@@ -1483,7 +1397,8 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
 /**
  * Builds the whole site in memory. Every path is relative to the top of the site (the folder about/ of a tree):
  *   pages         'index.html', 'he/terms/index.html', ... -> HTML (140)
- *   files         'site.css', 'site.js' -> their text
+ *   files         'site.css', 'site.js', 'files/downloads.json' (the list of the installers, for the hosted server:
+ *                 IMAGE_LIST_FILE) -> their text
  *   assets        'img/he/phone-home.png', 'files/<installer>', ... -> the file to copy
  *   downloads     the rows of site/downloads.json by platform
  *   siteBase      the public address of the top of the site
@@ -1611,6 +1526,9 @@ export function buildSite({ root = ROOT, settings, siteSettings, siteUrl } = {})
       if (bytes > limit) problems.push(`${name} is ${bytes} bytes, over the budget of ${limit}`);
       files.set(name, text);
     }
+    // The list the Downloads pages are built from, next to the installers: the hosted server merges it with the files
+    // the owner uploads (server/src/hosted/downloads.ts). It never serves this file itself.
+    files.set(IMAGE_LIST_FILE, formatDownloads(downloads));
     for (const l of LOCALES) {
       for (const page of SITE_PAGES) {
         const rel = pageFile(page.id, l.code);
@@ -1675,7 +1593,8 @@ export function writeSite(site, webRoot) {
  * What is wrong with a built site in `folder` (empty when it is complete), wherever the folder stands and
  * whatever it is called: the 140 pages are there, every relative address in them leads to a file of the folder
  * (a page, the style sheet, the script, an image, an installer), nothing in them needs the folder to be called
- * about, and every installer has the size and the SHA-256 its row of the Downloads page states.
+ * about, every installer has the size and the SHA-256 its row of the Downloads page states, and files/downloads.json
+ * (the list the hosted server reads) lists exactly the rows of the download tables.
  */
 export function siteFolderProblems(folder) {
   const problems = [];
@@ -1719,6 +1638,27 @@ export function siteFolderProblems(folder) {
     if (!existsSync(path.join(folder, FILES_DIR, row.file))) continue;
     const problem = downloadFileProblem(path.join(folder, FILES_DIR), row, FILES_DIR, 'the Downloads page');
     if (problem) problems.push(problem);
+  }
+  // The list of the installers, which the hosted server merges with the files the owner uploads: there, valid, and
+  // exactly the rows of the tables - the server shows and serves an installer of the image only when it is listed.
+  const listFile = path.join(folder, ...IMAGE_LIST_FILE.split('/'));
+  if (!existsSync(listFile)) problems.push(`${IMAGE_LIST_FILE} is missing (the hosted server reads the list of the installers from it)`);
+  else {
+    let list = null;
+    try {
+      const raw = JSON.parse(readFileSync(listFile, 'utf8'));
+      const found = downloadsProblems(raw);
+      if (found.length) problems.push(`${IMAGE_LIST_FILE}: ${found.join('; ')}`);
+      else list = cleanDownloads(raw);
+    } catch (e) {
+      problems.push(`${IMAGE_LIST_FILE}: cannot read it (${e.message})`);
+    }
+    if (list) {
+      const key = (row) => `${row.file} ${row.bytes} ${row.sha256}`;
+      const listed = PLATFORMS.flatMap((platform) => list[platform].map(key)).sort();
+      const shown = [...rows.values()].map(key).sort();
+      if (listed.join('\n') !== shown.join('\n')) problems.push(`${IMAGE_LIST_FILE} does not list exactly the files of the Downloads page`);
+    }
   }
   return problems;
 }

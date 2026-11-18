@@ -3,7 +3,9 @@
  *   - password reset: greeting with the first name, the link, the 6-digit code, the expiry and
  *     "if you did not ask for this, ignore this e-mail";
  *   - "your password was changed" notice after a reset;
- *   - the owner's test e-mail from the mail settings card.
+ *   - the owner's test e-mail from the mail settings card;
+ *   - the owner's notice after every change of the server's disk (Server card, hosted mode);
+ *   - the owner's notice after every publication or removal of a file of the Downloads page (Server card).
  * Each one has a plain-text and a small HTML version (lang/dir of the locale, no images, no
  * external resources). The brand "Your Personal Diary" is never translated.
  */
@@ -145,6 +147,107 @@ export function testEmail(locale: Locale, input: { to: string; firstName: string
   return render(locale, input.to, tr('server.email.test.subject'), [
     { kind: 'p', text: tr('server.email.greeting', { firstName: input.firstName }) },
     { kind: 'p', text: tr('server.email.test.body', { from: input.from }) },
+    { kind: 'small', text: tr('server.email.footer') },
+  ]);
+}
+
+/** The notices of a disk change: enlarged and in use ('done'), enlarged but waiting for a restart ('restart'), 'failed'. */
+export type DiskEmailKind = 'done' | 'restart' | 'failed';
+
+export interface DiskEmailInput {
+  /** The owner's account address. */
+  to: string;
+  firstName: string;
+  kind: DiskEmailKind;
+  /** The sizes of the change, whole GB. */
+  fromGb: number;
+  toGb: number;
+  /** ISO time of what the notice reports. */
+  at: string;
+  /** Catalogue key of why it failed ('failed'). */
+  errorKey?: string | null;
+  /** The disk's size after this outcome, for the cost line; null when it is not known (no cost line). */
+  sizeGb: number | null;
+  /** US dollars per GB and month. */
+  pricePerGbMonth: number;
+}
+
+/**
+ * The owner's notice after a change of the server's disk (docs/server-tasks/SERVER-CARD-V2.md B2), sent to
+ * his account address after every change, done or failed: what happened, from and to which size, when,
+ * what the disk now costs a month - and what to do if it was not him.
+ */
+export function diskChangeEmail(locale: Locale, input: DiskEmailInput): MailContent {
+  const tr = (key: string, params?: Record<string, string | number>) => t(locale, key, params);
+  const blocks: Block[] = [
+    { kind: 'p', text: tr('server.email.greeting', { firstName: input.firstName }) },
+    { kind: 'p', text: tr(`server.email.disk.${input.kind}.body`, { fromGb: input.fromGb, toGb: input.toGb, when: formatTimestamp(locale, input.at) }) },
+  ];
+  if (input.kind === 'failed' && input.errorKey) blocks.push({ kind: 'p', text: tr(input.errorKey) });
+  if (input.sizeGb !== null) {
+    const cost = new Intl.NumberFormat(localeDef(locale).intl, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(input.sizeGb * input.pricePerGbMonth);
+    blocks.push({ kind: 'p', text: tr('server.email.disk.cost', { sizeGb: input.sizeGb, cost }) });
+  }
+  blocks.push({ kind: 'p', text: tr('server.email.disk.notYou') }, { kind: 'small', text: tr('server.email.footer') });
+  return render(locale, input.to, tr(`server.email.disk.${input.kind}.subject`), blocks);
+}
+
+/** What an e-mail about a file of the Downloads page tells (docs/server-tasks/SERVER-CARD-V2.md A3). */
+export interface DownloadEmailInput {
+  /** The owner's account address. */
+  to: string;
+  firstName: string;
+  /** The platform as the page names it: 'Windows', 'Android' or 'Mac' (product names, not translated). */
+  platformName: string;
+  version: string;
+  /** The public file name. */
+  file: string;
+  bytes: number;
+  sha256: string;
+  /** ISO time of the publication or the removal. */
+  at: string;
+  /** Versions of the same platform taken off the page together with a publication (removeOlder). */
+  olderRemoved?: string[];
+}
+
+/** The lines every e-mail about a file of the Downloads page has: platform, version, file, size, SHA-256. */
+function downloadDetails(locale: Locale, input: DownloadEmailInput): Block[] {
+  const tr = (key: string, params?: Record<string, string | number>) => t(locale, key, params);
+  const megabytes = new Intl.NumberFormat(localeDef(locale).intl, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(input.bytes / (1024 * 1024));
+  return [
+    { kind: 'p', text: tr('server.email.downloads.platform', { platform: input.platformName }) },
+    { kind: 'p', text: tr('server.email.downloads.version', { version: input.version }) },
+    { kind: 'p', text: tr('server.email.downloads.file', { file: input.file }) },
+    { kind: 'p', text: tr('server.email.downloads.size', { megabytes, bytes: String(input.bytes) }) },
+    { kind: 'p', text: tr('server.email.downloads.sha256', { sha256: input.sha256 }) },
+  ];
+}
+
+/**
+ * The owner's notice after a file was published on the Downloads page from the Server card: what was published,
+ * when, its size and SHA-256 (to compare with the file he uploaded), the older versions taken off with it, and
+ * what to do if it was not him. Sent to his own account address.
+ */
+export function downloadPublishedEmail(locale: Locale, input: DownloadEmailInput): MailContent {
+  const tr = (key: string, params?: Record<string, string | number>) => t(locale, key, params);
+  const blocks: Block[] = [
+    { kind: 'p', text: tr('server.email.greeting', { firstName: input.firstName }) },
+    { kind: 'p', text: tr('server.email.downloads.published.body', { when: formatTimestamp(locale, input.at) }) },
+    ...downloadDetails(locale, input),
+  ];
+  if (input.olderRemoved?.length) blocks.push({ kind: 'p', text: tr('server.email.downloads.olderRemoved', { versions: input.olderRemoved.join(', ') }) });
+  blocks.push({ kind: 'p', text: tr('server.email.downloads.published.notYou') }, { kind: 'small', text: tr('server.email.footer') });
+  return render(locale, input.to, tr('server.email.downloads.published.subject'), blocks);
+}
+
+/** The owner's notice after a file was taken off the Downloads page from the Server card. */
+export function downloadRemovedEmail(locale: Locale, input: DownloadEmailInput): MailContent {
+  const tr = (key: string, params?: Record<string, string | number>) => t(locale, key, params);
+  return render(locale, input.to, tr('server.email.downloads.removed.subject'), [
+    { kind: 'p', text: tr('server.email.greeting', { firstName: input.firstName }) },
+    { kind: 'p', text: tr('server.email.downloads.removed.body', { when: formatTimestamp(locale, input.at) }) },
+    ...downloadDetails(locale, input),
+    { kind: 'p', text: tr('server.email.downloads.removed.notYou') },
     { kind: 'small', text: tr('server.email.footer') },
   ]);
 }

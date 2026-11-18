@@ -246,6 +246,7 @@
       "android": "Pliki instalacyjne dla Androida, od najnowszej wersji",
       "mac": "Pliki instalacyjne dla Maca, od najnowszej wersji"
     },
+    "empty": "Nie ma jeszcze pliku instalacyjnego dla tego systemu.",
     "requires": {
       "windows": "Wymaga systemu Windows 10 lub Windows 11 (64-bitowego).",
       "android": "Wymaga Androida 7.0 lub nowszego.",

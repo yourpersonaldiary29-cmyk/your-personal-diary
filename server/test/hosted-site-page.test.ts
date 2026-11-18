@@ -4,8 +4,10 @@
  * one style sheet, one script, the images and the installer files of the Downloads page. The site is
  * hosted-only, so scripts/hosted/stage-image.mjs writes it into the staged image at ui/about/ - next to the
  * web UI, never into public/ or dist/ - and the hosted composition serves ui/ with express.static BEFORE the
- * SPA fallback. No server code knows the pages; the one thing the server adds is POST /api/contact, where the
- * form of every page posts (server/src/hosted/contact.ts, tested in hosted-contact.test.ts). This file proves:
+ * SPA fallback. The server adds POST /api/contact, where the form of every page posts (server/src/hosted/contact.ts,
+ * tested in hosted-contact.test.ts), and the Downloads pages and installers of the merged list - the image's and
+ * the owner's uploads (server/src/hosted/downloads.ts, tested in hosted-downloads.test.ts); with nothing uploaded
+ * or removed they are the built files byte for byte. This file proves:
  *
  *   staging (stage-image.mjs run as the deploy runs it, with a stand-in bundle and a small UI folder):
  *     (a) a tree with a UI holds ui/about/ - the 140 pages, site.css, site.js, the images and the installers
@@ -18,7 +20,7 @@
  *       there is no /about/en/; a language or page that does not exist falls back to the web client;
  *     - site.css and site.js are served as a style sheet and a script, the images as image/png, the icon as
  *       SVG - byte for byte, never cached forever;
- *     - an installer is served whole, with its own content type, and can be resumed;
+ *     - an installer is served whole, with its own content type, and can be resumed; a name that is not listed is 404;
  *     - the Content-Security-Policy the server sends allows everything a page needs - its style sheet, its
  *       script, its images, its form - and a page needs nothing the policy refuses;
  *     - only the two result pages keep search engines away;
@@ -33,7 +35,7 @@ import path from 'node:path';
 import supertest from 'supertest';
 import { afterAll, afterEach, describe, expect, it } from 'vitest';
 import { LOCALES } from '../../scripts/legal/build-pages.mjs';
-import { buildSite, CONTACT_ACTION, CSS_NAME, FILES_DIR, pageFile, PLATFORMS, SCRIPT_NAME, SITE_ID, SITE_PAGES, siteDir, siteTreeProblems, writeSite } from '../../scripts/site/build-site.mjs';
+import { buildSite, CONTACT_ACTION, CSS_NAME, FILES_DIR, formatDownloads, IMAGE_LIST_FILE, pageFile, PLATFORMS, SCRIPT_NAME, SITE_ID, SITE_PAGES, siteDir, siteTreeProblems, writeSite } from '../../scripts/site/build-site.mjs';
 import { loadConfig, loadHostedEnv } from '../src/config';
 import { startHosted, type RunningHosted } from '../src/hosted';
 import { cleanupTempDirs, tempDataDir } from './helpers';
@@ -121,7 +123,9 @@ describe('scripts/hosted/stage-image.mjs: the public site in the staged image', 
     expect(built.pages.size).toBe(PAGE_COUNT);
     expect(installers.length).toBeGreaterThanOrEqual(3);
     expect(filesUnder(about)).toEqual([...built.pages.keys(), ...built.files.keys(), ...built.assets.keys()].sort());
-    expect(filesUnder(about)).toHaveLength(PAGE_COUNT + 2 + IMAGE_COUNT + installers.length);
+    // The pages, site.css, site.js, the list of the installers (files/downloads.json, for the server), the images, the installers.
+    expect(filesUnder(about)).toHaveLength(PAGE_COUNT + 3 + IMAGE_COUNT + installers.length);
+    expect(fs.readFileSync(path.join(about, ...IMAGE_LIST_FILE.split('/')), 'utf8')).toBe(formatDownloads(built.downloads));
     for (const [rel, html] of built.pages) expect(fs.readFileSync(path.join(about, ...rel.split('/')), 'utf8'), rel).toBe(html);
     expect(fs.readFileSync(path.join(about, 'he', 'faq', 'index.html'), 'utf8')).toContain('<html lang="he" dir="rtl">');
     expect(fs.existsSync(path.join(about, 'en'))).toBe(false);
@@ -380,10 +384,14 @@ describe('the public site on the hosted server', () => {
       expect([rest.status, rest.headers['content-range']], url).toEqual([206, `bytes ${row.bytes - 1000}-${row.bytes - 1}/${row.bytes}`]);
       expect((rest.body as Buffer).equals(body.subarray(row.bytes - 1000)), url).toBe(true);
     }
-    // A file that is not listed does not exist: the web client answers, never a file of the disk.
-    const missing = await get(`/about/${FILES_DIR}/nothing.exe`);
-    expect(missing.text).toContain('<div id="root">');
-    expect((await get(`/about/${FILES_DIR}/..%2f..%2findex.html`)).text).not.toContain('<h1>');
+    // A file that is not listed does not exist (docs/server-tasks/SERVER-CARD-V2.md A2): 404 - never another file of
+    // the disk, never the list of the installers itself, never the web client.
+    for (const url of [`/about/${FILES_DIR}/nothing.exe`, `/about/${FILES_DIR}/..%2f..%2findex.html`, `/about/${IMAGE_LIST_FILE}`, `/about/${FILES_DIR}/`, `/about/${FILES_DIR}`]) {
+      const missing = await get(url);
+      expect([url, missing.status], url).toEqual([url, 404]);
+      expect(missing.text, url).not.toContain('<div id="root">');
+      expect(missing.text, url).not.toContain('<h1>');
+    }
   }, 60_000);
 
   it('the Content-Security-Policy the server sends allows a page: its style sheet, its script, its images and its form', async () => {

@@ -41,6 +41,7 @@ site - the form's action, `/api/contact`.
 | The installer files themselves (**not** committed) | `site/downloads/` |
 | The one script of the pages | `site/site.js` (published as it is) |
 | The builder and the tool for the Downloads list | `scripts/site/build-site.mjs`, `scripts/site/add-download.mjs` |
+| The rules of the Downloads list and the markup of its rows (the hosted server uses them too) | `scripts/site/downloads-shared.mjs` |
 | The publisher name, the contact e-mail, the minimum age | `legal/settings.json` (one place for them) |
 | The two legal documents | `legal/terms/`, `legal/privacy/` - rendered with the functions of `scripts/legal/build-pages.mjs`, never a second copy |
 | The colours | the app's own theme tokens, `src/styles/tokens.css` (light and dark), read at build time |
@@ -121,6 +122,17 @@ has none: copy them in again with `add-download.mjs ... --replace` before buildi
 If the notes under a table stop being true (for example once the setup file is signed), change
 `downloads.install.*` and the question about installing in the content files.
 
+### Files the owner publishes in the Server card
+
+Without a deploy, the owner can also publish a file (and take one off) in the app's Server card
+(`docs/server-tasks/SERVER-CARD-V2.md` Part A, `docs/API.md` "קבצי דף ההורדות"). Those files live on the server's
+volume, not in the image. The builder therefore writes, next to the installers, the list it built the pages from
+(`files/downloads.json`), and marks in each platform panel the parts that depend on the list - the rows, the checksums
+and the empty-state text `downloads.empty` - with HTML comments (`<!-- downloads:windows:rows -->` ...
+`<!-- /downloads:windows:rows -->`). The hosted server merges the list of the image with the uploaded files and writes
+those parts again with the same functions (`scripts/site/downloads-shared.mjs`), so with nothing uploaded or removed
+the live pages are the built pages byte for byte. A row the owner removed there stays removed after later deploys.
+
 ## `site/settings.json`
 
 ```json
@@ -177,8 +189,9 @@ serving the folder `site/out/about` itself as the web root works too. The form n
 ## Tests
 
 ```bash
-node --test "scripts/site/*.test.mjs"                          # the builder, site.js, add-download.mjs
+node --test "scripts/site/*.test.mjs"                          # the builder, site.js, add-download.mjs, the shared list
 cd server && npx vitest run test/hosted-site-page.test.ts      # the staged image and the hosted server
+cd server && npx vitest run test/hosted-downloads.test.ts      # the files the owner publishes in the Server card
 ```
 
 ## Deploy

@@ -246,6 +246,7 @@
       "android": "Android için kurulum dosyaları, en yeni sürüm başta",
       "mac": "Mac için kurulum dosyaları, en yeni sürüm başta"
     },
+    "empty": "Bu sistem için henüz kurulum dosyası yok.",
     "requires": {
       "windows": "Windows 10 veya Windows 11 (64 bit) gerekir.",
       "android": "Android 7.0 veya üstü gerekir.",

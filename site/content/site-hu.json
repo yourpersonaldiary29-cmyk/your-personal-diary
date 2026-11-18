@@ -246,6 +246,7 @@
       "android": "Android-telepítőfájlok, a legújabb verzió elöl",
       "mac": "Mac-telepítőfájlok, a legújabb verzió elöl"
     },
+    "empty": "Ehhez a rendszerhez még nincs telepítőfájl.",
     "requires": {
       "windows": "Windows 10 vagy Windows 11 (64 bites) szükséges.",
       "android": "Android 7.0 vagy újabb szükséges.",

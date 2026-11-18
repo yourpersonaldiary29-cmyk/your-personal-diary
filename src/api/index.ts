@@ -50,6 +50,15 @@ import type {
   SeedDemoResult,
   ServerArchiveRequest,
   ServerArchiveResult,
+  ServerDiskChange,
+  ServerDiskExtendRequest,
+  ServerDiskInfo,
+  ServerDiskRestartRequest,
+  ServerDownloadRemoveRequest,
+  ServerDownloadResult,
+  ServerDownloads,
+  ServerDownloadUploadIntent,
+  ServerDownloadUploadTicket,
   ServerInfo,
   ServerSettings,
   ServerStatus,
@@ -60,7 +69,7 @@ import type {
 } from '@shared/types';
 import { tr } from '@/i18n/runtime';
 import { offlineAware } from '@/offline/facade';
-import { request, requestBlob } from './client';
+import { request, requestBlob, requestRawUpload, type RawUploadOptions } from './client';
 
 export * from './client';
 export * from './connection';
@@ -148,6 +157,44 @@ export const server = {
    * 'server.archive.noSpace' when the volume has too little free space.
    */
   archive: (body: ServerArchiveRequest) => request<ServerArchiveResult>('/api/server/archive', { method: 'POST', body }),
+  /**
+   * The installation files of the public site's Downloads page (docs/server-tasks/SERVER-CARD-V2.md
+   * Part A), for the owner only like the status (a hosted server built without them: 403
+   * 'server.downloads.unavailable'). Publishing takes two requests: `intent` checks the cheap rules -
+   * platform, a version x.y.z not listed yet and, with `bytes`, the size and the free space - and only
+   * then the account password (the confirmation lockout applies), and answers a one-time token for
+   * this session, valid 15 minutes; `upload` sends the file with it as the raw body, with progress. Any
+   * request that names the token uses it up: after a refused or cut-off upload the next one needs a new
+   * intent, so the password again. `upload` and `remove` answer the list after the action, and what
+   * happened to the e-mail to the owner.
+   */
+  downloads: {
+    /** The list per platform (newest version first), the limits, `busy` and whether the e-mail would be sent (GET /api/server/downloads). */
+    list: (signal?: AbortSignal) => request<ServerDownloads>('/api/server/downloads', { signal }),
+    /** POST /api/server/downloads/upload-intent -> 201 the one-time upload token. */
+    intent: (body: ServerDownloadUploadIntent) =>
+      request<ServerDownloadUploadTicket>('/api/server/downloads/upload-intent', { method: 'POST', body }),
+    /** PUT /api/server/downloads/upload/<token>: the file as the raw body -> 201 the published file and the list. */
+    upload: (token: string, file: Blob, options?: RawUploadOptions) =>
+      requestRawUpload<ServerDownloadResult>(`/api/server/downloads/upload/${encodeURIComponent(token)}`, file, options),
+    /** POST /api/server/downloads/remove (with the account password) -> the removed file and the list. */
+    remove: (body: ServerDownloadRemoveRequest) => request<ServerDownloadResult>('/api/server/downloads/remove', { method: 'POST', body }),
+  },
+  /**
+   * The disk of the hosted server (Part B), for the owner only (a hosted server built without it: 403
+   * 'server.disk.unavailable'). `get` never fails because of Fly.io: why the button cannot be used is
+   * `available: false` with a `reason`. `extend` (a whole number of GB, larger than now, at most
+   * `maxGb`) and `restart` (only while the change waits for one) need the account password and answer
+   * 202 with the change; the card reads `get` again while the change is open.
+   */
+  disk: {
+    /** Size, use, limits, the change of this server process and the last changes (GET /api/server/disk). */
+    get: (signal?: AbortSignal) => request<ServerDiskInfo>('/api/server/disk', { signal }),
+    /** POST /api/server/disk/extend -> 202 the change (state 'snapshot'). */
+    extend: (body: ServerDiskExtendRequest) => request<ServerDiskChange>('/api/server/disk/extend', { method: 'POST', body }),
+    /** POST /api/server/disk/restart -> 202 the change (state 'restarting'); the server then goes away for a moment. */
+    restart: (body: ServerDiskRestartRequest) => request<ServerDiskChange>('/api/server/disk/restart', { method: 'POST', body }),
+  },
 };
 
 // Auth -----------------------------------------------------------------------

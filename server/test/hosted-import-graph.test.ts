@@ -126,14 +126,28 @@ describe('the other direction: the portable app graph stays free of the hosted c
   const portable = walk([...routeFiles, path.join(SRC, 'app.ts')], true);
   const reached = [...portable.keys()].map(rel);
 
-  it('app.ts and the routers do not load hosted.ts, hosted-index.ts or the registration policy', () => {
-    for (const forbidden of ['src/hosted.ts', 'src/hosted-index.ts', 'src/hosted/policy.ts', 'src/mail/node-transport.ts', 'src/middleware/host-check.ts']) {
+  it('app.ts and the routers do not load hosted.ts, hosted-index.ts, the registration policy or the Server card\'s hosted controllers', () => {
+    for (const forbidden of [
+      'src/hosted.ts',
+      'src/hosted-index.ts',
+      'src/hosted/policy.ts',
+      'src/mail/node-transport.ts',
+      'src/middleware/host-check.ts',
+      // Server card v2: the disk button with its Fly.io client, the Downloads page's files and their shared markup -
+      // hosted only, reached through hosted.ts; the routes import only their error keys.
+      'src/hosted/disk.ts',
+      'src/hosted/fly-volume.ts',
+      'src/hosted/downloads.ts',
+      '../scripts/site/downloads-shared.mjs',
+    ]) {
       const abs = path.join(SERVER_ROOT, forbidden);
       expect({ forbidden, chain: portable.has(abs) ? chainTo(portable, abs) : 'not reached' }).toEqual({ forbidden, chain: 'not reached' });
     }
     // The pure hosted pieces the shared app needs are fine (they have no node:net / node:os).
     expect(reached).toContain('src/middleware/hosted-host.ts');
     expect(reached).toContain('src/hosted/owner.ts');
+    expect(reached).toContain('src/hosted/disk-errors.ts');
+    expect(reached).toContain('src/hosted/downloads-errors.ts');
   });
 });
 

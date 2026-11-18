@@ -246,6 +246,7 @@
       "android": "Android 用インストールファイル（新しい順）",
       "mac": "Mac 用インストールファイル（新しい順）"
     },
+    "empty": "このシステム向けのインストール用ファイルはまだありません。",
     "requires": {
       "windows": "Windows 10または Windows 11（64ビット）が必要です。",
       "android": "Android 7.0以降が必要です。",

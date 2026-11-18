@@ -220,7 +220,7 @@ describe('the status', () => {
     // No archive yet: the reminder, and no warnings about the disk or saving.
     expect(within(card()).getByText(SVT.archiveDueNone)).toBeInTheDocument();
     expect(within(card()).queryByText(SVT.storageAlert)).not.toBeInTheDocument();
-    expect(within(card()).queryByText(/fly volumes extend/)).not.toBeInTheDocument();
+    expect(within(card()).queryByText(/Enlarge the disk soon/)).not.toBeInTheDocument();
     // The passphrase warning is always next to the archive button.
     expect(within(card()).getByText(SVT.passphraseWarning)).toBeInTheDocument();
     expect(within(card()).getByRole('button', { name: SVT.prepare })).toBeInTheDocument();
@@ -315,7 +315,7 @@ describe('the status', () => {
       expect(capacityRow()).toMatchObject({
         // 2,842 to the nearest two digits; the lower bound 284 rounded down, so "at least" stays true.
         value: 'About 2,800 users (writing every day for two to three years); at least 280 even if every diary fills its 10.0 MB quota',
-        note: 'The account limit (5,000) is higher than this estimate. Before the number of accounts gets close to the estimate, grow the volume or lower DIARY_MAX_ACCOUNTS (see the runbook).',
+        note: 'The account limit (5,000) is higher than this estimate. Before the number of accounts gets close to the estimate, enlarge the disk ("Disk size", below) or lower DIARY_MAX_ACCOUNTS (see the runbook).',
       });
       expect(valueOf(SVT.accounts)).toBe('4 of at most 5,000');
       // The note is plain text, not a warning box.
@@ -327,11 +327,11 @@ describe('the status', () => {
       const { user } = renderCard();
       await within(await waitFor(card)).findByText(SVT.capacity, { selector: 'dt' });
       expect(capacityRow().note).toBe(
-        'The account limit (6,000) is higher than this estimate. Before the number of accounts gets close to the estimate, grow the volume or lower DIARY_MAX_ACCOUNTS (see the runbook).',
+        'The account limit (6,000) is higher than this estimate. Before the number of accounts gets close to the estimate, enlarge the disk ("Disk size", below) or lower DIARY_MAX_ACCOUNTS (see the runbook).',
       );
       expect(valueOf(SVT.accounts)).toBe('4 of at most 6,000');
       // More accounts than the quota estimate (290) is nothing alarming either: no extra text for it.
-      expect(within(card()).queryByText(/fly volumes extend/)).not.toBeInTheDocument();
+      expect(within(card()).queryByText(/Enlarge the disk soon/)).not.toBeInTheDocument();
       // A ceiling equal to the exact estimate (2,901), below it or no new accounts at all (0): no note.
       const accountsText: Record<number, string> = { 2901: '700 of at most 2,901', 2000: '700 of at most 2,000', 0: '700' };
       for (const maxAccounts of [2901, 2000, 0]) {

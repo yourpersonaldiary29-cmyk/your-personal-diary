@@ -56,6 +56,7 @@ import {
   formatDownloads,
   GENERATOR_TAG,
   ICON_IMAGE,
+  IMAGE_LIST_FILE,
   legalOutline,
   legalOutlineGap,
   legalSourceFile,
@@ -149,7 +150,7 @@ function parse(html, name) {
   const elements = [];
   const texts = [];
   const stack = [];
-  const tagRe = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)((?:\s+[^\s"'<>/=]+(?:="[^"]*")?)*)\s*(\/?)>/g;
+  const tagRe = /<!--[\s\S]*?-->|<(\/?)([a-zA-Z][a-zA-Z0-9]*)((?:\s+[^\s"'<>/=]+(?:="[^"]*")?)*)\s*(\/?)>/g;
   let last = doctype.length;
   tagRe.lastIndex = last;
   const text = (raw) => {
@@ -162,6 +163,8 @@ function parse(html, name) {
   while ((m = tagRe.exec(html))) {
     text(html.slice(last, m.index));
     last = tagRe.lastIndex;
+    // A comment is neither an element nor a text (the builder marks the list regions of the Downloads pages with them).
+    if (m[0].startsWith('<!--')) continue;
     const [, closing, tag, rawAttrs, selfClosing] = m;
     if (closing) {
       const open = stack.pop();
@@ -648,7 +651,8 @@ test('tree: the 140 pages, site.css, site.js, every image and every installer - 
   assert.deepEqual([...site.pages.keys()], LOCALES.flatMap((l) => SITE_PAGES.map((p) => pageFile(p.id, l.code))), 'seven pages for each of the 20 locales');
   assert.equal(site.pages.size, 140);
   assert.ok(!site.pages.has('en/index.html'), 'there is no en/ folder');
-  assert.deepEqual([...site.files.keys()], [CSS_NAME, SCRIPT_NAME]);
+  assert.deepEqual([...site.files.keys()], [CSS_NAME, SCRIPT_NAME, IMAGE_LIST_FILE]);
+  assert.equal(site.files.get(IMAGE_LIST_FILE), formatDownloads(site.downloads), 'the list of the installers, for the hosted server');
   assert.equal(site.assets.size, IMAGE_COUNT + installers.length);
   assert.deepEqual([...site.assets.keys()].filter((rel) => rel.startsWith(`${FILES_DIR}/`)).sort(), installers.map((row) => `${FILES_DIR}/${row.file}`).sort());
   assert.equal(site.siteBase, SITE_BASE);
@@ -657,7 +661,7 @@ test('tree: the 140 pages, site.css, site.js, every image and every installer - 
   const out = temp(t, 'site-out-');
   const target = writeSite(site, out);
   assert.equal(target, path.join(out, SITE_ID));
-  assert.deepEqual(filesUnder(target), [...site.pages.keys(), ...site.files.keys(), ...site.assets.keys()].sort(), 'the tree is the pages, the two files, the images and the installers - nothing else');
+  assert.deepEqual(filesUnder(target), [...site.pages.keys(), ...site.files.keys(), ...site.assets.keys()].sort(), 'the tree is the pages, the three files, the images and the installers - nothing else');
   assert.deepEqual(siteTreeProblems(out), []);
   assert.deepEqual(siteFolderProblems(target), []);
 
@@ -1601,8 +1605,9 @@ test('command line: --strict fails while a marker is left and passes without; --
     const outDir = path.join(root, 'site', 'out');
     const snapshot = () => new Map(filesUnder(outDir).map((f) => [f, readFileSync(path.join(outDir, f)).toString('base64')]));
     const before = snapshot();
-    assert.equal(before.size, PAGE_COUNT + 2 + IMAGE_COUNT + 3);
-    for (const rel of ['about/index.html', 'about/he/contact/sent/index.html', 'about/site.css', 'about/site.js', 'about/img/he/phone-home.png', 'about/img/share.png', 'about/img/icon.svg', `about/files/${FIXTURE_FILES.android.file}`]) assert.ok(before.has(rel), rel);
+    // The pages, site.css, site.js and the list of the installers (files/downloads.json), the images, the three installers.
+    assert.equal(before.size, PAGE_COUNT + 3 + IMAGE_COUNT + 3);
+    for (const rel of ['about/index.html', 'about/he/contact/sent/index.html', 'about/site.css', 'about/site.js', `about/${IMAGE_LIST_FILE}`, 'about/img/he/phone-home.png', 'about/img/share.png', 'about/img/icon.svg', `about/files/${FIXTURE_FILES.android.file}`]) assert.ok(before.has(rel), rel);
     assert.ok(!before.has('about/en/index.html'));
     writeFileSync(path.join(outDir, 'about', 'stale.html'), 'left over');
     assert.equal(run([], root).code, 0);

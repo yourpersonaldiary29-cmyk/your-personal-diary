@@ -161,6 +161,28 @@ export interface HostedEnv {
    * operator tool (/app/admin.cjs) looks by default.
    */
   adminTokenFile?: string;
+  /**
+   * The disk button of the Server card (docs/server-tasks/SERVER-CARD-V2.md Part B; hosted/disk.ts):
+   * `DIARY_DISK_MAX_GB` is the largest size the owner may give the volume there - a whole number of GB
+   * from 1 to 500 (Fly's largest volume); default 100. Any other value stops the start.
+   */
+  diskMaxGb: number;
+  /**
+   * `DIARY_FLY_API_TOKEN`: the limited Fly.io token of the disk button (secret; only the owner creates
+   * and stores it, with scripts/hosted/set-disk-key.ps1). Unset = the button is off and the card shows
+   * the setup line. A value that cannot be a token (control characters, spaces inside) does NOT stop the
+   * start - the diary keeps running - but leaves the button off (`flyApiTokenInvalid`, logged once).
+   */
+  flyApiToken?: string;
+  flyApiTokenInvalid?: boolean;
+  /**
+   * `FLY_APP_NAME` / `FLY_MACHINE_ID`: set by Fly.io in every machine (the app and this machine); absent
+   * or malformed = not on Fly, the disk button is off. `DIARY_FLY_VOLUME_ID` (optional): the volume the
+   * button enlarges, instead of the one attached to this machine; a malformed value stops the start.
+   */
+  flyAppName?: string;
+  flyMachineId?: string;
+  flyVolumeId?: string;
 }
 
 export const HOSTED_DEFAULTS = {
@@ -176,7 +198,11 @@ export const HOSTED_DEFAULTS = {
   maxGuests: 20,
   guestMinutes: 30,
   guestsPerHour: 3,
+  diskMaxGb: 100,
 } as const;
+
+/** Fly's largest volume, in GB: the ceiling of `DIARY_DISK_MAX_GB`. */
+export const DISK_MAX_GB_CEILING = 500;
 
 const LOOPBACK_HOSTS = new Set(['127.0.0.1', 'localhost', '[::1]']);
 
@@ -260,6 +286,30 @@ export function parseDeviceKeyEnv(raw: string | undefined): Buffer | undefined {
   return bytes;
 }
 
+/** `DIARY_DISK_MAX_GB`: a whole number of GB from 1 to DISK_MAX_GB_CEILING; unset or empty = 100. */
+export function parseDiskMaxGb(raw: string | undefined): number {
+  if (raw === undefined || raw === '') return HOSTED_DEFAULTS.diskMaxGb;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1 || n > DISK_MAX_GB_CEILING) throw new Error(`DIARY_DISK_MAX_GB must be a whole number from 1 to ${DISK_MAX_GB_CEILING}`);
+  return n;
+}
+
+/**
+ * `DIARY_FLY_API_TOKEN` (secret), trimmed: a usable token is 16 to 16384 printable ASCII characters with
+ * no space except the one after the macaroon scheme ("FlyV1 fm2_...,fm2_..."). Anything else is reported
+ * as `invalid` - never thrown, never echoed: a broken disk-button secret must not keep the diary offline.
+ */
+export function parseFlyApiToken(raw: string | undefined): { token?: string; invalid: boolean } {
+  const text = (raw ?? '').trim();
+  if (!text) return { invalid: false };
+  const usable = text.length >= 16 && text.length <= 16_384 && /^(?:FlyV1 )?[\x21-\x7e]+$/.test(text);
+  return usable ? { token: text, invalid: false } : { invalid: true };
+}
+
+/** Fly app names and machine / volume ids as they may appear in a Machines API path. */
+const FLY_APP_NAME_RE = /^[a-z0-9][a-z0-9-]{0,62}$/;
+const FLY_ID_RE = /^[A-Za-z0-9_]{1,64}$/;
+
 /** Reads the hosted-mode environment (2.1). Throws a plain Error naming the variable at fault - never its value. */
 export function loadHostedEnv(env: NodeJS.ProcessEnv = process.env): HostedEnv {
   if (env.DIARY_MODE !== 'hosted') throw new Error('DIARY_MODE=hosted is required to start the hosted server');
@@ -287,6 +337,13 @@ export function loadHostedEnv(env: NodeJS.ProcessEnv = process.env): HostedEnv {
   if (contactFormRaw !== '' && contactFormRaw !== 'on' && contactFormRaw !== 'off') throw new Error('DIARY_CONTACT_FORM must be on or off');
   const adminTokenFile = (env.DIARY_ADMIN_TOKEN_FILE ?? '').trim();
   if (adminTokenFile && !path.isAbsolute(adminTokenFile)) throw new Error('DIARY_ADMIN_TOKEN_FILE must be an absolute path');
+  // The disk button (docs/server-tasks/SERVER-CARD-V2.md Part B): the maximum, the secret and where Fly runs it.
+  const diskMaxGb = parseDiskMaxGb(env.DIARY_DISK_MAX_GB);
+  const flyToken = parseFlyApiToken(env.DIARY_FLY_API_TOKEN);
+  const flyAppName = (env.FLY_APP_NAME ?? '').trim();
+  const flyMachineId = (env.FLY_MACHINE_ID ?? '').trim();
+  const flyVolumeId = (env.DIARY_FLY_VOLUME_ID ?? '').trim();
+  if (flyVolumeId && !FLY_ID_RE.test(flyVolumeId)) throw new Error('DIARY_FLY_VOLUME_ID is not a Fly volume id');
   return {
     publicUrl,
     publicHost,
@@ -314,6 +371,12 @@ export function loadHostedEnv(env: NodeJS.ProcessEnv = process.env): HostedEnv {
     offlineSync: offlineSyncRaw !== '0',
     contactForm: contactFormRaw !== 'off',
     ...(adminTokenFile ? { adminTokenFile } : {}),
+    diskMaxGb,
+    ...(flyToken.token ? { flyApiToken: flyToken.token } : {}),
+    ...(flyToken.invalid ? { flyApiTokenInvalid: true } : {}),
+    ...(FLY_APP_NAME_RE.test(flyAppName) ? { flyAppName } : {}),
+    ...(FLY_ID_RE.test(flyMachineId) ? { flyMachineId } : {}),
+    ...(flyVolumeId ? { flyVolumeId } : {}),
   };
 }
 

@@ -7,8 +7,9 @@
  *
  * Scanned: server/src without its tests and without the modules that only run under Node: the
  * lists of the alias plugin (remote/**, mail/node-transport.ts, middleware/host-check.ts,
- * server.ts, index.ts - the plugin refuses to bundle those into the core) and the modules that
- * import one of them as a value (hosted.ts, hosted-index.ts - the plugin refuses them just the same).
+ * server.ts, index.ts, hosted/fly-volume.ts - the plugin refuses to bundle those into the core)
+ * and the modules that import one of them as a value (hosted.ts, hosted-index.ts, hosted/disk.ts -
+ * the plugin refuses them just the same).
  *
  * The facade's one addition for the hosted server, `statfsSync` (routes/server-status.ts derives a
  * free-space percentage from it), is checked here as well: the numbers of the notional volume.
@@ -186,7 +187,7 @@ describe('what server/src asks of node:fs', () => {
     expect(found.importers).toEqual(expect.arrayContaining(['security/accounts.ts', 'security/sessions.ts', 'security/resets.ts', 'security/vault.ts', 'security/device-key.ts', 'config.ts']));
     expect(found.importers.some((file) => file.startsWith('remote/'))).toBe(false);
     // The listeners (node:http, the Node SMTP transport) are out like the plugin's own lists; the hosted routes are in.
-    expect(found.derivedNodeOnly).toEqual(['hosted', 'hosted-index']);
+    expect(found.derivedNodeOnly).toEqual(['hosted', 'hosted-index', 'hosted/disk']);
     expect(found.importers).not.toContain('hosted-index.ts');
     expect(found.importers).toContain('routes/server-status.ts');
     expect(names).toEqual(

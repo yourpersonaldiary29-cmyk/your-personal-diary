@@ -56,7 +56,7 @@ export interface SiteTheme {
 export interface BuiltSite {
   /** 'index.html', 'he/terms/index.html', ... -> HTML (140 pages). */
   pages: Map<string, string>;
-  /** 'site.css', 'site.js' -> their text. */
+  /** 'site.css', 'site.js', 'files/downloads.json' -> their text. */
   files: Map<string, string>;
   /** 'img/he/phone-home.png', 'files/<installer>', ... -> the file to copy. */
   assets: Map<string, string>;
@@ -91,6 +91,8 @@ export declare const CONTACT_ACTION: string;
 export declare const CSS_NAME: string;
 export declare const SCRIPT_NAME: string;
 export declare const FILES_DIR: string;
+/** 'files/downloads.json': the list of the installers the tree was built from (read by the hosted server). */
+export declare const IMAGE_LIST_FILE: string;
 export declare const SCRIPT_FORBIDDEN: ReadonlyArray<readonly [string, RegExp]>;
 export declare function scriptProblems(text: string): string[];
 export declare const SITE_PAGES: readonly SitePage[];
