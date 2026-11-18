@@ -169,6 +169,22 @@ describe('check-no-network.mjs: the Fly API module of the disk button', () => {
       ['Fly: https[...]', FLY, "export const o = (u: string) => https['req' + 'uest'](u);"],
       ['Fly: getBuiltinModule of node:http', FLY, "export const p = () => process.getBuiltinModule('node:http');"],
       ['Fly: import() of node:tls over two lines', FLY, "export const q = () => import(\n'node:tls');"],
+      // The second review of the audit (each one passed the audit of 730f59d):
+      ['a "*/*" string, then a code line starting with *', DISK, "export const any = (t: string) => t === '*/*';\nexport const f2 = 2\n  * (await import('node:https')).default.length;"],
+      ['Java: a "*/*" string, then a code line starting with *', 'android/app/src/main/java/com/example/P.java', 'class P {\n  void a(android.content.Intent i) { i.setType("*/*"); }\n  int b = 2\n  * 3; String u = "https://evil.example/x";\n}'],
+      ['a .test.mjs file (no test: an ordinary module)', 'src/api/thing.test.mjs', "export const u = 'https://evil.example/x';"],
+      ['connect imported with a default import', DISK, "import net, { connect } from 'node:net';\nexport const j2 = () => connect(443, 'evil.example');"],
+      ['connect imported over several lines', DISK, "import {\n  connect,\n} from 'node:net';\nexport const j3 = () => connect(443, 'evil.example');"],
+      ['node:net imported under another name', DISK, "import n from 'node:net';\nexport const j4 = () => n.connect(443, 'evil.example');"],
+      ['node:net as a namespace', DISK, "import * as n from 'node:net';\nexport const j5 = () => n.connect(443, 'evil.example');"],
+      ['the host with escaped letters', DISK, "export const h2 = 'api.m\\x61chines.d\\x65v';"],
+      ['the host from pieces on two lines', DISK, "export const h3 = 'api.machi' +\n  'nes.dev';"],
+      ['the host with zero-padded escapes', DISK, "export const h4 = 'api\\u{0000002e}machines\\u{0000002e}dev';"],
+      ['Fly: a protocol-relative URL from +', FLY, "export const n2 = (h: string, b: string) => new URL('//' + h, b);"],
+      ['Fly: a protocol-relative URL from a template', FLY, 'export const n3 = (h: string, b: string) => new URL(`//${h}/v1`, b);'],
+      ["Fly: join('//')", FLY, "export const m2 = (h: string) => ['https:', h].join('//');"],
+      ['import() with a comment before the name', DISK, "export const f3 = () => import( // load it\n  'node:https');"],
+      ['import() with an inline comment', DISK, "export const f4 = () => import(/* c */ 'node:https');"],
     ];
     for (const [label, file, text] of cases) {
       const files = file === FLY ? { [FLY]: `${GOOD}${text}\n` } : { [FLY]: GOOD, [file]: `${text}\n` };
@@ -180,6 +196,18 @@ describe('check-no-network.mjs: the Fly API module of the disk button', () => {
 
   it('a comment may mention the host (documentation is never fetched), like every other host', () => {
     const result = audit(tree({ [FLY]: GOOD, 'server/src/hosted/disk.ts': '// the Fly Machines API at api.machines.dev\n/**\n * https://api.machines.dev/v1\n */\nexport const x = 1;\n' }));
+    expect(result.output).toContain('Network audit passed');
+    expect(result.status).toBe(0);
+  });
+
+  it("a '//' inside a string before a real comment does not hide that comment; the allowed imports of node:net / node:http stay allowed", () => {
+    const files = {
+      [FLY]: GOOD,
+      'server/src/hosted/doc.ts': "export const s = 'a//b'; /* start\n * https://example.com/doc\n */\nexport const y = 2;\n",
+      'server/src/hosted/listen.ts': "import http from 'node:http';\nimport net from 'node:net';\nimport type { Server } from 'node:http';\nexport const make = (): Server => http.createServer();\nexport const isIp = (h: string) => net.isIP(h);\n",
+      'server/src/hosted/paths.ts': "import { createRequire } from 'node:module';\nexport const load = (id: string) => createRequire(import.meta.url)(id);\n",
+    };
+    const result = audit(tree(files));
     expect(result.output).toContain('Network audit passed');
     expect(result.status).toBe(0);
   });

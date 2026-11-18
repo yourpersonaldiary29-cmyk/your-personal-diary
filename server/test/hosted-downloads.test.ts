@@ -402,8 +402,19 @@ describe('the public side: the Downloads pages and /about/files/', () => {
       expect([url, res.status]).toEqual([url, 200]);
       expect(res.body.toString('utf8'), url).toBe(page);
     }
-    // The Windows spellings of the same page (an NTFS stream, a trailing dot or space) are refused on every system.
-    for (const url of ['/about/downloads/index.html::$DATA', '/about/downloads/index.html%3A%3A%24DATA', '/about/downloads/index.html.', '/about/downloads/index.html%20', '/about/downloads./', '/about/he/downloads%20/index.html']) {
+    // The Windows spellings of the same page (an NTFS stream, a trailing dot or space, an 8.3 short name such as
+    // DOWNLO~1) are refused on every system.
+    for (const url of [
+      '/about/downloads/index.html::$DATA',
+      '/about/downloads/index.html%3A%3A%24DATA',
+      '/about/downloads/index.html.',
+      '/about/downloads/index.html%20',
+      '/about/downloads./',
+      '/about/he/downloads%20/index.html',
+      '/about/DOWNLO~1/index.html',
+      '/about/he/DOWNLO~1/',
+      '/about/downlo%7E1/index.html',
+    ]) {
       const res = await rawGet(b.srv, url);
       expect([url, res.status]).toEqual([url, 404]);
     }

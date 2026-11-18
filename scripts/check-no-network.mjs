@@ -22,6 +22,13 @@
  *     pieces, node:https never handed on) - and it runs only while the owner set up the button (the
  *     secret DIARY_FLY_API_TOKEN). No other scanned file may name that host in code.
  *
+ * Limits: this is a scan of the source text, a tripwire for later edits - what confines the outbound code at
+ * run time are its own guards (for the disk button: isFlyApiUrl in nodeFlyHttp, which refuses every other host,
+ * scheme, port, path and method). The scan does not see a module name or a host computed at run time
+ * ('node:' + 'https', .join('.'), template interpolation), a require function kept in a variable, destructuring
+ * (const { get } = https), a regex literal that holds a quote or a block-comment mark, or a line that the
+ * allow-list below skips (one containing Content-Security-Policy, ALLOWED_ORIGINS or //!).
+ *
  * Usage: node scripts/check-no-network.mjs                 (exit code 1 on violations)
  *        node scripts/check-no-network.mjs --root=<dir>    (audit another tree: the script's own tests)
  */
@@ -93,8 +100,12 @@ const ALLOWED_ANDROID_PERMISSIONS = new Set([
   'android.permission.RECEIVE_BOOT_COMPLETED',
   'android.permission.USE_BIOMETRIC',
 ]);
-/** Test files sit next to the frontend sources; like server/test they are never shipped. */
-const TEST_FILE = /\.test\.[cm]?[jt]sx?$/;
+/**
+ * Test files sit next to the frontend sources; like server/test they are never shipped. Only the names the vitest
+ * configs run (.test.ts, .tsx, .js, .jsx): a .test.mjs / .cjs / .mts / .cts file is no test, it is an ordinary
+ * module that shipped code could import, and it is scanned.
+ */
+const TEST_FILE = /\.test\.[jt]sx?$/;
 
 /** Patterns that indicate outbound network activity. */
 const FORBIDDEN = [
@@ -116,24 +127,37 @@ const STAR_LINE = /^\s*\*/;
 const ALLOW_CODE_LINE = [/schema\.tauri\.app/, /^\s*\/\//, /Content-Security-Policy/, /ALLOWED_ORIGINS/, /\/\/!/];
 const ALLOW_LINE = [...ALLOW_CODE_LINE, STAR_LINE];
 
-/** Whether a block comment is still open after `line`, given whether one was open before it. */
+/**
+ * Whether a block comment is still open after `line`, given whether one was open before it. Quote-aware: a '/*'
+ * or '//' inside '...', "..." or `...` on the same line opens nothing ('*' + '/' + '*' as a MIME type, a glob such
+ * as '**' + '/src/**', a URL). Limits - rare, and without a trick written on purpose they only add reports: a
+ * regex literal that holds '/*' or a quote; a template literal over several lines (the quote state starts fresh
+ * on every line); a Rust lifetime or char literal such as &'static (an odd number of ' hides the rest of that line).
+ */
 function blockCommentOpenAfter(line, open) {
-  let pos = 0;
-  for (;;) {
+  let quote = null;
+  for (let i = 0; i < line.length; i += 1) {
+    const c = line[i];
     if (open) {
-      const end = line.indexOf('*/', pos);
-      if (end < 0) return true;
-      open = false;
-      pos = end + 2;
-    } else {
-      const start = line.indexOf('/*', pos);
-      if (start < 0) return false;
-      const lineComment = line.indexOf('//', pos);
-      if (lineComment >= 0 && lineComment < start) return false;
+      if (c === '*' && line[i + 1] === '/') {
+        open = false;
+        i += 1;
+      }
+      continue;
+    }
+    if (quote) {
+      if (c === '\\') i += 1;
+      else if (c === quote) quote = null;
+      continue;
+    }
+    if (c === "'" || c === '"' || c === '`') quote = c;
+    else if (c === '/' && line[i + 1] === '/') return false;
+    else if (c === '/' && line[i + 1] === '*') {
       open = true;
-      pos = start + 2;
+      i += 1;
     }
   }
+  return open;
 }
 
 /** A quoted module name: '...', "..." or `...`. */
@@ -178,8 +202,15 @@ const NETWORK_MODULES = moduleLoads('https|http2|dgram|dns|tls');
  * `new Socket(...)` and the connecting functions imported by name count as well.
  */
 const SERVER_OUTBOUND =
-  /\bfetch\(|\bhttp\.(?:request|get)\(|\bnet\.(?:connect|createConnection)\(|\btls\.connect\(|\bnew\s+WebSocket\(|\bnew\s+(?:net\.|tls\.)?(?:Socket|TLSSocket)\s*\(|\bimport\s*\{[^}]*\b(?:connect|createConnection|request|get|Agent|Socket|TLSSocket)\b[^}]*\}\s*from\s*['"`](?:node:)?(?:net|http|tls)['"`]/g;
+  /\bfetch\(|\bhttp\.(?:request|get)\(|\bnet\.(?:connect|createConnection)\(|\btls\.connect\(|\bnew\s+WebSocket\(|\bnew\s+(?:net\.|tls\.)?(?:Socket|TLSSocket)\s*\(|\bimport(?:\s+[\w$]+\s*,)?\s*\{[^}]*\b(?:connect|createConnection|request|get|Agent|Socket|TLSSocket)\b[^}]*\}\s*from\s*['"`](?:node:)?(?:net|http|tls)['"`]/g;
 const SERVER_DIRS = ['server/src/', 'shared/'];
+/**
+ * How server/src and shared/ (outside the remote-access and mail code) may import node:net / node:http /
+ * node:tls, which the server listens with: only as `import net from 'node:net'` (that very name, so the
+ * connecting calls above stay visible as net.connect(...)) or with `import type`. Checked on the joined code
+ * lines of a file, so a named, namespace, renamed or default + named import is seen on one line or on several.
+ */
+const SERVER_CORE_IMPORT = /\bimport\s+(?!type\b)([^'"`;]*?)\s*from\s*['"`](?:node:)?(net|http|tls)['"`]/g;
 
 /**
  * Sending e-mail: the SMTP client may import node:tls and open TCP / TLS connections (to the SMTP
@@ -202,12 +233,19 @@ const FLY_URL = /\bhttps:\/\/api\.machines\.dev(?=[/'"`\s]|$)/g;
 /** What the Fly module may still not import: every network module except node:https (and that one statically only). */
 const FLY_FORBIDDEN_MODULES = moduleLoads('https?|http2|net|tls|dgram|dns', { fromForm: 'http|http2|net|tls|dgram|dns' });
 /**
- * The host anywhere else (any case, with or without a scheme, or half of it): only FLY_FILE may name it. A line
- * is checked after hostNamePieces() joined adjacent string pieces and turned escaped dots back into dots.
+ * The host anywhere else (any case, with or without a scheme, or half of it): only FLY_FILE may name it. A line -
+ * and then the joined code lines of the file, for pieces over several lines - is checked after hostNamePieces()
+ * decoded every \x, \u and \u{} escape and joined adjacent string pieces ('api.machi' + 'nes.dev'). Pieces put
+ * together with .join() or template interpolation are out of this rule's reach (see the limits above).
  */
 const FLY_HOST_NAMED = /api\.machines|machines\.dev/i;
-function hostNamePieces(line) {
-  return line.replace(/\\x2e|\\u002e|\\u\{0*2e\}/gi, '.').replace(/['"`]\s*\+\s*['"`]/g, '');
+function hostNamePieces(text) {
+  return text
+    .replace(/\\x([0-9a-f]{2})|\\u([0-9a-f]{4})|\\u\{0*([0-9a-f]{1,6})\}/gi, (m, a, b, c) => {
+      const cp = parseInt(a ?? b ?? c, 16);
+      return cp <= 0x10ffff ? String.fromCodePoint(cp) : m;
+    })
+    .replace(/['"`]\s*\+\s*['"`]/g, '');
 }
 /**
  * The ways the Fly module could still reach another host with the one https.request it may make: its URL
@@ -220,7 +258,9 @@ const FLY_RULES = [
   { re: /\bhttps\.(?!request\()[A-Za-z_$]|\bhttps\s*\[|\bhttps\s*\?\./g, why: 'the Fly API module may use node:https only for https.request' },
   { re: /\b(?:host|hostname|port|socketPath|lookup|createConnection|servername)\s*:/g, why: 'the Fly API module may not name a target of its own' },
   {
-    re: /\bhttps?:\/\/(?![\w.-])|['"`]https?:\/{0,2}['"`]\s*\+|\+\s*['"`]\/\/|['"`]\/\/[\w.-]|\.join\(\s*['"`]\/['"`]\s*\)/g,
+    // A string or template that starts with // (a protocol-relative URL, whatever follows), a scheme alone, or
+    // a join with '/'. The module's one URL literal is stripped (FLY_URL) before these rules run.
+    re: /\bhttps?:\/\/(?![\w.-])|['"`]https?:\/{0,2}['"`]\s*\+|['"`]\/\/|\.join\(\s*['"`]\/['"`]\s*\)/g,
     why: 'the Fly API module may not build a URL from pieces',
   },
   { re: /\bexport\b[^;]*\bfrom\s+['"](?:node:)?https['"]|\bexport\s+(?:default\s+https\b|\{[^}]*\bhttps\b)/g, why: 'the Fly API module may not hand node:https on' },
@@ -256,6 +296,8 @@ function scan(file) {
   /** The module rule of this file, and whether a single line already broke it. */
   const moduleRule = isRemote ? null : isFly ? FLY_FORBIDDEN_MODULES : isMail ? MAIL_FORBIDDEN_MODULES : NETWORK_MODULES;
   let moduleRuleHit = false;
+  /** Whether a single line already named the Fly host (the joined check below then adds nothing). */
+  let flyHostHit = false;
   lines.forEach((raw, i) => {
     const commentLine = inBlockComment && STAR_LINE.test(raw);
     inBlockComment = blockCommentOpenAfter(raw, inBlockComment);
@@ -279,6 +321,7 @@ function scan(file) {
       }
     }
     if (!isFly && FLY_HOST_NAMED.test(hostNamePieces(line))) {
+      flyHostHit = true;
       violations.push(`${rel}:${i + 1}: the Fly API host ${FLY_HOST} may be named only in ${FLY_FILE}: ${raw.trim().slice(0, 120)}`);
     }
     if (isRemote) {
@@ -335,11 +378,32 @@ function scan(file) {
     }
   });
   if (isFly && flyRequests > 1) violations.push(`${rel}: the Fly API module may call https.request in one place only (found ${flyRequests})`);
-  // A module load split over several lines (`import(\n  'node:https'\n)`), which no single line shows.
+  const joined = codeLines.join('\n');
+  // A module load split over several lines (`import(\n  'node:https'\n)`) or around a comment
+  // (`import(/* c */ 'node:https')`), which no single line shows. The raw joined code first - so every load seen
+  // there stays seen - and then a copy without comments, which only adds detections.
   if (moduleRule && !moduleRuleHit) {
     moduleRule.lastIndex = 0;
-    const split = moduleRule.exec(codeLines.join('\n'));
-    if (split) violations.push(`${rel}: a network module loaded over several lines: ${split[0].replace(/\s+/g, ' ').slice(0, 120)}`);
+    let split = moduleRule.exec(joined);
+    if (!split) {
+      const bare = joined.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|\s)\/\/.*$/gm, '$1');
+      moduleRule.lastIndex = 0;
+      split = moduleRule.exec(bare);
+    }
+    if (split) violations.push(`${rel}: a network module loaded over several lines or around a comment: ${split[0].replace(/\s+/g, ' ').slice(0, 120)}`);
+  }
+  // The Fly host spelled over several lines ('api.machi' +\n 'nes.dev').
+  if (!isFly && !flyHostHit && FLY_HOST_NAMED.test(hostNamePieces(joined))) {
+    violations.push(`${rel}: the Fly API host ${FLY_HOST} may be named only in ${FLY_FILE} (spelled over several lines)`);
+  }
+  // node:net / node:http / node:tls in server/src and shared/: only as `import net from 'node:net'` or import type.
+  if (!isRemote && !isMail && SERVER_DIRS.some((d) => rel.startsWith(d))) {
+    SERVER_CORE_IMPORT.lastIndex = 0;
+    for (const m of joined.matchAll(SERVER_CORE_IMPORT)) {
+      if (m[1].trim() !== m[2]) {
+        violations.push(`${rel}: node:${m[2]} may be imported here only as \`import ${m[2]} from 'node:${m[2]}'\` or with import type: ${m[0].replace(/\s+/g, ' ').slice(0, 120)}`);
+      }
+    }
   }
 }
 

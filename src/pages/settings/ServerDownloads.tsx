@@ -613,7 +613,12 @@ export function ServerDownloads({ refresh = 0 }: ServerDownloadsProps) {
           target ? (
             <>
               <p>{withIsolated(target.row.source === 'uploaded' ? DLT.removeUploaded : DLT.removeImage, target.row.file)}</p>
-              {(list?.platforms[target.platform] ?? []).length === 1 && <p>{DLT.removeLast(DLT.platformName(target.platform))}</p>}
+              {/* Only when the one row left for that system IS the row being removed: after a reload (a 404 when
+                  another device removed it first) another file may be the one left. */}
+              {(() => {
+                const rows = list?.platforms[target.platform] ?? [];
+                return rows.length === 1 && rows[0].version === target.row.version;
+              })() && <p>{DLT.removeLast(DLT.platformName(target.platform))}</p>}
               <p>{DLT.removeAgain}</p>
               {list && list.email !== 'ready' && <p>{DLT.emailWarning(list.email)}</p>}
             </>

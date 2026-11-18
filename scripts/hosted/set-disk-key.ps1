@@ -77,9 +77,12 @@ $ApiBase = 'https://api.machines.dev/v1'
 # owner can tell them apart in "flyctl tokens list".
 $TokenPrefix = 'Server card disk button'
 $TokenName = "$TokenPrefix $([DateTime]::UtcNow.ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)) UTC"
-# Set once the deploy token exists at Fly: every stop after that says how to remove it.
+# Set just before flyctl is asked to make the deploy token (it may exist from then on, also when this window is
+# stopped while flyctl works - a stop does not stop flyctl): every stop after that says how to remove it.
 $MadeToken = ''
 $RevokeAdviceShown = $false
+# True while flyctl stores the key: a stop then cannot tell whether it was stored.
+$Storing = $false
 # 5 years.
 $TokenExpiry = '43800h'
 # The permissions, as macaroon caveat masks: r read, w write, c create, C control (start, stop, restart).
@@ -104,16 +107,21 @@ function Stop-Setup([string]$Message) {
   Write-Host '[disk-key] Nothing was stored on the server: the disk button stays as it was.' -ForegroundColor Red
   if ($script:MadeToken) {
     $script:RevokeAdviceShown = $true
-    Write-Host "[disk-key] The deploy token '$($script:MadeToken)' was already made at Fly and is stored nowhere. Remove it: flyctl tokens list --app $App, then flyctl tokens revoke <its ID>." -ForegroundColor Red
+    Write-Host "[disk-key] The deploy token '$($script:MadeToken)' may already exist at Fly and is stored nowhere. If flyctl tokens list --app $App shows it, remove it: flyctl tokens revoke <its ID>." -ForegroundColor Red
   }
   exit 1
 }
 
-# The last word of a run that ended some other way after the deploy token was made (Ctrl+C, for example), once.
+# The last word of a run that ended some other way after the deploy token may exist (Ctrl+C, for example), once.
 function Write-StopAdvice {
   if (-not $script:MadeToken -or $script:RevokeAdviceShown) { return }
   $script:RevokeAdviceShown = $true
-  Write-Host "[disk-key] STOPPED before the end. The deploy token '$($script:MadeToken)' was already made at Fly. Unless this window said 'Done', remove it: flyctl tokens list --app $App, then flyctl tokens revoke <its ID>." -ForegroundColor Red
+  if ($script:Storing) {
+    # flyctl goes on storing the key after a Ctrl+C in this window: it may be stored and in use.
+    Write-Host "[disk-key] STOPPED while the key was being stored: it may or may not be stored now. Run this script again to the end - it stores a new key - and then revoke the older keys as it says at its end (this one is '$($script:MadeToken)')." -ForegroundColor Red
+    return
+  }
+  Write-Host "[disk-key] STOPPED before the end. The deploy token '$($script:MadeToken)' may already exist at Fly. Unless this window said 'Done', remove it if flyctl tokens list --app $App shows it: flyctl tokens revoke <its ID>." -ForegroundColor Red
 }
 
 # The value of the first of $Names that a parsed JSON object has, or $null (strict mode forbids reading a missing one).
@@ -142,7 +150,7 @@ function Get-FlyAuthorization([string]$Token) {
 
 # Refuses a permission that could delete (d) or means everything (*): only r, w, c and C are ever given.
 function Assert-NoDelete([string]$Mask) {
-  if ($Mask -cnotmatch '^[rwcC]+$') { throw "the permission '$Mask' is not one this script gives (only r, w, c and C - never d)" }
+  if ($Mask -cnotmatch '^[rwcC]+\z') { throw "the permission '$Mask' is not one this script gives (only r, w, c and C - never d)" }
 }
 
 # The caveats of the limited key as JSON (a superfly/macaroon caveat set): the app (when its number is known),
@@ -151,11 +159,11 @@ function Assert-NoDelete([string]$Mask) {
 function New-DiskKeyCaveats {
   param([string]$AppId = '', [Parameter(Mandatory = $true)][string]$VolumeId, [Parameter(Mandatory = $true)][string]$MachineId, [Parameter(Mandatory = $true)][string]$VolumeMask)
   foreach ($mask in @($AppMask, $MachineMask, $ElseMask, $NoCommandElseMask, $VolumeMask)) { Assert-NoDelete $mask }
-  if ($VolumeId -notmatch '^[A-Za-z0-9_]{1,64}$') { throw 'the disk id is not valid' }
-  if ($MachineId -notmatch '^[A-Za-z0-9_]{1,64}$') { throw 'the machine id is not valid' }
+  if ($VolumeId -notmatch '^[A-Za-z0-9_]{1,64}\z') { throw 'the disk id is not valid' }
+  if ($MachineId -notmatch '^[A-Za-z0-9_]{1,64}\z') { throw 'the machine id is not valid' }
   $caveats = New-Object System.Collections.ArrayList
   if ($AppId) {
-    if ($AppId -notmatch '^[1-9][0-9]{0,19}$') { throw 'the app number is not valid' }
+    if ($AppId -notmatch '^[1-9][0-9]{0,19}\z') { throw 'the app number is not valid' }
     [void]$caveats.Add([ordered]@{ 'type' = 'Apps'; 'body' = [ordered]@{ 'apps' = [ordered]@{ $AppId = $AppMask } } })
   }
   $ifs = @(
@@ -194,7 +202,7 @@ function Find-DiskTarget([string]$MachinesJson, [string]$VolumesJson) {
   $machines = @($allMachines | Where-Object { (Get-Prop $_ @('state')) -notin @('destroyed', 'destroying') })
   if ($machines.Count -ne 1) { throw "the app should run exactly one machine, Fly lists $($machines.Count)" }
   $machineId = [string](Get-Prop $machines[0] @('id'))
-  if ($machineId -notmatch '^[A-Za-z0-9_]{1,64}$') { throw 'the machine has no valid id' }
+  if ($machineId -notmatch '^[A-Za-z0-9_]{1,64}\z') { throw 'the machine has no valid id' }
   $allVolumes = ConvertTo-List (ConvertFrom-Json -InputObject $VolumesJson)
   $volumes = @($allVolumes | Where-Object { (Get-Prop $_ @('state')) -notin @('destroyed', 'destroying', 'pending_destroy') })
   $attached = @($volumes | Where-Object { [string](Get-Prop $_ @('attached_machine_id', 'AttachedMachineID')) -eq $machineId })
@@ -208,7 +216,7 @@ function Find-DiskTarget([string]$MachinesJson, [string]$VolumesJson) {
   }
   if ($attached.Count -ne 1) { throw "the machine should have exactly one disk attached, Fly lists $($attached.Count)" }
   $volumeId = [string](Get-Prop $attached[0] @('id'))
-  if ($volumeId -notmatch '^[A-Za-z0-9_]{1,64}$') { throw 'the disk has no valid id' }
+  if ($volumeId -notmatch '^[A-Za-z0-9_]{1,64}\z') { throw 'the disk has no valid id' }
   $size = Get-Prop $attached[0] @('size_gb', 'SizeGb')
   return [pscustomobject]@{ MachineId = $machineId; VolumeId = $volumeId; SizeGb = $size }
 }
@@ -222,7 +230,7 @@ function Find-AppNumericId([string]$AppsJson = '', [string]$App, [string]$TokenD
       foreach ($entry in $apps) {
         if ([string](Get-Prop $entry @('Name', 'name')) -ceq $App) {
           $id = [string](Get-Prop $entry @('InternalNumericID', 'internal_numeric_id'))
-          if ($id -match '^[1-9][0-9]{0,19}$') { return $id }
+          if ($id -match '^[1-9][0-9]{0,19}\z') { return $id }
         }
       }
     } catch { }
@@ -290,14 +298,16 @@ function Invoke-Flyctl {
   }
 }
 
-# Whether a request is one of the checks of Test-DiskKey, and nothing more: GET the app's disks, one disk, its
+# Whether a request is one of the checks of Test-DiskKey, and nothing more: GET this app's disks, one disk, its
 # snapshots or one machine; PUT .../extend of one disk; POST one snapshot of one disk. No delete, no restart, no
-# update of a disk or a machine, nothing created but the snapshot.
-function Test-CheckRequest([string]$Method, [string]$Path) {
-  $disk = '^/apps/[a-z0-9-]+/volumes/[A-Za-z0-9_]+'
-  if ($Method -ceq 'GET') { return ($Path -cmatch '^/apps/[a-z0-9-]+/(volumes(/[A-Za-z0-9_]+(/snapshots)?)?|machines/[A-Za-z0-9_]+)$') }
-  if ($Method -ceq 'PUT') { return ($Path -cmatch "$disk/extend$") }
-  if ($Method -ceq 'POST') { return ($Path -cmatch "$disk/snapshots$") }
+# update of a disk or a machine, nothing created but the snapshot, no other app. \z: the very end (a .NET $ would
+# also allow one newline after it).
+function Test-CheckRequest([string]$Method, [string]$Path, [string]$ForApp = $App) {
+  $appPattern = [regex]::Escape($ForApp)
+  $disk = "^/apps/$appPattern/volumes/[A-Za-z0-9_]+"
+  if ($Method -ceq 'GET') { return ($Path -cmatch "^/apps/$appPattern/(volumes(/[A-Za-z0-9_]+(/snapshots)?)?|machines/[A-Za-z0-9_]+)\z") }
+  if ($Method -ceq 'PUT') { return ($Path -cmatch "$disk/extend\z") }
+  if ($Method -ceq 'POST') { return ($Path -cmatch "$disk/snapshots\z") }
   return $false
 }
 
@@ -307,6 +317,9 @@ function Invoke-FlyApi {
   param([Parameter(Mandatory = $true)][string]$Method, [Parameter(Mandatory = $true)][string]$Path, [Parameter(Mandatory = $true)][string]$Token, [string]$Body = '')
   if ($Method -cnotin @('GET', 'POST', 'PUT')) { throw "refused: this script sends only GET, POST and PUT, never $Method" }
   if (-not (Test-CheckRequest $Method $Path)) { throw "refused: $Method $Path is not one of the checks" }
+  # The one request with a body - enlarging to a size - carries nothing but that size; the others carry none.
+  if ($Method -ceq 'PUT' -and $Body -cnotmatch '^\{"size_gb":[1-9][0-9]{0,4}\}\z') { throw 'refused: the extend check carries only {"size_gb":<the size>}' }
+  if ($Method -cne 'PUT' -and $Body) { throw "refused: $Method carries no body in these checks" }
   if ($null -eq $script:Http) {
     Add-Type -AssemblyName System.Net.Http
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
@@ -403,7 +416,7 @@ function Get-VerdictText($Result) {
 if ($FunctionsOnly) { return }
 
 # ------------------------------------------------------------------------------------------------------------------
-if ($App -notmatch '^[a-z0-9][a-z0-9-]{0,62}$') { Stop-Setup "'$App' is not a valid Fly app name" }
+if ($App -cnotmatch '^[a-z0-9][a-z0-9-]{0,62}\z') { Stop-Setup "'$App' is not a valid Fly app name" }
 if ($Now -and $Stage) { Stop-Setup 'use either -Now or -Stage, not both' }
 
 Say "The disk button of the Server card, for the Fly app '$App'."
@@ -454,6 +467,8 @@ $finished = $false
 try {
   # 2. The deploy token (in memory only) --------------------------------------------------------------------------
   Say "Creating the deploy token '$TokenName' (valid 5 years)..."
+  # From here on every stop names the token: flyctl may make it even when this window is stopped while it works.
+  $script:MadeToken = $TokenName
   $created = Invoke-Flyctl -Arguments "tokens create deploy --app $App --name `"$TokenName`" --expiry $TokenExpiry"
   if ($created.ExitCode -eq 0) { $deployToken = Find-TokenLine $created.StdOut }
   $createdError = Protect-Text $created.StdErr
@@ -461,7 +476,6 @@ try {
   if (-not $deployToken) {
     Stop-Setup "flyctl could not create the deploy token: $createdError"
   }
-  $script:MadeToken = $TokenName
 
   if (-not $appId) {
     # The deploy token's own caveats name the app's number; the decoded text is as secret as the token: memory only.
@@ -517,7 +531,10 @@ try {
   $importArguments = "secrets import --app $App"
   if (-not $applyNow) { $importArguments += ' --stage' }
   if ($applyNow) { Say 'Storing the key and restarting the server (about a minute)...' } else { Say 'Storing the key for the next update of the server...' }
+  # A stop while flyctl stores the key cannot tell whether it was stored: Write-StopAdvice says what to do then.
+  $script:Storing = $true
   $stored = Invoke-Flyctl -Arguments $importArguments -StdinText ("DIARY_FLY_API_TOKEN=$finalToken`n")
+  $script:Storing = $false
   $storedOk = ($stored.ExitCode -eq 0)
   $storedError = Protect-Text $stored.StdErr @($finalToken)
   $finalToken = $null

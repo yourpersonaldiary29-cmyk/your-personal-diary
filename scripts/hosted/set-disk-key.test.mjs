@@ -195,7 +195,10 @@ test('its own guard: only GET, POST and PUT to the volumes and machines of the a
     ['GET', `/apps/diary-test-app/volumes/${VOLUME}/extend`],
     ['GET', '/apps/diary-test-app/machines'],
   ];
-  const out = ps(tries.map(([method, p]) => `try { [void](Invoke-FlyApi -Method '${method}' -Path '${p}' -Token 'FlyV1 fm2_fictional'); 'sent' } catch { 'refused' }`).join('; '));
+  // The guard is bound to this run's app: the checks below are made for 'diary-test-app'.
+  tries.push(['GET', '/apps/other-app/volumes'], ['PUT', `/apps/other-app/volumes/${VOLUME}/extend`], ['POST', `/apps/other-app/volumes/${VOLUME}/snapshots`]);
+  const forApp = "$App = 'diary-test-app'";
+  const out = ps(`${forApp}; ${tries.map(([method, p]) => `try { [void](Invoke-FlyApi -Method '${method}' -Path '${p}' -Token 'FlyV1 fm2_fictional'); 'sent' } catch { 'refused' }`).join('; ')}`);
   assert.deepEqual(out.split(/\r?\n/), tries.map(() => 'refused'));
   // Exactly the six requests of the checks pass the guard (asked of the guard alone - nothing is sent).
   const checks = [
@@ -206,8 +209,21 @@ test('its own guard: only GET, POST and PUT to the volumes and machines of the a
     ['PUT', `/apps/diary-test-app/volumes/${VOLUME}/extend`],
     ['POST', `/apps/diary-test-app/volumes/${VOLUME}/snapshots`],
   ];
-  const allowed = ps([...checks, ...tries].map(([method, p]) => `if (Test-CheckRequest '${method}' '${p}') { 'yes' } else { 'no' }`).join('; '));
+  const allowed = ps(`${forApp}; ${[...checks, ...tries].map(([method, p]) => `if (Test-CheckRequest '${method}' '${p}') { 'yes' } else { 'no' }`).join('; ')}`);
   assert.deepEqual(allowed.split(/\r?\n/), [...checks.map(() => 'yes'), ...tries.map(() => 'no')]);
+  // "Exactly" means to the very end: one newline after a check's path is refused too (a .NET $ would allow it).
+  const newline = ps(`${forApp}; ${checks.map(([method, p]) => `if (Test-CheckRequest '${method}' "${p}\`n") { 'yes' } else { 'no' }`).join('; ')}`);
+  assert.deepEqual(newline.split(/\r?\n/), checks.map(() => 'no'));
+  // The extend check carries nothing but {"size_gb":<n>}, the others no body at all - refused before anything is sent.
+  const bodies = [
+    ['PUT', `/apps/diary-test-app/volumes/${VOLUME}/extend`, '{"size_gb":5000000}'],
+    ['PUT', `/apps/diary-test-app/volumes/${VOLUME}/extend`, '{"size_gb":50,"x":1}'],
+    ['PUT', `/apps/diary-test-app/volumes/${VOLUME}/extend`, ''],
+    ['POST', `/apps/diary-test-app/volumes/${VOLUME}/snapshots`, '{"x":1}'],
+    ['GET', '/apps/diary-test-app/volumes', '{"x":1}'],
+  ];
+  const sent = ps(`${forApp}; ${bodies.map(([method, p, body]) => `try { [void](Invoke-FlyApi -Method '${method}' -Path '${p}' -Token 'FlyV1 fm2_fictional' -Body ${psString(body)}); 'sent' } catch { 'refused' }`).join('; ')}`);
+  assert.deepEqual(sent.split(/\r?\n/), bodies.map(() => 'refused'));
 });
 
 test('-DryRun prints the plan, calls nothing and exits 0 (flyctl does not exist here)', { skip }, () => {
@@ -233,24 +249,34 @@ test('a stop after the deploy token was made names that token and how to revoke 
   const out = `${result.stdout}\n${result.stderr}`;
   assert.equal(result.status, 1, out);
   assert.match(out, /STOPPED: a fictional reason/);
-  assert.ok(out.includes(`The deploy token '${name}' was already made at Fly and is stored nowhere. Remove it: flyctl tokens list --app yourpersonaldiary, then flyctl tokens revoke <its ID>.`), out);
+  assert.ok(
+    out
+      .replace(/\s+/g, ' ')
+      .includes(`The deploy token '${name}' may already exist at Fly and is stored nowhere. If flyctl tokens list --app yourpersonaldiary shows it, remove it: flyctl tokens revoke <its ID>.`),
+    out,
+  );
 });
 
 test('a run that ends some other way after the deploy token was made (an unexpected error, Ctrl+C) still names it, once', { skip }, () => {
   const name = 'Server card disk button 2026-11-18 14:03 UTC';
-  const advice = `The deploy token '${name}' was already made at Fly. Unless this window said 'Done', remove it: flyctl tokens list --app yourpersonaldiary, then flyctl tokens revoke <its ID>.`;
+  const advice = `The deploy token '${name}' may already exist at Fly. Unless this window said 'Done', remove it if flyctl tokens list --app yourpersonaldiary shows it: flyctl tokens revoke <its ID>.`;
   // Ctrl+C: only the finally block runs - its advice once, however often it is reached.
   // (The host wraps the redirected line at the console width: compared with the white space folded.)
   const once = ps(`$script:MadeToken = '${name}'; Write-StopAdvice 6>&1; Write-StopAdvice 6>&1`).replace(/\s+/g, ' ');
   assert.equal(once.split(advice).length - 1, 1, once);
   // No token made yet: nothing to say.
   assert.equal(ps("$script:MadeToken = ''; Write-StopAdvice 6>&1; 'end'"), 'end');
+  // Stopped while flyctl stores the key (flyctl goes on): it may be stored and in use - run again, not revoke now.
+  const storing = ps(`$script:MadeToken = '${name}'; $script:Storing = $true; Write-StopAdvice 6>&1; Write-StopAdvice 6>&1`).replace(/\s+/g, ' ');
+  assert.equal(storing.split('STOPPED while the key was being stored: it may or may not be stored now. Run this script again to the end').length - 1, 1, storing);
+  assert.ok(storing.includes(`(this one is '${name}')`), storing);
+  assert.doesNotMatch(storing, /remove it if/);
   // After Stop-Setup has named the token, the finally block adds nothing.
   const command = `. '${script.replace(/'/g, "''")}' -FunctionsOnly; $script:MadeToken = '${name}'; try { Stop-Setup 'a fictional reason' } finally { Write-StopAdvice }`;
   const result = spawnSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-Command', command], { encoding: 'utf8', timeout: 120000 });
   const out = `${result.stdout}\n${result.stderr}`;
   assert.equal(result.status, 1, out);
-  assert.match(out, /stored nowhere\. Remove it/);
+  assert.match(out.replace(/\s+/g, ' '), /stored nowhere\. If flyctl tokens list/);
   assert.doesNotMatch(out, /STOPPED before the end/);
   // In the script, everything from the deploy token to the stored key runs in that try / catch / finally.
   const code = source.replace(/<#[\s\S]*?#>/g, '');
@@ -292,6 +318,12 @@ test('the source: ASCII only, a header, no delete, the token never on a command 
   assert.match(text, /\$ApiBase = 'https:\/\/api\.machines\.dev\/v1'/);
   // Every key is named with the time it was made, and every stop after the deploy token exists names it.
   assert.match(text, /\$TokenName = "\$TokenPrefix \$\(\[DateTime\]::UtcNow\.ToString\('yyyy-MM-dd HH:mm'/);
+  // ... named just BEFORE flyctl is asked to make it: a Ctrl+C does not stop flyctl, so the token may exist from then on.
   const made = text.indexOf('$script:MadeToken = $TokenName');
-  assert.ok(made > text.indexOf('tokens create deploy') && made < text.indexOf("'tokens debug'"), 'right after the deploy token was created');
+  assert.ok(made > text.indexOf('Creating the deploy token') && made < text.indexOf('Invoke-Flyctl -Arguments "tokens create deploy'), 'right before the deploy token is made');
+  assert.equal(text.split('$script:MadeToken = $TokenName').length - 1, 1);
+  // ... and while flyctl stores the key, a stop says it may be stored (run again), not "revoke it".
+  const storing = text.indexOf('$script:Storing = $true');
+  const importAt = text.indexOf('Invoke-Flyctl -Arguments $importArguments');
+  assert.ok(storing > 0 && storing < importAt && text.indexOf('$script:Storing = $false', importAt) > importAt, 'the flag covers the import');
 });

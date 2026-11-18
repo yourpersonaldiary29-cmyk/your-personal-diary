@@ -588,6 +588,26 @@ describe('removing a file', () => {
     await waitFor(() => expect(byId(DOWNLOADS_RESULT_ID)).toHaveTextContent(text));
     expect(byId(DOWNLOADS_RESULT_ID)).not.toHaveTextContent(DLT.removedLast('Windows'));
   });
+
+  it('another device removed the file first (404, the list is read again): the open dialog does not call it the only file', async () => {
+    const base = serverDownloadsFixture();
+    const older = serverDownloadRowFixture({ version: '0.9.0', file: 'YourPersonalDiary-0.9.0-windows-x64-setup.exe' });
+    vi.mocked(api.server.downloads.list)
+      .mockResolvedValueOnce({ ...base, platforms: { ...base.platforms, windows: [serverDownloadRowFixture(), older] } })
+      .mockResolvedValue({ ...base, platforms: { ...base.platforms, windows: [older] } });
+    vi.mocked(api.server.downloads.remove).mockRejectedValueOnce(new ApiClientError(404, { code: 'NOT_FOUND', message: 'Windows 1.0.0 is not on the Downloads page.' }));
+    const { user } = renderCard();
+    await part();
+    await user.click(within(table('Windows')).getByRole('button', { name: DLT.removeName('1.0.0', 'Windows') }));
+    const dialog = await screen.findByRole('dialog', { name: DLT.removeTitle('1.0.0', 'Windows') });
+    expect(dialog).not.toHaveTextContent(DLT.removeLast('Windows'));
+    await user.type(within(dialog).getByLabelText(new RegExp(`^${T.password}`)), PASSWORD);
+    await user.click(within(dialog).getByRole('button', { name: DLT.remove }));
+    // The reload shows only 0.9.0 for Windows; the dialog of 1.0.0 stays open with the server's message.
+    await waitFor(() => expect(within(table('Windows')).queryByText('1.0.0')).not.toBeInTheDocument());
+    const still = screen.getByRole('dialog', { name: DLT.removeTitle('1.0.0', 'Windows') });
+    expect(still).not.toHaveTextContent(DLT.removeLast('Windows'));
+  });
 });
 
 describe('languages', () => {
