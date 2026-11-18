@@ -29,7 +29,7 @@ Bir hesap oluşturarak veya hizmeti kullanarak bu koşulları ve Gizlilik Politi
 
 - Hesap oluşturmak için en az {{MINIMUM_AGE}} yaşında olmalısınız.
 - Yaşadığınız yerde reşit değilseniz, ülkenizin yasaları gerektirdiğinde hizmeti yalnızca bir ebeveyninizin veya vasinizin onayıyla kullanabilirsiniz.
-- Kayıt olurken verdiğiniz bilgiler (ad, kullanıcı adı ve e-posta adresi) doğru olmalı ve e-posta adresi, ileti alabildiğiniz bir adres olmalıdır. Bunları daha sonra Ayarlar'dan değiştirebilirsiniz.
+- Kayıt olurken verdiğiniz bilgiler (ad, kullanıcı adı ve e-posta adresi) doğru olmalı ve e-posta adresi, ileti alabildiğiniz bir adres olmalıdır. Adınızı ve e-posta adresinizi daha sonra Ayarlar'dan değiştirebilirsiniz.
 - Sunucudaki hesap sayısını sınırlayabilir ve örneğin hizmetin iyi çalışmasını sürdürmek için yeni kayıtları istediğimiz zaman durdurabiliriz.
 
 ## 3. Kişi başına bir hesap
@@ -51,7 +51,7 @@ Hesap kişiseldir: onu başkalarıyla paylaşmayın ve başka birinin hesabını
 - İçeriğinizi yalnızca size hizmeti sunmak için saklar ve işleriz - onu korumak, göstermek, içinde arama yapmak ve tüm cihazlarınızda aynı tutmak için. Gizlilik Politikası bunun nasıl yapıldığını açıklar.
 - Günlüğünüzü okumayız. Gizlilik Politikası'nın 4. bölümü, sunucunun işletmecisinin teknik olarak neler yapabileceğini ve neyi taahhüt ettiğimizi açıkça anlatır.
 - Yazdıklarınızdan siz sorumlusunuz. Yasa dışı içerik veya başkasına ait içeriği izni olmadan saklamayın.
-- İçeriğinizi istediğiniz zaman yanınızda götürebilirsiniz: **Ayarlar - Yedekleme** şifreli bir yedek oluşturur, dışa aktarma ise kayıtlarınızı okunabilir bir dosya olarak yazar. Bu kopyalar sizindir; saklayabilir ve kullanabilirsiniz.
+- İçeriğinizi istediğiniz zaman yanınızda götürebilirsiniz: menüdeki **Yedekleme** sayfası şifreli bir yedek oluşturur, aynı sayfadaki dışa aktarma ise kayıtlarınızı okunabilir bir dosya olarak yazar. Bu kopyalar sizindir; saklayabilir ve kullanabilirsiniz.
 
 ## 6. Kabul edilebilir kullanım
 
@@ -70,7 +70,7 @@ Hizmeti kullanırken şunları yapmamalısınız:
 - Hizmet bugün **ücretsizdir**. Bir gün herhangi bir şey için ücret almak istersek bunu önceden söyleriz ve sizin onayınız olmadan hiçbir şey ücretli hale gelmez.
 - Özellikler zamanla değişebilir, eklenebilir veya kaldırılabilir.
 - Hizmeti erişilebilir tutmayı amaçlarız, ancak her zaman erişilebilir veya hatasız olacağını vaat etmeyiz. Bakım, güncellemeler veya barındırma sorunları hizmeti kesintiye uğratabilir.
-- Sizin için önemli olanların **yedeğini alın** (Ayarlar - Yedekleme). Sunucuya ve yedeklerine özen gösteririz, ancak kaybolan içerikten yasanın gerektirdiğinin ötesinde sorumlu değiliz.
+- Sizin için önemli olanların **yedeğini alın** (menüdeki Yedekleme sayfası). Sunucuya ve yedeklerine özen gösteririz, ancak kaybolan içerikten yasanın gerektirdiğinin ötesinde sorumlu değiliz.
 - Bağlantı olmadan çalışma (cihazınızdaki kopyalar ve çevrimdışı mod) bir kolaylıktır. Her cihazda veya her an kullanılamayabilir.
 
 ## 8. Hesabın askıya alınması ve kapatılması

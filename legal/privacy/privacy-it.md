@@ -117,7 +117,7 @@ Nessun sistema può promettere una sicurezza perfetta. Scegli una password robus
 
 ## 9. I tuoi diritti
 
-Puoi vedere, correggere, esportare ed eliminare i tuoi dati da solo: il tuo profilo è nelle Impostazioni, ogni voce può essere modificata o eliminata, **Impostazioni - Backup** e l'esportazione creano una copia che puoi portare altrove, ed **Eliminazione dell'account** rimuove tutto. Puoi anche scriverci per chiedere una copia dei tuoi dati, la rettifica, la cancellazione o la limitazione del trattamento, o per opporti al trattamento, e puoi revocare un consenso in qualsiasi momento. Rispondiamo entro 30 giorni. Hai anche il diritto di presentare reclamo a un'autorità di protezione dei dati: nell'Unione europea l'autorità del tuo Paese, in Israele l'Autorità per la protezione della privacy.
+Puoi vedere, correggere, esportare ed eliminare i tuoi dati da solo: il tuo profilo è nelle Impostazioni, ogni voce può essere modificata o eliminata, il backup e l'esportazione della pagina **Backup** creano una copia che puoi portare altrove, ed **Eliminazione dell'account** rimuove tutto. Puoi anche scriverci per chiedere una copia dei tuoi dati, la rettifica, la cancellazione o la limitazione del trattamento, o per opporti al trattamento, e puoi revocare un consenso in qualsiasi momento. Rispondiamo entro 30 giorni. Hai anche il diritto di presentare reclamo a un'autorità di protezione dei dati: nell'Unione europea l'autorità del tuo Paese, in Israele l'Autorità per la protezione della privacy.
 
 ## 10. Minori
 

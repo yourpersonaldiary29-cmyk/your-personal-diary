@@ -29,7 +29,7 @@ Indem du ein Konto erstellst oder den Dienst nutzt, stimmst du diesen Bedingunge
 
 - Um ein Konto zu erstellen, musst du mindestens {{MINIMUM_AGE}} Jahre alt sein.
 - Wenn du dort, wo du lebst, minderjährig bist, darfst du den Dienst nur mit Zustimmung eines Elternteils oder Vormunds nutzen, sofern das Recht deines Landes dies verlangt.
-- Die Angaben, die du bei der Registrierung machst (Name, Benutzername und E-Mail-Adresse), müssen zutreffen, und die E-Mail-Adresse muss eine sein, unter der du Nachrichten empfangen kannst. Du kannst sie später in den Einstellungen ändern.
+- Die Angaben, die du bei der Registrierung machst (Name, Benutzername und E-Mail-Adresse), müssen zutreffen, und die E-Mail-Adresse muss eine sein, unter der du Nachrichten empfangen kannst. Du kannst deinen Namen und deine E-Mail-Adresse später in den Einstellungen ändern.
 - Wir können die Zahl der Konten auf dem Server begrenzen und neue Registrierungen jederzeit pausieren, zum Beispiel damit der Dienst gut läuft.
 
 ## 3. Ein Konto pro Person
@@ -51,7 +51,7 @@ Ein Konto ist persönlich: Teile es nicht mit anderen, und nutze nicht das Konto
 - Wir speichern und verarbeiten deine Inhalte nur, um dir den Dienst bereitzustellen - um sie aufzubewahren, anzuzeigen, zu durchsuchen und auf deinen Geräten gleich zu halten. Die Datenschutzerklärung erklärt, wie.
 - Wir lesen dein Tagebuch nicht. Abschnitt 4 der Datenschutzerklärung erklärt offen, was der Betreiber des Servers technisch tun könnte und was wir versprechen.
 - Du bist für das verantwortlich, was du schreibst. Speichere keine rechtswidrigen Inhalte und keine Inhalte, die jemand anderem gehören, ohne dessen Erlaubnis.
-- Du kannst deine Inhalte jederzeit mitnehmen: **Einstellungen - Backup** erstellt ein verschlüsseltes Backup, und der Export schreibt deine Einträge als lesbare Datei. Diese Kopien gehören dir - du kannst sie behalten und nutzen.
+- Du kannst deine Inhalte jederzeit mitnehmen: Die Seite **Backup** im Menü erstellt ein verschlüsseltes Backup, und der Export auf derselben Seite schreibt deine Einträge als lesbare Datei. Diese Kopien gehören dir - du kannst sie behalten und nutzen.
 
 ## 6. Zulässige Nutzung
 
@@ -70,7 +70,7 @@ Wenn du den Dienst nutzt, darfst du nicht:
 - Der Dienst ist heute **kostenlos**. Sollten wir jemals für etwas Geld verlangen wollen, sagen wir es vorher, und nichts wird ohne deine Zustimmung kostenpflichtig.
 - Funktionen können sich mit der Zeit ändern, hinzukommen oder wegfallen.
 - Wir bemühen uns, den Dienst verfügbar zu halten, versprechen aber nicht, dass er immer verfügbar oder fehlerfrei ist. Wartung, Updates oder Probleme beim Hosting können ihn unterbrechen.
-- **Mach ein Backup** von dem, was dir wichtig ist (Einstellungen - Backup). Wir kümmern uns um den Server und seine Backups, haften aber für verlorene Inhalte nicht über das hinaus, was das Gesetz verlangt.
+- **Mach ein Backup** von dem, was dir wichtig ist (auf der Seite Backup im Menü). Wir kümmern uns um den Server und seine Backups, haften aber für verlorene Inhalte nicht über das hinaus, was das Gesetz verlangt.
 - Das Arbeiten ohne Verbindung (die Kopien auf deinem Gerät und der Offline-Modus) ist eine Annehmlichkeit. Es ist möglicherweise nicht auf jedem Gerät oder zu jedem Zeitpunkt verfügbar.
 
 ## 8. Sperrung und Schließung eines Kontos

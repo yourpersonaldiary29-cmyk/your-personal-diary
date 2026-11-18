@@ -29,7 +29,7 @@ Ao criar uma conta ou ao utilizar o serviço, aceita estes termos e a Política 
 
 - Tem de ter pelo menos {{MINIMUM_AGE}} anos para criar uma conta.
 - Se for menor de idade no local onde vive, só pode utilizar o serviço com o consentimento de um dos pais ou do tutor, quando a lei do seu país o exigir.
-- Os dados que indica no registo (nome, nome de utilizador e endereço de e-mail) têm de ser exatos, e o endereço de e-mail tem de ser um endereço em que possa receber mensagens. Pode alterá-los mais tarde nas Definições.
+- Os dados que indica no registo (nome, nome de utilizador e endereço de e-mail) têm de ser exatos, e o endereço de e-mail tem de ser um endereço em que possa receber mensagens. Pode alterar o nome e o endereço de e-mail mais tarde nas Definições.
 - Podemos limitar o número de contas no servidor e suspender novos registos em qualquer momento, por exemplo para que o serviço continue a funcionar bem.
 
 ## 3. Uma conta por pessoa
@@ -51,7 +51,7 @@ Uma conta é pessoal: não a partilhe com outras pessoas e não utilize a conta 
 - Guardamos e tratamos o seu conteúdo apenas para lhe prestar o serviço - para o guardar, mostrar, pesquisar e manter igual nos seus dispositivos. A Política de privacidade explica como.
 - Não lemos o seu diário. A secção 4 da Política de privacidade explica com clareza o que quem opera o servidor poderia tecnicamente fazer e aquilo a que nos comprometemos.
 - É responsável pelo que escreve. Não guarde conteúdo ilegal nem conteúdo que pertença a outra pessoa sem a autorização dela.
-- Pode levar o seu conteúdo consigo em qualquer momento: **Definições - Cópia de segurança** cria uma cópia de segurança encriptada, e a exportação escreve as suas entradas num ficheiro legível. Estas cópias são suas, para guardar e utilizar.
+- Pode levar o seu conteúdo consigo em qualquer momento: a página **Cópia de segurança** do menu cria uma cópia de segurança encriptada, e a exportação, na mesma página, escreve as suas entradas num ficheiro legível. Estas cópias são suas, para guardar e utilizar.
 
 ## 6. Utilização aceitável
 
@@ -70,7 +70,7 @@ Ao utilizar o serviço, não pode:
 - Hoje o serviço é **gratuito**. Se algum dia quisermos cobrar por alguma coisa, avisaremos com antecedência, e nada passará a ser pago sem o seu acordo.
 - As funcionalidades podem mudar, ser acrescentadas ou ser removidas ao longo do tempo.
 - Procuramos manter o serviço disponível, mas não prometemos que esteja sempre disponível nem livre de erros. Manutenção, atualizações ou problemas no alojamento podem interrompê-lo.
-- **Guarde uma cópia de segurança** do que é importante para si (Definições - Cópia de segurança). Cuidamos do servidor e das suas cópias de segurança, mas não somos responsáveis por conteúdo perdido para além do que a lei exige.
+- **Guarde uma cópia de segurança** do que é importante para si (a página Cópia de segurança do menu). Cuidamos do servidor e das suas cópias de segurança, mas não somos responsáveis por conteúdo perdido para além do que a lei exige.
 - Trabalhar sem ligação (as cópias no seu dispositivo e o modo sem ligação) é uma comodidade. Pode não estar disponível em todos os dispositivos ou em todos os momentos.
 
 ## 8. Suspensão e encerramento de uma conta

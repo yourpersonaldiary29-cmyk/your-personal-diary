@@ -25,7 +25,7 @@ Verifique o nome de utilizador ou o endereço de e-mail e a palavra-passe (aten�
 
 ### A aplicação diz que não há ligação
 
-A aplicação precisa do servidor para iniciar sessão, para pesquisar, para as estatísticas e as conclusões, para as cópias de segurança e as exportações, e para as alterações à sua conta. Sem ligação, pode continuar a escrever: o que escreve fica guardado no seu dispositivo, encriptado, e é enviado quando a ligação regressar, mesmo que a aplicação tenha sido fechada entretanto. Se escolheu **Manter sessão iniciada**, as aplicações Windows, Mac, Android e iPhone abrem também as suas entradas recentes, os hábitos e os dados de hoje a partir da cópia encriptada no dispositivo; desbloqueia-os com a sua palavra-passe ou com o bloqueio de ecrã do dispositivo (Windows Hello, Touch ID, Face ID ou o bloqueio de ecrã do telemóvel). Verifique a ligação à internet do dispositivo e depois escolha **Tentar agora** na aplicação.
+A aplicação precisa do servidor para iniciar sessão, para pesquisar, para as estatísticas e as conclusões, para as cópias de segurança e as exportações, e para as alterações à sua conta. Sem ligação, pode continuar a escrever: o que escreve fica guardado no seu dispositivo, encriptado, e é enviado quando a ligação regressar, mesmo que a aplicação tenha sido fechada entretanto. Se escolheu **Manter sessão iniciada**, as aplicações Windows, Mac, Android e iPhone abrem também as suas entradas recentes, os hábitos e os dados de hoje a partir da cópia encriptada no dispositivo; desbloqueia-os com a sua palavra-passe ou com o bloqueio de ecrã do dispositivo (Windows Hello, Touch ID, Face ID ou o bloqueio de ecrã do telemóvel). Verifique a ligação à internet do dispositivo e depois escolha **Tentar novamente** ou **Tentar agora** na aplicação.
 
 ### Como mudo o idioma?
 
@@ -33,7 +33,7 @@ Abra as **Definições** e, no cartão **Idioma**, escolha o idioma da interface
 
 ### Como retiro os meus dados?
 
-Em **Definições - Cópia de segurança** pode criar uma **cópia de segurança**: uma cópia encriptada de todo o diário (entradas, hábitos e definições) no formato próprio da aplicação, protegida por uma palavra-passe, que pode restaurar mais tarde na aplicação. A **exportação**, na mesma página, escreve as suas entradas num ficheiro legível (TXT, CSV, JSON ou PDF) para ler, imprimir ou usar noutro programa. Um ficheiro exportado não está encriptado: qualquer pessoa que tenha o ficheiro pode lê-lo, por isso guarde-o com o mesmo cuidado que o próprio diário.
+Na página **Cópia de segurança** do menu (nas aplicações Android e iPhone, em Mais) pode criar uma **cópia de segurança**: uma cópia encriptada de todo o diário (entradas, hábitos e definições) no formato próprio da aplicação, protegida por uma palavra-passe, que pode restaurar mais tarde na aplicação. A **exportação**, na mesma página, escreve as suas entradas num ficheiro legível (TXT, CSV, JSON ou PDF) para ler, imprimir ou usar noutro programa. Um ficheiro exportado não está encriptado: qualquer pessoa que tenha o ficheiro pode lê-lo, por isso guarde-o com o mesmo cuidado que o próprio diário.
 
 ### Como elimino a minha conta?
 

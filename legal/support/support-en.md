@@ -25,7 +25,7 @@ Check the user name or e-mail address and the password (mind the keyboard langua
 
 ### The app says there is no connection
 
-The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try now** in the app.
+The app needs the server to sign in, to search, for statistics and insights, for backups and exports, and for changes to your account. Without a connection you can still write: what you write is saved on your device, encrypted, and uploaded when the connection returns, even if the app was closed in between. If you chose **Remember me**, the Windows, Mac, Android and iPhone apps also open your recent entries, habits and today's data from the encrypted copy on the device; you unlock them with your password or with the device's screen lock (Windows Hello, Touch ID, Face ID or the phone's screen lock). Check the device's internet connection, then choose **Try again** or **Try now** in the app.
 
 ### How do I change the language?
 
@@ -33,7 +33,7 @@ Open **Settings** and, in the **Language** card, choose the interface language f
 
 ### How do I get my data out?
 
-In **Settings - Backup** you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+On the **Backup** page in the menu (in the Android and iPhone apps, under More) you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
 
 ### How do I delete my account?
 

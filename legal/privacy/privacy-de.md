@@ -117,7 +117,7 @@ Kein System kann vollkommene Sicherheit versprechen. Wähle ein starkes Passwort
 
 ## 9. Deine Rechte
 
-Du kannst deine Daten selbst einsehen, berichtigen, exportieren und löschen: Dein Profil findest du in den Einstellungen, jeder Eintrag lässt sich bearbeiten oder löschen, **Einstellungen - Backup** und der Export erstellen eine Kopie, die du mitnehmen kannst, und **Konto löschen** entfernt alles. Du kannst uns auch schreiben, um eine Kopie deiner Daten, ihre Berichtigung, Löschung oder die Einschränkung der Verarbeitung zu verlangen oder der Verarbeitung zu widersprechen, und du kannst eine Einwilligung jederzeit widerrufen. Wir antworten innerhalb von 30 Tagen. Du hast außerdem das Recht, dich bei einer Datenschutzbehörde zu beschweren - in der Europäischen Union bei der Behörde deines Landes, in Israel bei der Datenschutzbehörde (Privacy Protection Authority).
+Du kannst deine Daten selbst einsehen, berichtigen, exportieren und löschen: Dein Profil findest du in den Einstellungen, jeder Eintrag lässt sich bearbeiten oder löschen, das Backup und der Export auf der Seite **Backup** erstellen eine Kopie, die du mitnehmen kannst, und **Konto löschen** entfernt alles. Du kannst uns auch schreiben, um eine Kopie deiner Daten, ihre Berichtigung, Löschung oder die Einschränkung der Verarbeitung zu verlangen oder der Verarbeitung zu widersprechen, und du kannst eine Einwilligung jederzeit widerrufen. Wir antworten innerhalb von 30 Tagen. Du hast außerdem das Recht, dich bei einer Datenschutzbehörde zu beschweren - in der Europäischen Union bei der Behörde deines Landes, in Israel bei der Datenschutzbehörde (Privacy Protection Authority).
 
 ## 10. Kinder
 

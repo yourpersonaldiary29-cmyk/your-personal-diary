@@ -29,7 +29,7 @@ En créant un compte ou en utilisant le service, vous acceptez ces conditions et
 
 - Vous devez avoir au moins {{MINIMUM_AGE}} ans pour créer un compte.
 - Si vous êtes mineur là où vous vivez, vous ne pouvez utiliser le service qu'avec l'accord d'un parent ou d'un tuteur, lorsque la loi de votre pays l'exige.
-- Les informations que vous donnez lors de l'inscription (nom, nom d'utilisateur et adresse e-mail) doivent être exactes, et l'adresse e-mail doit être une adresse à laquelle vous pouvez recevoir des messages. Vous pourrez les modifier plus tard dans les Paramètres.
+- Les informations que vous donnez lors de l'inscription (nom, nom d'utilisateur et adresse e-mail) doivent être exactes, et l'adresse e-mail doit être une adresse à laquelle vous pouvez recevoir des messages. Vous pourrez modifier votre nom et votre adresse e-mail plus tard dans les Paramètres.
 - Nous pouvons limiter le nombre de comptes sur le serveur et suspendre les nouvelles inscriptions à tout moment, par exemple pour que le service continue de bien fonctionner.
 
 ## 3. Un compte par personne
@@ -51,7 +51,7 @@ Un compte est personnel : ne le partagez pas avec d'autres personnes et n'utilis
 - Nous conservons et traitons votre contenu uniquement pour vous fournir le service - pour le conserver, l'afficher, y effectuer des recherches et le garder identique sur vos appareils. La Politique de confidentialité explique comment.
 - Nous ne lisons pas votre journal. La section 4 de la Politique de confidentialité explique clairement ce que l'exploitant du serveur pourrait techniquement faire, et ce à quoi nous nous engageons.
 - Vous êtes responsable de ce que vous écrivez. Ne conservez pas de contenu illégal, ni de contenu appartenant à quelqu'un d'autre sans son autorisation.
-- Vous pouvez emporter votre contenu à tout moment : **Paramètres - Sauvegarde** crée une sauvegarde chiffrée, et l'export écrit vos entrées dans un fichier lisible. Ces copies vous appartiennent ; vous pouvez les conserver et les utiliser.
+- Vous pouvez emporter votre contenu à tout moment : la page **Sauvegarde** du menu crée une sauvegarde chiffrée, et l'export, sur la même page, écrit vos entrées dans un fichier lisible. Ces copies vous appartiennent ; vous pouvez les conserver et les utiliser.
 
 ## 6. Usage acceptable
 
@@ -70,7 +70,7 @@ Lorsque vous utilisez le service, vous ne devez pas :
 - Le service est aujourd'hui **gratuit**. Si nous voulons un jour faire payer quelque chose, nous l'annoncerons à l'avance, et rien ne deviendra payant sans votre accord.
 - Les fonctionnalités peuvent évoluer, être ajoutées ou supprimées au fil du temps.
 - Nous nous efforçons de maintenir le service disponible, mais nous ne promettons pas qu'il le sera toujours ni qu'il sera exempt d'erreurs. La maintenance, les mises à jour ou des problèmes chez l'hébergeur peuvent l'interrompre.
-- **Conservez une sauvegarde** de ce qui compte pour vous (Paramètres - Sauvegarde). Nous prenons soin du serveur et de ses sauvegardes, mais nous ne sommes pas responsables d'une perte de contenu au-delà de ce que la loi exige.
+- **Conservez une sauvegarde** de ce qui compte pour vous (la page Sauvegarde du menu). Nous prenons soin du serveur et de ses sauvegardes, mais nous ne sommes pas responsables d'une perte de contenu au-delà de ce que la loi exige.
 - Le fonctionnement sans connexion (les copies sur votre appareil et le mode hors ligne) est une commodité. Il peut ne pas être disponible sur tous les appareils ni à tout moment.
 
 ## 8. Suspension et fermeture d'un compte

@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Czym jest {{BRAND}}?",
-        "a": "Prywatnym dziennikiem. Piszesz o swoim dniu własnymi słowami i, jeśli chcesz, dodajesz nastrój, sen, nawyki i nie tylko. Na przestrzeni tygodni, miesięcy i lat aplikacja wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich. Działa w przeglądarce oraz jako aplikacja na Windows, Androida i Maca, z jednym kontem dla wszystkich."
+        "a": "Prywatnym dziennikiem. Piszesz o swoim dniu własnymi słowami i, jeśli chcesz, dodajesz nastrój, sen, nawyki i nie tylko. Na przestrzeni tygodni, miesięcy i lat aplikacja wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich. Działa w przeglądarce oraz jako aplikacja na Windows, Maca, Androida i iPhone'a, z jednym kontem dla wszystkich."
       },
       {
         "q": "Czy jest bezpłatny?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Czy mogę go wypróbować bez konta?",
-        "a": "W aplikacji na Androida tak. Na pierwszym ekranie wybierz „Pomiń - chcę się tylko rozejrzeć” i poznaj aplikację na przykładowych danych. Nic, co tam napiszesz, nie zostanie zapisane, a wycieczka kończy się sama po 30 minutach. W aplikacjach na Windows i Maca oraz w przeglądarce potrzebujesz konta; jego utworzenie jest bezpłatne."
+        "a": "W aplikacji na Androida tak. Na pierwszym ekranie wybierz „Pomiń - chcę się tylko rozejrzeć” i poznaj aplikację na przykładowych danych. Nic, co tam napiszesz, nie zostanie zapisane, a wycieczka kończy się sama po 30 minutach. W aplikacjach na Windows, Maca i iPhone'a oraz w przeglądarce potrzebujesz konta; jego utworzenie jest bezpłatne."
       },
       {
         "q": "Co może zawierać wpis?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Jak działają nawyki i przypomnienia?",
-        "a": "Ustalasz nawyki codzienne lub cotygodniowe, każdy z własnym celem, i odhaczasz je na bieżąco. Aplikacja pokazuje twoją serię i to, jaką część celu udało ci się wykonać. Przypomnienia należą do nawyków: godzinę dla każdego nawyku ustawiasz na stronie Nawyki, a przypomnienia włączasz w Ustawieniach, w sekcji Przypomnienia. Na telefonie z Androidem, który zezwala aplikacji na powiadomienia, przypomnienie przychodzi nawet wtedy, gdy aplikacja jest zamknięta; na komputerze i w przeglądarce pojawia się, gdy dziennik jest otwarty. Przypomnienia są tworzone na samym urządzeniu; nic nie jest wysyłane na zewnątrz."
+        "a": "Ustalasz nawyki codzienne lub cotygodniowe, każdy z własnym celem, i odhaczasz je na bieżąco. Aplikacja pokazuje twoją serię i to, jaką część celu udało ci się wykonać. Przypomnienia należą do nawyków: godzinę dla każdego nawyku ustawiasz na stronie Nawyki, a przypomnienia włączasz w Ustawieniach, w sekcji Przypomnienia. Na telefonie z Androidem lub na iPhonie, który zezwala aplikacji na powiadomienia, przypomnienie przychodzi nawet wtedy, gdy aplikacja jest zamknięta; na komputerze i w przeglądarce pojawia się, gdy dziennik jest otwarty. Przypomnienia są tworzone na samym urządzeniu; nic nie jest wysyłane na zewnątrz."
       },
       {
         "q": "Czym są spostrzeżenia i jak zobaczyć liczby, które za nimi stoją?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Czy mogę korzystać z niego na kilku urządzeniach?",
-        "a": "Tak. Twój dziennik jest przechowywany na twoim koncie na serwerze {{BRAND}}, więc na każdym urządzeniu logujesz się na to samo konto i wszystko tam jest. To, co zmienisz na jednym urządzeniu, pojawi się na pozostałych, gdy się połączą. W Ustawieniach lista Połączone urządzenia pokazuje urządzenia, na których jest zalogowane twoje konto, i możesz odłączyć dowolne z nich."
+        "a": "Tak. Twój dziennik jest przechowywany na twoim koncie na serwerze {{BRAND}}, więc na każdym urządzeniu logujesz się na to samo konto i wszystko tam jest. To, co zmienisz na jednym urządzeniu, pojawi się na pozostałych, gdy się połączą. W Ustawieniach lista Połączone urządzenia pokazuje urządzenia, na których jest zalogowane twoje konto, i możesz odłączyć dowolne z nich z wyjątkiem tego, którego używasz."
       },
       {
         "q": "Co się stanie, jeśli zmienię ten sam wpis na dwóch urządzeniach?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "Co robi opcja „Zapamiętaj mnie”?",
-        "a": "Utrzymuje sesję na tym urządzeniu przez maksymalnie 90 dni zamiast 12 godzin. W aplikacjach na Windows, Maca i Androida przechowuje też zaszyfrowaną kopię ostatnio oglądanych treści, aby aplikacja mogła się otworzyć i pokazać je bez połączenia. Na ekranach logowania i rejestracji jest domyślnie zaznaczona: na urządzeniu, z którego korzystają też inne osoby, odznacz ją i wyloguj się po skończeniu pracy."
+        "a": "Utrzymuje sesję na tym urządzeniu przez maksymalnie 90 dni zamiast 12 godzin. W aplikacjach na Windows, Maca, Androida i iPhone'a przechowuje też zaszyfrowaną kopię ostatnio oglądanych treści, aby aplikacja mogła się otworzyć i pokazać je bez połączenia. Na ekranach logowania i rejestracji jest domyślnie zaznaczona: na urządzeniu, z którego korzystają też inne osoby, odznacz ją i wyloguj się po skończeniu pracy."
       },
       {
         "q": "Gdzie jest przechowywany mój dziennik?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Jak blokuje się dziennik?",
-        "a": "Blokuje się sam po okresie bezczynności; czas wybierasz w Ustawieniach, w sekcji Bezpieczeństwo, a „Zablokuj teraz” blokuje go od razu. Twoje hasło otwiera go ponownie. W aplikacji na Androida możesz też ustawić blokadę przy każdym wyjściu z aplikacji i otwierać dziennik odciskiem palca lub twarzą. Tam, gdzie aplikacja zamiast hasła oferuje blokadę ekranu urządzenia (Windows Hello, Touch ID lub hasło Maca albo blokadę ekranu Androida), sprawdzenie wykonuje system operacyjny: nic o twoim odcisku palca, twarzy ani PIN-ie nie trafia do aplikacji ani do nas."
+        "a": "Blokuje się sam po okresie bezczynności; czas wybierasz w Ustawieniach, w sekcji Bezpieczeństwo, a „Zablokuj teraz” blokuje go od razu. Twoje hasło otwiera go ponownie. W aplikacjach na Androida i iPhone'a możesz też ustawić blokadę przy każdym wyjściu z aplikacji. Bez połączenia aplikację można również otworzyć blokadą ekranu urządzenia zamiast hasła (Windows Hello, Touch ID lub hasło Maca, Face ID / Touch ID lub kod iPhone'a albo blokada ekranu Androida); sprawdzenie wykonuje system operacyjny: nic o twoim odcisku palca, twarzy ani PIN-ie nie trafia do aplikacji ani do nas."
       },
       {
         "q": "Co zrobić, jeśli zapomnę hasła?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Jak zrobić kopię zapasową dziennika i ją przywrócić?",
-        "a": "Otwórz w menu stronę Kopia zapasowa (w aplikacji na Androida w sekcji Więcej) i utwórz plik kopii zapasowej: zaszyfrowaną kopię całego dziennika (wpisów, nawyków i ustawień), chronioną hasłem, którą przechowujesz, gdzie chcesz. Aby ją przywrócić, wybierz ten plik na tej samej stronie i wpisz jego hasło. Przywrócenie zastępuje obecny dziennik zawartością pliku, więc najpierw utwórz kopię zapasową obecnego dziennika."
+        "a": "Otwórz w menu stronę Kopia zapasowa (w aplikacjach na Androida i iPhone'a w sekcji Więcej) i utwórz plik kopii zapasowej: zaszyfrowaną kopię całego dziennika (wpisów, nawyków i ustawień), chronioną hasłem, którą przechowujesz, gdzie chcesz. Aby ją przywrócić, wybierz ten plik na tej samej stronie i wpisz jego hasło. Przywrócenie zastępuje obecny dziennik zawartością pliku, więc najpierw utwórz kopię zapasową obecnego dziennika."
       },
       {
         "q": "Jak usunąć konto?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Pobieranie",
-    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich oraz w przeglądarce.",
+    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich, w aplikacji na iPhone'a oraz w przeglądarce.",
     "tabsLabel": "System operacyjny",
     "tabs": {
       "windows": "Windows",

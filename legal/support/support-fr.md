@@ -25,7 +25,7 @@ Vérifiez le nom d'utilisateur ou l'adresse e-mail et le mot de passe (attention
 
 ### L'application indique qu'il n'y a pas de connexion
 
-L'application a besoin du serveur pour la connexion, la recherche, les statistiques et les analyses, les sauvegardes et les exports, ainsi que pour les modifications de votre compte. Sans connexion, vous pouvez continuer à écrire : ce que vous écrivez est enregistré sur votre appareil, chiffré, puis envoyé quand la connexion revient, même si l'application a été fermée entre-temps. Si vous avez choisi **Se souvenir de moi**, les applications Windows, Mac, Android et iPhone ouvrent aussi vos entrées récentes, vos habitudes et les données du jour à partir de la copie chiffrée conservée sur l'appareil ; vous les déverrouillez avec votre mot de passe ou avec le verrouillage d'écran de l'appareil (Windows Hello, Touch ID, Face ID ou le verrouillage d'écran du téléphone). Vérifiez la connexion internet de l'appareil, puis choisissez **Réessayer maintenant** dans l'application.
+L'application a besoin du serveur pour la connexion, la recherche, les statistiques et les analyses, les sauvegardes et les exports, ainsi que pour les modifications de votre compte. Sans connexion, vous pouvez continuer à écrire : ce que vous écrivez est enregistré sur votre appareil, chiffré, puis envoyé quand la connexion revient, même si l'application a été fermée entre-temps. Si vous avez choisi **Se souvenir de moi**, les applications Windows, Mac, Android et iPhone ouvrent aussi vos entrées récentes, vos habitudes et les données du jour à partir de la copie chiffrée conservée sur l'appareil ; vous les déverrouillez avec votre mot de passe ou avec le verrouillage d'écran de l'appareil (Windows Hello, Touch ID, Face ID ou le verrouillage d'écran du téléphone). Vérifiez la connexion internet de l'appareil, puis choisissez **Réessayer** ou **Réessayer maintenant** dans l'application.
 
 ### Comment changer de langue ?
 
@@ -33,7 +33,7 @@ Ouvrez les **Paramètres** et, dans la carte **Langue**, choisissez la langue de
 
 ### Comment récupérer mes données ?
 
-Dans **Paramètres - Sauvegarde**, vous pouvez créer une **sauvegarde** : une copie chiffrée de tout le journal (entrées, habitudes et paramètres) dans le format propre à l'application, protégée par un mot de passe, que vous pourrez restaurer plus tard dans l'application. L'**export**, sur la même page, écrit vos entrées dans un fichier lisible (TXT, CSV, JSON ou PDF) pour les lire, les imprimer ou les utiliser dans un autre programme. Un fichier exporté n'est pas chiffré : toute personne qui possède ce fichier peut le lire, alors conservez-le aussi soigneusement que le journal lui-même.
+Sur la page **Sauvegarde** du menu (dans les applications Android et iPhone, sous Plus), vous pouvez créer une **sauvegarde** : une copie chiffrée de tout le journal (entrées, habitudes et paramètres) dans le format propre à l'application, protégée par un mot de passe, que vous pourrez restaurer plus tard dans l'application. L'**export**, sur la même page, écrit vos entrées dans un fichier lisible (TXT, CSV, JSON ou PDF) pour les lire, les imprimer ou les utiliser dans un autre programme. Un fichier exporté n'est pas chiffré : toute personne qui possède ce fichier peut le lire, alors conservez-le aussi soigneusement que le journal lui-même.
 
 ### Comment supprimer mon compte ?
 

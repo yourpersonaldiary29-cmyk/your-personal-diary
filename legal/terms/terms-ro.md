@@ -29,7 +29,7 @@ Creând un cont sau folosind serviciul, ești de acord cu aceste condiții și c
 
 - Trebuie să ai cel puțin {{MINIMUM_AGE}} ani ca să creezi un cont.
 - Dacă ești minor acolo unde locuiești, poți folosi serviciul doar cu acordul unui părinte sau al unui tutore, atunci când legea țării tale o cere.
-- Datele pe care le dai la înregistrare (nume, nume de utilizator și adresă de e-mail) trebuie să fie corecte, iar adresa de e-mail trebuie să fie una la care poți primi mesaje. Le poți schimba mai târziu din Setări.
+- Datele pe care le dai la înregistrare (nume, nume de utilizator și adresă de e-mail) trebuie să fie corecte, iar adresa de e-mail trebuie să fie una la care poți primi mesaje. Îți poți schimba numele și adresa de e-mail mai târziu din Setări.
 - Putem limita numărul de conturi de pe server și putem suspenda oricând înregistrările noi, de exemplu ca serviciul să funcționeze bine în continuare.
 
 ## 3. Un singur cont de persoană
@@ -51,7 +51,7 @@ Un cont este personal: nu-l împărți cu alții și nu folosi contul altei pers
 - Îți păstrăm și prelucrăm conținutul doar ca să-ți furnizăm serviciul - ca să-l păstrăm, să-l afișăm, să căutăm în el și să-l menținem la fel pe dispozitivele tale. Politica de confidențialitate explică cum.
 - Nu îți citim jurnalul. Secțiunea 4 din politica de confidențialitate explică deschis ce ar putea face tehnic operatorul serverului și ce promitem.
 - Ești responsabil pentru ce scrii. Nu păstra conținut ilegal sau conținut care aparține altcuiva fără permisiunea acelei persoane.
-- Îți poți lua conținutul oricând: **Setări - Backup** creează un backup criptat, iar exportul scrie înregistrările tale într-un fișier lizibil. Aceste copii sunt ale tale, ca să le păstrezi și să le folosești.
+- Îți poți lua conținutul oricând: pagina **Backup** din meniu creează un backup criptat, iar exportul de pe aceeași pagină scrie înregistrările tale într-un fișier lizibil. Aceste copii sunt ale tale, ca să le păstrezi și să le folosești.
 
 ## 6. Folosirea acceptabilă
 
@@ -70,7 +70,7 @@ Când folosești serviciul, nu ai voie:
 - Serviciul este **gratuit** în prezent. Dacă vom vrea vreodată să cerem bani pentru ceva, vom spune dinainte, și nimic nu devine contra cost fără acordul tău.
 - Funcțiile se pot schimba, pot fi adăugate sau eliminate în timp.
 - Ne străduim ca serviciul să fie disponibil, dar nu promitem că va fi mereu disponibil sau fără erori. Întreținerea, actualizările sau problemele de găzduire îl pot întrerupe.
-- **Fă un backup** pentru ce contează pentru tine (Setări - Backup). Avem grijă de server și de backupurile lui, dar nu răspundem pentru conținutul pierdut dincolo de ce cere legea.
+- **Fă un backup** pentru ce contează pentru tine (pagina Backup din meniu). Avem grijă de server și de backupurile lui, dar nu răspundem pentru conținutul pierdut dincolo de ce cere legea.
 - Lucrul fără conexiune (copiile de pe dispozitivul tău și modul offline) este o comoditate. Poate să nu fie disponibil pe orice dispozitiv sau în orice moment.
 
 ## 8. Suspendarea și închiderea unui cont

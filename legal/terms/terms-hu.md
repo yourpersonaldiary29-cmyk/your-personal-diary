@@ -29,7 +29,7 @@ Fiók létrehozásával vagy a szolgáltatás használatával elfogadod ezeket a
 
 - Fiók létrehozásához legalább {{MINIMUM_AGE}} évesnek kell lenned.
 - Ha ott, ahol élsz, kiskorúnak számítasz, a szolgáltatást csak szülő vagy gyám hozzájárulásával használhatod, amennyiben országod joga ezt előírja.
-- A regisztrációkor megadott adataidnak (név, felhasználónév és e-mail-cím) pontosnak kell lenniük, és az e-mail-címnek olyannak kell lennie, amelyen üzeneteket tudsz fogadni. Ezeket később a Beállításokban módosíthatod.
+- A regisztrációkor megadott adataidnak (név, felhasználónév és e-mail-cím) pontosnak kell lenniük, és az e-mail-címnek olyannak kell lennie, amelyen üzeneteket tudsz fogadni. A nevedet és az e-mail-címedet később a Beállításokban módosíthatod.
 - Korlátozhatjuk a szerveren lévő fiókok számát, és bármikor szüneteltethetjük az új regisztrációkat, például azért, hogy a szolgáltatás jól működjön.
 
 ## 3. Személyenként egy fiók
@@ -51,7 +51,7 @@ A fiók személyes: ne oszd meg másokkal, és ne használd más személy fiókj
 - A tartalmadat csak azért tároljuk és kezeljük, hogy nyújtsuk neked a szolgáltatást - hogy megőrizzük, megjelenítsük, kereshetővé tegyük, és minden eszközödön ugyanaz legyen. Az adatvédelmi irányelvek elmagyarázzák, hogyan.
 - Nem olvassuk a naplódat. Az adatvédelmi irányelvek 4. pontja érthetően elmagyarázza, mit tehetne technikailag a szerver üzemeltetője, és mit ígérünk.
 - Te felelsz azért, amit írsz. Ne tárolj jogellenes tartalmat, sem olyan tartalmat, amely másé, az engedélye nélkül.
-- A tartalmadat bármikor magaddal viheted: a **Beállítások - Biztonsági mentés** titkosított biztonsági mentést készít, az exportálás pedig olvasható fájlba írja a bejegyzéseidet. Ezek a másolatok a tieid: megtarthatod és használhatod őket.
+- A tartalmadat bármikor magaddal viheted: a menü **Biztonsági mentés** oldala titkosított biztonsági mentést készít, az ugyanezen az oldalon található exportálás pedig olvasható fájlba írja a bejegyzéseidet. Ezek a másolatok a tieid: megtarthatod és használhatod őket.
 
 ## 6. Elfogadható használat
 
@@ -70,7 +70,7 @@ A szolgáltatás használata során tilos:
 - A szolgáltatás jelenleg **ingyenes**. Ha valaha valamiért díjat szeretnénk kérni, ezt előre jelezzük, és semmi sem válik fizetőssé a beleegyezésed nélkül.
 - A funkciók idővel változhatnak, bővülhetnek vagy megszűnhetnek.
 - Arra törekszünk, hogy a szolgáltatás elérhető legyen, de nem ígérjük, hogy mindig elérhető és hibamentes lesz. Karbantartás, frissítések vagy a tárhelyszolgáltatás problémái megszakíthatják.
-- **Készíts biztonsági mentést** arról, ami fontos neked (Beállítások - Biztonsági mentés). Gondoskodunk a szerverről és annak biztonsági mentéseiről, de az elveszett tartalomért csak a jogszabályok által előírt mértékben felelünk.
+- **Készíts biztonsági mentést** arról, ami fontos neked (a menü Biztonsági mentés oldalán). Gondoskodunk a szerverről és annak biztonsági mentéseiről, de az elveszett tartalomért csak a jogszabályok által előírt mértékben felelünk.
 - A kapcsolat nélküli működés (az eszközödön lévő másolatok és az offline mód) kényelmi funkció. Előfordulhat, hogy nem minden eszközön és nem minden pillanatban érhető el.
 
 ## 8. Fiók felfüggesztése és megszüntetése

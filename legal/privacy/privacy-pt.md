@@ -117,7 +117,7 @@ Nenhum sistema pode prometer segurança perfeita. Escolha uma palavra-passe fort
 
 ## 9. Os seus direitos
 
-Pode ver, corrigir, exportar e eliminar os seus dados por si próprio: o seu perfil está nas Definições, cada entrada pode ser editada ou eliminada, **Definições - Cópia de segurança** e a exportação criam uma cópia que pode levar para outro lado, e **Eliminar a conta** remove tudo. Pode também escrever-nos para pedir uma cópia dos seus dados, a sua retificação, o apagamento ou a limitação do tratamento, ou para se opor a ele, e pode retirar um consentimento a qualquer momento. Respondemos no prazo de 30 dias. Tem também o direito de apresentar reclamação a uma autoridade de proteção de dados - na União Europeia, a autoridade do seu país; em Israel, a Autoridade de Proteção da Privacidade.
+Pode ver, corrigir, exportar e eliminar os seus dados por si próprio: o seu perfil está nas Definições, cada entrada pode ser editada ou eliminada, a cópia de segurança e a exportação da página **Cópia de segurança** criam uma cópia que pode levar para outro lado, e **Eliminar a conta** remove tudo. Pode também escrever-nos para pedir uma cópia dos seus dados, a sua retificação, o apagamento ou a limitação do tratamento, ou para se opor a ele, e pode retirar um consentimento a qualquer momento. Respondemos no prazo de 30 dias. Tem também o direito de apresentar reclamação a uma autoridade de proteção de dados - na União Europeia, a autoridade do seu país; em Israel, a Autoridade de Proteção da Privacidade.
 
 ## 10. Crianças
 

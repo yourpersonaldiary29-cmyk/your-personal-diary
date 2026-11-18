@@ -26,6 +26,7 @@ import {
   pagePath,
   PLACEHOLDERS,
   readSettings,
+  ROOT,
   readSiteUrl,
   renderPage,
   settingsProblems,
@@ -166,6 +167,46 @@ test('real tree: the support page shows the operator and the contact e-mail befo
   // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
   assert.ok(!english.includes('when it is published'), 'the iPhone app is named without a qualifier');
   assert.ok(english.includes('<strong>iPhone</strong>, and on the website'), 'the iPhone app is in the list of devices');
+  // Backup is a page of the menu (on the phones under More), not a card of Settings (2026-11-19).
+  assert.ok(english.includes('On the <strong>Backup</strong> page in the menu (in the Android and iPhone apps, under More)'), 'support: where Backup is');
+  assert.ok(!english.includes('Settings - Backup'), 'support: no Backup card in Settings');
+  // "No connection": the page, the banner and the notices say Try again; Try now is only the offline status bar's.
+  assert.ok(english.includes('then choose <strong>Try again</strong> or <strong>Try now</strong> in the app.'), 'support: both retry buttons');
+});
+
+// The menu names of Backup and Settings in one language, read from the app's own catalogues.
+function menuLabel(code, key) {
+  const text = readFileSync(path.join(ROOT, 'shared', 'i18n', 'messages', code, 'shell.ts'), 'utf8');
+  const m = text.match(new RegExp(`'${key.replace(/\./g, '\\.')}':\\s*'((?:[^'\\\\]|\\\\.)*)'`));
+  assert.ok(m, `${code}: ${key} in shell.ts`);
+  return m[1].replace(/\\'/g, "'");
+}
+
+test('real tree: no document in any language sends the reader to a Backup card of Settings', () => {
+  // Backup (with the export) is a page of the app's menu - on the Android and iPhone apps under More - and Settings has
+  // no Backup card; until 2026-11-19 the terms, the policy and the support page said "Settings - Backup".
+  for (const l of LOCALES) {
+    const pair = `${menuLabel(l.code, 'shell.nav.settings')} - ${menuLabel(l.code, 'shell.nav.backup')}`.toLowerCase();
+    for (const page of PAGES) {
+      const source = readFileSync(sourceFile(ROOT, page, l.code), 'utf8').toLowerCase();
+      assert.ok(!source.includes(pair), `${page.id}/${l.code}: "${pair}"`);
+    }
+  }
+});
+
+test('real tree: the deletion page names the iPhone app with the others, in every language', () => {
+  const files = buildAll({ settings: FILLED });
+  const english = files.get('delete-account/index.html');
+  assert.ok(english.includes('apps for Windows, Mac, Android and iPhone and for the website'), 'the apps the page is for');
+  assert.ok(english.includes('app on Windows, Mac, Android or iPhone, or go to'), 'step 1');
+  for (const l of LOCALES) {
+    const html = files.get(`delete-account/${l.code}/index.html`);
+    const intro = html.slice(html.indexOf('</h1>'), html.indexOf('<ol>'));
+    // "iPhon": Czech and Polish inflect the name (iPhonu, iPhonie).
+    assert.ok(/iPhon/.test(intro), `delete-account/${l.code}: the intro names the iPhone app`);
+    const step1 = html.slice(html.indexOf('<ol>'), html.indexOf('</li>', html.indexOf('<ol>')));
+    assert.ok(/iPhon/.test(step1), `delete-account/${l.code}: step 1 names the iPhone app`);
+  }
 });
 
 test('real tree: the English policy names the five ways in and the four key stores', () => {
@@ -176,6 +217,7 @@ test('real tree: the English policy names the five ways in and the four key stor
   // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
   assert.ok(!html.includes('when it is published'), 'no qualifier for the iPhone app');
   assert.ok(html.includes('the Mac app, the iPhone app and the website'), 'the iPhone app in the list the policy applies to');
+  assert.ok(html.includes('the backup and the export on the <strong>Backup</strong> page create a copy'), 'your rights: where Backup is');
 });
 
 test('settings: termsEffectiveDate is required and must be a date', () => {
@@ -202,6 +244,11 @@ test('real tree: the Terms of Use - fifteen numbered sections, the one-account r
   // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
   assert.ok(!english.includes('when it is published'), 'no qualifier for the iPhone app');
   assert.ok(english.includes('the Android app, the iPhone app and the website'), 'the iPhone app in the list the terms apply to');
+  assert.ok(english.includes('the <strong>Backup</strong> page in the menu creates an encrypted backup'), 'your content: where Backup is');
+  assert.ok(english.includes('(the Backup page in the menu)'), 'keep a backup: where Backup is');
+  // The user name can never be changed; the name and the e-mail address can (Settings - Account - Edit details).
+  assert.ok(english.includes('You can change your name and e-mail address later in Settings.'), 'registration details: what can change');
+  assert.ok(!english.includes('You can change them later in Settings'), 'registration details: not the user name');
   for (const l of LOCALES) {
     const html = files.get(`terms/${l.code}/index.html`);
     const sections = (html.match(/<h2>\d+\. /g) ?? []).length;

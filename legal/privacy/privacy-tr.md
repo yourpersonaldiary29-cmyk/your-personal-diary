@@ -117,7 +117,7 @@ Hiçbir sistem kusursuz güvenlik vaat edemez. Başka hiçbir yerde kullanmadı�
 
 ## 9. Haklarınız
 
-Verilerinizi kendiniz görebilir, düzeltebilir, dışa aktarabilir ve silebilirsiniz: profiliniz Ayarlar'dadır, her kayıt düzenlenebilir veya silinebilir, **Ayarlar - Yedekleme** ve dışa aktarma başka bir yere götürebileceğiniz bir kopya oluşturur ve **Hesabı sil** her şeyi kaldırır. Ayrıca verilerinizin bir kopyasını, düzeltilmesini, silinmesini veya işlenmesinin kısıtlanmasını istemek ya da işlemeye itiraz etmek için bize yazabilir ve verdiğiniz bir rızayı istediğiniz zaman geri alabilirsiniz. 30 gün içinde yanıt veririz. Bir veri koruma otoritesine şikâyette bulunma hakkınız da vardır - Avrupa Birliği'nde ülkenizin otoritesine, İsrail'de Gizliliği Koruma Otoritesi'ne.
+Verilerinizi kendiniz görebilir, düzeltebilir, dışa aktarabilir ve silebilirsiniz: profiliniz Ayarlar'dadır, her kayıt düzenlenebilir veya silinebilir, **Yedekleme** sayfasındaki yedekleme ve dışa aktarma başka bir yere götürebileceğiniz bir kopya oluşturur ve **Hesabı sil** her şeyi kaldırır. Ayrıca verilerinizin bir kopyasını, düzeltilmesini, silinmesini veya işlenmesinin kısıtlanmasını istemek ya da işlemeye itiraz etmek için bize yazabilir ve verdiğiniz bir rızayı istediğiniz zaman geri alabilirsiniz. 30 gün içinde yanıt veririz. Bir veri koruma otoritesine şikâyette bulunma hakkınız da vardır - Avrupa Birliği'nde ülkenizin otoritesine, İsrail'de Gizliliği Koruma Otoritesi'ne.
 
 ## 10. Çocuklar
 

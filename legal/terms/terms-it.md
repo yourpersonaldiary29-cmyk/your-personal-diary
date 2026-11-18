@@ -29,7 +29,7 @@ Creando un account o usando il servizio, accetti queste condizioni e l'informati
 
 - Per creare un account devi avere almeno {{MINIMUM_AGE}} anni.
 - Se nel luogo in cui vivi sei minorenne, puoi usare il servizio solo con il consenso di un genitore o di un tutore, quando la legge del tuo paese lo richiede.
-- I dati che fornisci al momento della registrazione (nome, nome utente e indirizzo e-mail) devono essere corretti, e l'indirizzo e-mail deve essere uno a cui puoi ricevere messaggi. Puoi modificarli in seguito nelle Impostazioni.
+- I dati che fornisci al momento della registrazione (nome, nome utente e indirizzo e-mail) devono essere corretti, e l'indirizzo e-mail deve essere uno a cui puoi ricevere messaggi. Puoi modificare il nome e l'indirizzo e-mail in seguito nelle Impostazioni.
 - Possiamo limitare il numero di account sul server e sospendere in qualsiasi momento le nuove registrazioni, per esempio per mantenere il servizio efficiente.
 
 ## 3. Un solo account per persona
@@ -51,7 +51,7 @@ Un account è personale: non condividerlo con altri e non usare l'account di un'
 - Conserviamo e trattiamo i tuoi contenuti solo per fornirti il servizio - per conservarli, mostrarli, cercarli e mantenerli uguali sui tuoi dispositivi. L'informativa sulla privacy spiega come.
 - Non leggiamo il tuo diario. La sezione 4 dell'informativa sulla privacy spiega chiaramente cosa potrebbe fare tecnicamente chi gestisce il server e cosa promettiamo.
 - Sei responsabile di ciò che scrivi. Non conservare contenuti illeciti, né contenuti che appartengono a qualcun altro senza il suo permesso.
-- Puoi portare con te i tuoi contenuti in qualsiasi momento: **Impostazioni - Backup** crea un backup cifrato, e l'esportazione scrive le tue voci in un file leggibile. Queste copie sono tue, da conservare e usare.
+- Puoi portare con te i tuoi contenuti in qualsiasi momento: la pagina **Backup** del menu crea un backup cifrato, e l'esportazione nella stessa pagina scrive le tue voci in un file leggibile. Queste copie sono tue, da conservare e usare.
 
 ## 6. Uso consentito
 
@@ -70,7 +70,7 @@ Quando usi il servizio, non devi:
 - Il servizio oggi è **gratuito**. Se un giorno volessimo far pagare qualcosa, lo diremo in anticipo, e nulla diventerà a pagamento senza il tuo consenso.
 - Le funzioni possono cambiare, essere aggiunte o rimosse nel tempo.
 - Ci impegniamo a mantenere il servizio disponibile, ma non promettiamo che sarà sempre disponibile o privo di errori. Manutenzione, aggiornamenti o problemi dell'hosting possono interromperlo.
-- **Fai un backup** di ciò che è importante per te (Impostazioni - Backup). Ci prendiamo cura del server e dei suoi backup, ma non siamo responsabili per contenuti persi oltre quanto richiesto dalla legge.
+- **Fai un backup** di ciò che è importante per te (la pagina Backup del menu). Ci prendiamo cura del server e dei suoi backup, ma non siamo responsabili per contenuti persi oltre quanto richiesto dalla legge.
 - Lavorare senza connessione (le copie sul tuo dispositivo e la modalità offline) è una comodità. Potrebbe non essere disponibile su ogni dispositivo o in ogni momento.
 
 ## 8. Sospensione e chiusura di un account

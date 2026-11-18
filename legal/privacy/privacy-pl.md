@@ -117,7 +117,7 @@ Nie sprzedajemy, nie wynajmujemy ani nie udostępniamy Twoich danych osobowych n
 
 ## 9. Twoje prawa
 
-Możesz samodzielnie przeglądać, poprawiać, eksportować i usuwać swoje dane: Twój profil jest w Ustawieniach, każdy wpis można edytować lub usunąć, **Ustawienia - Kopia zapasowa** i eksport tworzą kopię, którą możesz zabrać gdzie indziej, a **Usuwanie konta** usuwa wszystko. Możesz też napisać do nas, aby poprosić o kopię swoich danych, ich sprostowanie, usunięcie lub ograniczenie przetwarzania albo aby wnieść sprzeciw, a zgodę możesz wycofać w każdej chwili. Odpowiadamy w ciągu 30 dni. Masz też prawo złożyć skargę do organu ochrony danych - w Unii Europejskiej do organu w Twoim kraju, w Izraelu do Urzędu Ochrony Prywatności.
+Możesz samodzielnie przeglądać, poprawiać, eksportować i usuwać swoje dane: Twój profil jest w Ustawieniach, każdy wpis można edytować lub usunąć, kopia zapasowa i eksport na stronie **Kopia zapasowa** tworzą kopię, którą możesz zabrać gdzie indziej, a **Usuwanie konta** usuwa wszystko. Możesz też napisać do nas, aby poprosić o kopię swoich danych, ich sprostowanie, usunięcie lub ograniczenie przetwarzania albo aby wnieść sprzeciw, a zgodę możesz wycofać w każdej chwili. Odpowiadamy w ciągu 30 dni. Masz też prawo złożyć skargę do organu ochrony danych - w Unii Europejskiej do organu w Twoim kraju, w Izraelu do Urzędu Ochrony Prywatności.
 
 ## 10. Dzieci
 

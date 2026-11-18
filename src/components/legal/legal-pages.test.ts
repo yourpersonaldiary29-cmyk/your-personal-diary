@@ -277,17 +277,22 @@ describe('the rendered pages', () => {
     }
     const english = all.get('support/index.html') as string;
     expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
-    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', '<strong>Settings - Backup</strong>', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
+    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', 'On the <strong>Backup</strong> page in the menu (in the Android and iPhone apps, under More)', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
       expect(english, needle).toContain(needle);
     }
     // The iPhone app is named like the others: no "when it is published" (the owner's wording of 2026-11-18).
     expect(english).not.toContain('when it is published');
     expect(english).toContain('<strong>iPhone</strong>, and on the website');
+    // Backup is a page of the menu (on the phones under More), not a card of Settings (2026-11-19).
+    expect(english).not.toContain('Settings - Backup');
   });
 
   it('the deletion page names the app and the publisher, the steps, the e-mail route and the 30-day snapshot window', () => {
     const html = files().get('delete-account/index.html') as string;
     expect(html).toMatch(/<h1>[^<]*Your Personal Diary/);
+    // The iPhone app is named like the others in "all places" (the owner's wording of 2026-11-18).
+    expect(html).toContain('apps for Windows, Mac, Android and iPhone and for the website');
+    expect(html).toContain('app on Windows, Mac, Android or iPhone, or go to');
     expect(html).toContain('Example &amp; Sons Publishing');
     expect(html).toContain('<strong>Settings</strong>');
     expect(html).toContain('<strong>Delete account</strong>');

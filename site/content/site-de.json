@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Was ist {{BRAND}}?",
-        "a": "Ein privates Tagebuch. Du schreibst in deinen eigenen Worten über deinen Tag und ergänzt, wenn du möchtest, Stimmung, Schlaf, Gewohnheiten und mehr. Über Wochen, Monate und Jahre macht dich die App auf Muster in deinen eigenen Einträgen aufmerksam und zeigt zu jedem Muster die Zahlen dahinter. Es läuft im Browser und als App für Windows, Android und Mac, mit einem Konto für alle."
+        "a": "Ein privates Tagebuch. Du schreibst in deinen eigenen Worten über deinen Tag und ergänzt, wenn du möchtest, Stimmung, Schlaf, Gewohnheiten und mehr. Über Wochen, Monate und Jahre macht dich die App auf Muster in deinen eigenen Einträgen aufmerksam und zeigt zu jedem Muster die Zahlen dahinter. Es läuft im Browser und als App für Windows, Mac, Android und iPhone, mit einem Konto für alle."
       },
       {
         "q": "Ist es kostenlos?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Kann ich es ohne Konto ausprobieren?",
-        "a": "In der Android-App ja. Wähle auf dem ersten Bildschirm „Überspringen - nur umsehen“ und sieh dir die App mit Beispieldaten an. Nichts, was du dort schreibst, wird gespeichert, und der Rundgang endet nach 30 Minuten von selbst. In der Windows- und der Mac-App und im Browser brauchst du ein Konto; es zu erstellen ist kostenlos."
+        "a": "In der Android-App ja. Wähle auf dem ersten Bildschirm „Überspringen - nur umsehen“ und sieh dir die App mit Beispieldaten an. Nichts, was du dort schreibst, wird gespeichert, und der Rundgang endet nach 30 Minuten von selbst. In der Windows-, der Mac- und der iPhone-App und im Browser brauchst du ein Konto; es zu erstellen ist kostenlos."
       },
       {
         "q": "Was kann ein Tagebucheintrag enthalten?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Wie funktionieren Gewohnheiten und Erinnerungen?",
-        "a": "Du legst tägliche oder wöchentliche Gewohnheiten an, jede mit einem Ziel, und hakst sie nach und nach ab. Die App zeigt deine Serie und wie viel vom Ziel du geschafft hast. Erinnerungen gehören zu Gewohnheiten: Die Uhrzeit legst du für jede Gewohnheit auf der Seite „Gewohnheiten“ fest, und in den Einstellungen unter „Erinnerungen“ schaltest du die Erinnerungen ein. Auf einem Android-Smartphone, das Benachrichtigungen für die App erlaubt, kommt eine Erinnerung auch dann an, wenn die App geschlossen ist; am Computer und im Browser erscheint sie, solange das Tagebuch geöffnet ist. Erinnerungen entstehen auf dem Gerät selbst; es wird nichts nach außen gesendet."
+        "a": "Du legst tägliche oder wöchentliche Gewohnheiten an, jede mit einem Ziel, und hakst sie nach und nach ab. Die App zeigt deine Serie und wie viel vom Ziel du geschafft hast. Erinnerungen gehören zu Gewohnheiten: Die Uhrzeit legst du für jede Gewohnheit auf der Seite „Gewohnheiten“ fest, und in den Einstellungen unter „Erinnerungen“ schaltest du die Erinnerungen ein. Auf einem Android-Smartphone oder einem iPhone, das Benachrichtigungen für die App erlaubt, kommt eine Erinnerung auch dann an, wenn die App geschlossen ist; am Computer und im Browser erscheint sie, solange das Tagebuch geöffnet ist. Erinnerungen entstehen auf dem Gerät selbst; es wird nichts nach außen gesendet."
       },
       {
         "q": "Was sind Erkenntnisse, und wie sehe ich die Zahlen dahinter?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Kann ich es auf mehreren Geräten nutzen?",
-        "a": "Ja. Dein Tagebuch liegt in deinem Konto auf dem Server von {{BRAND}}. Du meldest dich also auf jedem Gerät mit demselben Konto an, und alles ist da. Was du auf einem Gerät änderst, erscheint auf den anderen, sobald sie sich verbinden. In den Einstellungen zeigt „Verbundene Geräte“ die angemeldeten Geräte, und du kannst jedes davon trennen."
+        "a": "Ja. Dein Tagebuch liegt in deinem Konto auf dem Server von {{BRAND}}. Du meldest dich also auf jedem Gerät mit demselben Konto an, und alles ist da. Was du auf einem Gerät änderst, erscheint auf den anderen, sobald sie sich verbinden. In den Einstellungen zeigt „Verbundene Geräte“ die angemeldeten Geräte, und du kannst jedes davon trennen, außer dem, das du gerade nutzt."
       },
       {
         "q": "Was passiert, wenn ich denselben Eintrag auf zwei Geräten ändere?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "Was bewirkt „Angemeldet bleiben“?",
-        "a": "Du bleibst auf diesem Gerät bis zu 90 Tage angemeldet statt 12 Stunden. In der Windows-, der Mac- und der Android-App wird außerdem eine verschlüsselte Kopie dessen aufbewahrt, was du dir zuletzt angesehen hast, damit die App sich ohne Verbindung öffnen und es anzeigen kann. Auf den Bildschirmen zum Anmelden und Registrieren ist das Häkchen zunächst gesetzt: Entferne es auf einem Gerät, das auch andere benutzen, und melde dich ab, wenn du fertig bist."
+        "a": "Du bleibst auf diesem Gerät bis zu 90 Tage angemeldet statt 12 Stunden. In der Windows-, der Mac-, der Android- und der iPhone-App wird außerdem eine verschlüsselte Kopie dessen aufbewahrt, was du dir zuletzt angesehen hast, damit die App sich ohne Verbindung öffnen und es anzeigen kann. Auf den Bildschirmen zum Anmelden und Registrieren ist das Häkchen zunächst gesetzt: Entferne es auf einem Gerät, das auch andere benutzen, und melde dich ab, wenn du fertig bist."
       },
       {
         "q": "Wo liegt mein Tagebuch?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Wie wird das Tagebuch gesperrt?",
-        "a": "Es sperrt sich nach einer Zeit ohne Aktivität selbst; die Dauer wählst du in den Einstellungen unter „Sicherheit“, und „Jetzt sperren“ sperrt es sofort. Mit deinem Passwort öffnest du es wieder. In der Android-App kannst du es außerdem jedes Mal sperren lassen, wenn du die App verlässt, und es mit Fingerabdruck oder Gesicht entsperren. Wo eine App statt des Passworts die Bildschirmsperre deines Geräts anbietet (Windows Hello, Touch ID oder das Mac-Passwort oder die Bildschirmsperre unter Android), erfolgt die Prüfung durch das Betriebssystem: Nichts über deinen Fingerabdruck, dein Gesicht oder deine PIN erreicht die App oder uns."
+        "a": "Es sperrt sich nach einer Zeit ohne Aktivität selbst; die Dauer wählst du in den Einstellungen unter „Sicherheit“, und „Jetzt sperren“ sperrt es sofort. Mit deinem Passwort öffnest du es wieder. In der Android- und der iPhone-App kannst du es außerdem jedes Mal sperren lassen, wenn du die App verlässt. Ohne Verbindung lässt sich eine App statt mit dem Passwort auch mit der Bildschirmsperre deines Geräts öffnen (Windows Hello, Touch ID oder das Mac-Passwort, Face ID / Touch ID oder der iPhone-Code oder die Bildschirmsperre unter Android); die Prüfung erfolgt durch das Betriebssystem: Nichts über deinen Fingerabdruck, dein Gesicht oder deine PIN erreicht die App oder uns."
       },
       {
         "q": "Was ist, wenn ich mein Passwort vergesse?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Wie sichere ich mein Tagebuch und stelle es wieder her?",
-        "a": "Öffne im Menü „Backup“ (in der Android-App unter „Mehr“) und erstelle eine Backup-Datei: eine verschlüsselte Kopie des gesamten Tagebuchs (Einträge, Gewohnheiten und Einstellungen), geschützt durch ein Passwort, die du aufbewahrst, wo du willst. Zum Wiederherstellen wählst du diese Datei auf derselben Seite aus und gibst ihr Passwort ein. Beim Wiederherstellen wird das aktuelle Tagebuch durch den Inhalt der Datei ersetzt; erstelle deshalb vorher ein Backup des aktuellen Tagebuchs."
+        "a": "Öffne im Menü „Backup“ (in der Android- und der iPhone-App unter „Mehr“) und erstelle eine Backup-Datei: eine verschlüsselte Kopie des gesamten Tagebuchs (Einträge, Gewohnheiten und Einstellungen), geschützt durch ein Passwort, die du aufbewahrst, wo du willst. Zum Wiederherstellen wählst du diese Datei auf derselben Seite aus und gibst ihr Passwort ein. Beim Wiederherstellen wird das aktuelle Tagebuch durch den Inhalt der Datei ersetzt; erstelle deshalb vorher ein Backup des aktuellen Tagebuchs."
       },
       {
         "q": "Wie lösche ich mein Konto?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Downloads",
-    "lead": "Installationsdateien von {{BRAND}} für Windows, Android und Mac. Ein Konto funktioniert in allen Apps und im Browser.",
+    "lead": "Installationsdateien von {{BRAND}} für Windows, Android und Mac. Ein Konto funktioniert in allen Apps, auch in der iPhone-App, und im Browser.",
     "tabsLabel": "Betriebssystem",
     "tabs": {
       "windows": "Windows",

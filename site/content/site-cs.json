@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Co je {{BRAND}}?",
-        "a": "Soukromý deník. Píšeš o svém dni vlastními slovy a jestli chceš, přidáš náladu, spánek, návyky a další. V průběhu týdnů, měsíců a let aplikace upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí. Funguje v prohlížeči a jako aplikace pro Windows, Android a Mac, s jedním účtem pro všechny."
+        "a": "Soukromý deník. Píšeš o svém dni vlastními slovy a jestli chceš, přidáš náladu, spánek, návyky a další. V průběhu týdnů, měsíců a let aplikace upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí. Funguje v prohlížeči a jako aplikace pro Windows, Mac, Android a iPhone, s jedním účtem pro všechny."
       },
       {
         "q": "Je zdarma?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Můžu si aplikaci vyzkoušet bez účtu?",
-        "a": "V aplikaci pro Android ano. Na první obrazovce zvol „Přeskočit - chci se jen porozhlédnout“ a prozkoumej aplikaci s ukázkovými daty. Nic, co tam napíšeš, se neuloží, a prohlídka po 30 minutách sama skončí. V aplikacích pro Windows a Mac a v prohlížeči potřebuješ účet; jeho vytvoření je zdarma."
+        "a": "V aplikaci pro Android ano. Na první obrazovce zvol „Přeskočit - chci se jen porozhlédnout“ a prozkoumej aplikaci s ukázkovými daty. Nic, co tam napíšeš, se neuloží, a prohlídka po 30 minutách sama skončí. V aplikacích pro Windows, Mac a iPhone a v prohlížeči potřebuješ účet; jeho vytvoření je zdarma."
       },
       {
         "q": "Co může záznam obsahovat?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Jak fungují návyky a připomínky?",
-        "a": "Nastavíš si denní nebo týdenní návyky, každý s vlastním cílem, a průběžně je odškrtáváš. Aplikace ukazuje tvou sérii a to, jakou část cíle jsi splnil. Připomínky patří k návykům: čas pro každý návyk nastavíš na stránce Návyky a připomínky zapneš v Nastavení, v části Připomínky. V telefonu s Androidem, který aplikaci povoluje oznámení, připomínka přijde, i když je aplikace zavřená; v počítači a v prohlížeči se zobrazí, dokud je deník otevřený. Připomínky se vytvářejí přímo v zařízení; nic se neodesílá ven."
+        "a": "Nastavíš si denní nebo týdenní návyky, každý s vlastním cílem, a průběžně je odškrtáváš. Aplikace ukazuje tvou sérii a to, jakou část cíle jsi splnil. Připomínky patří k návykům: čas pro každý návyk nastavíš na stránce Návyky a připomínky zapneš v Nastavení, v části Připomínky. V telefonu s Androidem nebo v iPhonu, který aplikaci povoluje oznámení, připomínka přijde, i když je aplikace zavřená; v počítači a v prohlížeči se zobrazí, dokud je deník otevřený. Připomínky se vytvářejí přímo v zařízení; nic se neodesílá ven."
       },
       {
         "q": "Co jsou postřehy a jak zjistím, jaká čísla za nimi stojí?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Můžu aplikaci používat na více zařízeních?",
-        "a": "Ano. Tvůj deník je uložený ve tvém účtu na serveru {{BRAND}}, takže se na každém zařízení přihlásíš stejným účtem a všechno tam najdeš. Co změníš na jednom zařízení, objeví se na ostatních, jakmile se připojí. V Nastavení najdeš v části Připojená zařízení seznam zařízení, na kterých jsi přihlášený, a kterékoli z nich můžeš odpojit."
+        "a": "Ano. Tvůj deník je uložený ve tvém účtu na serveru {{BRAND}}, takže se na každém zařízení přihlásíš stejným účtem a všechno tam najdeš. Co změníš na jednom zařízení, objeví se na ostatních, jakmile se připojí. V Nastavení najdeš v části Připojená zařízení seznam zařízení, na kterých jsi přihlášený, a kterékoli z nich můžeš odpojit, kromě toho, které právě používáš."
       },
       {
         "q": "Co se stane, když stejný záznam změním na dvou zařízeních?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "Co dělá „Zapamatovat si mě“?",
-        "a": "Udrží tě přihlášeného na daném zařízení až 90 dní místo 12 hodin. V aplikacích pro Windows, Mac a Android navíc uchovává zašifrovanou kopii toho, co sis nedávno prohlížel, aby se aplikace mohla otevřít a zobrazit to bez připojení. Na obrazovkách přihlášení a registrace je ve výchozím stavu zaškrtnuté: na zařízení, které používají i jiní lidé, zaškrtnutí zruš a po skončení se odhlas."
+        "a": "Udrží tě přihlášeného na daném zařízení až 90 dní místo 12 hodin. V aplikacích pro Windows, Mac, Android a iPhone navíc uchovává zašifrovanou kopii toho, co sis nedávno prohlížel, aby se aplikace mohla otevřít a zobrazit to bez připojení. Na obrazovkách přihlášení a registrace je ve výchozím stavu zaškrtnuté: na zařízení, které používají i jiní lidé, zaškrtnutí zruš a po skončení se odhlas."
       },
       {
         "q": "Kde je můj deník uložený?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Jak se deník zamyká?",
-        "a": "Zamkne se sám po určité době nečinnosti; dobu zvolíš v Nastavení, v části Zabezpečení, a „Zamknout hned“ ho zamkne okamžitě. Heslo ho znovu otevře. V aplikaci pro Android ho můžeš nechat zamykat i pokaždé, když aplikaci opustíš, a otevírat ho otiskem prstu nebo obličejem. Tam, kde aplikace místo hesla nabízí zámek obrazovky tvého zařízení (Windows Hello, Touch ID nebo heslo Macu, případně zámek obrazovky Androidu), provádí ověření operační systém: nic o tvém otisku prstu, obličeji ani PINu se nedostane k aplikaci ani k nám."
+        "a": "Zamkne se sám po určité době nečinnosti; dobu zvolíš v Nastavení, v části Zabezpečení, a „Zamknout hned“ ho zamkne okamžitě. Heslo ho znovu otevře. V aplikacích pro Android a iPhone ho můžeš nechat zamykat i pokaždé, když aplikaci opustíš. Bez připojení lze aplikaci místo hesla otevřít i zámkem obrazovky tvého zařízení (Windows Hello, Touch ID nebo heslo Macu, Face ID / Touch ID nebo kód iPhonu, případně zámek obrazovky Androidu); ověření provádí operační systém: nic o tvém otisku prstu, obličeji ani PINu se nedostane k aplikaci ani k nám."
       },
       {
         "q": "Co když zapomenu heslo?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Jak deník zálohovat a obnovit?",
-        "a": "V nabídce otevři Záloha (v aplikaci pro Android v části Více) a vytvoř záložní soubor: zašifrovanou kopii celého deníku (záznamů, návyků a nastavení) chráněnou heslem, kterou si uložíš, kam chceš. Při obnovení zvol tento soubor na stejné stránce a zadej jeho heslo. Obnovení nahradí současný deník obsahem souboru, proto si nejdřív vytvoř zálohu současného deníku."
+        "a": "V nabídce otevři Záloha (v aplikacích pro Android a iPhone v části Více) a vytvoř záložní soubor: zašifrovanou kopii celého deníku (záznamů, návyků a nastavení) chráněnou heslem, kterou si uložíš, kam chceš. Při obnovení zvol tento soubor na stejné stránce a zadej jeho heslo. Obnovení nahradí současný deník obsahem souboru, proto si nejdřív vytvoř zálohu současného deníku."
       },
       {
         "q": "Jak smažu svůj účet?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Ke stažení",
-    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich i v prohlížeči.",
+    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich, v aplikaci pro iPhone i v prohlížeči.",
     "tabsLabel": "Operační systém",
     "tabs": {
       "windows": "Windows",

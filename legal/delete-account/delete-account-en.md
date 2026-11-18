@@ -7,11 +7,11 @@ otherPage: Privacy Policy
 
 # Your Personal Diary - delete your account
 
-This page is for the **Your Personal Diary** apps for Windows, Mac and Android and the website [{{SITE_URL}}]({{SITE_URL}}), published by {{PUBLISHER_NAME}}. One account works in all of them, so deleting it once deletes it everywhere. You do not need to install the app to delete your account.
+This page is for the **Your Personal Diary** apps for Windows, Mac, Android and iPhone and for the website [{{SITE_URL}}]({{SITE_URL}}), published by {{PUBLISHER_NAME}}. One account works in all of them, so deleting it once deletes it everywhere. You do not need to install the app to delete your account.
 
 ## Delete it yourself (immediate)
 
-1. Open the Your Personal Diary app on Windows, Mac or Android, or go to [{{SITE_URL}}]({{SITE_URL}}) in any web browser.
+1. Open the Your Personal Diary app on Windows, Mac, Android or iPhone, or go to [{{SITE_URL}}]({{SITE_URL}}) in any web browser.
 2. Sign in with your user name or e-mail address and your password.
 3. Open **Settings** and go to the last card, **Delete account**.
 4. Enter your password, tick that you understand it cannot be undone, and confirm.

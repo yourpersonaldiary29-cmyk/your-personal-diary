@@ -25,7 +25,7 @@ Sprawdź nazwę użytkownika lub adres e-mail oraz hasło (zwróć uwagę na ję
 
 ### Aplikacja pokazuje, że nie ma połączenia
 
-Aplikacja potrzebuje serwera do logowania, wyszukiwania, statystyk i spostrzeżeń, kopii zapasowych i eksportu oraz do zmian w Twoim koncie. Bez połączenia nadal możesz pisać: to, co piszesz, jest zapisywane na urządzeniu w postaci zaszyfrowanej i wysyłane, gdy połączenie wróci, nawet jeśli w międzyczasie aplikacja została zamknięta. Jeśli wybrałeś **Zapamiętaj mnie**, aplikacje na Windows, Maca, Androida i iPhone'a otwierają też ostatnie wpisy, nawyki i dzisiejsze dane z zaszyfrowanej kopii na urządzeniu; odblokowujesz je hasłem lub blokadą ekranu urządzenia (Windows Hello, Touch ID, Face ID lub blokada ekranu telefonu). Sprawdź połączenie urządzenia z internetem, a następnie wybierz w aplikacji **Spróbuj teraz**.
+Aplikacja potrzebuje serwera do logowania, wyszukiwania, statystyk i spostrzeżeń, kopii zapasowych i eksportu oraz do zmian w Twoim koncie. Bez połączenia nadal możesz pisać: to, co piszesz, jest zapisywane na urządzeniu w postaci zaszyfrowanej i wysyłane, gdy połączenie wróci, nawet jeśli w międzyczasie aplikacja została zamknięta. Jeśli wybrałeś **Zapamiętaj mnie**, aplikacje na Windows, Maca, Androida i iPhone'a otwierają też ostatnie wpisy, nawyki i dzisiejsze dane z zaszyfrowanej kopii na urządzeniu; odblokowujesz je hasłem lub blokadą ekranu urządzenia (Windows Hello, Touch ID, Face ID lub blokada ekranu telefonu). Sprawdź połączenie urządzenia z internetem, a następnie wybierz w aplikacji **Spróbuj ponownie** lub **Spróbuj teraz**.
 
 ### Jak zmienić język?
 
@@ -33,7 +33,7 @@ Otwórz **Ustawienia** i na karcie **Język** wybierz z listy język interfejsu;
 
 ### Jak zabrać swoje dane?
 
-W **Ustawienia - Kopia zapasowa** możesz utworzyć **kopię zapasową**: zaszyfrowaną kopię całego dziennika (wpisy, nawyki i ustawienia) we własnym formacie aplikacji, chronioną hasłem, którą możesz później przywrócić w aplikacji. **Eksport** na tej samej stronie zapisuje Twoje wpisy jako czytelny plik (TXT, CSV, JSON lub PDF) do czytania, drukowania lub użycia w innym programie. Plik eksportu nie jest zaszyfrowany: każdy, kto ma ten plik, może go przeczytać, więc przechowuj go równie starannie jak sam dziennik.
+Na stronie **Kopia zapasowa** w menu (w aplikacjach na Androida i iPhone'a w sekcji Więcej) możesz utworzyć **kopię zapasową**: zaszyfrowaną kopię całego dziennika (wpisy, nawyki i ustawienia) we własnym formacie aplikacji, chronioną hasłem, którą możesz później przywrócić w aplikacji. **Eksport** na tej samej stronie zapisuje Twoje wpisy jako czytelny plik (TXT, CSV, JSON lub PDF) do czytania, drukowania lub użycia w innym programie. Plik eksportu nie jest zaszyfrowany: każdy, kto ma ten plik, może go przeczytać, więc przechowuj go równie starannie jak sam dziennik.
 
 ### Jak usunąć konto?
 

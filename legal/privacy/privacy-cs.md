@@ -117,7 +117,7 @@ Tvé osobní údaje neprodáváme, nepronajímáme ani je s nikým dalším nesd
 
 ## 9. Tvá práva
 
-Svá data můžeš sám zobrazit, opravit, exportovat a smazat: tvůj profil je v Nastavení, každý záznam lze upravit nebo smazat, **Nastavení - Záloha** a export vytvoří kopii, kterou si můžeš odnést jinam, a **Smazání účtu** odstraní vše. Můžeš nám také napsat a požádat o kopii svých údajů, jejich opravu, výmaz nebo omezení zpracování, případně vznést námitku, a souhlas můžeš kdykoli odvolat. Odpovídáme do 30 dnů. Máš také právo podat stížnost u úřadu pro ochranu osobních údajů - v Evropské unii u úřadu své země, v Izraeli u Úřadu pro ochranu soukromí.
+Svá data můžeš sám zobrazit, opravit, exportovat a smazat: tvůj profil je v Nastavení, každý záznam lze upravit nebo smazat, záloha a export na stránce **Záloha** vytvoří kopii, kterou si můžeš odnést jinam, a **Smazání účtu** odstraní vše. Můžeš nám také napsat a požádat o kopii svých údajů, jejich opravu, výmaz nebo omezení zpracování, případně vznést námitku, a souhlas můžeš kdykoli odvolat. Odpovídáme do 30 dnů. Máš také právo podat stížnost u úřadu pro ochranu osobních údajů - v Evropské unii u úřadu své země, v Izraeli u Úřadu pro ochranu soukromí.
 
 ## 10. Děti
 

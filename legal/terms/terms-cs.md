@@ -29,7 +29,7 @@ Vytvořením účtu nebo používáním služby souhlasíš s těmito podmínkam
 
 - K vytvoření účtu ti musí být alespoň {{MINIMUM_AGE}} let.
 - Pokud jsi v místě, kde žiješ, nezletilou osobou, můžeš službu používat jen se souhlasem rodiče nebo zákonného zástupce, pokud to vyžaduje právo tvé země.
-- Údaje, které uvádíš při registraci (jméno, uživatelské jméno a e-mailová adresa), musí být pravdivé a e-mailová adresa musí být taková, na které můžeš přijímat zprávy. Později je můžeš změnit v Nastavení.
+- Údaje, které uvádíš při registraci (jméno, uživatelské jméno a e-mailová adresa), musí být pravdivé a e-mailová adresa musí být taková, na které můžeš přijímat zprávy. Jméno a e-mailovou adresu můžeš později změnit v Nastavení.
 - Můžeme omezit počet účtů na serveru a kdykoli pozastavit nové registrace, například aby služba dál dobře fungovala.
 
 ## 3. Jeden účet na osobu
@@ -51,7 +51,7 @@ Vytvořením účtu nebo používáním služby souhlasíš s těmito podmínkam
 - Tvůj obsah ukládáme a zpracováváme jen proto, abychom ti poskytovali službu - abychom ho uchovávali, zobrazovali, vyhledávali v něm a udržovali ho stejný na všech tvých zařízeních. Zásady ochrany osobních údajů vysvětlují jak.
 - Tvůj deník nečteme. Oddíl 4 Zásad ochrany osobních údajů srozumitelně vysvětluje, co by provozovatel serveru technicky mohl udělat a k čemu se zavazujeme.
 - Za to, co píšeš, odpovídáš ty. Neukládej obsah, který je nezákonný, ani obsah, který patří někomu jinému, bez jeho svolení.
-- Svůj obsah si můžeš kdykoli odnést: **Nastavení - Záloha** vytvoří zašifrovanou zálohu a export zapíše tvé záznamy jako čitelný soubor. Tyto kopie jsou tvoje - můžeš si je ponechat a používat.
+- Svůj obsah si můžeš kdykoli odnést: stránka **Záloha** v nabídce vytvoří zašifrovanou zálohu a export na stejné stránce zapíše tvé záznamy jako čitelný soubor. Tyto kopie jsou tvoje - můžeš si je ponechat a používat.
 
 ## 6. Přijatelné používání
 
@@ -70,7 +70,7 @@ Při používání služby nesmíš:
 - Služba je dnes **zdarma**. Pokud bychom někdy chtěli za něco účtovat poplatek, oznámíme to předem a nic nebude zpoplatněno bez tvého souhlasu.
 - Funkce se mohou časem měnit, přibývat nebo mizet.
 - Snažíme se, aby byla služba dostupná, ale neslibujeme, že bude vždy dostupná nebo bez chyb. Údržba, aktualizace nebo problémy u poskytovatele hostingu ji mohou přerušit.
-- **Zálohuj si** to, na čem ti záleží (Nastavení - Záloha). Staráme se o server a jeho zálohy, ale za ztracený obsah neodpovídáme nad rámec toho, co vyžaduje zákon.
+- **Zálohuj si** to, na čem ti záleží (stránka Záloha v nabídce). Staráme se o server a jeho zálohy, ale za ztracený obsah neodpovídáme nad rámec toho, co vyžaduje zákon.
 - Práce bez připojení (kopie v tvém zařízení a offline režim) je pohodlí navíc. Nemusí být k dispozici na každém zařízení ani v každém okamžiku.
 
 ## 8. Pozastavení a zrušení účtu

@@ -25,7 +25,7 @@ Ellenőrizd a felhasználónevet vagy az e-mail-címet és a jelszót (figyelj a
 
 ### Az alkalmazás azt jelzi, hogy nincs kapcsolat
 
-Az alkalmazásnak a szerverre van szüksége a bejelentkezéshez, a kereséshez, a statisztikákhoz és a megállapításokhoz, a biztonsági mentésekhez és az exportáláshoz, valamint a fiókod módosításaihoz. Kapcsolat nélkül is írhatsz: amit írsz, titkosítva az eszközödre kerül, és a kapcsolat visszatérésekor feltöltődik, akkor is, ha közben bezártad az alkalmazást. Ha az **Emlékezz rám** lehetőséget választottad, a Windows-, a Mac-, az Android- és az iPhone-alkalmazás a legutóbbi bejegyzéseidet, a szokásaidat és a mai adatokat is megnyitja az eszközön lévő titkosított másolatból; ezeket a jelszavaddal vagy az eszköz képernyőzárával oldhatod fel (Windows Hello, Touch ID, Face ID vagy a telefon képernyőzára). Ellenőrizd az eszköz internetkapcsolatát, majd válaszd az alkalmazásban a **Próbáld most** lehetőséget.
+Az alkalmazásnak a szerverre van szüksége a bejelentkezéshez, a kereséshez, a statisztikákhoz és a megállapításokhoz, a biztonsági mentésekhez és az exportáláshoz, valamint a fiókod módosításaihoz. Kapcsolat nélkül is írhatsz: amit írsz, titkosítva az eszközödre kerül, és a kapcsolat visszatérésekor feltöltődik, akkor is, ha közben bezártad az alkalmazást. Ha az **Emlékezz rám** lehetőséget választottad, a Windows-, a Mac-, az Android- és az iPhone-alkalmazás a legutóbbi bejegyzéseidet, a szokásaidat és a mai adatokat is megnyitja az eszközön lévő titkosított másolatból; ezeket a jelszavaddal vagy az eszköz képernyőzárával oldhatod fel (Windows Hello, Touch ID, Face ID vagy a telefon képernyőzára). Ellenőrizd az eszköz internetkapcsolatát, majd válaszd az alkalmazásban az **Újrapróbálás** vagy a **Próbáld most** lehetőséget.
 
 ### Hogyan változtathatom meg a nyelvet?
 
@@ -33,7 +33,7 @@ Nyisd meg a **Beállítások** oldalt, és a **Nyelv** kártyán válaszd ki a l
 
 ### Hogyan vihetem ki az adataimat?
 
-A **Beállítások - Biztonsági mentés** részben **biztonsági mentést** készíthetsz: a teljes napló (bejegyzések, szokások és beállítások) titkosított másolatát az alkalmazás saját formátumában, jelszóval védve, amelyet később visszaállíthatsz az alkalmazásban. Ugyanezen az oldalon az **exportálás** olvasható fájlba írja a bejegyzéseidet - TXT, CSV, JSON vagy PDF formátumban - olvasáshoz, nyomtatáshoz vagy egy másik programhoz. Az exportált fájl nincs titkosítva: bárki elolvashatja, akinél a fájl van, ezért ugyanolyan gondosan őrizd, mint magát a naplót.
+A menü **Biztonsági mentés** oldalán (az Android- és az iPhone-alkalmazásban a Továbbiak alatt) **biztonsági mentést** készíthetsz: a teljes napló (bejegyzések, szokások és beállítások) titkosított másolatát az alkalmazás saját formátumában, jelszóval védve, amelyet később visszaállíthatsz az alkalmazásban. Ugyanezen az oldalon az **exportálás** olvasható fájlba írja a bejegyzéseidet - TXT, CSV, JSON vagy PDF formátumban - olvasáshoz, nyomtatáshoz vagy egy másik programhoz. Az exportált fájl nincs titkosítva: bárki elolvashatja, akinél a fájl van, ezért ugyanolyan gondosan őrizd, mint magát a naplót.
 
 ### Hogyan törölhetem a fiókomat?
 

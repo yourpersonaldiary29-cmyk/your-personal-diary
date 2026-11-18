@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "What is {{BRAND}}?",
-        "a": "A private diary. You write about your day in your own words and, if you like, add your mood, sleep, habits and more. Over weeks, months and years, the app points out patterns in your own entries and shows the numbers behind each one. It runs in a browser and as an app for Windows, Android and Mac, with one account for all of them."
+        "a": "A private diary. You write about your day in your own words and, if you like, add your mood, sleep, habits and more. Over weeks, months and years, the app points out patterns in your own entries and shows the numbers behind each one. It runs in a browser and as an app for Windows, Mac, Android and iPhone, with one account for all of them."
       },
       {
         "q": "Is it free?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Can I try it without an account?",
-        "a": "In the Android app, yes. On the first screen choose \"Skip - just look around\" and explore the app with sample data. Nothing you write there is saved, and the tour ends by itself after 30 minutes. In the Windows and Mac apps and in the browser you need an account; creating one is free."
+        "a": "In the Android app, yes. On the first screen choose \"Skip - just look around\" and explore the app with sample data. Nothing you write there is saved, and the tour ends by itself after 30 minutes. In the Windows, Mac and iPhone apps and in the browser you need an account; creating one is free."
       },
       {
         "q": "What can a diary entry hold?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "How do habits and reminders work?",
-        "a": "You set up daily or weekly habits, each with a target, and tick them off as you go. The app shows your streak and how much of the target you completed. Reminders belong to habits: you set the time for each habit on the Habits page and turn reminders on in Settings, under Reminders. On an Android phone that allows notifications for the app, a reminder arrives even when the app is closed; on a computer and in the browser it appears while the diary is open. Reminders are created on the device itself; nothing is sent out."
+        "a": "You set up daily or weekly habits, each with a target, and tick them off as you go. The app shows your streak and how much of the target you completed. Reminders belong to habits: you set the time for each habit on the Habits page and turn reminders on in Settings, under Reminders. On an Android phone or an iPhone that allows notifications for the app, a reminder arrives even when the app is closed; on a computer and in the browser it appears while the diary is open. Reminders are created on the device itself; nothing is sent out."
       },
       {
         "q": "What are insights, and how do I see the numbers behind one?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Can I use it on several devices?",
-        "a": "Yes. Your diary is kept in your account on the {{BRAND}} server, so you sign in with the same account on each device and everything is there. What you change on one device appears on the others when they connect. In Settings, Connected devices lists the devices that are signed in, and you can disconnect any of them."
+        "a": "Yes. Your diary is kept in your account on the {{BRAND}} server, so you sign in with the same account on each device and everything is there. What you change on one device appears on the others when they connect. In Settings, Connected devices lists the devices that are signed in, and you can disconnect any of them except the one you are using."
       },
       {
         "q": "What happens if I change the same entry on two devices?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "What does \"Remember me\" do?",
-        "a": "It keeps you signed in on that device for up to 90 days instead of 12 hours. In the Windows, Mac and Android apps it also keeps an encrypted copy of what you viewed recently, so that the app can open and show it without a connection. On the sign-in and sign-up screens it is ticked at first: on a device that other people also use, clear it, and sign out when you finish."
+        "a": "It keeps you signed in on that device for up to 90 days instead of 12 hours. In the Windows, Mac, Android and iPhone apps it also keeps an encrypted copy of what you viewed recently, so that the app can open and show it without a connection. On the sign-in and sign-up screens it is ticked at first: on a device that other people also use, clear it, and sign out when you finish."
       },
       {
         "q": "Where is my diary kept?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "How is the diary locked?",
-        "a": "It locks itself after a period without activity; you choose the time in Settings, under Security, and \"Lock now\" locks it at once. Your password opens it again. In the Android app you can also have it lock whenever you leave the app, and open it with your fingerprint or face. Where an app offers the screen lock of your device instead of the password (Windows Hello, Touch ID or the Mac password, or the Android screen lock), the check is done by the operating system: nothing about your fingerprint, face or PIN reaches the app or us."
+        "a": "It locks itself after a period without activity; you choose the time in Settings, under Security, and \"Lock now\" locks it at once. Your password opens it again. In the Android and iPhone apps you can also have it lock whenever you leave the app. Without a connection, an app can also open with the screen lock of your device instead of the password (Windows Hello, Touch ID or the Mac password, Face ID / Touch ID or the iPhone passcode, or the Android screen lock); the check is done by the operating system: nothing about your fingerprint, face or PIN reaches the app or us."
       },
       {
         "q": "What if I forget my password?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "How do I back up my diary and restore it?",
-        "a": "Open Backup in the menu (in the Android app, under More) and create a backup file: an encrypted copy of the whole diary (entries, habits and settings), protected by a password, which you keep wherever you choose. To restore, choose that file on the same page and enter its password. Restoring replaces the current diary with the contents of the file, so create a backup of the current diary first."
+        "a": "Open Backup in the menu (in the Android and iPhone apps, under More) and create a backup file: an encrypted copy of the whole diary (entries, habits and settings), protected by a password, which you keep wherever you choose. To restore, choose that file on the same page and enter its password. Restoring replaces the current diary with the contents of the file, so create a backup of the current diary first."
       },
       {
         "q": "How do I delete my account?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Downloads",
-    "lead": "Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them and in the browser.",
+    "lead": "Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them, in the iPhone app and in the browser.",
     "tabsLabel": "Operating system",
     "tabs": {
       "windows": "Windows",

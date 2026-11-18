@@ -25,7 +25,7 @@ Verifică numele de utilizator sau adresa de e-mail și parola (atenție la limb
 
 ### Aplicația spune că nu există conexiune
 
-Aplicația are nevoie de server pentru conectare, căutare, statistici și observații, backupuri și exporturi și pentru modificările contului tău. Fără conexiune poți totuși să scrii: ce scrii este salvat pe dispozitiv, criptat, și încărcat când revine conexiunea, chiar dacă între timp aplicația a fost închisă. Dacă ai ales **Ține-mă minte**, aplicațiile Windows, Mac, Android și iPhone îți deschid și înregistrările recente, obiceiurile și datele de azi din copia criptată de pe dispozitiv; le deblochezi cu parola sau cu blocarea ecranului dispozitivului (Windows Hello, Touch ID, Face ID sau blocarea ecranului telefonului). Verifică conexiunea la internet a dispozitivului, apoi alege **Încearcă acum** în aplicație.
+Aplicația are nevoie de server pentru conectare, căutare, statistici și observații, backupuri și exporturi și pentru modificările contului tău. Fără conexiune poți totuși să scrii: ce scrii este salvat pe dispozitiv, criptat, și încărcat când revine conexiunea, chiar dacă între timp aplicația a fost închisă. Dacă ai ales **Ține-mă minte**, aplicațiile Windows, Mac, Android și iPhone îți deschid și înregistrările recente, obiceiurile și datele de azi din copia criptată de pe dispozitiv; le deblochezi cu parola sau cu blocarea ecranului dispozitivului (Windows Hello, Touch ID, Face ID sau blocarea ecranului telefonului). Verifică conexiunea la internet a dispozitivului, apoi alege **Încearcă din nou** sau **Încearcă acum** în aplicație.
 
 ### Cum schimb limba?
 
@@ -33,7 +33,7 @@ Deschide **Setări** și, în cardul **Limbă**, alege din listă limba interfe�
 
 ### Cum îmi scot datele?
 
-În **Setări - Backup** poți crea un **backup**: o copie criptată a întregului jurnal (înregistrări, obiceiuri și setări) în formatul propriu al aplicației, protejată cu o parolă, pe care o poți restaura mai târziu în aplicație. **Exportul** de pe aceeași pagină scrie înregistrările tale într-un fișier lizibil - TXT, CSV, JSON sau PDF - pentru citit, tipărit sau pentru alt program. Un fișier de export nu este criptat: oricine are fișierul îl poate citi, așa că păstrează-l la fel de atent ca jurnalul însuși.
+Pe pagina **Backup** din meniu (în aplicațiile Android și iPhone, la Mai mult) poți crea un **backup**: o copie criptată a întregului jurnal (înregistrări, obiceiuri și setări) în formatul propriu al aplicației, protejată cu o parolă, pe care o poți restaura mai târziu în aplicație. **Exportul** de pe aceeași pagină scrie înregistrările tale într-un fișier lizibil - TXT, CSV, JSON sau PDF - pentru citit, tipărit sau pentru alt program. Un fișier de export nu este criptat: oricine are fișierul îl poate citi, așa că păstrează-l la fel de atent ca jurnalul însuși.
 
 ### Cum îmi șterg contul?
 

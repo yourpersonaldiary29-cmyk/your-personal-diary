@@ -25,7 +25,7 @@ Comprueba el nombre de usuario o la dirección de correo y la contraseña (fíja
 
 ### La aplicación dice que no hay conexión
 
-La aplicación necesita el servidor para iniciar sesión, para buscar, para las estadísticas y las conclusiones, para las copias de seguridad y las exportaciones, y para los cambios en tu cuenta. Sin conexión puedes seguir escribiendo: lo que escribes se guarda en tu dispositivo, cifrado, y se sube cuando vuelve la conexión, aunque la aplicación se haya cerrado entretanto. Si elegiste **Recordarme**, las aplicaciones para Windows, Mac, Android y iPhone también abren tus entradas recientes, tus hábitos y los datos de hoy desde la copia cifrada del dispositivo; los desbloqueas con tu contraseña o con el bloqueo de pantalla del dispositivo (Windows Hello, Touch ID, Face ID o el bloqueo de pantalla del teléfono). Comprueba la conexión a internet del dispositivo y luego elige **Intentar ahora** en la aplicación.
+La aplicación necesita el servidor para iniciar sesión, para buscar, para las estadísticas y las conclusiones, para las copias de seguridad y las exportaciones, y para los cambios en tu cuenta. Sin conexión puedes seguir escribiendo: lo que escribes se guarda en tu dispositivo, cifrado, y se sube cuando vuelve la conexión, aunque la aplicación se haya cerrado entretanto. Si elegiste **Recordarme**, las aplicaciones para Windows, Mac, Android y iPhone también abren tus entradas recientes, tus hábitos y los datos de hoy desde la copia cifrada del dispositivo; los desbloqueas con tu contraseña o con el bloqueo de pantalla del dispositivo (Windows Hello, Touch ID, Face ID o el bloqueo de pantalla del teléfono). Comprueba la conexión a internet del dispositivo y luego elige **Reintentar** o **Intentar ahora** en la aplicación.
 
 ### ¿Cómo cambio el idioma?
 
@@ -33,7 +33,7 @@ Abre **Ajustes** y, en la tarjeta **Idioma**, elige el idioma de la interfaz en 
 
 ### ¿Cómo saco mis datos?
 
-En **Ajustes - Copia de seguridad** puedes crear una **copia de seguridad**: una copia cifrada de todo el diario (entradas, hábitos y ajustes) en el formato propio de la aplicación, protegida con una contraseña, que más adelante puedes restaurar en la aplicación. La **exportación**, en la misma página, escribe tus entradas como un archivo legible (TXT, CSV, JSON o PDF) para leerlas, imprimirlas o usarlas en otro programa. Un archivo exportado no está cifrado: cualquiera que tenga el archivo puede leerlo, así que guárdalo con el mismo cuidado que el propio diario.
+En la página **Copia de seguridad** del menú (en las aplicaciones para Android y iPhone, en Más) puedes crear una **copia de seguridad**: una copia cifrada de todo el diario (entradas, hábitos y ajustes) en el formato propio de la aplicación, protegida con una contraseña, que más adelante puedes restaurar en la aplicación. La **exportación**, en la misma página, escribe tus entradas como un archivo legible (TXT, CSV, JSON o PDF) para leerlas, imprimirlas o usarlas en otro programa. Un archivo exportado no está cifrado: cualquiera que tenga el archivo puede leerlo, así que guárdalo con el mismo cuidado que el propio diario.
 
 ### ¿Cómo elimino mi cuenta?
 

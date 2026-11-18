@@ -29,7 +29,7 @@ Zakładając konto lub korzystając z usługi, akceptujesz te warunki oraz Polit
 
 - Aby założyć konto, musisz mieć co najmniej {{MINIMUM_AGE}} lat.
 - Jeśli w miejscu, w którym mieszkasz, jesteś osobą niepełnoletnią, możesz korzystać z usługi tylko za zgodą rodzica lub opiekuna prawnego, jeśli wymaga tego prawo twojego kraju.
-- Dane podane przy rejestracji (imię i nazwisko, nazwa użytkownika i adres e-mail) muszą być prawdziwe, a adres e-mail musi być adresem, na który możesz odbierać wiadomości. Możesz je później zmienić w Ustawieniach.
+- Dane podane przy rejestracji (imię i nazwisko, nazwa użytkownika i adres e-mail) muszą być prawdziwe, a adres e-mail musi być adresem, na który możesz odbierać wiadomości. Imię i nazwisko oraz adres e-mail możesz później zmienić w Ustawieniach.
 - Możemy ograniczyć liczbę kont na serwerze i w dowolnym momencie wstrzymać nowe rejestracje, na przykład po to, aby usługa nadal działała sprawnie.
 
 ## 3. Jedno konto na osobę
@@ -51,7 +51,7 @@ Konto jest osobiste: nie udostępniaj go innym i nie korzystaj z konta innej oso
 - Przechowujemy i przetwarzamy Twoje treści wyłącznie po to, aby świadczyć Ci usługę - aby je przechowywać, wyświetlać, przeszukiwać i utrzymywać w tej samej postaci na Twoich urządzeniach. Polityka prywatności wyjaśnia, jak to robimy.
 - Nie czytamy Twojego dziennika. Sekcja 4 Polityki prywatności wyjaśnia wprost, co operator serwera mógłby technicznie zrobić i do czego się zobowiązujemy.
 - Odpowiadasz za to, co piszesz. Nie przechowuj treści niezgodnych z prawem ani treści należących do kogoś innego bez jego zgody.
-- W każdej chwili możesz zabrać swoje treści ze sobą: **Ustawienia - Kopia zapasowa** tworzy zaszyfrowaną kopię zapasową, a eksport zapisuje Twoje wpisy jako czytelny plik. Te kopie należą do Ciebie - możesz je przechowywać i z nich korzystać.
+- W każdej chwili możesz zabrać swoje treści ze sobą: strona **Kopia zapasowa** w menu tworzy zaszyfrowaną kopię zapasową, a eksport na tej samej stronie zapisuje Twoje wpisy jako czytelny plik. Te kopie należą do Ciebie - możesz je przechowywać i z nich korzystać.
 
 ## 6. Dozwolone korzystanie
 
@@ -70,7 +70,7 @@ Korzystając z usługi, nie wolno Ci:
 - Usługa jest dziś **bezpłatna**. Jeśli kiedykolwiek zechcemy pobierać opłatę za cokolwiek, uprzedzimy o tym z wyprzedzeniem i nic nie stanie się płatne bez Twojej zgody.
 - Funkcje mogą się z czasem zmieniać, mogą też być dodawane lub usuwane.
 - Dbamy o dostępność usługi, ale nie obiecujemy, że zawsze będzie dostępna lub wolna od błędów. Prace konserwacyjne, aktualizacje lub problemy z hostingiem mogą ją przerwać.
-- **Rób kopię zapasową** tego, co jest dla Ciebie ważne (Ustawienia - Kopia zapasowa). Dbamy o serwer i jego kopie zapasowe, ale nie odpowiadamy za utracone treści w zakresie wykraczającym poza wymogi prawa.
+- **Rób kopię zapasową** tego, co jest dla Ciebie ważne (strona Kopia zapasowa w menu). Dbamy o serwer i jego kopie zapasowe, ale nie odpowiadamy za utracone treści w zakresie wykraczającym poza wymogi prawa.
 - Praca bez połączenia (kopie na Twoim urządzeniu i tryb offline) to udogodnienie. Może nie być dostępna na każdym urządzeniu ani w każdej chwili.
 
 ## 8. Zawieszenie i zamknięcie konta

@@ -27,7 +27,7 @@ By creating an account or using the service, you agree to these terms and to the
 
 - You must be at least {{MINIMUM_AGE}} years old to create an account.
 - If you are a minor where you live, you may use the service only if a parent or guardian agrees, where the law of your country requires it.
-- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change them later in Settings.
+- The details you give when you register (name, user name and e-mail address) must be accurate, and the e-mail address must be one that you can receive messages at. You can change your name and e-mail address later in Settings.
 - We may limit the number of accounts on the server and may pause new registrations at any time, for example to keep the service running well.
 
 ## 3. One account per person
@@ -49,7 +49,7 @@ An account is personal: do not share it with others, and do not use another pers
 - We store and process your content only to provide the service to you - to keep it, show it, search it and make it the same on your devices. The Privacy Policy explains how.
 - We do not read your diary. Section 4 of the Privacy Policy explains plainly what the operator of the server could technically do, and what we promise.
 - You are responsible for what you write. Do not store content that is illegal, or content that belongs to someone else without their permission.
-- You can take your content with you at any time: **Settings - Backup** creates an encrypted backup, and the export writes your entries as a readable file. These copies are yours to keep and use.
+- You can take your content with you at any time: the **Backup** page in the menu creates an encrypted backup, and the export on the same page writes your entries as a readable file. These copies are yours to keep and use.
 
 ## 6. Acceptable use
 
@@ -68,7 +68,7 @@ When you use the service, you must not:
 - The service is **free of charge** today. If we ever want to charge for something, we will say so in advance, and nothing becomes paid without your agreement.
 - Features may change, be added or be removed over time.
 - We aim to keep the service available, but we do not promise that it will always be available or free of errors. Maintenance, updates or problems with the hosting may interrupt it.
-- **Keep a backup** of what matters to you (Settings - Backup). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
+- **Keep a backup** of what matters to you (the Backup page in the menu). We take care of the server and its backups, but we are not liable for lost content beyond what the law requires.
 - Working without a connection (the copies on your device and offline mode) is a convenience. It may not be available on every device or at every moment.
 
 ## 8. Suspension and closing an account

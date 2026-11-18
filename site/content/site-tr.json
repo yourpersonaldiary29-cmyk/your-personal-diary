@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "{{BRAND}} nedir?",
-        "a": "Özel bir günlük. Gününüzü kendi sözlerinizle yazarsınız ve isterseniz ruh halinizi, uykunuzu, alışkanlıklarınızı ve daha fazlasını eklersiniz. Uygulama haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir. Tarayıcıda ve Windows, Android ve Mac için bir uygulama olarak çalışır; hepsinde tek bir hesap kullanılır."
+        "a": "Özel bir günlük. Gününüzü kendi sözlerinizle yazarsınız ve isterseniz ruh halinizi, uykunuzu, alışkanlıklarınızı ve daha fazlasını eklersiniz. Uygulama haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir. Tarayıcıda ve Windows, Mac, Android ve iPhone için bir uygulama olarak çalışır; hepsinde tek bir hesap kullanılır."
       },
       {
         "q": "Ücretsiz mi?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Hesap olmadan deneyebilir miyim?",
-        "a": "Android uygulamasında evet. İlk ekranda \"Atla - sadece göz atmak istiyorum\" seçeneğini seçin ve uygulamayı örnek verilerle keşfedin. Orada yazdığınız hiçbir şey kaydedilmez ve tur 30 dakika sonra kendiliğinden sona erer. Windows ve Mac uygulamalarında ve tarayıcıda bir hesap gerekir; hesap oluşturmak ücretsizdir."
+        "a": "Android uygulamasında evet. İlk ekranda \"Atla - sadece göz atmak istiyorum\" seçeneğini seçin ve uygulamayı örnek verilerle keşfedin. Orada yazdığınız hiçbir şey kaydedilmez ve tur 30 dakika sonra kendiliğinden sona erer. Windows, Mac ve iPhone uygulamalarında ve tarayıcıda bir hesap gerekir; hesap oluşturmak ücretsizdir."
       },
       {
         "q": "Bir günlük kaydı neler içerebilir?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Alışkanlıklar ve hatırlatıcılar nasıl çalışır?",
-        "a": "Her birinin bir hedefi olan günlük veya haftalık alışkanlıklar oluşturur ve yaptıkça işaretlersiniz. Uygulama serinizi ve hedefin ne kadarını tamamladığınızı gösterir. Hatırlatıcılar alışkanlıklara bağlıdır: her alışkanlığın saatini Alışkanlıklar sayfasında belirlersiniz, hatırlatıcıları da Ayarlar'da, Hatırlatıcılar bölümünde açarsınız. Uygulamaya bildirim izni veren bir Android telefonda hatırlatıcı, uygulama kapalıyken de gelir; bilgisayarda ve tarayıcıda ise günlük açıkken görünür. Hatırlatıcılar cihazın kendisinde oluşturulur; dışarıya hiçbir şey gönderilmez."
+        "a": "Her birinin bir hedefi olan günlük veya haftalık alışkanlıklar oluşturur ve yaptıkça işaretlersiniz. Uygulama serinizi ve hedefin ne kadarını tamamladığınızı gösterir. Hatırlatıcılar alışkanlıklara bağlıdır: her alışkanlığın saatini Alışkanlıklar sayfasında belirlersiniz, hatırlatıcıları da Ayarlar'da, Hatırlatıcılar bölümünde açarsınız. Uygulamaya bildirim izni veren bir Android telefonda veya iPhone'da hatırlatıcı, uygulama kapalıyken de gelir; bilgisayarda ve tarayıcıda ise günlük açıkken görünür. Hatırlatıcılar cihazın kendisinde oluşturulur; dışarıya hiçbir şey gönderilmez."
       },
       {
         "q": "İçgörüler nedir ve bir içgörünün arkasındaki sayıları nasıl görürüm?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Birden fazla cihazda kullanabilir miyim?",
-        "a": "Evet. Günlüğünüz {{BRAND}} sunucusundaki hesabınızda saklanır; bu yüzden her cihazda aynı hesapla oturum açarsınız ve her şey oradadır. Bir cihazda değiştirdikleriniz, diğer cihazlar bağlandığında onlarda da görünür. Ayarlar'daki Bağlı cihazlar bölümü oturumu açık olan cihazları listeler ve bunlardan herhangi birinin bağlantısını kesebilirsiniz."
+        "a": "Evet. Günlüğünüz {{BRAND}} sunucusundaki hesabınızda saklanır; bu yüzden her cihazda aynı hesapla oturum açarsınız ve her şey oradadır. Bir cihazda değiştirdikleriniz, diğer cihazlar bağlandığında onlarda da görünür. Ayarlar'daki Bağlı cihazlar bölümü oturumu açık olan cihazları listeler ve kullandığınız cihaz dışında bunlardan herhangi birinin bağlantısını kesebilirsiniz."
       },
       {
         "q": "Aynı kaydı iki cihazda değiştirirsem ne olur?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "\"Beni hatırla\" ne işe yarar?",
-        "a": "O cihazda oturumunuzu 12 saat yerine 90 güne kadar açık tutar. Windows, Mac ve Android uygulamalarında ayrıca son görüntülediklerinizin şifreli bir kopyasını saklar; böylece uygulama bağlantı olmadan açılıp bunları gösterebilir. Oturum açma ve kaydolma ekranlarında başlangıçta işaretlidir: başkalarının da kullandığı bir cihazda işareti kaldırın ve işiniz bitince oturumu kapatın."
+        "a": "O cihazda oturumunuzu 12 saat yerine 90 güne kadar açık tutar. Windows, Mac, Android ve iPhone uygulamalarında ayrıca son görüntülediklerinizin şifreli bir kopyasını saklar; böylece uygulama bağlantı olmadan açılıp bunları gösterebilir. Oturum açma ve kaydolma ekranlarında başlangıçta işaretlidir: başkalarının da kullandığı bir cihazda işareti kaldırın ve işiniz bitince oturumu kapatın."
       },
       {
         "q": "Günlüğüm nerede saklanıyor?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Günlük nasıl kilitlenir?",
-        "a": "Bir süre işlem yapılmadığında kendiliğinden kilitlenir; süreyi Ayarlar'da, Güvenlik bölümünde seçersiniz; \"Şimdi kilitle\" ise günlüğü hemen kilitler. Parolanız onu yeniden açar. Android uygulamasında, uygulamadan her çıktığınızda kilitlenmesini de sağlayabilir ve parmak izinizle veya yüzünüzle açabilirsiniz. Bir uygulama parola yerine cihazınızın ekran kilidini sunduğunda (Windows Hello, Touch ID veya Mac parolası ya da Android ekran kilidi), kontrolü işletim sistemi yapar: parmak iziniz, yüzünüz veya PIN'iniz hakkında hiçbir bilgi uygulamaya veya bize ulaşmaz."
+        "a": "Bir süre işlem yapılmadığında kendiliğinden kilitlenir; süreyi Ayarlar'da, Güvenlik bölümünde seçersiniz; \"Şimdi kilitle\" ise günlüğü hemen kilitler. Parolanız onu yeniden açar. Android ve iPhone uygulamalarında, uygulamadan her çıktığınızda kilitlenmesini de sağlayabilirsiniz. Bağlantı olmadan bir uygulama, parola yerine cihazınızın ekran kilidiyle de açılabilir (Windows Hello, Touch ID veya Mac parolası, Face ID / Touch ID veya iPhone parolası ya da Android ekran kilidi); kontrolü işletim sistemi yapar: parmak iziniz, yüzünüz veya PIN'iniz hakkında hiçbir bilgi uygulamaya veya bize ulaşmaz."
       },
       {
         "q": "Parolamı unutursam ne olur?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Günlüğümü nasıl yedeklerim ve geri yüklerim?",
-        "a": "Menüden Yedekleme'yi açın (Android uygulamasında Diğer altında) ve bir yedek dosyası oluşturun: günlüğün tamamının (kayıtlar, alışkanlıklar ve ayarlar) parolayla korunan şifreli bir kopyası; onu istediğiniz yerde saklarsınız. Geri yüklemek için aynı sayfada bu dosyayı seçin ve parolasını girin. Geri yükleme, mevcut günlüğün yerine dosyanın içeriğini koyar; bu yüzden önce mevcut günlüğün bir yedeğini oluşturun."
+        "a": "Menüden Yedekleme'yi açın (Android ve iPhone uygulamalarında Diğer altında) ve bir yedek dosyası oluşturun: günlüğün tamamının (kayıtlar, alışkanlıklar ve ayarlar) parolayla korunan şifreli bir kopyası; onu istediğiniz yerde saklarsınız. Geri yüklemek için aynı sayfada bu dosyayı seçin ve parolasını girin. Geri yükleme, mevcut günlüğün yerine dosyanın içeriğini koyar; bu yüzden önce mevcut günlüğün bir yedeğini oluşturun."
       },
       {
         "q": "Hesabımı nasıl silerim?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "İndirmeler",
-    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde ve tarayıcıda çalışır.",
+    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde, iPhone uygulamasında ve tarayıcıda çalışır.",
     "tabsLabel": "İşletim sistemi",
     "tabs": {
       "windows": "Windows",

@@ -117,7 +117,7 @@ No system can promise perfect security. Choose a strong password that you do not
 
 ## 9. Your rights
 
-You can see, correct, export and delete your data yourself: your profile is in Settings, every entry can be edited or deleted, **Settings - Backup** and the export create a copy that you can take elsewhere, and **Delete account** removes everything. You can also write to us to ask for a copy of your data, a correction, deletion or restriction of processing, or to object to it, and you can withdraw a consent at any time. We answer within 30 days. You also have the right to complain to a data protection authority - in the European Union the authority of your country, in Israel the Privacy Protection Authority.
+You can see, correct, export and delete your data yourself: your profile is in Settings, every entry can be edited or deleted, the backup and the export on the **Backup** page create a copy that you can take elsewhere, and **Delete account** removes everything. You can also write to us to ask for a copy of your data, a correction, deletion or restriction of processing, or to object to it, and you can withdraw a consent at any time. We answer within 30 days. You also have the right to complain to a data protection authority - in the European Union the authority of your country, in Israel the Privacy Protection Authority.
 
 ## 10. Children
 

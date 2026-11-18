@@ -117,7 +117,7 @@ Niciun sistem nu poate promite securitate perfectă. Alege o parolă puternică 
 
 ## 9. Drepturile tale
 
-Îți poți vedea, corecta, exporta și șterge singur datele: profilul tău este în Setări, fiecare înregistrare poate fi editată sau ștearsă, **Setări - Backup** și exportul creează o copie pe care o poți lua în altă parte, iar **Ștergerea contului** elimină tot. Ne poți scrie și ca să ceri o copie a datelor tale, rectificarea, ștergerea sau restricționarea prelucrării ori ca să te opui prelucrării, și îți poți retrage oricând consimțământul. Răspundem în cel mult 30 de zile. Ai și dreptul de a depune o plângere la o autoritate de protecție a datelor - în Uniunea Europeană, autoritatea din țara ta; în Israel, Autoritatea pentru Protecția Vieții Private.
+Îți poți vedea, corecta, exporta și șterge singur datele: profilul tău este în Setări, fiecare înregistrare poate fi editată sau ștearsă, backupul și exportul de pe pagina **Backup** creează o copie pe care o poți lua în altă parte, iar **Ștergerea contului** elimină tot. Ne poți scrie și ca să ceri o copie a datelor tale, rectificarea, ștergerea sau restricționarea prelucrării ori ca să te opui prelucrării, și îți poți retrage oricând consimțământul. Răspundem în cel mult 30 de zile. Ai și dreptul de a depune o plângere la o autoritate de protecție a datelor - în Uniunea Europeană, autoritatea din țara ta; în Israel, Autoritatea pentru Protecția Vieții Private.
 
 ## 10. Copii
 

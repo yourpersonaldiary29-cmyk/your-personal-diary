@@ -117,7 +117,7 @@ Egyetlen rendszer sem ígérhet tökéletes biztonságot. Válassz erős jelszó
 
 ## 9. A jogaid
 
-Az adataidat magad is megnézheted, kijavíthatod, exportálhatod és törölheted: a profilod a Beállításokban van, minden bejegyzés szerkeszthető vagy törölhető, a **Beállítások - Biztonsági mentés** és az exportálás olyan másolatot készít, amelyet máshová vihetsz, a **Fiók törlése** pedig mindent eltávolít. Írhatsz is nekünk, hogy kérd az adataid másolatát, helyesbítését, törlését vagy kezelésük korlátozását, illetve hogy tiltakozz a kezelés ellen, és a hozzájárulásodat bármikor visszavonhatod. 30 napon belül válaszolunk. Jogod van panaszt tenni egy adatvédelmi hatóságnál is - az Európai Unióban a saját országod hatóságánál, Izraelben a Magánszféra-védelmi Hatóságnál.
+Az adataidat magad is megnézheted, kijavíthatod, exportálhatod és törölheted: a profilod a Beállításokban van, minden bejegyzés szerkeszthető vagy törölhető, a **Biztonsági mentés** oldalon található biztonsági mentés és exportálás olyan másolatot készít, amelyet máshová vihetsz, a **Fiók törlése** pedig mindent eltávolít. Írhatsz is nekünk, hogy kérd az adataid másolatát, helyesbítését, törlését vagy kezelésük korlátozását, illetve hogy tiltakozz a kezelés ellen, és a hozzájárulásodat bármikor visszavonhatod. 30 napon belül válaszolunk. Jogod van panaszt tenni egy adatvédelmi hatóságnál is - az Európai Unióban a saját országod hatóságánál, Izraelben a Magánszféra-védelmi Hatóságnál.
 
 ## 10. Gyermekek
 

@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Qu’est-ce que {{BRAND}} ?",
-        "a": "Un journal privé. Vous racontez votre journée avec vos propres mots et, si vous le souhaitez, vous ajoutez votre humeur, votre sommeil, vos habitudes et d’autres éléments. Au fil des semaines, des mois et des années, l’application signale des tendances dans vos propres entrées et indique les chiffres derrière chacune. Elle fonctionne dans un navigateur et comme application pour Windows, Android et Mac, avec un seul compte pour l’ensemble."
+        "a": "Un journal privé. Vous racontez votre journée avec vos propres mots et, si vous le souhaitez, vous ajoutez votre humeur, votre sommeil, vos habitudes et d’autres éléments. Au fil des semaines, des mois et des années, l’application signale des tendances dans vos propres entrées et indique les chiffres derrière chacune. Elle fonctionne dans un navigateur et comme application pour Windows, Mac, Android et iPhone, avec un seul compte pour l’ensemble."
       },
       {
         "q": "Est-ce gratuit ?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Puis-je l’essayer sans compte ?",
-        "a": "Dans l’application Android, oui. Sur le premier écran, choisissez « Passer - juste jeter un œil » et découvrez l’application avec des données d’exemple. Rien de ce que vous y écrivez n’est enregistré, et la visite se termine d’elle-même au bout de 30 minutes. Dans les applications Windows et Mac et dans le navigateur, il faut un compte ; sa création est gratuite."
+        "a": "Dans l’application Android, oui. Sur le premier écran, choisissez « Passer - juste jeter un œil » et découvrez l’application avec des données d’exemple. Rien de ce que vous y écrivez n’est enregistré, et la visite se termine d’elle-même au bout de 30 minutes. Dans les applications Windows, Mac et iPhone et dans le navigateur, il faut un compte ; sa création est gratuite."
       },
       {
         "q": "Que peut contenir une entrée du journal ?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Comment fonctionnent les habitudes et les rappels ?",
-        "a": "Vous créez des habitudes quotidiennes ou hebdomadaires, chacune avec un objectif, et vous les cochez au fur et à mesure. L’application affiche votre série et la part de l’objectif atteinte. Les rappels sont liés aux habitudes : vous réglez l’heure de chaque habitude sur la page Habitudes et vous activez les rappels dans Paramètres, sous Rappels. Sur un téléphone Android qui autorise les notifications de l’application, le rappel arrive même quand l’application est fermée ; sur un ordinateur et dans le navigateur, il apparaît pendant que le journal est ouvert. Les rappels sont créés sur l’appareil lui-même ; rien n’est envoyé à l’extérieur."
+        "a": "Vous créez des habitudes quotidiennes ou hebdomadaires, chacune avec un objectif, et vous les cochez au fur et à mesure. L’application affiche votre série et la part de l’objectif atteinte. Les rappels sont liés aux habitudes : vous réglez l’heure de chaque habitude sur la page Habitudes et vous activez les rappels dans Paramètres, sous Rappels. Sur un téléphone Android ou un iPhone qui autorise les notifications de l’application, le rappel arrive même quand l’application est fermée ; sur un ordinateur et dans le navigateur, il apparaît pendant que le journal est ouvert. Les rappels sont créés sur l’appareil lui-même ; rien n’est envoyé à l’extérieur."
       },
       {
         "q": "Que sont les observations, et comment voir les chiffres derrière l’une d’elles ?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Puis-je l’utiliser sur plusieurs appareils ?",
-        "a": "Oui. Votre journal est conservé dans votre compte sur le serveur de {{BRAND}} : vous vous connectez avec le même compte sur chaque appareil et vous retrouvez tout. Ce que vous modifiez sur un appareil apparaît sur les autres dès qu’ils se connectent. Dans Paramètres, Appareils connectés liste les appareils sur lesquels vous êtes connecté, et vous pouvez déconnecter n’importe lequel d’entre eux."
+        "a": "Oui. Votre journal est conservé dans votre compte sur le serveur de {{BRAND}} : vous vous connectez avec le même compte sur chaque appareil et vous retrouvez tout. Ce que vous modifiez sur un appareil apparaît sur les autres dès qu’ils se connectent. Dans Paramètres, Appareils connectés liste les appareils sur lesquels vous êtes connecté, et vous pouvez déconnecter n’importe lequel d’entre eux, sauf celui que vous utilisez."
       },
       {
         "q": "Que se passe-t-il si je modifie la même entrée sur deux appareils ?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "À quoi sert « Se souvenir de moi » ?",
-        "a": "Cette option vous garde connecté sur cet appareil jusqu’à 90 jours au lieu de 12 heures. Dans les applications Windows, Mac et Android, elle conserve aussi une copie chiffrée de ce que vous avez consulté récemment, pour que l’application puisse s’ouvrir et l’afficher sans connexion. Sur les écrans de connexion et d’inscription, elle est cochée par défaut : sur un appareil que d’autres personnes utilisent aussi, décochez-la et déconnectez-vous quand vous avez terminé."
+        "a": "Cette option vous garde connecté sur cet appareil jusqu’à 90 jours au lieu de 12 heures. Dans les applications Windows, Mac, Android et iPhone, elle conserve aussi une copie chiffrée de ce que vous avez consulté récemment, pour que l’application puisse s’ouvrir et l’afficher sans connexion. Sur les écrans de connexion et d’inscription, elle est cochée par défaut : sur un appareil que d’autres personnes utilisent aussi, décochez-la et déconnectez-vous quand vous avez terminé."
       },
       {
         "q": "Où mon journal est-il conservé ?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Comment le journal est-il verrouillé ?",
-        "a": "Il se verrouille de lui-même après une période d’inactivité ; vous choisissez la durée dans Paramètres, sous Sécurité, et « Verrouiller maintenant » le verrouille immédiatement. Votre mot de passe le rouvre. Dans l’application Android, vous pouvez aussi le faire se verrouiller chaque fois que vous quittez l’application, et l’ouvrir avec votre empreinte digitale ou votre visage. Lorsqu’une application propose le verrouillage de l’écran de votre appareil à la place du mot de passe (Windows Hello, Touch ID ou le mot de passe du Mac, ou le verrouillage de l’écran Android), la vérification est effectuée par le système d’exploitation : rien de votre empreinte, de votre visage ou de votre code PIN ne parvient à l’application ni à nous."
+        "a": "Il se verrouille de lui-même après une période d’inactivité ; vous choisissez la durée dans Paramètres, sous Sécurité, et « Verrouiller maintenant » le verrouille immédiatement. Votre mot de passe le rouvre. Dans les applications Android et iPhone, vous pouvez aussi le faire se verrouiller chaque fois que vous quittez l’application. Sans connexion, une application peut aussi s’ouvrir avec le verrouillage de l’écran de votre appareil à la place du mot de passe (Windows Hello, Touch ID ou le mot de passe du Mac, Face ID / Touch ID ou le code de l’iPhone, ou le verrouillage de l’écran Android) ; la vérification est effectuée par le système d’exploitation : rien de votre empreinte, de votre visage ou de votre code PIN ne parvient à l’application ni à nous."
       },
       {
         "q": "Et si j’oublie mon mot de passe ?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Comment sauvegarder mon journal et le restaurer ?",
-        "a": "Ouvrez Sauvegarde dans le menu (dans l’application Android, sous Plus) et créez un fichier de sauvegarde : une copie chiffrée de tout le journal (entrées, habitudes et paramètres), protégée par un mot de passe, que vous conservez où vous voulez. Pour restaurer, choisissez ce fichier sur la même page et saisissez son mot de passe. La restauration remplace le journal actuel par le contenu du fichier, alors créez d’abord une sauvegarde du journal actuel."
+        "a": "Ouvrez Sauvegarde dans le menu (dans les applications Android et iPhone, sous Plus) et créez un fichier de sauvegarde : une copie chiffrée de tout le journal (entrées, habitudes et paramètres), protégée par un mot de passe, que vous conservez où vous voulez. Pour restaurer, choisissez ce fichier sur la même page et saisissez son mot de passe. La restauration remplace le journal actuel par le contenu du fichier, alors créez d’abord une sauvegarde du journal actuel."
       },
       {
         "q": "Comment supprimer mon compte ?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Téléchargements",
-    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux et dans le navigateur.",
+    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux, dans l’application iPhone et dans le navigateur.",
     "tabsLabel": "Système d’exploitation",
     "tabs": {
       "windows": "Windows",

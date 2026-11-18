@@ -117,7 +117,7 @@ Aucun système ne peut promettre une sécurité parfaite. Choisissez un mot de p
 
 ## 9. Vos droits
 
-Vous pouvez consulter, corriger, exporter et supprimer vos données vous-même : votre profil est dans les Paramètres, chaque entrée peut être modifiée ou supprimée, **Paramètres - Sauvegarde** et l'export créent une copie que vous pouvez emporter ailleurs, et **Supprimer le compte** efface tout. Vous pouvez aussi nous écrire pour demander une copie de vos données, leur rectification, leur effacement ou la limitation du traitement, ou pour vous y opposer, et vous pouvez retirer un consentement à tout moment. Nous répondons dans un délai de 30 jours. Vous avez aussi le droit d'introduire une réclamation auprès d'une autorité de protection des données - dans l'Union européenne, l'autorité de votre pays ; en Israël, l'Autorité de protection de la vie privée.
+Vous pouvez consulter, corriger, exporter et supprimer vos données vous-même : votre profil est dans les Paramètres, chaque entrée peut être modifiée ou supprimée, la sauvegarde et l'export de la page **Sauvegarde** créent une copie que vous pouvez emporter ailleurs, et **Supprimer le compte** efface tout. Vous pouvez aussi nous écrire pour demander une copie de vos données, leur rectification, leur effacement ou la limitation du traitement, ou pour vous y opposer, et vous pouvez retirer un consentement à tout moment. Nous répondons dans un délai de 30 jours. Vous avez aussi le droit d'introduire une réclamation auprès d'une autorité de protection des données - dans l'Union européenne, l'autorité de votre pays ; en Israël, l'Autorité de protection de la vie privée.
 
 ## 10. Enfants
 

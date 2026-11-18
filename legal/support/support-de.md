@@ -25,7 +25,7 @@ Prüfe den Benutzernamen oder die E-Mail-Adresse und das Passwort (achte auf die
 
 ### Die App meldet, dass keine Verbindung besteht
 
-Die App braucht den Server für die Anmeldung, die Suche, Statistiken und Erkenntnisse, Backups und Exporte sowie für Änderungen an deinem Konto. Ohne Verbindung kannst du trotzdem schreiben: Was du schreibst, wird verschlüsselt auf deinem Gerät gespeichert und hochgeladen, sobald die Verbindung zurück ist, auch wenn die App zwischendurch geschlossen wurde. Wenn du **Angemeldet bleiben** gewählt hast, öffnen die Windows-, Mac-, Android- und iPhone-App außerdem deine letzten Einträge, Gewohnheiten und die Daten von heute aus der verschlüsselten Kopie auf dem Gerät; du entsperrst sie mit deinem Passwort oder mit der Bildschirmsperre des Geräts (Windows Hello, Touch ID, Face ID oder die Bildschirmsperre des Smartphones). Prüfe die Internetverbindung des Geräts und wähle dann in der App **Jetzt versuchen**.
+Die App braucht den Server für die Anmeldung, die Suche, Statistiken und Erkenntnisse, Backups und Exporte sowie für Änderungen an deinem Konto. Ohne Verbindung kannst du trotzdem schreiben: Was du schreibst, wird verschlüsselt auf deinem Gerät gespeichert und hochgeladen, sobald die Verbindung zurück ist, auch wenn die App zwischendurch geschlossen wurde. Wenn du **Angemeldet bleiben** gewählt hast, öffnen die Windows-, Mac-, Android- und iPhone-App außerdem deine letzten Einträge, Gewohnheiten und die Daten von heute aus der verschlüsselten Kopie auf dem Gerät; du entsperrst sie mit deinem Passwort oder mit der Bildschirmsperre des Geräts (Windows Hello, Touch ID, Face ID oder die Bildschirmsperre des Smartphones). Prüfe die Internetverbindung des Geräts und wähle dann in der App **Erneut versuchen** oder **Jetzt versuchen**.
 
 ### Wie ändere ich die Sprache?
 
@@ -33,7 +33,7 @@ Die App braucht den Server für die Anmeldung, die Suche, Statistiken und Erkenn
 
 ### Wie bekomme ich meine Daten heraus?
 
-Unter **Einstellungen - Backup** kannst du ein **Backup** erstellen: eine verschlüsselte Kopie des ganzen Tagebuchs (Einträge, Gewohnheiten und Einstellungen) im eigenen Format der App, durch ein Passwort geschützt, die du später in der App wiederherstellen kannst. Der **Export** auf derselben Seite schreibt deine Einträge als lesbare Datei - TXT, CSV, JSON oder PDF - zum Lesen, Drucken oder für ein anderes Programm. Eine Exportdatei ist nicht verschlüsselt: Jeder, der die Datei hat, kann sie lesen, also bewahre sie so sorgfältig auf wie das Tagebuch selbst.
+Auf der Seite **Backup** im Menü (in der Android- und der iPhone-App unter „Mehr") kannst du ein **Backup** erstellen: eine verschlüsselte Kopie des ganzen Tagebuchs (Einträge, Gewohnheiten und Einstellungen) im eigenen Format der App, durch ein Passwort geschützt, die du später in der App wiederherstellen kannst. Der **Export** auf derselben Seite schreibt deine Einträge als lesbare Datei - TXT, CSV, JSON oder PDF - zum Lesen, Drucken oder für ein anderes Programm. Eine Exportdatei ist nicht verschlüsselt: Jeder, der die Datei hat, kann sie lesen, also bewahre sie so sorgfältig auf wie das Tagebuch selbst.
 
 ### Wie lösche ich mein Konto?
 

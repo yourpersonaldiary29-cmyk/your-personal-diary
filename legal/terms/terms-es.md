@@ -29,7 +29,7 @@ Al crear una cuenta o usar el servicio, aceptas estas condiciones y la Política
 
 - Debes tener al menos {{MINIMUM_AGE}} años para crear una cuenta.
 - Si eres menor de edad donde vives, solo puedes usar el servicio con el consentimiento de tu madre, tu padre o tu tutor legal, cuando la ley de tu país lo exija.
-- Los datos que das al registrarte (nombre, nombre de usuario y dirección de correo electrónico) deben ser exactos, y la dirección de correo debe ser una en la que puedas recibir mensajes. Puedes cambiarlos más adelante en Ajustes.
+- Los datos que das al registrarte (nombre, nombre de usuario y dirección de correo electrónico) deben ser exactos, y la dirección de correo debe ser una en la que puedas recibir mensajes. Puedes cambiar tu nombre y tu dirección de correo electrónico más adelante en Ajustes.
 - Podemos limitar el número de cuentas del servidor y suspender los registros nuevos en cualquier momento, por ejemplo para que el servicio siga funcionando bien.
 
 ## 3. Una cuenta por persona
@@ -51,7 +51,7 @@ Una cuenta es personal: no la compartas con otras personas y no uses la cuenta d
 - Guardamos y tratamos tu contenido solo para prestarte el servicio: para guardarlo, mostrarlo, buscar en él y mantenerlo igual en todos tus dispositivos. La Política de privacidad explica cómo.
 - No leemos tu diario. La sección 4 de la Política de privacidad explica con claridad lo que quien opera el servidor podría hacer técnicamente y a qué nos comprometemos.
 - Eres responsable de lo que escribes. No guardes contenido ilegal ni contenido que pertenezca a otra persona sin su permiso.
-- Puedes llevarte tu contenido en cualquier momento: **Ajustes - Copia de seguridad** crea una copia de seguridad cifrada, y la exportación escribe tus entradas como un archivo legible. Esas copias son tuyas, para guardarlas y usarlas.
+- Puedes llevarte tu contenido en cualquier momento: la página **Copia de seguridad** del menú crea una copia de seguridad cifrada, y la exportación, en la misma página, escribe tus entradas como un archivo legible. Esas copias son tuyas, para guardarlas y usarlas.
 
 ## 6. Uso aceptable
 
@@ -70,7 +70,7 @@ Cuando uses el servicio, no debes:
 - Hoy el servicio es **gratuito**. Si algún día queremos cobrar por algo, lo avisaremos con antelación, y nada pasará a ser de pago sin tu consentimiento.
 - Las funciones pueden cambiar, añadirse o eliminarse con el tiempo.
 - Procuramos que el servicio esté disponible, pero no prometemos que lo esté siempre ni que no tenga errores. El mantenimiento, las actualizaciones o los problemas del alojamiento pueden interrumpirlo.
-- **Guarda una copia de seguridad** de lo que te importa (Ajustes - Copia de seguridad). Cuidamos del servidor y de sus copias de seguridad, pero no respondemos del contenido perdido más allá de lo que exija la ley.
+- **Guarda una copia de seguridad** de lo que te importa (la página Copia de seguridad del menú). Cuidamos del servidor y de sus copias de seguridad, pero no respondemos del contenido perdido más allá de lo que exija la ley.
 - Trabajar sin conexión (las copias de tu dispositivo y el modo sin conexión) es una comodidad. Puede no estar disponible en todos los dispositivos ni en todo momento.
 
 ## 8. Suspensión y cierre de una cuenta

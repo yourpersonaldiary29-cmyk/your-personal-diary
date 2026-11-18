@@ -25,7 +25,7 @@ Controlla il nome utente o l'indirizzo e-mail e la password (attenzione alla lin
 
 ### L'app dice che non c'è connessione
 
-L'app ha bisogno del server per l'accesso, la ricerca, le statistiche e gli approfondimenti, i backup e le esportazioni, e per le modifiche al tuo account. Senza connessione puoi comunque scrivere: ciò che scrivi viene salvato sul dispositivo, cifrato, e caricato quando la connessione torna, anche se nel frattempo l'app è stata chiusa. Se hai scelto **Ricordami**, le app Windows, Mac, Android e iPhone aprono anche le voci recenti, le abitudini e i dati di oggi dalla copia cifrata sul dispositivo; le sblocchi con la tua password o con il blocco schermo del dispositivo (Windows Hello, Touch ID, Face ID o il blocco schermo del telefono). Controlla la connessione a Internet del dispositivo, poi scegli **Riprova ora** nell'app.
+L'app ha bisogno del server per l'accesso, la ricerca, le statistiche e gli approfondimenti, i backup e le esportazioni, e per le modifiche al tuo account. Senza connessione puoi comunque scrivere: ciò che scrivi viene salvato sul dispositivo, cifrato, e caricato quando la connessione torna, anche se nel frattempo l'app è stata chiusa. Se hai scelto **Ricordami**, le app Windows, Mac, Android e iPhone aprono anche le voci recenti, le abitudini e i dati di oggi dalla copia cifrata sul dispositivo; le sblocchi con la tua password o con il blocco schermo del dispositivo (Windows Hello, Touch ID, Face ID o il blocco schermo del telefono). Controlla la connessione a Internet del dispositivo, poi scegli **Riprova** o **Riprova ora** nell'app.
 
 ### Come cambio la lingua?
 
@@ -33,7 +33,7 @@ Apri **Impostazioni** e, nella scheda **Lingua**, scegli dall'elenco la lingua d
 
 ### Come porto fuori i miei dati?
 
-In **Impostazioni - Backup** puoi creare un **backup**: una copia cifrata dell'intero diario (voci, abitudini e impostazioni) nel formato proprio dell'app, protetta da una password, che puoi ripristinare in seguito nell'app. L'**esportazione** nella stessa pagina scrive le tue voci in un file leggibile - TXT, CSV, JSON o PDF - per leggerle, stamparle o usarle in un altro programma. Un file esportato non è cifrato: chiunque abbia il file può leggerlo, quindi conservalo con la stessa cura del diario.
+Nella pagina **Backup** del menu (nelle app Android e iPhone, sotto Altro) puoi creare un **backup**: una copia cifrata dell'intero diario (voci, abitudini e impostazioni) nel formato proprio dell'app, protetta da una password, che puoi ripristinare in seguito nell'app. L'**esportazione** nella stessa pagina scrive le tue voci in un file leggibile - TXT, CSV, JSON o PDF - per leggerle, stamparle o usarle in un altro programma. Un file esportato non è cifrato: chiunque abbia il file può leggerlo, quindi conservalo con la stessa cura del diario.
 
 ### Come elimino il mio account?
 

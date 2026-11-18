@@ -117,7 +117,7 @@ Ningún sistema puede prometer una seguridad perfecta. Elige una contraseña fue
 
 ## 9. Tus derechos
 
-Puedes ver, corregir, exportar y eliminar tus datos tú mismo: tu perfil está en Ajustes, cada entrada se puede editar o borrar, **Ajustes - Copia de seguridad** y la exportación crean una copia que puedes llevarte a otro lugar, y **Eliminar la cuenta** lo borra todo. También puedes escribirnos para pedir una copia de tus datos, su rectificación, su supresión o la limitación del tratamiento, o para oponerte a él, y puedes retirar un consentimiento en cualquier momento. Respondemos en un plazo de 30 días. También tienes derecho a reclamar ante una autoridad de protección de datos: en la Unión Europea, la autoridad de tu país; en Israel, la Autoridad de Protección de la Privacidad.
+Puedes ver, corregir, exportar y eliminar tus datos tú mismo: tu perfil está en Ajustes, cada entrada se puede editar o borrar, la copia de seguridad y la exportación de la página **Copia de seguridad** crean una copia que puedes llevarte a otro lugar, y **Eliminar la cuenta** lo borra todo. También puedes escribirnos para pedir una copia de tus datos, su rectificación, su supresión o la limitación del tratamiento, o para oponerte a él, y puedes retirar un consentimiento en cualquier momento. Respondemos en un plazo de 30 días. También tienes derecho a reclamar ante una autoridad de protección de datos: en la Unión Europea, la autoridad de tu país; en Israel, la Autoridad de Protección de la Privacidad.
 
 ## 10. Menores
 

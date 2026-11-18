@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "O que é o {{BRAND}}?",
-        "a": "Um diário privado. Escreve sobre o seu dia com as suas próprias palavras e, se quiser, acrescenta o humor, o sono, os hábitos e mais. Ao longo de semanas, meses e anos, a aplicação aponta padrões nas suas próprias entradas e mostra os números por trás de cada um. Funciona num navegador e como aplicação para Windows, Android e Mac, com uma só conta para todos."
+        "a": "Um diário privado. Escreve sobre o seu dia com as suas próprias palavras e, se quiser, acrescenta o humor, o sono, os hábitos e mais. Ao longo de semanas, meses e anos, a aplicação aponta padrões nas suas próprias entradas e mostra os números por trás de cada um. Funciona num navegador e como aplicação para Windows, Mac, Android e iPhone, com uma só conta para todos."
       },
       {
         "q": "É gratuito?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Posso experimentar sem conta?",
-        "a": "Na aplicação Android, sim. No primeiro ecrã escolha «Ignorar - só quero ver» e explore a aplicação com dados de exemplo. Nada do que escrever aí fica guardado, e a visita termina sozinha ao fim de 30 minutos. Nas aplicações para Windows e Mac e no navegador precisa de uma conta; criá-la é gratuito."
+        "a": "Na aplicação Android, sim. No primeiro ecrã escolha «Ignorar - só quero ver» e explore a aplicação com dados de exemplo. Nada do que escrever aí fica guardado, e a visita termina sozinha ao fim de 30 minutos. Nas aplicações para Windows, Mac e iPhone e no navegador precisa de uma conta; criá-la é gratuito."
       },
       {
         "q": "O que pode conter uma entrada do diário?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Como funcionam os hábitos e os lembretes?",
-        "a": "Define hábitos diários ou semanais, cada um com um objetivo, e vai marcando-os à medida que os cumpre. A aplicação mostra a sua sequência e quanto do objetivo cumpriu. Os lembretes pertencem aos hábitos: define a hora de cada hábito na página Hábitos e ativa os lembretes nas Definições, em Lembretes. Num telemóvel Android que permita notificações da aplicação, o lembrete chega mesmo com a aplicação fechada; num computador e no navegador aparece enquanto o diário está aberto. Os lembretes são criados no próprio dispositivo; nada é enviado para fora."
+        "a": "Define hábitos diários ou semanais, cada um com um objetivo, e vai marcando-os à medida que os cumpre. A aplicação mostra a sua sequência e quanto do objetivo cumpriu. Os lembretes pertencem aos hábitos: define a hora de cada hábito na página Hábitos e ativa os lembretes nas Definições, em Lembretes. Num telemóvel Android ou num iPhone que permita notificações da aplicação, o lembrete chega mesmo com a aplicação fechada; num computador e no navegador aparece enquanto o diário está aberto. Os lembretes são criados no próprio dispositivo; nada é enviado para fora."
       },
       {
         "q": "O que são as observações, e como vejo os números por trás de uma?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Posso usá-lo em vários dispositivos?",
-        "a": "Sim. O seu diário fica guardado na sua conta no servidor do {{BRAND}}, por isso inicia sessão com a mesma conta em cada dispositivo e encontra lá tudo. O que alterar num dispositivo aparece nos outros quando estes se ligarem. Nas Definições, Dispositivos ligados mostra os dispositivos com sessão iniciada, e pode desligar qualquer um deles."
+        "a": "Sim. O seu diário fica guardado na sua conta no servidor do {{BRAND}}, por isso inicia sessão com a mesma conta em cada dispositivo e encontra lá tudo. O que alterar num dispositivo aparece nos outros quando estes se ligarem. Nas Definições, Dispositivos ligados mostra os dispositivos com sessão iniciada, e pode desligar qualquer um deles, exceto aquele que está a usar."
       },
       {
         "q": "O que acontece se alterar a mesma entrada em dois dispositivos?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "O que faz «Manter sessão iniciada»?",
-        "a": "Mantém a sessão iniciada nesse dispositivo durante até 90 dias, em vez de 12 horas. Nas aplicações para Windows, Mac e Android guarda também uma cópia encriptada do que viu recentemente, para que a aplicação possa abrir e mostrá-lo sem ligação. Nos ecrãs de início de sessão e de registo, a opção vem assinalada por predefinição: num dispositivo que outras pessoas também usam, desmarque-a e termine a sessão quando acabar."
+        "a": "Mantém a sessão iniciada nesse dispositivo durante até 90 dias, em vez de 12 horas. Nas aplicações para Windows, Mac, Android e iPhone guarda também uma cópia encriptada do que viu recentemente, para que a aplicação possa abrir e mostrá-lo sem ligação. Nos ecrãs de início de sessão e de registo, a opção vem assinalada por predefinição: num dispositivo que outras pessoas também usam, desmarque-a e termine a sessão quando acabar."
       },
       {
         "q": "Onde fica guardado o meu diário?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Como é bloqueado o diário?",
-        "a": "Bloqueia-se sozinho após um período sem atividade; escolhe o tempo nas Definições, em Segurança, e «Bloquear agora» bloqueia-o de imediato. A sua palavra-passe volta a abri-lo. Na aplicação Android também pode fazer com que se bloqueie sempre que sai da aplicação, e abri-lo com a impressão digital ou o rosto. Quando uma aplicação oferece o bloqueio de ecrã do seu dispositivo em vez da palavra-passe (Windows Hello, Touch ID ou a palavra-passe do Mac, ou o bloqueio de ecrã do Android), a verificação é feita pelo sistema operativo: nada sobre a sua impressão digital, o seu rosto ou o seu PIN chega à aplicação nem a nós."
+        "a": "Bloqueia-se sozinho após um período sem atividade; escolhe o tempo nas Definições, em Segurança, e «Bloquear agora» bloqueia-o de imediato. A sua palavra-passe volta a abri-lo. Nas aplicações Android e iPhone também pode fazer com que se bloqueie sempre que sai da aplicação. Sem ligação, uma aplicação também pode ser aberta com o bloqueio de ecrã do seu dispositivo em vez da palavra-passe (Windows Hello, Touch ID ou a palavra-passe do Mac, Face ID / Touch ID ou o código do iPhone, ou o bloqueio de ecrã do Android); a verificação é feita pelo sistema operativo: nada sobre a sua impressão digital, o seu rosto ou o seu PIN chega à aplicação nem a nós."
       },
       {
         "q": "E se me esquecer da palavra-passe?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Como faço uma cópia de segurança do diário e como a restauro?",
-        "a": "Abra Cópia de segurança no menu (na aplicação Android, em Mais) e crie um ficheiro de cópia de segurança: uma cópia encriptada de todo o diário (entradas, hábitos e definições), protegida por uma palavra-passe, que guarda onde quiser. Para restaurar, escolha esse ficheiro na mesma página e introduza a palavra-passe dele. O restauro substitui o diário atual pelo conteúdo do ficheiro, por isso crie primeiro uma cópia de segurança do diário atual."
+        "a": "Abra Cópia de segurança no menu (nas aplicações Android e iPhone, em Mais) e crie um ficheiro de cópia de segurança: uma cópia encriptada de todo o diário (entradas, hábitos e definições), protegida por uma palavra-passe, que guarda onde quiser. Para restaurar, escolha esse ficheiro na mesma página e introduza a palavra-passe dele. O restauro substitui o diário atual pelo conteúdo do ficheiro, por isso crie primeiro uma cópia de segurança do diário atual."
       },
       {
         "q": "Como elimino a minha conta?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Transferências",
-    "lead": "Ficheiros de instalação do {{BRAND}} para Windows, Android e Mac. Uma só conta funciona em todos e no navegador.",
+    "lead": "Ficheiros de instalação do {{BRAND}} para Windows, Android e Mac. Uma só conta funciona em todos, na aplicação para iPhone e no navegador.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",

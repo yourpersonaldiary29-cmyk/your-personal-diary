@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Che cos’è {{BRAND}}?",
-        "a": "Un diario privato. Scrivi della tua giornata con parole tue e, se vuoi, aggiungi umore, sonno, abitudini e altro. Nel corso di settimane, mesi e anni, l’app segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna. Funziona in un browser e come app per Windows, Android e Mac, con un solo account per tutte le versioni."
+        "a": "Un diario privato. Scrivi della tua giornata con parole tue e, se vuoi, aggiungi umore, sonno, abitudini e altro. Nel corso di settimane, mesi e anni, l’app segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna. Funziona in un browser e come app per Windows, Mac, Android e iPhone, con un solo account per tutte le versioni."
       },
       {
         "q": "È gratuito?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Posso provarlo senza account?",
-        "a": "Nell’app Android, sì. Nella prima schermata scegli “Salta - voglio solo dare un’occhiata” ed esplora l’app con dati di esempio. Niente di ciò che scrivi lì viene salvato, e il tour termina da solo dopo 30 minuti. Nelle app per Windows e Mac e nel browser serve un account; crearlo è gratuito."
+        "a": "Nell’app Android, sì. Nella prima schermata scegli “Salta - voglio solo dare un’occhiata” ed esplora l’app con dati di esempio. Niente di ciò che scrivi lì viene salvato, e il tour termina da solo dopo 30 minuti. Nelle app per Windows, Mac e iPhone e nel browser serve un account; crearlo è gratuito."
       },
       {
         "q": "Che cosa può contenere una voce del diario?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Come funzionano abitudini e promemoria?",
-        "a": "Imposti abitudini giornaliere o settimanali, ciascuna con un obiettivo, e le spunti man mano. L’app mostra la tua serie e quanta parte dell’obiettivo hai completato. I promemoria fanno parte delle abitudini: imposti l’orario di ogni abitudine nella pagina Abitudini e attivi i promemoria in Impostazioni, sotto Promemoria. Su un telefono Android che consente le notifiche dell’app, il promemoria arriva anche quando l’app è chiusa; su un computer e nel browser compare mentre il diario è aperto. I promemoria vengono creati sul dispositivo stesso; non viene inviato nulla all’esterno."
+        "a": "Imposti abitudini giornaliere o settimanali, ciascuna con un obiettivo, e le spunti man mano. L’app mostra la tua serie e quanta parte dell’obiettivo hai completato. I promemoria fanno parte delle abitudini: imposti l’orario di ogni abitudine nella pagina Abitudini e attivi i promemoria in Impostazioni, sotto Promemoria. Su un telefono Android o su un iPhone che consente le notifiche dell’app, il promemoria arriva anche quando l’app è chiusa; su un computer e nel browser compare mentre il diario è aperto. I promemoria vengono creati sul dispositivo stesso; non viene inviato nulla all’esterno."
       },
       {
         "q": "Che cosa sono le osservazioni, e come vedo i numeri dietro ciascuna?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Posso usarlo su più dispositivi?",
-        "a": "Sì. Il tuo diario è conservato nel tuo account sul server di {{BRAND}}, quindi accedi con lo stesso account su ogni dispositivo e trovi tutto. Ciò che modifichi su un dispositivo compare sugli altri quando si collegano. In Impostazioni, Dispositivi collegati elenca i dispositivi su cui hai effettuato l’accesso, e puoi scollegarne uno qualsiasi."
+        "a": "Sì. Il tuo diario è conservato nel tuo account sul server di {{BRAND}}, quindi accedi con lo stesso account su ogni dispositivo e trovi tutto. Ciò che modifichi su un dispositivo compare sugli altri quando si collegano. In Impostazioni, Dispositivi connessi elenca i dispositivi su cui hai effettuato l’accesso, e puoi disconnetterne uno qualsiasi, tranne quello che stai usando."
       },
       {
         "q": "Che cosa succede se modifico la stessa voce su due dispositivi?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "A che cosa serve “Ricordami”?",
-        "a": "Ti mantiene connesso su quel dispositivo fino a 90 giorni invece di 12 ore. Nelle app per Windows, Mac e Android conserva anche una copia cifrata di ciò che hai visto di recente, così l’app può aprirsi e mostrarlo senza connessione. Nelle schermate di accesso e di registrazione è selezionato per impostazione predefinita: su un dispositivo usato anche da altre persone, deselezionalo ed esci dall’account quando hai finito."
+        "a": "Ti mantiene connesso su quel dispositivo fino a 90 giorni invece di 12 ore. Nelle app per Windows, Mac, Android e iPhone conserva anche una copia cifrata di ciò che hai visto di recente, così l’app può aprirsi e mostrarlo senza connessione. Nelle schermate di accesso e di registrazione è selezionato per impostazione predefinita: su un dispositivo usato anche da altre persone, deselezionalo ed esci dall’account quando hai finito."
       },
       {
         "q": "Dove viene conservato il mio diario?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Come si blocca il diario?",
-        "a": "Si blocca da solo dopo un periodo di inattività; scegli il tempo in Impostazioni, sotto Sicurezza, e “Blocca ora” lo blocca subito. La tua password lo riapre. Nell’app Android puoi anche farlo bloccare ogni volta che esci dall’app, e aprirlo con l’impronta digitale o il volto. Quando un’app offre il blocco schermo del tuo dispositivo al posto della password (Windows Hello, Touch ID o la password del Mac, oppure il blocco schermo di Android), il controllo viene svolto dal sistema operativo: nulla della tua impronta, del tuo volto o del tuo PIN arriva all’app o a noi."
+        "a": "Si blocca da solo dopo un periodo di inattività; scegli il tempo in Impostazioni, sotto Sicurezza, e “Blocca ora” lo blocca subito. La tua password lo riapre. Nelle app Android e iPhone puoi anche farlo bloccare ogni volta che esci dall’app. Senza connessione, un’app può anche aprirsi con il blocco schermo del tuo dispositivo al posto della password (Windows Hello, Touch ID o la password del Mac, Face ID / Touch ID o il codice dell’iPhone, oppure il blocco schermo di Android); il controllo viene svolto dal sistema operativo: nulla della tua impronta, del tuo volto o del tuo PIN arriva all’app o a noi."
       },
       {
         "q": "E se dimentico la password?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Come faccio il backup del diario e come lo ripristino?",
-        "a": "Apri Backup nel menu (nell’app Android, sotto Altro) e crea un file di backup: una copia cifrata dell’intero diario (voci, abitudini e impostazioni), protetta da una password, che conservi dove preferisci. Per ripristinare, scegli quel file nella stessa pagina e inserisci la sua password. Il ripristino sostituisce il diario attuale con il contenuto del file, quindi crea prima un backup del diario attuale."
+        "a": "Apri Backup nel menu (nelle app Android e iPhone, sotto Altro) e crea un file di backup: una copia cifrata dell’intero diario (voci, abitudini e impostazioni), protetta da una password, che conservi dove preferisci. Per ripristinare, scegli quel file nella stessa pagina e inserisci la sua password. Il ripristino sostituisce il diario attuale con il contenuto del file, quindi crea prima un backup del diario attuale."
       },
       {
         "q": "Come elimino il mio account?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Download",
-    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app e nel browser.",
+    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app, anche in quella per iPhone, e nel browser.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",

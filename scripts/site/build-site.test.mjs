@@ -387,8 +387,21 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
   assert.match(content.faq.items[5].a, /^No\. .*not a medical or diagnostic tool.*not medical or psychological advice/);
   assert.match(content.faq.items[6].a, /^In the Android app, yes\./, 'the tour exists in the Android app only');
   assert.match(content.faq.items[20].a, /could technically reset the password of any account and read its diary without knowing the password\. We promise not to do this/);
-  // Backup is a page of the menu (in the Android app under More), not a card of Settings; "Remember me" is ticked at first.
-  assert.match(content.faq.items[25].a, /^Open Backup in the menu \(in the Android app, under More\)/);
+  // Backup is a page of the menu (in the Android and iPhone apps under More), not a card of Settings; "Remember me" is ticked at first.
+  assert.match(content.faq.items[25].a, /^Open Backup in the menu \(in the Android and iPhone apps, under More\)/);
+  // The iPhone app is named with the others wherever the answer is true for it too (the owner's wording of 2026-11-18,
+  // "the iPhone app in all places"); the tour stays Android only.
+  assert.match(content.faq.items[0].a, /as an app for Windows, Mac, Android and iPhone, with one account for all of them/);
+  assert.match(content.faq.items[6].a, /In the Windows, Mac and iPhone apps and in the browser you need an account/);
+  assert.match(content.faq.items[8].a, /On an Android phone or an iPhone that allows notifications for the app/);
+  assert.match(content.faq.items[18].a, /In the Windows, Mac, Android and iPhone apps it also keeps an encrypted copy/);
+  assert.match(content.faq.items[23].a, /In the Android and iPhone apps you can also have it lock whenever you leave the app\./);
+  // No app offers a fingerprint / face unlock online: the device's screen lock is offered only without a connection.
+  assert.match(content.faq.items[23].a, /Without a connection, an app can also open with the screen lock of your device instead of the password \(Windows Hello, Touch ID or the Mac password, Face ID \/ Touch ID or the iPhone passcode, or the Android screen lock\)/);
+  assert.ok(!/open it with your fingerprint or face/.test(content.faq.items[23].a), 'no online fingerprint unlock is promised');
+  // The one account also works in the iPhone app; the device in use cannot be disconnected from the list (sign out there).
+  assert.match(content.downloads.lead, /One account works in all of them, in the iPhone app and in the browser\.$/);
+  assert.match(content.faq.items[15].a, /and you can disconnect any of them except the one you are using\.$/);
   assert.ok(![...leaves.values()].some((text) => /Settings - Backup/.test(text)), 'no text sends the visitor to a Backup card in Settings');
   assert.match(content.faq.items[18].a, /it is ticked at first: on a device that other people also use, clear it/);
   assert.ok(content.faq.items[27].a.includes('{{MINIMUM_AGE}}') && !/\p{Nd}/u.test(content.faq.items[27].a), 'the age comes from legal/settings.json, never a literal');

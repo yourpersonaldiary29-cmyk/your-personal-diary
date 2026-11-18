@@ -25,7 +25,7 @@ Zkontroluj uživatelské jméno nebo e-mailovou adresu a heslo (dej pozor na jaz
 
 ### Aplikace hlásí, že není připojení
 
-Aplikace potřebuje server k přihlášení, k vyhledávání, ke statistikám a postřehům, k zálohám a exportům a ke změnám v tvém účtu. Bez připojení můžeš dál psát: co napíšeš, se uloží na zařízení v zašifrované podobě a nahraje se po obnovení připojení, i když byla aplikace mezitím zavřená. Pokud jsi zvolil **Zapamatovat si mě**, aplikace pro Windows, Mac, Android a iPhone otevřou také tvé nedávné záznamy, návyky a dnešní data ze zašifrované kopie v zařízení; odemkneš je svým heslem nebo zámkem obrazovky zařízení (Windows Hello, Touch ID, Face ID nebo zámek obrazovky telefonu). Zkontroluj připojení zařízení k internetu a pak v aplikaci zvol **Zkusit teď**.
+Aplikace potřebuje server k přihlášení, k vyhledávání, ke statistikám a postřehům, k zálohám a exportům a ke změnám v tvém účtu. Bez připojení můžeš dál psát: co napíšeš, se uloží na zařízení v zašifrované podobě a nahraje se po obnovení připojení, i když byla aplikace mezitím zavřená. Pokud jsi zvolil **Zapamatovat si mě**, aplikace pro Windows, Mac, Android a iPhone otevřou také tvé nedávné záznamy, návyky a dnešní data ze zašifrované kopie v zařízení; odemkneš je svým heslem nebo zámkem obrazovky zařízení (Windows Hello, Touch ID, Face ID nebo zámek obrazovky telefonu). Zkontroluj připojení zařízení k internetu a pak v aplikaci zvol **Zkusit znovu** nebo **Zkusit teď**.
 
 ### Jak změním jazyk?
 
@@ -33,7 +33,7 @@ Otevři **Nastavení** a na kartě **Jazyk** vyber ze seznamu jazyk rozhraní; c
 
 ### Jak dostanu svá data ven?
 
-V **Nastavení - Záloha** můžeš vytvořit **zálohu**: zašifrovanou kopii celého deníku (záznamy, návyky a nastavení) ve vlastním formátu aplikace, chráněnou heslem, kterou můžeš později v aplikaci obnovit. **Export** na stejné stránce zapíše tvé záznamy jako čitelný soubor (TXT, CSV, JSON nebo PDF) ke čtení, tisku nebo pro jiný program. Exportovaný soubor není zašifrovaný: kdokoli, kdo ho má, si ho může přečíst, proto ho chraň stejně pečlivě jako samotný deník.
+Na stránce **Záloha** v nabídce (v aplikacích pro Android a iPhone v části Více) můžeš vytvořit **zálohu**: zašifrovanou kopii celého deníku (záznamy, návyky a nastavení) ve vlastním formátu aplikace, chráněnou heslem, kterou můžeš později v aplikaci obnovit. **Export** na stejné stránce zapíše tvé záznamy jako čitelný soubor (TXT, CSV, JSON nebo PDF) ke čtení, tisku nebo pro jiný program. Exportovaný soubor není zašifrovaný: kdokoli, kdo ho má, si ho může přečíst, proto ho chraň stejně pečlivě jako samotný deník.
 
 ### Jak smažu svůj účet?
 

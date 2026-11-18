@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Ce este {{BRAND}}?",
-        "a": "Un jurnal privat. Scrii despre ziua ta cu propriile cuvinte și, dacă vrei, adaugi dispoziția, somnul, obiceiurile și altele. De-a lungul săptămânilor, lunilor și anilor, aplicația îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia. Funcționează în browser și ca aplicație pentru Windows, Android și Mac, cu un singur cont pentru toate."
+        "a": "Un jurnal privat. Scrii despre ziua ta cu propriile cuvinte și, dacă vrei, adaugi dispoziția, somnul, obiceiurile și altele. De-a lungul săptămânilor, lunilor și anilor, aplicația îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia. Funcționează în browser și ca aplicație pentru Windows, Mac, Android și iPhone, cu un singur cont pentru toate."
       },
       {
         "q": "Este gratuit?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Pot să-l încerc fără cont?",
-        "a": "În aplicația Android, da. Pe primul ecran alege „Omite - vreau doar să arunc o privire” și explorează aplicația cu date de exemplu. Nimic din ce scrii acolo nu se salvează, iar turul se încheie singur după 30 de minute. În aplicațiile pentru Windows și Mac și în browser ai nevoie de un cont; crearea lui este gratuită."
+        "a": "În aplicația Android, da. Pe primul ecran alege „Omite - vreau doar să arunc o privire” și explorează aplicația cu date de exemplu. Nimic din ce scrii acolo nu se salvează, iar turul se încheie singur după 30 de minute. În aplicațiile pentru Windows, Mac și iPhone și în browser ai nevoie de un cont; crearea lui este gratuită."
       },
       {
         "q": "Ce poate conține o însemnare?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Cum funcționează obiceiurile și mementourile?",
-        "a": "Îți stabilești obiceiuri zilnice sau săptămânale, fiecare cu un obiectiv, și le bifezi pe parcurs. Aplicația îți arată câte zile la rând ai reușit și cât din obiectiv ai îndeplinit. Mementourile țin de obiceiuri: setezi ora pentru fiecare obicei pe pagina Obiceiuri și activezi mementourile din Setări, la Mementouri. Pe un telefon Android care permite notificări pentru aplicație, mementoul sosește chiar și când aplicația este închisă; pe computer și în browser apare cât timp jurnalul este deschis. Mementourile sunt create chiar pe dispozitiv; nu se trimite nimic în afară."
+        "a": "Îți stabilești obiceiuri zilnice sau săptămânale, fiecare cu un obiectiv, și le bifezi pe parcurs. Aplicația îți arată câte zile la rând ai reușit și cât din obiectiv ai îndeplinit. Mementourile țin de obiceiuri: setezi ora pentru fiecare obicei pe pagina Obiceiuri și activezi mementourile din Setări, la Mementouri. Pe un telefon Android sau pe un iPhone care permite notificări pentru aplicație, mementoul sosește chiar și când aplicația este închisă; pe computer și în browser apare cât timp jurnalul este deschis. Mementourile sunt create chiar pe dispozitiv; nu se trimite nimic în afară."
       },
       {
         "q": "Ce sunt observațiile și cum văd cifrele din spatele unei observații?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Îl pot folosi pe mai multe dispozitive?",
-        "a": "Da. Jurnalul tău este păstrat în contul tău pe serverul {{BRAND}}, așa că te conectezi cu același cont pe fiecare dispozitiv și găsești totul acolo. Ce modifici pe un dispozitiv apare pe celelalte când se conectează. În Setări, Dispozitive conectate arată dispozitivele pe care ești conectat și poți deconecta oricare dintre ele."
+        "a": "Da. Jurnalul tău este păstrat în contul tău pe serverul {{BRAND}}, așa că te conectezi cu același cont pe fiecare dispozitiv și găsești totul acolo. Ce modifici pe un dispozitiv apare pe celelalte când se conectează. În Setări, Dispozitive conectate arată dispozitivele pe care ești conectat și poți deconecta oricare dintre ele, în afară de cel pe care îl folosești."
       },
       {
         "q": "Ce se întâmplă dacă modific aceeași însemnare pe două dispozitive?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "Ce face „Ține-mă minte”?",
-        "a": "Te menține conectat pe acel dispozitiv până la 90 de zile, în loc de 12 ore. În aplicațiile pentru Windows, Mac și Android păstrează și o copie criptată a ce ai vizualizat recent, ca aplicația să se poată deschide și să ți-o arate fără conexiune. Pe ecranele de conectare și de creare a contului este bifat de la început: pe un dispozitiv pe care îl folosesc și alte persoane, debifează-l și deconectează-te când termini."
+        "a": "Te menține conectat pe acel dispozitiv până la 90 de zile, în loc de 12 ore. În aplicațiile pentru Windows, Mac, Android și iPhone păstrează și o copie criptată a ce ai vizualizat recent, ca aplicația să se poată deschide și să ți-o arate fără conexiune. Pe ecranele de conectare și de creare a contului este bifat de la început: pe un dispozitiv pe care îl folosesc și alte persoane, debifează-l și deconectează-te când termini."
       },
       {
         "q": "Unde este păstrat jurnalul meu?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Cum se blochează jurnalul?",
-        "a": "Se blochează singur după o perioadă de inactivitate; alegi durata în Setări, la Securitate, iar „Blochează acum” îl blochează imediat. Parola ta îl deschide din nou. În aplicația Android îl poți face să se blocheze și ori de câte ori ieși din aplicație și îl poți deschide cu amprenta sau cu fața. Acolo unde o aplicație oferă blocarea ecranului dispozitivului tău în locul parolei (Windows Hello, Touch ID sau parola Mac-ului, ori blocarea ecranului Android), verificarea o face sistemul de operare: nimic despre amprenta, fața sau PIN-ul tău nu ajunge la aplicație sau la noi."
+        "a": "Se blochează singur după o perioadă de inactivitate; alegi durata în Setări, la Securitate, iar „Blochează acum” îl blochează imediat. Parola ta îl deschide din nou. În aplicațiile Android și iPhone îl poți face să se blocheze și ori de câte ori ieși din aplicație. Fără conexiune, o aplicație se poate deschide și cu blocarea ecranului dispozitivului tău în locul parolei (Windows Hello, Touch ID sau parola Mac-ului, Face ID / Touch ID sau codul de acces al iPhone-ului, ori blocarea ecranului Android); verificarea o face sistemul de operare: nimic despre amprenta, fața sau PIN-ul tău nu ajunge la aplicație sau la noi."
       },
       {
         "q": "Ce fac dacă îmi uit parola?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Cum fac backup jurnalului și cum îl restaurez?",
-        "a": "Deschide Backup din meniu (în aplicația Android, la Mai mult) și creează un fișier de backup: o copie criptată a întregului jurnal (însemnări, obiceiuri și setări), protejată cu o parolă, pe care o păstrezi unde vrei. Pentru restaurare, alege fișierul pe aceeași pagină și introdu parola lui. Restaurarea înlocuiește jurnalul actual cu conținutul fișierului, așa că mai întâi creează un backup al jurnalului actual."
+        "a": "Deschide Backup din meniu (în aplicațiile Android și iPhone, la Mai mult) și creează un fișier de backup: o copie criptată a întregului jurnal (însemnări, obiceiuri și setări), protejată cu o parolă, pe care o păstrezi unde vrei. Pentru restaurare, alege fișierul pe aceeași pagină și introdu parola lui. Restaurarea înlocuiește jurnalul actual cu conținutul fișierului, așa că mai întâi creează un backup al jurnalului actual."
       },
       {
         "q": "Cum îmi șterg contul?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Descărcări",
-    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea și în browser.",
+    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea, în aplicația pentru iPhone și în browser.",
     "tabsLabel": "Sistem de operare",
     "tabs": {
       "windows": "Windows",

@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "Mi a {{BRAND}}?",
-        "a": "Egy privát napló. A saját szavaiddal írsz a napodról, és ha szeretnéd, hozzáadod a hangulatodat, az alvásodat, a szokásaidat és egyebeket. Hetek, hónapok és évek alatt az alkalmazás rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat. Böngészőben, valamint Windows-, Android- és Mac-alkalmazásként működik, mindegyikhez ugyanazzal az egy fiókkal."
+        "a": "Egy privát napló. A saját szavaiddal írsz a napodról, és ha szeretnéd, hozzáadod a hangulatodat, az alvásodat, a szokásaidat és egyebeket. Hetek, hónapok és évek alatt az alkalmazás rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat. Böngészőben, valamint Windows-, Mac-, Android- és iPhone-alkalmazásként működik, mindegyikhez ugyanazzal az egy fiókkal."
       },
       {
         "q": "Ingyenes?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "Kipróbálhatom fiók nélkül?",
-        "a": "Az Android-alkalmazásban igen. Az első képernyőn válaszd a „Kihagyás - csak körülnéznék” lehetőséget, és fedezd fel az alkalmazást mintaadatokkal. Semmi sem mentődik el abból, amit ott írsz, és a bemutató 30 perc után magától véget ér. A Windows- és a Mac-alkalmazásban, valamint a böngészőben fiókra van szükséged; a létrehozása ingyenes."
+        "a": "Az Android-alkalmazásban igen. Az első képernyőn válaszd a „Kihagyás - csak körülnéznék” lehetőséget, és fedezd fel az alkalmazást mintaadatokkal. Semmi sem mentődik el abból, amit ott írsz, és a bemutató 30 perc után magától véget ér. A Windows-, a Mac- és az iPhone-alkalmazásban, valamint a böngészőben fiókra van szükséged; a létrehozása ingyenes."
       },
       {
         "q": "Mit tartalmazhat egy bejegyzés?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "Hogyan működnek a szokások és az emlékeztetők?",
-        "a": "Napi vagy heti szokásokat állítasz be, mindegyiket saját céllal, és menet közben kipipálod őket. Az alkalmazás megmutatja a sorozatodat és azt, hogy a cél mekkora részét teljesítetted. Az emlékeztetők a szokásokhoz tartoznak: az egyes szokások időpontját a Szokások oldalon állítod be, az emlékeztetőket pedig a Beállításokban, az Emlékeztetők résznél kapcsolod be. Ha egy Android-telefon engedélyezi az alkalmazás értesítéseit, az emlékeztető akkor is megérkezik, ha az alkalmazás be van zárva; számítógépen és böngészőben akkor jelenik meg, amikor a napló nyitva van. Az emlékeztetők magán az eszközön jönnek létre; semmi sem megy ki az eszközről."
+        "a": "Napi vagy heti szokásokat állítasz be, mindegyiket saját céllal, és menet közben kipipálod őket. Az alkalmazás megmutatja a sorozatodat és azt, hogy a cél mekkora részét teljesítetted. Az emlékeztetők a szokásokhoz tartoznak: az egyes szokások időpontját a Szokások oldalon állítod be, az emlékeztetőket pedig a Beállításokban, az Emlékeztetők résznél kapcsolod be. Ha egy Android-telefon vagy egy iPhone engedélyezi az alkalmazás értesítéseit, az emlékeztető akkor is megérkezik, ha az alkalmazás be van zárva; számítógépen és böngészőben akkor jelenik meg, amikor a napló nyitva van. Az emlékeztetők magán az eszközön jönnek létre; semmi sem megy ki az eszközről."
       },
       {
         "q": "Mik azok a meglátások, és hogyan láthatom a mögöttük álló számokat?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "Használhatom több eszközön?",
-        "a": "Igen. A naplód a fiókodban van a {{BRAND}} szerverén, így minden eszközön ugyanazzal a fiókkal jelentkezel be, és ott találsz mindent. Amit az egyik eszközön módosítasz, az megjelenik a többin, amikor csatlakoznak. A Beállításokban a Csatlakoztatott eszközök lista mutatja, mely eszközökön vagy bejelentkezve, és bármelyiket leválaszthatod."
+        "a": "Igen. A naplód a fiókodban van a {{BRAND}} szerverén, így minden eszközön ugyanazzal a fiókkal jelentkezel be, és ott találsz mindent. Amit az egyik eszközön módosítasz, az megjelenik a többin, amikor csatlakoznak. A Beállításokban a Csatlakoztatott eszközök lista mutatja, mely eszközökön vagy bejelentkezve, és bármelyiket leválaszthatod, kivéve azt, amelyet éppen használsz."
       },
       {
         "q": "Mi történik, ha ugyanazt a bejegyzést két eszközön módosítom?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "Mit csinál az „Emlékezz rám”?",
-        "a": "12 óra helyett legfeljebb 90 napig bejelentkezve tart azon az eszközön. A Windows-, a Mac- és az Android-alkalmazásban titkosított másolatot is őriz arról, amit nemrég megnéztél, így az alkalmazás kapcsolat nélkül is meg tud nyílni és meg tudja mutatni. A bejelentkezési és a regisztrációs képernyőn alapértelmezés szerint be van jelölve: olyan eszközön, amelyet mások is használnak, vedd ki a jelölést, és ha végeztél, jelentkezz ki."
+        "a": "12 óra helyett legfeljebb 90 napig bejelentkezve tart azon az eszközön. A Windows-, a Mac-, az Android- és az iPhone-alkalmazásban titkosított másolatot is őriz arról, amit nemrég megnéztél, így az alkalmazás kapcsolat nélkül is meg tud nyílni és meg tudja mutatni. A bejelentkezési és a regisztrációs képernyőn alapértelmezés szerint be van jelölve: olyan eszközön, amelyet mások is használnak, vedd ki a jelölést, és ha végeztél, jelentkezz ki."
       },
       {
         "q": "Hol tárolódik a naplóm?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "Hogyan zárolódik a napló?",
-        "a": "Egy ideig tartó inaktivitás után magától zárolódik; az időt a Beállításokban, a Biztonság résznél választhatod ki, a „Zárolás most” pedig azonnal zárolja. A jelszavaddal újra megnyithatod. Az Android-alkalmazásban azt is beállíthatod, hogy mindig zárolódjon, amikor kilépsz az alkalmazásból, és ujjlenyomattal vagy arccal nyisd meg. Ahol egy alkalmazás a jelszó helyett az eszközöd képernyőzárát kínálja (Windows Hello, Touch ID vagy a Mac jelszava, illetve az Android képernyőzára), az ellenőrzést az operációs rendszer végzi: az ujjlenyomatodról, az arcodról vagy a PIN-kódodról semmi sem jut el az alkalmazáshoz vagy hozzánk."
+        "a": "Egy ideig tartó inaktivitás után magától zárolódik; az időt a Beállításokban, a Biztonság résznél választhatod ki, a „Zárolás most” pedig azonnal zárolja. A jelszavaddal újra megnyithatod. Az Android- és az iPhone-alkalmazásban azt is beállíthatod, hogy mindig zárolódjon, amikor kilépsz az alkalmazásból. Kapcsolat nélkül egy alkalmazás a jelszó helyett az eszközöd képernyőzárával is megnyitható (Windows Hello, Touch ID vagy a Mac jelszava, Face ID / Touch ID vagy az iPhone jelkódja, illetve az Android képernyőzára); az ellenőrzést az operációs rendszer végzi: az ujjlenyomatodról, az arcodról vagy a PIN-kódodról semmi sem jut el az alkalmazáshoz vagy hozzánk."
       },
       {
         "q": "Mi a teendő, ha elfelejtem a jelszavamat?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "Hogyan készíthetek biztonsági mentést a naplómról, és hogyan állíthatom vissza?",
-        "a": "Nyisd meg a menüben a Biztonsági mentés oldalt (az Android-alkalmazásban a Továbbiak alatt), és hozz létre egy biztonsági mentési fájlt: az egész napló (bejegyzések, szokások és beállítások) titkosított, jelszóval védett másolatát, amelyet ott tárolsz, ahol szeretnéd. A visszaállításhoz válaszd ki ezt a fájlt ugyanazon az oldalon, és add meg a jelszavát. A visszaállítás a fájl tartalmával felülírja a jelenlegi naplót, ezért előbb készíts biztonsági mentést a jelenlegi naplóról."
+        "a": "Nyisd meg a menüben a Biztonsági mentés oldalt (az Android- és az iPhone-alkalmazásban a Továbbiak alatt), és hozz létre egy biztonsági mentési fájlt: az egész napló (bejegyzések, szokások és beállítások) titkosított, jelszóval védett másolatát, amelyet ott tárolsz, ahol szeretnéd. A visszaállításhoz válaszd ki ezt a fájlt ugyanazon az oldalon, és add meg a jelszavát. A visszaállítás a fájl tartalmával felülírja a jelenlegi naplót, ezért előbb készíts biztonsági mentést a jelenlegi naplóról."
       },
       {
         "q": "Hogyan törölhetem a fiókomat?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Letöltések",
-    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben és a böngészőben is.",
+    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben, az iPhone-alkalmazásban és a böngészőben is.",
     "tabsLabel": "Operációs rendszer",
     "tabs": {
       "windows": "Windows",

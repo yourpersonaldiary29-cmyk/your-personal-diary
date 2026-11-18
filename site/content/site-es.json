@@ -107,7 +107,7 @@
     "items": [
       {
         "q": "¿Qué es {{BRAND}}?",
-        "a": "Un diario privado. Escribes sobre tu día con tus propias palabras y, si quieres, añades tu estado de ánimo, tu sueño, tus hábitos y más. A lo largo de semanas, meses y años, la aplicación señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno. Funciona en el navegador y como aplicación para Windows, Android y Mac, con una sola cuenta para todo."
+        "a": "Un diario privado. Escribes sobre tu día con tus propias palabras y, si quieres, añades tu estado de ánimo, tu sueño, tus hábitos y más. A lo largo de semanas, meses y años, la aplicación señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno. Funciona en el navegador y como aplicación para Windows, Mac, Android y iPhone, con una sola cuenta para todo."
       },
       {
         "q": "¿Es gratis?",
@@ -131,7 +131,7 @@
       },
       {
         "q": "¿Puedo probarlo sin una cuenta?",
-        "a": "En la aplicación para Android, sí. En la primera pantalla, elige «Omitir - solo quiero mirar» y explora la aplicación con datos de ejemplo. Nada de lo que escribas ahí se guarda, y la visita termina sola al cabo de 30 minutos. En las aplicaciones para Windows y Mac y en el navegador necesitas una cuenta; crearla es gratis."
+        "a": "En la aplicación para Android, sí. En la primera pantalla, elige «Omitir - solo quiero mirar» y explora la aplicación con datos de ejemplo. Nada de lo que escribas ahí se guarda, y la visita termina sola al cabo de 30 minutos. En las aplicaciones para Windows, Mac y iPhone y en el navegador necesitas una cuenta; crearla es gratis."
       },
       {
         "q": "¿Qué puede contener una entrada del diario?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "¿Cómo funcionan los hábitos y los recordatorios?",
-        "a": "Creas hábitos diarios o semanales, cada uno con un objetivo, y los vas marcando sobre la marcha. La aplicación muestra tu racha y qué parte del objetivo has cumplido. Los recordatorios van con los hábitos: fijas la hora de cada hábito en la página Hábitos y activas los recordatorios en Ajustes, en Recordatorios. En un teléfono Android que permita las notificaciones de la aplicación, el recordatorio llega aunque la aplicación esté cerrada; en un ordenador y en el navegador aparece mientras el diario está abierto. Los recordatorios se crean en el propio dispositivo; no se envía nada fuera."
+        "a": "Creas hábitos diarios o semanales, cada uno con un objetivo, y los vas marcando sobre la marcha. La aplicación muestra tu racha y qué parte del objetivo has cumplido. Los recordatorios van con los hábitos: fijas la hora de cada hábito en la página Hábitos y activas los recordatorios en Ajustes, en Recordatorios. En un teléfono Android o en un iPhone que permita las notificaciones de la aplicación, el recordatorio llega aunque la aplicación esté cerrada; en un ordenador y en el navegador aparece mientras el diario está abierto. Los recordatorios se crean en el propio dispositivo; no se envía nada fuera."
       },
       {
         "q": "¿Qué son las observaciones y cómo veo las cifras que hay detrás de una?",
@@ -167,7 +167,7 @@
       },
       {
         "q": "¿Puedo usarlo en varios dispositivos?",
-        "a": "Sí. Tu diario se guarda en tu cuenta en el servidor de {{BRAND}}, así que inicias sesión con la misma cuenta en cada dispositivo y lo tienes todo. Lo que cambias en un dispositivo aparece en los demás cuando se conectan. En Ajustes, Dispositivos conectados muestra los dispositivos que tienen la sesión iniciada, y puedes desconectar cualquiera de ellos."
+        "a": "Sí. Tu diario se guarda en tu cuenta en el servidor de {{BRAND}}, así que inicias sesión con la misma cuenta en cada dispositivo y lo tienes todo. Lo que cambias en un dispositivo aparece en los demás cuando se conectan. En Ajustes, Dispositivos conectados muestra los dispositivos que tienen la sesión iniciada, y puedes desconectar cualquiera de ellos, excepto el que estás usando."
       },
       {
         "q": "¿Qué pasa si cambio la misma entrada en dos dispositivos?",
@@ -179,7 +179,7 @@
       },
       {
         "q": "¿Qué hace «Recordarme»?",
-        "a": "Mantiene tu sesión iniciada en ese dispositivo hasta 90 días en lugar de 12 horas. En las aplicaciones para Windows, Mac y Android también guarda una copia cifrada de lo que has visto recientemente, para que la aplicación pueda abrirse y mostrarlo sin conexión. En las pantallas de inicio de sesión y de registro la casilla viene marcada: en un dispositivo que también usan otras personas, desmárcala y cierra sesión cuando termines."
+        "a": "Mantiene tu sesión iniciada en ese dispositivo hasta 90 días en lugar de 12 horas. En las aplicaciones para Windows, Mac, Android y iPhone también guarda una copia cifrada de lo que has visto recientemente, para que la aplicación pueda abrirse y mostrarlo sin conexión. En las pantallas de inicio de sesión y de registro la casilla viene marcada: en un dispositivo que también usan otras personas, desmárcala y cierra sesión cuando termines."
       },
       {
         "q": "¿Dónde se guarda mi diario?",
@@ -199,7 +199,7 @@
       },
       {
         "q": "¿Cómo se bloquea el diario?",
-        "a": "Se bloquea solo tras un periodo de inactividad; eliges el tiempo en Ajustes, en Seguridad, y «Bloquear ahora» lo bloquea al instante. Tu contraseña lo vuelve a abrir. En la aplicación para Android también puedes hacer que se bloquee cada vez que sales de la aplicación, y abrirlo con tu huella o tu rostro. Cuando una aplicación ofrece el bloqueo de pantalla de tu dispositivo en lugar de la contraseña (Windows Hello, Touch ID o la contraseña del Mac, o el bloqueo de pantalla de Android), la comprobación la hace el sistema operativo: nada sobre tu huella, tu rostro o tu PIN llega a la aplicación ni a nosotros."
+        "a": "Se bloquea solo tras un periodo de inactividad; eliges el tiempo en Ajustes, en Seguridad, y «Bloquear ahora» lo bloquea al instante. Tu contraseña lo vuelve a abrir. En las aplicaciones para Android y iPhone también puedes hacer que se bloquee cada vez que sales de la aplicación. Sin conexión, una aplicación también puede abrirse con el bloqueo de pantalla de tu dispositivo en lugar de la contraseña (Windows Hello, Touch ID o la contraseña del Mac, Face ID / Touch ID o el código del iPhone, o el bloqueo de pantalla de Android); la comprobación la hace el sistema operativo: nada sobre tu huella, tu rostro o tu PIN llega a la aplicación ni a nosotros."
       },
       {
         "q": "¿Qué pasa si olvido mi contraseña?",
@@ -207,7 +207,7 @@
       },
       {
         "q": "¿Cómo hago una copia de seguridad de mi diario y cómo la restauro?",
-        "a": "Abre Copia de seguridad en el menú (en la aplicación para Android, en Más) y crea un archivo de copia de seguridad: una copia cifrada de todo el diario (entradas, hábitos y ajustes), protegida con una contraseña, que guardas donde quieras. Para restaurarla, elige ese archivo en la misma página e introduce su contraseña. La restauración sustituye el diario actual por el contenido del archivo, así que antes crea una copia de seguridad del diario actual."
+        "a": "Abre Copia de seguridad en el menú (en las aplicaciones para Android y iPhone, en Más) y crea un archivo de copia de seguridad: una copia cifrada de todo el diario (entradas, hábitos y ajustes), protegida con una contraseña, que guardas donde quieras. Para restaurarla, elige ese archivo en la misma página e introduce su contraseña. La restauración sustituye el diario actual por el contenido del archivo, así que antes crea una copia de seguridad del diario actual."
       },
       {
         "q": "¿Cómo elimino mi cuenta?",
@@ -229,7 +229,7 @@
   },
   "downloads": {
     "heading": "Descargas",
-    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos y en el navegador.",
+    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos, en la aplicación para iPhone y en el navegador.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",

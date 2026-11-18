@@ -25,7 +25,7 @@ Kullanıcı adını veya e-posta adresini ve parolayı kontrol edin (klavye dili
 
 ### Uygulama bağlantı olmadığını söylüyor
 
-Uygulamanın oturum açmak, arama yapmak, istatistikler ve içgörüler, yedeklemeler ve dışa aktarmalar ile hesabınızdaki değişiklikler için sunucuya ihtiyacı vardır. Bağlantı olmadan da yazabilirsiniz: yazdıklarınız cihazınızda şifreli olarak saklanır ve arada uygulama kapatılmış olsa bile bağlantı geri geldiğinde yüklenir. **Beni hatırla** seçeneğini seçtiyseniz Windows, Mac, Android ve iPhone uygulamaları son kayıtlarınızı, alışkanlıklarınızı ve bugünün verilerini cihazdaki şifreli kopyadan da açar; bunların kilidini parolanızla veya cihazın ekran kilidiyle (Windows Hello, Touch ID, Face ID veya telefonun ekran kilidi) açarsınız. Cihazın internet bağlantısını kontrol edin, ardından uygulamada **Şimdi dene** seçeneğini seçin.
+Uygulamanın oturum açmak, arama yapmak, istatistikler ve içgörüler, yedeklemeler ve dışa aktarmalar ile hesabınızdaki değişiklikler için sunucuya ihtiyacı vardır. Bağlantı olmadan da yazabilirsiniz: yazdıklarınız cihazınızda şifreli olarak saklanır ve arada uygulama kapatılmış olsa bile bağlantı geri geldiğinde yüklenir. **Beni hatırla** seçeneğini seçtiyseniz Windows, Mac, Android ve iPhone uygulamaları son kayıtlarınızı, alışkanlıklarınızı ve bugünün verilerini cihazdaki şifreli kopyadan da açar; bunların kilidini parolanızla veya cihazın ekran kilidiyle (Windows Hello, Touch ID, Face ID veya telefonun ekran kilidi) açarsınız. Cihazın internet bağlantısını kontrol edin, ardından uygulamada **Tekrar dene** veya **Şimdi dene** seçeneğini seçin.
 
 ### Dili nasıl değiştiririm?
 
@@ -33,7 +33,7 @@ Uygulamanın oturum açmak, arama yapmak, istatistikler ve içgörüler, yedekle
 
 ### Verilerimi nasıl dışarı alırım?
 
-**Ayarlar - Yedekleme** bölümünde bir **yedek** oluşturabilirsiniz: tüm günlüğün (kayıtlar, alışkanlıklar ve ayarlar) uygulamanın kendi biçiminde, parolayla korunan ve daha sonra uygulamada geri yükleyebileceğiniz şifreli bir kopyası. Aynı sayfadaki **dışa aktarma**, kayıtlarınızı okunabilir bir dosya olarak yazar - TXT, CSV, JSON veya PDF - okumak, yazdırmak ya da başka bir programda kullanmak için. Dışa aktarma dosyası şifrelenmez: dosyaya sahip olan herkes onu okuyabilir, bu yüzden onu günlüğün kendisi kadar özenle saklayın.
+Menüdeki **Yedekleme** sayfasında (Android ve iPhone uygulamalarında Diğer altında) bir **yedek** oluşturabilirsiniz: tüm günlüğün (kayıtlar, alışkanlıklar ve ayarlar) uygulamanın kendi biçiminde, parolayla korunan ve daha sonra uygulamada geri yükleyebileceğiniz şifreli bir kopyası. Aynı sayfadaki **dışa aktarma**, kayıtlarınızı okunabilir bir dosya olarak yazar - TXT, CSV, JSON veya PDF - okumak, yazdırmak ya da başka bir programda kullanmak için. Dışa aktarma dosyası şifrelenmez: dosyaya sahip olan herkes onu okuyabilir, bu yüzden onu günlüğün kendisi kadar özenle saklayın.
 
 ### Hesabımı nasıl silerim?
 
