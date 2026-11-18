@@ -86,7 +86,11 @@ pattern of `add-download.mjs` (`YourPersonalDiary-<version>-windows-x64-setup.ex
 
 * A Fly.io **deploy token** for the app `yourpersonaldiary`, **attenuated** with macaroon caveats so that it can read
   the app, read and write its one volume (extend, snapshots) and control its one machine (restart) - and can delete
-  nothing. Caveat shapes (superfly/macaroon: `flyio/caveats.go`, `resset/action.go`, `resset/if_present.go`,
+  nothing. A last caveat `IfPresent` `{"ifs": [Commands [], Mutations {"mutations": []}], "else": "rwcC"}` refuses every
+  command run in the machine (the Machines API exec) and every GraphQL change (an SSH login's certificate and
+  WireGuard peer are GraphQL mutations): in `flyio/caveats.go` an empty Commands list or Mutations list allows none, and
+  an operation that names neither falls to `else`. This follows Fly's published source; it is not tested against Fly
+  itself. Caveat shapes (superfly/macaroon: `flyio/caveats.go`, `resset/action.go`, `resset/if_present.go`,
   `flyio/examples/README.md`): a JSON list of `{ "type": ..., "body": ... }`; `Apps` `{"apps":{"<numeric app id>":"<mask>"}}`;
   `Volumes` `{"volumes":{"<volume id>":"<mask>"}}`; `Machines` `{"machines":{"<machine id>":"<mask>"}}`;
   `IfPresent` `{"ifs": <caveat set>, "else": "<mask>"}` (applies a resource caveat only to operations that name that

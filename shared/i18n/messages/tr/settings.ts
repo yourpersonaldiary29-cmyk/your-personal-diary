@@ -577,6 +577,9 @@ const messages: Record<string, string> = {
     '{file} dosyası bir sunucu güncellemesiyle geldi. Artık İndirmeler sayfasında sunulmaz, sonraki sunucu güncellemelerinden sonra da.',
   'settings.server.downloads.removeAgain': 'Bu sürümü daha sonra "Yeni sürüm yayımla" ile yeniden yayımlayabilirsiniz.',
   'settings.server.downloads.removed': '{platform} için {version} sürümü İndirmeler sayfasından kaldırıldı.',
+  'settings.server.downloads.removeLast':
+    'Bu, {platform} için tek dosyadır. Kaldırıldıktan sonra İndirmeler sayfası, yeni bir dosya yayımlayana kadar {platform} için hiçbir kurulum dosyası sunmaz. Daha önce kaldırılan sürümler geri gelmez.',
+  'settings.server.downloads.removedLast': 'İndirmeler sayfası, yeni bir dosya yayımlayana kadar artık {platform} için hiçbir kurulum dosyası sunmuyor.',
   'settings.server.downloads.emailNotConfigured':
     'Bir dosya yayımlandığında veya kaldırıldığında e-posta gönderilmez: e-posta gönderimi ayarlanmamış ("Parola sıfırlama e-postası" kartı).',
   'settings.server.downloads.emailNoAddress':

@@ -557,6 +557,10 @@ const messages: Record<string, string> = {
     'The file {file} came with a server update. It is no longer offered on the Downloads page, also after later server updates.',
   'settings.server.downloads.removeAgain': 'You can publish this version again later with "Publish a new version".',
   'settings.server.downloads.removed': 'Version {version} for {platform} was removed from the Downloads page.',
+  // When the file being removed is the only one of its system (versions removed earlier do not come back)
+  'settings.server.downloads.removeLast':
+    'This is the only file for {platform}. After removing it, the Downloads page offers no installation file for {platform} until you publish a new one. Versions removed earlier do not come back.',
+  'settings.server.downloads.removedLast': 'The Downloads page now offers no installation file for {platform} until you publish a new one.',
   'settings.server.downloads.emailNotConfigured':
     'No e-mail is sent when a file is published or removed: sending e-mail is not set up (the "E-mail for password reset" card).',
   'settings.server.downloads.emailNoAddress':

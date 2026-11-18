@@ -534,6 +534,8 @@ const messages: Record<string, string> = {
     '文件 {file} 是随服务器更新附带的。“下载”页面将不再提供它，以后的服务器更新之后也不会再提供。',
   'settings.server.downloads.removeAgain': '以后可以通过“发布新版本”再次发布此版本。',
   'settings.server.downloads.removed': '{platform} 的 {version} 版本已从“下载”页面移除。',
+  'settings.server.downloads.removeLast': '这是 {platform} 的唯一文件。移除后，在发布新文件之前，“下载”页面将不提供 {platform} 的任何安装文件。之前移除的版本不会恢复。',
+  'settings.server.downloads.removedLast': '在发布新文件之前，“下载”页面现在不提供 {platform} 的任何安装文件。',
   'settings.server.downloads.emailNotConfigured':
     '发布或移除文件时不会发送电子邮件：尚未设置发送电子邮件（“用于重置密码的电子邮件”卡片）。',
   'settings.server.downloads.emailNoAddress':

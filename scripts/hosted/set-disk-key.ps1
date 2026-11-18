@@ -13,8 +13,9 @@
        it was made (UTC), for example "Server card disk button 2026-11-18 14:03 UTC".
     3. It limits that token (flyctl tokens attenuate, macaroon caveats) so that it can only read the app;
        read the one disk, make backup copies (snapshots) of it, enlarge it and change its settings ("write");
-       and read the one machine and start, stop or restart it ("control"). It cannot delete anything, and it
-       cannot create a machine or another disk.
+       and read the one machine and start, stop or restart it ("control"). It cannot delete anything, it
+       cannot create a machine or another disk, and it cannot run a command in the machine or make any
+       change through Fly's GraphQL API (that is how flyctl gets an SSH login).
     4. It checks the limited key against the Fly Machines API (https://api.machines.dev) with safe requests
        only: it reads the disk, its snapshots and the machine; it asks to "enlarge" the disk to the size it
        already has - Fly must refuse that as invalid, not as unauthorized, which proves the permission
@@ -32,8 +33,9 @@
   The risk that remains: whoever got hold of the key - for example by breaking into the server - could,
   without your password, the limits of the Server card or an e-mail, enlarge the disk at Fly up to Fly's
   largest size (500 GB, about 75 US dollars a month; a disk cannot be made smaller again), make backup
-  copies, change the disk's settings, and stop or restart the server. The key cannot delete the disk or
-  any diary. If you suspect that, cancel the key at once (below).
+  copies, change the disk's settings (for example switch off or shorten its daily automatic backup
+  copies), and stop or restart the server. The key cannot delete the disk or any diary, and cannot run a
+  command in the server. If you suspect that, cancel the key at once (below).
 
   To turn the button off:   flyctl secrets unset DIARY_FLY_API_TOKEN --app yourpersonaldiary
                             (the server restarts, about a minute)
@@ -77,6 +79,7 @@ $TokenPrefix = 'Server card disk button'
 $TokenName = "$TokenPrefix $([DateTime]::UtcNow.ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)) UTC"
 # Set once the deploy token exists at Fly: every stop after that says how to remove it.
 $MadeToken = ''
+$RevokeAdviceShown = $false
 # 5 years.
 $TokenExpiry = '43800h'
 # The permissions, as macaroon caveat masks: r read, w write, c create, C control (start, stop, restart).
@@ -85,6 +88,11 @@ $AppMask = 'rwcC'
 $MachineMask = 'rC'
 # Every operation that names neither the disk nor the machine: read only.
 $ElseMask = 'r'
+# No command in the machine (the Machines API "exec") and no change through Fly's GraphQL API (an SSH login's
+# certificate and WireGuard peer are such changes): in superfly/macaroon an empty Commands list and an empty
+# Mutations list allow none (flyio/caveats.go). Every other operation passes this caveat with any permission but
+# d - the caveats before it narrow it.
+$NoCommandElseMask = 'rwcC'
 # The one disk, narrowest first: the checks keep the first one that passes.
 $VolumeMasks = @('rw', 'rwc')
 $Http = $null
@@ -95,9 +103,17 @@ function Stop-Setup([string]$Message) {
   Write-Host "[disk-key] STOPPED: $Message" -ForegroundColor Red
   Write-Host '[disk-key] Nothing was stored on the server: the disk button stays as it was.' -ForegroundColor Red
   if ($script:MadeToken) {
+    $script:RevokeAdviceShown = $true
     Write-Host "[disk-key] The deploy token '$($script:MadeToken)' was already made at Fly and is stored nowhere. Remove it: flyctl tokens list --app $App, then flyctl tokens revoke <its ID>." -ForegroundColor Red
   }
   exit 1
+}
+
+# The last word of a run that ended some other way after the deploy token was made (Ctrl+C, for example), once.
+function Write-StopAdvice {
+  if (-not $script:MadeToken -or $script:RevokeAdviceShown) { return }
+  $script:RevokeAdviceShown = $true
+  Write-Host "[disk-key] STOPPED before the end. The deploy token '$($script:MadeToken)' was already made at Fly. Unless this window said 'Done', remove it: flyctl tokens list --app $App, then flyctl tokens revoke <its ID>." -ForegroundColor Red
 }
 
 # The value of the first of $Names that a parsed JSON object has, or $null (strict mode forbids reading a missing one).
@@ -131,10 +147,10 @@ function Assert-NoDelete([string]$Mask) {
 
 # The caveats of the limited key as JSON (a superfly/macaroon caveat set): the app (when its number is known),
 # then - for every operation that names a volume or a machine - only this disk and this machine; every other
-# operation may only read.
+# operation may only read; and no operation may run a command in the machine or be a GraphQL change.
 function New-DiskKeyCaveats {
   param([string]$AppId = '', [Parameter(Mandatory = $true)][string]$VolumeId, [Parameter(Mandatory = $true)][string]$MachineId, [Parameter(Mandatory = $true)][string]$VolumeMask)
-  foreach ($mask in @($AppMask, $MachineMask, $ElseMask, $VolumeMask)) { Assert-NoDelete $mask }
+  foreach ($mask in @($AppMask, $MachineMask, $ElseMask, $NoCommandElseMask, $VolumeMask)) { Assert-NoDelete $mask }
   if ($VolumeId -notmatch '^[A-Za-z0-9_]{1,64}$') { throw 'the disk id is not valid' }
   if ($MachineId -notmatch '^[A-Za-z0-9_]{1,64}$') { throw 'the machine id is not valid' }
   $caveats = New-Object System.Collections.ArrayList
@@ -147,6 +163,13 @@ function New-DiskKeyCaveats {
     [ordered]@{ 'type' = 'Machines'; 'body' = [ordered]@{ 'machines' = [ordered]@{ $MachineId = $MachineMask } } }
   )
   [void]$caveats.Add([ordered]@{ 'type' = 'IfPresent'; 'body' = [ordered]@{ 'ifs' = $ifs; 'else' = $ElseMask } })
+  # An operation that runs a command or is a GraphQL change meets the empty list of its kind and is refused; any
+  # other one names neither and falls to 'else'.
+  $noCommand = @(
+    [ordered]@{ 'type' = 'Commands'; 'body' = @() },
+    [ordered]@{ 'type' = 'Mutations'; 'body' = [ordered]@{ 'mutations' = @() } }
+  )
+  [void]$caveats.Add([ordered]@{ 'type' = 'IfPresent'; 'body' = [ordered]@{ 'ifs' = $noCommand; 'else' = $NoCommandElseMask } })
   return (ConvertTo-Json -InputObject @($caveats.ToArray()) -Depth 10 -Compress)
 }
 
@@ -267,12 +290,23 @@ function Invoke-Flyctl {
   }
 }
 
-# One check against the Fly Machines API with $Token in the Authorization header: only GET, POST and PUT, only the
-# app's volumes and machines - this script never sends a delete and never restarts anything. Status 0 = no answer.
+# Whether a request is one of the checks of Test-DiskKey, and nothing more: GET the app's disks, one disk, its
+# snapshots or one machine; PUT .../extend of one disk; POST one snapshot of one disk. No delete, no restart, no
+# update of a disk or a machine, nothing created but the snapshot.
+function Test-CheckRequest([string]$Method, [string]$Path) {
+  $disk = '^/apps/[a-z0-9-]+/volumes/[A-Za-z0-9_]+'
+  if ($Method -ceq 'GET') { return ($Path -cmatch '^/apps/[a-z0-9-]+/(volumes(/[A-Za-z0-9_]+(/snapshots)?)?|machines/[A-Za-z0-9_]+)$') }
+  if ($Method -ceq 'PUT') { return ($Path -cmatch "$disk/extend$") }
+  if ($Method -ceq 'POST') { return ($Path -cmatch "$disk/snapshots$") }
+  return $false
+}
+
+# One check against the Fly Machines API with $Token in the Authorization header: only the requests of
+# Test-CheckRequest - this script never sends a delete and never restarts anything. Status 0 = no answer.
 function Invoke-FlyApi {
   param([Parameter(Mandatory = $true)][string]$Method, [Parameter(Mandatory = $true)][string]$Path, [Parameter(Mandatory = $true)][string]$Token, [string]$Body = '')
   if ($Method -cnotin @('GET', 'POST', 'PUT')) { throw "refused: this script sends only GET, POST and PUT, never $Method" }
-  if ($Path -notmatch '^/apps/[a-z0-9-]+/(volumes|machines)(/[A-Za-z0-9_]+(/(snapshots|extend))?)?$') { throw "refused: $Path is not one of the checks" }
+  if (-not (Test-CheckRequest $Method $Path)) { throw "refused: $Method $Path is not one of the checks" }
   if ($null -eq $script:Http) {
     Add-Type -AssemblyName System.Net.Http
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
@@ -378,7 +412,7 @@ if ($DryRun) {
   Say "  1. `"$FlyctlPath`" machines list --app $App --json  and  volumes list --app $App --json  (your own sign-in)"
   Say "  2. `"$FlyctlPath`" tokens create deploy --app $App --name `"$TokenName`" --expiry $TokenExpiry  (kept in memory, never shown)"
   Say "  3. `"$FlyctlPath`" tokens attenuate --file <caveats file>  (the token only in that program's FLY_API_TOKEN)"
-  Say "     caveats: Apps <app number> '$AppMask'; IfPresent [Volumes <disk id> '$($VolumeMasks[0])' (then '$($VolumeMasks[-1])' if Fly needs it), Machines <machine id> '$MachineMask'], else '$ElseMask' - never d"
+  Say "     caveats: Apps <app number> '$AppMask'; IfPresent [Volumes <disk id> '$($VolumeMasks[0])' (then '$($VolumeMasks[-1])' if Fly needs it), Machines <machine id> '$MachineMask'], else '$ElseMask'; IfPresent [Commands none, Mutations none], else '$NoCommandElseMask' - never d"
   Say "  4. checks at $ApiBase with the limited key: GET the disks, the disk, its snapshots and the machine;"
   Say '     PUT .../extend with the size the disk already has (must be refused as invalid, not as unauthorized);'
   Say '     POST one snapshot. Never a delete. A refused permission stops the script before anything is stored.'
@@ -408,90 +442,105 @@ $appId = ''
 $appsList = Invoke-Flyctl -Arguments 'apps list --json'
 if ($appsList.ExitCode -eq 0) { $appId = Find-AppNumericId -AppsJson $appsList.StdOut -App $App }
 
-# 2. The deploy token (in memory only) ----------------------------------------------------------------------------
-Say "Creating the deploy token '$TokenName' (valid 5 years)..."
-$created = Invoke-Flyctl -Arguments "tokens create deploy --app $App --name `"$TokenName`" --expiry $TokenExpiry"
+# Steps 2 to 5 run while a deploy token may exist at Fly: an unexpected error is a stop that names the token and
+# how to revoke it, and a run that ends without either (Ctrl+C at the question of step 5, for example) still names it.
 $deployToken = $null
-if ($created.ExitCode -eq 0) { $deployToken = Find-TokenLine $created.StdOut }
-$createdError = Protect-Text $created.StdErr
-$created = $null
-if (-not $deployToken) {
-  Stop-Setup "flyctl could not create the deploy token: $createdError"
-}
-$script:MadeToken = $TokenName
-
-if (-not $appId) {
-  # The deploy token's own caveats name the app's number; the decoded text is as secret as the token: memory only.
-  $decoded = Invoke-Flyctl -Arguments 'tokens debug' -Token $deployToken
-  if ($decoded.ExitCode -eq 0) { $appId = Find-AppNumericId -App $App -TokenDebugText $decoded.StdOut }
-  $decoded = $null
-}
-if ($appId) { Say "The app's number at Fly is ${appId} - the key is limited to it." }
-else { Say "Fly did not say the app's number: the deploy token itself is limited to this app, and the caveats limit it to the disk and the machine." }
-
-# 3 + 4. Limit and check: the narrowest disk permission that passes every check is kept -------------------------
-$finalToken = $null
 $candidate = $null
+$finalToken = $null
 $usedMask = ''
 $sameSize = $false
-$lastCheck = $null
-foreach ($mask in $VolumeMasks) {
-  $caveats = New-DiskKeyCaveats -AppId $appId -VolumeId $target.VolumeId -MachineId $target.MachineId -VolumeMask $mask
-  Say "Limiting the key (disk permission '$mask') and checking it at Fly..."
-  try {
-    $candidate = New-AttenuatedToken -DeployToken $deployToken -CaveatsJson $caveats
-  } catch {
-    $deployToken = $null
-    Stop-Setup $_.Exception.Message
+$applyNow = [bool]$Now
+$finished = $false
+try {
+  # 2. The deploy token (in memory only) --------------------------------------------------------------------------
+  Say "Creating the deploy token '$TokenName' (valid 5 years)..."
+  $created = Invoke-Flyctl -Arguments "tokens create deploy --app $App --name `"$TokenName`" --expiry $TokenExpiry"
+  if ($created.ExitCode -eq 0) { $deployToken = Find-TokenLine $created.StdOut }
+  $createdError = Protect-Text $created.StdErr
+  $created = $null
+  if (-not $deployToken) {
+    Stop-Setup "flyctl could not create the deploy token: $createdError"
   }
-  $lastCheck = Test-DiskKey -Token $candidate -App $App -Target $target
-  if ($lastCheck.Ok) {
-    $finalToken = $candidate
-    $usedMask = $mask
-    $sameSize = $lastCheck.SameSizeAccepted
+  $script:MadeToken = $TokenName
+
+  if (-not $appId) {
+    # The deploy token's own caveats name the app's number; the decoded text is as secret as the token: memory only.
+    $decoded = Invoke-Flyctl -Arguments 'tokens debug' -Token $deployToken
+    if ($decoded.ExitCode -eq 0) { $appId = Find-AppNumericId -App $App -TokenDebugText $decoded.StdOut }
+    $decoded = $null
+  }
+  if ($appId) { Say "The app's number at Fly is ${appId} - the key is limited to it." }
+  else { Say "Fly did not say the app's number: the deploy token itself is limited to this app, and the caveats limit it to the disk and the machine." }
+
+  # 3 + 4. Limit and check: the narrowest disk permission that passes every check is kept -----------------------
+  $lastCheck = $null
+  foreach ($mask in $VolumeMasks) {
+    $caveats = New-DiskKeyCaveats -AppId $appId -VolumeId $target.VolumeId -MachineId $target.MachineId -VolumeMask $mask
+    Say "Limiting the key (disk permission '$mask') and checking it at Fly..."
+    try {
+      $candidate = New-AttenuatedToken -DeployToken $deployToken -CaveatsJson $caveats
+    } catch {
+      $deployToken = $null
+      Stop-Setup $_.Exception.Message
+    }
+    $lastCheck = Test-DiskKey -Token $candidate -App $App -Target $target
+    if ($lastCheck.Ok) {
+      $finalToken = $candidate
+      $usedMask = $mask
+      $sameSize = $lastCheck.SameSizeAccepted
+      break
+    }
+    $candidate = $null
+    if ($lastCheck.Verdict -eq 'unauthorized' -and ($lastCheck.Step -eq 'extend' -or $lastCheck.Step -eq 'snapshot')) {
+      Say "Fly needs a wider disk permission for $(Get-StepText $lastCheck.Step)."
+      continue
+    }
     break
   }
+  $deployToken = $null
   $candidate = $null
-  if ($lastCheck.Verdict -eq 'unauthorized' -and ($lastCheck.Step -eq 'extend' -or $lastCheck.Step -eq 'snapshot')) {
-    Say "Fly needs a wider disk permission for $(Get-StepText $lastCheck.Step)."
-    continue
+  if (-not $finalToken) {
+    Stop-Setup (Get-VerdictText $lastCheck)
   }
-  break
-}
-$deployToken = $null
-$candidate = $null
-if (-not $finalToken) {
-  Stop-Setup (Get-VerdictText $lastCheck)
-}
-Say 'The key passed every check: it can read the disk and the machine, make a backup copy and enlarge the disk.'
-Say 'One backup copy (snapshot) of the disk was made by the check - it is harmless, and Fly removes it by itself after some days.'
-if ($sameSize) { Say 'Note: Fly accepted the check request to keep the disk at its size - nothing changed.' }
+  Say 'The key passed every check: it can read the disk and the machine, make a backup copy and enlarge the disk.'
+  Say 'One backup copy (snapshot) of the disk was made by the check - it is harmless, and Fly removes it by itself after some days.'
+  if ($sameSize) { Say 'Note: Fly accepted the check request to keep the disk at its size - nothing changed.' }
 
-# 5. Store it -----------------------------------------------------------------------------------------------------
-$applyNow = [bool]$Now
-if (-not $Now -and -not $Stage -and [Environment]::UserInteractive) {
-  Say 'When should the server start using the key?'
-  Say '  Just press Enter: with the next update of the server - no interruption now.'
-  Say '  Type NOW and press Enter: now - the server restarts, and the diary is away for about a minute.'
-  $answer = Read-Host '[disk-key] Your choice'
-  $applyNow = ($null -ne $answer -and $answer.Trim().ToUpperInvariant() -eq 'NOW')
+  # 5. Store it ---------------------------------------------------------------------------------------------------
+  if (-not $Now -and -not $Stage -and [Environment]::UserInteractive) {
+    Say 'When should the server start using the key?'
+    Say '  Just press Enter: with the next update of the server - no interruption now.'
+    Say '  Type NOW and press Enter: now - the server restarts, and the diary is away for about a minute.'
+    $answer = Read-Host '[disk-key] Your choice'
+    $applyNow = ($null -ne $answer -and $answer.Trim().ToUpperInvariant() -eq 'NOW')
+  }
+  $importArguments = "secrets import --app $App"
+  if (-not $applyNow) { $importArguments += ' --stage' }
+  if ($applyNow) { Say 'Storing the key and restarting the server (about a minute)...' } else { Say 'Storing the key for the next update of the server...' }
+  $stored = Invoke-Flyctl -Arguments $importArguments -StdinText ("DIARY_FLY_API_TOKEN=$finalToken`n")
+  $storedOk = ($stored.ExitCode -eq 0)
+  $storedError = Protect-Text $stored.StdErr @($finalToken)
+  $finalToken = $null
+  $stored = $null
+  [GC]::Collect()
+  if (-not $storedOk) { Stop-Setup "flyctl secrets import failed: $storedError" }
+  $finished = $true
+} catch {
+  # Any message of an unexpected error is shown with every token in it hidden.
+  $unexpected = Protect-Text $_.Exception.Message @($deployToken, $candidate, $finalToken)
+  $deployToken = $null
+  $candidate = $null
+  $finalToken = $null
+  Stop-Setup "an unexpected error: $unexpected"
+} finally {
+  if (-not $finished) { Write-StopAdvice }
 }
-$importArguments = "secrets import --app $App"
-if (-not $applyNow) { $importArguments += ' --stage' }
-if ($applyNow) { Say 'Storing the key and restarting the server (about a minute)...' } else { Say 'Storing the key for the next update of the server...' }
-$stored = Invoke-Flyctl -Arguments $importArguments -StdinText ("DIARY_FLY_API_TOKEN=$finalToken`n")
-$storedOk = ($stored.ExitCode -eq 0)
-$storedError = Protect-Text $stored.StdErr @($finalToken)
-$finalToken = $null
-$stored = $null
-[GC]::Collect()
-if (-not $storedOk) { Stop-Setup "flyctl secrets import failed: $storedError" }
 
 Say 'Done. The key is stored on the server as the secret DIARY_FLY_API_TOKEN.'
 if ($applyNow) { Say 'Fly is restarting the server now; in about a minute the Server card shows the disk button.' }
 else { Say 'It takes effect with the next update of the server; until then the Server card says the button is not set up.' }
-Say "The key is the deploy token '$TokenName'. It can: read the app; read disk $($target.VolumeId), make backup copies of it, enlarge it and change its settings (permission '$usedMask'); read machine $($target.MachineId) and start, stop or restart it. It can delete nothing."
-Say "The risk that remains: whoever got hold of the key - for example by breaking into the server - could enlarge the disk at Fly up to 500 GB (about 75 US dollars a month; a disk cannot be made smaller again), make backup copies and stop or restart the server, without your password, the limits of the Server card or an e-mail. If you suspect that, cancel the key at once."
+Say "The key is the deploy token '$TokenName'. It can: read the app; read disk $($target.VolumeId), make backup copies of it, enlarge it and change its settings (permission '$usedMask'); read machine $($target.MachineId) and start, stop or restart it. It can delete nothing, run no command in the machine and make no change through Fly's GraphQL API (no SSH login)."
+Say "The risk that remains: whoever got hold of the key - for example by breaking into the server - could enlarge the disk at Fly up to 500 GB (about 75 US dollars a month; a disk cannot be made smaller again), make backup copies, change the disk's settings (for example switch off or shorten its daily automatic backup copies) and stop or restart the server, without your password, the limits of the Server card or an e-mail. The key cannot delete the disk or any diary, and cannot run a command in the server. If you suspect that, cancel the key at once."
 Say "To turn the button off: flyctl secrets unset DIARY_FLY_API_TOKEN --app $App (the server restarts, about a minute)"
 Say "To cancel the key itself: flyctl tokens list --app $App, then flyctl tokens revoke <the ID of '$TokenName'>"
 Say "Every run of this script makes a new key. Once this one is in use, revoke the earlier ones: every token in that list whose name starts with '$TokenPrefix', except '$TokenName'."

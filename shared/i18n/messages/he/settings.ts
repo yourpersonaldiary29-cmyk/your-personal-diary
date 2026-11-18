@@ -541,11 +541,14 @@ const messages: Record<string, string> = {
   'settings.server.downloads.remove': 'הסרה',
   'settings.server.downloads.removeName': 'הסרת גרסה {version} ל-{platform}',
   'settings.server.downloads.removeTitle': 'להסיר את גרסה {version} ל-{platform}?',
-  'settings.server.downloads.removeUploaded': 'הקובץ {file} נמחק מהשרת, ודף ההורדות כבר לא מציע אותו.',
+  'settings.server.downloads.removeUploaded': 'הקובץ {file} יימחק מהשרת, ודף ההורדות כבר לא יציע אותו.',
   'settings.server.downloads.removeImage':
     'הקובץ {file} הגיע עם עדכון של השרת. דף ההורדות כבר לא יציע אותו, גם אחרי עדכונים מאוחרים יותר של השרת.',
   'settings.server.downloads.removeAgain': 'אפשר לפרסם את הגרסה הזו שוב מאוחר יותר דרך "פרסום גרסה חדשה".',
   'settings.server.downloads.removed': 'גרסה {version} ל-{platform} הוסרה מדף ההורדות.',
+  'settings.server.downloads.removeLast':
+    'זה הקובץ היחיד ל-{platform}. אחרי ההסרה דף ההורדות לא יציע שום קובץ התקנה ל-{platform}, עד שיתפרסם קובץ חדש. גרסאות שהוסרו קודם לא חוזרות.',
+  'settings.server.downloads.removedLast': 'עכשיו דף ההורדות לא מציע שום קובץ התקנה ל-{platform}, עד שיתפרסם קובץ חדש.',
   'settings.server.downloads.emailNotConfigured':
     'כשקובץ מתפרסם או מוסר לא נשלח מייל: שליחת מיילים לא הוגדרה (הכרטיס "דואר אלקטרוני לאיפוס סיסמה").',
   'settings.server.downloads.emailNoAddress':
@@ -587,7 +590,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.changesLeftValue': '{left} מתוך {max}',
   'settings.server.diskSize.noChangesLeft':
     'אפשר לשנות את הדיסק לכל היותר {max, plural, one {פעם אחת} two {פעמיים} other {# פעמים}} ב-24 שעות, ולא נותר עכשיו אף שינוי.',
-  'settings.server.diskSize.nextChangeAt': 'אפשר להתחיל את השינוי הבא ב-{time}.',
+  'settings.server.diskSize.nextChangeAt': 'אפשר להתחיל את השינוי הבא ב{time}.',
   'settings.server.diskSize.atMax': 'לדיסק כבר יש הגודל הגדול ביותר שהשרת הזה מאפשר ({max} GB).',
   'settings.server.diskSize.formTitle': 'הגדלת הדיסק',
   'settings.server.diskSize.newSize': 'גודל חדש (GB)',
@@ -597,7 +600,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.onlyGrow': 'אפשר רק להגדיל את הדיסק; אי אפשר להקטין אותו שוב.',
   'settings.server.diskSize.enlarge': 'הגדלה',
   'settings.server.diskSize.changeTitle': 'הגדלה מ-{fromGb} GB ל-{toGb} GB',
-  'settings.server.diskSize.changeStarted': 'התחילה ב-{time}.',
+  'settings.server.diskSize.changeStarted': 'התחילה ב{time}.',
   'settings.server.diskSize.step.snapshot': 'עותק גיבוי (snapshot) של הדיסק',
   'settings.server.diskSize.step.extend': 'הגדלת הדיסק',
   'settings.server.diskSize.step.use': 'השרת משתמש בגודל החדש',

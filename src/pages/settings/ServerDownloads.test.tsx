@@ -512,6 +512,8 @@ describe('removing a file', () => {
     await user.click(within(table('Windows')).getByRole('button', { name: DLT.removeName('1.0.0', 'Windows') }));
     const dialog = await screen.findByRole('dialog', { name: DLT.removeTitle('1.0.0', 'Windows') });
     expect(dialog).toHaveTextContent(DLT.removeImage('YourPersonalDiary-1.0.0-windows-x64-setup.exe'));
+    // The only file for Windows: the dialog says that the Downloads page then offers none.
+    expect(dialog).toHaveTextContent(DLT.removeLast('Windows'));
     expect(dialog).toHaveTextContent(DLT.removeAgain);
     const confirm = within(dialog).getByRole('button', { name: DLT.remove });
     const passwordField = within(dialog).getByLabelText(new RegExp(`^${T.password}`));
@@ -532,7 +534,7 @@ describe('removing a file', () => {
     await user.click(confirm);
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     expect(api.server.downloads.remove).toHaveBeenLastCalledWith({ platform: 'windows', version: '1.0.0', password: PASSWORD });
-    const text = `${DLT.removed('1.0.0', 'Windows')} ${emailOutcome('sent')}`;
+    const text = `${DLT.removed('1.0.0', 'Windows')} ${DLT.removedLast('Windows')} ${emailOutcome('sent')}`;
     await waitFor(() => expect(byId(DOWNLOADS_RESULT_ID)).toHaveFocus());
     expect(byId(DOWNLOADS_RESULT_ID)).toHaveTextContent(text);
     await waitFor(() => expect(politeRegion()).toHaveTextContent(text));
@@ -551,6 +553,7 @@ describe('removing a file', () => {
     await user.click(button);
     const dialog = await screen.findByRole('dialog', { name: DLT.removeTitle('1.1.0', 'Android') });
     expect(dialog).toHaveTextContent(DLT.removeUploaded('YourPersonalDiary-1.1.0-android.apk'));
+    expect(dialog).toHaveTextContent(DLT.removeLast('Android'));
     // The e-mail would not be sent: the dialog says so before the action.
     expect(dialog).toHaveTextContent(DLT.emailWarning('noAddress'));
     expect(within(dialog).getByText('YourPersonalDiary-1.1.0-android.apk')).toHaveAttribute('dir', 'ltr');
@@ -559,6 +562,31 @@ describe('removing a file', () => {
     await waitFor(() => expect(button).toHaveFocus());
     await waitFor(() => expect(politeRegion()).toHaveTextContent(ST.cancelled));
     expect(api.server.downloads.remove).not.toHaveBeenCalled();
+  });
+
+  it('a system that keeps another file: neither the dialog nor the result says that the page offers none', async () => {
+    const base = serverDownloadsFixture();
+    const older = serverDownloadRowFixture({ version: '0.9.0', file: 'YourPersonalDiary-0.9.0-windows-x64-setup.exe' });
+    const windows = [serverDownloadRowFixture(), older];
+    vi.mocked(api.server.downloads.list).mockResolvedValue({ ...base, platforms: { ...base.platforms, windows } });
+    vi.mocked(api.server.downloads.remove).mockResolvedValueOnce({
+      action: 'removed',
+      row: serverDownloadRowFixture(),
+      removedOlder: [],
+      email: 'sent',
+      downloads: { ...base, platforms: { ...base.platforms, windows: [older] } },
+    });
+    const { user } = renderCard();
+    await part();
+    await user.click(within(table('Windows')).getByRole('button', { name: DLT.removeName('1.0.0', 'Windows') }));
+    const dialog = await screen.findByRole('dialog', { name: DLT.removeTitle('1.0.0', 'Windows') });
+    expect(dialog).not.toHaveTextContent(DLT.removeLast('Windows'));
+    await user.type(within(dialog).getByLabelText(new RegExp(`^${T.password}`)), PASSWORD);
+    await user.click(within(dialog).getByRole('button', { name: DLT.remove }));
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    const text = `${DLT.removed('1.0.0', 'Windows')} ${emailOutcome('sent')}`;
+    await waitFor(() => expect(byId(DOWNLOADS_RESULT_ID)).toHaveTextContent(text));
+    expect(byId(DOWNLOADS_RESULT_ID)).not.toHaveTextContent(DLT.removedLast('Windows'));
   });
 });
 

@@ -570,6 +570,9 @@ const messages: Record<string, string> = {
     'Fișierul {file} a venit cu o actualizare a serverului. Nu mai este oferit pe pagina Descărcări, nici după actualizările ulterioare ale serverului.',
   'settings.server.downloads.removeAgain': 'Poți publica din nou această versiune mai târziu cu „Publică o versiune nouă”.',
   'settings.server.downloads.removed': 'Versiunea {version} pentru {platform} a fost eliminată de pe pagina Descărcări.',
+  'settings.server.downloads.removeLast':
+    'Acesta este singurul fișier pentru {platform}. După eliminarea lui, pagina Descărcări nu mai oferă niciun fișier de instalare pentru {platform} până când publici unul nou. Versiunile eliminate mai devreme nu revin.',
+  'settings.server.downloads.removedLast': 'Pagina Descărcări nu mai oferă acum niciun fișier de instalare pentru {platform} până când publici unul nou.',
   'settings.server.downloads.emailNotConfigured':
     'Nu se trimite niciun e-mail când un fișier este publicat sau eliminat: trimiterea e-mailurilor nu este configurată (cardul „E-mail pentru resetarea parolei”).',
   'settings.server.downloads.emailNoAddress':
@@ -631,7 +634,7 @@ const messages: Record<string, string> = {
   'settings.server.diskSize.stepLine': '{step}: {state}',
   'settings.server.diskSize.state.snapshot':
     'Se face o copie de rezervă (snapshot) a discului. Poate dura câteva minute; încă nu s-a modificat nimic.',
-  'settings.server.diskSize.state.extending': 'Copia de rezervă este gata. Discul este mărit.',
+  'settings.server.diskSize.state.extending': 'Copia de rezervă este gata. Se mărește discul.',
   'settings.server.diskSize.state.waiting': 'Discul a fost mărit. Se așteaptă până când serverul vede dimensiunea nouă (cel mult 2 minute).',
   'settings.server.diskSize.state.needsRestart': 'Discul a fost mărit la {toGb} GB. Serverul folosește dimensiunea nouă doar după o repornire.',
   'settings.server.diskSize.state.restarting':

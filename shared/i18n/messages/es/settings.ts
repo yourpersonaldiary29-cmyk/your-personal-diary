@@ -599,6 +599,9 @@ const messages: Record<string, string> = {
     'El archivo {file} llegó con una actualización del servidor. La página de Descargas deja de ofrecerlo, también después de las próximas actualizaciones del servidor.',
   'settings.server.downloads.removeAgain': 'Más adelante puedes volver a publicar esta versión con «Publicar una versión nueva».',
   'settings.server.downloads.removed': 'Se ha quitado de la página de Descargas la versión {version} para {platform}.',
+  'settings.server.downloads.removeLast':
+    'Este es el único archivo para {platform}. Después de quitarlo, la página de Descargas no ofrecerá ningún archivo de instalación para {platform} hasta que publiques uno nuevo. Las versiones quitadas antes no vuelven.',
+  'settings.server.downloads.removedLast': 'La página de Descargas ya no ofrece ningún archivo de instalación para {platform} hasta que publiques uno nuevo.',
   'settings.server.downloads.emailNotConfigured':
     'No se envía ningún correo cuando se publica o se quita un archivo: el envío de correo no está configurado (la tarjeta «Correo para restablecer la contraseña»).',
   'settings.server.downloads.emailNoAddress':

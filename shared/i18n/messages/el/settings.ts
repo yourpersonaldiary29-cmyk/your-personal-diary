@@ -611,6 +611,9 @@ const messages: Record<string, string> = {
     'Το αρχείο {file} ήρθε με μια ενημέρωση του διακομιστή. Δεν προσφέρεται πια στη σελίδα Λήψεων, ούτε μετά από επόμενες ενημερώσεις του διακομιστή.',
   'settings.server.downloads.removeAgain': 'Μπορείς να δημοσιεύσεις ξανά αυτή την έκδοση αργότερα με το «Δημοσίευση νέας έκδοσης».',
   'settings.server.downloads.removed': 'Η έκδοση {version} για {platform} αφαιρέθηκε από τη σελίδα Λήψεων.',
+  'settings.server.downloads.removeLast':
+    'Αυτό είναι το μόνο αρχείο για {platform}. Μετά την αφαίρεσή του, η σελίδα Λήψεων δεν θα προσφέρει κανένα αρχείο εγκατάστασης για {platform} μέχρι να δημοσιεύσεις νέο. Οι εκδόσεις που αφαιρέθηκαν νωρίτερα δεν επιστρέφουν.',
+  'settings.server.downloads.removedLast': 'Η σελίδα Λήψεων δεν προσφέρει τώρα κανένα αρχείο εγκατάστασης για {platform} μέχρι να δημοσιεύσεις νέο.',
   'settings.server.downloads.emailNotConfigured':
     'Δεν στέλνεται e-mail όταν ένα αρχείο δημοσιεύεται ή αφαιρείται: η αποστολή e-mail δεν έχει ρυθμιστεί (η κάρτα «E-mail για επαναφορά κωδικού»).',
   'settings.server.downloads.emailNoAddress':

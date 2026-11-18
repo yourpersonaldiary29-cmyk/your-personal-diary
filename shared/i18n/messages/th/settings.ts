@@ -560,6 +560,9 @@ const messages: Record<string, string> = {
     'ไฟล์ {file} มากับการอัปเดตเซิร์ฟเวอร์ หน้า "ดาวน์โหลด" จะไม่มีไฟล์นี้ให้อีก แม้หลังการอัปเดตเซิร์ฟเวอร์ครั้งต่อ ๆ ไป',
   'settings.server.downloads.removeAgain': 'คุณเผยแพร่เวอร์ชันนี้อีกครั้งในภายหลังได้ด้วย "เผยแพร่เวอร์ชันใหม่"',
   'settings.server.downloads.removed': 'นำเวอร์ชัน {version} สำหรับ {platform} ออกจากหน้า "ดาวน์โหลด" แล้ว',
+  'settings.server.downloads.removeLast':
+    'นี่คือไฟล์เดียวสำหรับ {platform} หลังจากนำออกแล้ว หน้า "ดาวน์โหลด" จะไม่มีไฟล์ติดตั้งสำหรับ {platform} ให้ จนกว่าคุณจะเผยแพร่ไฟล์ใหม่ เวอร์ชันที่นำออกไปก่อนหน้านี้จะไม่กลับมา',
+  'settings.server.downloads.removedLast': 'ตอนนี้หน้า "ดาวน์โหลด" ไม่มีไฟล์ติดตั้งสำหรับ {platform} ให้ จนกว่าคุณจะเผยแพร่ไฟล์ใหม่',
   'settings.server.downloads.emailNotConfigured':
     'จะไม่มีการส่งอีเมลเมื่อเผยแพร่หรือนำไฟล์ออก: ยังไม่ได้ตั้งค่าการส่งอีเมล (การ์ด "อีเมลสำหรับรีเซ็ตรหัสผ่าน")',
   'settings.server.downloads.emailNoAddress':

@@ -566,6 +566,9 @@ const messages: Record<string, string> = {
     'फ़ाइल {file} सर्वर अपडेट के साथ आई थी। "डाउनलोड" पेज पर इसे अब नहीं दिया जाता, आगे के सर्वर अपडेट के बाद भी नहीं।',
   'settings.server.downloads.removeAgain': 'आप इस संस्करण को बाद में "नया संस्करण प्रकाशित करें" से फिर से प्रकाशित कर सकते हैं।',
   'settings.server.downloads.removed': '{platform} के लिए संस्करण {version} "डाउनलोड" पेज से हटा दिया गया।',
+  'settings.server.downloads.removeLast':
+    'यह {platform} के लिए एकमात्र फ़ाइल है। इसे हटाने के बाद "डाउनलोड" पेज {platform} के लिए कोई इंस्टॉलेशन फ़ाइल नहीं देगा, जब तक आप नई फ़ाइल प्रकाशित नहीं करते। पहले हटाए गए संस्करण वापस नहीं आते।',
+  'settings.server.downloads.removedLast': '"डाउनलोड" पेज अब {platform} के लिए कोई इंस्टॉलेशन फ़ाइल नहीं देता, जब तक आप नई फ़ाइल प्रकाशित नहीं करते।',
   'settings.server.downloads.emailNotConfigured':
     'फ़ाइल प्रकाशित करने या हटाने पर कोई ई-मेल नहीं भेजा जाता: ई-मेल भेजना सेट नहीं है ("पासवर्ड रीसेट के लिए ई-मेल" कार्ड)।',
   'settings.server.downloads.emailNoAddress':

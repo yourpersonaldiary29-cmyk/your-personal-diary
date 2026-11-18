@@ -121,8 +121,12 @@ test('every Downloads page holds the nine list regions in panel order, the empty
   // No other page holds a marker.
   for (const [rel, html] of site.pages) if (!rel.endsWith('downloads/index.html')) assert.ok(!html.includes('<!-- downloads:'), rel);
   assert.ok(site.files.get('site.css').includes('.files>.empty{'), 'the empty-state text has its style');
-  // While a platform shows it, its empty table and its empty checksum list are hidden - from screen readers too.
-  assert.ok(site.files.get('site.css').includes('.files:has(>.empty:not([hidden]))>table,.panel:has(>.files>.empty:not([hidden]))>.qa{display:none}'), 'an empty platform hides its table and checksums');
+  // While a platform shows it, its empty table, its empty checksum list and the paragraph about opening "this setup
+  // file" are hidden - from screen readers too; the system requirement stays.
+  assert.ok(
+    site.files.get('site.css').includes('.files:has(>.empty:not([hidden]))>table,.panel:has(>.files>.empty:not([hidden]))>.qa,.panel:has(>.files>.empty:not([hidden]))>.files~p:not(.need){display:none}'),
+    'an empty platform hides its table, its checksums and its install paragraph',
+  );
   for (const platform of PLATFORMS) {
     const panel = new RegExp(`<section class="panel" id="${platform}">\\n<h2>[^\\n]*</h2>\\n(?:<p class="actions">[^\\n]*</p>\\n)?<div class="files">\\n<table>[\\s\\S]*?</table>\\n<!-- downloads:${platform}:empty -->[\\s\\S]*?<!-- /downloads:${platform}:empty -->\\n</div>\\n<p class="need">[^\\n]*</p>\\n<p>[^\\n]*</p>\\n<details class="qa">\\n[\\s\\S]*?<dl class="sums">\\n<!-- downloads:${platform}:sums -->[\\s\\S]*?</details>\\n</section>`);
     assert.match(site.pages.get(pageFile('downloads', 'en')), panel, `${platform}: the table and the checksums are children of the panel those rules name`);

@@ -592,6 +592,9 @@ const messages: Record<string, string> = {
     'A(z) {file} fájl egy szerverfrissítéssel érkezett. A Letöltések oldal többé nem kínálja, a későbbi szerverfrissítések után sem.',
   'settings.server.downloads.removeAgain': 'Ezt a verziót később újra közzéteheted az „Új verzió közzététele” résszel.',
   'settings.server.downloads.removed': 'A(z) {version} verzió ({platform}) lekerült a Letöltések oldalról.',
+  'settings.server.downloads.removeLast':
+    'Ez az egyetlen {platform}-fájl. Az eltávolítása után a Letöltések oldal nem kínál {platform}-telepítőfájlt, amíg nem teszel közzé újat. A korábban eltávolított verziók nem kerülnek vissza.',
+  'settings.server.downloads.removedLast': 'A Letöltések oldal most nem kínál {platform}-telepítőfájlt, amíg nem teszel közzé újat.',
   'settings.server.downloads.emailNotConfigured':
     'Fájl közzétételekor vagy eltávolításakor nem megy e-mail: az e-mail-küldés nincs beállítva („A jelszó visszaállításához használt e-mail” kártya).',
   'settings.server.downloads.emailNoAddress':

@@ -597,6 +597,9 @@ const messages: Record<string, string> = {
     'O ficheiro {file} veio com uma atualização do servidor. Deixa de ser oferecido na página Transferências, também depois de futuras atualizações do servidor.',
   'settings.server.downloads.removeAgain': 'Mais tarde pode voltar a publicar esta versão com «Publicar uma nova versão».',
   'settings.server.downloads.removed': 'A versão {version} para {platform} foi removida da página Transferências.',
+  'settings.server.downloads.removeLast':
+    'Este é o único ficheiro para {platform}. Depois de o remover, a página Transferências não oferece nenhum ficheiro de instalação para {platform} até publicar um novo. As versões removidas antes não voltam.',
+  'settings.server.downloads.removedLast': 'A página Transferências não oferece agora nenhum ficheiro de instalação para {platform} até publicar um novo.',
   'settings.server.downloads.emailNotConfigured':
     'Não é enviado nenhum e-mail quando um ficheiro é publicado ou removido: o envio de e-mail não está configurado (o cartão «E-mail para repor a palavra-passe»).',
   'settings.server.downloads.emailNoAddress':

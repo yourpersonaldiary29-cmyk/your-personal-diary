@@ -41,7 +41,7 @@ const root = rootArg ? path.resolve(rootArg.slice('--root='.length)) : path.reso
 // or 'test' are skipped inside the scanned trees too.
 const SCAN_DIRS = ['src', 'server/src', 'shared', 'src-tauri/src', 'mobile', 'android/app/src/main/java', 'android/app/src/main/kotlin'];
 const SKIP = new Set(['node_modules', 'dist', 'mobile-dist', 'target', '.dev-data', 'test', 'build']);
-const EXT = new Set(['.ts', '.tsx', '.rs', '.mjs', '.js', '.java', '.kt']);
+const EXT = new Set(['.ts', '.tsx', '.mts', '.cts', '.rs', '.mjs', '.cjs', '.js', '.jsx', '.java', '.kt']);
 const JVM_FILE = /\.(?:java|kt)$/;
 
 /**
@@ -94,12 +94,12 @@ const ALLOWED_ANDROID_PERMISSIONS = new Set([
   'android.permission.USE_BIOMETRIC',
 ]);
 /** Test files sit next to the frontend sources; like server/test they are never shipped. */
-const TEST_FILE = /\.test\.[jt]sx?$/;
+const TEST_FILE = /\.test\.[cm]?[jt]sx?$/;
 
 /** Patterns that indicate outbound network activity. */
 const FORBIDDEN = [
   { re: /\bhttps?:\/\/(?!127\.0\.0\.1|localhost|tauri\.localhost|ipc\.localhost|schema\.tauri\.app)[\w.-]+/g, why: 'external URL' },
-  { re: /\brequire\(['"](https?|axios|node-fetch|got|undici|ws)['"]\)/g, why: 'outbound HTTP client' },
+  { re: /\brequire\(\s*['"`](https?|axios|node-fetch|got|undici|ws)['"`]\s*\)/g, why: 'outbound HTTP client' },
   { re: /\bfrom\s+['"](axios|node-fetch|got|undici|ws|socket\.io-client)['"]/g, why: 'outbound HTTP client' },
   { re: /\bhttps\.request\(|\bhttps\.get\(/g, why: 'https client call' },
   { re: /\bnavigator\.sendBeacon\b/g, why: 'beacon' },
@@ -107,8 +107,56 @@ const FORBIDDEN = [
   { re: /tauri-plugin-(http|updater)/g, why: 'network plugin' },
 ];
 
-/** Lines allowed to mention URLs (documentation strings, CSP directives, CORS allow-list). */
-const ALLOW_LINE = [/schema\.tauri\.app/, /^\s*\/\//, /^\s*\*/, /Content-Security-Policy/, /ALLOWED_ORIGINS/, /\/\/!/];
+/**
+ * Lines allowed to mention URLs (documentation strings, CSP directives, CORS allow-list). The source scan
+ * (scan() below) skips a line that starts with `*` only inside a block comment - a line of a template literal
+ * or of a multi-line expression may start with `*` too; the other rules apply to it as they are.
+ */
+const STAR_LINE = /^\s*\*/;
+const ALLOW_CODE_LINE = [/schema\.tauri\.app/, /^\s*\/\//, /Content-Security-Policy/, /ALLOWED_ORIGINS/, /\/\/!/];
+const ALLOW_LINE = [...ALLOW_CODE_LINE, STAR_LINE];
+
+/** Whether a block comment is still open after `line`, given whether one was open before it. */
+function blockCommentOpenAfter(line, open) {
+  let pos = 0;
+  for (;;) {
+    if (open) {
+      const end = line.indexOf('*/', pos);
+      if (end < 0) return true;
+      open = false;
+      pos = end + 2;
+    } else {
+      const start = line.indexOf('/*', pos);
+      if (start < 0) return false;
+      const lineComment = line.indexOf('//', pos);
+      if (lineComment >= 0 && lineComment < start) return false;
+      open = true;
+      pos = start + 2;
+    }
+  }
+}
+
+/** A quoted module name: '...', "..." or `...`. */
+const Q = '[\'"`]';
+/**
+ * The ways a module is loaded by its name: `from '<m>'` (static import and re-export), require('<m>'),
+ * import('<m>') (not `typeof import(...)`, a type), process.getBuiltinModule('<m>') and createRequire(...)('<m>').
+ * `\s` spans line breaks, so the same pattern also finds a load split over several lines in the joined code.
+ */
+function moduleLoads(modules, { fromForm = modules, dynamic = true } = {}) {
+  const name = (list) => `${Q}(?:node:)?(?:${list})${Q}`;
+  const forms = [];
+  if (fromForm) forms.push(`\\bfrom\\s+${name(fromForm)}`);
+  if (dynamic) {
+    forms.push(
+      `\\brequire\\s*\\(\\s*${name(modules)}`,
+      `(?<!typeof\\s*)\\bimport\\s*\\(\\s*${name(modules)}`,
+      `\\bgetBuiltinModule\\s*\\(\\s*${name(modules)}`,
+      `\\bcreateRequire\\s*\\([^)]*\\)\\s*\\(\\s*${name(modules)}`,
+    );
+  }
+  return new RegExp(forms.join('|'), 'g');
+}
 
 /** Remote access: the only directory with outbound code, and the only hosts it may contact. */
 const REMOTE_DIR = 'server/src/remote/';
@@ -121,15 +169,16 @@ const XML_NAMESPACES = [
   'http://schemas.xmlsoap.org/soap/envelope/',
   'http://schemas.xmlsoap.org/soap/encoding/',
 ];
-/** Outbound-capable modules that only the remote-access code may import (statically, with require() or with import()). */
-const NETWORK_MODULES =
-  /\bfrom\s+['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]|\brequire\(['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]\)|(?<!typeof\s*)\bimport\(\s*['"](?:node:)?(?:https|http2|dgram|dns|tls)['"]\s*\)/g;
+/** Outbound-capable modules that only the remote-access code may load (in any of the forms of moduleLoads()). */
+const NETWORK_MODULES = moduleLoads('https|http2|dgram|dns|tls');
 /**
  * Outbound calls of the Node.js core modules (the server listens with node:http / node:net, but
  * only the remote-access code may connect out). Checked in server/src and shared/ outside
- * server/src/remote/; the frontend's fetch() talks to its own local server only.
+ * server/src/remote/; the frontend's fetch() talks to its own local server only. A socket built with
+ * `new Socket(...)` and the connecting functions imported by name count as well.
  */
-const SERVER_OUTBOUND = /\bfetch\(|\bhttp\.(?:request|get)\(|\bnet\.(?:connect|createConnection)\(|\btls\.connect\(|\bnew\s+WebSocket\(/g;
+const SERVER_OUTBOUND =
+  /\bfetch\(|\bhttp\.(?:request|get)\(|\bnet\.(?:connect|createConnection)\(|\btls\.connect\(|\bnew\s+WebSocket\(|\bnew\s+(?:net\.|tls\.)?(?:Socket|TLSSocket)\s*\(|\bimport\s*\{[^}]*\b(?:connect|createConnection|request|get|Agent|Socket|TLSSocket)\b[^}]*\}\s*from\s*['"`](?:node:)?(?:net|http|tls)['"`]/g;
 const SERVER_DIRS = ['server/src/', 'shared/'];
 
 /**
@@ -138,7 +187,7 @@ const SERVER_DIRS = ['server/src/', 'shared/'];
  */
 const MAIL_DIR = 'server/src/mail/';
 /** What the mail code may still not import (everything outbound-capable except node:tls / node:net). */
-const MAIL_FORBIDDEN_MODULES = /\bfrom\s+['"](?:node:)?(?:https|http|http2|dgram|dns)['"]|\brequire\(['"](?:node:)?(?:https|http|http2|dgram|dns)['"]\)/g;
+const MAIL_FORBIDDEN_MODULES = moduleLoads('https|http|http2|dgram|dns');
 /** Outbound calls the mail code may not make (it only uses net.connect / tls.connect). */
 const MAIL_FORBIDDEN_CALLS = /\bfetch\(|\bhttps?\.(?:request|get)\(|\bnew\s+WebSocket\(/g;
 
@@ -151,10 +200,15 @@ export const FLY_HOST = 'api.machines.dev';
 /** Matches exactly `https://api.machines.dev` followed by a path, a quote or the end (not `.evil.example`). */
 const FLY_URL = /\bhttps:\/\/api\.machines\.dev(?=[/'"`\s]|$)/g;
 /** What the Fly module may still not import: every network module except node:https (and that one statically only). */
-const FLY_FORBIDDEN_MODULES =
-  /\bfrom\s+['"](?:node:)?(?:http|http2|net|tls|dgram|dns)['"]|\brequire\(['"](?:node:)?(?:https?|http2|net|tls|dgram|dns)['"]\)|(?<!typeof\s*)\bimport\(\s*['"](?:node:)?(?:https?|http2|net|tls|dgram|dns)['"]\s*\)/g;
-/** The host anywhere else (any case, with or without a scheme): only FLY_FILE may name it. */
-const FLY_HOST_NAMED = /api\.machines\.dev/i;
+const FLY_FORBIDDEN_MODULES = moduleLoads('https?|http2|net|tls|dgram|dns', { fromForm: 'http|http2|net|tls|dgram|dns' });
+/**
+ * The host anywhere else (any case, with or without a scheme, or half of it): only FLY_FILE may name it. A line
+ * is checked after hostNamePieces() joined adjacent string pieces and turned escaped dots back into dots.
+ */
+const FLY_HOST_NAMED = /api\.machines|machines\.dev/i;
+function hostNamePieces(line) {
+  return line.replace(/\\x2e|\\u002e|\\u\{0*2e\}/gi, '.').replace(/['"`]\s*\+\s*['"`]/g, '');
+}
 /**
  * The ways the Fly module could still reach another host with the one https.request it may make: its URL
  * literal is checked, so the target must come from nowhere else - no other member of node:https (get, Agent,
@@ -163,9 +217,12 @@ const FLY_HOST_NAMED = /api\.machines\.dev/i;
  * guard checks before the call (isFlyApiUrl in nodeFlyHttp).
  */
 const FLY_RULES = [
-  { re: /\bhttps\.(?!request\()[A-Za-z_$]/g, why: 'the Fly API module may use node:https only for https.request' },
+  { re: /\bhttps\.(?!request\()[A-Za-z_$]|\bhttps\s*\[|\bhttps\s*\?\./g, why: 'the Fly API module may use node:https only for https.request' },
   { re: /\b(?:host|hostname|port|socketPath|lookup|createConnection|servername)\s*:/g, why: 'the Fly API module may not name a target of its own' },
-  { re: /\bhttps?:\/\/(?![\w.-])|['"`]https?:\/{0,2}['"`]\s*\+|\+\s*['"`]\/\//g, why: 'the Fly API module may not build a URL from pieces' },
+  {
+    re: /\bhttps?:\/\/(?![\w.-])|['"`]https?:\/{0,2}['"`]\s*\+|\+\s*['"`]\/\/|['"`]\/\/[\w.-]|\.join\(\s*['"`]\/['"`]\s*\)/g,
+    why: 'the Fly API module may not build a URL from pieces',
+  },
   { re: /\bexport\b[^;]*\bfrom\s+['"](?:node:)?https['"]|\bexport\s+(?:default\s+https\b|\{[^}]*\bhttps\b)/g, why: 'the Fly API module may not hand node:https on' },
 ];
 /** Its one call: https.request(new URL(<variable>), ...). */
@@ -193,8 +250,21 @@ function scan(file) {
   const isFly = rel === FLY_FILE;
   const isJvm = JVM_FILE.test(rel);
   let flyRequests = 0;
+  let inBlockComment = false;
+  /** The code lines the rules below look at, joined again: for the module loads split over several lines. */
+  const codeLines = [];
+  /** The module rule of this file, and whether a single line already broke it. */
+  const moduleRule = isRemote ? null : isFly ? FLY_FORBIDDEN_MODULES : isMail ? MAIL_FORBIDDEN_MODULES : NETWORK_MODULES;
+  let moduleRuleHit = false;
   lines.forEach((raw, i) => {
-    if (ALLOW_LINE.some((re) => re.test(raw))) return;
+    const commentLine = inBlockComment && STAR_LINE.test(raw);
+    inBlockComment = blockCommentOpenAfter(raw, inBlockComment);
+    if (commentLine || ALLOW_CODE_LINE.some((re) => re.test(raw))) return;
+    codeLines.push(raw);
+    if (moduleRule) {
+      moduleRule.lastIndex = 0;
+      if (moduleRule.test(raw)) moduleRuleHit = true;
+    }
     let line = raw;
     for (const ns of XML_NAMESPACES) line = line.split(ns).join('');
     if (isJvm) {
@@ -208,7 +278,7 @@ function scan(file) {
         }
       }
     }
-    if (!isFly && FLY_HOST_NAMED.test(line)) {
+    if (!isFly && FLY_HOST_NAMED.test(hostNamePieces(line))) {
       violations.push(`${rel}:${i + 1}: the Fly API host ${FLY_HOST} may be named only in ${FLY_FILE}: ${raw.trim().slice(0, 120)}`);
     }
     if (isRemote) {
@@ -265,6 +335,12 @@ function scan(file) {
     }
   });
   if (isFly && flyRequests > 1) violations.push(`${rel}: the Fly API module may call https.request in one place only (found ${flyRequests})`);
+  // A module load split over several lines (`import(\n  'node:https'\n)`), which no single line shows.
+  if (moduleRule && !moduleRuleHit) {
+    moduleRule.lastIndex = 0;
+    const split = moduleRule.exec(codeLines.join('\n'));
+    if (split) violations.push(`${rel}: a network module loaded over several lines: ${split[0].replace(/\s+/g, ' ').slice(0, 120)}`);
+  }
 }
 
 for (const d of SCAN_DIRS) {

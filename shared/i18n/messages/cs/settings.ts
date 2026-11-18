@@ -587,6 +587,9 @@ const messages: Record<string, string> = {
     'Soubor {file} přišel s aktualizací serveru. Stránka Ke stažení ho už nebude nabízet, ani po dalších aktualizacích serveru.',
   'settings.server.downloads.removeAgain': 'Tuto verzi můžeš později znovu zveřejnit pomocí „Zveřejnit novou verzi“.',
   'settings.server.downloads.removed': 'Verze {version} pro {platform} byla odebrána ze stránky Ke stažení.',
+  'settings.server.downloads.removeLast':
+    'Toto je jediný soubor pro {platform}. Po jeho odebrání nebude stránka Ke stažení pro {platform} nabízet žádný instalační soubor, dokud nezveřejníš nový. Dříve odebrané verze se nevrátí.',
+  'settings.server.downloads.removedLast': 'Stránka Ke stažení teď pro {platform} nenabízí žádný instalační soubor, dokud nezveřejníš nový.',
   'settings.server.downloads.emailNotConfigured':
     'Při zveřejnění nebo odebrání souboru se neposílá žádný e-mail: odesílání e-mailů není nastavené (karta „E-mail pro obnovení hesla“).',
   'settings.server.downloads.emailNoAddress':

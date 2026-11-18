@@ -442,7 +442,10 @@ export function ServerDownloads({ refresh = 0 }: ServerDownloadsProps) {
       const result = await serverApi.downloads.remove({ platform: rowPlatform, version: row.version, password: removePassword });
       if (!alive.current) return;
       setData(result.downloads);
-      const text = `${DLT.removed(row.version, DLT.platformName(rowPlatform))} ${emailOutcome(result.email)}`;
+      const removedText = DLT.removed(row.version, DLT.platformName(rowPlatform));
+      // The system has no file left: the Downloads page offers none for it (older versions do not come back).
+      const lastText = (result.downloads.platforms[rowPlatform] ?? []).length === 0 ? ` ${DLT.removedLast(DLT.platformName(rowPlatform))}` : '';
+      const text = `${removedText}${lastText} ${emailOutcome(result.email)}`;
       setOutcome(text);
       setOpError(null);
       setTarget(null);
@@ -610,6 +613,7 @@ export function ServerDownloads({ refresh = 0 }: ServerDownloadsProps) {
           target ? (
             <>
               <p>{withIsolated(target.row.source === 'uploaded' ? DLT.removeUploaded : DLT.removeImage, target.row.file)}</p>
+              {(list?.platforms[target.platform] ?? []).length === 1 && <p>{DLT.removeLast(DLT.platformName(target.platform))}</p>}
               <p>{DLT.removeAgain}</p>
               {list && list.email !== 'ready' && <p>{DLT.emailWarning(list.email)}</p>}
             </>

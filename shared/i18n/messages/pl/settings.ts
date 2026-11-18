@@ -592,6 +592,9 @@ const messages: Record<string, string> = {
     'Plik {file} przyszedł z aktualizacją serwera. Strona Pobieranie przestanie go oferować, także po kolejnych aktualizacjach serwera.',
   'settings.server.downloads.removeAgain': 'Później możesz ponownie opublikować tę wersję za pomocą „Opublikuj nową wersję”.',
   'settings.server.downloads.removed': 'Wersja {version} dla {platform} została usunięta ze strony Pobieranie.',
+  'settings.server.downloads.removeLast':
+    'To jedyny plik dla {platform}. Po jego usunięciu strona Pobieranie nie będzie oferować żadnego pliku instalacyjnego dla {platform}, dopóki nie opublikujesz nowego. Wersje usunięte wcześniej nie wrócą.',
+  'settings.server.downloads.removedLast': 'Strona Pobieranie nie oferuje teraz żadnego pliku instalacyjnego dla {platform}, dopóki nie opublikujesz nowego.',
   'settings.server.downloads.emailNotConfigured':
     'Przy publikowaniu lub usuwaniu pliku nie jest wysyłany żaden e-mail: wysyłanie e-maili nie jest skonfigurowane (karta „E-mail do resetowania hasła”).',
   'settings.server.downloads.emailNoAddress':

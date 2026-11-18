@@ -56,7 +56,19 @@ function masksOf(caveats) {
   return out;
 }
 
-test('the caveats: the app, then only this disk and this machine, everything else read only - never a delete', { skip }, () => {
+/** The last caveat: no command in the machine and no GraphQL change (empty lists allow none), anything else but d. */
+const NO_COMMAND = {
+  type: 'IfPresent',
+  body: {
+    ifs: [
+      { type: 'Commands', body: [] },
+      { type: 'Mutations', body: { mutations: [] } },
+    ],
+    else: 'rwcC',
+  },
+};
+
+test('the caveats: the app, then only this disk and this machine, everything else read only, no command - never a delete', { skip }, () => {
   const withApp = JSON.parse(ps(`New-DiskKeyCaveats -AppId '1234567' -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask 'rw'`));
   assert.deepEqual(withApp, [
     { type: 'Apps', body: { apps: { 1234567: 'rwcC' } } },
@@ -70,19 +82,24 @@ test('the caveats: the app, then only this disk and this machine, everything els
         else: 'r',
       },
     },
+    NO_COMMAND,
   ]);
-  // Without the app's number: the IfPresent caveat alone (the deploy token itself is limited to the app).
+  // Without the app's number: the two IfPresent caveats alone (the deploy token itself is limited to the app).
   const withoutApp = JSON.parse(ps(`New-DiskKeyCaveats -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask 'rwc'`));
   assert.equal(Array.isArray(withoutApp), true);
-  assert.deepEqual(withoutApp.map((c) => c.type), ['IfPresent']);
+  assert.deepEqual(withoutApp.map((c) => c.type), ['IfPresent', 'IfPresent']);
   assert.deepEqual(withoutApp[0].body.ifs[0], { type: 'Volumes', body: { volumes: { [VOLUME]: 'rwc' } } });
+  assert.deepEqual(withoutApp[1], NO_COMMAND);
   for (const caveats of [withApp, withoutApp]) {
     const masks = masksOf(caveats);
     assert.ok(masks.length >= 3);
     for (const mask of masks) assert.match(mask, /^[rwcC]+$/, `mask ${mask}`);
   }
   // Every mask the script may ever use, and a refusal for d and *.
-  assert.deepEqual(JSON.parse(ps('ConvertTo-Json -Compress -InputObject @($VolumeMasks + @($AppMask, $MachineMask, $ElseMask))')), ['rw', 'rwc', 'rwcC', 'rC', 'r']);
+  assert.deepEqual(
+    JSON.parse(ps('ConvertTo-Json -Compress -InputObject @($VolumeMasks + @($AppMask, $MachineMask, $ElseMask, $NoCommandElseMask))')),
+    ['rw', 'rwc', 'rwcC', 'rC', 'r', 'rwcC'],
+  );
   const refused = ps(
     ["'rwd'", "'d'", "'*'", "'rwcdC'", "'R'", "''"]
       .map((mask) => `try { [void](New-DiskKeyCaveats -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask ${mask}); 'given' } catch { 'refused' }`)
@@ -168,9 +185,29 @@ test('its own guard: only GET, POST and PUT to the volumes and machines of the a
     ['POST', `/apps/diary-test-app/machines/${MACHINE}/stop`],
     ['GET', '/apps/diary-test-app/secrets'],
     ['GET', '/orgs/personal'],
+    // No update of the machine or the disk, nothing created but a snapshot, no check with the wrong method.
+    ['POST', `/apps/diary-test-app/machines/${MACHINE}`],
+    ['PUT', `/apps/diary-test-app/volumes/${VOLUME}`],
+    ['POST', '/apps/diary-test-app/volumes'],
+    ['POST', '/apps/diary-test-app/machines'],
+    ['POST', `/apps/diary-test-app/volumes/${VOLUME}/extend`],
+    ['PUT', `/apps/diary-test-app/volumes/${VOLUME}/snapshots`],
+    ['GET', `/apps/diary-test-app/volumes/${VOLUME}/extend`],
+    ['GET', '/apps/diary-test-app/machines'],
   ];
   const out = ps(tries.map(([method, p]) => `try { [void](Invoke-FlyApi -Method '${method}' -Path '${p}' -Token 'FlyV1 fm2_fictional'); 'sent' } catch { 'refused' }`).join('; '));
   assert.deepEqual(out.split(/\r?\n/), tries.map(() => 'refused'));
+  // Exactly the six requests of the checks pass the guard (asked of the guard alone - nothing is sent).
+  const checks = [
+    ['GET', '/apps/diary-test-app/volumes'],
+    ['GET', `/apps/diary-test-app/volumes/${VOLUME}`],
+    ['GET', `/apps/diary-test-app/volumes/${VOLUME}/snapshots`],
+    ['GET', `/apps/diary-test-app/machines/${MACHINE}`],
+    ['PUT', `/apps/diary-test-app/volumes/${VOLUME}/extend`],
+    ['POST', `/apps/diary-test-app/volumes/${VOLUME}/snapshots`],
+  ];
+  const allowed = ps([...checks, ...tries].map(([method, p]) => `if (Test-CheckRequest '${method}' '${p}') { 'yes' } else { 'no' }`).join('; '));
+  assert.deepEqual(allowed.split(/\r?\n/), [...checks.map(() => 'yes'), ...tries.map(() => 'no')]);
 });
 
 test('-DryRun prints the plan, calls nothing and exits 0 (flyctl does not exist here)', { skip }, () => {
@@ -197,6 +234,32 @@ test('a stop after the deploy token was made names that token and how to revoke 
   assert.equal(result.status, 1, out);
   assert.match(out, /STOPPED: a fictional reason/);
   assert.ok(out.includes(`The deploy token '${name}' was already made at Fly and is stored nowhere. Remove it: flyctl tokens list --app yourpersonaldiary, then flyctl tokens revoke <its ID>.`), out);
+});
+
+test('a run that ends some other way after the deploy token was made (an unexpected error, Ctrl+C) still names it, once', { skip }, () => {
+  const name = 'Server card disk button 2026-11-18 14:03 UTC';
+  const advice = `The deploy token '${name}' was already made at Fly. Unless this window said 'Done', remove it: flyctl tokens list --app yourpersonaldiary, then flyctl tokens revoke <its ID>.`;
+  // Ctrl+C: only the finally block runs - its advice once, however often it is reached.
+  // (The host wraps the redirected line at the console width: compared with the white space folded.)
+  const once = ps(`$script:MadeToken = '${name}'; Write-StopAdvice 6>&1; Write-StopAdvice 6>&1`).replace(/\s+/g, ' ');
+  assert.equal(once.split(advice).length - 1, 1, once);
+  // No token made yet: nothing to say.
+  assert.equal(ps("$script:MadeToken = ''; Write-StopAdvice 6>&1; 'end'"), 'end');
+  // After Stop-Setup has named the token, the finally block adds nothing.
+  const command = `. '${script.replace(/'/g, "''")}' -FunctionsOnly; $script:MadeToken = '${name}'; try { Stop-Setup 'a fictional reason' } finally { Write-StopAdvice }`;
+  const result = spawnSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-Command', command], { encoding: 'utf8', timeout: 120000 });
+  const out = `${result.stdout}\n${result.stderr}`;
+  assert.equal(result.status, 1, out);
+  assert.match(out, /stored nowhere\. Remove it/);
+  assert.doesNotMatch(out, /STOPPED before the end/);
+  // In the script, everything from the deploy token to the stored key runs in that try / catch / finally.
+  const code = source.replace(/<#[\s\S]*?#>/g, '');
+  const tryAt = code.search(/\ntry \{\r?\n/);
+  const catchAt = code.indexOf('\n} catch {', tryAt);
+  const finallyAt = code.indexOf('\n} finally {', catchAt);
+  assert.ok(tryAt > 0 && tryAt < code.indexOf('Invoke-Flyctl -Arguments "tokens create deploy') && catchAt > code.indexOf('secrets import failed') && finallyAt > catchAt, 'the try covers steps 2 to 5');
+  assert.match(code.slice(catchAt, finallyAt), /Protect-Text \$_\.Exception\.Message @\(\$deployToken, \$candidate, \$finalToken\)[\s\S]*Stop-Setup "an unexpected error: \$unexpected"/);
+  assert.match(code.slice(finallyAt, finallyAt + 80), /if \(-not \$finished\) \{ Write-StopAdvice \}/);
 });
 
 test('the source: ASCII only, a header, no delete, the token never on a command line, on the screen, in a file or in this process', () => {

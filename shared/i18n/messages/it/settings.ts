@@ -571,6 +571,9 @@ const messages: Record<string, string> = {
     'Il file {file} è arrivato con un aggiornamento del server. La pagina Download non lo offre più, anche dopo i successivi aggiornamenti del server.',
   'settings.server.downloads.removeAgain': 'Più avanti puoi pubblicare di nuovo questa versione con “Pubblica una nuova versione”.',
   'settings.server.downloads.removed': 'La versione {version} per {platform} è stata rimossa dalla pagina Download.',
+  'settings.server.downloads.removeLast':
+    'È l’unico file per {platform}. Dopo la rimozione, la pagina Download non offre alcun file di installazione per {platform} finché non ne pubblichi uno nuovo. Le versioni rimosse in precedenza non tornano.',
+  'settings.server.downloads.removedLast': 'Ora la pagina Download non offre alcun file di installazione per {platform} finché non ne pubblichi uno nuovo.',
   'settings.server.downloads.emailNotConfigured':
     'Quando un file viene pubblicato o rimosso non viene inviata nessuna e-mail: l’invio di e-mail non è configurato (la scheda “E-mail per reimpostare la password”).',
   'settings.server.downloads.emailNoAddress':

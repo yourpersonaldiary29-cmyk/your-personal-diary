@@ -935,7 +935,7 @@ thead th{font-size:.9rem;color:var(--muted);white-space:nowrap}
 td{white-space:nowrap}
 .get{display:inline-flex;align-items:center;min-height:2.75rem;font-weight:600}
 .files>.empty{padding:.75rem 1rem}
-.files:has(>.empty:not([hidden]))>table,.panel:has(>.files>.empty:not([hidden]))>.qa{display:none}
+.files:has(>.empty:not([hidden]))>table,.panel:has(>.files>.empty:not([hidden]))>.qa,.panel:has(>.files>.empty:not([hidden]))>.files~p:not(.need){display:none}
 .need{font-weight:600}
 .sums{display:grid;gap:.25rem;padding:0 1rem 1rem}
 .sums dt{margin-block-start:.5rem;font-weight:600}

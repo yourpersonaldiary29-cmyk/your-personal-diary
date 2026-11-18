@@ -291,6 +291,9 @@ export const DLT = {
     return tr('settings.server.downloads.removeAgain');
   },
   removed: (version: string, platform: string) => tr('settings.server.downloads.removed', { version, platform }),
+  /** Said when the file being removed is the only one of its system (in the dialog, then in the result). */
+  removeLast: (platform: string) => tr('settings.server.downloads.removeLast', { platform }),
+  removedLast: (platform: string) => tr('settings.server.downloads.removedLast', { platform }),
   /** Said before an action when the e-mail about it would not be sent (`ServerDownloads.email`). */
   emailWarning: (email: 'notConfigured' | 'noAddress') =>
     tr(email === 'noAddress' ? 'settings.server.downloads.emailNoAddress' : 'settings.server.downloads.emailNotConfigured'),

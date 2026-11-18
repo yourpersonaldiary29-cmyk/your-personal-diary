@@ -147,6 +147,37 @@ describe('check-no-network.mjs: the Fly API module of the disk button', () => {
     }
   }, 120_000);
 
+  it('the other spellings of a load, a host or a connection are seen too: getBuiltinModule, createRequire, backticks, split lines, .mts / .cts, a code line starting with *, host pieces and escapes, named imports, new Socket', () => {
+    const DISK = 'server/src/hosted/disk.ts';
+    const cases: Array<[string, string, string]> = [
+      ['process.getBuiltinModule', DISK, "export const a = () => process.getBuiltinModule('node:https');"],
+      ['import() over three lines', DISK, "export const b = () => import(\n  'node:https'\n);"],
+      ['import() with a template literal', DISK, 'export const c = () => import(`node:https`);'],
+      ['require() with a template literal', DISK, 'export const d = require(`node:tls`);'],
+      ['createRequire()()', DISK, "import { createRequire } from 'node:module';\nexport const e = createRequire(import.meta.url)('node:https');"],
+      ['a code line that starts with *', DISK, "export const f = 2\n  * (await import('node:https')).default.length;"],
+      ['a .mts file', 'server/src/hosted/disk.mts', "import https from 'node:https';\nexport default https;"],
+      ['a .cts file', 'server/src/hosted/disk.cts', "import https from 'node:https';\nexport default https;"],
+      ['the host from two pieces', DISK, "export const g = 'api.machines' + '.dev';"],
+      ['the host with escaped dots', DISK, "export const h = 'api\\x2emachines\\x2edev';"],
+      ['the host in a template line starting with *', DISK, 'export const i = `x\n* https://api.machines.dev/v1`;'],
+      ['connect imported by name from node:net', DISK, "import { connect } from 'node:net';\nexport const j = () => connect(443, 'evil.example');"],
+      ['new net.Socket()', DISK, "import net from 'node:net';\nexport const k = () => new net.Socket().connect(443, 'evil.example');"],
+      ['request imported by name from node:http', DISK, "import { request } from 'node:http';\nexport const l = () => request({ host: 'evil.example' });"],
+      ['Fly: a URL from join()', FLY, "export const m = (h: string) => ['https:', '', h].join('/');"],
+      ['Fly: a protocol-relative URL with a base', FLY, "export const n = (b: string) => new URL('//evil.example/v1', b);"],
+      ['Fly: https[...]', FLY, "export const o = (u: string) => https['req' + 'uest'](u);"],
+      ['Fly: getBuiltinModule of node:http', FLY, "export const p = () => process.getBuiltinModule('node:http');"],
+      ['Fly: import() of node:tls over two lines', FLY, "export const q = () => import(\n'node:tls');"],
+    ];
+    for (const [label, file, text] of cases) {
+      const files = file === FLY ? { [FLY]: `${GOOD}${text}\n` } : { [FLY]: GOOD, [file]: `${text}\n` };
+      const result = audit(tree(files));
+      expect({ label, status: result.status }).toEqual({ label, status: 1 });
+      expect(result.output, label).toContain(file);
+    }
+  }, 240_000);
+
   it('a comment may mention the host (documentation is never fetched), like every other host', () => {
     const result = audit(tree({ [FLY]: GOOD, 'server/src/hosted/disk.ts': '// the Fly Machines API at api.machines.dev\n/**\n * https://api.machines.dev/v1\n */\nexport const x = 1;\n' }));
     expect(result.output).toContain('Network audit passed');

@@ -541,6 +541,9 @@ const messages: Record<string, string> = {
     'ファイル {file} はサーバーの更新に含まれていたものです。今後サーバーを更新したあとも含め、「ダウンロード」ページでは提供されなくなります。',
   'settings.server.downloads.removeAgain': 'このバージョンは、あとで「新しいバージョンを公開」からもう一度公開できます。',
   'settings.server.downloads.removed': '{platform} のバージョン {version} を「ダウンロード」ページから削除しました。',
+  'settings.server.downloads.removeLast':
+    'これは {platform} 向けの唯一のファイルです。削除すると、新しいファイルを公開するまで「ダウンロード」ページでは {platform} 向けのインストール用ファイルが提供されません。以前に削除したバージョンは戻りません。',
+  'settings.server.downloads.removedLast': '新しいファイルを公開するまで、「ダウンロード」ページでは {platform} 向けのインストール用ファイルが提供されません。',
   'settings.server.downloads.emailNotConfigured':
     'ファイルを公開または削除しても、メールは送信されません。メールの送信が設定されていません（「パスワード再設定用のメール」カード）。',
   'settings.server.downloads.emailNoAddress':

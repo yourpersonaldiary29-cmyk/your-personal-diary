@@ -567,6 +567,9 @@ const messages: Record<string, string> = {
     'جاء الملف {file} مع تحديث للخادم. لن تعرضه صفحة التنزيلات بعد الآن، حتى بعد تحديثات الخادم اللاحقة.',
   'settings.server.downloads.removeAgain': 'يمكنك نشر هذا الإصدار مرة أخرى لاحقًا من «نشر إصدار جديد».',
   'settings.server.downloads.removed': 'أُزيل الإصدار {version} لـ {platform} من صفحة التنزيلات.',
+  'settings.server.downloads.removeLast':
+    'هذا هو الملف الوحيد لـ {platform}. بعد إزالته لن تعرض صفحة التنزيلات أي ملف تثبيت لـ {platform} حتى تنشر ملفًا جديدًا. الإصدارات التي أُزيلت من قبل لا تعود.',
+  'settings.server.downloads.removedLast': 'لا تعرض صفحة التنزيلات الآن أي ملف تثبيت لـ {platform} حتى تنشر ملفًا جديدًا.',
   'settings.server.downloads.emailNotConfigured':
     'لا تُرسَل رسالة بريد إلكتروني عند نشر ملف أو إزالته: إرسال البريد الإلكتروني غير مُعدّ (بطاقة «البريد الإلكتروني لإعادة تعيين كلمة المرور»).',
   'settings.server.downloads.emailNoAddress':

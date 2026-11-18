@@ -597,6 +597,9 @@ const messages: Record<string, string> = {
     'Файл {file} пришёл с обновлением сервера. Он больше не будет предлагаться на странице «Загрузки», в том числе после следующих обновлений сервера.',
   'settings.server.downloads.removeAgain': 'Позже эту версию можно опубликовать снова через «Опубликовать новую версию».',
   'settings.server.downloads.removed': 'Версия {version} для {platform} удалена со страницы «Загрузки».',
+  'settings.server.downloads.removeLast':
+    'Это единственный файл для {platform}. После его удаления страница «Загрузки» не будет предлагать установочный файл для {platform}, пока не будет опубликован новый. Удалённые ранее версии не вернутся.',
+  'settings.server.downloads.removedLast': 'Теперь страница «Загрузки» не предлагает установочный файл для {platform}, пока не будет опубликован новый.',
   'settings.server.downloads.emailNotConfigured':
     'При публикации или удалении файла письмо не отправляется: отправка почты не настроена (карточка «Почта для сброса пароля»).',
   'settings.server.downloads.emailNoAddress':

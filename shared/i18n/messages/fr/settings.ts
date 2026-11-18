@@ -575,6 +575,10 @@ const messages: Record<string, string> = {
     'Le fichier {file} est arrivé avec une mise à jour du serveur. Il n’est plus proposé sur la page Téléchargements, y compris après les mises à jour suivantes du serveur.',
   'settings.server.downloads.removeAgain': 'Vous pourrez publier à nouveau cette version plus tard avec « Publier une nouvelle version ».',
   'settings.server.downloads.removed': 'La version {version} pour {platform} a été retirée de la page Téléchargements.',
+  'settings.server.downloads.removeLast':
+    'C’est le seul fichier pour {platform}. Une fois ce fichier retiré, la page Téléchargements ne proposera plus aucun fichier d’installation pour {platform} tant que vous n’en aurez pas publié un nouveau. Les versions retirées auparavant ne reviennent pas.',
+  'settings.server.downloads.removedLast':
+    'La page Téléchargements ne propose plus aucun fichier d’installation pour {platform} tant que vous n’en publiez pas un nouveau.',
   'settings.server.downloads.emailNotConfigured':
     'Aucun e-mail n’est envoyé quand un fichier est publié ou retiré : l’envoi d’e-mails n’est pas configuré (la carte « E-mail de réinitialisation du mot de passe »).',
   'settings.server.downloads.emailNoAddress':

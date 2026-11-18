@@ -530,6 +530,9 @@ export function createDownloadsController(opts: DownloadsOptions): DownloadsCont
       return serveFile(resolved.slice(filesPrefix.length + 1), res);
     }
     if (resolved === null || !resolved.toLowerCase().startsWith(SITE_PREFIX)) return next();
+    // The Windows spellings of the same file (an NTFS stream such as index.html::$DATA, a trailing dot or space):
+    // ordinary names on Linux, but on Windows they would hand the image's own page to the static files.
+    if (/:|[. ](?:\/|$)/.test(resolved)) return notFound(res);
     const page = pages.get(resolved.slice(SITE_PREFIX.length).toLowerCase());
     if (page) return servePage(page, res, next);
     next();
