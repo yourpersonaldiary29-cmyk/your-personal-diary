@@ -34,8 +34,9 @@ kill_timeout = "20s"
   # `fly secrets set DIARY_REGISTRATION=open` - secrets win over [env]).
   # 2026-10-27: registration opened to everyone by the owner (also set as a Fly secret, which wins over [env]).
   DIARY_REGISTRATION = "open"
-  # 2026-10-27: account limit raised by the owner from the default 300 (also set as a Fly secret, which wins).
-  DIARY_MAX_ACCOUNTS = "5000"
+  # 2026-10-27: account limit raised by the owner from the default 300 to 5000; 2026-11-19: raised by the owner to 8000
+  # (also set as a Fly secret, which wins over [env]).
+  DIARY_MAX_ACCOUNTS = "8000"
   # After the owner's first registration: copy the Account ID from Settings -> Account here and
   # deploy again. Until then nobody has the owner cards (plan 2.3) - that is intended.
   # DIARY_OWNER_ID = "u_0123456789abcdef"

@@ -180,7 +180,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\AVI\Projects\my-pe
 ### שלב ט – פתיחת ההרשמה (אחרי שאתה רשום כבעלים)
 
 **בוצע ב-2026-10-27:** ההרשמה בייצור פתוחה לכולם – `DIARY_REGISTRATION = "open"` ב-`deploy/hosted/fly.toml` (וגם כסוד ב-Fly, שגובר
-על `fly.toml`), עם תקרה של `DIARY_MAX_ACCOUNTS = "5000"` חשבונות. הפקודות, לתיעוד ולמקרה שצריך לחזור על זה (בסדר הזה – קודם
+על `fly.toml`), עם תקרה של `DIARY_MAX_ACCOUNTS = "5000"` חשבונות (מ-19.11.2026: `"8000"`, ב-`fly.toml` וגם כסוד). הפקודות, לתיעוד ולמקרה שצריך לחזור על זה (בסדר הזה – קודם
 `open`, ורק אחר כך מסירים את הקוד):
 
 ```
