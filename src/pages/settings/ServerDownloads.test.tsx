@@ -341,7 +341,10 @@ describe('publishing a new version', () => {
   it('checks the form before asking the server: the version already listed, the file, the password - at their fields, the first one focused', async () => {
     const { user } = renderCard();
     const section = await part();
-    // 1.0.0 (this app's version) is on the page already.
+    // 1.0.0 is on the page already (the fixture); the field starts with this app's version (APP_VERSION), so it is set
+    // to the listed version here - the check must not depend on which version the app itself has.
+    await user.clear(byId(DOWNLOADS_VERSION_ID));
+    await user.type(byId(DOWNLOADS_VERSION_ID), '1.0.0');
     await user.click(within(section).getByRole('button', { name: DLT.upload }));
     expect(byId(DOWNLOADS_VERSION_ID)).toHaveAccessibleDescription(new RegExp(en('server.downloads.exists', { platform: 'Windows', version: '1.0.0' })));
     expect(byId(DOWNLOADS_VERSION_ID)).toHaveAttribute('aria-invalid', 'true');
