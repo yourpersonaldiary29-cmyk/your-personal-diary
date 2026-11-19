@@ -284,7 +284,7 @@ node scripts/store/build-msix.mjs             # src-tauri/target/release/bundle/
 node scripts/store/check-msix.mjs --release   # חייב להסתיים ב-PASSED
 ```
 
-מספר הגרסה בחנות - `src-tauri/msix/package-version.json` (`1.0.0.0` בהגשה הראשונה). חבילת בדיקה שלא עולה לחנות: `--test`. הפרטים: [`store/MSIX-BUILD.md`](store/MSIX-BUILD.md).
+מספר הגרסה בחנות - `src-tauri/msix/package-version.json` (`1.0.1.0` בהגשה הראשונה - גרסה 1.0.1 של האפליקציה). חבילת בדיקה שלא עולה לחנות: `--test`. הפרטים: [`store/MSIX-BUILD.md`](store/MSIX-BUILD.md).
 
 **Android**
 
