@@ -43,7 +43,7 @@
 | `play\policy\target-audience.md` | App content ← **Target audience and content** |
 | `play\policy\data-safety.md` | App content ← **Data safety** (תשובות הטופס) |
 | `android\app\build\outputs\bundle\release\app-release.aab` | Closed testing / Production ← **Create new release** ← App bundles |
-| `android\app\build\outputs\mapping\release\mapping.txt` | אותו release ← **App bundle explorer** ← Downloads ← Upload ReTrace mapping file |
+| `android\app\build\outputs\mapping\release\mapping.txt` | אותו release ← **App bundle explorer** ← Downloads ← Upload ReTrace mapping file – רק אם Play Console כותב שהוא חסר (חלק ז, סעיף 4) |
 | `play\last-upload.json` | **לא מעלים** – מעדכנים בו אחרי כל העלאה איזה versionCode עלה (חלק ז, סעיף 7) |
 | `play\README.he.md` | הסבר קצר על תיקיית `play` (לקריאה) |
 
@@ -60,11 +60,20 @@
 
 ## חלק א – מפתח ההעלאה (פעם אחת, לכל חיי האפליקציה)
 
+**בוצע ב-22.11.2026:** מפתח ההעלאה כבר קיים, בתיקייה `C:\Users\AVI\Projects\android-signing`. יצרת אותו
+בסקריפט שבסעיף 3, ולא מריצים את הסקריפט שוב. נשאר דבר אחד: לוודא שעותק של הקובץ `upload-keystore.jks`
+ושל הסיסמה שמור מחוץ למחשב (סעיף 6). שאר הסעיפים נשארים כאן כדי שיהיה כתוב איך המפתח נוצר.
+
 **מה זה:** ב-Google Play יש שני מפתחות. **מפתח החתימה של האפליקציה** (app signing key) נמצא אצל
 Google – בו נחתם מה שהמשתמשים מתקינים. **מפתח ההעלאה** (upload key) נמצא אצלך – בו נחתם הקובץ
 שאתה מעלה ל-Play Console, וכך Google יודעת שההעלאה באה ממך. אפליקציה חדשה נרשמת ל-Play App
 Signing אוטומטית עם ההעלאה הראשונה. אם מפתח ההעלאה אובד – לא מאבדים את האפליקציה, אבל כל העלאה
 נעצרת עד שמבקשים מגוגל איפוס (Request upload key reset) ומחכים לתשובה. לכן: גיבוי.
+
+**מ-22.11.2026 אותו מפתח חותם גם על קובץ ה-APK שמחלקים כקובץ:** זה שבתיקייה
+`Your Personal Diary - installers`, ואחרי הבדיקה בטלפון גם זה שבדף ההורדות של האתר. לקובץ הזה האיפוס של
+Google לא עוזר: בלי המפתח אי אפשר להוציא קובץ שמותקן מעל התקנה קיימת, ומי שהתקין מקובץ יצטרך להסיר את
+האפליקציה ולהתקין אותה מחדש.
 
 1. פותחים PowerShell: מקש Windows, כותבים `PowerShell`, Enter.
 2. עוברים לתיקיית הפרויקט:
@@ -93,6 +102,12 @@ Signing אוטומטית עם ההעלאה הראשונה. אם מפתח ההע�
 
 ## חלק ב – בניית הקובץ להעלאה (לפני כל העלאה)
 
+**להעלאה הראשונה לא בונים שוב:** הקובץ של גרסה 1.0.1 (versionCode 5) כבר בנוי וחתום במפתח ההעלאה
+(22.11.2026). עותק שלו נמצא בתיקייה `Your Personal Diary - Google Play`, בחלק 6
+("6 - קובץ האפליקציה לחנות"): הקובץ `Your Personal Diary - 1.0.1 (versionCode 5).aab`, ולידו קובץ הסבר.
+את קובץ ה-`.aab` הזה מעלים בחלק ז, סעיף 2. את הפקודה עם `-Bump` (סעיף 1 כאן) מריצים רק מהגרסה הבאה.
+בדיקת המוכנות (סעיף 4) לא בונה כלום, ומריצים אותה גם לפני ההעלאה הראשונה.
+
 הקובץ שמעלים ל-Google Play הוא **Android App Bundle** (סיומת `.aab`) – מאז אוגוסט 2021 Play
 מקבל רק אותו עבור אפליקציות חדשות. בכל העלאה חייב להיות **versionCode** (מספר פנימי) גבוה מכל
 העלאה קודמת – לכן הפקודה כוללת `-Bump`, שמעלה את המספר באחד.
@@ -110,7 +125,8 @@ Signing אוטומטית עם ההעלאה הראשונה. אם מפתח ההע�
    - `App id:  app.yourpersonaldiary` – לא שום דבר אחר.
    - `Signed:  yes` ואחריו `Signer:  SHA-256 …` – אותה טביעת אצבע כמו בחלק א. אם כתוב `Signed: NO` – חלק א לא בוצע, או שהקובץ `keystore.properties` לא במקומו.
    - `AAB:` – הנתיב של הקובץ, בדרך כלל `android\app\build\outputs\bundle\release\app-release.aab`.
-   - `Mapping:` – הקובץ `mapping.txt` שמעלים יחד עם ה-bundle (כדי שדיווחי קריסות יהיו קריאים).
+   - `Mapping:` – הקובץ `mapping.txt`, שבעזרתו דיווחי קריסות נעשים קריאים. עותק שלו נמצא כבר בתוך
+     ה-bundle, ולכן בדרך כלל לא מעלים אותו בנפרד (חלק ז, סעיף 4).
 3. שורות על **bundletool**: זה כלי של Google שבודק את ה-bundle כמו ש-Play יבדוק, ובונה ממנו קובץ
    APK אחד להתקנת בדיקה בטלפון. הוא לא חלק מערכת הכלים ואף סקריפט לא מוריד אותו לבד. אם כתוב
    `bundletool: not found` – אפשר להמשיך בלעדיו (ה-bundle שלם); או להוריד ידנית מ-
@@ -130,6 +146,16 @@ Signing אוטומטית עם ההעלאה הראשונה. אם מפתח ההע�
    (30 / 80 / 4000 תווים), הגרפיקה בגדלים הנכונים, צילומי המסך, דפי הפרטיות בנויים ובלי שדות
    `{{...}}` לא ממולאים, המזהה `app.yourpersonaldiary`, ה-versionCode גבוה מההעלאה הקודמת
    (`play\last-upload.json`), וקובץ החתימה במקומו.
+
+**קובץ ה-APK החתום** – זה שמחלקים כקובץ (התיקייה `Your Personal Diary - installers`, ואחרי הבדיקה בטלפון גם
+דף ההורדות של האתר) – לא נבנה בפקודה `npm run android:aab`. בונים אותו מיד אחריה, באותו חלון PowerShell:
+
+```
+. scripts\android\env.ps1; Invoke-Gradle assembleRelease
+```
+
+התוצאה: `android\app\build\outputs\apk\release\app-release.apk`, חתום באותו מפתח העלאה. ל-Google Play לא
+מעלים אותו – רק את קובץ ה-`.aab`.
 
 ## חלק ג – יצירת האפליקציה ב-Play Console
 
@@ -267,9 +293,10 @@ Signing אוטומטית עם ההעלאה הראשונה. אם מפתח ההע�
    כותבים משפט באנגלית, למשל `First closed test of Your Personal Diary.` ← **Next**.
 3. מסך הסיכום מציג שגיאות ואזהרות. אזהרות (למשל על קובץ מיפוי) מותר להמשיך; שגיאה – מתקנים. לוחצים
    **Save and publish** (או **Start rollout to Closed testing**) ומאשרים.
-4. **קובץ המיפוי:** באותו release, תחת App bundles, הקישור של ה-bundle ← **App bundle explorer** ←
-   לשונית **Downloads** ← **Upload ReTrace mapping file** ← `mapping.txt` (הנתיב מחלק ב). לא חובה, אבל אז
-   דיווחי קריסות ב-Play יהיו קריאים.
+4. **קובץ המיפוי:** בדרך כלל אין מה להעלות. קובץ ה-`.aab` כבר מכיל אותו (כך גם הקובץ של גרסה 1.0.1),
+   ו-Play לוקחת אותו משם – כך דיווחי הקריסות ב-Play קריאים. רק אם Play Console כותב שקובץ המיפוי חסר:
+   באותו release, תחת App bundles, הקישור של ה-bundle ← **App bundle explorer** ← לשונית **Downloads** ←
+   **Upload ReTrace mapping file** ← `mapping.txt` (הנתיב מחלק ב).
 5. **הסקירה הראשונה:** הגרסה הראשונה של אפליקציה חדשה נבדקת על ידי Google – לפי Google זה יכול
    לקחת **עד 7 ימים, ולפעמים יותר**. עוקבים ב-Dashboard. כשהסטטוס הופך ל-**Published** (או
    "Available to testers"), בלשונית Testers מופיע **קישור ההצטרפות** (opt-in link, בצורה
@@ -374,3 +401,6 @@ Google השינויים עולים לאוויר רק כשלוחצים **Publish*
   https://support.google.com/googleplay/android-developer/answer/9844778
 - bundletool – הורדה מ-GitHub, `build-apks --mode=universal`, חתימה ב-debug key כשאין `--ks`:
   https://developer.android.com/tools/bundletool
+- קובץ המיפוי – מ-app bundle שנבנה ב-Android Gradle plugin 4.1 ומעלה Play לוקחת אותו לבד, ואין מה להעלות
+  (נקרא 2026-11-22):
+  https://support.google.com/googleplay/android-developer/answer/9848633

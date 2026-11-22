@@ -105,12 +105,40 @@ describe('startHosted: boot, health and the public-only surface', () => {
     expect(h).toMatchObject({ ok: true, mode: 'hosted', storage: 'ok' });
     expect(typeof h.uptimeSec).toBe('number');
     expect(h.freePct === null || (typeof h.freePct === 'number' && h.freePct >= 0 && h.freePct <= 100)).toBe(true);
-    expect((await anon().get('/api/health/strict')).status).toBe(200);
+    // "Fine" includes the free space of the disk this test runs on (the data directory is a temp folder): below
+    // the default floor of 10 % the strict answer is 503 - as on the development PC of 2026-11-22, whose own disk
+    // was 93 % full. The test below asks for both answers on any disk.
+    expect(srv.env.minFreePct).toBe(10);
+    const free = h.freePct ?? null;
+    const strict = await anon().get('/api/health/strict');
+    expect(strict.status, `free space ${String(free)} %`).toBe(free !== null && free < srv.env.minFreePct ? 503 : 200);
     expect((await agent.get('/api/health/strict').set('Host', 'healthcheck.internal')).status).toBe(421);
     expect((await agent.get('/api/server/info').set('Host', 'evil.example')).status).toBe(421);
     // No device key file is created unless the file is the key's source; no LAN, no remote files.
     expect(fs.existsSync(path.join(dataDir, 'device.key'))).toBe(true);
     expect(fs.existsSync(path.join(dataDir, 'tls'))).toBe(false);
+  });
+
+  it('the strict health answer follows the free-space floor (DIARY_MIN_FREE_PCT): 503 below it, 200 above it - on any disk', async () => {
+    // A floor of 101 % is never reached, a floor of 0 % always is: neither depends on how full this disk is.
+    const low = await boot({ env: { DIARY_MIN_FREE_PCT: '101' } });
+    const plain = await low.agent.get('/api/health').set('Host', 'healthcheck.internal');
+    // The plain answer - the platform's check - stays 200: a restart cannot heal a full disk.
+    expect(plain.status).toBe(200);
+    const { freePct } = plain.body as HealthStatus;
+    const strict = await low.anon().get('/api/health/strict');
+    if (freePct === null || freePct === undefined) {
+      // A platform that cannot say how full the disk is: the floor does not apply.
+      expect(strict.status).toBe(200);
+    } else {
+      expect(strict.status).toBe(503);
+      expect(strict.body).toMatchObject({ ok: false, reason: 'storage', storage: 'ok', mode: 'hosted' });
+    }
+    await stop(low.srv);
+    const high = await boot({ env: { DIARY_MIN_FREE_PCT: '0' } });
+    const fine = await high.anon().get('/api/health/strict');
+    expect(fine.status).toBe(200);
+    expect(fine.body).toMatchObject({ ok: true, storage: 'ok' });
   });
 
   it('remote routes 403, LAN switch 403, account list 403, disk paths 400', async () => {

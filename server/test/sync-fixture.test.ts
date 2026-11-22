@@ -11,6 +11,11 @@
  *     only bookkeeping rows added are `meta` rows with the `sync:` prefix;
  *   - a backup downloaded from hosted mode restores into a local-mode server.
  * Nothing here reads a real data directory: the fixture is the only input.
+ *
+ * The fixture's session is a file with a fixed expiry date (2026-12-30, 90 days after the fixture was
+ * generated). So that the token path is the one exercised on every day this file runs - and not a
+ * password sign-in from that date on - the hosted server's account service runs on `fixtureClock`:
+ * the real clock moved into the lifetime of that session (see there). A 401 for the token fails the test.
  */
 import { createHash, randomUUID } from 'node:crypto';
 import fs from 'node:fs';
@@ -18,7 +23,7 @@ import path from 'node:path';
 import supertest from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { SyncKeyResponse, SyncOpResult } from '@shared/sync';
-import type { AppSettings, AuthResponse, Entry, EntryInput, Habit, HabitInput, HabitLog, HabitWithProgress, RestoreInfo, ServerInfo, UserProfile } from '@shared/types';
+import type { AppSettings, Entry, EntryInput, Habit, HabitInput, HabitLog, HabitWithProgress, RestoreInfo, ServerInfo, SessionInfo, UserProfile } from '@shared/types';
 import { loadConfig, loadHostedEnv } from '../src/config';
 import { DiaryDb } from '../src/db/database';
 import { listEntriesFull } from '../src/db/entries-repo';
@@ -41,6 +46,15 @@ interface FixtureManifest {
   session: { token: string };
   diary: { plainSha256: string };
   content: { entries: number; habits: number; habitLogs: number; entriesSha256: string };
+}
+
+/** What this file reads of a record of the fixture's sessions.json. */
+interface FixtureSession {
+  id: string;
+  deviceName: string;
+  createdAt: string;
+  expiresAt: string;
+  rememberMe: true;
 }
 
 interface MasterRow {
@@ -97,6 +111,22 @@ const PASSWORD = manifest.account.password;
 const ACCOUNT = manifest.account.id;
 const DEVICE_KEY_B64 = Buffer.from(manifest.deviceKeyHex, 'hex').toString('base64');
 
+/** The fixture's one remember-me session as the desktop wrote it to sessions.json (its token is `manifest.session.token`). */
+const fixtureSessions = (JSON.parse(fs.readFileSync(path.join(FIXTURES, manifest.files.sessions), 'utf8')) as { sessions: FixtureSession[] }).sessions;
+if (fixtureSessions.length !== 1) throw new Error(`the fixture's sessions.json should hold exactly one session (found ${fixtureSessions.length})`);
+const FIXTURE_SESSION = fixtureSessions[0];
+const SESSION_FROM = Date.parse(FIXTURE_SESSION.createdAt);
+const SESSION_UNTIL = Date.parse(FIXTURE_SESSION.expiresAt);
+/**
+ * The clock of the hosted server's account service (the owner of the session store): the real clock, moved so
+ * that this file starts in the middle of the fixture session's lifetime, and running on from there. Against the
+ * real clock the token is refused from `expiresAt` on; a password sign-in would keep every test below green
+ * while the token + device key path - the subject of the first test, also after the restart - went untested.
+ * Only the account service gets this clock: the sync routes and the diary keep the real one.
+ */
+const CLOCK_SHIFT = SESSION_FROM + (SESSION_UNTIL - SESSION_FROM) / 2 - Date.now();
+const fixtureClock = (): Date => new Date(Date.now() + CLOCK_SHIFT);
+
 /** The fixture data directory, copied: `.mpd.fixture` becomes `users/<id>.mpd`. */
 function copyFixtureDataDir(): string {
   const dir = tempDataDir();
@@ -130,7 +160,7 @@ async function bootHosted(dataDir: string) {
     DIARY_AUTH_GLOBAL_PER_MINUTE: '5000',
   });
   const config = loadConfig(['--data-dir', dataDir], { DIARY_MODE: 'hosted' });
-  const srv = await startHosted(config, env, { port: 0, quiet: true });
+  const srv = await startHosted(config, env, { port: 0, quiet: true, auth: { now: fixtureClock } });
   running.push(srv);
   const agent = supertest(srv.localUrl);
   type Req = ReturnType<typeof agent.get>;
@@ -165,22 +195,24 @@ async function stopHosted(h: Hosted): Promise<void> {
 }
 
 /**
- * The fixture's remember-me session (its token unwraps the diary key with the device key). The
- * fixture file carries an expiry date; should the fixture ever be older than its session, the
- * password opens the account instead - the sync behaviour under test is the same.
+ * Signs in with the fixture's remember-me token: the session of sessions.json, whose wrapped diary key the device
+ * key opens. The password is not used and there is no way around a refusal: a 401 means that this path is broken
+ * (or that the account service no longer runs on `fixtureClock`), and it fails the test - whatever today's date.
  */
 async function authenticate(h: Hosted): Promise<{ token: string; api: Api }> {
-  let token = manifest.session.token;
-  let me = await h.as(token).get('/api/auth/me');
-  if (me.status === 401) {
-    const login = await h.anon().post('/api/auth/login', { username: manifest.account.username, password: PASSWORD, rememberMe: true, deviceName: 'Fixture test' });
-    expect(login.status).toBe(200);
-    token = (login.body as AuthResponse).token;
-    me = await h.as(token).get('/api/auth/me');
-  }
-  expect(me.status).toBe(200);
-  expect((me.body as { user: UserProfile }).user.id).toBe(ACCOUNT);
-  return { token, api: h.as(token) };
+  const token = manifest.session.token;
+  const api = h.as(token);
+  const me = await api.get('/api/auth/me');
+  expect(me.status, `the fixture's remember-me token (its session ends ${FIXTURE_SESSION.expiresAt}; the account service should be on fixtureClock, ${fixtureClock().toISOString()})`).toBe(200);
+  const body = me.body as { user: UserProfile; session: SessionInfo };
+  expect(body.user.id).toBe(ACCOUNT);
+  // The session that answered is the one the desktop wrote into the fixture - not one a sign-in created here -
+  expect(body.session).toMatchObject({ id: FIXTURE_SESSION.id, deviceName: FIXTURE_SESSION.deviceName, rememberMe: true, current: true });
+  // and it is the account's only session: nobody signed in with the password, before or after the restart.
+  const sessions = await api.get('/api/auth/sessions');
+  expect(sessions.status).toBe(200);
+  expect((sessions.body as SessionInfo[]).map((s) => s.id)).toEqual([FIXTURE_SESSION.id]);
+  return { token, api };
 }
 
 function op(epoch: string, kind: string, extra: Record<string, unknown>) {
@@ -230,6 +262,10 @@ beforeAll(async () => {
   expect(before.habits).toHaveLength(manifest.content.habits);
   expect(before.logCount).toBe(manifest.content.habitLogs);
   expect(entriesHash(before.entries, [])).toBe(manifest.content.entriesSha256);
+  // The account clock sits inside the lifetime of the fixture's remember-me session.
+  expect(FIXTURE_SESSION.rememberMe).toBe(true);
+  expect(fixtureClock().getTime()).toBeGreaterThan(SESSION_FROM);
+  expect(fixtureClock().getTime()).toBeLessThan(SESSION_UNTIL);
 }, 60_000);
 
 afterAll(async () => {

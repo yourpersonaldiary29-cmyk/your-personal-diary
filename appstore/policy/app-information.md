@@ -25,7 +25,7 @@ Package ANSWERS of the final sprint, written 2026-11-08. Apple facts come from `
 | Support URL | `https://yourpersonaldiary.fly.dev/support/` and per localization `/support/<app-locale>/` (`support-url.txt`) | same | FACTS 2.10 (must lead to contact details: the support page shows the operator's name and e-mail, `legal/support/support-en.md`) |
 | Marketing URL | blank (`marketing-url.txt` is empty on purpose) | blank | FACTS 2.11 (not required); ENV-FINAL decision 12 |
 | Copyright | `2026 Ouriel Sebag` - without the © sign | same | FACTS 2.14 ("The copyright symbol is added automatically."); ANSWERS amendment 1 |
-| Version | `1.0.0` | `1.0.0` | ENV-FINAL (the main session sets 1.0.0) |
+| Version | `1.0.1` | `1.0.1` | The app version since 2026-11-19 (`package.json`, `src-tauri/tauri.conf.json`, `MARKETING_VERSION` of `ios/App/App.xcodeproj`); ENV-FINAL had set 1.0.0 |
 | Price | Free (0), All Countries or Regions, no pre-order | same | FACTS 2.25, 2.26; ENV-FINAL decision 6 |
 | Version Release | Manually release this version | same | FACTS 2.24 |
 | Sign-in required (App Review Information) | yes - user name `stor`; password: (the owner types the password only in App Store Connect) | same account | ENV-FINAL decision 7; FACTS 2.27 |
@@ -38,8 +38,8 @@ The publisher name, contact e-mail and copyright holder come from `legal/setting
 
 | What | iPhone app | Mac app |
 | --- | --- | --- |
-| Version shown to customers (`CFBundleShortVersionString`) | Xcode target > General > Identity > **Version** (`MARKETING_VERSION` of `ios/App/App.xcodeproj`, the project `npx cap add ios` generates - `scripts/ios/README.he.md`) = `1.0.0` | `src-tauri/tauri.conf.json` `"version"` (the main session raises it to `1.0.0`; Tauri writes it into the bundle's Info.plist - `scripts/mac/release.sh` prints the value it finds) |
-| Build number (`CFBundleVersion`) | Xcode > General > Identity > **Build** (`CURRENT_PROJECT_VERSION`): `1` for the first upload, then `2`, `3`, ... for every new upload of the same version | Route 2 (Mac App Store): `APPSTORE_BUILD_NUMBER` given to `scripts/mac/build-appstore.sh` (it becomes `bundle.macOS.bundleVersion`; default = the version string). Use `1`, `2`, `3`, ... |
+| Version shown to customers (`CFBundleShortVersionString`) | Xcode target > General > Identity > **Version** (`MARKETING_VERSION` of `ios/App/App.xcodeproj`, the project `npx cap add ios` generates - `scripts/ios/README.he.md`) = `1.0.1` | `src-tauri/tauri.conf.json` `"version"` (`1.0.1` since 2026-11-19; Tauri writes it into the bundle's Info.plist - `scripts/mac/release.sh` prints the value it finds) |
+| Build number (`CFBundleVersion`) | Xcode > General > Identity > **Build** (`CURRENT_PROJECT_VERSION`): `2` for the first upload (the project's value since 2026-11-19), then `3`, `4`, ... for every new upload | Route 2 (Mac App Store): `APPSTORE_BUILD_NUMBER` given to `scripts/mac/build-appstore.sh` (it becomes `bundle.macOS.bundleVersion`; default = the version string). Use `1`, `2`, `3`, ... |
 
 Apple: `CFBundleVersion` is "one to three period-separated integers" containing only digits and periods, and identifies the build (FACTS 8.6). An explicit "must increase" sentence was not found (FACTS 8.6); the practice used here is a higher build number for every upload. The Xcode Organizer's "TestFlight & App Store" preset can also update the build number itself (FACTS 8.4).
 

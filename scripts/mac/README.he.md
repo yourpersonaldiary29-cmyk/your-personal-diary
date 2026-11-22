@@ -18,7 +18,9 @@
 | Rust (דרך rustup) | 1.99.1, יעדים `aarch64-apple-darwin` ו-`x86_64-apple-darwin` (יעד ה-Intel נוסף ב-8.11.2026, 147 MB) | `~/.cargo`, `~/.rustup` |
 | Xcode Command Line Tools | 27.2 (מ-11.11.2026): Apple clang 21.0.0, macOS SDK 27.2, `notarytool` 1.1.4. עד 11.11.2026: Apple clang 16, macOS SDK 15.2 | `/Library/Developer/CommandLineTools` (אתה אישרת את ההתקנה על המסך) |
 
-**עדכון 11.11.2026:** ה-Mac עודכן ל-**macOS 27.2.1** (build 26B131), ו-Command Line Tools עודכנו ל-27.2 (בטבלה). גרסה 1.0.0 נבנתה כבר עם הכלים החדשים (SDK 27.2); בנייה 3, שמותקנת אצלך, נבנתה עם הישנים (SDK 15.2).
+**עדכון 11.11.2026:** ה-Mac עודכן ל-**macOS 27.2.1** (build 26B131), ו-Command Line Tools עודכנו ל-27.2 (בטבלה). גרסה 1.0.0 נבנתה כבר עם הכלים החדשים (SDK 27.2); בנייה 3, שהייתה מותקנת אצלך אז, נבנתה עם הישנים (SDK 15.2).
+
+**עדכון 22.11.2026:** מ-14.11.2026 מותקנת אצלך **גרסה 1.0.0** (הבנייה האוניברסלית מ-13.11.2026). **גרסה 1.0.1** נבנתה ב-19.11.2026 ועוד לא הותקנה אצלך; מתקינים אותה מה-DMG (`docs/MAC-RELEASE.he.md` סעיף 5.1).
 
 **Xcode המלא** - אתה מתקין אותו עכשיו מה-App Store. הוא נדרש ל-iPhone ולהעלאה ל-App Store; לאפליקציית ה-Mac הוא לא נחוץ. **כשההתקנה מסתיימת:** לפתוח את Xcode פעם אחת, ללחוץ **Agree** על הרישיון ולהקליד את סיסמת ה-Mac. עד שעושים את זה, macOS עלול להעביר את כלי הבנייה ל-Xcode, והבנייה נעצרת עם `You have not agreed to the Xcode license agreements` (פתרון: `docs/MAC-RELEASE.he.md` סעיף 9).
 
@@ -49,7 +51,7 @@ NEW="src-tauri/target/universal-apple-darwin/release/bundle/macos/Your Personal 
 lipo -archs "$NEW/Contents/MacOS/your-personal-diary"
 ```
 
-השורה השלישית מדפיסה את הגרסה שעומדת להיות מותקנת - היא חייבת להיות הגרסה החדשה (היום `1.0.0`), והרביעית `x86_64 arm64`. אם לא - עוצרים ובונים קודם (למעלה). אם כן, באותו חלון:
+השורה השלישית מדפיסה את הגרסה שעומדת להיות מותקנת - היא חייבת להיות הגרסה החדשה (היום `1.0.1`), והרביעית `x86_64 arm64`. אם לא - עוצרים ובונים קודם (למעלה). אם כן, באותו חלון:
 
 ```bash
 ditto "$NEW" "/Applications/.Your Personal Diary.new.app" &&
@@ -115,7 +117,7 @@ ditto "$NEW" "/Applications/.Your Personal Diary.new.app" &&
 * **מכונת ההפצה:** `scripts/mac/release.sh` - פקודה אחת לבנייה, חתימה ב-Developer ID, Notarization, הצמדת האישור, DMG ובדיקת Gatekeeper; `scripts/mac/build-appstore.sh` למסלול ה-Mac App Store (לא נבדק); קובצי ההרשאות ב-`src-tauri/entitlements/`; `src-tauri/Info.plist` עם הצהרת ההצפנה וזכויות היוצרים, קטגוריה Lifestyle.
 
 **נכנס ב-12.11.2026 (אחרי העדכון של ה-Mac ל-macOS 27.2.1):**
-* הבנייה האוניברסלית נבנתה מחדש כ**גרסה 1.0.0** (`release.sh` בלי תעודה: קוד יציאה 2, כמתוכנן), ונוצר `Your Personal Diary_1.0.0_universal.dmg`. גם היא **לא הותקנה** אצלך; ההתקנה נעשית יחד עם הסשן הראשי.
+* הבנייה האוניברסלית נבנתה מחדש כ**גרסה 1.0.0** (`release.sh` בלי תעודה: קוד יציאה 2, כמתוכנן), ונוצר `Your Personal Diary_1.0.0_universal.dmg`. באותו יום היא עוד לא הותקנה אצלך; גרסה 1.0.0 הותקנה ב-14.11.2026 (הבנייה מ-13.11.2026).
 * `release.sh` מחזיק עכשיו את ה-Mac ער לכל אורך ההרצה (גם בהמתנות ל-Notarization), וכל כישלון בו מסתיים בשורת `release: ERROR` ובקוד יציאה 1; הוא בודק כבר בהתחלה שכלי הבנייה של אפל עובדים (רישיון Xcode). `make-dmg.sh` מסביר את שורות האזהרה החדשות של `hdiutil` ב-macOS 27.
 * בסעיף 1: פקודת ה-PATH נוספה לפקודת הבנייה, וההתקנה ל-Applications לוקחת עכשיו את הבנייה האוניברסלית (קודם היא לקחה בטעות את בנייה 3 הישנה) ומחליפה את האפליקציה בבטחה.
 

@@ -3,8 +3,11 @@
 // refused.
 //   node scripts/play/assemble-desktop-folder.mjs                             -> <parent of the project>\Your Personal Diary - Google Play
 //   node scripts/play/assemble-desktop-folder.mjs <folder>                    -> any other new folder (a test run)
-//   node scripts/play/assemble-desktop-folder.mjs --refresh-guides [<folder>] -> re-render only the Hebrew guide pages
+//   node scripts/play/assemble-desktop-folder.mjs --refresh-guides [<folder>] -> re-render only the Hebrew guide pages and
+//                                                                                the short readme of part 6 in an existing folder
 // The guides are rendered by scripts/lib/guide-html.mjs (code blocks, "* " bullets and links included).
+// Part 6 gets its readme only: the signed .aab of the latest version and the note of that version are copied into it by
+// hand after the build (docs/PLAY-RELEASE.he.md, part B). A refresh rewrites the readme and leaves those two files alone.
 import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -42,9 +45,24 @@ const writeGuides = () => {
     htmlFrom(src, path.join(dst, rel));
   }
 };
+const bom = '\ufeff';
+// 6 app bundle note. The upload key exists since 2026-11-22 and the bundle of the latest version is kept in this
+// folder with a note of its own (file name, signer fingerprint); the readme only says what the folder holds.
+const BUNDLE_DIR = '6 - קובץ האפליקציה לחנות';
+const BUNDLE_README = [
+  'Google Play מקבלת קובץ מסוג AAB חתום, ולא קובץ APK.',
+  'הקובץ של הגרסה האחרונה נמצא בתיקייה הזו, עם קובץ הסבר לידו. לכל גרסה חדשה בונים קובץ חדש (המדריך, חלק ב). את הבנייה עושה מפתח, או עוזר AI שעובד על הפרויקט במחשב הזה.',
+  'את קובץ ה-APK לבדיקה בטלפון שלך תמצא בתיקייה Your Personal Diary - installers.',
+];
+const writeBundleReadme = () => {
+  const pkg = path.join(dst, BUNDLE_DIR);
+  mkdirSync(pkg, { recursive: true });
+  writeFileSync(path.join(pkg, 'קרא אותי.txt'), bom + BUNDLE_README.join('\r\n') + '\r\n');
+};
 if (refresh) {
   writeGuides();
-  console.log(`refreshed ${GUIDES.length} guide pages in ${dst}`);
+  writeBundleReadme();
+  console.log(`refreshed ${GUIDES.length} guide pages and the readme of part 6 in ${dst}`);
   process.exit(0);
 }
 
@@ -61,15 +79,13 @@ writeGuides();
 const pol = path.join(dst, '5 - תשובות לטפסים של Google');
 mkdirSync(pol);
 const names = { 'data-safety.md': 'בטיחות נתונים - Data safety.txt', 'content-rating.md': 'דירוג תוכן - Content rating.txt', 'target-audience.md': 'קהל יעד - Target audience.txt', 'app-access.md': 'גישה לבודקים - App access.txt' };
-const bom = '\ufeff';
 for (const [src, out] of Object.entries(names)) writeFileSync(path.join(pol, out), bom + mdToPlain(fill(readFileSync(path.join(proj, 'play', 'policy', src), 'utf8'))).replace(/\n/g, '\r\n'));
-// 6 app bundle note
-const pkg = path.join(dst, '6 - קובץ האפליקציה לחנות');
-mkdirSync(pkg);
-writeFileSync(path.join(pkg, 'קרא אותי.txt'), bom + ['Google Play מקבלת קובץ מסוג AAB חתום, ולא קובץ APK.', 'הקובץ נבנה אחרי שתיצור את מפתח ההעלאה שלך (המדריך, חלק א). את הבנייה עושה מפתח, או עוזר AI שעובד על הפרויקט במחשב הזה (המדריך, חלק ב).', 'את קובץ ה-APK לבדיקה בטלפון שלך תמצא בתיקייה Your Personal Diary - installers.'].join('\r\n') + '\r\n');
+// 6 app bundle note (the readme only - see the top of the file)
+writeBundleReadme();
 writeFileSync(path.join(dst, 'קישורים.txt'), bom + ['מדיניות פרטיות (Privacy policy):', 'https://yourpersonaldiary.fly.dev/privacy/', '', 'דף מחיקת חשבון (Delete account URL):', 'https://yourpersonaldiary.fly.dev/delete-account/', '', 'תנאי שימוש (Terms of Use):', 'https://yourpersonaldiary.fly.dev/terms/', '', 'תמיכה ושאלות נפוצות (Support):', 'https://yourpersonaldiary.fly.dev/support/', '', 'אתר (Website):', 'https://yourpersonaldiary.fly.dev/', '', 'מייל קשר (Contact email):', settings.contactEmail, '', 'חשבון לבודקים של Google (App access): שם המשתמש stor. את הסיסמה הקלד רק ב-Play Console, לא בקובץ ולא בצ\'אט.'].join('\r\n') + '\r\n');
 const count = (p, f) => readdirSync(p, { recursive: true }).filter(f).length;
 console.log('folder:', dst);
 console.log('listing langs:', readdirSync(path.join(dst, '2 - טקסטים לחנות לפי שפה')).length, '| screenshot langs:', readdirSync(shotsDst, { withFileTypes: true }).filter((d) => d.isDirectory()).length, '| png:', count(shotsDst, (n) => String(n).endsWith('.png')));
 const leftovers = readdirSync(dst, { recursive: true }).filter((n) => /\.(txt|html)$/.test(n)).filter((n) => readFileSync(path.join(dst, n), 'utf8').replace(/\{\{\.\.\.\}\}/g, '').includes('{{'));
 console.log('files with placeholders left:', leftovers.length ? leftovers : 'none');
+console.log(`part 6 holds only its readme, which says the bundle is there: copy the signed .aab of the latest version (docs/PLAY-RELEASE.he.md, part B) and a note about it into "${BUNDLE_DIR}"`);

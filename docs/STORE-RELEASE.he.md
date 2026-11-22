@@ -94,7 +94,7 @@
 1. מבקשים מ-Claude: "תבנה את חבילת החנות". Claude מריץ את הפקודות שכתובות בקובץ `store/MSIX-BUILD.md` ובודק שהבדיקה מסתיימת ב-`PASSED`.
 2. התוצאה היא קובץ אחד שמסתיים ב-`.msix`, למשל:
 
-   `C:\Users\AVI\Projects\my-personal-diary\src-tauri\target\release\bundle\msix\YourPersonalDiary_1.0.0.0_x64.msix`
+   `C:\Users\AVI\Projects\my-personal-diary\src-tauri\target\release\bundle\msix\YourPersonalDiary_1.0.1.0_x64.msix`
 
 3. מספר הגרסה בהגשה הראשונה הוא **1.0.1.0** (גרסה 1.0.1 של האפליקציה, מ-19.11.2026). החבילה לא חתומה - Microsoft חותמת עליה בעצמה אחרי האישור.
 

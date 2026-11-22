@@ -6,13 +6,35 @@
  * statistics and the smart search in three languages. See ./contract-rig.ts for the comparison.
  */
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import type { AppSettings, DaySummary, Entry, EntryPage, Habit, HabitLog, HabitWithProgress, SeedDemoResult } from '@shared/types';
+import { monthViewContaining } from '@shared/calendars/month-view';
+import type { AppSettings, CalendarDay, CalendarMonth, DaySummary, Entry, EntryPage, Habit, HabitLog, HabitWithProgress, SeedDemoResult } from '@shared/types';
 import { closeNative, DANA, entryInput, habitInput, registerBoth, startContract, YOSSI, type ContractRig, type Side } from './contract-rig';
 
 let rig: ContractRig;
 /** Per-side ids of what the scenarios created (ids may differ between the sides). */
 const ids: Record<Side['name'], Record<string, number>> = { core: {}, desktop: {} };
 const idOf = (side: Side, name: string): number => ids[side.name][name];
+
+/** The Gregorian months, as [year, month 1..12], from the month of the day `from` to the month of the day `to` (`YYYY-MM-DD`). */
+function gregorianMonths(from: string, to: string): Array<[number, number]> {
+  const months: Array<[number, number]> = [];
+  const lastYear = Number(to.slice(0, 4));
+  const lastMonth = Number(to.slice(5, 7));
+  let year = Number(from.slice(0, 4));
+  let month = Number(from.slice(5, 7));
+  while (year < lastYear || (year === lastYear && month <= lastMonth)) {
+    months.push([year, month]);
+    month += 1;
+    if (month > 12) {
+      month = 1;
+      year += 1;
+    }
+  }
+  return months;
+}
+
+/** How many entries the days of a calendar answer hold. */
+const entriesIn = (days: CalendarDay[]): number => days.reduce((sum, day) => sum + day.entryCount, 0);
 
 beforeAll(async () => {
   rig = await startContract();
@@ -167,11 +189,58 @@ describe('contract: demo data, calendar, insights, statistics, search', () => {
     expect(again.core.status).toBe(400);
   }, 60_000);
 
-  it('calendar months around the Gregorian, Hebrew and Hijri new years, and a range, agree', async () => {
+  it('calendar months agree where the demo diary has its entries - Gregorian, Hebrew and Hijri months and a range over all of it - and around the new years of 2026', async () => {
+    // The demo diary covers the 120 days up to the day this runs, so the months to compare are taken from the diary
+    // itself. Months written down here hold entries only for a few months afterwards; from then on the two sides
+    // would be compared on empty months alone, and this test would pass whatever the calendar did with entries.
+    const end = async (newestFirst: boolean): Promise<{ date: string; total: number }> => {
+      const page = (await rig.authed(`/api/entries?limit=1&sortDesc=${newestFirst}`)).core.json as EntryPage;
+      expect(page.items).toHaveLength(1);
+      return { date: page.items[0].date, total: page.total };
+    };
+    const { date: newest, total } = await end(true);
+    const { date: oldest } = await end(false);
+    expect(total).toBeGreaterThan(80);
+    expect(oldest < newest, `the demo diary: ${oldest} .. ${newest}`).toBe(true);
+
+    // Every Gregorian month from the oldest entry's to the newest entry's, asked the way the calendar page asks for a
+    // Gregorian month. They show the two entries, and between them they hold every entry of the diary.
+    const months = gregorianMonths(oldest, newest);
+    let inMonths = 0;
+    for (const [year, month] of months) {
+      const page = await rig.authed(`/api/calendar/month?year=${year}&month=${month}`);
+      expect(page.core.status).toBe(200);
+      const days = (page.core.json as CalendarMonth).days;
+      for (const date of [oldest, newest]) {
+        if (Number(date.slice(0, 4)) === year && Number(date.slice(5, 7)) === month) expect(days.find((day) => day.date === date)?.hasEntry, `${year}-${month} shows the entry of ${date}`).toBe(true);
+      }
+      inMonths += entriesIn(days);
+    }
+    expect(inMonths, `the entries in the ${months.length} months ${oldest.slice(0, 7)} .. ${newest.slice(0, 7)}`).toBe(total);
+
+    // The Hebrew and the Hijri month around the oldest and around the newest entry, asked the way the calendar page
+    // asks for a month of those calendars: a range from the month's first civil day to its last.
+    for (const system of ['hebrew', 'hijri'] as const) {
+      for (const date of [oldest, newest]) {
+        const view = monthViewContaining(system, date, 'en');
+        const range = await rig.authed(`/api/calendar/range?from=${view.firstDay}&to=${view.lastDay}`);
+        expect(range.core.status, `${view.title} (${view.firstDay} .. ${view.lastDay})`).toBe(200);
+        expect((range.core.json as CalendarDay[]).find((day) => day.date === date)?.hasEntry, `${view.title} (${view.firstDay} .. ${view.lastDay}) shows the entry of ${date}`).toBe(true);
+      }
+    }
+
+    // One range over the whole diary: every entry once more.
+    const whole = await rig.authed(`/api/calendar/range?from=${oldest}&to=${newest}`);
+    expect(whole.core.status).toBe(200);
+    expect(entriesIn(whole.core.json as CalendarDay[])).toBe(total);
+
+    // Months the diary may not reach must agree as well. These are the ones this test compared when it was written:
+    // the months of the Gregorian, Hebrew and Hijri new years of 2026, October 2026 and a range of that autumn. The
+    // diary reached them then; from 2027 on they are empty months - a page the two sides must agree on too.
     for (const [year, month] of [
       [2026, 1], // Gregorian new year
-      [2026, 9], // Rosh Hashana 5787 (September 2026)
-      [2026, 6], // 1 Muharram 1448 (June 2026)
+      [2026, 9], // Rosh Hashana 5787 (12 September 2026)
+      [2026, 6], // 1 Muharram 1448 (16 June 2026)
       [2026, 10],
     ]) {
       const page = await rig.authed(`/api/calendar/month?year=${year}&month=${month}`);
