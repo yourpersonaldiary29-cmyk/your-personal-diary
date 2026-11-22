@@ -3,17 +3,20 @@
  * scripts/site/build-site.mjs - the public web site of Your Personal Diary (docs/site-tasks/SITE.md, version 2):
  * a small static site in the app's 20 languages, English by default. The hosted server serves it as files:
  *
- *   <server>/about/                    About the app (the home page), English
+ *   <server>/about/                    The home page, English  - the logo and the name, large, and the first sentences
+ *   <server>/about/app/                About the app           - what you can do, what it looks like, your privacy
  *   <server>/about/terms/              Terms of Use            - the document of legal/terms/, inside the site's frame
  *   <server>/about/faq/                Questions and answers   - 30, in six groups
  *   <server>/about/privacy/            Privacy Policy          - the document of legal/privacy/, inside the frame
  *   <server>/about/downloads/          Downloads               - a tab per platform, a table of installer files
  *   <server>/about/contact/sent/       "Your message was sent"      (where POST /api/contact sends the visitor)
  *   <server>/about/contact/error/      "Your message was not sent"
- *   <server>/about/<locale>/...        the same seven pages in each other app language (there is no /about/en/)
+ *   <server>/about/<locale>/...        the same eight pages in each other app language (there is no /about/en/)
  *   <server>/about/site.css, site.js, img/**, files/**   shared by all pages (files/ = the installers)
  *
- * That is 7 x 20 = 140 pages. Every page has the same frame: skip link, header (logo and name), menu, the page's
+ * That is 8 x 20 = 160 pages. The home page is a page of its own since 2026-11-22 (the owner asked for a page at
+ * the beginning with the logo, which a click on the logo opens); until then "About the app" was also the home page.
+ * Every page has the same frame: skip link, header (logo and name, one link to the home page), menu, the page's
  * own content, the contact block with the form (not on the two result pages), and the footer with the language
  * chooser and the copyright line. EVERY LINK INSIDE THE SITE IS RELATIVE, computed from the depth of the page, so
  * the same tree works under /about/ today and at the root of the owner's domain later. Absolute addresses appear
@@ -48,7 +51,7 @@
  *   legal/terms/, legal/privacy/      the two documents, rendered with the functions of scripts/legal/build-pages.mjs
  *   src/config/server-default.json    the fixed server
  *   src/styles/tokens.css             the app's theme tokens: the colours of the site, light and dark
- *   public/favicon.svg                the app icon (the logo of the header)
+ *   public/favicon.svg                the app icon (the logo of the header, and large on the home page)
  *   play/screenshots/<Play locale>/   four phone screens (1080x1920) in the page's own language
  *   store/screenshots/<Store tag>/    one desktop screen (1920x1080) in the page's own language
  *   play/graphics/feature-1024x500.png  the sharing image (og:image)
@@ -185,11 +188,14 @@ export function scriptProblems(text) {
 // ---------------------------------------------------------------------------------------------
 
 /**
- * The seven pages of a language. dir = the folder of the page inside the language's folder; contact = the page
- * ends with the contact block; legal = the document of legal/<kind>/ it shows.
+ * The eight pages of a language. dir = the folder of the page inside the language's folder; contact = the page
+ * ends with the contact block; legal = the document of legal/<kind>/ it shows. Everything that follows from the
+ * list of pages follows from here: the tree, the canonical address and the hreflang links of a page, the language
+ * chooser and the list of language links, the menu (MENU).
  */
 export const SITE_PAGES = [
   { id: 'home', dir: '', contact: true },
+  { id: 'about', dir: 'app/', contact: true },
   { id: 'terms', dir: 'terms/', contact: true, legal: 'terms' },
   { id: 'faq', dir: 'faq/', contact: true },
   { id: 'privacy', dir: 'privacy/', contact: true, legal: 'privacy' },
@@ -199,7 +205,8 @@ export const SITE_PAGES = [
 ];
 /** The menu, in page order: page id -> the key of its text in nav.* ("Contact us" is added last by the frame). */
 export const MENU = [
-  ['home', 'about'],
+  ['home', 'home'],
+  ['about', 'about'],
   ['terms', 'terms'],
   ['faq', 'faq'],
   ['privacy', 'privacy'],
@@ -218,7 +225,7 @@ function localeOf(code) {
   return def;
 }
 
-/** The folder of a page relative to the top of the site: '' (English home), 'terms/', 'he/', 'he/terms/'. */
+/** The folder of a page relative to the top of the site: '' (English home), 'app/', 'terms/', 'he/', 'he/app/', 'he/terms/'. */
 export function siteDir(pageId, locale) {
   return `${locale === DEFAULT_LOCALE ? '' : `${locale}/`}${sitePage(pageId).dir}`;
 }
@@ -414,7 +421,7 @@ export const CONTENT_SCHEMA = {
   description: T,
   skipLink: T,
   languagesLabel: T,
-  nav: { label: T, about: T, terms: T, faq: T, privacy: T, downloads: T, contact: T },
+  nav: { label: T, home: T, about: T, terms: T, faq: T, privacy: T, downloads: T, contact: T },
   hero: { heading: T, lead: T, openAction: T, note: T },
   features: { heading: T, items: [8, { title: T, text: T }] },
   screens: { heading: T, items: [5, { caption: T, alt: T }] },
@@ -657,7 +664,10 @@ export const PLAY_FOLDER = Object.fromEntries(Object.entries(PLAY_LOCALES).map((
 /** App locale -> the folder of its desktop screenshots (the Store tags of scripts/store/check-listing.mjs). */
 export const STORE_FOLDER = Object.fromEntries(Object.entries(STORE_LOCALES).map(([folder, def]) => [def.app, folder]));
 
-/** The five screenshots of a home page, in the order of screens.items in the content files. The first is the hero image. */
+/**
+ * The five screenshots of a language, in the order of screens.items in the content files: the About page shows
+ * them all, and the first is also the hero image of the home page.
+ */
 export const SHOTS = [
   { id: 'phone-home', kind: 'phone', file: '01-home.png', width: 1080, height: 1920 },
   { id: 'phone-entry', kind: 'phone', file: '03-entry.png', width: 1080, height: 1920 },
@@ -704,7 +714,7 @@ function imageProblem(root, image) {
   return null;
 }
 
-/** What is wrong with the icon (null when it is a plain SVG image: the header shows it and the browser tab too). */
+/** What is wrong with the icon (null when it is a plain SVG image: the header shows it, the home page and the browser tab too). */
 function iconProblem(root) {
   let svg;
   try {
@@ -753,6 +763,8 @@ export const COLOR_PAIRS = [
   ['fg', 'bg'],
   ['muted', 'bg'],
   ['link', 'bg'],
+  // The name of the app next to the large icon of the home page: the hero fades from the card colour into this one.
+  ['accent', 'bg'],
   ['fg', 'card'],
   ['muted', 'card'],
   ['link', 'card'],
@@ -856,6 +868,9 @@ a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible,s
 .menu a[aria-current]{background:var(--soft);color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
 .hero{padding-block:2.5rem 3rem;background:linear-gradient(var(--card),var(--bg))}
 .hero .wrap{display:grid;gap:2.5rem;align-items:center}
+.home-brand{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;margin-block-end:1.25rem;font-size:1.25rem;font-weight:700;line-height:1.2;color:var(--accent)}
+.home-brand bdi{white-space:normal}
+.home-icon{flex:none;width:4rem;height:4rem}
 h1{font-size:clamp(1.75rem,1.1rem + 3.3vw,3rem);line-height:1.2}
 .lead{max-width:42rem;margin-block-start:1rem;font-size:1.15rem;color:var(--muted)}
 .actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-block-start:1.75rem}
@@ -897,6 +912,7 @@ figcaption{margin-block-start:.9rem;font-size:.95rem;color:var(--muted);text-ali
 .checks .ic{margin-block-start:.1rem;color:var(--accent)}
 .page{padding-block:2.5rem 3.5rem}
 .page section{padding-block:0}
+.page-head{padding-block-start:2.5rem}
 .group{margin-block-start:2.5rem}
 .group>h2{margin-block-end:1.25rem}
 .qa{border:1px solid var(--line);border-radius:10px;background:var(--card)}
@@ -963,8 +979,8 @@ footer{margin-block-start:auto;padding-block:2rem 2.5rem;border-block-start:1px 
 :lang(ar) h1,:lang(hi) h1,:lang(th) h1,:lang(ar) h2,:lang(hi) h2,:lang(th) h2{line-height:1.45}
 @media (max-width:33.99rem){.cards>.card{display:grid;grid-template-columns:auto 1fr;gap:.7rem .8rem;align-items:center}.cards>.card h3{margin:0}.cards>.card p{grid-column:1/-1}.cards .tile{width:2.5rem;height:2.5rem}th,td,caption{padding-inline:.6rem}.tabs-on .panel,.form{padding:1rem .75rem}.chooser label{flex-basis:100%}.menu ul{margin-inline:-.5rem}.menu a{padding-inline:.5rem;font-size:.95rem}.tab{flex:1 1 0;min-width:0;padding-inline:.5rem}}
 @media (min-width:30rem){.actions .btn{flex:0 1 auto}}
-@media (min-width:34rem){.features{grid-template-columns:repeat(2,minmax(0,1fr))}.row{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:54rem){.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 2rem}.brand{margin-block:.6rem}.menu ul{padding-block:.5rem}.hero{padding-block:4rem 3rem}.hero .wrap{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:3rem}.hero-shot{width:min(19rem,100%)}section{padding-block:4.5rem}.split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-areas:"head list";column-gap:3rem;align-items:start}.split.plus{grid-template-areas:"head list" "more list";grid-template-rows:auto 1fr}.page{padding-block:3.5rem 4.5rem}}
+@media (min-width:34rem){.features{grid-template-columns:repeat(2,minmax(0,1fr))}.row{grid-template-columns:repeat(2,minmax(0,1fr))}.home-brand{gap:.75rem 1.25rem;margin-block-end:1.75rem;font-size:1.75rem}.home-icon{width:6rem;height:6rem}}
+@media (min-width:54rem){.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 2rem}.brand{margin-block:.6rem}.menu ul{padding-block:.5rem}.hero{padding-block:4rem 3rem}.hero .wrap{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:3rem}.hero-shot{width:min(19rem,100%)}section{padding-block:4.5rem}.split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-areas:"head list";column-gap:3rem;align-items:start}.split.plus{grid-template-areas:"head list" "more list";grid-template-rows:auto 1fr}.page{padding-block:3.5rem 4.5rem}.page-head{padding-block-start:3.5rem}}
 @media (min-width:61rem){.features{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (min-width:68rem){.strip{flex-wrap:wrap;justify-content:center;row-gap:2.5rem;margin-inline:0;padding-inline:0;overflow:visible}.shot.wide{width:46rem}}
 `.trim()}\n`;
@@ -990,7 +1006,7 @@ const ICONS = {
 /** The icon of each feature card (features.items of the content files, in order). */
 const FEATURE_ICONS = ['write', 'habits', 'insights', 'calendar', 'stats', 'sync', 'globe', 'access'];
 /** The icons a page draws; a page without icons carries no sprite. */
-const PAGE_ICONS = { home: [...FEATURE_ICONS, 'check'], faq: ['chevron'], downloads: ['chevron'] };
+const PAGE_ICONS = { about: [...FEATURE_ICONS, 'check'], faq: ['chevron'], downloads: ['chevron'] };
 
 const sprite = (ids) => `<svg class="sprite" aria-hidden="true" focusable="false">${ids.map((id) => `<symbol id="i-${id}" viewBox="0 0 24 24">${ICONS[id]}</symbol>`).join('')}</svg>`;
 const icon = (id) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
@@ -1123,6 +1139,9 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
   let description;
   let canonical = `${siteBase}${dir}`;
   let main;
+  /** A screenshot of the app in the language of the page. The hero image of the home page loads at once, the others when they come near. */
+  const screenshot = (shot, alt, hero = false) =>
+    `<img src="${to(shot.rel)}" width="${shot.width}" height="${shot.height}" alt="${attr(alt)}"${hero ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
 
   if (page.legal) {
     const doc = renderLegalDocument({
@@ -1140,31 +1159,44 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
     canonical = `${siteUrl}${pagePath(page.legal, locale)}`;
     main = ['<div class="wrap page">', '<div class="doc">', doc.html, '</div>', '</div>'];
   } else if (pageId === 'home') {
-    const shots = shotsOf(locale);
-    const img = (shot, alt, hero = false) =>
-      `<img src="${to(shot.rel)}" width="${shot.width}" height="${shot.height}" alt="${attr(alt)}"${hero ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
-    const figure = (shot, i) => {
-      const { caption, alt } = content.screens.items[i];
-      const frame =
-        shot.kind === 'phone'
-          ? `<div class="phone">${img(shot, alt)}</div>`
-          : `<div class="desk"><div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>${img(shot, alt)}</div>`;
-      return `<figure class="shot${shot.kind === 'phone' ? '' : ' wide'}">${frame}<figcaption>${rich(caption)}</figcaption></figure>`;
-    };
+    // The home page (the owner, 2026-11-22: a page at the beginning with the logo): ONE hero section. First the app
+    // icon, large, with the name next to it - not a link, this IS the page the logo of the header opens - then the
+    // heading, the lead, the three actions (the web app, the Downloads page, the About page), the note and the phone.
     title = attr(content.title);
     description = attr(content.description);
     main = [
       '<section class="hero">',
       '<div class="wrap">',
       '<div>',
+      // alt="": the name stands next to the icon and is its text.
+      `<p class="home-brand"><img class="home-icon" src="${to(ICON_IMAGE.rel)}" width="96" height="96" alt="">${brand}</p>`,
       `<h1>${rich(content.hero.heading)}</h1>`,
       `<p class="lead">${rich(content.hero.lead)}</p>`,
-      `<p class="actions"><a class="btn primary" href="${siteUrl}/">${label(content.hero.openAction)}</a><a class="btn" href="${toPage('downloads')}">${label(content.nav.downloads)}</a></p>`,
+      `<p class="actions"><a class="btn primary" href="${siteUrl}/">${label(content.hero.openAction)}</a><a class="btn" href="${toPage('downloads')}">${label(content.nav.downloads)}</a><a class="btn" href="${toPage('about')}">${label(content.nav.about)}</a></p>`,
       `<p class="note">${rich(content.hero.note)}</p>`,
       '</div>',
-      `<div class="hero-shot phone">${img(shots[0], content.screens.items[0].alt, true)}</div>`,
+      `<div class="hero-shot phone">${screenshot(shotsOf(locale)[0], content.screens.items[0].alt, true)}</div>`,
       '</div>',
       '</section>',
+    ];
+  } else if (pageId === 'about') {
+    // "About the app": what the home page showed under its hero until 2026-11-22 - the feature cards, the screens and
+    // the privacy list, with the same markup and the same ids - under a head of its own.
+    const figure = (shot, i) => {
+      const { caption, alt } = content.screens.items[i];
+      const frame =
+        shot.kind === 'phone'
+          ? `<div class="phone">${screenshot(shot, alt)}</div>`
+          : `<div class="desk"><div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>${screenshot(shot, alt)}</div>`;
+      return `<figure class="shot${shot.kind === 'phone' ? '' : ' wide'}">${frame}<figcaption>${rich(caption)}</figcaption></figure>`;
+    };
+    title = `${attr(content.nav.about)} - ${escapeHtml(BRAND)}`;
+    description = attr(content.description);
+    main = [
+      '<div class="wrap page-head">',
+      `<h1>${rich(content.nav.about)}</h1>`,
+      `<p class="lead">${rich(content.hero.lead)}</p>`,
+      '</div>',
       '<section id="features">',
       '<div class="wrap">',
       `<h2>${rich(content.features.heading)}</h2>`,
@@ -1177,7 +1209,7 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
       '<div class="wrap">',
       `<h2 id="screens-h">${rich(content.screens.heading)}</h2>`,
       '<div class="strip" role="region" aria-labelledby="screens-h" tabindex="0">',
-      ...shots.map(figure),
+      ...shotsOf(locale).map(figure),
       '</div>',
       '</div>',
       '</section>',
@@ -1396,7 +1428,7 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
 
 /**
  * Builds the whole site in memory. Every path is relative to the top of the site (the folder about/ of a tree):
- *   pages         'index.html', 'he/terms/index.html', ... -> HTML (140)
+ *   pages         'index.html', 'app/index.html', 'he/terms/index.html', ... -> HTML (160)
  *   files         'site.css', 'site.js', 'files/downloads.json' (the list of the installers, for the hosted server:
  *                 IMAGE_LIST_FILE) -> their text
  *   assets        'img/he/phone-home.png', 'files/<installer>', ... -> the file to copy
@@ -1591,7 +1623,7 @@ export function writeSite(site, webRoot) {
 
 /**
  * What is wrong with a built site in `folder` (empty when it is complete), wherever the folder stands and
- * whatever it is called: the 140 pages are there, every relative address in them leads to a file of the folder
+ * whatever it is called: the 160 pages are there, every relative address in them leads to a file of the folder
  * (a page, the style sheet, the script, an image, an installer), nothing in them needs the folder to be called
  * about, every installer has the size and the SHA-256 its row of the Downloads page states, and files/downloads.json
  * (the list the hosted server reads) lists exactly the rows of the download tables.

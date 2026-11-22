@@ -5,6 +5,7 @@
   "languagesLabel": "Sprache",
   "nav": {
     "label": "Menü der Website",
+    "home": "Startseite",
     "about": "Über die App",
     "terms": "Nutzungsbedingungen",
     "faq": "Fragen und Antworten",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Warum warnt mein Gerät, wenn ich eine Datei von dieser Website installiere?",
-        "a": "Weil die Datei nicht aus einem App-Store stammt und die Dateien für Windows und Mac noch nicht mit einem Herausgeberzertifikat signiert sind. Windows zeigt möglicherweise „Der Computer wurde durch Windows geschützt“: Wähle „Weitere Informationen“ und dann „Trotzdem ausführen“. macOS öffnet die App beim ersten Mal nicht und meldet vielleicht sogar, sie sei beschädigt: Lege sie nicht in den Papierkorb, sondern öffne die Systemeinstellungen, dann „Datenschutz & Sicherheit“ (unter macOS 12: Systemeinstellungen, dann „Sicherheit & Datenschutz“), und wähle „Dennoch öffnen“. Android bittet dich, deinem Browser oder Dateimanager das Installieren von Apps zu erlauben (unter Android 7: „Unbekannte Herkunft“). Auf der Seite [[downloads|Downloads]] stehen die Schritte für jedes System und zu jeder Datei eine SHA-256-Prüfsumme, mit der du prüfen kannst, ob deine Kopie unverändert ist."
+        "a": "Weil die Datei nicht aus einem App-Store stammt. Windows zeigt möglicherweise „Der Computer wurde durch Windows geschützt“: Wähle „Weitere Informationen“ und dann „Trotzdem ausführen“. macOS öffnet die App beim ersten Mal nicht und meldet vielleicht sogar, sie sei beschädigt: Lege sie nicht in den Papierkorb, sondern öffne die Systemeinstellungen, dann „Datenschutz & Sicherheit“ (unter macOS 12: Systemeinstellungen, dann „Sicherheit & Datenschutz“), und wähle „Dennoch öffnen“. Android bittet dich, deinem Browser oder Dateimanager das Installieren von Apps zu erlauben (unter Android 7: „Unbekannte Herkunft“). Auf der Seite [[downloads|Downloads]] stehen die Schritte für jedes System und zu jeder Datei eine SHA-256-Prüfsumme, mit der du prüfen kannst, ob deine Kopie unverändert ist."
       },
       {
         "q": "Wie aktualisiere ich auf eine neue Version?",
@@ -253,9 +254,9 @@
       "mac": "Benötigt macOS 12.3 oder neuer, auf einem Mac mit Apple Chip oder mit Intel-Prozessor."
     },
     "install": {
-      "windows": "Diese Setup-Datei stammt nicht aus dem Microsoft Store und ist noch nicht mit einem Herausgeberzertifikat signiert. Dein Browser warnt vielleicht zuerst, dass die Datei nicht häufig heruntergeladen wird (wähle dann, sie zu behalten), und wenn du sie öffnest, zeigt Windows möglicherweise „Der Computer wurde durch Windows geschützt“: Wähle „Weitere Informationen“ und dann „Trotzdem ausführen“. Das Setup fragt nach deiner Sprache und installiert die App für dein eigenes Windows-Konto, ohne Administratorpasswort.",
+      "windows": "Diese Setup-Datei stammt nicht aus dem Microsoft Store. Dein Browser warnt vielleicht zuerst, dass die Datei nicht häufig heruntergeladen wird (wähle dann, sie zu behalten), und wenn du sie öffnest, zeigt Windows möglicherweise „Der Computer wurde durch Windows geschützt“: Wähle „Weitere Informationen“ und dann „Trotzdem ausführen“. Das Setup fragt nach deiner Sprache und installiert die App für dein eigenes Windows-Konto, ohne Administratorpasswort.",
       "android": "Diese Datei wird direkt installiert, nicht über Google Play. Wenn du die heruntergeladene Datei öffnest, bittet Android dich, deinem Browser oder Dateimanager das Installieren von Apps zu erlauben; unter Android 7 heißt diese Einstellung „Unbekannte Herkunft“. Erlaube es, geh zurück zur Datei und wähle „Installieren“.",
-      "mac": "Öffne das Disk-Image, zieh die App in den Ordner „Programme“ und öffne sie von dort. Die App ist noch nicht mit einem Apple-Entwicklerzertifikat signiert; deshalb öffnet macOS sie beim ersten Mal nicht, und die Meldung sagt vielleicht sogar, die App sei beschädigt. Lege sie nicht in den Papierkorb: Schließe die Meldung, öffne die Systemeinstellungen, dann „Datenschutz & Sicherheit“, scrolle nach unten und wähle „Dennoch öffnen“ (unter macOS 12: Systemeinstellungen, dann „Sicherheit & Datenschutz“, dann „Dennoch öffnen“), gib dein Mac-Passwort ein, falls du danach gefragt wirst, und wähle „Öffnen“."
+      "mac": "Öffne das Disk-Image, zieh die App in den Ordner „Programme“ und öffne sie von dort. Beim ersten Mal öffnet macOS sie nicht, und die Meldung sagt vielleicht sogar, die App sei beschädigt. Lege sie nicht in den Papierkorb: Schließe die Meldung, öffne die Systemeinstellungen, dann „Datenschutz & Sicherheit“, scrolle nach unten und wähle „Dennoch öffnen“ (unter macOS 12: Systemeinstellungen, dann „Sicherheit & Datenschutz“, dann „Dennoch öffnen“), gib dein Mac-Passwort ein, falls du danach gefragt wirst, und wähle „Öffnen“."
     },
     "checkFile": "Datei prüfen",
     "checkText": "Zu jeder Datei gibt es eine SHA-256-Prüfsumme. Hat die Datei, die du heruntergeladen hast, eine andere, dann ist der Download beschädigt oder die Datei wurde verändert: Installiere sie nicht. Um die Prüfsumme einer Datei zu sehen, gib in Windows PowerShell Get-FileHash und den Dateinamen ein oder im Terminal eines Mac shasum -a 256 und den Dateinamen. Groß- und Kleinbuchstaben gelten als gleich.",

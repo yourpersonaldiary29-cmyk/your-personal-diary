@@ -5,6 +5,7 @@
   "languagesLabel": "Język",
   "nav": {
     "label": "Menu witryny",
+    "home": "Strona główna",
     "about": "O aplikacji",
     "terms": "Warunki korzystania",
     "faq": "Pytania i odpowiedzi",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Dlaczego urządzenie wyświetla ostrzeżenie, gdy instaluję plik z tej witryny?",
-        "a": "Ponieważ plik nie pochodzi ze sklepu z aplikacjami, a pliki dla Windows i Maca nie są jeszcze podpisane certyfikatem wydawcy. Windows może wyświetlić komunikat „System Windows ochronił ten komputer”: wybierz Więcej informacji, a potem Uruchom mimo to. macOS przy pierwszym uruchomieniu nie otwiera aplikacji i może nawet podać, że jest uszkodzona: nie przenoś jej do Kosza, tylko otwórz Ustawienia systemowe, a potem Prywatność i ochrona (w macOS 12: Preferencje systemowe, a potem Ochrona i prywatność), i wybierz Otwórz mimo to. Android prosi o zezwolenie przeglądarce lub menedżerowi plików na instalowanie aplikacji (w Androidzie 7: Nieznane źródła). Na stronie [[downloads|Pobieranie]] są kroki dla każdego systemu oraz suma kontrolna SHA-256 każdego pliku, która pozwala sprawdzić, że twoja kopia nie została zmieniona."
+        "a": "Ponieważ plik nie pochodzi ze sklepu z aplikacjami. Windows może wyświetlić komunikat „System Windows ochronił ten komputer”: wybierz Więcej informacji, a potem Uruchom mimo to. macOS przy pierwszym uruchomieniu nie otwiera aplikacji i może nawet podać, że jest uszkodzona: nie przenoś jej do Kosza, tylko otwórz Ustawienia systemowe, a potem Prywatność i ochrona (w macOS 12: Preferencje systemowe, a potem Ochrona i prywatność), i wybierz Otwórz mimo to. Android prosi o zezwolenie przeglądarce lub menedżerowi plików na instalowanie aplikacji (w Androidzie 7: Nieznane źródła). Na stronie [[downloads|Pobieranie]] są kroki dla każdego systemu oraz suma kontrolna SHA-256 każdego pliku, która pozwala sprawdzić, że twoja kopia nie została zmieniona."
       },
       {
         "q": "Jak zaktualizować aplikację do nowej wersji?",
@@ -253,9 +254,9 @@
       "mac": "Wymaga macOS 12.3 lub nowszego, na Macu z czipem Apple lub z procesorem Intel."
     },
     "install": {
-      "windows": "Ten plik instalacyjny nie pochodzi ze sklepu Microsoft Store i nie jest jeszcze podpisany certyfikatem wydawcy. Przeglądarka może najpierw ostrzec, że plik nie jest często pobierany (wybierz opcję zachowania pliku), a po jego otwarciu Windows może wyświetlić komunikat „System Windows ochronił ten komputer”: wybierz Więcej informacji, a potem Uruchom mimo to. Instalator pyta o język i instaluje aplikację dla twojego własnego konta Windows, bez hasła administratora.",
+      "windows": "Ten plik instalacyjny nie pochodzi ze sklepu Microsoft Store. Przeglądarka może najpierw ostrzec, że plik nie jest często pobierany (wybierz opcję zachowania pliku), a po jego otwarciu Windows może wyświetlić komunikat „System Windows ochronił ten komputer”: wybierz Więcej informacji, a potem Uruchom mimo to. Instalator pyta o język i instaluje aplikację dla twojego własnego konta Windows, bez hasła administratora.",
       "android": "Ten plik instaluje się bezpośrednio, a nie przez Google Play. Gdy otworzysz pobrany plik, Android poprosi o zezwolenie przeglądarce lub menedżerowi plików na instalowanie aplikacji; w Androidzie 7 to ustawienie nazywa się Nieznane źródła. Zezwól na to, wróć do pliku i wybierz Zainstaluj.",
-      "mac": "Otwórz obraz dysku, przeciągnij aplikację do folderu Programy i otwórz ją stamtąd. Aplikacja nie jest jeszcze podpisana certyfikatem dewelopera Apple, dlatego za pierwszym razem macOS jej nie otwiera, a komunikat może nawet podać, że aplikacja jest uszkodzona. Nie przenoś jej do Kosza: zamknij komunikat, otwórz Ustawienia systemowe, a potem Prywatność i ochrona, przewiń w dół i wybierz Otwórz mimo to (w macOS 12: Preferencje systemowe, potem Ochrona i prywatność, potem Otwórz mimo to), w razie potrzeby wpisz hasło Maca i wybierz Otwórz."
+      "mac": "Otwórz obraz dysku, przeciągnij aplikację do folderu Programy i otwórz ją stamtąd. Za pierwszym razem macOS jej nie otwiera, a komunikat może nawet podać, że aplikacja jest uszkodzona. Nie przenoś jej do Kosza: zamknij komunikat, otwórz Ustawienia systemowe, a potem Prywatność i ochrona, przewiń w dół i wybierz Otwórz mimo to (w macOS 12: Preferencje systemowe, potem Ochrona i prywatność, potem Otwórz mimo to), w razie potrzeby wpisz hasło Maca i wybierz Otwórz."
     },
     "checkFile": "Sprawdź plik",
     "checkText": "Każdy plik ma sumę kontrolną SHA-256. Jeśli pobrany plik ma inną, pobieranie jest uszkodzone albo plik został zmieniony: nie instaluj go. Aby zobaczyć sumę kontrolną pliku, wpisz Get-FileHash i nazwę pliku w Windows PowerShell albo shasum -a 256 i nazwę pliku w aplikacji Terminal na Macu. Wielkość liter nie ma znaczenia.",

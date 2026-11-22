@@ -4,7 +4,8 @@ import type { LegalSettings } from '../legal/build-pages.mjs';
 export type StoreLinkKey = 'googlePlay' | 'appStoreIphone' | 'appStoreMac' | 'microsoftStore';
 /** The platforms of the Downloads page, in tab order. */
 export type DownloadPlatform = 'windows' | 'android' | 'mac';
-export type SitePageId = 'home' | 'terms' | 'faq' | 'privacy' | 'downloads' | 'sent' | 'error';
+/** The eight pages of a language: the home page, "About the app" (in the folder app/), the other four of the menu, the two result pages. */
+export type SitePageId = 'home' | 'about' | 'terms' | 'faq' | 'privacy' | 'downloads' | 'sent' | 'error';
 /** site/settings.json: siteBaseUrl null = <server>/about/; a link null = the store has not published the app. */
 export interface SiteSettings {
   siteBaseUrl: string | null;
@@ -54,7 +55,7 @@ export interface SiteTheme {
 }
 /** A built site in memory. Every path is relative to the top of the site (the folder about/ of a tree). */
 export interface BuiltSite {
-  /** 'index.html', 'he/terms/index.html', ... -> HTML (140 pages). */
+  /** 'index.html', 'app/index.html', 'he/terms/index.html', ... -> HTML (160 pages). */
   pages: Map<string, string>;
   /** 'site.css', 'site.js', 'files/downloads.json' -> their text. */
   files: Map<string, string>;

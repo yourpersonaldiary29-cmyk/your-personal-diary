@@ -9,7 +9,7 @@
  *     fonts/*.ttf + licences   PDF export (server/src/export/fonts.ts: <assetsDir>/fonts)
  *     pdfkit-data/*.afm        pdfkit standard-font metrics
  *     ui/                      the built web UI (dist/) - served by the server for every non-API path
- *     ui/about/                the public site of the app (docs/site-tasks/SITE.md): seven pages in each of
+ *     ui/about/                the public site of the app (docs/site-tasks/SITE.md): eight pages in each of
  *                              the 20 languages, site.css, site.js, img/ and files/ - the installer files of
  *                              its Downloads page (site/downloads.json; about 15 MB per version kept) and
  *                              files/downloads.json, the list the pages were built from, which the hosted

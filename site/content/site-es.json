@@ -5,6 +5,7 @@
   "languagesLabel": "Idioma",
   "nav": {
     "label": "Menú del sitio",
+    "home": "Inicio",
     "about": "Sobre la aplicación",
     "terms": "Condiciones de uso",
     "faq": "Preguntas y respuestas",
@@ -219,7 +220,7 @@
       },
       {
         "q": "¿Por qué me avisa mi dispositivo cuando instalo un archivo de este sitio?",
-        "a": "Porque el archivo no procede de una tienda de aplicaciones, y los archivos para Windows y Mac todavía no están firmados con un certificado de editor. Windows puede mostrar «Windows protegió su PC»: elige Más información y después Ejecutar de todas formas. macOS no abre la aplicación la primera vez e incluso puede decir que está dañada: no la muevas a la Papelera; abre Ajustes del Sistema, luego Privacidad y seguridad (en macOS 12: Preferencias del Sistema, luego Seguridad y privacidad), y elige Abrir igualmente. Android te pide que permitas a tu navegador o a tu gestor de archivos instalar aplicaciones (en Android 7: Orígenes desconocidos). La página [[downloads|Descargas]] tiene los pasos para cada sistema, y una suma de comprobación SHA-256 de cada archivo para comprobar que tu copia no ha cambiado."
+        "a": "Porque el archivo no procede de una tienda de aplicaciones. Windows puede mostrar «Windows protegió su PC»: elige Más información y después Ejecutar de todas formas. macOS no abre la aplicación la primera vez e incluso puede decir que está dañada: no la muevas a la Papelera; abre Ajustes del Sistema, luego Privacidad y seguridad (en macOS 12: Preferencias del Sistema, luego Seguridad y privacidad), y elige Abrir igualmente. Android te pide que permitas a tu navegador o a tu gestor de archivos instalar aplicaciones (en Android 7: Orígenes desconocidos). La página [[downloads|Descargas]] tiene los pasos para cada sistema, y una suma de comprobación SHA-256 de cada archivo para comprobar que tu copia no ha cambiado."
       },
       {
         "q": "¿Cómo actualizo a una versión nueva?",
@@ -253,9 +254,9 @@
       "mac": "Requiere macOS 12.3 o posterior, en un Mac con chip de Apple o con procesador Intel."
     },
     "install": {
-      "windows": "Este archivo de instalación no procede de Microsoft Store y todavía no está firmado con un certificado de editor. Puede que tu navegador avise primero de que el archivo no se descarga habitualmente (elige conservarlo) y, cuando lo abras, Windows puede mostrar «Windows protegió su PC»: elige Más información y después Ejecutar de todas formas. El instalador te pregunta el idioma e instala la aplicación para tu propia cuenta de Windows, sin contraseña de administrador.",
+      "windows": "Este archivo de instalación no procede de Microsoft Store. Puede que tu navegador avise primero de que el archivo no se descarga habitualmente (elige conservarlo) y, cuando lo abras, Windows puede mostrar «Windows protegió su PC»: elige Más información y después Ejecutar de todas formas. El instalador te pregunta el idioma e instala la aplicación para tu propia cuenta de Windows, sin contraseña de administrador.",
       "android": "Este archivo se instala directamente, no a través de Google Play. Cuando abres el archivo descargado, Android te pide que permitas a tu navegador o a tu gestor de archivos instalar aplicaciones; en Android 7 este ajuste se llama Orígenes desconocidos. Permítelo, vuelve al archivo y elige Instalar.",
-      "mac": "Abre la imagen de disco, arrastra la aplicación a la carpeta Aplicaciones y ábrela desde allí. La aplicación todavía no está firmada con un certificado de desarrollador de Apple, así que la primera vez macOS no la abre, y el mensaje puede incluso decir que la aplicación está dañada. No la muevas a la Papelera: cierra el mensaje, abre Ajustes del Sistema, luego Privacidad y seguridad, desplázate hacia abajo y elige Abrir igualmente (en macOS 12: Preferencias del Sistema, luego Seguridad y privacidad, luego Abrir igualmente), introduce la contraseña de tu Mac si te la pide y elige Abrir."
+      "mac": "Abre la imagen de disco, arrastra la aplicación a la carpeta Aplicaciones y ábrela desde allí. La primera vez macOS no la abre, y el mensaje puede incluso decir que la aplicación está dañada. No la muevas a la Papelera: cierra el mensaje, abre Ajustes del Sistema, luego Privacidad y seguridad, desplázate hacia abajo y elige Abrir igualmente (en macOS 12: Preferencias del Sistema, luego Seguridad y privacidad, luego Abrir igualmente), introduce la contraseña de tu Mac si te la pide y elige Abrir."
     },
     "checkFile": "Comprobar el archivo",
     "checkText": "Cada archivo tiene una suma de comprobación SHA-256. Si la del archivo que has descargado es distinta, la descarga está dañada o el archivo ha sido modificado: no lo instales. Para ver la suma de comprobación de un archivo, escribe Get-FileHash y el nombre del archivo en Windows PowerShell, o shasum -a 256 y el nombre del archivo en el Terminal de un Mac. No importa si las letras están en mayúsculas o en minúsculas.",

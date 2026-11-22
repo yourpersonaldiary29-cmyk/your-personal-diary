@@ -5,6 +5,7 @@
   "languagesLabel": "Lingua",
   "nav": {
     "label": "Menu del sito",
+    "home": "Home",
     "about": "Informazioni sull’app",
     "terms": "Condizioni d'uso",
     "faq": "Domande e risposte",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Perché il mio dispositivo mi avvisa quando installo un file da questo sito?",
-        "a": "Perché il file non proviene da uno store di app, e i file per Windows e Mac non sono ancora firmati con un certificato dell’editore. Windows può mostrare “Windows ha protetto il PC”: scegli Ulteriori informazioni, poi Esegui comunque. macOS non apre l’app la prima volta e può persino dire che è danneggiata: non spostarla nel Cestino, ma apri Impostazioni di Sistema, poi Privacy e sicurezza (su macOS 12: Preferenze di Sistema, poi Sicurezza e Privacy), e scegli Apri comunque. Android ti chiede di consentire al browser o al gestore di file di installare app (su Android 7: Origini sconosciute). La pagina [[downloads|Download]] riporta i passaggi per ogni sistema, e un checksum SHA-256 per ogni file, per verificare che la tua copia non sia stata modificata."
+        "a": "Perché il file non proviene da uno store di app. Windows può mostrare “Windows ha protetto il PC”: scegli Ulteriori informazioni, poi Esegui comunque. macOS non apre l’app la prima volta e può persino dire che è danneggiata: non spostarla nel Cestino, ma apri Impostazioni di Sistema, poi Privacy e sicurezza (su macOS 12: Preferenze di Sistema, poi Sicurezza e Privacy), e scegli Apri comunque. Android ti chiede di consentire al browser o al gestore di file di installare app (su Android 7: Origini sconosciute). La pagina [[downloads|Download]] riporta i passaggi per ogni sistema, e un checksum SHA-256 per ogni file, per verificare che la tua copia non sia stata modificata."
       },
       {
         "q": "Come aggiorno a una nuova versione?",
@@ -253,9 +254,9 @@
       "mac": "Richiede macOS 12.3 o versioni successive, su un Mac con chip Apple o con processore Intel."
     },
     "install": {
-      "windows": "Questo file di installazione non proviene da Microsoft Store e non è ancora firmato con un certificato dell’editore. Il browser potrebbe prima avvisarti che il file non viene scaricato comunemente (scegli di mantenerlo), e quando lo apri, Windows può mostrare “Windows ha protetto il PC”: scegli Ulteriori informazioni, poi Esegui comunque. L’installazione chiede la tua lingua e installa l’app per il tuo account Windows, senza password di amministratore.",
+      "windows": "Questo file di installazione non proviene da Microsoft Store. Il browser potrebbe prima avvisarti che il file non viene scaricato comunemente (scegli di mantenerlo), e quando lo apri, Windows può mostrare “Windows ha protetto il PC”: scegli Ulteriori informazioni, poi Esegui comunque. L’installazione chiede la tua lingua e installa l’app per il tuo account Windows, senza password di amministratore.",
       "android": "Questo file si installa direttamente, non tramite Google Play. Quando apri il file scaricato, Android ti chiede di consentire al browser o al gestore di file di installare app; su Android 7 questa impostazione si chiama Origini sconosciute. Consentilo, torna al file e scegli Installa.",
-      "mac": "Apri l’immagine disco, trascina l’app nella cartella Applicazioni e aprila da lì. L’app non è ancora firmata con un certificato sviluppatore Apple, quindi la prima volta macOS non la apre, e il messaggio può persino dire che l’app è danneggiata. Non spostarla nel Cestino: chiudi il messaggio, apri Impostazioni di Sistema, poi Privacy e sicurezza, scorri in basso e scegli Apri comunque (su macOS 12: Preferenze di Sistema, poi Sicurezza e Privacy, poi Apri comunque), inserisci la password del Mac se richiesta e scegli Apri."
+      "mac": "Apri l’immagine disco, trascina l’app nella cartella Applicazioni e aprila da lì. La prima volta macOS non la apre, e il messaggio può persino dire che l’app è danneggiata. Non spostarla nel Cestino: chiudi il messaggio, apri Impostazioni di Sistema, poi Privacy e sicurezza, scorri in basso e scegli Apri comunque (su macOS 12: Preferenze di Sistema, poi Sicurezza e Privacy, poi Apri comunque), inserisci la password del Mac se richiesta e scegli Apri."
     },
     "checkFile": "Verifica il file",
     "checkText": "Ogni file ha un checksum SHA-256. Se il file che hai scaricato ne ha uno diverso, il download è danneggiato o il file è stato modificato: non installarlo. Per vedere il checksum di un file, digita Get-FileHash e il nome del file in Windows PowerShell, oppure shasum -a 256 e il nome del file nel Terminale di un Mac. Maiuscole e minuscole sono considerate uguali.",

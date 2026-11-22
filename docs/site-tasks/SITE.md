@@ -25,6 +25,24 @@ last the line "(c) 2026 Your Personal Diary. All rights reserved." Downloads: ta
 each shows a table - the installer file, Version, Size - with one row per version; for now the newest version of
 each. A domain will be connected later.
 
+**Amended on 2026-11-22: two decisions of the owner** (Hebrew, his words, typos kept):
+
+> "תוסיפי עמוד בתחילת הדף אם הלוגו וקשה לוחצים הלב זה קאילו פותח לך דף בית. אבל תמחקי את ההסברים של ההורדות הם לא צריכים
+> לדעת על זה שהקובץ עוד לא חתום."
+
+1. **A home page with the logo.** A page at the beginning with the logo, and a click on the logo opens the home
+   page. So the site has a home page of its own (`/about/`, `/about/he/`, ...): the app icon, large, and the name,
+   then the heading, the lead, three actions and the phone. "About the app" - which was also the home page until
+   then - is a page of its own at `/about/app/` (`/about/he/app/`, ...). The menu starts with "Home"; the logo and
+   the name of the header lead to the home page from every page, as before. That makes eight pages per language,
+   8 x 20 = 160 (sections 1 to 3).
+2. **A visitor is never told that a file is not signed.** The notes under the download tables and the answer about
+   the warnings no longer say that a file is not signed (nor uncertified, not verified, not notarized, or from an
+   unidentified developer or publisher) - in any of the 20 languages. What stays, because the visitor needs it: the
+   names of the warnings ("Windows protected your PC", the message that the app is "damaged"), the steps to get
+   past them, that the file does not come from Microsoft Store / an app store / Google Play, and the SHA-256 check
+   (sections 3 and 7).
+
 ## 1. Pages and addresses
 
 `<server>` is the fixed server of `src/config/server-default.json` (https://yourpersonaldiary.fly.dev). The site
@@ -32,7 +50,8 @@ lives under `/about/` there. English has no language folder; every other app loc
 
 | page | English | another locale, e.g. `he` |
 |---|---|---|
-| About the app (the home page) | `/about/` | `/about/he/` |
+| Home (the home page; since 2026-11-22 a page of its own) | `/about/` | `/about/he/` |
+| About the app (since 2026-11-22 at `app/`) | `/about/app/` | `/about/he/app/` |
 | Terms of Use | `/about/terms/` | `/about/he/terms/` |
 | Questions and answers | `/about/faq/` | `/about/he/faq/` |
 | Privacy Policy | `/about/privacy/` | `/about/he/privacy/` |
@@ -41,7 +60,7 @@ lives under `/about/` there. English has no language folder; every other app loc
 | "Your message was not sent" | `/about/contact/error/` | `/about/he/contact/error/` |
 
 Shared by all pages: `/about/site.css`, `/about/site.js`, `/about/img/**`, `/about/files/**` (the installers).
-There is no `/about/en/`. That is 7 x 20 = 140 pages.
+There is no `/about/en/`. That is 8 x 20 = 160 pages.
 
 **Every link inside the site is relative** (`../terms/`, `./he/`, `../../site.css`), computed by the builder from
 the depth of the page, so the same tree works under any base address: `/about/` today, the root of the owner's
@@ -59,11 +78,13 @@ Top to bottom, the same on every page (the two result pages leave out the contac
 1. **Skip link** to the content.
 2. **Header**: the app's logo (the icon of `public/favicon.svg`, inline or as `img/icon.svg`), and the name -
    always `<bdi lang="en" dir="ltr">Your Personal Diary</bdi>`. Logo and name together are one link to the home
-   page of the current language.
-3. **Menu** (`<nav>` with a label; a `<ul>`): About the app, Terms of Use, Questions and answers, Privacy Policy,
-   Downloads, and last Contact us (a link to `#contact` on the same page). The current page's item carries
+   page of the current language - on every page, the home page included (the owner, 2026-11-22: a click on the
+   logo opens the home page).
+3. **Menu** (`<nav>` with a label; a `<ul>`): Home, About the app, Terms of Use, Questions and answers, Privacy
+   Policy, Downloads, and last Contact us (a link to `#contact` on the same page). The current page's item carries
    `aria-current="page"`. On a phone the menu wraps or scrolls sideways; no script-driven "hamburger".
-4. **`<main>`**: the page's own content; its first element is the page's `<h1>`.
+4. **`<main>`**: the page's own content; its first heading is the page's `<h1>` (on the home page the brand block -
+   the icon and the name, no heading - stands before it).
 5. **Contact block** (`<section id="contact">`): the heading "Contact us" (an `<h2>`), one sentence, the e-mail
    address as a `mailto:` link, and the form (section 5).
 6. **Footer**: the language chooser, and under it the copyright line - nothing else.
@@ -81,12 +102,21 @@ Top to bottom, the same on every page (the two result pages leave out the contac
 
 ## 3. The pages
 
-**About the app** (home). Short: an `<h1>`, a lead paragraph, the actions "Open in your browser" (the web app,
-`<server>/`) and "Downloads" (the Downloads page); then the eight feature cards, the screenshots (four phone
-screens and one desktop screen in the page's language, with captions and alt texts) and the short privacy list
-with a link to the site's Privacy Policy page. The texts of version 1 (`hero`, `features`, `screens`, `privacy`)
-are kept; change a sentence only where version 2 makes it untrue (for example "Get the app" and the note about
-apps being linked "once published").
+**Home** (page id `home`, since 2026-11-22 a page of its own). ONE hero section and nothing else: first a brand
+block - the app icon, large (the image of the header's logo, about 6rem, smaller on a narrow screen, `alt=""`
+because the name stands next to it), and the name of the app as text; it is not a link, this is the home page -
+then the `<h1>` (`hero.heading`), the lead (`hero.lead`), three actions - "Open in your browser" (the web app,
+`<server>/`), "Downloads" (the Downloads page) and "About the app" (the About page) - the note (`hero.note`) and
+the first phone screen in the page's language. Title and description: `title`, `description`.
+
+**About the app** (page id `about`, folder `app/`; until 2026-11-22 it was the lower part of the home page). An
+`<h1>` (`nav.about`) and a lead (`hero.lead`); then the eight feature cards (`#features`), the screenshots
+(`#screens`: four phone screens and one desktop screen in the page's language, with captions and alt texts) and
+the short privacy list (`#privacy`) with a link to the site's Privacy Policy page. Title: "About the app - Your
+Personal Diary" (the pattern of the Questions page); description: `description`. The texts of version 1 (`hero`,
+`features`, `screens`, `privacy`) are kept; change a sentence only where version 2 makes it untrue (for example
+"Get the app" and the note about apps being linked "once published"). The two pages are built from texts that
+existed; the one new text of 2026-11-22 is `nav.home`.
 
 **Terms of Use** and **Privacy Policy**. The same documents as `<server>/terms/` and `<server>/privacy/`, rendered
 inside the site's frame from the same sources (`legal/terms/terms-<locale>.md`, `legal/privacy/privacy-<locale>.md`)
@@ -119,9 +149,13 @@ when installing a file from this site and what to do; how to update to a new ver
   download link, `download` attribute, in a `<th scope="row">`), **Version**, **Size**. One row per version, newest
   first. Under the table: what the platform needs (Windows 10 or 11; Android 7.0 or later; macOS 12.3 or later),
   two or three plain sentences on installing a file that is not from a store (what the system will ask and what to
-  choose - true for the files as they are today: the Windows setup file and the Mac disk image are not signed with
-  a publisher certificate yet, the Android file is installed outside Google Play), and a `<details>` "Check the
-  file" with the SHA-256 of each row.
+  choose - true for the files as they are today), and a `<details>` "Check the file" with the SHA-256 of each row.
+  **The owner's rule of 2026-11-22: a visitor is never told that a file is not signed.** The notes
+  (`downloads.install.*`) and the answer about the warnings (`faq.items[28].a`) say where the file does not come
+  from (Microsoft Store, an app store, Google Play), name the warning the system shows ("Windows protected your
+  PC", the message that the app is "damaged") and give the steps past it - and never that a file or the app is
+  unsigned, uncertified, not verified, not notarized, or from an unidentified developer or publisher. A test keeps
+  the words for "signed" and "certificate" out of these texts in all 20 languages.
 * under the tabs: one line on the web version (a link to the web app), and one on iPhone ("There is no installation
   file for iPhone: iPhone apps are installed from the App Store. The iPhone app is not available yet." - when
   `links.appStoreIphone` is set, a link instead). When a store link of section 6 is set, the matching panel shows
@@ -244,7 +278,8 @@ Same rules as version 1 (one JSON object per locale, plain text, the same keys a
 placeholders `{{BRAND}}`, `{{MINIMUM_AGE}}`, `{{PUBLISHER_NAME}}`, `{{CONTACT_EMAIL}}`, the marker key `_status` with
 `TODO-TRANSLATE` for a file - or, new, for single keys, see below). New in version 2:
 
-* New key groups: `nav` (the six menu texts and the menu's label), `contact` (heading, lead, the four field labels,
+* New key groups: `nav` (the menu texts and the menu's label; since 2026-11-22 with `nav.home` - the usual word of
+  the language for the home page of a web site - first after the label), `contact` (heading, lead, the four field labels,
   the notice, the button, the two result pages' headings and texts, "Back to the home page"), `downloads` (heading,
   lead, the three tab names, the tab list's label, the three column headings, the table captions, the requirement
   and install notes of each platform, "Check the file", the web and iPhone lines, the store link texts), `faq`
@@ -293,9 +328,11 @@ store listings (`play/listing/en-US/full.txt`, `appstore/listing/`, `store/listi
 ## 9. Tests and gates
 
 The site tests (`scripts/site/*.test.mjs`, run by `node --test "scripts/**/*.test.mjs"`) keep everything version 1
-tested and add: the 140 pages exist; every relative link and every `[[target|...]]` resolves to a page of the same
+tested and add: the 160 pages exist; every relative link and every `[[target|...]]` resolves to a page of the same
 locale that exists in the tree; the tree works when moved to the root (no link starts with `/about/` or `/`,
-except the form's action and absolute URLs); the menu has the six items and exactly one `aria-current`; the
+except the form's action and absolute URLs); the menu has the seven items and exactly one `aria-current`; the
+home page is the brand block and one hero, the About page has its three sections, and the logo of every page
+leads to the home page; no text in any language says that a file is not signed; the
 contact block is on every page except the result pages, with the six controls, labels, `autocomplete`, `maxlength`
 and the hidden fields; the language chooser has 20 options in the fixed order and the right one selected; exactly
 30 questions; the download tables match `site/downloads.json` (file, version, size, SHA-256) and every file in

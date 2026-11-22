@@ -8,10 +8,12 @@
  * test): the 20 content files have the keys, list lengths, placeholders and link targets of the English one,
  * and a key that no longer waits for its translation is not an English copy; the English text keeps to the
  * fixed facts (30 questions in their order, no medical promise, no superlative, "end-to-end" only as a question
- * that is answered "No", a store named only where the text says the file does NOT come from it); the 140 pages
- * exist and each has the frame of section 2 - skip link, header, the menu with six items and one current item,
- * one h1, the contact block with its six controls (not on the two result pages), the language chooser with 20
- * options, the copyright line; every address in a page is relative and leads to a file of the tree and to a
+ * that is answered "No", a store named only where the text says the file does NOT come from it), and no text in
+ * any of the 20 languages tells a visitor that a file is not signed (the owner's rule of 2026-11-22); the 160 pages
+ * exist and each has the frame of section 2 - skip link, header (the logo leads to the home page), the menu with
+ * seven items and one current item, one h1, the contact block with its six controls (not on the two result pages),
+ * the language chooser with 20 options, the copyright line; the home page is the brand block and one hero, and
+ * "About the app" is a page of its own; every address in a page is relative and leads to a file of the tree and to a
  * page of the same language, and the tree works under another name; the download tables are the rows of
  * site/downloads.json and the copied installers have the listed size and SHA-256; the two legal pages hold the
  * whole document and name the standalone page as canonical; right-to-left pages isolate every Latin fragment;
@@ -283,6 +285,9 @@ test('content: the 20 locales have the keys, list lengths, placeholders and link
       assert.ok(!/[{}]/.test(text.replace(/\{\{[A-Z_]+\}\}/g, '')) && !/\[\[|\]\]/.test(text.replace(/\[\[[a-z]+\|[^[\]|{}]+\]\]/g, '')), `${code} ${where}: no broken placeholder or link`);
     }
     assert.deepEqual(contentProblems(content, code === DEFAULT_LOCALE ? null : english()), [], `${code}: the builder agrees`);
+    // The texts of the menu, in the order of the menu: nav.home (2026-11-22) stands first, after the label of the menu.
+    assert.deepEqual(Object.keys(content.nav), ['label', 'home', 'about', 'terms', 'faq', 'privacy', 'downloads', 'contact'], `${code}: the keys of nav, in their order`);
+    assert.notEqual(content.nav.home, content.nav.about, `${code}: "Home" and "About the app" are two items of the menu`);
     if (code === DEFAULT_LOCALE) continue;
     // The marker: none (the file is translated), every key ("all": an English copy), or the keys that still wait.
     let waiting = [];
@@ -337,14 +342,17 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
     for (const re of FORBIDDEN) assert.ok(!re.test(text), `${where}: ${re} matches "${text}"`);
     if (!STORE_KEYS.includes(where)) assert.ok(!/Google Play|App Store|Microsoft Store/.test(text), `${where}: no store is named here`);
   }
-  assert.match(content.downloads.install.windows, /does not come from Microsoft Store and is not signed with a publisher certificate yet/);
+  // The owner's rule of 2026-11-22: a visitor is never told that a file is not signed. The notes say where the file does
+  // not come from, name the warnings and give the steps past them (all 20 languages: the test of the rule below).
+  assert.match(content.downloads.install.windows, /^This setup file does not come from Microsoft Store\. Your browser may first warn that the file is not commonly downloaded \(choose to keep it\), and when you open it, Windows may show/);
   assert.match(content.downloads.install.windows, /"Windows protected your PC": choose More info, then Run anyway/);
   assert.match(content.downloads.install.android, /installed directly, not through Google Play/);
   assert.match(content.downloads.install.android, /allow your browser or file manager to install apps/);
-  assert.match(content.downloads.install.mac, /not signed with an Apple developer certificate yet/);
+  assert.match(content.downloads.install.mac, /^Open the disk image, drag the app to the Applications folder and open it from there\. The first time, macOS does not open it, and the message may even say that the app is damaged\. /);
   assert.match(content.downloads.install.mac, /System Settings, then Privacy & Security, scroll down and choose Open Anyway \(on macOS 12: System Preferences, then Security & Privacy, then Open Anyway\)/);
-  // An app that is not notarized may be called "damaged" (docs/MAC-RELEASE.he.md 5.3): the note says so before the visitor throws it away.
+  // macOS may call such an app "damaged" (docs/MAC-RELEASE.he.md 5.3): the note says so before the visitor throws it away.
   assert.match(content.downloads.install.mac, /may even say that the app is damaged\. Do not move it to the Bin/);
+  assert.match(content.faq.items[28].a, /^Because the file is not from an app store\. Windows may show "Windows protected your PC": choose More info, then Run anyway\. macOS does not open the app the first time/);
   assert.match(content.faq.items[28].a, /may even say that it is damaged: do not move it to the Bin.*on macOS 12: System Preferences, then Security & Privacy/);
   // Android 7 (the oldest the app runs on) has one switch, Unknown sources, instead of a permission per app.
   assert.match(content.downloads.install.android, /on Android 7 this setting is called Unknown sources/);
@@ -412,7 +420,7 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
   assert.match(content.features.items[2].text, /never claim that one thing causes another/);
   assert.equal(content.contact.notice, 'Your name, e-mail address and message are sent to us by e-mail so that we can answer you. They are not stored on the server. More in the [[privacy|Privacy Policy]].');
   assert.equal(content.footer.rights, 'All rights reserved.');
-  assert.deepEqual(content.nav, { label: 'Site menu', about: 'About the app', terms: 'Terms of Use', faq: 'Questions and answers', privacy: 'Privacy Policy', downloads: 'Downloads', contact: 'Contact us' });
+  assert.deepEqual(content.nav, { label: 'Site menu', home: 'Home', about: 'About the app', terms: 'Terms of Use', faq: 'Questions and answers', privacy: 'Privacy Policy', downloads: 'Downloads', contact: 'Contact us' });
   assert.deepEqual(content.downloads.columns, { file: 'File', version: 'Version', size: 'Size' });
   assert.deepEqual(content.downloads.tabs, { windows: 'Windows', android: 'Android', mac: 'Mac' });
   assert.deepEqual([content.contact.sentTitle, content.contact.errorTitle], ['Your message was sent', 'Your message was not sent']);
@@ -421,6 +429,83 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
   // The e-mail address is a link: only the text of the error page carries it; the publisher is named once.
   assert.deepEqual([...leaves].filter(([, text]) => text.includes('{{CONTACT_EMAIL}}')).map(([where]) => where), ['contact.errorText']);
   assert.deepEqual([...leaves].filter(([, text]) => text.includes('{{PUBLISHER_NAME}}')).map(([where]) => where), ['faq.items.2.a']);
+});
+
+/**
+ * THE OWNER'S RULE OF 2026-11-22 (his words: the visitors "do not need to know that the file is not signed yet"):
+ * no text of the site, in any language, tells a visitor that a file or the app is not signed. Until that day three
+ * texts of every language said so - downloads.install.windows, downloads.install.mac and faq.items.28.a - and that
+ * clause, and nothing else, left them. The table holds the words each language used there for "signed" and for
+ * "certificate", read from the files of commit 20c1071 (a stem where the word is inflected; Arabic and Hebrew used
+ * two forms). A text that brings one of them back fails this test: change the text, not the table.
+ */
+const UNSIGNED_WORDS = {
+  ar: { signed: ['موقعا', 'موقعة'], certificate: ['شهادة'] },
+  bg: { signed: ['подписан'], certificate: ['сертификат'] },
+  cs: { signed: ['podepsan'], certificate: ['certifikát'] },
+  de: { signed: ['signiert'], certificate: ['zertifikat'] },
+  el: { signed: ['υπογραφεί'], certificate: ['πιστοποιητικό'] },
+  en: { signed: ['signed'], certificate: ['certificate'] },
+  es: { signed: ['firmad'], certificate: ['certificado'] },
+  fr: { signed: ['signé'], certificate: ['certificat'] },
+  he: { signed: ['חתום', 'חתומ'], certificate: ['תעודת'] },
+  hi: { signed: ['हस्ताक्षरित'], certificate: ['प्रमाणपत्र'] },
+  hu: { signed: ['aláírva'], certificate: ['tanúsítván'] },
+  it: { signed: ['firmat'], certificate: ['certificato'] },
+  ja: { signed: ['署名'], certificate: ['証明書'] },
+  pl: { signed: ['podpisan'], certificate: ['certyfikat'] },
+  pt: { signed: ['assinad'], certificate: ['certificado'] },
+  ro: { signed: ['semnat'], certificate: ['certificat'] },
+  ru: { signed: ['подписан'], certificate: ['сертификат'] },
+  th: { signed: ['ลงนาม'], certificate: ['ใบรับรอง'] },
+  tr: { signed: ['imzalan'], certificate: ['sertifika'] },
+  zh: { signed: ['签名'], certificate: ['证书'] },
+};
+/** The three texts that told it, as dotted keys. */
+const INSTALL_TEXTS = ['downloads.install.windows', 'downloads.install.mac', 'faq.items.28.a'];
+
+test('content: no text in any of the 20 languages tells a visitor that a file is not signed (the owner, 2026-11-22)', () => {
+  assert.deepEqual(Object.keys(UNSIGNED_WORDS).sort(), [...CODES].sort(), 'the table has a row for every app locale');
+  for (const code of CODES) {
+    const leaves = leavesOf(contentOf(code));
+    const { signed, certificate } = UNSIGNED_WORDS[code];
+    assert.ok(signed.length >= 1 && certificate.length >= 1 && [...signed, ...certificate].every((word) => word.trim().length >= 2), `${code}: a word for "signed" and a word for "certificate"`);
+    for (const where of INSTALL_TEXTS) {
+      const text = leaves.get(where).toLowerCase();
+      for (const word of [...signed, ...certificate]) assert.ok(!text.includes(word.toLowerCase()), `${code} ${where}: "${word}" is back - a visitor is not told that a file is not signed`);
+    }
+    // No other text of the language names a certificate either.
+    for (const [where, text] of leaves) for (const word of certificate) assert.ok(!text.toLowerCase().includes(word.toLowerCase()), `${code} ${where}: "${word}"`);
+    // What the visitor needs stayed: where the file does not come from, the systems by their names, the older
+    // versions with their own steps, the Downloads page with its checksums. (Czech and Polish decline "Android".)
+    const android7 = /Android\p{L}{0,3} 7/u;
+    assert.ok(leaves.get('downloads.install.windows').includes('Microsoft Store') && leaves.get('downloads.install.windows').includes('Windows'), `${code}: the Windows note names Microsoft Store`);
+    assert.ok(leaves.get('downloads.install.android').includes('Google Play') && android7.test(leaves.get('downloads.install.android')), `${code}: the Android note names Google Play and Android 7`);
+    assert.ok(leaves.get('downloads.install.mac').includes('macOS') && leaves.get('downloads.install.mac').includes('macOS 12'), `${code}: the Mac note has the steps of both versions of macOS`);
+    for (const name of ['Windows', 'macOS', 'macOS 12', 'Android', 'SHA-256', '[[downloads|']) assert.ok(leaves.get('faq.items.28.a').includes(name), `${code}: the answer about the warnings still names ${name}`);
+    assert.match(leaves.get('faq.items.28.a'), android7, `${code}: the answer about the warnings still names Android 7`);
+  }
+  // The table is not blind: it catches the two sentences that left the English file.
+  for (const old of ['This setup file does not come from Microsoft Store and is not signed with a publisher certificate yet.', 'The app is not signed with an Apple developer certificate yet, so the first time macOS does not open it']) {
+    assert.ok(UNSIGNED_WORDS.en.signed.some((word) => old.includes(word)) && UNSIGNED_WORDS.en.certificate.some((word) => old.includes(word)), old);
+  }
+  // The rule in English words, over every English text: not signed, not certified, not verified, not notarized,
+  // an unidentified developer or publisher. ("Unknown sources" is the name of a setting of Android 7 and stays.)
+  const RULE = [/\bunsigned\b/i, /\bnot (?:yet |been )?signed\b/i, /\bcertificat/i, /\buncertified\b/i, /\bnot (?:yet )?certified\b/i, /\bunverified\b/i, /\bnot (?:yet )?verified\b/i, /notari[sz]/i, /\b(?:unidentified|unknown|unverified) (?:developer|publisher)\b/i];
+  for (const [where, text] of leavesOf(english())) for (const re of RULE) assert.ok(!re.test(text), `${where}: ${re} matches "${text}"`);
+  for (const sample of ['The file is unsigned.', 'It is not signed yet.', 'It has no publisher certificate.', 'The app is not notarized.', 'macOS says it is from an unidentified developer.', 'The file was not verified.']) {
+    assert.ok(RULE.some((re) => re.test(sample)), `the rule catches: ${sample}`);
+  }
+
+  // The English and the Hebrew texts are the ones the owner approved, word for word.
+  const en = english();
+  assert.equal(en.downloads.install.windows, 'This setup file does not come from Microsoft Store. Your browser may first warn that the file is not commonly downloaded (choose to keep it), and when you open it, Windows may show "Windows protected your PC": choose More info, then Run anyway. The setup asks for your language and installs the app for your own Windows account, without an administrator password.');
+  assert.equal(en.downloads.install.mac, 'Open the disk image, drag the app to the Applications folder and open it from there. The first time, macOS does not open it, and the message may even say that the app is damaged. Do not move it to the Bin (Trash): close the message, open System Settings, then Privacy & Security, scroll down and choose Open Anyway (on macOS 12: System Preferences, then Security & Privacy, then Open Anyway), enter your Mac password if asked, and choose Open.');
+  assert.equal(en.faq.items[28].a, 'Because the file is not from an app store. Windows may show "Windows protected your PC": choose More info, then Run anyway. macOS does not open the app the first time and may even say that it is damaged: do not move it to the Bin (Trash), but open System Settings, then Privacy & Security (on macOS 12: System Preferences, then Security & Privacy), and choose Open Anyway. Android asks you to allow your browser or file manager to install apps (on Android 7: Unknown sources). The [[downloads|Downloads]] page has the steps for each system, and a SHA-256 checksum for every file to check that your copy is unchanged.');
+  const he = contentOf('he');
+  assert.equal(he.downloads.install.windows, 'קובץ ההתקנה הזה לא מגיע מ-Microsoft Store. ייתכן שהדפדפן יזהיר קודם שהקובץ לא מורד לעתים קרובות (בחרו לשמור אותו), וכשתפתחו אותו, Windows עשוי להציג "Windows protected your PC" (Windows הגן על המחשב שלך): בחרו "מידע נוסף" ואז "הפעל בכל זאת". ההתקנה שואלת מה השפה שלכם ומתקינה את האפליקציה בחשבון ה-Windows שלכם בלבד, בלי סיסמת מנהל.');
+  assert.ok(he.downloads.install.mac.startsWith('פתחו את תמונת הדיסק, גררו את האפליקציה לתיקייה "יישומים" ופתחו אותה משם. בפעם הראשונה macOS לא פותח אותה, וההודעה עשויה אף לומר שהאפליקציה פגומה. אל תעבירו אותה לפח: סגרו את ההודעה, '), 'he: the Mac note starts with the steps, then "the first time"');
+  assert.ok(he.faq.items[28].a.startsWith('כי הקובץ לא מגיע מחנות אפליקציות. Windows עשוי להציג "Windows protected your PC" (Windows הגן על המחשב שלך): '), 'he: the answer starts with the store, then the warning of Windows');
 });
 
 test('contentProblems: what the builder refuses in a content file', () => {
@@ -550,21 +635,41 @@ test('settings: the base address, the copyright year and the four store links', 
   }
 });
 
-test('addresses: seven pages per language, English without a folder, every address relative', () => {
-  assert.deepEqual(SITE_PAGES.map((p) => [p.id, p.dir]), [['home', ''], ['terms', 'terms/'], ['faq', 'faq/'], ['privacy', 'privacy/'], ['downloads', 'downloads/'], ['sent', 'contact/sent/'], ['error', 'contact/error/']]);
+test('addresses: eight pages per language, English without a folder, every address relative', () => {
+  // The home page is a page of its own since 2026-11-22; "About the app" moved to app/.
+  assert.deepEqual(SITE_PAGES.map((p) => [p.id, p.dir]), [['home', ''], ['about', 'app/'], ['terms', 'terms/'], ['faq', 'faq/'], ['privacy', 'privacy/'], ['downloads', 'downloads/'], ['sent', 'contact/sent/'], ['error', 'contact/error/']]);
+  assert.equal(SITE_PAGES.length, 8);
+  assert.equal(new Set(SITE_PAGES.map((p) => p.dir)).size, 8, 'every page has a folder of its own');
+  // No page folder can be taken for the folder of a language (app/ next to he/, ar/, ...).
+  for (const p of SITE_PAGES) assert.ok(!CODES.includes(p.dir.split('/')[0]), `${p.id}: ${p.dir} is not a language code`);
   assert.deepEqual(SITE_PAGES.filter((p) => !p.contact).map((p) => p.id), ['sent', 'error'], 'the two result pages have no contact block');
   assert.deepEqual(SITE_PAGES.filter((p) => p.noindex).map((p) => p.id), ['sent', 'error']);
   assert.deepEqual(SITE_PAGES.filter((p) => p.legal).map((p) => [p.id, p.legal]), [['terms', 'terms'], ['privacy', 'privacy']]);
-  assert.deepEqual(MENU.map(([id, key]) => `${id}:${key}`), ['home:about', 'terms:terms', 'faq:faq', 'privacy:privacy', 'downloads:downloads']);
+  assert.deepEqual(MENU.map(([id, key]) => `${id}:${key}`), ['home:home', 'about:about', 'terms:terms', 'faq:faq', 'privacy:privacy', 'downloads:downloads']);
+  // Every item of the menu is a page, in the order of the pages, and has its text in nav.*.
+  assert.deepEqual(MENU.map(([id]) => id), SITE_PAGES.filter((p) => p.contact).map((p) => p.id), 'the menu: every page but the two result pages, in page order');
+  for (const [, key] of MENU) assert.equal(typeof english().nav[key], 'string', `nav.${key}`);
   assert.equal(siteDir('home', 'en'), '');
+  assert.equal(siteDir('about', 'en'), 'app/');
   assert.equal(siteDir('terms', 'en'), 'terms/');
   assert.equal(siteDir('home', 'he'), 'he/');
+  assert.equal(siteDir('about', 'he'), 'he/app/');
   assert.equal(siteDir('sent', 'he'), 'he/contact/sent/');
   assert.equal(pageFile('home', 'en'), 'index.html');
+  assert.equal(pageFile('about', 'en'), 'app/index.html');
+  assert.equal(pageFile('about', 'ja'), 'ja/app/index.html');
   assert.equal(pageFile('error', 'ar'), 'ar/contact/error/index.html');
-  assert.throws(() => siteDir('about', 'en'), /unknown page about/);
+  assert.throws(() => siteDir('app', 'en'), /unknown page app/, 'a page is named by its id, not by its folder');
+  assert.throws(() => siteDir('nothing', 'en'), /unknown page nothing/);
   for (const [from, to, want] of [
     ['', '', './'],
+    ['', 'app/', './app/'],
+    ['app/', '', '../'],
+    ['app/', 'he/app/', '../he/app/'],
+    ['he/app/', 'he/', '../'],
+    ['he/app/', 'app/', '../../app/'],
+    ['he/app/', 'img/he/phone-home.png', '../../img/he/phone-home.png'],
+    ['he/contact/sent/', 'he/app/', '../../app/'],
     ['', 'terms/', './terms/'],
     ['', 'he/', './he/'],
     ['', 'site.css', './site.css'],
@@ -656,7 +761,7 @@ test('downloads list: the real site/downloads.json lists the installers that are
 // The built tree: images, installers, the style sheet and the script
 // ---------------------------------------------------------------------------------------------
 
-test('tree: the 140 pages, site.css, site.js, every image and every installer - and a hole is noticed', (t) => {
+test('tree: the 160 pages, site.css, site.js, every image and every installer - and a hole is noticed', (t) => {
   assert.deepEqual(Object.keys(PLAY_FOLDER).sort(), [...CODES].sort(), 'a Play screenshot folder for every app locale');
   assert.deepEqual(Object.keys(STORE_FOLDER).sort(), [...CODES].sort(), 'a Store screenshot folder for every app locale');
   assert.deepEqual([PLAY_FOLDER.he, PLAY_FOLDER.pt, STORE_FOLDER.he, STORE_FOLDER.pt, STORE_FOLDER.ar], ['iw-IL', 'pt-BR', 'he-IL', 'pt-PT', 'ar-SA']);
@@ -664,9 +769,16 @@ test('tree: the 140 pages, site.css, site.js, every image and every installer - 
 
   const site = real();
   const installers = PLATFORMS.flatMap((p) => site.downloads[p]);
-  assert.deepEqual([...site.pages.keys()], LOCALES.flatMap((l) => SITE_PAGES.map((p) => pageFile(p.id, l.code))), 'seven pages for each of the 20 locales');
-  assert.equal(site.pages.size, 140);
+  assert.deepEqual([...site.pages.keys()], LOCALES.flatMap((l) => SITE_PAGES.map((p) => pageFile(p.id, l.code))), 'eight pages for each of the 20 locales');
+  assert.equal(site.pages.size, 160);
+  assert.equal(PAGE_COUNT, 160);
   assert.ok(!site.pages.has('en/index.html'), 'there is no en/ folder');
+  // The eight pages of English and of Hebrew, by their literal files.
+  for (const rel of ['index.html', 'app/index.html', 'terms/index.html', 'faq/index.html', 'privacy/index.html', 'downloads/index.html', 'contact/sent/index.html', 'contact/error/index.html']) {
+    assert.ok(site.pages.has(rel), rel);
+    assert.ok(site.pages.has(`he/${rel}`), `he/${rel}`);
+  }
+  assert.equal([...site.pages.keys()].filter((rel) => rel.endsWith('app/index.html')).length, 20, 'one About page per language');
   assert.deepEqual([...site.files.keys()], [CSS_NAME, SCRIPT_NAME, IMAGE_LIST_FILE]);
   assert.equal(site.files.get(IMAGE_LIST_FILE), formatDownloads(site.downloads), 'the list of the installers, for the hosted server');
   assert.equal(site.assets.size, IMAGE_COUNT + installers.length);
@@ -681,22 +793,30 @@ test('tree: the 140 pages, site.css, site.js, every image and every installer - 
   assert.deepEqual(siteTreeProblems(out), []);
   assert.deepEqual(siteFolderProblems(target), []);
 
-  // The images of a home page: its own language, the stated size, an alt text; the hero image loads at once.
+  // The screenshots: the hero image of the home page (it loads at once) and the five screens of the About page -
+  // each in the language of its page, with the stated size and an alt text. The two icons are checked with the frame.
+  const isIcon = (el) => hasClass(el, 'app-icon') || hasClass(el, 'home-icon');
   for (const l of LOCALES) {
-    const rel = pageFile('home', l.code);
-    const page = parsed(rel);
-    const images = page.all('img').filter((el) => !hasClass(el, 'app-icon'));
-    assert.equal(images.length, 1 + SHOTS.length, `${rel}: the hero image and the five screens`);
-    assert.deepEqual(images.map((image) => image.attrs.src), ['phone-home', ...SHOTS.map((s) => s.id)].map((id) => relativeHref(siteDir('home', l.code), `img/${l.code}/${id}.png`)), `${rel}: the screens of its own language`);
-    for (const [i, image] of images.entries()) {
-      const size = ihdr(path.join(target, ...resolveAddress(siteDir('home', l.code), image.attrs.src).split('/')));
-      assert.deepEqual({ width: Number(image.attrs.width), height: Number(image.attrs.height) }, size, `${rel}: ${image.attrs.src} is ${size.width}x${size.height}`);
-      assert.ok(image.attrs.alt.trim().length >= 5, `${rel}: ${image.attrs.src} has an alt text`);
-      assert.equal(image.attrs.decoding, 'async');
-      assert.equal(image.attrs.loading, i === 0 ? undefined : 'lazy', `${rel}: image ${i}`);
+    for (const [id, ids] of [['home', ['phone-home']], ['about', SHOTS.map((s) => s.id)]]) {
+      const rel = pageFile(id, l.code);
+      const dir = siteDir(id, l.code);
+      const page = parsed(rel);
+      const images = page.all('img').filter((el) => !isIcon(el));
+      assert.deepEqual(images.map((image) => image.attrs.src), ids.map((shot) => relativeHref(dir, `img/${l.code}/${shot}.png`)), `${rel}: ${id === 'home' ? 'the hero image' : 'the five screens'}, of its own language`);
+      for (const image of images) {
+        const size = ihdr(path.join(target, ...resolveAddress(dir, image.attrs.src).split('/')));
+        assert.deepEqual({ width: Number(image.attrs.width), height: Number(image.attrs.height) }, size, `${rel}: ${image.attrs.src} is ${size.width}x${size.height}`);
+        assert.ok(image.attrs.alt.trim().length >= 5, `${rel}: ${image.attrs.src} has an alt text`);
+        assert.equal(image.attrs.decoding, 'async');
+        assert.deepEqual([image.attrs.loading, image.attrs.fetchpriority], id === 'home' ? [undefined, 'high'] : ['lazy', undefined], `${rel}: ${image.attrs.src} - only the hero image loads at once`);
+      }
+      assert.equal(page.all('figure').length, id === 'home' ? 0 : SHOTS.length, `${rel}: the figures`);
+      assert.equal(page.all('figcaption').length, id === 'home' ? 0 : SHOTS.length);
     }
-    assert.equal(page.all('figure').length, SHOTS.length);
-    assert.equal(page.all('figcaption').length, SHOTS.length);
+    // No other page of the language shows a screenshot.
+    for (const def of SITE_PAGES.filter((p) => p.id !== 'home' && p.id !== 'about')) {
+      assert.deepEqual(parsed(pageFile(def.id, l.code)).all('img').filter((el) => !isIcon(el)).map((el) => el.attrs.src), [], `${pageFile(def.id, l.code)}: no screenshot`);
+    }
   }
   assert.deepEqual(ihdr(path.join(target, ...SHARE_IMAGE.rel.split('/'))), { width: SHARE_IMAGE.width, height: SHARE_IMAGE.height });
   assert.ok(readFileSync(path.join(target, ...ICON_IMAGE.rel.split('/')), 'utf8').startsWith('<svg'), 'the icon');
@@ -722,7 +842,7 @@ test('tree: the 140 pages, site.css, site.js, every image and every installer - 
   assert.deepEqual(siteTreeProblems(out), [
     'about/he/faq/index.html is missing',
     `about/${FILES_DIR}/${windowsFile} is missing (downloads/index.html refers to it)`,
-    'about/img/ja/phone-habits.png is missing (ja/index.html refers to it)',
+    'about/img/ja/phone-habits.png is missing (ja/app/index.html refers to it)',
     'about/site.css is missing (index.html refers to it)',
     `about/${FILES_DIR}/${site.downloads.mac[0].file} is 18 bytes, the Downloads page says ${site.downloads.mac[0].bytes}`,
   ]);
@@ -798,7 +918,7 @@ test('tree: it works under any name and at the root - every address is relative 
 // The frame of every page
 // ---------------------------------------------------------------------------------------------
 
-test('pages: the frame of all 140 - head, skip link, header, menu, one h1, contact block, language chooser, copyright', () => {
+test('pages: the frame of all 160 - head, skip link, header, menu, one h1, contact block, language chooser, copyright', () => {
   const site = real();
   for (const { rel, html, def, l, dir } of pagesOf(site)) {
     const page = parsed(rel);
@@ -909,21 +1029,31 @@ test('pages: the frame of all 140 - head, skip link, header, menu, one h1, conta
     assert.deepEqual([logo.tag, logo.attrs.src, logo.attrs.alt, logo.attrs.width, logo.attrs.height], ['img', to(ICON_IMAGE.rel), '', '32', '32'], `${rel}: the logo (the name next to it is its text)`);
     assert.deepEqual([name.tag, name.attrs], ['bdi', { lang: 'en', dir: 'ltr' }], `${rel}: the name`);
 
-    // 3. The menu: six items in the fixed order, exactly one of them current.
+    // 3. The menu: seven items in the fixed order, exactly one of them current.
     const menu = page.inside(navs[0], 'a');
     assert.deepEqual(page.children(navs[0]).map((el) => el.tag), ['ul'], `${rel}: the menu is a list`);
-    assert.equal(page.inside(navs[0], 'li').length, 6);
+    assert.equal(page.inside(navs[0], 'li').length, 7);
     const contactHref = def.contact ? '#contact' : `${toPage('home')}#contact`;
     assert.deepEqual(
       menu.map((el) => [el.attrs.href, page.textOf(el)]),
-      [...MENU.map(([id, key]) => [toPage(id), content.nav[key]]), [contactHref, content.nav.contact]],
-      `${rel}: About the app, Terms of Use, Questions and answers, Privacy Policy, Downloads, Contact us`,
+      [
+        [toPage('home'), content.nav.home],
+        [toPage('about'), content.nav.about],
+        [toPage('terms'), content.nav.terms],
+        [toPage('faq'), content.nav.faq],
+        [toPage('privacy'), content.nav.privacy],
+        [toPage('downloads'), content.nav.downloads],
+        [contactHref, content.nav.contact],
+      ],
+      `${rel}: Home, About the app, Terms of Use, Questions and answers, Privacy Policy, Downloads, Contact us`,
     );
+    assert.deepEqual(menu.slice(0, -1).map((el) => el.attrs.href), MENU.map(([id]) => toPage(id)), `${rel}: the menu follows MENU`);
     const current = menu.filter((el) => 'aria-current' in el.attrs);
     assert.equal(current.length, 1, `${rel}: exactly one current item`);
     // The two result pages belong to "Contact us", whose link leads to another page: the current item, not the current page.
     assert.equal(current[0].attrs['aria-current'], def.contact ? 'page' : 'true', `${rel}: aria-current`);
-    assert.equal(menu.indexOf(current[0]), def.contact ? MENU.findIndex(([id]) => id === def.id) : 5, `${rel}: the current item is the page itself`);
+    assert.equal(menu.indexOf(current[0]), def.contact ? MENU.findIndex(([id]) => id === def.id) : 6, `${rel}: the current item is the page itself`);
+    assert.equal(page.textOf(current[0]), def.contact ? content.nav[def.id] : content.nav.contact, `${rel}: the current item names the page`);
 
     // 5. The contact block: on every page but the two result pages.
     const contact = page.elements.filter((el) => el.attrs.id === 'contact');
@@ -1000,7 +1130,8 @@ test('pages: the frame of all 140 - head, skip link, header, menu, one h1, conta
     // Buttons, menu items and <summary> rows are flex boxes: their text sits in ONE child element, never loose
     // next to an isolated fragment (a <bdi> beside loose text would become a column).
     const boxes = page.elements.filter((el) => el.tag === 'summary' || el.tag === 'button' || (el.tag === 'a' && (hasClass(el, 'btn') || hasClass(el, 'brand') || el.parents.includes(navs[0]) || el.parents.includes(navs[1]))));
-    assert.ok(boxes.length >= 29, `${rel}: the menu, the language list, the buttons`);
+    // At least: the logo, seven menu items, 20 language links, the Change button and one button of the page or of the form.
+    assert.ok(boxes.length >= 30, `${rel}: the menu, the language list, the buttons`);
     for (const box of boxes) {
       assert.deepEqual(page.texts.filter((node) => node.parents.at(-1) === box).map((node) => node.text), [], `${rel}: no loose text in <${box.tag} class="${box.attrs.class ?? ''}">`);
       assert.ok(page.children(box).length >= 1, `${rel}: <${box.tag}> has a child element`);
@@ -1022,9 +1153,13 @@ test('pages: the frame of all 140 - head, skip link, header, menu, one h1, conta
         assert.deepEqual([bdi.tag, bdi.attrs.lang, bdi.attrs.dir, node.text], ['bdi', 'en', 'ltr', BRAND], `${rel}: the brand in <bdi lang="en" dir="ltr">`);
       }
     }
-    // Only the script may add roles: the static page has the two it needs.
-    assert.deepEqual(page.elements.filter((el) => 'role' in el.attrs).map((el) => el.attrs.role).sort(), def.id === 'home' ? ['group', 'region'] : ['group'], `${rel}: no tab role without the script`);
-    assert.deepEqual(page.elements.filter((el) => 'tabindex' in el.attrs).map((el) => `${el.attrs.class ?? el.attrs.name}:${el.attrs.tabindex}`), [...(def.id === 'home' ? ['strip:0'] : []), ...(def.contact ? ['website:-1'] : [])], `${rel}: the focus order is the order of the page`);
+    // Only the script may add roles: the static page has the two it needs (the strip of screens is on the About page).
+    assert.deepEqual(page.elements.filter((el) => 'role' in el.attrs).map((el) => el.attrs.role).sort(), def.id === 'about' ? ['group', 'region'] : ['group'], `${rel}: no tab role without the script`);
+    assert.deepEqual(page.elements.filter((el) => 'tabindex' in el.attrs).map((el) => `${el.attrs.class ?? el.attrs.name}:${el.attrs.tabindex}`), [...(def.id === 'about' ? ['strip:0'] : []), ...(def.contact ? ['website:-1'] : [])], `${rel}: the focus order is the order of the page`);
+    // The icon sprite: only where a page draws icons (the cards and the checks of the About page, the chevrons of
+    // the questions and of "Check the file").
+    assert.equal(page.elements.filter((el) => hasClass(el, 'sprite')).length, ['about', 'faq', 'downloads'].includes(def.id) ? 1 : 0, `${rel}: the sprite`);
+    assert.equal(page.all('use').length > 0, ['about', 'faq', 'downloads'].includes(def.id), `${rel}: icons`);
   }
 });
 
@@ -1032,28 +1167,197 @@ test('pages: the frame of all 140 - head, skip link, header, menu, one h1, conta
 // The pages themselves
 // ---------------------------------------------------------------------------------------------
 
-test('home: the lead, the two actions, eight cards, the screens and the privacy list with its link', () => {
+test('home: the brand block with the large icon and the name, then the h1, the lead, three actions, the note and the phone - nothing else', () => {
   for (const l of LOCALES) {
     const rel = pageFile('home', l.code);
     const page = parsed(rel);
     const content = contentOf(l.code);
     const dir = siteDir('home', l.code);
+    const [mainEl] = page.all('main');
     assert.equal(page.textOf(page.all('title')[0]), plain(content.title, l), `${rel}: the title`);
-    assert.equal(page.textOf(page.all('h1')[0]), plain(content.hero.heading, l));
-    const actions = page.all('a').filter((el) => hasClass(el, 'btn') && el.parents.at(-1).attrs.class === 'actions');
-    assert.deepEqual(actions.map((el) => [el.attrs.href, page.textOf(el)]), [[`${SITE_URL}/`, content.hero.openAction], [relativeHref(dir, siteDir('downloads', l.code)), content.nav.downloads]], `${rel}: "Open in your browser" and "Downloads"`);
+    assert.equal(page.all('meta').find((el) => el.attrs.name === 'description').attrs.content, plain(content.description, l), `${rel}: the description`);
+
+    // ONE hero section is the whole content of the page.
+    assert.deepEqual(page.children(mainEl).map((el) => [el.tag, el.attrs]), [['section', { class: 'hero' }]], `${rel}: <main> holds the hero and nothing else`);
+    assert.deepEqual(page.inside(mainEl, 'section').length, 1, `${rel}: one section in <main>`);
+    for (const id of ['features', 'screens', 'privacy']) assert.ok(!page.elements.some((el) => el.attrs.id === id), `${rel}: no #${id} section - it is on the About page`);
+    for (const name of ['cards', 'card', 'strip', 'shot', 'checks', 'policy', 'page-head']) assert.ok(!page.elements.some((el) => hasClass(el, name)), `${rel}: no .${name}`);
+    assert.deepEqual(page.elements.filter((el) => /^h[1-6]$/.test(el.tag)).map((el) => el.tag), ['h1', 'h2'], `${rel}: the h1 of the page and the h2 of the contact block`);
+    assert.equal(page.all('svg').length, 0, `${rel}: no icon, so no sprite`);
+
+    // FIRST the brand block: the app icon, large, and the name next to it. Not a link: this is the home page.
+    const [hero] = page.children(mainEl);
+    const [wrap] = page.children(hero);
+    const [column, shot] = page.children(wrap);
+    assert.deepEqual([wrap.attrs.class, page.children(wrap).length, column.tag, column.attrs], ['wrap', 2, 'div', {}], `${rel}: the text and the phone`);
+    const [block, h1, lead, actionsBox, note] = page.children(column);
+    assert.equal(page.children(column).length, 5, `${rel}: brand block, heading, lead, actions, note`);
+    assert.deepEqual([block.tag, block.attrs], ['p', { class: 'home-brand' }], `${rel}: the brand block comes first`);
+    const [icon, name] = page.children(block);
+    assert.equal(page.children(block).length, 2, `${rel}: the icon and the name`);
+    assert.deepEqual([icon.tag, icon.attrs], ['img', { class: 'home-icon', src: relativeHref(dir, ICON_IMAGE.rel), width: '96', height: '96', alt: '' }], `${rel}: the icon of the header, large; the name next to it is its text`);
+    assert.deepEqual([name.tag, name.attrs, page.textOf(name)], ['bdi', { lang: 'en', dir: 'ltr' }, BRAND], `${rel}: the name of the app`);
+    assert.equal(page.textOf(block), BRAND, `${rel}: the block says the name and nothing else`);
+    assert.ok(!block.parents.some((el) => el.tag === 'a') && page.inside(block, 'a').length === 0, `${rel}: the brand block is not a link`);
+    assert.equal(page.elements.filter((el) => hasClass(el, 'home-brand')).length, 1);
+    // The same image as the logo of the header.
+    const logo = page.all('img').find((el) => hasClass(el, 'app-icon'));
+    assert.equal(icon.attrs.src, logo.attrs.src, `${rel}: one icon file for the header and the brand block`);
+
+    // Then the h1, the lead, the three actions and the note.
+    assert.equal(h1.tag, 'h1');
+    assert.ok(page.elements.indexOf(block) < page.elements.indexOf(h1), `${rel}: the brand block stands before the h1`);
+    assert.equal(page.textOf(h1), plain(content.hero.heading, l), `${rel}: the heading`);
+    assert.deepEqual([lead.tag, lead.attrs.class, page.textOf(lead)], ['p', 'lead', plain(content.hero.lead, l)], `${rel}: the lead`);
+    assert.deepEqual([actionsBox.tag, actionsBox.attrs.class], ['p', 'actions']);
+    const actions = page.all('a').filter((el) => hasClass(el, 'btn') && el.parents.at(-1) === actionsBox);
+    assert.deepEqual(
+      actions.map((el) => [el.attrs.href, page.textOf(el), el.attrs.class]),
+      [
+        [`${SITE_URL}/`, content.hero.openAction, 'btn primary'],
+        [relativeHref(dir, siteDir('downloads', l.code)), content.nav.downloads, 'btn'],
+        [relativeHref(dir, siteDir('about', l.code)), content.nav.about, 'btn'],
+      ],
+      `${rel}: "Open in your browser" (the web app), "Downloads" and "About the app"`,
+    );
+    assert.equal(page.children(actionsBox).length, 3, `${rel}: exactly three actions`);
+    // Where the third action leads: the About page of the same language, a file of the tree.
+    assert.equal(resolveAddress(dir, actions[2].attrs.href), `${l.code === DEFAULT_LOCALE ? '' : `${l.code}/`}app/`, `${rel}: the third action opens the About page`);
+    assert.ok(real().pages.has(`${resolveAddress(dir, actions[2].attrs.href)}index.html`));
+    assert.deepEqual([note.tag, note.attrs.class, page.textOf(note)], ['p', 'note', plain(content.hero.note, l)], `${rel}: the note`);
+    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/`).length, 1, `${rel}: one link to the web app`);
+
+    // The phone: the first screen of the app in the language of the page.
+    assert.deepEqual([shot.tag, shot.attrs.class], ['div', 'hero-shot phone']);
+    const [phone] = page.children(shot);
+    assert.deepEqual([phone.tag, phone.attrs.src, phone.attrs.alt, phone.attrs.fetchpriority], ['img', relativeHref(dir, `img/${l.code}/phone-home.png`), plain(content.screens.items[0].alt, l), 'high'], `${rel}: the phone image`);
+
+    // The contact block and the footer follow as on every page (the frame test has their details).
+    assert.equal(page.elements.filter((el) => el.attrs.id === 'contact').length, 1, `${rel}: the contact block`);
+    assert.equal(page.all('footer').length, 1);
+  }
+  // By its literal markup, English.
+  const html = real().pages.get('index.html');
+  assert.ok(html.includes('<p class="home-brand"><img class="home-icon" src="./img/icon.svg" width="96" height="96" alt=""><bdi lang="en" dir="ltr">Your Personal Diary</bdi></p>\n<h1>A private diary that helps you notice your own patterns</h1>'), 'en: the brand block, then the h1');
+  assert.ok(html.includes('<a class="btn" href="./downloads/"><span>Downloads</span></a><a class="btn" href="./app/"><span>About the app</span></a></p>'), 'en: the second and the third action');
+  assert.ok(real().pages.get('he/index.html').includes('<a class="btn" href="./app/"><span>על האפליקציה</span></a></p>'), 'he: the third action');
+});
+
+test('about: its own page - the h1 and the lead, then eight cards, the screens and the privacy list with its link', () => {
+  for (const l of LOCALES) {
+    const rel = pageFile('about', l.code);
+    const page = parsed(rel);
+    const content = contentOf(l.code);
+    const dir = siteDir('about', l.code);
+    const [mainEl] = page.all('main');
+    assert.equal(rel, `${l.code === DEFAULT_LOCALE ? '' : `${l.code}/`}app/index.html`, `${l.code}: the address of the About page`);
+    // The title follows the pattern of the Questions page; the description is the one of the site.
+    assert.equal(page.textOf(page.all('title')[0]), `${content.nav.about} - ${BRAND}`, `${rel}: the title`);
+    assert.equal(page.all('meta').find((el) => el.attrs.name === 'description').attrs.content, plain(content.description, l), `${rel}: the description`);
+    assert.notEqual(page.textOf(page.all('title')[0]), plain(content.title, l), `${rel}: not the title of the home page`);
+
+    // The head of the page, then the three sections with their ids, in this order.
+    assert.deepEqual(
+      page.children(mainEl).map((el) => [el.tag, el.attrs]),
+      [['div', { class: 'wrap page-head' }], ['section', { id: 'features' }], ['section', { id: 'screens', class: 'band' }], ['section', { id: 'privacy' }]],
+      `${rel}: the head, #features, #screens, #privacy`,
+    );
+    const [head, features, screens, privacy] = page.children(mainEl);
+    const [h1, lead] = page.children(head);
+    assert.equal(page.children(head).length, 2, `${rel}: the head is the h1 and the lead`);
+    assert.deepEqual([h1.tag, page.textOf(h1)], ['h1', content.nav.about], `${rel}: the h1 is the name of the page in the menu`);
+    assert.deepEqual([lead.tag, lead.attrs.class, page.textOf(lead)], ['p', 'lead', plain(content.hero.lead, l)], `${rel}: the lead`);
+    assert.ok(!page.elements.some((el) => hasClass(el, 'hero') || hasClass(el, 'home-brand') || hasClass(el, 'home-icon') || hasClass(el, 'hero-shot')), `${rel}: no hero and no brand block - they are the home page`);
+
     const levels = page.elements.filter((el) => /^h[1-6]$/.test(el.tag)).map((el) => el.tag);
     assert.deepEqual(levels, ['h1', 'h2', ...Array(8).fill('h3'), 'h2', 'h2', 'h2'], `${rel}: features (eight cards), screens, privacy, contact`);
-    assert.deepEqual(page.all('h3').map((el) => page.textOf(el)), content.features.items.map((item) => plain(item.title, l)));
-    assert.deepEqual(page.all('figcaption').map((el) => page.textOf(el)), content.screens.items.map((item) => plain(item.caption, l)));
+    // What you can do: eight cards, each with its icon.
+    assert.equal(page.textOf(page.inside(features, 'h2')[0]), plain(content.features.heading, l), `${rel}: the heading of the cards`);
+    const cards = page.inside(features, 'li');
+    assert.equal(cards.length, 8, `${rel}: eight cards`);
+    assert.deepEqual(page.inside(features, 'h3').map((el) => page.textOf(el)), content.features.items.map((item) => plain(item.title, l)));
+    assert.deepEqual(cards.map((card) => page.textOf(page.inside(card, 'p')[0])), content.features.items.map((item) => plain(item.text, l)), `${rel}: the texts of the cards`);
+    assert.equal(page.inside(features, 'use').length, 8, `${rel}: an icon on every card`);
+    // What it looks like: the five screens in a labelled, focusable strip.
+    assert.equal(page.textOf(page.inside(screens, 'h2')[0]), plain(content.screens.heading, l));
+    assert.deepEqual(page.inside(screens, 'figcaption').map((el) => page.textOf(el)), content.screens.items.map((item) => plain(item.caption, l)));
+    assert.deepEqual(page.inside(screens, 'img').map((el) => [el.attrs.src, el.attrs.alt]), SHOTS.map((s, i) => [relativeHref(dir, `img/${l.code}/${s.id}.png`), plain(content.screens.items[i].alt, l)]), `${rel}: the five screens of its own language with their alt texts`);
     const strip = page.elements.find((el) => hasClass(el, 'strip'));
+    assert.ok(strip.parents.includes(screens));
     assert.deepEqual([strip.attrs.role, strip.attrs.tabindex, page.textOf(page.elements.find((el) => el.attrs.id === strip.attrs['aria-labelledby']))], ['region', '0', plain(content.screens.heading, l)], `${rel}: the strip of screens is a labelled, focusable region`);
+    // Your privacy: the list and the button to the Privacy Policy page of the site.
+    assert.equal(page.textOf(page.inside(privacy, 'h2')[0]), plain(content.privacy.heading, l));
+    assert.ok(page.textOf(privacy).includes(plain(content.privacy.lead, l)), `${rel}: the sentence of the privacy section`);
     const checks = page.elements.find((el) => hasClass(el, 'checks'));
+    assert.ok(checks.parents.includes(privacy));
     assert.deepEqual(page.children(checks).map((li) => page.textOf(li)), content.privacy.items.map((item) => plain(item, l)), `${rel}: the privacy list`);
     const policy = page.all('a').find((el) => el.parents.at(-1).attrs.class === 'policy');
-    assert.deepEqual([policy.attrs.href, page.textOf(policy)], [relativeHref(dir, siteDir('privacy', l.code)), content.privacy.policyLink], `${rel}: the link to the Privacy Policy page of the site`);
-    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/`).length, 1, `${rel}: one link to the web app`);
+    assert.deepEqual([policy.attrs.href, page.textOf(policy), policy.attrs.class], [relativeHref(dir, siteDir('privacy', l.code)), content.privacy.policyLink, 'btn'], `${rel}: the button to the Privacy Policy page of the site`);
+    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/`).length, 0, `${rel}: the link to the web app is on the home page`);
+
+    // The menu marks this page; the home page is another item.
+    const current = page.inside(page.all('nav')[0], 'a').filter((el) => 'aria-current' in el.attrs);
+    assert.deepEqual(current.map((el) => [el.attrs.href, el.attrs['aria-current'], page.textOf(el)]), [['./', 'page', content.nav.about]], `${rel}: the current item of the menu is "About the app"`);
+    // Its own address in the head, and the About page of each language in the links of the languages.
+    const links = page.all('link');
+    assert.deepEqual(links.filter((el) => el.attrs.rel === 'canonical').map((el) => el.attrs.href), [`${SITE_BASE}${dir}`], `${rel}: canonical`);
+    assert.equal(page.all('meta').find((el) => el.attrs.property === 'og:url').attrs.content, `${SITE_BASE}${dir}`, `${rel}: og:url`);
+    assert.deepEqual(
+      links.filter((el) => el.attrs.rel === 'alternate').map((el) => [el.attrs.hreflang, el.attrs.href]),
+      [...CODES.map((c) => [c, `${SITE_BASE}${c === DEFAULT_LOCALE ? '' : `${c}/`}app/`]), ['x-default', `${SITE_BASE}app/`]],
+      `${rel}: the 20 hreflang links and x-default lead to the About pages`,
+    );
+    const languageLinks = page.inside(page.all('nav')[1], 'a');
+    assert.deepEqual(languageLinks.map((el) => [el.attrs.hreflang, resolveAddress(dir, el.attrs.href)]), CODES.map((c) => [c, `${c === DEFAULT_LOCALE ? '' : `${c}/`}app/`]), `${rel}: the language links lead to the About page of each language`);
+    assert.deepEqual(page.all('option').map((el) => [el.attrs.lang, resolveAddress(dir, el.attrs.value)]), CODES.map((c) => [c, `${c === DEFAULT_LOCALE ? '' : `${c}/`}app/`]), `${rel}: and so do the options of the language chooser`);
+    assert.equal(page.elements.filter((el) => el.attrs.id === 'contact').length, 1, `${rel}: it ends with the contact block`);
   }
+  // The addresses by their literal form: English and Hebrew.
+  const en = real().pages.get('app/index.html');
+  assert.ok(en.includes('<title>About the app - Your Personal Diary</title>'));
+  assert.ok(en.includes(`<link rel="canonical" href="${SITE_BASE}app/">`));
+  assert.ok(en.includes(`<link rel="alternate" hreflang="he" href="${SITE_BASE}he/app/">`));
+  assert.ok(en.includes('<div class="wrap page-head">\n<h1>About the app</h1>\n<p class="lead">Write about your day in your own words.'));
+  assert.ok(en.includes('<li><a href="../"><span>Home</span></a></li>\n<li><a href="./" aria-current="page"><span>About the app</span></a></li>'), 'en: Home, then the current item');
+  assert.ok(en.includes('<li><a href="../he/app/" hreflang="he" lang="he"><bdi>עברית</bdi></a></li>'), 'en: the Hebrew About page in the list of languages');
+  const he = real().pages.get('he/app/index.html');
+  assert.ok(he.includes(`<link rel="canonical" href="${SITE_BASE}he/app/">`));
+  assert.ok(he.includes('<li><a href="../../app/" hreflang="en" lang="en"><bdi>English</bdi></a></li>'), 'he: the English About page in the list of languages');
+  assert.ok(he.includes('<li><a href="./" hreflang="he" lang="he" aria-current="page"><bdi>עברית</bdi></a></li>'), 'he: its own language is the current one of the list');
+  assert.ok(he.includes('<option value="../../ar/app/" lang="ar">'), 'he: the Arabic About page in the language chooser');
+});
+
+test('logo: on every page the logo and the name of the header are one link to the home page of the language', () => {
+  const site = real();
+  for (const { rel, def, l, dir } of pagesOf(site)) {
+    const page = parsed(rel);
+    const [header] = page.all('header');
+    const links = page.inside(header, 'a').filter((el) => hasClass(el, 'brand'));
+    assert.equal(links.length, 1, `${rel}: one logo link`);
+    const [link] = links;
+    // Where the link leads, resolved from the folder of the page: the top of the language - the home page.
+    const home = l.code === DEFAULT_LOCALE ? '' : `${l.code}/`;
+    assert.equal(resolveAddress(dir, link.attrs.href), home, `${rel}: the logo leads to the home page of the language`);
+    assert.equal(`${resolveAddress(dir, link.attrs.href)}index.html`, pageFile('home', l.code));
+    assert.ok(site.pages.has(`${home}index.html`), `${rel}: the home page exists`);
+    assert.match(link.attrs.href, /^(?:\.\/|(?:\.\.\/)+)$/, `${rel}: a relative address, no file name`);
+    // The logo and the name are both inside the link, and the link is the first thing of the header.
+    assert.deepEqual(page.children(link).map((el) => el.tag), ['img', 'bdi'], `${rel}: the logo and the name`);
+    assert.equal(page.inside(header, 'a')[0], link, `${rel}: the logo comes before the menu`);
+    // The page it opens is the home page: the brand block, one hero - not the About page.
+    const target = parsed(`${home}index.html`);
+    assert.equal(target.elements.filter((el) => hasClass(el, 'home-brand')).length, 1, `${rel}: the logo opens the page with the brand block`);
+    assert.equal(target.elements.filter((el) => el.attrs.id === 'features').length, 0);
+    // The "Home" item of the menu leads to the same page; only on the home page itself it is the current item.
+    const first = page.inside(page.all('nav')[0], 'a')[0];
+    assert.deepEqual([first.attrs.href, page.textOf(first), first.attrs['aria-current']], [link.attrs.href, contentOf(l.code).nav.home, def.id === 'home' ? 'page' : undefined], `${rel}: the first item of the menu is Home`);
+  }
+  // By their literal addresses.
+  const hrefOf = (rel) => /<a class="brand" href="([^"]+)">/.exec(site.pages.get(rel))[1];
+  assert.deepEqual(
+    ['index.html', 'app/index.html', 'faq/index.html', 'contact/sent/index.html', 'he/index.html', 'he/app/index.html', 'he/downloads/index.html', 'he/contact/error/index.html'].map(hrefOf),
+    ['./', '../', '../', '../../', './', '../', '../', '../../'],
+  );
 });
 
 test('questions: exactly 30, in six groups, each a <details> with a plain <summary>; the links of the answers lead on', () => {
@@ -1302,9 +1606,12 @@ test('pages: in the right-to-left pages every Latin fragment, number and address
   // File names and checksums are left-to-right fragments in every language.
   const downloads = parsed(pageFile('downloads', 'he'));
   for (const link of downloads.all('a').filter((el) => hasClass(el, 'get'))) assert.deepEqual(downloads.children(link).map((el) => [el.tag, el.attrs.dir]), [['bdi', 'ltr']]);
-  // A left-to-right page needs no isolation of its own script, only the fixed pieces.
-  const englishHome = real().pages.get(pageFile('home', 'en'));
-  assert.equal((englishHome.match(/<bdi>/g) ?? []).length, CODES.length, 'en: only the names of the language list');
+  // A left-to-right page needs no isolation of its own script, only the fixed pieces. Since 2026-11-22 what the
+  // English home page held (the hero, the cards, the screens, the privacy list) is on two pages: both are checked.
+  for (const id of ['home', 'about']) {
+    const html = real().pages.get(pageFile(id, 'en'));
+    assert.equal((html.match(/<bdi>/g) ?? []).length, CODES.length, `en ${id}: only the names of the language list`);
+  }
 });
 
 test('pages: the publisher, the e-mail address and the minimum age come from legal/settings.json', () => {
@@ -1415,6 +1722,18 @@ test('style: site.css - the app theme tokens, contrast of at least 4.5:1 (contro
   for (const selector of ['.brand', '.menu a', '.btn', '.qa summary', '.tab', '.get', '.chooser select', '.langs a', '.field input,.field textarea', '.send .btn']) {
     assert.match(css, new RegExp(`^${selector.replace(/[.]/g, '\\.')}\\{[^}]*min-height:(?:2\\.75|3)rem`, 'm'), `${selector} is at least 44 px high`);
   }
+  // The brand block of the home page (2026-11-22): the icon about 6rem wide and smaller on a narrow screen, the name
+  // in the colour of the logo, a row that may wrap; the head of the About page starts like the other pages. Sizes in
+  // rem, never in pixels, so that nothing breaks on a narrow screen.
+  assert.match(css, /^\.home-icon\{flex:none;width:4rem;height:4rem\}$/m);
+  assert.match(css, /^@media \(min-width:34rem\)\{.*\.home-icon\{width:6rem;height:6rem\}\}$/m);
+  assert.match(css, /^\.home-brand\{display:flex;flex-wrap:wrap;[^}]*color:var\(--accent\)\}$/m);
+  assert.match(css, /^\.home-brand bdi\{white-space:normal\}$/m, 'the name may wrap when there is no room for it in one line');
+  assert.match(css, /^\.page-head\{padding-block-start:2\.5rem\}$/m);
+  assert.ok(COLOR_PAIRS.some(([text, background]) => text === 'accent' && background === 'bg'), 'the name of the app stands in the accent colour on the hero: the pair is computed above');
+  const added = [...css.matchAll(/\.(?:home-brand|home-icon|page-head)[^{}]*\{[^}]*\}/g)].map((m) => m[0]);
+  assert.equal(added.length, 7, 'the rules of the brand block and of the page head, on a narrow and on a wide screen');
+  for (const rule of added) assert.ok(!/\dpx/.test(rule), `${rule}: no pixel size`);
   // What the script adds is styled; a panel is hidden by the hidden attribute.
   assert.match(css, /^\[hidden\]\{display:none!important\}$/m);
   for (const selector of ['.tablist{', '.tab{', '.tab[aria-selected=true]{', '.tabs-on .panel{']) assert.ok(css.includes(`\n${selector}`), `${selector} has its rule`);

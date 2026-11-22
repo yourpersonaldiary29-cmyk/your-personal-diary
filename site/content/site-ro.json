@@ -5,6 +5,7 @@
   "languagesLabel": "Limbă",
   "nav": {
     "label": "Meniul site-ului",
+    "home": "Acasă",
     "about": "Despre aplicație",
     "terms": "Condiții de utilizare",
     "faq": "Întrebări și răspunsuri",
@@ -219,7 +220,7 @@
       },
       {
         "q": "De ce mă avertizează dispozitivul când instalez un fișier de pe acest site?",
-        "a": "Pentru că fișierul nu provine dintr-un magazin de aplicații, iar fișierele pentru Windows și Mac nu sunt încă semnate cu un certificat de editor. Windows poate afișa „Windows protected your PC” (Windows v-a protejat PC-ul): alege More info (Mai multe informații), apoi Run anyway (Rulați oricum). macOS nu deschide aplicația prima dată și poate chiar spune că este deteriorată: nu o muta în Coș, ci deschide Configurări sistem, apoi Confidențialitate și securitate (pe macOS 12: Preferințe sistem, apoi Securitate și confidențialitate) și alege Deschide oricum. Android îți cere să permiți browserului sau managerului de fișiere să instaleze aplicații (pe Android 7: Surse necunoscute). Pagina [[downloads|Descărcări]] are pașii pentru fiecare sistem și o sumă de control SHA-256 pentru fiecare fișier, ca să verifici că exemplarul tău nu a fost modificat."
+        "a": "Pentru că fișierul nu provine dintr-un magazin de aplicații. Windows poate afișa „Windows protected your PC” (Windows v-a protejat PC-ul): alege More info (Mai multe informații), apoi Run anyway (Rulați oricum). macOS nu deschide aplicația prima dată și poate chiar spune că este deteriorată: nu o muta în Coș, ci deschide Configurări sistem, apoi Confidențialitate și securitate (pe macOS 12: Preferințe sistem, apoi Securitate și confidențialitate) și alege Deschide oricum. Android îți cere să permiți browserului sau managerului de fișiere să instaleze aplicații (pe Android 7: Surse necunoscute). Pagina [[downloads|Descărcări]] are pașii pentru fiecare sistem și o sumă de control SHA-256 pentru fiecare fișier, ca să verifici că exemplarul tău nu a fost modificat."
       },
       {
         "q": "Cum trec la o versiune nouă?",
@@ -253,9 +254,9 @@
       "mac": "Necesită macOS 12.3 sau o versiune ulterioară, pe un Mac cu cip Apple sau cu procesor Intel."
     },
     "install": {
-      "windows": "Acest fișier de instalare nu provine din Microsoft Store și nu este încă semnat cu un certificat de editor. Browserul te poate avertiza mai întâi că fișierul nu este descărcat frecvent (alege să-l păstrezi), iar când îl deschizi, Windows poate afișa „Windows protected your PC” (Windows v-a protejat PC-ul): alege More info (Mai multe informații), apoi Run anyway (Rulați oricum). Programul de instalare îți cere limba și instalează aplicația pentru propriul tău cont Windows, fără parolă de administrator.",
+      "windows": "Acest fișier de instalare nu provine din Microsoft Store. Browserul te poate avertiza mai întâi că fișierul nu este descărcat frecvent (alege să-l păstrezi), iar când îl deschizi, Windows poate afișa „Windows protected your PC” (Windows v-a protejat PC-ul): alege More info (Mai multe informații), apoi Run anyway (Rulați oricum). Programul de instalare îți cere limba și instalează aplicația pentru propriul tău cont Windows, fără parolă de administrator.",
       "android": "Acest fișier se instalează direct, nu prin Google Play. Când deschizi fișierul descărcat, Android îți cere să permiți browserului sau managerului de fișiere să instaleze aplicații; pe Android 7 această setare se numește Surse necunoscute. Permite acest lucru, revino la fișier și alege Instalați.",
-      "mac": "Deschide imaginea de disc, trage aplicația în dosarul Aplicații și deschide-o de acolo. Aplicația nu este încă semnată cu un certificat de dezvoltator Apple, așa că prima dată macOS nu o deschide, iar mesajul poate chiar spune că aplicația este deteriorată. Nu o muta în Coș: închide mesajul, deschide Configurări sistem, apoi Confidențialitate și securitate, derulează în jos și alege Deschide oricum (pe macOS 12: Preferințe sistem, apoi Securitate și confidențialitate, apoi Deschide oricum), introdu parola Mac-ului dacă ți se cere și alege Deschide."
+      "mac": "Deschide imaginea de disc, trage aplicația în dosarul Aplicații și deschide-o de acolo. Prima dată macOS nu o deschide, iar mesajul poate chiar spune că aplicația este deteriorată. Nu o muta în Coș: închide mesajul, deschide Configurări sistem, apoi Confidențialitate și securitate, derulează în jos și alege Deschide oricum (pe macOS 12: Preferințe sistem, apoi Securitate și confidențialitate, apoi Deschide oricum), introdu parola Mac-ului dacă ți se cere și alege Deschide."
     },
     "checkFile": "Verifică fișierul",
     "checkText": "Fiecare fișier are o sumă de control SHA-256. Dacă fișierul descărcat are alta, descărcarea este deteriorată sau fișierul a fost modificat: nu-l instala. Ca să vezi suma de control a unui fișier, tastează Get-FileHash și numele fișierului în Windows PowerShell sau shasum -a 256 și numele fișierului în Terminal pe Mac. Nu contează dacă literele sunt mari sau mici.",

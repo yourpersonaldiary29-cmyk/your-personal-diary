@@ -5,6 +5,7 @@
   "languagesLabel": "Langue",
   "nav": {
     "label": "Menu du site",
+    "home": "Accueil",
     "about": "À propos de l’application",
     "terms": "Conditions d'utilisation",
     "faq": "Questions et réponses",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Pourquoi mon appareil m’avertit-il quand j’installe un fichier de ce site ?",
-        "a": "Parce que le fichier ne vient pas d’une boutique d’applications, et que les fichiers Windows et Mac ne sont pas encore signés avec un certificat d’éditeur. Windows peut afficher « Windows a protégé votre ordinateur » : choisissez Informations complémentaires, puis Exécuter quand même. macOS n’ouvre pas l’application la première fois et peut même indiquer qu’elle est endommagée : ne la placez pas dans la Corbeille, mais ouvrez Réglages Système, puis Confidentialité et sécurité (sous macOS 12 : Préférences Système, puis Sécurité et confidentialité), et choisissez Ouvrir quand même. Android vous demande d’autoriser votre navigateur ou votre gestionnaire de fichiers à installer des applications (sous Android 7 : Sources inconnues). La page [[downloads|Téléchargements]] donne les étapes pour chaque système, ainsi qu’une somme de contrôle SHA-256 pour chaque fichier, afin de vérifier que votre copie n’a pas été modifiée."
+        "a": "Parce que le fichier ne vient pas d’une boutique d’applications. Windows peut afficher « Windows a protégé votre ordinateur » : choisissez Informations complémentaires, puis Exécuter quand même. macOS n’ouvre pas l’application la première fois et peut même indiquer qu’elle est endommagée : ne la placez pas dans la Corbeille, mais ouvrez Réglages Système, puis Confidentialité et sécurité (sous macOS 12 : Préférences Système, puis Sécurité et confidentialité), et choisissez Ouvrir quand même. Android vous demande d’autoriser votre navigateur ou votre gestionnaire de fichiers à installer des applications (sous Android 7 : Sources inconnues). La page [[downloads|Téléchargements]] donne les étapes pour chaque système, ainsi qu’une somme de contrôle SHA-256 pour chaque fichier, afin de vérifier que votre copie n’a pas été modifiée."
       },
       {
         "q": "Comment passer à une nouvelle version ?",
@@ -253,9 +254,9 @@
       "mac": "Nécessite macOS 12.3 ou version ultérieure, sur un Mac avec puce Apple ou avec processeur Intel."
     },
     "install": {
-      "windows": "Ce fichier d’installation ne vient pas du Microsoft Store et n’est pas encore signé avec un certificat d’éditeur. Votre navigateur peut d’abord vous avertir que ce fichier n’est pas fréquemment téléchargé (choisissez de le conserver), et quand vous l’ouvrez, Windows peut afficher « Windows a protégé votre ordinateur » : choisissez Informations complémentaires, puis Exécuter quand même. L’installation vous demande votre langue et installe l’application pour votre propre compte Windows, sans mot de passe administrateur.",
+      "windows": "Ce fichier d’installation ne vient pas du Microsoft Store. Votre navigateur peut d’abord vous avertir que ce fichier n’est pas fréquemment téléchargé (choisissez de le conserver), et quand vous l’ouvrez, Windows peut afficher « Windows a protégé votre ordinateur » : choisissez Informations complémentaires, puis Exécuter quand même. L’installation vous demande votre langue et installe l’application pour votre propre compte Windows, sans mot de passe administrateur.",
       "android": "Ce fichier s’installe directement, sans passer par Google Play. Quand vous ouvrez le fichier téléchargé, Android vous demande d’autoriser votre navigateur ou votre gestionnaire de fichiers à installer des applications ; sous Android 7, ce réglage s’appelle Sources inconnues. Autorisez-le, revenez au fichier et choisissez Installer.",
-      "mac": "Ouvrez l’image disque, faites glisser l’application dans le dossier Applications et ouvrez-la depuis ce dossier. L’application n’est pas encore signée avec un certificat de développeur Apple : la première fois, macOS ne l’ouvre donc pas, et le message peut même indiquer que l’application est endommagée. Ne la placez pas dans la Corbeille : fermez le message, ouvrez Réglages Système, puis Confidentialité et sécurité, faites défiler vers le bas et choisissez Ouvrir quand même (sous macOS 12 : Préférences Système, puis Sécurité et confidentialité, puis Ouvrir quand même), saisissez le mot de passe de votre Mac si on vous le demande, et choisissez Ouvrir."
+      "mac": "Ouvrez l’image disque, faites glisser l’application dans le dossier Applications et ouvrez-la depuis ce dossier. La première fois, macOS ne l’ouvre pas, et le message peut même indiquer que l’application est endommagée. Ne la placez pas dans la Corbeille : fermez le message, ouvrez Réglages Système, puis Confidentialité et sécurité, faites défiler vers le bas et choisissez Ouvrir quand même (sous macOS 12 : Préférences Système, puis Sécurité et confidentialité, puis Ouvrir quand même), saisissez le mot de passe de votre Mac si on vous le demande, et choisissez Ouvrir."
     },
     "checkFile": "Vérifier le fichier",
     "checkText": "Chaque fichier a une somme de contrôle SHA-256. Si le fichier que vous avez téléchargé en a une autre, le téléchargement est endommagé ou le fichier a été modifié : ne l’installez pas. Pour voir la somme de contrôle d’un fichier, tapez Get-FileHash suivi du nom du fichier dans Windows PowerShell, ou shasum -a 256 suivi du nom du fichier dans le Terminal d’un Mac. Les majuscules et les minuscules sont considérées comme identiques.",

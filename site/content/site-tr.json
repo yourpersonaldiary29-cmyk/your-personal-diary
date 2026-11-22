@@ -5,6 +5,7 @@
   "languagesLabel": "Dil",
   "nav": {
     "label": "Site menüsü",
+    "home": "Ana sayfa",
     "about": "Uygulama hakkında",
     "terms": "Kullanım Koşulları",
     "faq": "Sorular ve yanıtlar",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Bu siteden bir dosya kurduğumda cihazım neden uyarı veriyor?",
-        "a": "Çünkü dosya bir uygulama mağazasından gelmiyor ve Windows ile Mac dosyaları henüz bir yayıncı sertifikasıyla imzalanmadı. Windows \"Windows bilgisayarınızı korudu\" mesajını gösterebilir: önce \"Ek bilgi\", sonra \"Yine de çalıştır\" seçeneğini seçin. macOS uygulamayı ilk seferde açmaz, hatta hasarlı olduğunu söyleyebilir: onu Çöp Sepeti'ne taşımayın; \"Sistem Ayarları\"nı, ardından \"Gizlilik ve Güvenlik\"i açın (macOS 12'de: \"Sistem Tercihleri\", ardından \"Güvenlik ve Gizlilik\") ve \"Yine de Aç\"ı seçin. Android, tarayıcınızın veya dosya yöneticinizin uygulama yüklemesine izin vermenizi ister (Android 7'de: \"Bilinmeyen kaynaklar\"). [[downloads|İndirmeler]] sayfasında her sistem için adımlar ve kopyanızın değişmediğini kontrol etmeniz için her dosyanın SHA-256 sağlama toplamı bulunur."
+        "a": "Çünkü dosya bir uygulama mağazasından gelmiyor. Windows \"Windows bilgisayarınızı korudu\" mesajını gösterebilir: önce \"Ek bilgi\", sonra \"Yine de çalıştır\" seçeneğini seçin. macOS uygulamayı ilk seferde açmaz, hatta hasarlı olduğunu söyleyebilir: onu Çöp Sepeti'ne taşımayın; \"Sistem Ayarları\"nı, ardından \"Gizlilik ve Güvenlik\"i açın (macOS 12'de: \"Sistem Tercihleri\", ardından \"Güvenlik ve Gizlilik\") ve \"Yine de Aç\"ı seçin. Android, tarayıcınızın veya dosya yöneticinizin uygulama yüklemesine izin vermenizi ister (Android 7'de: \"Bilinmeyen kaynaklar\"). [[downloads|İndirmeler]] sayfasında her sistem için adımlar ve kopyanızın değişmediğini kontrol etmeniz için her dosyanın SHA-256 sağlama toplamı bulunur."
       },
       {
         "q": "Yeni bir sürüme nasıl güncellerim?",
@@ -253,9 +254,9 @@
       "mac": "Apple çipli veya Intel işlemcili bir Mac'te macOS 12.3 veya üstü gerekir."
     },
     "install": {
-      "windows": "Bu kurulum dosyası Microsoft Store'dan gelmiyor ve henüz bir yayıncı sertifikasıyla imzalanmadı. Tarayıcınız önce bu dosyanın sık indirilmediği konusunda uyarabilir (dosyayı saklamayı seçin); dosyayı açtığınızda da Windows \"Windows bilgisayarınızı korudu\" mesajını gösterebilir: önce \"Ek bilgi\", sonra \"Yine de çalıştır\" seçeneğini seçin. Kurulum dilinizi sorar ve uygulamayı yönetici parolası gerekmeden kendi Windows hesabınız için kurar.",
+      "windows": "Bu kurulum dosyası Microsoft Store'dan gelmiyor. Tarayıcınız önce bu dosyanın sık indirilmediği konusunda uyarabilir (dosyayı saklamayı seçin); dosyayı açtığınızda da Windows \"Windows bilgisayarınızı korudu\" mesajını gösterebilir: önce \"Ek bilgi\", sonra \"Yine de çalıştır\" seçeneğini seçin. Kurulum dilinizi sorar ve uygulamayı yönetici parolası gerekmeden kendi Windows hesabınız için kurar.",
       "android": "Bu dosya Google Play üzerinden değil, doğrudan yüklenir. İndirilen dosyayı açtığınızda Android, tarayıcınızın veya dosya yöneticinizin uygulama yüklemesine izin vermenizi ister; Android 7'de bu ayarın adı \"Bilinmeyen kaynaklar\"dır. İzin verin, dosyaya geri dönün ve \"Yükle\" seçeneğini seçin.",
-      "mac": "Disk görüntüsünü açın, uygulamayı \"Uygulamalar\" klasörüne sürükleyin ve oradan açın. Uygulama henüz bir Apple geliştirici sertifikasıyla imzalanmadığı için macOS onu ilk seferde açmaz; mesaj, uygulamanın hasarlı olduğunu bile söyleyebilir. Onu Çöp Sepeti'ne taşımayın: mesajı kapatın, \"Sistem Ayarları\"nı ve ardından \"Gizlilik ve Güvenlik\"i açın, aşağı kaydırın ve \"Yine de Aç\"ı seçin (macOS 12'de: \"Sistem Tercihleri\", ardından \"Güvenlik ve Gizlilik\", ardından \"Yine de Aç\"), istenirse Mac parolanızı girin ve \"Aç\"ı seçin."
+      "mac": "Disk görüntüsünü açın, uygulamayı \"Uygulamalar\" klasörüne sürükleyin ve oradan açın. macOS onu ilk seferde açmaz; mesaj, uygulamanın hasarlı olduğunu bile söyleyebilir. Onu Çöp Sepeti'ne taşımayın: mesajı kapatın, \"Sistem Ayarları\"nı ve ardından \"Gizlilik ve Güvenlik\"i açın, aşağı kaydırın ve \"Yine de Aç\"ı seçin (macOS 12'de: \"Sistem Tercihleri\", ardından \"Güvenlik ve Gizlilik\", ardından \"Yine de Aç\"), istenirse Mac parolanızı girin ve \"Aç\"ı seçin."
     },
     "checkFile": "Dosyayı kontrol edin",
     "checkText": "Her dosyanın bir SHA-256 sağlama toplamı vardır. İndirdiğiniz dosyanınki farklıysa indirme hasarlıdır ya da dosya değiştirilmiştir: onu kurmayın. Bir dosyanın sağlama toplamını görmek için Windows PowerShell'de Get-FileHash ve dosya adını, Mac'te Terminal'de ise shasum -a 256 ve dosya adını yazın. Büyük ve küçük harfler aynı sayılır.",

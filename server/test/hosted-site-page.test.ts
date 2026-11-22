@@ -1,7 +1,8 @@
 /**
  * The public site of the app (docs/site-tasks/SITE.md, version 2) in the hosted image and on the hosted server.
- * scripts/site/build-site.mjs builds it from site/: seven pages in each of the 20 languages under /about/,
- * one style sheet, one script, the images and the installer files of the Downloads page. The site is
+ * scripts/site/build-site.mjs builds it from site/: eight pages in each of the 20 languages under /about/ (the
+ * home page, and since 2026-11-22 "About the app" as a page of its own at /about/app/), one style sheet, one
+ * script, the images and the installer files of the Downloads page. The site is
  * hosted-only, so scripts/hosted/stage-image.mjs writes it into the staged image at ui/about/ - next to the
  * web UI, never into public/ or dist/ - and the hosted composition serves ui/ with express.static BEFORE the
  * SPA fallback. The server adds POST /api/contact, where the form of every page posts (server/src/hosted/contact.ts,
@@ -10,13 +11,13 @@
  * or removed they are the built files byte for byte. This file proves:
  *
  *   staging (stage-image.mjs run as the deploy runs it, with a stand-in bundle and a small UI folder):
- *     (a) a tree with a UI holds ui/about/ - the 140 pages, site.css, site.js, the images and the installers
+ *     (a) a tree with a UI holds ui/about/ - the 160 pages, site.css, site.js, the images and the installers
  *         with the listed size and SHA-256 - and nothing of it anywhere else; --verify-only knows the site
  *         and notices a missing page, a missing image and an installer that is another file;
  *     (b) --no-ui stages no about/ at all;
  *     (c) a web UI that already has an "about" entry is refused.
  *   serving (the real site in a temporary UI folder, fictional publisher and host, TEST-NET client address):
- *     - every one of the 140 pages answers in its own language; a folder without its slash redirects to it;
+ *     - every one of the 160 pages answers in its own language; a folder without its slash redirects to it;
  *       there is no /about/en/; a language or page that does not exist falls back to the web client;
  *     - site.css and site.js are served as a style sheet and a script, the images as image/png, the icon as
  *       SVG - byte for byte, never cached forever;
@@ -165,7 +166,8 @@ describe('scripts/hosted/stage-image.mjs: the public site in the staged image', 
     fs.rmSync(path.join(about, 'img', 'de', 'desktop-home.png'));
     const hole = verify();
     expect(hole.status).toBe(1);
-    expect(hole.stderr).toContain('ui/about/img/de/desktop-home.png is missing (de/index.html refers to it)');
+    // The screens are on the About page of the language (the home page shows the first phone screen only).
+    expect(hole.stderr).toContain('ui/about/img/de/desktop-home.png is missing (de/app/index.html refers to it)');
     fs.rmSync(path.join(about, 'fr', 'downloads'), { recursive: true });
     expect(verify().stderr).toContain('ui/about/fr/downloads/index.html is missing');
     fs.writeFileSync(path.join(about, FILES_DIR, installers[0].file), 'another file');
@@ -255,7 +257,7 @@ describe('the public site on the hosted server', () => {
     );
   }
 
-  it('serves the 140 pages, each in its own language; a folder without its slash redirects; there is no /about/en/', async () => {
+  it('serves the 160 pages, each in its own language; a folder without its slash redirects; there is no /about/en/', async () => {
     const { get } = await boot();
     const bare = await get('/about');
     expect(bare.status).toBe(301);
@@ -273,7 +275,8 @@ describe('the public site on the hosted server', () => {
     expect(english.headers['x-content-type-options']).toBe('nosniff');
 
     expect(LOCALES).toHaveLength(20);
-    expect(built.pages.size).toBe(140);
+    expect(SITE_PAGES).toHaveLength(8);
+    expect(built.pages.size).toBe(160);
     for (const l of LOCALES) {
       for (const page of SITE_PAGES) {
         const url = `/about/${siteDir(page.id, l.code)}`;
@@ -285,8 +288,13 @@ describe('the public site on the hosted server', () => {
         expect(res.text, url).toContain(`<html lang="${l.code}" dir="${l.dir}">`);
       }
     }
-    // The addresses of SITE.md section 1, by their literal paths.
+    // The addresses of SITE.md section 1, by their literal paths. The home page starts with the logo and the name;
+    // "About the app" is a page of its own.
     for (const [url, mark] of [
+      ['/about/', '<p class="home-brand"><img class="home-icon" src="./img/icon.svg" width="96" height="96" alt=""><bdi lang="en" dir="ltr">Your Personal Diary</bdi></p>'],
+      ['/about/app/', '<h1>About the app</h1>'],
+      ['/about/app/', '<section id="features">'],
+      ['/about/he/app/', '<html lang="he" dir="rtl">'],
       ['/about/terms/', '<h1>Terms of Use - Your Personal Diary</h1>'],
       ['/about/faq/', '<h1>Questions and answers</h1>'],
       ['/about/privacy/', '<h1>Privacy Policy - Your Personal Diary</h1>'],
@@ -298,8 +306,14 @@ describe('the public site on the hosted server', () => {
     ]) {
       expect((await get(url)).text, url).toContain(mark);
     }
+    // The home page no longer holds what the About page shows, and the logo of every page leads to it.
+    expect(english.text).not.toContain('<section id="features">');
+    expect((await get('/about/app/')).text).toContain('<a class="brand" href="../">');
+    expect((await get('/about/he/app/')).text).toContain('<a class="brand" href="../">');
     for (const [url, location] of [
       ['/about/he', '/about/he/'],
+      ['/about/app', '/about/app/'],
+      ['/about/he/app', '/about/he/app/'],
       ['/about/terms', '/about/terms/'],
       ['/about/he/downloads', '/about/he/downloads/'],
       ['/about/contact/sent', '/about/contact/sent/'],
@@ -308,7 +322,7 @@ describe('the public site on the hosted server', () => {
       expect([url, res.status, res.headers.location]).toEqual([url, 301, location]);
     }
     // English has no folder of its own, and what does not exist is answered by the web client like any unknown path.
-    for (const url of ['/about/en/', '/about/xx/', '/about/he/nothing/', '/about/contact/']) {
+    for (const url of ['/about/en/', '/about/en/app/', '/about/xx/', '/about/he/nothing/', '/about/contact/']) {
       const res = await get(url);
       expect([url, res.status]).toEqual([url, 200]);
       expect(res.text, url).toContain('<div id="root">');
@@ -327,18 +341,28 @@ describe('the public site on the hosted server', () => {
     expect(script.headers['content-type']).toMatch(/^(?:text|application)\/javascript/);
     expect(bytes(script).toString('utf8')).toBe(fs.readFileSync(path.join(ROOT, 'site', 'site.js'), 'utf8'));
 
-    const page = (await get('/about/he/')).text;
-    const sources = [...page.matchAll(/<img[^>]* src="([^"]+)"/g)].map((m) => m[1]);
-    expect(sources).toHaveLength(7);
-    for (const src of new Set(sources)) {
-      expect(src).toMatch(/^\.\.\/img\/(?:icon\.svg|he\/[a-z-]+\.png)$/);
-      const url = new URL(src, `https://${HOST}/about/he/`).pathname;
-      const image = await get(url);
-      expect(image.status, url).toBe(200);
-      expect(image.headers['content-type'], url).toBe(url.endsWith('.svg') ? 'image/svg+xml' : 'image/png');
-      expect(image.headers['x-content-type-options'], url).toBe('nosniff');
-      expect(image.headers['cache-control'], url).toBe('no-cache');
+    // The images of the two pages that show the app: the home page (the logo of the header, the same icon large in
+    // the brand block, and the phone) and the About page (the logo and the five screens) - six files in all.
+    const served = new Set<string>();
+    for (const [base, count, pattern] of [
+      ['/about/he/', 3, /^\.\.\/img\/(?:icon\.svg|he\/phone-home\.png)$/],
+      ['/about/he/app/', 6, /^\.\.\/\.\.\/img\/(?:icon\.svg|he\/[a-z-]+\.png)$/],
+    ] as const) {
+      const page = (await get(base)).text;
+      const sources = [...page.matchAll(/<img[^>]* src="([^"]+)"/g)].map((m) => m[1]);
+      expect(sources, base).toHaveLength(count);
+      for (const src of new Set(sources)) {
+        expect(src, base).toMatch(pattern);
+        const url = new URL(src, `https://${HOST}${base}`).pathname;
+        const image = await get(url);
+        expect(image.status, url).toBe(200);
+        expect(image.headers['content-type'], url).toBe(url.endsWith('.svg') ? 'image/svg+xml' : 'image/png');
+        expect(image.headers['x-content-type-options'], url).toBe('nosniff');
+        expect(image.headers['cache-control'], url).toBe('no-cache');
+        served.add(url);
+      }
     }
+    expect([...served].sort()).toEqual(['/about/img/he/desktop-home.png', '/about/img/he/phone-entry.png', '/about/img/he/phone-habits.png', '/about/img/he/phone-home.png', '/about/img/he/phone-insights.png', '/about/img/icon.svg']);
     const phone = await get('/about/img/he/phone-home.png');
     expect((phone.body as Buffer).equals(fs.readFileSync(path.join(ROOT, 'play', 'screenshots', 'iw-IL', '01-home.png')))).toBe(true);
     const share = await get('/about/img/share.png');
@@ -396,7 +420,7 @@ describe('the public site on the hosted server', () => {
 
   it('the Content-Security-Policy the server sends allows a page: its style sheet, its script, its images and its form', async () => {
     const { get } = await boot();
-    for (const url of ['/about/', '/about/downloads/', '/about/he/faq/', '/about/terms/', '/about/contact/error/']) {
+    for (const url of ['/about/', '/about/app/', '/about/he/app/', '/about/downloads/', '/about/he/faq/', '/about/terms/', '/about/contact/error/']) {
       const res = await get(url);
       const csp = directives(res.headers['content-security-policy'] as string);
       // What a page needs: one style sheet, one script, images and an icon from its own origin, a form that

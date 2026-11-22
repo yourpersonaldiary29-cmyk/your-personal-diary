@@ -5,6 +5,7 @@
   "languagesLabel": "Idioma",
   "nav": {
     "label": "Menu do site",
+    "home": "Início",
     "about": "Sobre a aplicação",
     "terms": "Termos de utilização",
     "faq": "Perguntas e respostas",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Porque é que o meu dispositivo me avisa quando instalo um ficheiro deste site?",
-        "a": "Porque o ficheiro não vem de uma loja de aplicações, e os ficheiros para Windows e Mac ainda não estão assinados com um certificado de editor. O Windows pode mostrar «O Windows protegeu o seu PC»: escolha Mais informações e depois Executar mesmo assim. O macOS não abre a aplicação da primeira vez e pode até dizer que está danificada: não a mova para o Lixo, mas abra as Definições do Sistema, depois Privacidade e segurança (no macOS 12: Preferências do Sistema, depois Segurança e privacidade), e escolha Abrir mesmo assim. O Android pede-lhe que permita que o navegador ou o gestor de ficheiros instale aplicações (no Android 7: Fontes desconhecidas). A página [[downloads|Transferências]] tem os passos para cada sistema, e uma soma de verificação SHA-256 para cada ficheiro, para confirmar que a sua cópia não foi alterada."
+        "a": "Porque o ficheiro não vem de uma loja de aplicações. O Windows pode mostrar «O Windows protegeu o seu PC»: escolha Mais informações e depois Executar mesmo assim. O macOS não abre a aplicação da primeira vez e pode até dizer que está danificada: não a mova para o Lixo, mas abra as Definições do Sistema, depois Privacidade e segurança (no macOS 12: Preferências do Sistema, depois Segurança e privacidade), e escolha Abrir mesmo assim. O Android pede-lhe que permita que o navegador ou o gestor de ficheiros instale aplicações (no Android 7: Fontes desconhecidas). A página [[downloads|Transferências]] tem os passos para cada sistema, e uma soma de verificação SHA-256 para cada ficheiro, para confirmar que a sua cópia não foi alterada."
       },
       {
         "q": "Como atualizo para uma nova versão?",
@@ -253,9 +254,9 @@
       "mac": "Requer macOS 12.3 ou posterior, num Mac com chip Apple ou com processador Intel."
     },
     "install": {
-      "windows": "Este ficheiro de instalação não vem da Microsoft Store e ainda não está assinado com um certificado de editor. O seu navegador pode primeiro avisar que o ficheiro não é transferido com frequência (escolha mantê-lo), e quando o abrir, o Windows pode mostrar «O Windows protegeu o seu PC»: escolha Mais informações e depois Executar mesmo assim. A instalação pede o seu idioma e instala a aplicação para a sua própria conta do Windows, sem palavra-passe de administrador.",
+      "windows": "Este ficheiro de instalação não vem da Microsoft Store. O seu navegador pode primeiro avisar que o ficheiro não é transferido com frequência (escolha mantê-lo), e quando o abrir, o Windows pode mostrar «O Windows protegeu o seu PC»: escolha Mais informações e depois Executar mesmo assim. A instalação pede o seu idioma e instala a aplicação para a sua própria conta do Windows, sem palavra-passe de administrador.",
       "android": "Este ficheiro é instalado diretamente, não através do Google Play. Quando abrir o ficheiro transferido, o Android pede-lhe que permita que o navegador ou o gestor de ficheiros instale aplicações; no Android 7, esta definição chama-se Fontes desconhecidas. Permita-o, volte ao ficheiro e escolha Instalar.",
-      "mac": "Abra a imagem de disco, arraste a aplicação para a pasta Aplicações e abra-a a partir daí. A aplicação ainda não está assinada com um certificado de programador da Apple, por isso da primeira vez o macOS não a abre, e a mensagem pode até dizer que a aplicação está danificada. Não a mova para o Lixo: feche a mensagem, abra as Definições do Sistema, depois Privacidade e segurança, desloque para baixo e escolha Abrir mesmo assim (no macOS 12: Preferências do Sistema, depois Segurança e privacidade, depois Abrir mesmo assim), introduza a palavra-passe do Mac se lhe for pedida, e escolha Abrir."
+      "mac": "Abra a imagem de disco, arraste a aplicação para a pasta Aplicações e abra-a a partir daí. Da primeira vez o macOS não a abre, e a mensagem pode até dizer que a aplicação está danificada. Não a mova para o Lixo: feche a mensagem, abra as Definições do Sistema, depois Privacidade e segurança, desloque para baixo e escolha Abrir mesmo assim (no macOS 12: Preferências do Sistema, depois Segurança e privacidade, depois Abrir mesmo assim), introduza a palavra-passe do Mac se lhe for pedida, e escolha Abrir."
     },
     "checkFile": "Verificar o ficheiro",
     "checkText": "Cada ficheiro tem uma soma de verificação SHA-256. Se o ficheiro que transferiu tiver uma diferente, a transferência está danificada ou o ficheiro foi alterado: não o instale. Para ver a soma de verificação de um ficheiro, escreva Get-FileHash e o nome do ficheiro no Windows PowerShell, ou shasum -a 256 e o nome do ficheiro no Terminal de um Mac. Não importa se as letras estão em maiúsculas ou minúsculas.",

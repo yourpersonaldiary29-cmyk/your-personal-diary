@@ -5,6 +5,7 @@
   "languagesLabel": "Nyelv",
   "nav": {
     "label": "A webhely menüje",
+    "home": "Kezdőlap",
     "about": "Az alkalmazásról",
     "terms": "Felhasználási feltételek",
     "faq": "Kérdések és válaszok",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Miért figyelmeztet az eszközöm, amikor erről a webhelyről telepítek egy fájlt?",
-        "a": "Mert a fájl nem alkalmazásboltból származik, és a Windows- és Mac-fájlok még nincsenek kiadói tanúsítvánnyal aláírva. A Windows megjelenítheti „A Windows megvédte a számítógépet” üzenetet: válaszd a További információ, majd a Run anyway (Futtatás mindenképp) lehetőséget. A macOS első alkalommal nem nyitja meg az alkalmazást, és akár azt is írhatja, hogy sérült: ne helyezd a Kukába, hanem nyisd meg a Rendszerbeállításokat, majd az Adatvédelem és biztonság részt (macOS 12 alatt: Rendszerbeállítások, majd Biztonság és adatvédelem), és válaszd az Open Anyway (Megnyitás mindenképp) lehetőséget. Az Android kéri, hogy engedélyezd a böngésződnek vagy a fájlkezelődnek az alkalmazások telepítését (Android 7 alatt: Ismeretlen források). A [[downloads|Letöltések]] oldalon megtalálod az egyes rendszerek lépéseit, valamint minden fájl SHA-256 ellenőrzőösszegét, amellyel ellenőrizheted, hogy a példányod változatlan."
+        "a": "Mert a fájl nem alkalmazásboltból származik. A Windows megjelenítheti „A Windows megvédte a számítógépet” üzenetet: válaszd a További információ, majd a Run anyway (Futtatás mindenképp) lehetőséget. A macOS első alkalommal nem nyitja meg az alkalmazást, és akár azt is írhatja, hogy sérült: ne helyezd a Kukába, hanem nyisd meg a Rendszerbeállításokat, majd az Adatvédelem és biztonság részt (macOS 12 alatt: Rendszerbeállítások, majd Biztonság és adatvédelem), és válaszd az Open Anyway (Megnyitás mindenképp) lehetőséget. Az Android kéri, hogy engedélyezd a böngésződnek vagy a fájlkezelődnek az alkalmazások telepítését (Android 7 alatt: Ismeretlen források). A [[downloads|Letöltések]] oldalon megtalálod az egyes rendszerek lépéseit, valamint minden fájl SHA-256 ellenőrzőösszegét, amellyel ellenőrizheted, hogy a példányod változatlan."
       },
       {
         "q": "Hogyan frissíthetek új verzióra?",
@@ -253,9 +254,9 @@
       "mac": "macOS 12.3 vagy újabb szükséges, Apple chipes vagy Intel processzoros Macen."
     },
     "install": {
-      "windows": "Ez a telepítőfájl nem a Microsoft Store-ból származik, és még nincs kiadói tanúsítvánnyal aláírva. A böngésződ először figyelmeztethet, hogy a fájlt nem gyakran töltik le (válaszd a megtartását), és amikor megnyitod, a Windows megjelenítheti „A Windows megvédte a számítógépet” üzenetet: válaszd a További információ, majd a Run anyway (Futtatás mindenképp) lehetőséget. A telepítő megkérdezi a nyelvet, és a saját Windows-fiókodhoz telepíti az alkalmazást, rendszergazdai jelszó nélkül.",
+      "windows": "Ez a telepítőfájl nem a Microsoft Store-ból származik. A böngésződ először figyelmeztethet, hogy a fájlt nem gyakran töltik le (válaszd a megtartását), és amikor megnyitod, a Windows megjelenítheti „A Windows megvédte a számítógépet” üzenetet: válaszd a További információ, majd a Run anyway (Futtatás mindenképp) lehetőséget. A telepítő megkérdezi a nyelvet, és a saját Windows-fiókodhoz telepíti az alkalmazást, rendszergazdai jelszó nélkül.",
       "android": "Ez a fájl közvetlenül települ, nem a Google Playen keresztül. Amikor megnyitod a letöltött fájlt, az Android kéri, hogy engedélyezd a böngésződnek vagy a fájlkezelődnek az alkalmazások telepítését; Android 7 alatt ennek a beállításnak Ismeretlen források a neve. Engedélyezd, térj vissza a fájlhoz, és válaszd a Telepítés lehetőséget.",
-      "mac": "Nyisd meg a lemezképet, húzd az alkalmazást az Alkalmazások mappába, és onnan nyisd meg. Az alkalmazás még nincs Apple fejlesztői tanúsítvánnyal aláírva, ezért a macOS első alkalommal nem nyitja meg, és az üzenet akár azt is írhatja, hogy az alkalmazás sérült. Ne helyezd a Kukába: zárd be az üzenetet, nyisd meg a Rendszerbeállításokat, majd az Adatvédelem és biztonság részt, görgess le, és válaszd az Open Anyway (Megnyitás mindenképp) lehetőséget (macOS 12 alatt: Rendszerbeállítások, majd Biztonság és adatvédelem, majd Open Anyway), add meg a Mac jelszavát, ha kéri, és válaszd a Megnyitás lehetőséget."
+      "mac": "Nyisd meg a lemezképet, húzd az alkalmazást az Alkalmazások mappába, és onnan nyisd meg. A macOS első alkalommal nem nyitja meg, és az üzenet akár azt is írhatja, hogy az alkalmazás sérült. Ne helyezd a Kukába: zárd be az üzenetet, nyisd meg a Rendszerbeállításokat, majd az Adatvédelem és biztonság részt, görgess le, és válaszd az Open Anyway (Megnyitás mindenképp) lehetőséget (macOS 12 alatt: Rendszerbeállítások, majd Biztonság és adatvédelem, majd Open Anyway), add meg a Mac jelszavát, ha kéri, és válaszd a Megnyitás lehetőséget."
     },
     "checkFile": "A fájl ellenőrzése",
     "checkText": "Minden fájlnak van SHA-256 ellenőrzőösszege. Ha a letöltött fájlé eltér, a letöltés sérült, vagy a fájlt módosították: ne telepítsd. Egy fájl ellenőrzőösszegét úgy láthatod, hogy a Windows PowerShell ablakában beírod a Get-FileHash parancsot és a fájl nevét, Macen pedig a Terminal alkalmazásban a shasum -a 256 parancsot és a fájl nevét. A kis- és nagybetűk között nincs különbség.",

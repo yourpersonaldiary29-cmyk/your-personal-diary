@@ -1,8 +1,9 @@
 # site/ - the public web site of the app
 
-A small static site for a visitor who has never seen Your Personal Diary: what it is, the Terms of Use, questions
-and answers, the Privacy Policy, the installation files, and a way to write to us. Seven pages in each of the app's
-20 languages, English by default. The decisions behind it: `docs/site-tasks/SITE.md` (version 2).
+A small static site for a visitor who has never seen Your Personal Diary: a home page with the logo, what the app
+is, the Terms of Use, questions and answers, the Privacy Policy, the installation files, and a way to write to us.
+Eight pages in each of the app's 20 languages, English by default. The decisions behind it:
+`docs/site-tasks/SITE.md` (version 2, and the owner's two decisions of 2026-11-22).
 
 ## Pages and addresses
 
@@ -11,7 +12,8 @@ no folder of its own; every other language has one (`he`, `ar`, ...). There is n
 
 | Page | English | Another language |
 | --- | --- | --- |
-| About the app (the home page) | `/about/` | `/about/he/` |
+| Home (the home page) | `/about/` | `/about/he/` |
+| About the app | `/about/app/` | `/about/he/app/` |
 | Terms of Use | `/about/terms/` | `/about/he/terms/` |
 | Questions and answers (30) | `/about/faq/` | `/about/he/faq/` |
 | Privacy Policy | `/about/privacy/` | `/about/he/privacy/` |
@@ -19,11 +21,19 @@ no folder of its own; every other language has one (`he`, `ar`, ...). There is n
 | "Your message was sent" | `/about/contact/sent/` | `/about/he/contact/sent/` |
 | "Your message was not sent" | `/about/contact/error/` | `/about/he/contact/error/` |
 
-Shared by all 140 pages: `/about/site.css`, `/about/site.js`, `/about/img/**`, `/about/files/**` (the installers).
+That is 8 x 20 = 160 pages. Shared by all of them: `/about/site.css`, `/about/site.js`, `/about/img/**`,
+`/about/files/**` (the installers).
 
-Every page has the same frame: skip link, header (logo and name), menu (the current page is marked), the page's own
-content, the contact block with the form (not on the two result pages), and the footer with the language chooser and
-the copyright line.
+The home page is a page of its own since 2026-11-22 (the owner asked for a page at the beginning with the logo,
+which a click on the logo opens): the app icon, large, and the name, then the heading, the lead, three actions (the
+web app, Downloads, About the app) and the phone. "About the app", which was also the home page until then, shows
+what you can do, what it looks like and your privacy. Both are built from the same texts (`hero`, `features`,
+`screens`, `privacy`); the list of pages is `SITE_PAGES` in the builder, the menu is `MENU`.
+
+Every page has the same frame: skip link, header (logo and name: one link to the home page of the language), menu
+(Home, About the app, Terms of Use, Questions and answers, Privacy Policy, Downloads, Contact us; the current page
+is marked), the page's own content, the contact block with the form (not on the two result pages), and the footer
+with the language chooser and the copyright line.
 
 **Every address inside the site is relative** (`../terms/`, `./he/`, `../../site.css`), computed from the depth of the
 page. The same tree therefore works under `/about/` today and at the root of the owner's domain later. Absolute
@@ -45,7 +55,7 @@ site - the form's action, `/api/contact`.
 | The publisher name, the contact e-mail, the minimum age | `legal/settings.json` (one place for them) |
 | The two legal documents | `legal/terms/`, `legal/privacy/` - rendered with the functions of `scripts/legal/build-pages.mjs`, never a second copy |
 | The colours | the app's own theme tokens, `src/styles/tokens.css` (light and dark), read at build time |
-| The images | `play/screenshots/` (phone), `store/screenshots/` (desktop), `play/graphics/feature-1024x500.png` (sharing image), `public/favicon.svg` (logo) - copied as they are |
+| The images | `play/screenshots/` (phone), `store/screenshots/` (desktop), `play/graphics/feature-1024x500.png` (sharing image), `public/favicon.svg` (the logo of the header, and large on the home page) - copied as they are |
 | Tests | `scripts/site/*.test.mjs`, `server/test/hosted-site-page.test.ts` |
 
 The site is **hosted-only**. It is never written into `public/`, so it is in no installer and in no app bundle.
@@ -66,6 +76,12 @@ Markdown, no line breaks.
 - `faq.items` has exactly 30 questions, in six groups of 7, 7, 5, 5, 4 and 2 (`faq.groups`).
 - Every text must be true of the app as it is: no medical promise, no superlative, no "end-to-end" (one question
   asks it, and the answer is No), no claim that a store has published the app.
+- **No text tells a visitor that a file is not signed** (the owner's rule of 2026-11-22) - nor that it is
+  uncertified, not verified, not notarized, or from an unidentified developer or publisher. The installing notes
+  (`downloads.install.*`) and the answer about the warnings (`faq.items[28].a`) say where the file does not come
+  from, name the warning the system shows and give the steps past it. A test keeps the words for "signed" and
+  "certificate" out of these texts in all 20 languages (`UNSIGNED_WORDS` in `scripts/site/build-site.test.mjs`).
+- `nav.home` is the usual word of the language for the home page of a web site, as a menu item ("Home", "דף הבית").
 
 ### Change a text
 
@@ -119,8 +135,9 @@ The builder refuses to build - and so `stage-image.mjs` refuses to stage - while
 `site/downloads/` or its size or SHA-256 differs from the list. Because the files are not committed, a fresh clone
 has none: copy them in again with `add-download.mjs ... --replace` before building, staging or running the tests.
 
-If the notes under a table stop being true (for example once the setup file is signed), change
-`downloads.install.*` and the question about installing in the content files.
+If the notes under a table stop being true (for example once a system no longer shows the warning they describe),
+change `downloads.install.*` and the question about installing in the content files - in all 20 languages, and
+without telling the visitor whether a file is signed (the rule above).
 
 ### Files the owner publishes in the Server card
 

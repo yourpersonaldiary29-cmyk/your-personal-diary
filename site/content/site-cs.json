@@ -5,6 +5,7 @@
   "languagesLabel": "Jazyk",
   "nav": {
     "label": "Nabídka webu",
+    "home": "Úvod",
     "about": "O aplikaci",
     "terms": "Podmínky používání",
     "faq": "Otázky a odpovědi",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Proč mě zařízení varuje, když instaluji soubor z tohoto webu?",
-        "a": "Protože soubor nepochází z obchodu s aplikacemi a soubory pro Windows a Mac zatím nejsou podepsané certifikátem vydavatele. Windows může zobrazit „Systém Windows ochránil váš počítač“: zvol Další informace a potom Přesto spustit. macOS aplikaci napoprvé neotevře a může dokonce hlásit, že je poškozená: nepřesouvej ji do Koše, ale otevři Nastavení systému, potom Soukromí a zabezpečení (v macOS 12: Předvolby systému, potom Zabezpečení a soukromí) a zvol Přesto otevřít. Android tě požádá, abys prohlížeči nebo správci souborů povolil instalovat aplikace (v Androidu 7: Neznámé zdroje). Na stránce [[downloads|Ke stažení]] jsou postupy pro každý systém a ke každému souboru kontrolní součet SHA-256, kterým ověříš, že tvá kopie není změněná."
+        "a": "Protože soubor nepochází z obchodu s aplikacemi. Windows může zobrazit „Systém Windows ochránil váš počítač“: zvol Další informace a potom Přesto spustit. macOS aplikaci napoprvé neotevře a může dokonce hlásit, že je poškozená: nepřesouvej ji do Koše, ale otevři Nastavení systému, potom Soukromí a zabezpečení (v macOS 12: Předvolby systému, potom Zabezpečení a soukromí) a zvol Přesto otevřít. Android tě požádá, abys prohlížeči nebo správci souborů povolil instalovat aplikace (v Androidu 7: Neznámé zdroje). Na stránce [[downloads|Ke stažení]] jsou postupy pro každý systém a ke každému souboru kontrolní součet SHA-256, kterým ověříš, že tvá kopie není změněná."
       },
       {
         "q": "Jak aktualizuji na novou verzi?",
@@ -253,9 +254,9 @@
       "mac": "Vyžaduje macOS 12.3 nebo novější, na Macu s čipem Apple nebo s procesorem Intel."
     },
     "install": {
-      "windows": "Tento instalační soubor nepochází z Microsoft Store a zatím není podepsaný certifikátem vydavatele. Prohlížeč může nejdřív upozornit, že se soubor běžně nestahuje (zvol, že si ho chceš ponechat), a když ho otevřeš, Windows může zobrazit „Systém Windows ochránil váš počítač“: zvol Další informace a potom Přesto spustit. Instalátor se zeptá na jazyk a nainstaluje aplikaci pro tvůj vlastní účet Windows, bez hesla správce.",
+      "windows": "Tento instalační soubor nepochází z Microsoft Store. Prohlížeč může nejdřív upozornit, že se soubor běžně nestahuje (zvol, že si ho chceš ponechat), a když ho otevřeš, Windows může zobrazit „Systém Windows ochránil váš počítač“: zvol Další informace a potom Přesto spustit. Instalátor se zeptá na jazyk a nainstaluje aplikaci pro tvůj vlastní účet Windows, bez hesla správce.",
       "android": "Tento soubor se instaluje přímo, ne přes Google Play. Když stažený soubor otevřeš, Android tě požádá, abys prohlížeči nebo správci souborů povolil instalovat aplikace; v Androidu 7 se toto nastavení jmenuje Neznámé zdroje. Povol to, vrať se k souboru a zvol Instalovat.",
-      "mac": "Otevři obraz disku, přetáhni aplikaci do složky Aplikace a otevři ji odtamtud. Aplikace zatím není podepsaná certifikátem vývojáře Apple, takže ji macOS napoprvé neotevře a zpráva může dokonce hlásit, že je aplikace poškozená. Nepřesouvej ji do Koše: zavři zprávu, otevři Nastavení systému, potom Soukromí a zabezpečení, sjeď dolů a zvol Přesto otevřít (v macOS 12: Předvolby systému, potom Zabezpečení a soukromí, potom Přesto otevřít), zadej heslo k Macu, pokud se zobrazí výzva, a zvol Otevřít."
+      "mac": "Otevři obraz disku, přetáhni aplikaci do složky Aplikace a otevři ji odtamtud. Napoprvé ji macOS neotevře a zpráva může dokonce hlásit, že je aplikace poškozená. Nepřesouvej ji do Koše: zavři zprávu, otevři Nastavení systému, potom Soukromí a zabezpečení, sjeď dolů a zvol Přesto otevřít (v macOS 12: Předvolby systému, potom Zabezpečení a soukromí, potom Přesto otevřít), zadej heslo k Macu, pokud se zobrazí výzva, a zvol Otevřít."
     },
     "checkFile": "Ověř soubor",
     "checkText": "Každý soubor má kontrolní součet SHA-256. Pokud má stažený soubor jiný, stahování je poškozené nebo byl soubor změněn: neinstaluj ho. Kontrolní součet souboru zjistíš tak, že ve Windows PowerShell napíšeš Get-FileHash a název souboru, nebo v aplikaci Terminal na Macu shasum -a 256 a název souboru. Na velikosti písmen nezáleží.",

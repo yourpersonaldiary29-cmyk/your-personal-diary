@@ -5,6 +5,7 @@
   "languagesLabel": "Language",
   "nav": {
     "label": "Site menu",
+    "home": "Home",
     "about": "About the app",
     "terms": "Terms of Use",
     "faq": "Questions and answers",
@@ -219,7 +220,7 @@
       },
       {
         "q": "Why does my device warn me when I install a file from this site?",
-        "a": "Because the file is not from an app store, and the Windows and Mac files are not signed with a publisher certificate yet. Windows may show \"Windows protected your PC\": choose More info, then Run anyway. macOS does not open the app the first time and may even say that it is damaged: do not move it to the Bin (Trash), but open System Settings, then Privacy & Security (on macOS 12: System Preferences, then Security & Privacy), and choose Open Anyway. Android asks you to allow your browser or file manager to install apps (on Android 7: Unknown sources). The [[downloads|Downloads]] page has the steps for each system, and a SHA-256 checksum for every file to check that your copy is unchanged."
+        "a": "Because the file is not from an app store. Windows may show \"Windows protected your PC\": choose More info, then Run anyway. macOS does not open the app the first time and may even say that it is damaged: do not move it to the Bin (Trash), but open System Settings, then Privacy & Security (on macOS 12: System Preferences, then Security & Privacy), and choose Open Anyway. Android asks you to allow your browser or file manager to install apps (on Android 7: Unknown sources). The [[downloads|Downloads]] page has the steps for each system, and a SHA-256 checksum for every file to check that your copy is unchanged."
       },
       {
         "q": "How do I update to a new version?",
@@ -253,9 +254,9 @@
       "mac": "Needs macOS 12.3 or later, on a Mac with Apple silicon or with an Intel processor."
     },
     "install": {
-      "windows": "This setup file does not come from Microsoft Store and is not signed with a publisher certificate yet. Your browser may first warn that the file is not commonly downloaded (choose to keep it), and when you open it, Windows may show \"Windows protected your PC\": choose More info, then Run anyway. The setup asks for your language and installs the app for your own Windows account, without an administrator password.",
+      "windows": "This setup file does not come from Microsoft Store. Your browser may first warn that the file is not commonly downloaded (choose to keep it), and when you open it, Windows may show \"Windows protected your PC\": choose More info, then Run anyway. The setup asks for your language and installs the app for your own Windows account, without an administrator password.",
       "android": "This file is installed directly, not through Google Play. When you open the downloaded file, Android asks you to allow your browser or file manager to install apps; on Android 7 this setting is called Unknown sources. Allow it, go back to the file and choose Install.",
-      "mac": "Open the disk image, drag the app to the Applications folder and open it from there. The app is not signed with an Apple developer certificate yet, so the first time macOS does not open it, and the message may even say that the app is damaged. Do not move it to the Bin (Trash): close the message, open System Settings, then Privacy & Security, scroll down and choose Open Anyway (on macOS 12: System Preferences, then Security & Privacy, then Open Anyway), enter your Mac password if asked, and choose Open."
+      "mac": "Open the disk image, drag the app to the Applications folder and open it from there. The first time, macOS does not open it, and the message may even say that the app is damaged. Do not move it to the Bin (Trash): close the message, open System Settings, then Privacy & Security, scroll down and choose Open Anyway (on macOS 12: System Preferences, then Security & Privacy, then Open Anyway), enter your Mac password if asked, and choose Open."
     },
     "checkFile": "Check the file",
     "checkText": "Each file has a SHA-256 checksum. If the file you downloaded has a different one, the download is damaged or the file was changed: do not install it. To see the checksum of a file, type Get-FileHash and the file name in Windows PowerShell, or shasum -a 256 and the file name in the Terminal of a Mac. Capital and small letters count as the same.",
