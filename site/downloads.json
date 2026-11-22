@@ -1,11 +1,11 @@
 {
   "windows": [
-    { "version": "1.0.0", "date": "2026-11-13", "file": "YourPersonalDiary-1.0.0-windows-x64-setup.exe", "bytes": 2817354, "sha256": "6b545975a8b73d94bc7d36fa588456a2aadf6f53a654d9cc833f517f14ede21b" }
+    { "version": "1.0.1", "date": "2026-11-19", "file": "YourPersonalDiary-1.0.1-windows-x64-setup.exe", "bytes": 2895787, "sha256": "8c53363f53cc0677611771f0fb9d6718cdd6d149d35b17ade167ed8af6a33dbc" }
   ],
   "android": [
     { "version": "1.0.0", "date": "2026-11-13", "file": "YourPersonalDiary-1.0.0-android.apk", "bytes": 6189146, "sha256": "74b3ef06f3bbe59333caa51d347244a55af4b8c695271a29ea1312add06a08f9" }
   ],
   "mac": [
-    { "version": "1.0.0", "date": "2026-11-13", "file": "YourPersonalDiary-1.0.0-mac-universal.dmg", "bytes": 6497114, "sha256": "9d7364d5021a518d480355707d25c24fef0c7e3bb5ab0a81305e5145c9e326a8" }
+    { "version": "1.0.1", "date": "2026-11-19", "file": "YourPersonalDiary-1.0.1-mac-universal.dmg", "bytes": 6667519, "sha256": "52b64a011a0f13477029ccde49863b3b348cd00524cf355b0561f8e202da08a9" }
   ]
 }

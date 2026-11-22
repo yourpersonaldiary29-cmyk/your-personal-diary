@@ -131,11 +131,13 @@ describe('facade enabled (sections 4.3 and 4.6)', () => {
   });
 
   it('offline: the form keeps working and reads come from the cache with the overlay', async () => {
-    server.seedEntry(DANA, { title: 'Earlier', date: '2026-10-22', tags: ['walk'] });
+    // The day before today, not a fixed date: the warm-up lists the entries of the last 30 days only, so with the
+    // fixed 22 October 2026 this test began to fail on 22 November 2026.
+    const today = new Date().toISOString().slice(0, 10);
+    server.seedEntry(DANA, { title: 'Earlier', date: addDays(today, -1), tags: ['walk'] });
     server.seedHabit(DANA, { name: 'Water', target: 2 });
     const { engine } = await bootDevice({ server, rememberMe: true, app: true });
     await waitFor(() => engine.cache.bytes > 0 && server.calls('/api/entries/day/').length > 0, 6000);
-    const today = new Date().toISOString().slice(0, 10);
     server.mode = 'down';
 
     const created = await api.entries.create(entryInput('Offline', { date: today }));
@@ -198,12 +200,15 @@ describe('facade enabled (sections 4.3 and 4.6)', () => {
   });
 
   it('a day never cached is synthesised from cached entries and marked partial', async () => {
-    server.seedEntry(DANA, { title: 'Known', date: '2026-10-22', mood: 4 });
+    // Yesterday, not a fixed date: the warm-up caches the days of the entries of the last 30 days only (a fixed
+    // 22 October 2026 fell out of that window on 22 November 2026).
+    const known = addDays(todayIso(), -1);
+    server.seedEntry(DANA, { title: 'Known', date: known, mood: 4 });
     const { engine } = await bootDevice({ server, rememberMe: true, app: true });
-    await waitForAsync(async () => (await engine.cache.get('/api/entries/day/2026-10-22')) !== null, 6000);
-    await engine.cache.delete('/api/entries/day/2026-10-22');
+    await waitForAsync(async () => (await engine.cache.get(`/api/entries/day/${known}`)) !== null, 6000);
+    await engine.cache.delete(`/api/entries/day/${known}`);
     server.mode = 'down';
-    const day = await api.entries.day('2026-10-22');
+    const day = await api.entries.day(known);
     expect(day.entries.map((e) => e.title)).toEqual(['Known']);
     expect(day.moodAvg).toBe(4);
     expect(isPartialView(day)).toBe(true);

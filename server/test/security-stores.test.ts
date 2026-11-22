@@ -267,7 +267,9 @@ describe('SessionStore', () => {
     store.touch(session);
     expect(session.lastSeenAt).toBe(now.toISOString());
     store.close();
-    expect(makeStore(dir).store.resolve(token)?.lastSeenAt).toBe(now.toISOString());
+    // Reopened with the SAME clock: with the real one this 90-day remember-me session of 8 September 2026 would
+    // be dropped as expired from 7 December 2026 on, and the test would fail for a reason it does not test.
+    expect(makeStore(dir, { now: () => now }).store.resolve(token)?.lastSeenAt).toBe(now.toISOString());
   });
 
   it('survives a corrupt sessions file (users just log in again)', () => {

@@ -554,7 +554,7 @@ C:\Users\AVI\.fly\bin\flyctl.exe ssh console -a yourpersonaldiary -C 'node /app/
 תעבורה יוצאת – זניחה ליומן.
 **ייצור ≈ 11–11.5 $ לחודש מאז 14.11.2026 (עם דיסק של 20 GB ≈ 6.5–7 $; עם הדיסק הראשון של 3 GB ≈ 4–5 $). ניסיון ≈ 4–5 $ כל עוד הוא רץ.**
 
-- פעם בחודש: `flyctl dashboard -a yourpersonaldiary` ← Billing/Usage. חשבונית מעל 10 $ = משהו לא צפוי (מכונה שנייה? דיסק גדל? ניסיון רץ סתם?).
+- פעם בחודש: `flyctl dashboard -a yourpersonaldiary` ← Billing/Usage. חשבונית מעל 12 $ כשאפליקציית הניסיון כבויה, או מעל 17 $ כשהיא רצה = משהו לא צפוי (מכונה שנייה? דיסק גדל?).
 - ניסיון שלא בשימוש: `flyctl scale count 0 -a yourpersonaldiary-staging` (נשאר רק הדיסק, סנטים). להחזיר: `.\scripts\hosted\deploy.ps1 -Staging`.
   לסיים לגמרי: `flyctl apps destroy yourpersonaldiary-staging` (מוחק גם את הדיסק והצילומים שלו).
 - לוודא שאין מכונות מיותרות: `flyctl machine list -a <app>` – שורה אחת.

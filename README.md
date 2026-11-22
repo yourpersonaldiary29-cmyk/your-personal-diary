@@ -156,7 +156,7 @@
   * [`ANDROID-PHONE-TEST.he.md`](docs/ANDROID-PHONE-TEST.he.md) - התקנה בטלפון (Wireless debugging) ומה לבדוק;
   * [`PLAY-RELEASE.he.md`](docs/PLAY-RELEASE.he.md) ו-[`STORE-RELEASE.he.md`](docs/STORE-RELEASE.he.md) - פרסום בחנויות (סעיף 6).
 * **מדיניות הפרטיות**: `legal/` (סעיף 2.3). **ערכות החנויות**: `play/` ו-`store/` (סעיף 5.5).
-* **קובצי ההפצה נבנים בתוך הפרויקט** (סעיף 5.5): Windows ב-`src-tauri/target/release/bundle/` (`nsis/`, `msi/`, `msix/`), Android ב-`android/app/build/outputs/` (`apk/debug/app-debug.apk`, `bundle/release/app-release.aab`).
+* **קובצי ההפצה נבנים בתוך הפרויקט** (סעיף 5.5): Windows ב-`src-tauri/target/release/bundle/` (`nsis/`, `msi/`, `msix/`), Android ב-`android/app/build/outputs/` (`apk/release/app-release.apk` - קובץ ההתקנה החתום, מגרסה 1.0.1; `apk/debug/app-debug.apk` - גרסת בדיקה; `bundle/release/app-release.aab` - ל-Google Play).
 
 ### 4.2 גיבויים
 
@@ -178,7 +178,7 @@
 
 ### 4.4 עלויות
 
-כ-11-11.5 $ לחודש לייצור (מכונה של 512 MB, דיסק, צילומים); אפליקציית הניסיון עולה כ-4-5 $ כל עוד היא רצה. מ-14.11.2026 הדיסק של הייצור הוא 50 GB (כ-7.5 $ לחודש מתוך הסכום; דיסק אפשר רק להגדיל, לא להקטין), וכרטיס **"שרת"** מראה לכמה משתמשים הוא מספיק (השורה "מספיק עבור": כ-6,800 משתמשים שכותבים כל יום, ולפחות 670 גם אם כל יומן יגיע למכסה של 10 MB – כל חשבון תופס בערך פי 6 מהיומן שלו, כי שני ארכיוני השרת שומרים עוד עותקים שלו; תקרת 5000 החשבונות נמוכה עכשיו מההערכה, ולכן היא שעוצרת הרשמות חדשות). פירוט ומעקב: [ספר התפעול, פרק 12](docs/HOSTED-RUNBOOK.he.md#12-מעקב-עלויות).
+כ-11-11.5 $ לחודש לייצור (מכונה של 512 MB, דיסק, צילומים); אפליקציית הניסיון עולה כ-4-5 $ כל עוד היא רצה. מ-14.11.2026 הדיסק של הייצור הוא 50 GB (כ-7.5 $ לחודש מתוך הסכום; דיסק אפשר רק להגדיל, לא להקטין), וכרטיס **"שרת"** מראה לכמה משתמשים הוא מספיק (השורה "מספיק עבור": כ-6,800 משתמשים שכותבים כל יום, ולפחות 670 גם אם כל יומן יגיע למכסה של 10 MB – כל חשבון תופס בערך פי 6 מהיומן שלו, כי שני ארכיוני השרת שומרים עוד עותקים שלו; תקרת 8000 החשבונות גבוהה עכשיו מההערכה, ולכן הכרטיס מציג על כך הערה: לפני שמספר החשבונות מתקרב להערכה מגדילים את הדיסק). פירוט ומעקב: [ספר התפעול, פרק 12](docs/HOSTED-RUNBOOK.he.md#12-מעקב-עלויות).
 
 ### 4.5 פעולות של הבעלים
 
@@ -270,7 +270,7 @@ npx tauri build --bundles nsis
 ```
 
 * `beforeBuildCommand` הוא `npm run build` (הממשק ל-`dist/`; כתובת השרת נאפית מ-`src/config/server-default.json`), ואחריו קומפילציית Rust **בלי** `local-server`.
-* התוצר: `src-tauri/target/release/bundle/nsis/Your Personal Diary_0.1.0_x64-setup.exe` (כ-2.6 MB) - התקנה למשתמש הנוכחי, בלי הרשאות מנהל. **המתקין אינו כולל שרת**: `tauri.conf.json` לא מגדיר `externalBin` ולא `resources` (בדיקת Rust אוכפת זאת), ולכן קובץ התוכנה היחיד שהוא מתקין הוא `your-personal-diary.exe` (לצד המסיר ו-`install-locale.txt`). אם WebView2 חסר, המתקין מוריד את ה-bootstrapper של Microsoft (`downloadBootstrapper`).
+* התוצר: `src-tauri/target/release/bundle/nsis/Your Personal Diary_1.0.1_x64-setup.exe` (כ-2.8 MB) - התקנה למשתמש הנוכחי, בלי הרשאות מנהל. **המתקין אינו כולל שרת**: `tauri.conf.json` לא מגדיר `externalBin` ולא `resources` (בדיקת Rust אוכפת זאת), ולכן קובץ התוכנה היחיד שהוא מתקין הוא `your-personal-diary.exe` (לצד המסיר ו-`install-locale.txt`). אם WebView2 חסר, המתקין מוריד את ה-bootstrapper של Microsoft (`downloadBootstrapper`).
 * `npx tauri build --bundles nsis msi` מוסיף את `.../bundle/msi/Your Personal Diary_0.1.0_x64_he-IL.msi` - בעברית בלבד ובלי בחירת שפה. `npm run tauri:build` בונה את שניהם, ומריץ לפני כן גם את `server:build` ואת `sidecar:prepare` (הכנה למצב המקומי; התוצרים שלהם לא נארזים).
 * **שפת המתקין**: בתחילת ההתקנה נפתח בורר עם 20 השפות, כל אחת בשמה שלה. מסומנת מראש שפת Windows כשהיא אחת מהן, אחרת אנגלית; בהתקנה חוזרת - הבחירה הקודמת. המתקין כולו מוצג בשפה הזו, ו-`src-tauri/nsis/hooks.nsh` כותב את קוד השפה ל-`install-locale.txt` ליד התוכנה (ההסרה מוחקת אותו). האפליקציה מחילה אותו **פעם אחת**: מסכי הכניסה וההרשמה בשפה הזו, וחשבון חדש מתחיל בה; חשבונות קיימים שומרים על השפה שלהם, ועם "זכור אותי" שפת המתקין ממתינה למסך הכניסה הראשון שאחרי יציאה. הודעות ש-Tauri לא מתרגם, או מתרגם עם שגיאות, נמצאות ב-`src-tauri/nsis/<Language>.nsh` - שמורות ב-UTF-8 **בלי BOM** (Tauri מוסיף BOM בעצמו).
 * התקנה מעל גרסה ישנה שכללה את השרת המקומי מוחקת את `diary-server.exe` ואת קובצי `server\` שהיא השאירה, לפי שמם בלבד (`MPD_REMOVE_LEGACY_SERVER` ב-`hooks.nsh`, גם בהסרה).
@@ -280,7 +280,7 @@ npx tauri build --bundles nsis
 **חבילת Microsoft Store (MSIX)** - צריך את `store/identity.json`: עותק של `store/identity.example.json` עם שלושת הערכים שמופיעים ב-Partner Center (Product identity). הקובץ עוד לא קיים, והבנייה מסרבת בלעדיו או עם ערכי הדוגמה. מיד אחרי `npm run tauri:build`:
 
 ```bash
-node scripts/store/build-msix.mjs             # src-tauri/target/release/bundle/msix/YourPersonalDiary_1.0.0.0_x64.msix
+node scripts/store/build-msix.mjs             # src-tauri/target/release/bundle/msix/YourPersonalDiary_1.0.1.0_x64.msix
 node scripts/store/check-msix.mjs --release   # חייב להסתיים ב-PASSED
 ```
 
@@ -298,7 +298,7 @@ npm run android:bump           # versionCode + 1 (android/app/version.properties
 npm run android:sync           # cap sync android
 ```
 
-* התוצרים: `android/app/build/outputs/apk/debug/app-debug.apk`, ו-`android/app/build/outputs/bundle/release/app-release.aab` (עם `mapping.txt`). חתימת ההעלאה ל-Play: [`docs/PLAY-RELEASE.he.md`](docs/PLAY-RELEASE.he.md), חלקים א-ב; בלי קובץ החתימה החיצוני ה-AAB נבנה לא חתום. ההתקנה בטלפון: [`docs/ANDROID-PHONE-TEST.he.md`](docs/ANDROID-PHONE-TEST.he.md).
+* התוצרים: `android/app/build/outputs/apk/debug/app-debug.apk` (גרסת בדיקה), ו-`android/app/build/outputs/bundle/release/app-release.aab` (עם `mapping.txt`). מגרסה 1.0.1 קובץ ההתקנה שמופץ הוא החתום, `android/app/build/outputs/apk/release/app-release.apk`: אחרי `npm run android:aab` מריצים ב-PowerShell `. scripts\android\env.ps1; Invoke-Gradle assembleRelease`. חתימת ההעלאה ל-Play: [`docs/PLAY-RELEASE.he.md`](docs/PLAY-RELEASE.he.md), חלקים א-ב; בלי קובץ החתימה החיצוני ה-AAB נבנה לא חתום. ההתקנה בטלפון: [`docs/ANDROID-PHONE-TEST.he.md`](docs/ANDROID-PHONE-TEST.he.md).
 * הפרויקט הנייטיבי: Capacitor 8.5.2, Gradle 8.14.3, Android Gradle Plugin 8.13.0, JDK 21; `minSdk 24`, `compileSdk` / `targetSdk 36`. המזהה `app.yourpersonaldiary` (קבוע אחרי ההעלאה הראשונה ל-Play) מוגדר ב-`android/app/build.gradle`, וה-namespace של הקוד נשאר `com.mydiary.app`. `versionName` נלקח מ-`package.json`, ו-`versionCode` מ-`android/app/version.properties`.
 * המניפסט: `allowBackup=false` (היומן והעותק לא עולים לגיבוי בענן ולא עוברים בהעברת מכשיר), בלי cleartext, 20 שפות ב-`localeConfig`, ורק ההרשאות `INTERNET`, `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED` ו-`USE_BIOMETRIC`.
 
@@ -353,7 +353,7 @@ npm run android:sync           # cap sync android
 
 **Mac ו-iPhone** (התוכנית: [`docs/APPLE-PLAN.md`](docs/APPLE-PLAN.md)):
 * **אפליקציית ה-Mac** נבנית במחשב ה-Mac של הבעלים, קובץ אחד ל-Intel ול-Apple Silicon (`scripts/mac/release.sh`). היום היא חתומה רק חתימה מקומית (ad-hoc), ולכן מחשבי Mac אחרים חוסמים אותה. כדי להפיץ אותה צריך תעודת Developer ID מאפל ([`docs/MAC-RELEASE.he.md`](docs/MAC-RELEASE.he.md)).
-* **אפליקציית ה-iPhone** מוכנה בקוד ([`scripts/ios/README.he.md`](scripts/ios/README.he.md)) ועוד לא נבנתה. הבנייה דורשת Xcode 26, ו-Xcode 26 דורש macOS חדש יותר מזה שמותקן היום במחשב ה-Mac.
+* **אפליקציית ה-iPhone** נבנתה ונפתחה בסימולטור במחשב ה-Mac של הבעלים ב-12.11.2026 (macOS 27.2.1, Xcode 27.2; [`scripts/ios/README.he.md`](scripts/ios/README.he.md)). היא עוד לא רצה על iPhone אמיתי: לזה צריך את חשבון האפל של הבעלים.
 * **ערכת ה-App Store** מוכנה ב-[`appstore/`](appstore/README.he.md):
   * טקסטים ב-19 השפות ש-App Store תומכת בהן;
   * צילומי מסך של iPhone ושל Mac;
