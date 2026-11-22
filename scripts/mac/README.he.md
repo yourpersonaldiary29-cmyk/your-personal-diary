@@ -42,6 +42,8 @@ caffeinate -i npx tauri build --bundles app --target universal-apple-darwin
 
 (הבנייה הישנה, ל-Apple silicon בלבד - `caffeinate -i npx tauri build --bundles app`, תוצאה ב-`src-tauri/target/release/bundle/macos/` - עדיין עובדת ומהירה יותר, ומתאימה לבדיקות מקומיות. **שימו לב:** מה שנמצא שם היום הוא בנייה 3 הישנה - גרסה 0.1.0 מ-7.11.2026 - עד שבונים אותה מחדש; לא מתקינים ממנה.) לוקח 1.5 עד 3 דקות כשכבר נבנה פעם אחת (`caffeinate` שומר שה-Mac לא יירדם באמצע); בנייה אוניברסלית ראשונה לוקחת יותר (8.11.2026: ראו `docs/MAC-RELEASE.he.md`). להפצה - DMG, חתימה ו-Notarization - משתמשים בפקודה האחת `bash scripts/mac/release.sh`, שמוסברת ב-`docs/MAC-RELEASE.he.md`.
 
+**עדכון 22.11.2026:** תיקיית הבנייה `src-tauri/target` נמחקה מה-Mac כדי לפנות מקום (4.9 GB), לבקשתך. עד שבונים שוב (למעלה), אין שם אפליקציה בנויה; ה-DMG של גרסה 1.0.1 נמצא בתיקייה `~/Developer/Your Personal Diary - installers`. הבנייה הראשונה אחרי המחיקה ארוכה יותר, כי היא מתחילה מאפס.
+
 **ההתקנה ל-Applications** (עושים יחד איתך). הדרך הפשוטה: לפתוח את קובץ ה-DMG ולגרור את האפליקציה ל-Applications (`docs/MAC-RELEASE.he.md` סעיף 5.1). מ-Terminal - קודם סוגרים את האפליקציה (Cmd+Q), ובודקים מה עומד להיות מותקן:
 
 ```bash
