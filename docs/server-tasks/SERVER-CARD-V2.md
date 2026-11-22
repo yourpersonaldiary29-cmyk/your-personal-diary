@@ -85,19 +85,31 @@ pattern of `add-download.mjs` (`YourPersonalDiary-<version>-windows-x64-setup.ex
 ### B1. The key - created only by the owner
 
 * A Fly.io **deploy token** for the app `yourpersonaldiary`, **attenuated** with macaroon caveats so that it can read
-  the app, read and write its one volume (extend, snapshots) and control its one machine (restart) - and can delete
-  nothing. A last caveat `IfPresent` `{"ifs": [Commands [], Mutations {"mutations": []}], "else": "rwcC"}` refuses every
+  the app, read and write the app's volumes - it has one - (extend, snapshots) and control its one machine (restart) -
+  and can delete nothing. (Until 2026-11-22 the Volumes caveat named the one volume's id. Fly refused such a key with
+  HTTP 403 for "list volumes" and "list snapshots" of that very volume - the Machines API names the volume by its id
+  only for reading and extending it - so the setup script stopped at its first check and stored nothing. Checked on
+  2026-11-22 with temporary deploy tokens, revoked since: with the empty id - every volume of the app - all reads
+  pass, "extend to the same size" is refused as invalid (400) with `rw` and as unauthorized (403) with `r`, and
+  "create snapshot" passes the key check - Fly answered 412 "an on-demand snapshot is pending for this volume",
+  because the snapshot made ten minutes earlier (answer 200, with a token limited to the app with `rw` and no Volumes
+  caveat) was still being made; a limit to the volume's internal number or to `*` is refused everywhere.) A last caveat `IfPresent` `{"ifs": [Commands [], Mutations {"mutations": []}], "else": "rwcC"}` refuses every
   command run in the machine (the Machines API exec) and every GraphQL change (an SSH login's certificate and
   WireGuard peer are GraphQL mutations): in `flyio/caveats.go` an empty Commands list or Mutations list allows none, and
-  an operation that names neither falls to `else`. This follows Fly's published source; it is not tested against Fly
-  itself. Caveat shapes (superfly/macaroon: `flyio/caveats.go`, `resset/action.go`, `resset/if_present.go`,
+  an operation that names neither falls to `else`. This last caveat follows Fly's published source; it is not tested
+  against Fly itself (the checks send no exec and no mutation; with it in place every read, the extend check and the
+  snapshot request still pass). Caveat shapes (superfly/macaroon: `flyio/caveats.go`, `resset/action.go`, `resset/if_present.go`,
   `flyio/examples/README.md`): a JSON list of `{ "type": ..., "body": ... }`; `Apps` `{"apps":{"<numeric app id>":"<mask>"}}`;
-  `Volumes` `{"volumes":{"<volume id>":"<mask>"}}`; `Machines` `{"machines":{"<machine id>":"<mask>"}}`;
+  `Volumes` `{"volumes":{"":"<mask>"}}` (the empty id is the zero id of a resource set: every volume - of the one app
+  the token is limited to); `Machines` `{"machines":{"<machine id>":"<mask>"}}`;
   `IfPresent` `{"ifs": <caveat set>, "else": "<mask>"}` (applies a resource caveat only to operations that name that
   kind of resource - without it, an operation that names no volume fails a Volumes caveat). Mask letters: `r` read,
   `w` write, `c` create, `d` delete, `C` control (start, stop, restart). Which letters extend and snapshot need is not
-  documented - the setup script finds out safely (below). The numeric app ID is the app's internal database ID (find
-  how flyctl shows it, for example `flyctl apps list --json` or `flyctl status --json`).
+  documented - on 2026-11-22 `rw` was enough for both, and the setup script gives the volumes no more: with the
+  permission for every volume of the app, `c` could mean a new volume. Should Fly need another letter one day, the
+  script stops at the refused check and says so - it does not widen the key by itself. The numeric app ID is
+  the app's internal database ID: flyctl 0.5.12 does not show it in `flyctl apps list --json`, so the script reads it
+  from the deploy token's own caveats (`flyctl tokens debug`, in memory only).
 * Stored as the Fly secret `DIARY_FLY_API_TOKEN`. **Only the owner creates and stores it**, by running
   `scripts/hosted/set-disk-key.ps1` in his own PowerShell window: it creates the deploy token (named "Server card disk
   button", valid 5 years), attenuates it with the caveats, imports it with `flyctl secrets import` (staged, so that

@@ -1,7 +1,10 @@
 /**
  * scripts/hosted/set-disk-key.ps1 - what can be checked without Fly.io (docs/server-tasks/SERVER-CARD-V2.md B1):
- *   - the caveats it gives the key: a superfly/macaroon caveat set for the one app, disk and machine - and
- *     no "d" (delete) or "*" anywhere; a mask with "d" is refused;
+ *   - the caveats it gives the key: a superfly/macaroon caveat set for the one app, its disks (never the id of one
+ *     disk: Fly refused such a key on 2026-11-22) and the one machine - and no "d" (delete) or "*" anywhere; a
+ *     mask with "d" is refused;
+ *   - the checks of the limited key against a fake Fly: what stops them, and that a snapshot which is already
+ *     being made counts as a passed snapshot check;
  *   - how it reads flyctl's JSON (the machine and its disk, the app's number) and Fly's answers;
  *   - the Authorization header rule, the token line of flyctl, and the hiding of tokens in flyctl's messages;
  *   - its own guard: only GET / POST / PUT to the app's volumes and machines - no delete, no restart;
@@ -68,15 +71,19 @@ const NO_COMMAND = {
   },
 };
 
-test('the caveats: the app, then only this disk and this machine, everything else read only, no command - never a delete', { skip }, () => {
-  const withApp = JSON.parse(ps(`New-DiskKeyCaveats -AppId '1234567' -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask 'rw'`));
+test('the caveats: the app, then the disks of the app and only this machine, everything else read only, no command - never a delete', { skip }, () => {
+  const withAppText = ps(`New-DiskKeyCaveats -AppId '1234567' -MachineId '${MACHINE}' -VolumeMask 'rw'`);
+  const withApp = JSON.parse(withAppText);
   assert.deepEqual(withApp, [
     { type: 'Apps', body: { apps: { 1234567: 'rwcC' } } },
     {
       type: 'IfPresent',
       body: {
         ifs: [
-          { type: 'Volumes', body: { volumes: { [VOLUME]: 'rw' } } },
+          // The empty id: every disk - of the one app the token is limited to. Fly's Machines API names the disk
+          // by its own id only when it reads or enlarges it: a key limited to that id was refused (HTTP 403) for
+          // "list the disks" and "list the snapshots" on 2026-11-22, and the owner's runs stopped at the first check.
+          { type: 'Volumes', body: { volumes: { '': 'rw' } } },
           { type: 'Machines', body: { machines: { [MACHINE]: 'rC' } } },
         ],
         else: 'r',
@@ -85,11 +92,14 @@ test('the caveats: the app, then only this disk and this machine, everything els
     NO_COMMAND,
   ]);
   // Without the app's number: the two IfPresent caveats alone (the deploy token itself is limited to the app).
-  const withoutApp = JSON.parse(ps(`New-DiskKeyCaveats -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask 'rwc'`));
+  const withoutApp = JSON.parse(ps(`New-DiskKeyCaveats -MachineId '${MACHINE}' -VolumeMask 'rw'`));
   assert.equal(Array.isArray(withoutApp), true);
   assert.deepEqual(withoutApp.map((c) => c.type), ['IfPresent', 'IfPresent']);
-  assert.deepEqual(withoutApp[0].body.ifs[0], { type: 'Volumes', body: { volumes: { [VOLUME]: 'rwc' } } });
+  assert.deepEqual(withoutApp[0].body.ifs[0], { type: 'Volumes', body: { volumes: { '': 'rw' } } });
   assert.deepEqual(withoutApp[1], NO_COMMAND);
+  // No disk id anywhere in the caveats, and the function takes none any more: an old call fails, it is not ignored.
+  assert.equal(withAppText.includes('vol_'), false);
+  assert.equal(ps(`try { [void](New-DiskKeyCaveats -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask 'rw'); 'given' } catch { 'refused' }`), 'refused');
   for (const caveats of [withApp, withoutApp]) {
     const masks = masksOf(caveats);
     assert.ok(masks.length >= 3);
@@ -98,17 +108,19 @@ test('the caveats: the app, then only this disk and this machine, everything els
   // Every mask the script may ever use, and a refusal for d and *.
   assert.deepEqual(
     JSON.parse(ps('ConvertTo-Json -Compress -InputObject @($VolumeMasks + @($AppMask, $MachineMask, $ElseMask, $NoCommandElseMask))')),
-    ['rw', 'rwc', 'rwcC', 'rC', 'r', 'rwcC'],
+    // The disks get read and write only - never c: with the permission for every disk of the app, "create" could
+    // mean a new disk. The script does not widen the key by itself when Fly refuses a check.
+    ['rw', 'rwcC', 'rC', 'r', 'rwcC'],
   );
   const refused = ps(
     ["'rwd'", "'d'", "'*'", "'rwcdC'", "'R'", "''"]
-      .map((mask) => `try { [void](New-DiskKeyCaveats -VolumeId '${VOLUME}' -MachineId '${MACHINE}' -VolumeMask ${mask}); 'given' } catch { 'refused' }`)
+      .map((mask) => `try { [void](New-DiskKeyCaveats -MachineId '${MACHINE}' -VolumeMask ${mask}); 'given' } catch { 'refused' }`)
       .join('; '),
   );
   assert.deepEqual(refused.split(/\r?\n/), ['refused', 'refused', 'refused', 'refused', 'refused', 'refused']);
   // Ids that could change the meaning of the caveats are refused too.
   const badIds = ps(
-    [`-VolumeId 'vol_1/x' -MachineId '${MACHINE}'`, `-VolumeId '${VOLUME}' -MachineId '../m'`, `-AppId '12a' -VolumeId '${VOLUME}' -MachineId '${MACHINE}'`]
+    ["-MachineId 'm/1'", "-MachineId '../m'", `-AppId '12a' -MachineId '${MACHINE}'`]
       .map((args) => `try { [void](New-DiskKeyCaveats ${args} -VolumeMask 'rw'); 'given' } catch { 'refused' }`)
       .join('; '),
   );
@@ -226,6 +238,61 @@ test('its own guard: only GET, POST and PUT to the volumes and machines of the a
   assert.deepEqual(sent.split(/\r?\n/), bodies.map(() => 'refused'));
 });
 
+test("the checks of the limited key against a fake Fly: what stops them, and a snapshot that is already being made (Fly's answers of 2026-11-22)", { skip }, () => {
+  const APP = 'diary-test-app';
+  const DISK = `/apps/${APP}/volumes/${VOLUME}`;
+  const UNAUTHORIZED = [403, '{"error":"unauthorized"}'];
+  // What Fly answers to "make a snapshot" while the snapshot before it is still being made (word for word).
+  const PENDING = [412, '{"error":"failed_precondition: An on-demand snapshot is pending for this volume. Retry the snapshot request after it finishes."}'];
+  const cases = [
+    ['every check passes', {}],
+    ['the list of the disks is refused', { [`GET /apps/${APP}/volumes`]: UNAUTHORIZED }],
+    ['the list of the snapshots is refused', { [`GET ${DISK}/snapshots`]: UNAUTHORIZED }],
+    ['enlarging is refused', { [`PUT ${DISK}/extend`]: UNAUTHORIZED }],
+    ['Fly accepts the same size', { [`PUT ${DISK}/extend`]: [200, '{"needs_restart":false}'] }],
+    ['a snapshot is already being made', { [`POST ${DISK}/snapshots`]: PENDING }],
+    ['412 for another reason', { [`POST ${DISK}/snapshots`]: [412, '{"error":"failed_precondition: the volume is not attached"}'] }],
+    ['the snapshot is refused', { [`POST ${DISK}/snapshots`]: UNAUTHORIZED }],
+    ['a pending text with another status', { [`POST ${DISK}/snapshots`]: [409, PENDING[1]] }],
+  ];
+  const answer = ([status, body]) => `[pscustomobject]@{ Status = ${status}; Body = ${psString(body)} }`;
+  const table = (overrides) => `@{ ${Object.entries(overrides).map(([request, a]) => `'${request}' = ${answer(a)}`).join('; ')} }`;
+  // The fake Fly: it records every request and answers from a table; the disk reports 50 GB, and "enlarge to 50"
+  // is refused as invalid - as the real one does - unless a case says otherwise.
+  const fake = [
+    '$script:Calls = New-Object System.Collections.ArrayList',
+    '$script:Canned = @{}',
+    "function Invoke-FlyApi { param([string]$Method, [string]$Path, [string]$Token, [string]$Body = '') [void]$script:Calls.Add((\"$Method $Path $Body\").Trim()); $request = \"$Method $Path\"; if ($script:Canned.ContainsKey($request)) { return $script:Canned[$request] }; return [pscustomobject]@{ Status = 200; Body = '[]' } }",
+    `function Invoke-Case($Overrides) { $script:Calls.Clear(); $script:Canned = @{ 'GET ${DISK}' = ${answer([200, `{"id":"${VOLUME}","size_gb":50}`])}; 'PUT ${DISK}/extend' = ${answer([400, '{"error":"Invalid volume size - Specified volume size must be greater than 50"}'])} }; foreach ($request in $Overrides.Keys) { $script:Canned[$request] = $Overrides[$request] }; $result = Test-DiskKey -Token 'FlyV1 fm2_fictional' -App '${APP}' -Target ([pscustomobject]@{ MachineId = '${MACHINE}'; VolumeId = '${VOLUME}'; SizeGb = 50 }); return [pscustomobject]@{ Result = $result; Calls = @($script:Calls.ToArray()) } }`,
+  ].join('; ');
+  const results = JSON.parse(ps(`${fake}; ConvertTo-Json -Compress -Depth 6 -InputObject @(${cases.map(([, overrides]) => `(Invoke-Case ${table(overrides)})`).join(', ')})`));
+  const by = Object.fromEntries(cases.map(([name], i) => [name, results[i]]));
+  const all = [`GET /apps/${APP}/volumes`, `GET ${DISK}`, `GET ${DISK}/snapshots`, `GET /apps/${APP}/machines/${MACHINE}`, `PUT ${DISK}/extend {"size_gb":50}`, `POST ${DISK}/snapshots`];
+
+  // The six requests, in this order, and nothing else; the "enlarge" check carries the size the disk already has.
+  assert.deepEqual(by['every check passes'].Calls, all);
+  assert.deepEqual(by['every check passes'].Result, { Ok: true, Step: '', Verdict: 'ok', Status: 200, SameSizeAccepted: false, SnapshotPending: false });
+  // What stopped the owner's runs of 2026-11-19: the very first check - and nothing is asked after a refusal.
+  assert.deepEqual(by['the list of the disks is refused'], { Result: { Ok: false, Step: 'list-disks', Verdict: 'unauthorized', Status: 403 }, Calls: all.slice(0, 1) });
+  assert.deepEqual(by['the list of the snapshots is refused'], { Result: { Ok: false, Step: 'list-snapshots', Verdict: 'unauthorized', Status: 403 }, Calls: all.slice(0, 3) });
+  assert.deepEqual(by['enlarging is refused'], { Result: { Ok: false, Step: 'extend', Verdict: 'unauthorized', Status: 403 }, Calls: all.slice(0, 5) });
+  assert.equal(by['Fly accepts the same size'].Result.Ok, true);
+  assert.equal(by['Fly accepts the same size'].Result.SameSizeAccepted, true);
+  // A snapshot that is already being made: Fly accepted the key and makes no second one - the check passes, and says so.
+  assert.deepEqual(by['a snapshot is already being made'], { Result: { Ok: true, Step: '', Verdict: 'ok', Status: 412, SameSizeAccepted: false, SnapshotPending: true }, Calls: all });
+  // Nothing else counts as that: not a 412 for another reason, not the same words with another status, not a refusal.
+  assert.deepEqual(by['412 for another reason'].Result, { Ok: false, Step: 'snapshot', Verdict: 'invalid', Status: 412 });
+  assert.deepEqual(by['a pending text with another status'].Result, { Ok: false, Step: 'snapshot', Verdict: 'invalid', Status: 409 });
+  assert.deepEqual(by['the snapshot is refused'].Result, { Ok: false, Step: 'snapshot', Verdict: 'unauthorized', Status: 403 });
+  assert.deepEqual(
+    ps(`Test-SnapshotPending 412 ${psString(PENDING[1])}; Test-SnapshotPending 412 ''; Test-SnapshotPending 200 ${psString(PENDING[1])}; Test-SnapshotPending 403 ${psString(PENDING[1])}`).split(/\r?\n/),
+    ['True', 'False', 'False', 'False'],
+  );
+  // The run tells the owner which of the two happened, and that the button needs the backup copy to finish first.
+  assert.match(source, /if \(\$snapshotPending\) \{ Say 'A backup copy \(snapshot\) of the disk is being made at Fly right now, so the check started no second one/);
+  assert.match(source, /Say 'Before you use the button for the first time, wait about 20 minutes: the backup copy of the check is still being made/);
+});
+
 test('-DryRun prints the plan, calls nothing and exits 0 (flyctl does not exist here)', { skip }, () => {
   const result = spawnSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', script, '-DryRun', '-FlyctlPath', 'C:\\does-not-exist\\flyctl.exe'], { encoding: 'utf8', timeout: 120000 });
   const out = `${result.stdout}\n${result.stderr}`;
@@ -234,6 +301,8 @@ test('-DryRun prints the plan, calls nothing and exits 0 (flyctl does not exist 
   // Every run's key has its own name: the time it was made, so the owner can tell the keys apart when revoking.
   assert.match(out, /tokens create deploy --app yourpersonaldiary --name "Server card disk button \d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC" --expiry 43800h/);
   assert.match(out, /tokens attenuate --file/);
+  assert.match(out, /IfPresent \[Volumes <every disk of the app> 'rw', Machines <machine id> 'rC'\], else 'r'/);
+  assert.doesNotMatch(out, /if Fly needs it/);
   assert.match(out, /PUT \.\.\.\/extend with the size the disk already has/);
   assert.match(out, /Never a delete/);
   assert.match(out, /secrets import --app yourpersonaldiary \[--stage\]/);

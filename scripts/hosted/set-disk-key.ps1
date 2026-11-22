@@ -12,17 +12,22 @@
     2. It creates a deploy token for the app, valid 5 years, named "Server card disk button" with the time
        it was made (UTC), for example "Server card disk button 2026-11-18 14:03 UTC".
     3. It limits that token (flyctl tokens attenuate, macaroon caveats) so that it can only read the app;
-       read the one disk, make backup copies (snapshots) of it, enlarge it and change its settings ("write");
-       and read the one machine and start, stop or restart it ("control"). It cannot delete anything, it
-       cannot create a machine or another disk, and it cannot run a command in the machine or make any
-       change through Fly's GraphQL API (that is how flyctl gets an SSH login).
+       read the app's disks (it has one), make backup copies (snapshots) of a disk, enlarge it and change
+       its settings ("write"); and read the one machine and start, stop or restart it ("control"). It
+       cannot delete anything, it cannot create a machine or another disk, and it cannot run a command in
+       the machine or make any change through Fly's GraphQL API (that is how flyctl gets an SSH login).
+       The limit is "the disks of this app", not the id of the one disk: Fly does not name the disk by
+       that id when it lists the disks, lists a disk's snapshots or makes a snapshot, and refused a key
+       limited to the id there (found on 2026-11-22 with temporary tokens, revoked since).
     4. It checks the limited key against the Fly Machines API (https://api.machines.dev) with safe requests
        only: it reads the disk, its snapshots and the machine; it asks to "enlarge" the disk to the size it
        already has - Fly must refuse that as invalid, not as unauthorized, which proves the permission
-       without changing anything; and it makes one snapshot (harmless). It never sends a delete. Which
-       letters Fly needs for enlarging and for snapshots is not documented: the checks start with the
-       narrowest disk permission and widen it once. When Fly refuses a permission, the script says which
-       one and stops - then nothing is stored.
+       without changing anything; and it makes one snapshot (harmless; when a snapshot of the disk is
+       already being made, Fly makes no second one and says so - an answer it gives after it accepted
+       the key, so it counts). It never sends a delete. Which letters Fly needs for enlarging and for
+       snapshots is not documented; on 2026-11-22 read and write were enough for both, and the script
+       gives the disks no more than that: "create" would let the key make a new disk. When Fly refuses
+       a permission, the script says which one and stops - then nothing is stored.
     5. It stores the key with "flyctl secrets import" (on standard input): for the next update of the
        server (staged), or at once - then the server restarts and the diary is away for about a minute.
 
@@ -96,8 +101,11 @@ $ElseMask = 'r'
 # Mutations list allow none (flyio/caveats.go). Every other operation passes this caveat with any permission but
 # d - the caveats before it narrow it.
 $NoCommandElseMask = 'rwcC'
-# The one disk, narrowest first: the checks keep the first one that passes.
-$VolumeMasks = @('rw', 'rwc')
+# The disks of the app: read and write - what enlarging a disk and making a snapshot needed on 2026-11-22. Never c:
+# with the permission for every disk of the app (see New-DiskKeyCaveats) "create" could mean a new disk. A list,
+# narrowest first, of which the checks keep the first that passes: should Fly ever need another letter, the script
+# stops and says which check was refused - somebody then decides, the script does not widen the key by itself.
+$VolumeMasks = @('rw')
 $Http = $null
 
 function Say([string]$Message) { Write-Host "[disk-key] $Message" }
@@ -154,12 +162,19 @@ function Assert-NoDelete([string]$Mask) {
 }
 
 # The caveats of the limited key as JSON (a superfly/macaroon caveat set): the app (when its number is known),
-# then - for every operation that names a volume or a machine - only this disk and this machine; every other
-# operation may only read; and no operation may run a command in the machine or be a GraphQL change.
+# then - for every operation that names a volume or a machine - the disks of the app with the disk permission
+# and only this machine; every other operation may only read; and no operation may run a command in the machine
+# or be a GraphQL change.
+# The disks: the empty id, which in a macaroon resource set stands for every resource of that kind (the zero id
+# of superfly/macaroon's resset) - here every disk of the one app the token is limited to. Not the id of the one
+# disk: Fly's Machines API names the disk by that id only when it reads or enlarges it; for "list the disks",
+# "list the snapshots" and "make a snapshot" it names something else, and a key limited to the id was refused
+# there with HTTP 403 (checked on 2026-11-22 with temporary tokens; a limit to the disk's internal number or to
+# "*" was refused everywhere). The disk permission never holds c or d, so the key can neither create a disk nor
+# delete one.
 function New-DiskKeyCaveats {
-  param([string]$AppId = '', [Parameter(Mandatory = $true)][string]$VolumeId, [Parameter(Mandatory = $true)][string]$MachineId, [Parameter(Mandatory = $true)][string]$VolumeMask)
+  param([string]$AppId = '', [Parameter(Mandatory = $true)][string]$MachineId, [Parameter(Mandatory = $true)][string]$VolumeMask)
   foreach ($mask in @($AppMask, $MachineMask, $ElseMask, $NoCommandElseMask, $VolumeMask)) { Assert-NoDelete $mask }
-  if ($VolumeId -notmatch '^[A-Za-z0-9_]{1,64}\z') { throw 'the disk id is not valid' }
   if ($MachineId -notmatch '^[A-Za-z0-9_]{1,64}\z') { throw 'the machine id is not valid' }
   $caveats = New-Object System.Collections.ArrayList
   if ($AppId) {
@@ -167,7 +182,7 @@ function New-DiskKeyCaveats {
     [void]$caveats.Add([ordered]@{ 'type' = 'Apps'; 'body' = [ordered]@{ 'apps' = [ordered]@{ $AppId = $AppMask } } })
   }
   $ifs = @(
-    [ordered]@{ 'type' = 'Volumes'; 'body' = [ordered]@{ 'volumes' = [ordered]@{ $VolumeId = $VolumeMask } } },
+    [ordered]@{ 'type' = 'Volumes'; 'body' = [ordered]@{ 'volumes' = [ordered]@{ '' = $VolumeMask } } },
     [ordered]@{ 'type' = 'Machines'; 'body' = [ordered]@{ 'machines' = [ordered]@{ $MachineId = $MachineMask } } }
   )
   [void]$caveats.Add([ordered]@{ 'type' = 'IfPresent'; 'body' = [ordered]@{ 'ifs' = $ifs; 'else' = $ElseMask } })
@@ -192,6 +207,12 @@ function Get-ProbeVerdict([int]$Status, [string]$Body = '') {
   if ($Status -ge 500) { return 'server-error' }
   if ($Body -match '\bunauthori[sz]ed\b|\bnot authori[sz]ed\b|\bpermission denied\b') { return 'unauthorized' }
   return 'invalid'
+}
+
+# Fly's answer to "make a snapshot" while another snapshot of the same disk is still being made: HTTP 412 and a
+# text that says a snapshot is pending. Nothing else counts (not a 412 for another reason, not another status).
+function Test-SnapshotPending([int]$Status, [string]$Body = '') {
+  return ($Status -eq 412 -and $Body -match '\bsnapshot is pending\b')
 }
 
 # The server machine and its disk from the JSON of "flyctl machines list --json" and "flyctl volumes list --json":
@@ -384,8 +405,12 @@ function Test-DiskKey([string]$Token, [string]$App, $Target) {
   # One snapshot: harmless, and it is what the button makes before every change.
   $answer = Invoke-FlyApi -Method 'POST' -Path "$volumePath/snapshots" -Token $Token
   $verdict = Get-ProbeVerdict $answer.Status $answer.Body
-  if ($verdict -ne 'ok') { return [pscustomobject]@{ Ok = $false; Step = 'snapshot'; Verdict = $verdict; Status = $answer.Status } }
-  return [pscustomobject]@{ Ok = $true; Step = ''; Verdict = 'ok'; Status = $answer.Status; SameSizeAccepted = $sameSizeAccepted }
+  # Fly makes one on-demand snapshot of a disk at a time. While one is being made it answers HTTP 412
+  # ("failed_precondition: An on-demand snapshot is pending for this volume...") - about the disk, after it
+  # accepted the key for the request (a key it refuses gets 403 "unauthorized"). The permission is proven then too.
+  $snapshotPending = (Test-SnapshotPending $answer.Status $answer.Body)
+  if ($verdict -ne 'ok' -and -not $snapshotPending) { return [pscustomobject]@{ Ok = $false; Step = 'snapshot'; Verdict = $verdict; Status = $answer.Status } }
+  return [pscustomobject]@{ Ok = $true; Step = ''; Verdict = 'ok'; Status = $answer.Status; SameSizeAccepted = $sameSizeAccepted; SnapshotPending = $snapshotPending }
 }
 
 function Get-StepText([string]$Step) {
@@ -425,10 +450,11 @@ if ($DryRun) {
   Say "  1. `"$FlyctlPath`" machines list --app $App --json  and  volumes list --app $App --json  (your own sign-in)"
   Say "  2. `"$FlyctlPath`" tokens create deploy --app $App --name `"$TokenName`" --expiry $TokenExpiry  (kept in memory, never shown)"
   Say "  3. `"$FlyctlPath`" tokens attenuate --file <caveats file>  (the token only in that program's FLY_API_TOKEN)"
-  Say "     caveats: Apps <app number> '$AppMask'; IfPresent [Volumes <disk id> '$($VolumeMasks[0])' (then '$($VolumeMasks[-1])' if Fly needs it), Machines <machine id> '$MachineMask'], else '$ElseMask'; IfPresent [Commands none, Mutations none], else '$NoCommandElseMask' - never d"
+  Say "     caveats: Apps <app number> '$AppMask'; IfPresent [Volumes <every disk of the app> '$($VolumeMasks[0])', Machines <machine id> '$MachineMask'], else '$ElseMask'; IfPresent [Commands none, Mutations none], else '$NoCommandElseMask' - never d"
   Say "  4. checks at $ApiBase with the limited key: GET the disks, the disk, its snapshots and the machine;"
   Say '     PUT .../extend with the size the disk already has (must be refused as invalid, not as unauthorized);'
-  Say '     POST one snapshot. Never a delete. A refused permission stops the script before anything is stored.'
+  Say '     POST one snapshot (when one is already being made, Fly says so and makes no second one). Never a delete.'
+  Say '     A refused permission stops the script before anything is stored.'
   Say "  5. `"$FlyctlPath`" secrets import --app $App [--stage]  (DIARY_FLY_API_TOKEN=<hidden> on standard input)"
   Say 'Dry run finished: nothing was called.'
   exit 0
@@ -462,6 +488,7 @@ $candidate = $null
 $finalToken = $null
 $usedMask = ''
 $sameSize = $false
+$snapshotPending = $false
 $applyNow = [bool]$Now
 $finished = $false
 try {
@@ -484,12 +511,12 @@ try {
     $decoded = $null
   }
   if ($appId) { Say "The app's number at Fly is ${appId} - the key is limited to it." }
-  else { Say "Fly did not say the app's number: the deploy token itself is limited to this app, and the caveats limit it to the disk and the machine." }
+  else { Say "Fly did not say the app's number: the deploy token itself is limited to this app, and the caveats limit it to its disks and the machine." }
 
-  # 3 + 4. Limit and check: the narrowest disk permission that passes every check is kept -----------------------
+  # 3 + 4. Limit and check: the first disk permission of $VolumeMasks that passes every check is kept ----------
   $lastCheck = $null
   foreach ($mask in $VolumeMasks) {
-    $caveats = New-DiskKeyCaveats -AppId $appId -VolumeId $target.VolumeId -MachineId $target.MachineId -VolumeMask $mask
+    $caveats = New-DiskKeyCaveats -AppId $appId -MachineId $target.MachineId -VolumeMask $mask
     Say "Limiting the key (disk permission '$mask') and checking it at Fly..."
     try {
       $candidate = New-AttenuatedToken -DeployToken $deployToken -CaveatsJson $caveats
@@ -502,10 +529,13 @@ try {
       $finalToken = $candidate
       $usedMask = $mask
       $sameSize = $lastCheck.SameSizeAccepted
+      $snapshotPending = $lastCheck.SnapshotPending
       break
     }
     $candidate = $null
-    if ($lastCheck.Verdict -eq 'unauthorized' -and ($lastCheck.Step -eq 'extend' -or $lastCheck.Step -eq 'snapshot')) {
+    # A wider permission is tried only when $VolumeMasks lists one (today it lists read and write alone): otherwise
+    # the refusal ends the run with its reason - the script never widens the key by itself.
+    if ($lastCheck.Verdict -eq 'unauthorized' -and ($lastCheck.Step -eq 'extend' -or $lastCheck.Step -eq 'snapshot') -and $mask -cne $VolumeMasks[-1]) {
       Say "Fly needs a wider disk permission for $(Get-StepText $lastCheck.Step)."
       continue
     }
@@ -517,7 +547,8 @@ try {
     Stop-Setup (Get-VerdictText $lastCheck)
   }
   Say 'The key passed every check: it can read the disk and the machine, make a backup copy and enlarge the disk.'
-  Say 'One backup copy (snapshot) of the disk was made by the check - it is harmless, and Fly removes it by itself after some days.'
+  if ($snapshotPending) { Say 'A backup copy (snapshot) of the disk is being made at Fly right now, so the check started no second one: Fly accepted the key for it and answered that one is in progress.' }
+  else { Say 'One backup copy (snapshot) of the disk was made by the check - it is harmless, and Fly removes it by itself after some days.' }
   if ($sameSize) { Say 'Note: Fly accepted the check request to keep the disk at its size - nothing changed.' }
 
   # 5. Store it ---------------------------------------------------------------------------------------------------
@@ -556,7 +587,8 @@ try {
 Say 'Done. The key is stored on the server as the secret DIARY_FLY_API_TOKEN.'
 if ($applyNow) { Say 'Fly is restarting the server now; in about a minute the Server card shows the disk button.' }
 else { Say 'It takes effect with the next update of the server; until then the Server card says the button is not set up.' }
-Say "The key is the deploy token '$TokenName'. It can: read the app; read disk $($target.VolumeId), make backup copies of it, enlarge it and change its settings (permission '$usedMask'); read machine $($target.MachineId) and start, stop or restart it. It can delete nothing, run no command in the machine and make no change through Fly's GraphQL API (no SSH login)."
+Say 'Before you use the button for the first time, wait about 20 minutes: the backup copy of the check is still being made, and Fly makes one backup copy of a disk at a time (until then the button would say that the backup copy failed - nothing is changed by that).'
+Say "The key is the deploy token '$TokenName'. It can: read the app; read the disks of the app (it has one: $($target.VolumeId)), make backup copies of a disk, enlarge it and change its settings (permission '$usedMask'); read machine $($target.MachineId) and start, stop or restart it. It can delete nothing, create no disk and no machine, run no command in the machine and make no change through Fly's GraphQL API (no SSH login)."
 Say "The risk that remains: whoever got hold of the key - for example by breaking into the server - could enlarge the disk at Fly up to 500 GB (about 75 US dollars a month; a disk cannot be made smaller again), make backup copies, change the disk's settings (for example switch off or shorten its daily automatic backup copies) and stop or restart the server, without your password, the limits of the Server card or an e-mail. The key cannot delete the disk or any diary, and cannot run a command in the server. If you suspect that, cancel the key at once."
 Say "To turn the button off: flyctl secrets unset DIARY_FLY_API_TOKEN --app $App (the server restarts, about a minute)"
 Say "To cancel the key itself: flyctl tokens list --app $App, then flyctl tokens revoke <the ID of '$TokenName'>"
