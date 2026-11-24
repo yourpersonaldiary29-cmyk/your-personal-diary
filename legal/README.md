@@ -24,6 +24,15 @@ Rules:
   While a value is `null` the page shows the placeholder itself, and `scripts/play/preflight.mjs` stops the release.
 - A change in what the apps do with data changes this policy, `play/policy/data-safety.md` and
   `store/policy/partner-center-privacy.md` together; update `effectiveDate`. A change of the Terms of Use updates `termsEffectiveDate`.
+- **The "Mac app" item of section 5 of the policy says nothing about the app's signature** (the owner's decision of
+  2026-11-23). Its last sentence until then - "Once the app is distributed with Apple's signature, the item will move
+  to the keychain that stays on this Mac only." - was deleted, not reworded, in all 20 languages, with a new
+  `effectiveDate`. The item ends with the sentence about a Migration Assistant or Time Machine copy.
+  The tests keep the deleted sentence out without a table of translations: in every language the item names no
+  "Apple" (`scripts/legal/build-pages.test.mjs`, `src/components/legal/legal-pages.test.ts`, and
+  `scripts/site/build-site.test.mjs` for the pages of the site). The planned move of the key itself
+  (`src-tauri/src/platform/macos.rs`) is unchanged: a build that keeps the key in the other keychain changes what
+  the app does with data, so by the rule above this item changes with it.
 
 בעברית, לבעלים: שם המפרסם וכתובת הדואר לפניות כבר ממולאים ב-`legal/settings.json` (מ-2026-10-27). כדי לשנות אותם -
 פותחים את הקובץ, מחליפים את הערך (בין מירכאות), ומבקשים מ-Claude להריץ את סקריפט הבנייה ולפרוס. זה המקום היחיד שבו הם נכתבים.

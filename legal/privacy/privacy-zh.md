@@ -73,7 +73,7 @@ otherPage: 如何删除你的账户
 
 - **Windows 应用：**这些副本保存在你的 Windows 用户配置文件中的应用数据文件夹里（Microsoft Store 版本则保存在应用自己的包文件夹中）。密钥由 Windows 数据保护（DPAPI）保护，只对你的 Windows 用户有效。
 - **Android 应用：**这些副本保存在应用的私有存储中，其他应用无法读取，并且不包含在备份中。密钥由 Android Keystore 保护。
-- **Mac 应用：**这些副本保存在你的用户"资源库"（Library）中的应用文件夹里（Application Support/app.yourpersonaldiary.mac）。密钥作为一个项目保存在你的 Mac 用户的登录钥匙串（login keychain）中，名称为"Your Personal Diary offline key"，从不同步到 iCloud Keychain；它受你的 Mac 登录密码保护，只有本应用能读取。用 Migration Assistant 或 Time Machine 制作的你的用户账户副本会带上这个项目，它仍受该密码保护。当应用以 Apple 的签名分发后，该项目将移到只保留在这台 Mac 上的钥匙串中。
+- **Mac 应用：**这些副本保存在你的用户"资源库"（Library）中的应用文件夹里（Application Support/app.yourpersonaldiary.mac）。密钥作为一个项目保存在你的 Mac 用户的登录钥匙串（login keychain）中，名称为"Your Personal Diary offline key"，从不同步到 iCloud Keychain；它受你的 Mac 登录密码保护，只有本应用能读取。用 Migration Assistant 或 Time Machine 制作的你的用户账户副本会带上这个项目，它仍受该密码保护。
 - **iPhone 应用：**这些副本保存在应用的私有存储中，不包含在 iCloud 备份中。密钥保存在 iOS 的 Keychain 中，仅在这台设备解锁过一次之后才可在本设备上使用，并会在你退出登录时删除。
 - **网站：**浏览器中只加密保存尚未上传的更改、最近 7 天的记录以及关于冲突更改的提示（见下文），但不保存你所阅读内容的副本；密钥保留在内存中，关闭页面后即消失。
 

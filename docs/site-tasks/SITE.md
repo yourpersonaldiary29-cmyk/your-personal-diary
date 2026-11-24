@@ -340,7 +340,9 @@ and the hidden fields; the language chooser has 20 options in the fixed order an
 `--replace`, `--remove`, a wrong hash is caught by the build); `site.js` passes the forbidden-pattern check and its
 two behaviours are tested (with `node:test` and a minimal DOM double, or by pure functions - no new dependency);
 the legal pages inside the site contain the whole document (every heading of the source) and the standalone
-canonical; the staged image contains `ui/about/` with the files, and no client bundle does.
+canonical, and in every language the "Mac app" item of the policy says nothing about Apple's signature (the
+owner's decision of 2026-11-23, `legal/README.md`); the staged image contains `ui/about/` with the files, and no
+client bundle does.
 
 Server tests (vitest, `server/test`): the contact endpoint - a good message is sent once with the right
 recipient, `Reply-To`, subject and escaped body (the test transport captures it); honeypot; each validation rule;

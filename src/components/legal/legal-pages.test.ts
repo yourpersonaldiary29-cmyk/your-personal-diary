@@ -10,6 +10,8 @@
  *    left and the values appear (escaped) in every page; while a value is null its {{PLACEHOLDER}} stays
  *    visible - nothing else can fill it;
  *  - every translation has the structure of the English text (sections, list items, links, placeholders);
+ *  - the "Mac app" item of the policy names no "Apple" in any language: the sentence about Apple's signature, which
+ *    the owner had deleted on 2026-11-23, stays out;
  *  - the pages are self-contained (no script, no external stylesheet, font or image), name no host but the
  *    fixed diary server, are right-to-left for Hebrew and Arabic, open in English with links to the 19 other
  *    languages, link back to English, stay small, and name the app as the store listing does.
@@ -150,6 +152,21 @@ describe('translations', () => {
           expect(source.meta.languages, `${page.id} ${l.code}`).not.toBe(english.meta.languages);
         }
       }
+    }
+  });
+
+  it('the Mac item of the policy names no "Apple" in any language: the sentence about Apple\'s signature stays out (the owner, 2026-11-23)', () => {
+    // The item of section 5 ended with "Once the app is distributed with Apple's signature, the item will move to the
+    // keychain that stays on this Mac only." The owner had the sentence deleted - not reworded - in all 20 languages.
+    // The item is found by the product names, which no language translates. The whole rule, with the proof that it
+    // is not blind: scripts/legal/build-pages.test.mjs.
+    const [policy] = PAGES.filter((page) => page.id === 'privacy');
+    for (const l of LOCALES) {
+      const { body } = parseSource(fs.readFileSync(sourceFile(ROOT, policy, l.code), 'utf8'), `privacy-${l.code}`);
+      const items = [...markdownToHtml(body).matchAll(/<li>(.*?)<\/li>/g)].map((m) => m[1]).filter((item) => item.includes('Migration Assistant'));
+      expect(items, `privacy ${l.code}: one list item names Migration Assistant`).toHaveLength(1);
+      expect(items[0], `privacy ${l.code}: the sentence about Apple's signature is back`).not.toContain('Apple');
+      for (const name of ['Time Machine', 'iCloud Keychain']) expect(items[0], `privacy ${l.code}`).toContain(name);
     }
   });
 });
@@ -308,6 +325,9 @@ describe('the rendered pages', () => {
       expect(html, needle).toContain(needle);
     }
     expect(html).toContain('at least 16 years old');
+    // The Mac item ends with the sentence about the copies: the one about Apple's signature left it (the owner, 2026-11-23).
+    expect(html).toContain('A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password.</li>');
+    expect(html).not.toContain("Apple's signature");
   });
 
   it('stay well under 100 KB each (the Android bundle test limits every file to 100 KB)', () => {

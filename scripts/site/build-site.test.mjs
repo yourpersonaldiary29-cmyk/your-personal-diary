@@ -16,7 +16,8 @@
  * "About the app" is a page of its own; every address in a page is relative and leads to a file of the tree and to a
  * page of the same language, and the tree works under another name; the download tables are the rows of
  * site/downloads.json and the copied installers have the listed size and SHA-256; the two legal pages hold the
- * whole document and name the standalone page as canonical; right-to-left pages isolate every Latin fragment;
+ * whole document and name the standalone page as canonical, and the Mac item of the policy says nothing about
+ * Apple's signature in any language (the owner's decision of 2026-11-23); right-to-left pages isolate every Latin fragment;
  * the colours are the app's theme tokens with a contrast of at least 4.5:1 (controls 3:1) in light and dark;
  * site.js holds nothing forbidden; the site is in no client tree.
  * Against fixture trees in a temp folder (scripts/site/fixture-tree.mjs): the settings, the problems the builder
@@ -1545,6 +1546,26 @@ test('legal pages: the whole document of legal/ inside the frame, the standalone
   assert.ok(terms.all('a').some((el) => el.attrs.href === '../privacy/' && terms.textOf(el) === `${SITE_BASE}privacy/`));
   assert.deepEqual(terms.all('link').filter((el) => el.attrs.rel === 'canonical').map((el) => el.attrs.href), [`${SITE_URL}/terms/`], 'the stores and the apps link to the standalone page');
   assert.deepEqual(parsed(pageFile('privacy', 'he')).all('link').filter((el) => el.attrs.rel === 'canonical').map((el) => el.attrs.href), [`${SITE_URL}/privacy/he/`]);
+});
+
+test("legal pages: the Mac item of the policy says nothing about Apple's signature, in any language (the owner, 2026-11-23)", () => {
+  // The "Mac app" item of section 5 ended with "Once the app is distributed with Apple's signature, the item will move
+  // to the keychain that stays on this Mac only." The owner had the sentence deleted - not reworded - in all 20
+  // languages: like the texts of the site (his rule of 2026-11-22, above), the policy does not tell a reader that the
+  // app is not signed yet. The item is found by the product names, which stay in Latin letters in every language;
+  // since the deletion it names no "Apple" at all. The rule on the sources, with the proof that it is not blind, is in
+  // scripts/legal/build-pages.test.mjs.
+  for (const l of LOCALES) {
+    const rel = pageFile('privacy', l.code);
+    const page = parsed(rel);
+    const doc = page.elements.find((el) => hasClass(el, 'doc'));
+    const items = page.inside(doc, 'li').map((el) => page.textOf(el)).filter((text) => text.includes('Migration Assistant'));
+    assert.equal(items.length, 1, `${rel}: one list item names Migration Assistant`);
+    assert.ok(!items[0].includes('Apple'), `${rel}: the Mac item names Apple - the sentence about Apple's signature is back`);
+    for (const name of ['Time Machine', 'iCloud Keychain']) assert.ok(items[0].includes(name), `${rel}: the Mac item still names ${name}`);
+    // In English, word for word: the item ends with the sentence about the copies.
+    if (l.code === DEFAULT_LOCALE) assert.ok(items[0].endsWith('A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password.'), `${rel}: the end of the Mac item`);
+  }
 });
 
 test('legal pages: a translation without a heading or a list item of the English document is behind it', () => {

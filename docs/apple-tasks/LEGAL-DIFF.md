@@ -92,6 +92,12 @@ After:
 > - **Mac app:** these copies are kept in the app's folder inside your user Library (Application Support/app.yourpersonaldiary.mac). The key is kept as an item of your Mac user's login keychain, named "Your Personal Diary offline key" and never synchronized to iCloud Keychain; it is protected by your Mac login password and can be read only by the app. A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password. Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.
 > - **iPhone app:** these copies are kept in the app's private storage, excluded from iCloud backup. The key is kept in the iOS Keychain, available only on this device after it was unlocked once, and removed when you sign out.
 
+NOTE (added 2026-11-23): the last sentence of the Mac bullet above ("Once the app is distributed with Apple's
+signature, the item will move to the keychain that stays on this Mac only.") was removed from the published policy on
+2026-11-24 (the effective date of the version without it), in all 20 languages, by the owner's decision of 2026-11-23.
+The quote above is the record of what the translators received on 2026-11-08; the current text is
+`legal/privacy/privacy-en.md`, and the tests of the legal pages keep the sentence out (`legal/README.md`, Rules).
+
 The order of the bullets is: Windows app, Android app, Mac app, iPhone app, Website.
 
 ### (b) Section 5, the screen-lock paragraph

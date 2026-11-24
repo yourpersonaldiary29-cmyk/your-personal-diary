@@ -73,7 +73,7 @@ otherPage: アカウントの削除方法
 
 - **Windows アプリ：**これらのコピーは、Windows ユーザープロファイル内のアプリのデータフォルダー（Microsoft Store 版ではアプリ専用のパッケージフォルダー）に保存されます。鍵は Windows のデータ保護（DPAPI）で保護され、あなたの Windows ユーザーでしか使えません。
 - **Android アプリ：**これらのコピーはアプリのプライベートストレージに保存されます。ここは他のアプリから読めず、バックアップの対象外です。鍵は Android Keystore で保護されます。
-- **Mac アプリ：**これらのコピーは、あなたのユーザーの「ライブラリ」（Library）内にあるアプリのフォルダー（Application Support/app.yourpersonaldiary.mac）に保存されます。鍵は、あなたの Mac ユーザーのログインキーチェーン（login keychain）の項目として「Your Personal Diary offline key」という名前で保存され、iCloud Keychain に同期されることはありません。鍵は Mac のログインパスワードで保護され、読み取れるのはこのアプリだけです。Migration Assistant や Time Machine で作成したユーザーアカウントのコピーにはこの項目も含まれますが、引き続き同じパスワードで保護されます。アプリが Apple の署名付きで配布されるようになると、この項目は、この Mac だけにとどまるキーチェーンに移されます。
+- **Mac アプリ：**これらのコピーは、あなたのユーザーの「ライブラリ」（Library）内にあるアプリのフォルダー（Application Support/app.yourpersonaldiary.mac）に保存されます。鍵は、あなたの Mac ユーザーのログインキーチェーン（login keychain）の項目として「Your Personal Diary offline key」という名前で保存され、iCloud Keychain に同期されることはありません。鍵は Mac のログインパスワードで保護され、読み取れるのはこのアプリだけです。Migration Assistant や Time Machine で作成したユーザーアカウントのコピーにはこの項目も含まれますが、引き続き同じパスワードで保護されます。
 - **iPhone アプリ：**これらのコピーはアプリのプライベートストレージに保存され、iCloud バックアップの対象外です。鍵は iOS の Keychain に保存され、このデバイスが一度ロック解除された後にのみこのデバイス上で利用でき、ログアウトすると削除されます。
 - **ウェブサイト：**ブラウザーには、まだアップロードされていない変更、直近 7 日間の記録、競合した変更についての通知（下記参照）だけが暗号化して保存され、閲覧した内容のコピーは保存されません。鍵はメモリー上にあり、ページを閉じると消えます。
 

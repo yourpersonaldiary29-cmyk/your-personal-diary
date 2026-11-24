@@ -9,7 +9,8 @@
  * and a source still marked TODO-TRANSLATE is reported. Against the real tree (fictional settings - the owner's
  * values are never written into a test): the support page carries the contact details before the first
  * question in every language (App Store "Support URL" rule, docs/apple-tasks/APPSTORE-FACTS.md 2.10), and the
- * policy names all five ways in, and the Terms of Use carry the one-account rule and the owner's other promises. src/components/legal/legal-pages.test.ts covers the rest (vitest).
+ * policy names all five ways in, and its Mac item says nothing about Apple's signature in any of the 20 languages
+ * (the owner's decision of 2026-11-23: the sentence was deleted), and the Terms of Use carry the one-account rule and the owner's other promises. src/components/legal/legal-pages.test.ts covers the rest (vitest).
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -218,6 +219,80 @@ test('real tree: the English policy names the five ways in and the four key stor
   assert.ok(!html.includes('when it is published'), 'no qualifier for the iPhone app');
   assert.ok(html.includes('the Mac app, the iPhone app and the website'), 'the iPhone app in the list the policy applies to');
   assert.ok(html.includes('the backup and the export on the <strong>Backup</strong> page create a copy'), 'your rights: where Backup is');
+});
+
+/**
+ * THE OWNER'S DECISION OF 2026-11-23. The "Mac app" item of section 5 of the policy ended with a sentence that told
+ * the reader that the Mac app is not distributed with Apple's signature yet: "Once the app is distributed with Apple's
+ * signature, the item will move to the keychain that stays on this Mac only." Asked whether to replace the sentence or
+ * to keep it, the owner answered: delete it. It was deleted - not reworded - in all 20 languages, and the policy got a
+ * new effective date (legal/settings.json).
+ *
+ * The rule needs no translation: the item is found by the product names, which stay in Latin letters in every language
+ * (docs/apple-tasks/LEGAL-DIFF.md, "Product names stay as they are"). Since the deletion the item names no "Apple" at
+ * all, and the sentence about a Migration Assistant or Time Machine copy is its last one. (Thai writes no full stop, so
+ * there only the first of the two speaks.) A text that brings the sentence back fails this test: change the text, not
+ * the rule.
+ */
+const MAC_ITEM_NAMES = ['Migration Assistant', 'Time Machine', 'iCloud Keychain'];
+const REMOVED_MAC_SENTENCE = "Once the app is distributed with Apple's signature, the item will move to the keychain that stays on this Mac only.";
+
+/** The list items of a Markdown source, one text each (an indented line continues its item) - by this test's own walk. */
+function listItems(md) {
+  const items = [];
+  let open = false;
+  for (const raw of md.replace(/\r\n/g, '\n').split('\n')) {
+    const start = /^(?:- |\d+\. )(.*)$/.exec(raw);
+    const more = !start && open && /^\s+\S/.test(raw);
+    if (start) items.push(start[1].trim());
+    if (more) items[items.length - 1] += ` ${raw.trim()}`;
+    open = Boolean(start) || more;
+  }
+  return items;
+}
+
+/** What is wrong with the Mac item of a policy source (empty = as the owner decided). */
+function macItemProblems(source) {
+  const items = listItems(source).filter((item) => item.includes(MAC_ITEM_NAMES[0]));
+  if (items.length !== 1) return [`${items.length} list items name ${MAC_ITEM_NAMES[0]} - the Mac item is exactly one`];
+  const [item] = items;
+  const problems = MAC_ITEM_NAMES.filter((name) => !item.includes(name)).map((name) => `the Mac item no longer names ${name}`);
+  if (item.includes('Apple')) problems.push("the Mac item names Apple - the sentence about Apple's signature is back");
+  // From the last of the two names to the end of the item there is one sentence: no full stop with a text after it.
+  const copies = item.slice(Math.max(item.lastIndexOf(MAC_ITEM_NAMES[0]), item.lastIndexOf(MAC_ITEM_NAMES[1])));
+  if (/[.。।]\s*\S/.test(copies)) problems.push('a sentence follows the one about a Migration Assistant or Time Machine copy');
+  return problems;
+}
+
+test("real tree: the Mac item of the policy says nothing about Apple's signature, in any language (the owner, 2026-11-23)", () => {
+  const policy = PAGES.find((page) => page.id === 'privacy');
+  for (const l of LOCALES) {
+    assert.deepEqual(macItemProblems(readFileSync(sourceFile(ROOT, policy, l.code), 'utf8')), [], `legal/privacy/privacy-${l.code}.md`);
+  }
+  // The English item, word for word: it ends with the sentence about the copies.
+  const english = readFileSync(sourceFile(ROOT, policy, 'en'), 'utf8');
+  const [item] = listItems(english).filter((text) => text.includes(MAC_ITEM_NAMES[0]));
+  assert.ok(item.startsWith('**Mac app:** '), 'the item of the Mac app');
+  assert.ok(item.endsWith('A Migration Assistant or Time Machine copy of your user account carries the item, still protected by that password.'), 'the English Mac item ends with the sentence about the copies');
+  // The rule is not blind: it catches the sentence that left the policy, a rewording that names no company, a lost
+  // name and a lost item.
+  const changed = (to) => {
+    const source = english.replace(item, () => to);
+    assert.notEqual(source, english, 'the item is one line of the English source');
+    return source;
+  };
+  assert.deepEqual(macItemProblems(changed(`${item} ${REMOVED_MAC_SENTENCE}`)), ["the Mac item names Apple - the sentence about Apple's signature is back", 'a sentence follows the one about a Migration Assistant or Time Machine copy']);
+  assert.deepEqual(macItemProblems(changed(`${item} Once the app is signed, the item will move to another keychain.`)), ['a sentence follows the one about a Migration Assistant or Time Machine copy']);
+  assert.deepEqual(macItemProblems(changed(item.replace('Time Machine', 'backup'))), ['the Mac item no longer names Time Machine']);
+  assert.deepEqual(macItemProblems(changed('**Mac app:** these copies are kept on your Mac.')), ['0 list items name Migration Assistant - the Mac item is exactly one']);
+  // The pages that are published say the same: the item of every built page.
+  const files = buildAll({ settings: FILLED });
+  for (const l of LOCALES) {
+    const built = [...files.get(`privacy/${l.code}/index.html`).matchAll(/<li>(.*?)<\/li>/g)].map((m) => m[1]).filter((text) => text.includes(MAC_ITEM_NAMES[0]));
+    assert.equal(built.length, 1, `privacy/${l.code}: one item of the page names ${MAC_ITEM_NAMES[0]}`);
+    assert.ok(!built[0].includes('Apple'), `privacy/${l.code}: the Mac item of the page names no Apple`);
+    for (const name of MAC_ITEM_NAMES) assert.ok(built[0].includes(name), `privacy/${l.code}: the Mac item of the page names ${name}`);
+  }
 });
 
 test('settings: termsEffectiveDate is required and must be a date', () => {
