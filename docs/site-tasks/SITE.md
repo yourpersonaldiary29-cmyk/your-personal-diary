@@ -18,7 +18,8 @@ follows what the owner asked on 2026-11-15, after he saw the plan (Hebrew, his w
 > כרגע תעלי את הגרסה הכי עדכנית של כל פלאטפורמה."
 
 In short: a small site, English by default, in the 20 app languages. The logo and the name on top; under the name a
-menu - About the app, Terms of Use, Questions and answers (30), Privacy Policy, Downloads - and a way to contact.
+menu - About the app, Terms of Use, Questions and answers (30; 29 since 2026-11-23), Privacy Policy, Downloads - and
+a way to contact.
 Under the content of every page: "Contact us", the e-mail address and a form (first name, last name, e-mail,
 message, Send) whose message reaches the owner by e-mail. Then a language chooser like the one in the diary, and
 last the line "(c) 2026 Your Personal Diary. All rights reserved." Downloads: tabs for Windows, Android and Mac;
@@ -32,16 +33,48 @@ each. A domain will be connected later.
 
 1. **A home page with the logo.** A page at the beginning with the logo, and a click on the logo opens the home
    page. So the site has a home page of its own (`/about/`, `/about/he/`, ...): the app icon, large, and the name,
-   then the heading, the lead, three actions and the phone. "About the app" - which was also the home page until
-   then - is a page of its own at `/about/app/` (`/about/he/app/`, ...). The menu starts with "Home"; the logo and
-   the name of the header lead to the home page from every page, as before. That makes eight pages per language,
-   8 x 20 = 160 (sections 1 to 3).
+   then the heading, the lead, three actions (two since 2026-11-23, see below) and the phone. "About the app" -
+   which was also the home page until then - is a page of its own at `/about/app/` (`/about/he/app/`, ...). The
+   menu starts with "Home"; the logo and the name of the header lead to the home page from every page, as before.
+   That makes eight pages per language, 8 x 20 = 160 (sections 1 to 3).
 2. **A visitor is never told that a file is not signed.** The notes under the download tables and the answer about
    the warnings no longer say that a file is not signed (nor uncertified, not verified, not notarized, or from an
    unidentified developer or publisher) - in any of the 20 languages. What stays, because the visitor needs it: the
    names of the warnings ("Windows protected your PC", the message that the app is "damaged"), the steps to get
    past them, that the file does not come from Microsoft Store / an app store / Google Play, and the SHA-256 check
    (sections 3 and 7).
+
+**Amended on 2026-11-23: one decision of the owner** (Hebrew, his words, typos kept):
+
+> "אגב: באתר תמחקי את האפשרות של פתיחת האפליקצייה בדפדפן. אני רוצה שיורידו."
+
+(By the way: on the site, delete the option of opening the app in the browser. I want them to download.)
+
+**The site does not offer the web version.** No button and no link of the site, and no sentence of its own texts
+(`site/content/`), tells a visitor that the diary can be opened, used or read in a web browser - in any of the 20
+languages. A visitor is led to the Downloads page. In detail:
+
+* The home page has two actions: "Downloads" (now the primary button) and "About the app". The first action of
+  2026-11-22, "Open in your browser" (`hero.openAction`, a link to `<server>/`), is gone.
+* The question "Can I use it in a browser, without installing anything?" (then `faq.items[17]`) is deleted. The
+  Questions page has 29 questions; the third group, "Devices and working offline", has four; every later question
+  stands one place earlier (the answer about the warnings is `faq.items[27].a`).
+* Under the tabs of the Downloads page stands the iPhone line alone, under the heading "iPhone"
+  (`downloads.moreHeading`). The paragraph about the web version (`downloads.web`) is gone.
+* `webapp` is no longer a link target; a text that uses `[[webapp|...]]` fails the check like any unknown target.
+* Six more answers named the browser or "the web version" (what it is, which devices, trying it without an
+  account, reminders, where the diary is kept, ads and tracking), and so did the lead of the Downloads page: that
+  part left each of them, and nothing else. The word "browser" stays where a file is downloaded or installed
+  (`downloads.install.windows`, `downloads.install.android`, `faq.items[27].a`), and `privacy.items[2]` ("The apps
+  and the website connect only to the ... server") stays.
+* No page of the site links to the root of the server, and the builder refuses to build a page that holds an
+  address to it (so `--check`, the gate before a deploy, refuses it too). The two legal documents are NOT changed -
+  the Privacy Policy still has to say what the web version stores, because the web version still exists - so the
+  Terms of Use page and the Privacy Policy page of the site still describe the website (the web version) as part
+  of the service; but where they name the address of the server (`{{SITE_URL}}`), the site shows the address as
+  text, not as a link. The standalone legal pages keep their link.
+* Not part of the decision: the web version itself (it keeps working at the root address of the server), the apps
+  and their texts, the legal texts, and the iPhone sentence of the Downloads page.
 
 ## 1. Pages and addresses
 
@@ -65,8 +98,9 @@ There is no `/about/en/`. That is 8 x 20 = 160 pages.
 **Every link inside the site is relative** (`../terms/`, `./he/`, `../../site.css`), computed by the builder from
 the depth of the page, so the same tree works under any base address: `/about/` today, the root of the owner's
 domain later. Absolute URLs appear only where they must: `canonical`, `hreflang`, `og:url`, `og:image` (built from
-`siteBaseUrl`, section 6), the links to the web app and to the two legal pages that stay outside the site
-(`<server>/support/<locale>/`, `<server>/delete-account/<locale>/`), and store links.
+`siteBaseUrl`, section 6), the links to the two legal pages that stay outside the site
+(`<server>/support/<locale>/`, `<server>/delete-account/<locale>/`), and store links. Since 2026-11-23 no page
+links to the web app at the root of the server (the owner's decision, above).
 
 Connecting the domain is a later task (the hosted server answers 421 to any other host today -
 `server/src/middleware/hosted-host.ts`); nothing of it is built now, but nothing here may stand in its way.
@@ -105,9 +139,10 @@ Top to bottom, the same on every page (the two result pages leave out the contac
 **Home** (page id `home`, since 2026-11-22 a page of its own). ONE hero section and nothing else: first a brand
 block - the app icon, large (the image of the header's logo, about 6rem, smaller on a narrow screen, `alt=""`
 because the name stands next to it), and the name of the app as text; it is not a link, this is the home page -
-then the `<h1>` (`hero.heading`), the lead (`hero.lead`), three actions - "Open in your browser" (the web app,
-`<server>/`), "Downloads" (the Downloads page) and "About the app" (the About page) - the note (`hero.note`) and
-the first phone screen in the page's language. Title and description: `title`, `description`.
+then the `<h1>` (`hero.heading`), the lead (`hero.lead`), two actions - "Downloads" (the Downloads page; the
+primary button) and "About the app" (the About page) - the note (`hero.note`) and the first phone screen in the
+page's language. Title and description: `title`, `description`. (Until 2026-11-23 a first action, "Open in your
+browser", opened the web app at `<server>/`; the owner had it removed: "I want them to download.")
 
 **About the app** (page id `about`, folder `app/`; until 2026-11-22 it was the lower part of the home page). An
 `<h1>` (`nav.about`) and a lead (`hero.lead`); then the eight feature cards (`#features`), the screenshots
@@ -123,18 +158,21 @@ inside the site's frame from the same sources (`legal/terms/terms-<locale>.md`, 
 with the functions of `scripts/legal/build-pages.mjs` (`parseSource`, `markdownToHtml`, `fillPlaceholders`,
 `dateInWords`) - never a second copy of the text. Inside the site `{{TERMS_URL}}` and `{{PRIVACY_URL}}` lead to the
 site's own pages of the same language; `{{SUPPORT_URL}}` and `{{DELETE_URL}}` keep leading to the standalone pages
-on `<server>`; `{{SITE_URL}}` stays the web app's address. Each of these two pages names the standalone page as its
-`canonical` (the stores and the apps link to those).
+on `<server>`; `{{SITE_URL}}` stays the address of the server, where the web app is - since 2026-11-23 shown inside
+the site as text, not as a link (the documents themselves are not changed; the standalone pages keep the link).
+Each of these two pages names the standalone page as its `canonical` (the stores and the apps link to those).
 
-**Questions and answers**. Exactly 30, in groups with an `<h2>` each (About the app; Writing and features; Devices
-and working offline; Privacy and security; Your account; Installing and updating). Each item is a `<details>`
+**Questions and answers**. Exactly 29 (30 until 2026-11-23), in groups with an `<h2>` each (About the app; Writing
+and features; Devices and working offline; Privacy and security; Your account; Installing and updating). Each item
+is a `<details>`
 with the question in `<summary>` (inside an `<h3>` is not valid HTML - keep `<summary>` plain and let the group
 headings carry the structure). Answers are short and exact, taken from the vetted sources (below); an answer may
 contain links with the link syntax of section 7. The questions must include: what it is; is it free; who
 publishes it; which devices; which languages; trying it without an account (only where the tour really exists -
 check the app); what an entry can hold; habits and reminders; what insights are and how to see the numbers behind
 one; the three calendars; smart search; statistics; export formats; working offline; using several devices; what
-happens when the same entry is changed on two devices; using it in the browser; what "Remember me" does; where the
+happens when the same entry is changed on two devices; what "Remember me" does (between these two stood, until
+2026-11-23, the question about using it in the browser - deleted by the owner's decision of that day); where the
 diary is kept; who can read it (the honest limits of the privacy policy, section 4); is it end-to-end encrypted
 (no - say what is true instead); ads and tracking; the locks (inactivity lock, the device's screen lock); a
 forgotten password; backup and restore; deleting the account; the minimum age; why Windows / macOS / Android warn
@@ -151,15 +189,17 @@ when installing a file from this site and what to do; how to update to a new ver
   two or three plain sentences on installing a file that is not from a store (what the system will ask and what to
   choose - true for the files as they are today), and a `<details>` "Check the file" with the SHA-256 of each row.
   **The owner's rule of 2026-11-22: a visitor is never told that a file is not signed.** The notes
-  (`downloads.install.*`) and the answer about the warnings (`faq.items[28].a`) say where the file does not come
+  (`downloads.install.*`) and the answer about the warnings (`faq.items[27].a`; `faq.items[28].a` until
+  2026-11-23) say where the file does not come
   from (Microsoft Store, an app store, Google Play), name the warning the system shows ("Windows protected your
   PC", the message that the app is "damaged") and give the steps past it - and never that a file or the app is
   unsigned, uncertified, not verified, not notarized, or from an unidentified developer or publisher. A test keeps
   the words for "signed" and "certificate" out of these texts in all 20 languages.
-* under the tabs: one line on the web version (a link to the web app), and one on iPhone ("There is no installation
-  file for iPhone: iPhone apps are installed from the App Store. The iPhone app is not available yet." - when
-  `links.appStoreIphone` is set, a link instead). When a store link of section 6 is set, the matching panel shows
-  it above its table.
+* under the tabs: the iPhone line alone, under the heading "iPhone" (`downloads.iphone`: "There is no installation
+  file for iPhone: the iPhone app is installed from the App Store." - when `links.appStoreIphone` is set, the
+  sentence `downloads.iphoneStore` and the link instead). Until 2026-11-23 a line on the web version, with a link to
+  the web app, stood before it (`downloads.web`); the owner had it removed. When a store link of section 6 is set,
+  the matching panel shows it above its table.
 
 **The two result pages**. An `<h1>` ("Your message was sent" / "Your message was not sent"), one or two sentences
 (the error page gives the e-mail address as the other way), and a link back to the home page. `noindex`.
@@ -282,15 +322,18 @@ placeholders `{{BRAND}}`, `{{MINIMUM_AGE}}`, `{{PUBLISHER_NAME}}`, `{{CONTACT_EM
   the language for the home page of a web site - first after the label), `contact` (heading, lead, the four field labels,
   the notice, the button, the two result pages' headings and texts, "Back to the home page"), `downloads` (heading,
   lead, the three tab names, the tab list's label, the three column headings, the table captions, the requirement
-  and install notes of each platform, "Check the file", the web and iPhone lines, the store link texts), `faq`
-  (heading, the group headings, 30 items of q/a), `footer` (the language label, "Change", "All rights reserved.",
+  and install notes of each platform, "Check the file", the heading and the iPhone line under the tabs - until
+  2026-11-23 also a line on the web version - the store link texts), `faq` (heading, the group headings, 29 items
+  of q/a - 30 until 2026-11-23), `footer` (the language label, "Change", "All rights reserved.",
   the label of the list of language links), `legal` (the two page titles as menu texts are in `nav`; here only what the frame
   needs around a legal document, if anything). Keys of version 1 that no page uses any more are removed
   (`get.*` that moved to `downloads`, the old `footer.*`).
 * **Links inside a text**: `[[target|link text]]`, where target is one of `privacy`, `terms`, `faq`, `downloads`,
-  `home`, `support`, `delete`, `webapp`, `contact`. The builder turns it into a link (relative inside the site; the
-  standalone page of the same language for `support` and `delete`; the web app for `webapp`; `#contact` for
-  `contact`). A locale must use the same targets as English in the same key; the link text is translated.
+  `home`, `support`, `delete`, `contact`. The builder turns it into a link (relative inside the site; the
+  standalone page of the same language for `support` and `delete`; `#contact` for `contact`). A locale must use
+  the same targets as English in the same key; the link text is translated. Until 2026-11-23 there was a ninth
+  target, `webapp` (the web app); it was removed with the owner's decision of that day and is refused like any
+  unknown target.
 * **Keeping the 15 translations of version 1.** For every key whose English text did not change, the existing
   translation stays untouched. For every key that is new or whose English text changed, the base writer puts the
   new English text into the 19 other files **and lists the key in that file's `_status` entry**: `_status` becomes
@@ -332,10 +375,16 @@ tested and add: the 160 pages exist; every relative link and every `[[target|...
 locale that exists in the tree; the tree works when moved to the root (no link starts with `/about/` or `/`,
 except the form's action and absolute URLs); the menu has the seven items and exactly one `aria-current`; the
 home page is the brand block and one hero, the About page has its three sections, and the logo of every page
-leads to the home page; no text in any language says that a file is not signed; the
+leads to the home page; no text in any language says that a file is not signed; the site does not offer the web
+version (the owner's rule of 2026-11-23): no address in any of the 160 pages leads to the root of the server (and
+the builder refuses to build a page that holds one - a link, a button, a form or a redirect), no
+content file has a `[[webapp|...]]` link or the keys `hero.openAction` / `downloads.web`, the English sentences
+that named the browser are pinned as they read now, and in all 20 languages the home page has two actions, the
+Questions page 29 questions, the Downloads page ends with a heading and the iPhone paragraph, and the word for
+"browser" stands only in the three texts about downloading and installing a file; the
 contact block is on every page except the result pages, with the six controls, labels, `autocomplete`, `maxlength`
 and the hidden fields; the language chooser has 20 options in the fixed order and the right one selected; exactly
-30 questions; the download tables match `site/downloads.json` (file, version, size, SHA-256) and every file in
+29 questions; the download tables match `site/downloads.json` (file, version, size, SHA-256) and every file in
 `about/files/` has the listed size and hash; `add-download.mjs` on a scratch tree (add, refuse a duplicate,
 `--replace`, `--remove`, a wrong hash is caught by the build); `site.js` passes the forbidden-pattern check and its
 two behaviours are tested (with `node:test` and a minimal DOM double, or by pure functions - no new dependency);

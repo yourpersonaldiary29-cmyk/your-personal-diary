@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Un jurnal privat care te ajută să-ți observi propriile tipare",
     "lead": "Scrie despre ziua ta cu propriile cuvinte. Dacă vrei, adaugă dispoziția, somnul și obiceiurile. De-a lungul săptămânilor, lunilor și anilor, {{BRAND}} îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia.",
-    "openAction": "Deschide în browser",
     "note": "Gratuit. Fără reclame, fără analize de utilizare, fără urmărire."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "Ce este {{BRAND}}?",
-        "a": "Un jurnal privat. Scrii despre ziua ta cu propriile cuvinte și, dacă vrei, adaugi dispoziția, somnul, obiceiurile și altele. De-a lungul săptămânilor, lunilor și anilor, aplicația îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia. Funcționează în browser și ca aplicație pentru Windows, Mac, Android și iPhone, cu un singur cont pentru toate."
+        "a": "Un jurnal privat. Scrii despre ziua ta cu propriile cuvinte și, dacă vrei, adaugi dispoziția, somnul, obiceiurile și altele. De-a lungul săptămânilor, lunilor și anilor, aplicația îți semnalează tipare în propriile însemnări și îți arată cifrele din spatele fiecăruia. Funcționează ca aplicație pentru Windows, Mac, Android și iPhone, cu un singur cont pentru toate."
       },
       {
         "q": "Este gratuit?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Ce dispozitive pot folosi?",
-        "a": "Un computer cu Windows 10 sau 11, un Mac cu macOS 12.3 sau o versiune ulterioară, un telefon Android cu Android 7.0 sau o versiune ulterioară, un iPhone cu iOS 16 sau o versiune ulterioară și orice browser modern pe computer sau pe telefon. Fișierele de instalare se află pe pagina [[downloads|Descărcări]]. Este un singur cont peste tot: ce scrii pe un dispozitiv apare și pe celelalte."
+        "a": "Un computer cu Windows 10 sau 11, un Mac cu macOS 12.3 sau o versiune ulterioară, un telefon Android cu Android 7.0 sau o versiune ulterioară și un iPhone cu iOS 16 sau o versiune ulterioară. Fișierele de instalare se află pe pagina [[downloads|Descărcări]]. Este un singur cont peste tot: ce scrii pe un dispozitiv apare și pe celelalte."
       },
       {
         "q": "În ce limbi este disponibil?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Pot să-l încerc fără cont?",
-        "a": "În aplicația Android, da. Pe primul ecran alege „Omite - vreau doar să arunc o privire” și explorează aplicația cu date de exemplu. Nimic din ce scrii acolo nu se salvează, iar turul se încheie singur după 30 de minute. În aplicațiile pentru Windows, Mac și iPhone și în browser ai nevoie de un cont; crearea lui este gratuită."
+        "a": "În aplicația Android, da. Pe primul ecran alege „Omite - vreau doar să arunc o privire” și explorează aplicația cu date de exemplu. Nimic din ce scrii acolo nu se salvează, iar turul se încheie singur după 30 de minute. În aplicațiile pentru Windows, Mac și iPhone ai nevoie de un cont; crearea lui este gratuită."
       },
       {
         "q": "Ce poate conține o însemnare?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Cum funcționează obiceiurile și mementourile?",
-        "a": "Îți stabilești obiceiuri zilnice sau săptămânale, fiecare cu un obiectiv, și le bifezi pe parcurs. Aplicația îți arată câte zile la rând ai reușit și cât din obiectiv ai îndeplinit. Mementourile țin de obiceiuri: setezi ora pentru fiecare obicei pe pagina Obiceiuri și activezi mementourile din Setări, la Mementouri. Pe un telefon Android sau pe un iPhone care permite notificări pentru aplicație, mementoul sosește chiar și când aplicația este închisă; pe computer și în browser apare cât timp jurnalul este deschis. Mementourile sunt create chiar pe dispozitiv; nu se trimite nimic în afară."
+        "a": "Îți stabilești obiceiuri zilnice sau săptămânale, fiecare cu un obiectiv, și le bifezi pe parcurs. Aplicația îți arată câte zile la rând ai reușit și cât din obiectiv ai îndeplinit. Mementourile țin de obiceiuri: setezi ora pentru fiecare obicei pe pagina Obiceiuri și activezi mementourile din Setări, la Mementouri. Pe un telefon Android sau pe un iPhone care permite notificări pentru aplicație, mementoul sosește chiar și când aplicația este închisă; pe computer apare cât timp jurnalul este deschis. Mementourile sunt create chiar pe dispozitiv; nu se trimite nimic în afară."
       },
       {
         "q": "Ce sunt observațiile și cum văd cifrele din spatele unei observații?",
@@ -175,16 +174,12 @@
         "a": "Se păstrează modificarea mai nouă, iar aplicația îți spune asta într-un rând. Cealaltă versiune rămâne disponibilă pe acel dispozitiv până închizi nota: o poți citi, îi poți copia textul sau o poți salva ca însemnare nouă."
       },
       {
-        "q": "Îl pot folosi într-un browser, fără să instalez nimic?",
-        "a": "Da. [[webapp|Deschide versiunea web]] în orice browser modern, pe computer sau pe telefon, și conectează-te cu același cont. Browserul nu păstrează nicio copie a ce citești. Dacă se întrerupe conexiunea cât timp jurnalul este deschis, poți continua să scrii: modificările tale se păstrează criptate în browser și se încarcă atunci când revine conexiunea."
-      },
-      {
         "q": "Ce face „Ține-mă minte”?",
         "a": "Te menține conectat pe acel dispozitiv până la 90 de zile, în loc de 12 ore. În aplicațiile pentru Windows, Mac, Android și iPhone păstrează și o copie criptată a ce ai vizualizat recent, ca aplicația să se poată deschide și să ți-o arate fără conexiune. Pe ecranele de conectare și de creare a contului este bifat de la început: pe un dispozitiv pe care îl folosesc și alte persoane, debifează-l și deconectează-te când termini."
       },
       {
         "q": "Unde este păstrat jurnalul meu?",
-        "a": "În propriul tău cont pe serverul {{BRAND}}, într-un fișier criptat separat pentru fiecare cont. Serverul rulează la furnizorul de găzduire Fly.io, în centrul său de date din Frankfurt, Germania. Aplicațiile și browserul arată toate acest singur jurnal. [[privacy|Politica de confidențialitate]] spune exact ce se stochează și unde."
+        "a": "În propriul tău cont pe serverul {{BRAND}}, într-un fișier criptat separat pentru fiecare cont. Serverul rulează la furnizorul de găzduire Fly.io, în centrul său de date din Frankfurt, Germania. Aplicațiile arată toate acest singur jurnal. [[privacy|Politica de confidențialitate]] spune exact ce se stochează și unde."
       },
       {
         "q": "Cine îmi poate citi jurnalul?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Există reclame sau urmărire?",
-        "a": "Nu. Nu există publicitate, analize de utilizare sau urmărire, nici în aplicații, nici în versiunea web, nici pe acest site. Nu vindem și nu partajăm datele tale, iar jurnalul tău nu este folosit niciodată pentru antrenarea vreunei inteligențe artificiale. Aplicațiile și versiunea web se conectează doar la serverul {{BRAND}}, întotdeauna prin HTTPS."
+        "a": "Nu. Nu există publicitate, analize de utilizare sau urmărire, nici în aplicații, nici pe acest site. Nu vindem și nu partajăm datele tale, iar jurnalul tău nu este folosit niciodată pentru antrenarea vreunei inteligențe artificiale. Aplicațiile se conectează doar la serverul {{BRAND}}, întotdeauna prin HTTPS."
       },
       {
         "q": "Cum se blochează jurnalul?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Descărcări",
-    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea, în aplicația pentru iPhone și în browser.",
+    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea și în aplicația pentru iPhone.",
     "tabsLabel": "Sistem de operare",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Verifică fișierul",
     "checkText": "Fiecare fișier are o sumă de control SHA-256. Dacă fișierul descărcat are alta, descărcarea este deteriorată sau fișierul a fost modificat: nu-l instala. Ca să vezi suma de control a unui fișier, tastează Get-FileHash și numele fișierului în Windows PowerShell sau shasum -a 256 și numele fișierului în Terminal pe Mac. Nu contează dacă literele sunt mari sau mici.",
-    "moreHeading": "Browser și iPhone",
-    "web": "Nimic de instalat: {{BRAND}} funcționează și în orice browser modern, pe computer sau pe telefon. [[webapp|Deschide-l în browser]].",
+    "moreHeading": "iPhone",
     "iphone": "Nu există fișier de instalare pentru iPhone: aplicația pentru iPhone se instalează din App Store.",
     "iphoneStore": "Pe iPhone, aplicația se instalează din App Store.",
     "storeLinks": {

@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Privát napló, amely segít észrevenni a saját mintázataidat",
     "lead": "Írj a napodról a saját szavaiddal. Ha szeretnéd, add hozzá a hangulatodat, az alvásodat és a szokásaidat. Hetek, hónapok és évek alatt a {{BRAND}} rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat.",
-    "openAction": "Megnyitás böngészőben",
     "note": "Ingyenes. Nincs reklám, nincs használati elemzés, nincs követés."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "Mi a {{BRAND}}?",
-        "a": "Egy privát napló. A saját szavaiddal írsz a napodról, és ha szeretnéd, hozzáadod a hangulatodat, az alvásodat, a szokásaidat és egyebeket. Hetek, hónapok és évek alatt az alkalmazás rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat. Böngészőben, valamint Windows-, Mac-, Android- és iPhone-alkalmazásként működik, mindegyikhez ugyanazzal az egy fiókkal."
+        "a": "Egy privát napló. A saját szavaiddal írsz a napodról, és ha szeretnéd, hozzáadod a hangulatodat, az alvásodat, a szokásaidat és egyebeket. Hetek, hónapok és évek alatt az alkalmazás rámutat a saját bejegyzéseidben kirajzolódó mintázatokra, és mindegyiknél megmutatja a mögötte álló számokat. Windows-, Mac-, Android- és iPhone-alkalmazásként működik, mindegyikhez ugyanazzal az egy fiókkal."
       },
       {
         "q": "Ingyenes?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Milyen eszközöket használhatok?",
-        "a": "Windows 10 vagy 11 rendszerű számítógép, macOS 12.3 vagy újabb rendszerű Mac, Android 7.0 vagy újabb rendszerű Android-telefon, iOS 16 vagy újabb rendszerű iPhone, valamint bármely modern böngésző számítógépen vagy telefonon. A telepítőfájlok a [[downloads|Letöltések]] oldalon találhatók. Mindenhol egy fiók: amit az egyik eszközön írsz, megjelenik a többin is."
+        "a": "Windows 10 vagy 11 rendszerű számítógép, macOS 12.3 vagy újabb rendszerű Mac, Android 7.0 vagy újabb rendszerű Android-telefon, valamint iOS 16 vagy újabb rendszerű iPhone. A telepítőfájlok a [[downloads|Letöltések]] oldalon találhatók. Mindenhol egy fiók: amit az egyik eszközön írsz, megjelenik a többin is."
       },
       {
         "q": "Milyen nyelveken érhető el?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Kipróbálhatom fiók nélkül?",
-        "a": "Az Android-alkalmazásban igen. Az első képernyőn válaszd a „Kihagyás - csak körülnéznék” lehetőséget, és fedezd fel az alkalmazást mintaadatokkal. Semmi sem mentődik el abból, amit ott írsz, és a bemutató 30 perc után magától véget ér. A Windows-, a Mac- és az iPhone-alkalmazásban, valamint a böngészőben fiókra van szükséged; a létrehozása ingyenes."
+        "a": "Az Android-alkalmazásban igen. Az első képernyőn válaszd a „Kihagyás - csak körülnéznék” lehetőséget, és fedezd fel az alkalmazást mintaadatokkal. Semmi sem mentődik el abból, amit ott írsz, és a bemutató 30 perc után magától véget ér. A Windows-, a Mac- és az iPhone-alkalmazásban fiókra van szükséged; a létrehozása ingyenes."
       },
       {
         "q": "Mit tartalmazhat egy bejegyzés?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Hogyan működnek a szokások és az emlékeztetők?",
-        "a": "Napi vagy heti szokásokat állítasz be, mindegyiket saját céllal, és menet közben kipipálod őket. Az alkalmazás megmutatja a sorozatodat és azt, hogy a cél mekkora részét teljesítetted. Az emlékeztetők a szokásokhoz tartoznak: az egyes szokások időpontját a Szokások oldalon állítod be, az emlékeztetőket pedig a Beállításokban, az Emlékeztetők résznél kapcsolod be. Ha egy Android-telefon vagy egy iPhone engedélyezi az alkalmazás értesítéseit, az emlékeztető akkor is megérkezik, ha az alkalmazás be van zárva; számítógépen és böngészőben akkor jelenik meg, amikor a napló nyitva van. Az emlékeztetők magán az eszközön jönnek létre; semmi sem megy ki az eszközről."
+        "a": "Napi vagy heti szokásokat állítasz be, mindegyiket saját céllal, és menet közben kipipálod őket. Az alkalmazás megmutatja a sorozatodat és azt, hogy a cél mekkora részét teljesítetted. Az emlékeztetők a szokásokhoz tartoznak: az egyes szokások időpontját a Szokások oldalon állítod be, az emlékeztetőket pedig a Beállításokban, az Emlékeztetők résznél kapcsolod be. Ha egy Android-telefon vagy egy iPhone engedélyezi az alkalmazás értesítéseit, az emlékeztető akkor is megérkezik, ha az alkalmazás be van zárva; számítógépen akkor jelenik meg, amikor a napló nyitva van. Az emlékeztetők magán az eszközön jönnek létre; semmi sem megy ki az eszközről."
       },
       {
         "q": "Mik azok a meglátások, és hogyan láthatom a mögöttük álló számokat?",
@@ -175,16 +174,12 @@
         "a": "Az újabb módosítás marad meg, és az alkalmazás ezt egy sorban jelzi. A másik változat azon az eszközön elérhető marad, amíg be nem zárod az értesítést: elolvashatod, kimásolhatod a szövegét, vagy új bejegyzésként mentheted."
       },
       {
-        "q": "Használhatom böngészőben, telepítés nélkül?",
-        "a": "Igen. [[webapp|Nyisd meg a webes verziót]] bármely modern böngészőben, számítógépen vagy telefonon, és jelentkezz be ugyanazzal a fiókkal. A böngésző nem őriz másolatot abból, amit olvasol. Ha megszakad a kapcsolat, miközben a napló nyitva van, tovább írhatsz: a módosításaid titkosítva maradnak a böngészőben, és feltöltődnek, amint visszatér a kapcsolat."
-      },
-      {
         "q": "Mit csinál az „Emlékezz rám”?",
         "a": "12 óra helyett legfeljebb 90 napig bejelentkezve tart azon az eszközön. A Windows-, a Mac-, az Android- és az iPhone-alkalmazásban titkosított másolatot is őriz arról, amit nemrég megnéztél, így az alkalmazás kapcsolat nélkül is meg tud nyílni és meg tudja mutatni. A bejelentkezési és a regisztrációs képernyőn alapértelmezés szerint be van jelölve: olyan eszközön, amelyet mások is használnak, vedd ki a jelölést, és ha végeztél, jelentkezz ki."
       },
       {
         "q": "Hol tárolódik a naplóm?",
-        "a": "A saját fiókodban a {{BRAND}} szerverén, minden fiókhoz külön titkosított fájlban. A szerver a Fly.io tárhelyszolgáltatónál fut, annak németországi, frankfurti adatközpontjában. Az alkalmazások és a böngésző mind ezt az egy naplót mutatják. Az [[privacy|Adatvédelmi irányelvek]] pontosan leírják, mit és hol tárolunk."
+        "a": "A saját fiókodban a {{BRAND}} szerverén, minden fiókhoz külön titkosított fájlban. A szerver a Fly.io tárhelyszolgáltatónál fut, annak németországi, frankfurti adatközpontjában. Az alkalmazások mind ezt az egy naplót mutatják. Az [[privacy|Adatvédelmi irányelvek]] pontosan leírják, mit és hol tárolunk."
       },
       {
         "q": "Ki olvashatja a naplómat?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Van benne reklám vagy követés?",
-        "a": "Nem. Nincs reklám, nincs használati elemzés és nincs követés, sem az alkalmazásokban, sem a webes verzióban, sem ezen a webhelyen. Nem adjuk el és nem osztjuk meg az adataidat, és a naplódat soha nem használjuk semmilyen mesterséges intelligencia tanítására. Az alkalmazások és a webes verzió csak a {{BRAND}} szerveréhez csatlakoznak, mindig HTTPS-en keresztül."
+        "a": "Nem. Nincs reklám, nincs használati elemzés és nincs követés, sem az alkalmazásokban, sem ezen a webhelyen. Nem adjuk el és nem osztjuk meg az adataidat, és a naplódat soha nem használjuk semmilyen mesterséges intelligencia tanítására. Az alkalmazások csak a {{BRAND}} szerveréhez csatlakoznak, mindig HTTPS-en keresztül."
       },
       {
         "q": "Hogyan zárolódik a napló?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Letöltések",
-    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben, az iPhone-alkalmazásban és a böngészőben is.",
+    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben, az iPhone-alkalmazásban is.",
     "tabsLabel": "Operációs rendszer",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "A fájl ellenőrzése",
     "checkText": "Minden fájlnak van SHA-256 ellenőrzőösszege. Ha a letöltött fájlé eltér, a letöltés sérült, vagy a fájlt módosították: ne telepítsd. Egy fájl ellenőrzőösszegét úgy láthatod, hogy a Windows PowerShell ablakában beírod a Get-FileHash parancsot és a fájl nevét, Macen pedig a Terminal alkalmazásban a shasum -a 256 parancsot és a fájl nevét. A kis- és nagybetűk között nincs különbség.",
-    "moreHeading": "Böngésző és iPhone",
-    "web": "Nincs mit telepíteni: a {{BRAND}} bármely modern böngészőben is működik, számítógépen vagy telefonon. [[webapp|Nyisd meg a böngésződben]].",
+    "moreHeading": "iPhone",
     "iphone": "iPhone-ra nincs telepítőfájl: az iPhone-alkalmazást az App Store-ból kell telepíteni.",
     "iphoneStore": "iPhone-on az alkalmazást az App Store-ból lehet telepíteni.",
     "storeLinks": {

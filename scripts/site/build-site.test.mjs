@@ -7,21 +7,26 @@
  * Against the real tree, with a fictional publisher and e-mail (the owner's values are never written into a
  * test): the 20 content files have the keys, list lengths, placeholders and link targets of the English one,
  * and a key that no longer waits for its translation is not an English copy; the English text keeps to the
- * fixed facts (30 questions in their order, no medical promise, no superlative, "end-to-end" only as a question
+ * fixed facts (29 questions in their order, no medical promise, no superlative, "end-to-end" only as a question
  * that is answered "No", a store named only where the text says the file does NOT come from it), and no text in
- * any of the 20 languages tells a visitor that a file is not signed (the owner's rule of 2026-11-22); the 160 pages
- * exist and each has the frame of section 2 - skip link, header (the logo leads to the home page), the menu with
- * seven items and one current item, one h1, the contact block with its six controls (not on the two result pages),
- * the language chooser with 20 options, the copyright line; the home page is the brand block and one hero, and
- * "About the app" is a page of its own; every address in a page is relative and leads to a file of the tree and to a
- * page of the same language, and the tree works under another name; the download tables are the rows of
- * site/downloads.json and the copied installers have the listed size and SHA-256; the two legal pages hold the
- * whole document and name the standalone page as canonical, and the Mac item of the policy says nothing about
- * Apple's signature in any language (the owner's decision of 2026-11-23); right-to-left pages isolate every Latin fragment;
+ * any of the 20 languages tells a visitor that a file is not signed (the owner's rule of 2026-11-22); the site does
+ * not offer the web version (the owner's rule of 2026-11-23: "delete the option of opening the app in the browser.
+ * I want them to download.") - no page links to the root of the server, no text has a link target, a key or a
+ * sentence for it in any of the 20 languages, the home page has two actions and the Downloads page ends with the
+ * iPhone line; the 160 pages exist and each has the frame of section 2 - skip link, header (the logo leads to the
+ * home page), the menu with seven items and one current item, one h1, the contact block with its six controls (not
+ * on the two result pages), the language chooser with 20 options, the copyright line; the home page is the brand
+ * block and one hero, and "About the app" is a page of its own; every address in a page is relative and leads to a
+ * file of the tree and to a page of the same language, and the tree works under another name; the download tables
+ * are the rows of site/downloads.json and the copied installers have the listed size and SHA-256; the two legal
+ * pages hold the whole document and name the standalone page as canonical (the address of the server in them is
+ * text, not a link), and the Mac item of the policy says nothing about Apple's signature in any language (the
+ * owner's decision of 2026-11-23); right-to-left pages isolate every Latin fragment;
  * the colours are the app's theme tokens with a contrast of at least 4.5:1 (controls 3:1) in light and dark;
  * site.js holds nothing forbidden; the site is in no client tree.
  * Against fixture trees in a temp folder (scripts/site/fixture-tree.mjs): the settings, the problems the builder
- * reports in one error, the store links, the command line with --check / --strict / --out, identical builds.
+ * reports in one error (a page with an address that leads to the root of the server is one: such a page is not
+ * built), the store links, the command line with --check / --strict / --out, identical builds.
  *
  * The script of the pages has its own tests (site-js.test.mjs), add-download.mjs too (add-download.test.mjs);
  * server/test/hosted-site-page.test.ts covers the staged image and the hosted server (vitest).
@@ -88,6 +93,7 @@ import {
   SCRIPT_FORBIDDEN,
   SCRIPT_NAME,
   scriptProblems,
+  serverRootAddresses,
   SHARE_IMAGE,
   SHOTS,
   SITE_ID,
@@ -121,6 +127,25 @@ const SERVER_HOST = new URL(SITE_URL).host;
 const SITE_BASE = `${SITE_URL}/${SITE_ID}/`;
 const PAGE_COUNT = SITE_PAGES.length * LOCALES.length;
 const IMAGE_COUNT = CODES.length * SHOTS.length + 2;
+/** The real tree as it will be once the owner connects a domain: the site at the root of another host. Built once. */
+const MOVED_BASE = 'https://diary.example.org/';
+let movedSiteCache = null;
+const movedSite = () => (movedSiteCache ??= buildSite({ settings: FILLED, siteSettings: { ...SITE_SETTINGS, siteBaseUrl: MOVED_BASE } }));
+
+/**
+ * Whether an address in a page leads to the root of the server - where the web version of the diary is. `pageUrl`
+ * is the public address of the page that holds it (a relative address is resolved from there); a query or a
+ * fragment does not make it another place. The owner's rule of 2026-11-23: no page of the site holds such an address.
+ */
+function leadsToServerRoot(address, pageUrl) {
+  let url;
+  try {
+    url = new URL(address, pageUrl);
+  } catch {
+    return false;
+  }
+  return /^https?:$/.test(url.protocol) && url.host === SERVER_HOST && url.pathname === '/';
+}
 
 const english = () => readJson(contentFile(ROOT, DEFAULT_LOCALE));
 const contentOf = (code) => readJson(contentFile(ROOT, code));
@@ -319,7 +344,7 @@ test('content: the 20 locales have the keys, list lengths, placeholders and link
   assert.deepEqual(untranslatedContent().sort(), CODES.filter((code) => MARKER_KEY in contentOf(code)).map((code) => `site/content/site-${code}.json`).sort());
 });
 
-test('content: the English text keeps to the fixed facts - 30 questions, no promise, superlative, cliche or exclamation mark', () => {
+test('content: the English text keeps to the fixed facts - 29 questions, no promise, superlative, cliche or exclamation mark', () => {
   const FORBIDDEN = [
     // security superlatives (the server holds the keys of the accounts: "end-to-end" is checked separately below)
     /zero[\s-]knowledge/i, /military[\s-]grade/i, /bank[\s-]level/i, /most secure/i, /unbreakable/i, /100\s?%/, /\bguarantee/i,
@@ -353,8 +378,8 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
   assert.match(content.downloads.install.mac, /System Settings, then Privacy & Security, scroll down and choose Open Anyway \(on macOS 12: System Preferences, then Security & Privacy, then Open Anyway\)/);
   // macOS may call such an app "damaged" (docs/MAC-RELEASE.he.md 5.3): the note says so before the visitor throws it away.
   assert.match(content.downloads.install.mac, /may even say that the app is damaged\. Do not move it to the Bin/);
-  assert.match(content.faq.items[28].a, /^Because the file is not from an app store\. Windows may show "Windows protected your PC": choose More info, then Run anyway\. macOS does not open the app the first time/);
-  assert.match(content.faq.items[28].a, /may even say that it is damaged: do not move it to the Bin.*on macOS 12: System Preferences, then Security & Privacy/);
+  assert.match(content.faq.items[27].a, /^Because the file is not from an app store\. Windows may show "Windows protected your PC": choose More info, then Run anyway\. macOS does not open the app the first time/);
+  assert.match(content.faq.items[27].a, /may even say that it is damaged: do not move it to the Bin.*on macOS 12: System Preferences, then Security & Privacy/);
   // Android 7 (the oldest the app runs on) has one switch, Unknown sources, instead of a permission per app.
   assert.match(content.downloads.install.android, /on Android 7 this setting is called Unknown sources/);
   // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "not available yet".
@@ -367,55 +392,65 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
 
   // "end-to-end": one question asks it, and the answer is No.
   const endToEnd = [...leaves].filter(([, text]) => /end[\s-]to[\s-]end/i.test(text)).map(([where]) => where);
-  assert.deepEqual(endToEnd, ['faq.items.21.q'], '"end-to-end" stands only in the question that asks it');
-  assert.match(content.faq.items[21].a, /^No\. /);
-  assert.match(content.faq.items[21].a, /the server opens it in its memory/);
+  assert.deepEqual(endToEnd, ['faq.items.20.q'], '"end-to-end" stands only in the question that asks it');
+  assert.match(content.faq.items[20].a, /^No\. /);
+  assert.match(content.faq.items[20].a, /the server opens it in its memory/);
 
-  // The 30 questions, in the six groups, each on its subject (the translations follow these positions).
-  assert.equal(FAQ_COUNT, 30);
-  assert.equal(content.faq.items.length, 30);
-  assert.deepEqual(FAQ_GROUP_SIZES, [7, 7, 5, 5, 4, 2]);
+  // The 29 questions, in the six groups, each on its subject (the translations follow these positions). Until
+  // 2026-11-23 there were 30: the 18th, "Can I use it in a browser, without installing anything?", was deleted with
+  // the option itself (the owner's rule, tested below), so the third group has four questions and every later
+  // question stands one place earlier.
+  assert.equal(FAQ_COUNT, 29);
+  assert.equal(content.faq.items.length, 29);
+  assert.deepEqual(FAQ_GROUP_SIZES, [7, 7, 4, 5, 4, 2]);
   assert.deepEqual(content.faq.groups, ['About the app', 'Writing and features', 'Devices and working offline', 'Privacy and security', 'Your account', 'Installing and updating']);
   const SUBJECTS = [
     /^What is \{\{BRAND\}\}\?$/, /free/, /publishes/, /devices/, /languages/, /medical tool/, /without an account/,
     /diary entry/, /habits and reminders/, /insights.*numbers behind/, /calendars/, /smart search/, /statistics/, /formats.*export/,
-    /offline/, /several devices/, /same entry on two devices/, /browser, without installing/, /"Remember me"/,
+    /offline/, /several devices/, /same entry on two devices/, /"Remember me"/,
     /Where is my diary kept/, /Who can read my diary/, /end-to-end encrypted/, /ads or tracking/, /locked/,
     /forget my password/, /back up.*restore/, /delete my account/, /How old/,
     /warn.*install a file from this site/, /update to a new version/,
   ];
-  assert.equal(SUBJECTS.length, 30);
+  assert.equal(SUBJECTS.length, 29);
   content.faq.items.forEach((item, i) => {
     assert.match(item.q, SUBJECTS[i], `question ${i}`);
     assert.ok(item.q.endsWith('?'), `question ${i} is a question`);
     assert.ok(item.a.length >= 60 && item.a.length <= 700, `answer ${i} is short (${item.a.length} characters)`);
   });
-  assert.equal(new Set(content.faq.items.map((item) => item.q)).size, 30, 'no question twice');
+  assert.equal(new Set(content.faq.items.map((item) => item.q)).size, 29, 'no question twice');
+  // The questions of each group, by the first and the last of the group: the group that lost a question still
+  // starts with working offline and ends with "Remember me".
+  const groupStarts = FAQ_GROUP_SIZES.map((size, g) => FAQ_GROUP_SIZES.slice(0, g).reduce((sum, n) => sum + n, 0));
+  assert.deepEqual(groupStarts, [0, 7, 14, 18, 23, 27]);
+  assert.match(content.faq.items[groupStarts[2]].q, /offline/);
+  assert.match(content.faq.items[groupStarts[3] - 1].q, /"Remember me"/);
+  assert.match(content.faq.items[groupStarts[3]].q, /Where is my diary kept/);
 
   // The careful words that must be there.
   assert.match(content.faq.items[5].a, /^No\. .*not a medical or diagnostic tool.*not medical or psychological advice/);
   assert.match(content.faq.items[6].a, /^In the Android app, yes\./, 'the tour exists in the Android app only');
-  assert.match(content.faq.items[20].a, /could technically reset the password of any account and read its diary without knowing the password\. We promise not to do this/);
+  assert.match(content.faq.items[19].a, /could technically reset the password of any account and read its diary without knowing the password\. We promise not to do this/);
   // Backup is a page of the menu (in the Android and iPhone apps under More), not a card of Settings; "Remember me" is ticked at first.
-  assert.match(content.faq.items[25].a, /^Open Backup in the menu \(in the Android and iPhone apps, under More\)/);
+  assert.match(content.faq.items[24].a, /^Open Backup in the menu \(in the Android and iPhone apps, under More\)/);
   // The iPhone app is named with the others wherever the answer is true for it too (the owner's wording of 2026-11-18,
   // "the iPhone app in all places"); the tour stays Android only.
   assert.match(content.faq.items[0].a, /as an app for Windows, Mac, Android and iPhone, with one account for all of them/);
-  assert.match(content.faq.items[6].a, /In the Windows, Mac and iPhone apps and in the browser you need an account/);
+  assert.match(content.faq.items[6].a, /In the Windows, Mac and iPhone apps you need an account/);
   assert.match(content.faq.items[8].a, /On an Android phone or an iPhone that allows notifications for the app/);
-  assert.match(content.faq.items[18].a, /In the Windows, Mac, Android and iPhone apps it also keeps an encrypted copy/);
-  assert.match(content.faq.items[23].a, /In the Android and iPhone apps you can also have it lock whenever you leave the app\./);
+  assert.match(content.faq.items[17].a, /In the Windows, Mac, Android and iPhone apps it also keeps an encrypted copy/);
+  assert.match(content.faq.items[22].a, /In the Android and iPhone apps you can also have it lock whenever you leave the app\./);
   // No app offers a fingerprint / face unlock online: the device's screen lock is offered only without a connection.
-  assert.match(content.faq.items[23].a, /Without a connection, an app can also open with the screen lock of your device instead of the password \(Windows Hello, Touch ID or the Mac password, Face ID \/ Touch ID or the iPhone passcode, or the Android screen lock\)/);
-  assert.ok(!/open it with your fingerprint or face/.test(content.faq.items[23].a), 'no online fingerprint unlock is promised');
+  assert.match(content.faq.items[22].a, /Without a connection, an app can also open with the screen lock of your device instead of the password \(Windows Hello, Touch ID or the Mac password, Face ID \/ Touch ID or the iPhone passcode, or the Android screen lock\)/);
+  assert.ok(!/open it with your fingerprint or face/.test(content.faq.items[22].a), 'no online fingerprint unlock is promised');
   // The one account also works in the iPhone app; the device in use cannot be disconnected from the list (sign out there).
-  assert.match(content.downloads.lead, /One account works in all of them, in the iPhone app and in the browser\.$/);
+  assert.match(content.downloads.lead, /One account works in all of them and in the iPhone app\.$/);
   assert.match(content.faq.items[15].a, /and you can disconnect any of them except the one you are using\.$/);
   assert.ok(![...leaves.values()].some((text) => /Settings - Backup/.test(text)), 'no text sends the visitor to a Backup card in Settings');
-  assert.match(content.faq.items[18].a, /it is ticked at first: on a device that other people also use, clear it/);
-  assert.ok(content.faq.items[27].a.includes('{{MINIMUM_AGE}}') && !/\p{Nd}/u.test(content.faq.items[27].a), 'the age comes from legal/settings.json, never a literal');
-  assert.match(content.faq.items[28].a, /More info, then Run anyway.*Open Anyway/);
-  assert.match(content.faq.items[29].a, /do not update themselves/);
+  assert.match(content.faq.items[17].a, /it is ticked at first: on a device that other people also use, clear it/);
+  assert.ok(content.faq.items[26].a.includes('{{MINIMUM_AGE}}') && !/\p{Nd}/u.test(content.faq.items[26].a), 'the age comes from legal/settings.json, never a literal');
+  assert.match(content.faq.items[27].a, /More info, then Run anyway.*Open Anyway/);
+  assert.match(content.faq.items[28].a, /do not update themselves/);
   assert.match(content.privacy.items.join(' '), /stored encrypted/);
   assert.match(content.privacy.items.join(' '), /opens your diary in its memory/);
   assert.match(content.features.items[2].text, /never claim that one thing causes another/);
@@ -435,8 +470,9 @@ test('content: the English text keeps to the fixed facts - 30 questions, no prom
 /**
  * THE OWNER'S RULE OF 2026-11-22 (his words: the visitors "do not need to know that the file is not signed yet"):
  * no text of the site, in any language, tells a visitor that a file or the app is not signed. Until that day three
- * texts of every language said so - downloads.install.windows, downloads.install.mac and faq.items.28.a - and that
- * clause, and nothing else, left them. The table holds the words each language used there for "signed" and for
+ * texts of every language said so - downloads.install.windows, downloads.install.mac and the answer about the
+ * warnings (then faq.items.28.a; faq.items.27.a since the question about the browser was deleted on 2026-11-23) -
+ * and that clause, and nothing else, left them. The table holds the words each language used there for "signed" and for
  * "certificate", read from the files of commit 20c1071 (a stem where the word is inflected; Arabic and Hebrew used
  * two forms). A text that brings one of them back fails this test: change the text, not the table.
  */
@@ -463,7 +499,7 @@ const UNSIGNED_WORDS = {
   zh: { signed: ['签名'], certificate: ['证书'] },
 };
 /** The three texts that told it, as dotted keys. */
-const INSTALL_TEXTS = ['downloads.install.windows', 'downloads.install.mac', 'faq.items.28.a'];
+const INSTALL_TEXTS = ['downloads.install.windows', 'downloads.install.mac', 'faq.items.27.a'];
 
 test('content: no text in any of the 20 languages tells a visitor that a file is not signed (the owner, 2026-11-22)', () => {
   assert.deepEqual(Object.keys(UNSIGNED_WORDS).sort(), [...CODES].sort(), 'the table has a row for every app locale');
@@ -483,8 +519,8 @@ test('content: no text in any of the 20 languages tells a visitor that a file is
     assert.ok(leaves.get('downloads.install.windows').includes('Microsoft Store') && leaves.get('downloads.install.windows').includes('Windows'), `${code}: the Windows note names Microsoft Store`);
     assert.ok(leaves.get('downloads.install.android').includes('Google Play') && android7.test(leaves.get('downloads.install.android')), `${code}: the Android note names Google Play and Android 7`);
     assert.ok(leaves.get('downloads.install.mac').includes('macOS') && leaves.get('downloads.install.mac').includes('macOS 12'), `${code}: the Mac note has the steps of both versions of macOS`);
-    for (const name of ['Windows', 'macOS', 'macOS 12', 'Android', 'SHA-256', '[[downloads|']) assert.ok(leaves.get('faq.items.28.a').includes(name), `${code}: the answer about the warnings still names ${name}`);
-    assert.match(leaves.get('faq.items.28.a'), android7, `${code}: the answer about the warnings still names Android 7`);
+    for (const name of ['Windows', 'macOS', 'macOS 12', 'Android', 'SHA-256', '[[downloads|']) assert.ok(leaves.get('faq.items.27.a').includes(name), `${code}: the answer about the warnings still names ${name}`);
+    assert.match(leaves.get('faq.items.27.a'), android7, `${code}: the answer about the warnings still names Android 7`);
   }
   // The table is not blind: it catches the two sentences that left the English file.
   for (const old of ['This setup file does not come from Microsoft Store and is not signed with a publisher certificate yet.', 'The app is not signed with an Apple developer certificate yet, so the first time macOS does not open it']) {
@@ -502,11 +538,299 @@ test('content: no text in any of the 20 languages tells a visitor that a file is
   const en = english();
   assert.equal(en.downloads.install.windows, 'This setup file does not come from Microsoft Store. Your browser may first warn that the file is not commonly downloaded (choose to keep it), and when you open it, Windows may show "Windows protected your PC": choose More info, then Run anyway. The setup asks for your language and installs the app for your own Windows account, without an administrator password.');
   assert.equal(en.downloads.install.mac, 'Open the disk image, drag the app to the Applications folder and open it from there. The first time, macOS does not open it, and the message may even say that the app is damaged. Do not move it to the Bin (Trash): close the message, open System Settings, then Privacy & Security, scroll down and choose Open Anyway (on macOS 12: System Preferences, then Security & Privacy, then Open Anyway), enter your Mac password if asked, and choose Open.');
-  assert.equal(en.faq.items[28].a, 'Because the file is not from an app store. Windows may show "Windows protected your PC": choose More info, then Run anyway. macOS does not open the app the first time and may even say that it is damaged: do not move it to the Bin (Trash), but open System Settings, then Privacy & Security (on macOS 12: System Preferences, then Security & Privacy), and choose Open Anyway. Android asks you to allow your browser or file manager to install apps (on Android 7: Unknown sources). The [[downloads|Downloads]] page has the steps for each system, and a SHA-256 checksum for every file to check that your copy is unchanged.');
+  assert.equal(en.faq.items[27].a, 'Because the file is not from an app store. Windows may show "Windows protected your PC": choose More info, then Run anyway. macOS does not open the app the first time and may even say that it is damaged: do not move it to the Bin (Trash), but open System Settings, then Privacy & Security (on macOS 12: System Preferences, then Security & Privacy), and choose Open Anyway. Android asks you to allow your browser or file manager to install apps (on Android 7: Unknown sources). The [[downloads|Downloads]] page has the steps for each system, and a SHA-256 checksum for every file to check that your copy is unchanged.');
   const he = contentOf('he');
   assert.equal(he.downloads.install.windows, 'קובץ ההתקנה הזה לא מגיע מ-Microsoft Store. ייתכן שהדפדפן יזהיר קודם שהקובץ לא מורד לעתים קרובות (בחרו לשמור אותו), וכשתפתחו אותו, Windows עשוי להציג "Windows protected your PC" (Windows הגן על המחשב שלך): בחרו "מידע נוסף" ואז "הפעל בכל זאת". ההתקנה שואלת מה השפה שלכם ומתקינה את האפליקציה בחשבון ה-Windows שלכם בלבד, בלי סיסמת מנהל.');
   assert.ok(he.downloads.install.mac.startsWith('פתחו את תמונת הדיסק, גררו את האפליקציה לתיקייה "יישומים" ופתחו אותה משם. בפעם הראשונה macOS לא פותח אותה, וההודעה עשויה אף לומר שהאפליקציה פגומה. אל תעבירו אותה לפח: סגרו את ההודעה, '), 'he: the Mac note starts with the steps, then "the first time"');
-  assert.ok(he.faq.items[28].a.startsWith('כי הקובץ לא מגיע מחנות אפליקציות. Windows עשוי להציג "Windows protected your PC" (Windows הגן על המחשב שלך): '), 'he: the answer starts with the store, then the warning of Windows');
+  assert.ok(he.faq.items[27].a.startsWith('כי הקובץ לא מגיע מחנות אפליקציות. Windows עשוי להציג "Windows protected your PC" (Windows הגן על המחשב שלך): '), 'he: the answer starts with the store, then the warning of Windows');
+});
+
+/**
+ * THE OWNER'S RULE OF 2026-11-23 (his words, translated: "on the site, delete the option of opening the app in the
+ * browser. I want them to download."): the site does not offer the web version. The web version itself keeps
+ * working at the root of the server, and the two legal documents - shown inside the site unchanged - still describe
+ * it. But no page of the site links to it, and no text of site/content/, in any language, tells a visitor that the
+ * diary can be opened, used or read in a web browser. Until that day every language had: a first button on the home
+ * page (hero.openAction), a question "Can I use it in a browser, without installing anything?" (faq.items.17), a
+ * paragraph on the Downloads page (downloads.web), the link target [[webapp|...]], and the browser or "the web
+ * version" named in eight more texts (six answers, the lead of the Downloads page and the heading under its tabs).
+ *
+ * The table holds, for each language, the word it uses for "browser" and the words it used for "the web version",
+ * read from the files of commit 9cdfb9a - a stem where the word is inflected, so that every form of it is seen.
+ * Where one stem cannot do that, the row holds the case forms one by one, also those no text used: Greek (the
+ * accent moves - πρόγραμμα, προγράμματος - and each form is cut before the ending of its last word, which takes a
+ * second accent before "σας") and Polish (wersja, wersji, wersję, wersją). Japanese writes "browser" as ブラウザー
+ * and as ブラウザ: the row holds what the two spellings share.
+ *
+ * The word for "browser" legitimately STAYS in exactly three texts, where a file is downloaded or installed - the
+ * Windows note, the Android note and the answer about the warnings - and the test wants it there and nowhere else,
+ * so a wrong word in the table fails as surely as a text that brings the option back. Change the text, not the table.
+ */
+const WEB_VERSION_WORDS = {
+  ar: { browser: ['متصفح'], webVersion: ['نسخة الويب'] },
+  bg: { browser: ['браузър'], webVersion: ['уеб верси'] },
+  cs: { browser: ['prohlížeč'], webVersion: ['webov'] },
+  de: { browser: ['browser'], webVersion: ['webversion'] },
+  el: { browser: ['πρόγραμμα περιήγησ', 'προγράμματος περιήγησ', 'προγράμματα περιήγησ', 'προγραμμάτων περιήγησ'], webVersion: ['διαδικτυακή έκδοσ', 'διαδικτυακής έκδοσ'] },
+  en: { browser: ['browser'], webVersion: ['web version'] },
+  es: { browser: ['navegador'], webVersion: ['versión web'] },
+  fr: { browser: ['navigateur'], webVersion: ['version web'] },
+  he: { browser: ['דפדפן'], webVersion: ['גרסת הדפדפן'] },
+  hi: { browser: ['ब्राउज़र'], webVersion: ['वेब संस्करण'] },
+  hu: { browser: ['böngész'], webVersion: ['webes verzi'] },
+  it: { browser: ['browser'], webVersion: ['versione web'] },
+  ja: { browser: ['ブラウザ'], webVersion: ['ウェブ版'] },
+  pl: { browser: ['przeglądar'], webVersion: ['wersji internetowej', 'wersja internetowa', 'wersję internetową', 'wersją internetową'] },
+  pt: { browser: ['navegador'], webVersion: ['versão web'] },
+  ro: { browser: ['browser'], webVersion: ['versiunea web'] },
+  ru: { browser: ['браузер'], webVersion: ['веб-верси'] },
+  th: { browser: ['เบราว์เซอร์'], webVersion: ['เวอร์ชันเว็บ'] },
+  tr: { browser: ['tarayıcı'], webVersion: ['web sürüm'] },
+  zh: { browser: ['浏览器'], webVersion: ['网页版'] },
+};
+/** The three texts where a browser downloads or installs a file, in the order of a content file. */
+const BROWSER_TEXTS = ['faq.items.27.a', 'downloads.install.windows', 'downloads.install.android'];
+
+/**
+ * Every address in the markup of a page, read with a plain scan (not with the parser above): [tag, attribute, address].
+ * The content of a <meta http-equiv="refresh"> is "seconds; url=address" (the "url=" and quotes around the address
+ * are optional): there the address is the part a browser would go to.
+ */
+function addressesOf(html) {
+  const found = [];
+  for (const tag of html.matchAll(/<([a-zA-Z][a-zA-Z0-9]*)((?:\s+[^\s"'<>/=]+(?:="[^"]*")?)*)\s*\/?>/g)) {
+    for (const attribute of tag[2].matchAll(/\s+(href|src|srcset|action|formaction|poster|data|value|content)="([^"]*)"/g)) {
+      const value = decode(attribute[2]);
+      const refresh = attribute[1] === 'content' ? /^\s*\d+\s*[;,]\s*(?:url\s*=\s*)?(.*)$/i.exec(value) : null;
+      found.push([tag[1], attribute[1], refresh ? refresh[1].trim().replace(/^(['"])(.*)\1$/, '$2') : value]);
+    }
+  }
+  return found;
+}
+
+test('the web version: no page of the site links to the root of the server (the owner, 2026-11-23)', () => {
+  // The check itself: what leads to the root of the server, from where - and what does not. The builder has a check
+  // of its own (serverRootAddresses; buildSite refuses a page that fails it) and reads every sample the same way.
+  for (const [address, pageUrl] of [
+    [`${SITE_URL}/`, SITE_BASE],
+    [SITE_URL, SITE_BASE],
+    [`${SITE_URL}/?lang=he`, `${SITE_BASE}he/`],
+    [`${SITE_URL}/#/login`, SITE_BASE],
+    [`${SITE_URL.replace('https:', 'http:')}/`, SITE_BASE],
+    ['../', SITE_BASE],
+    ['../../', `${SITE_BASE}he/`],
+    ['../../../', `${SITE_BASE}he/faq/`],
+    ['/', `${SITE_BASE}downloads/`],
+    [`${SITE_URL}/`, MOVED_BASE],
+  ]) {
+    assert.ok(leadsToServerRoot(address, pageUrl), `${address} in ${pageUrl} leads to the web version`);
+    assert.deepEqual(serverRootAddresses(`<a href="${address}">x</a>`, pageUrl, SITE_URL), [address], `the builder: ${address} in ${pageUrl} leads to the web version`);
+  }
+  for (const [address, pageUrl] of [
+    ['./', SITE_BASE],
+    ['../', `${SITE_BASE}he/`],
+    ['../downloads/', `${SITE_BASE}faq/`],
+    [`${SITE_URL}/${SITE_ID}/`, SITE_BASE],
+    [`${SITE_URL}/support/`, SITE_BASE],
+    [`${SITE_URL}/delete-account/he/`, `${SITE_BASE}he/faq/`],
+    [`${SITE_URL}/privacy/`, `${SITE_BASE}privacy/`],
+    ['#contact', SITE_BASE],
+    [CONTACT_ACTION, SITE_BASE],
+    ['mailto:help@example.test', SITE_BASE],
+    ['../', `${MOVED_BASE}he/`],
+    [MOVED_BASE, MOVED_BASE],
+  ]) {
+    assert.ok(!leadsToServerRoot(address, pageUrl), `${address} in ${pageUrl} does not lead to the web version`);
+    assert.deepEqual(serverRootAddresses(`<a href="${address}">x</a>`, pageUrl, SITE_URL), [], `the builder: ${address} in ${pageUrl} does not lead to the web version`);
+  }
+  // It catches the three links the pages held until 2026-11-23: the first button of the home page, the link of the
+  // answer about the browser and the link of the Downloads page - and the link of a legal document to the server.
+  const old = [
+    `<p class="actions"><a class="btn primary" href="${SITE_URL}/"><span>Open in your browser</span></a></p>`,
+    `<p>Yes. <a href="${SITE_URL}/">Open the web version</a> in any modern browser.</p>`,
+    `<p>Nothing to install. <a href="${SITE_URL}/">Open it in your browser</a>.</p>`,
+    `<li>the <strong>website</strong> <a href="${SITE_URL}" dir="ltr">${SITE_URL}</a>.</li>`,
+  ];
+  for (const html of old) {
+    assert.equal(addressesOf(html).filter(([, , address]) => leadsToServerRoot(address, SITE_BASE)).length, 1, html);
+    assert.equal(serverRootAddresses(html, SITE_BASE, SITE_URL).length, 1, `the builder: ${html}`);
+  }
+  // A redirect is an address too: the content of a <meta http-equiv="refresh"> names where the browser goes by itself.
+  // Both checks read it, in the forms a browser accepts, and leave alone a redirect to another place and a content
+  // that is no redirect.
+  for (const [html, count] of [
+    [`<meta http-equiv="refresh" content="0; url=${SITE_URL}/">`, 1],
+    [`<meta http-equiv="refresh" content="0;URL='${SITE_URL}/'">`, 1],
+    [`<meta http-equiv="refresh" content="3; ${SITE_URL}">`, 1],
+    ['<meta http-equiv="refresh" content="0, ../">', 1],
+    ['<meta http-equiv="refresh" content="0; url=./downloads/">', 0],
+    ['<meta name="viewport" content="width=device-width, initial-scale=1"><meta property="og:image:width" content="1024">', 0],
+  ]) {
+    assert.equal(addressesOf(html).filter(([, , address]) => leadsToServerRoot(address, SITE_BASE)).length, count, html);
+    assert.equal(serverRootAddresses(html, SITE_BASE, SITE_URL).length, count, `the builder: ${html}`);
+  }
+
+  // The 160 pages as they are served today under <server>/about/, and the same pages at the root of a domain of the
+  // owner: no element of any page holds an address that leads to the root of the server - no link, no button, no
+  // form, no redirect.
+  for (const [site, base] of [[real(), SITE_BASE], [movedSite(), MOVED_BASE]]) {
+    assert.equal(site.pages.size, PAGE_COUNT);
+    for (const { rel, html, dir } of pagesOf(site)) {
+      const addresses = addressesOf(html);
+      // The scan sees the page: at least the style sheet, the script, the logo, the menu and the language list.
+      assert.ok(addresses.length >= 40, `${base}${rel}: the addresses of the page were read`);
+      const toRoot = addresses.filter(([, , address]) => leadsToServerRoot(address, `${base}${dir}`)).map(([tag, name, address]) => `<${tag} ${name}="${address}">`);
+      assert.deepEqual(toRoot, [], `${base}${rel}: an address leads to the web version at the root of the server - the site does not offer it`);
+      assert.ok(!html.includes(`href="${SITE_URL}"`) && !html.includes(`href="${SITE_URL}/"`), `${base}${rel}: no link to ${SITE_URL}/`);
+      // No page sends a visitor on by itself: there is no <meta http-equiv> at all (the character set is <meta charset>).
+      assert.ok(!/http-equiv/i.test(html), `${base}${rel}: no <meta http-equiv>, so no redirect`);
+      assert.deepEqual(serverRootAddresses(html, `${base}${dir}`, SITE_URL), [], `${base}${rel}: the builder's own check finds no such address either`);
+    }
+  }
+  // (That buildSite refuses a page with such an address, and --check with it, is shown on a fixture tree: the test
+  // "fixture tree: a broken list, a broken document, a link to the web version ..." below.)
+  // The same by the parsed pages: every <a> of every page leads somewhere else - into the site, or to one of the
+  // two documents outside it (the support page, the account-deletion page) - never to "/". A store link, once
+  // site/settings.json names one (none today), leads to the store itself: this rule has nothing to say about it.
+  const stores = storeHosts(readSiteSettings());
+  const paths = new Set();
+  for (const { rel, dir } of pagesOf(real())) {
+    for (const link of parsed(rel).all('a')) {
+      const url = new URL(link.attrs.href, `${SITE_BASE}${dir}`);
+      if (url.protocol === 'mailto:' || stores.includes(url.host)) continue;
+      assert.equal(url.host, SERVER_HOST, `${rel}: ${link.attrs.href}`);
+      assert.notEqual(url.pathname, '/', `${rel}: <a href="${link.attrs.href}"> opens the web version`);
+      paths.add(url.pathname.split('/')[1]);
+    }
+  }
+  assert.deepEqual([...paths].sort(), [SITE_ID, 'delete-account', 'support'], 'the links of the pages lead into the site, to the support page and to the deletion page');
+});
+
+test('the web version: no text, key or link target of the site offers it, in any of the 20 languages (the owner, 2026-11-23)', () => {
+  // The builder knows no such thing any more: no link target, no key of the hero, no key of the Downloads page.
+  assert.deepEqual(LINK_TARGETS, ['privacy', 'terms', 'faq', 'downloads', 'home', 'support', 'delete', 'contact']);
+  assert.ok(!LINK_TARGETS.includes('webapp'), 'there is no link target for the web version');
+  assert.deepEqual(Object.keys(CONTENT_SCHEMA.hero), ['heading', 'lead', 'note'], 'the hero has no text for a button that opens the web version');
+  assert.ok(!('web' in CONTENT_SCHEMA.downloads) && !('openAction' in CONTENT_SCHEMA.hero));
+  assert.deepEqual(Object.keys(CONTENT_SCHEMA.downloads).slice(-5), ['checkText', 'moreHeading', 'iphone', 'iphoneStore', 'storeLinks'], 'under the tabs: the heading and the iPhone line');
+  // A content file that brings one of them back is refused: as the English file, and as a translation of it.
+  const base = english();
+  const broken = (change, against = base) => {
+    const copy = structuredClone(base);
+    change(copy);
+    return contentProblems(copy, against);
+  };
+  assert.deepEqual(broken((c) => { c.hero.openAction = 'Open in your browser'; }), ['unknown key hero.openAction']);
+  assert.deepEqual(broken((c) => { c.hero.openAction = 'Open in your browser'; }, null), ['unknown key hero.openAction']);
+  assert.deepEqual(broken((c) => { c.downloads.web = 'Nothing to install: {{BRAND}} also works in any modern browser.'; }), ['unknown key downloads.web']);
+  assert.deepEqual(broken((c) => { c.downloads.web = 'Nothing to install.'; }, null), ['unknown key downloads.web']);
+  const linked = (c) => { c.faq.items[0].a = `${c.faq.items[0].a} [[webapp|Open the web version]].`; };
+  assert.deepEqual(broken(linked, null), ['faq.items.0.a unknown link target [[webapp|...]] (the targets: privacy, terms, faq, downloads, home, support, delete, contact)']);
+  assert.deepEqual(broken(linked), [
+    'faq.items.0.a unknown link target [[webapp|...]] (the targets: privacy, terms, faq, downloads, home, support, delete, contact)',
+    'faq.items.0.a must hold exactly the links of the English text (none); found [[webapp|...]]',
+  ]);
+  assert.match(broken((c) => { c.faq.items.splice(17, 0, { q: 'Can I use it in a browser, without installing anything?', a: 'Yes. Open the web version in any modern browser, on a computer or a phone, and sign in with the same account.' }); })[0], /^faq\.items must have 29 items \(found 30\)$/);
+
+  // The 20 files, by their structure: no such key, no such link, 29 questions, and under the tabs of the Downloads
+  // page a heading that names the iPhone only.
+  assert.deepEqual(Object.keys(WEB_VERSION_WORDS).sort(), [...CODES].sort(), 'the table has a row for every app locale');
+  for (const code of CODES) {
+    const raw = readFileSync(contentFile(ROOT, code), 'utf8');
+    const content = JSON.parse(raw);
+    const leaves = leavesOf(content);
+    assert.ok(!raw.includes('[[webapp|') && !raw.includes('webapp'), `${code}: no [[webapp|...]] link`);
+    assert.ok(!raw.includes('openAction'), `${code}: no hero.openAction`);
+    assert.deepEqual(Object.keys(content.hero), ['heading', 'lead', 'note'], `${code}: the texts of the hero`);
+    assert.ok(!('web' in content.downloads), `${code}: no downloads.web`);
+    assert.equal(content.faq.items.length, 29, `${code}: 29 questions`);
+    assert.equal(content.downloads.moreHeading, 'iPhone', `${code}: the heading under the tabs names the iPhone, and nothing else`);
+    // No link of any text leads anywhere but to the eight targets.
+    for (const [where, text] of leaves) for (const target of linkTargetsOf(text)) assert.ok(LINK_TARGETS.includes(target), `${code} ${where}: [[${target}|...]]`);
+
+    // By the words of the language: "browser" only where a file is downloaded or installed, "the web version" nowhere.
+    const { browser, webVersion } = WEB_VERSION_WORDS[code];
+    assert.ok(browser.length >= 1 && webVersion.length >= 1 && [...browser, ...webVersion].every((word) => word.trim().length >= 3), `${code}: a word for "browser" and a word for "the web version"`);
+    const textsWith = (words) => [...leaves].filter(([, text]) => words.some((word) => text.toLowerCase().includes(word.toLowerCase()))).map(([where]) => where);
+    assert.deepEqual(textsWith(browser), BROWSER_TEXTS, `${code}: "${browser.join('", "')}" stands in the three texts about downloading and installing a file, and in no other - a visitor is not told that the diary can be used in a browser`);
+    assert.deepEqual(textsWith(webVersion), [], `${code}: "${webVersion.join('", "')}" is back - the site does not offer the web version`);
+  }
+
+  // The English texts, word for word: the sentences that named the browser or the web version, as they read now.
+  const en = english();
+  assert.ok(en.faq.items[0].a.endsWith(' It runs as an app for Windows, Mac, Android and iPhone, with one account for all of them.'), 'What is it: it runs as an app');
+  assert.ok(en.faq.items[3].a.startsWith('A computer with Windows 10 or 11, a Mac with macOS 12.3 or later, an Android phone with Android 7.0 or later, or an iPhone with iOS 16 or later. The installation files are on the [[downloads|Downloads]] page.'), 'Which devices: four, and the Downloads page');
+  assert.ok(en.faq.items[6].a.endsWith(' In the Windows, Mac and iPhone apps you need an account; creating one is free.'), 'Without an account: the three apps that need one');
+  assert.ok(en.faq.items[8].a.includes('a reminder arrives even when the app is closed; on a computer it appears while the diary is open. Reminders are created on the device itself'), 'Reminders: on a computer');
+  assert.equal(en.faq.items[16].q, 'What happens if I change the same entry on two devices?');
+  assert.equal(en.faq.items[17].q, 'What does "Remember me" do?', 'the question about the browser stood between these two');
+  assert.equal(en.faq.items[18].a, 'In your own account on the {{BRAND}} server, in a separate encrypted file for each account. The server runs at the hosting provider Fly.io, in its data centre in Frankfurt, Germany. The apps all show this one diary. The [[privacy|Privacy Policy]] says exactly what is stored and where.');
+  assert.equal(en.faq.items[21].a, 'No. There is no advertising, no analytics and no tracking, in the apps or on this site. We do not sell or share your data, and your diary is never used to train any AI. The apps connect only to the {{BRAND}} server, always over HTTPS.');
+  assert.equal(en.downloads.lead, 'Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them and in the iPhone app.');
+  assert.equal(en.downloads.moreHeading, 'iPhone');
+  assert.equal(en.downloads.iphone, 'There is no installation file for iPhone: the iPhone app is installed from the App Store.');
+  // What stays: the short privacy list still names the website (the web version exists, and the site is one too).
+  assert.equal(en.privacy.items[2], 'The apps and the website connect only to the {{BRAND}} server, always over HTTPS.');
+  // The rule in English words, over every English text. ("Your browser may first warn ..." and "allow your browser
+  // or file manager to install apps" are about a downloaded file and stay.)
+  const RULE = [/\bweb (?:version|app)\b/i, /\bweb-?app\b/i, /\bin (?:a|any|the|your)(?: modern)? browser\b/i, /\bany modern browser\b/i, /\bwithout installing\b/i, /\bnothing to install\b/i, /\bopen (?:it )?in (?:a|the|your) browser\b/i, /\band the browser\b/i];
+  for (const [where, text] of leavesOf(en)) for (const re of RULE) assert.ok(!re.test(text), `${where}: ${re} matches "${text}"`);
+  for (const sample of [
+    'Open in your browser',
+    'It runs in a browser and as an app for Windows, Mac, Android and iPhone, with one account for all of them.',
+    'an iPhone with iOS 16 or later, and any modern browser on a computer or a phone.',
+    'In the Windows, Mac and iPhone apps and in the browser you need an account; creating one is free.',
+    'on a computer and in the browser it appears while the diary is open.',
+    'Can I use it in a browser, without installing anything?',
+    'Yes. Open the web version in any modern browser, on a computer or a phone, and sign in with the same account.',
+    'The apps and the browser all show this one diary.',
+    'There is no advertising, no analytics and no tracking, in the apps, in the web version or on this site.',
+    'One account works in all of them, in the iPhone app and in the browser.',
+    'Nothing to install: Your Personal Diary also works in any modern browser, on a computer or a phone. Open it in your browser.',
+  ]) {
+    assert.ok(RULE.some((re) => re.test(sample)), `the rule catches: ${sample}`);
+  }
+  for (const where of BROWSER_TEXTS) assert.ok(/\byour browser\b/i.test(leavesOf(en).get(where)) && !RULE.some((re) => re.test(leavesOf(en).get(where))), `${where}: the browser that downloads or installs the file stays`);
+  // The Hebrew texts, as the owner reads them.
+  const he = contentOf('he');
+  assert.ok(he.faq.items[0].a.endsWith(' היא פועלת כאפליקציה ל-Windows, ל-Mac, ל-Android ול-iPhone, עם חשבון אחד לכולם.'));
+  assert.ok(he.faq.items[3].a.startsWith('מחשב עם Windows 10 או 11, Mac עם macOS 12.3 ואילך, טלפון Android עם Android 7.0 ואילך, או iPhone עם iOS 16 ואילך. '));
+  assert.ok(he.faq.items[18].a.includes(' האפליקציות מציגות כולן את אותו יומן. '));
+  assert.equal(he.downloads.lead, 'קובצי התקנה של {{BRAND}} ל-Windows, ל-Android ול-Mac. חשבון אחד עובד בכולם, וגם באפליקציית iPhone.');
+});
+
+test('the web version: the pages of all 20 languages - two actions on the home page, 29 questions, the iPhone line alone under the tabs', () => {
+  for (const l of LOCALES) {
+    const content = contentOf(l.code);
+    // The home page: Downloads first, as the primary button, then About the app. Both lead into the site.
+    const homeRel = pageFile('home', l.code);
+    const home = parsed(homeRel);
+    const homeDir = siteDir('home', l.code);
+    const buttons = home.inside(home.all('main')[0], 'a');
+    assert.deepEqual(
+      buttons.map((el) => [el.attrs.class, resolveAddress(homeDir, el.attrs.href), home.textOf(el)]),
+      [['btn primary', siteDir('downloads', l.code), content.nav.downloads], ['btn', siteDir('about', l.code), content.nav.about]],
+      `${homeRel}: the links of the home page are "Downloads" (the primary button) and "About the app"`,
+    );
+    // The Questions page: 29 questions, and none of them is the one about the browser.
+    const faqRel = pageFile('faq', l.code);
+    const faq = parsed(faqRel);
+    assert.equal(faq.all('details').length, 29, `${faqRel}: 29 questions`);
+    assert.deepEqual(faq.all('section').filter((el) => hasClass(el, 'group')).map((group) => faq.inside(group, 'details').length), [7, 7, 4, 5, 4, 2], `${faqRel}: the questions of the six groups`);
+    assert.deepEqual(faq.all('summary').map((el) => faq.textOf(el)), content.faq.items.map((item) => plain(item.q, l)), `${faqRel}: the questions of the content file, in order`);
+    // The Downloads page: under the tabs, exactly a heading and the iPhone paragraph - no link, nothing else. (This is
+    // the page while site/settings.json names no App Store link, as today. With that link set, the paragraph is
+    // downloads.iphoneStore and the button of the App Store follows it - the test "downloads: a store link that is
+    // set ..." describes that page - and the three checks below must then expect it.)
+    const downloadsRel = pageFile('downloads', l.code);
+    const downloads = parsed(downloadsRel);
+    const more = downloads.all('section').filter((el) => hasClass(el, 'more'));
+    assert.equal(more.length, 1, `${downloadsRel}: one section under the tabs`);
+    assert.deepEqual(downloads.children(more[0]).map((el) => [el.tag, el.attrs, downloads.textOf(el)]), [['h2', {}, 'iPhone'], ['p', {}, content.downloads.iphone]], `${downloadsRel}: under the tabs, the heading and the iPhone paragraph (while no App Store link is set)`);
+    // Inside them only text (in a right-to-left page with its Latin fragments isolated): no link, no button.
+    assert.deepEqual(downloads.inside(more[0]).map((el) => el.tag).filter((tag) => !['h2', 'p', 'bdi'].includes(tag)), [], `${downloadsRel}: nothing else under the tabs (while no App Store link is set)`);
+    assert.equal(downloads.inside(more[0], 'a').length, 0, `${downloadsRel}: no link under the tabs (while no App Store link is set)`);
+  }
 });
 
 test('contentProblems: what the builder refuses in a content file', () => {
@@ -527,14 +851,16 @@ test('contentProblems: what the builder refuses in a content file', () => {
   assert.match(contentProblems({ [MARKER_KEY]: { marker: UNTRANSLATED_MARKER, keys: 'all', note: 'x' }, ...base }, base)[0], /"_status" must be/);
   assert.match(contentProblems(marked([]), base)[0], /"_status" must be/);
   assert.deepEqual(contentProblems(marked(['nav.about', 'nav.nothing']), base), ['"_status" lists "nav.nothing", which is not a text of the file (write keys like nav.about or faq.items.7.q)']);
-  assert.deepEqual(contentProblems(marked(['nav', 'faq.items.30.q']), base).length, 2, 'a group and a question that does not exist are not texts');
+  assert.deepEqual(contentProblems(marked(['nav', 'faq.items.29.q']), base).length, 2, 'a group and a question that does not exist are not texts');
+  assert.deepEqual(contentProblems(marked(['faq.items.28.q']), base), [], 'the last question is faq.items.28');
   assert.deepEqual(contentProblems(marked(['nav.about', 'nav.about']), base), ['"_status" lists nav.about twice']);
   // Keys and lists.
   assert.deepEqual(broken((c) => { delete c.hero.lead; }), ['hero.lead is missing']);
   assert.deepEqual(broken((c) => { c.hero.extra = 'x'; }), ['unknown key hero.extra']);
   assert.deepEqual(broken((c) => { c.get = { heading: 'Get the app' }; }), ['unknown key get'], 'a key of version 1 that no page uses any more');
   assert.match(broken((c) => { c.features.items.pop(); })[0], /features\.items must have 8 items \(found 7\)/);
-  assert.match(broken((c) => { c.faq.items.push({ q: 'Q', a: 'A' }); })[0], /faq\.items must have 30 items \(found 31\)/);
+  assert.match(broken((c) => { c.faq.items.push({ q: 'Q', a: 'A' }); })[0], /faq\.items must have 29 items \(found 30\)/);
+  assert.match(broken((c) => { c.faq.items.pop(); })[0], /faq\.items must have 29 items \(found 28\)/);
   assert.match(broken((c) => { c.faq.groups.pop(); })[0], /faq\.groups must have 6 items \(found 5\)/);
   assert.match(broken((c) => { c.privacy.items.pop(); })[0], new RegExp(`privacy\\.items must have ${base.privacy.items.length} items`));
   assert.deepEqual(broken((c) => { c.privacy.items = 'one text'; }), ['privacy.items must be a list']);
@@ -550,10 +876,12 @@ test('contentProblems: what the builder refuses in a content file', () => {
   assert.match(broken((c) => { c.hero.note = 'By {{PUBLISHER}}'; }).join('\n'), /hero\.note unknown placeholder \{\{PUBLISHER\}\}/);
   assert.match(broken((c) => { c.hero.lead = c.hero.lead.replace('{{BRAND}}', '{{BRAND}'); }).join('\n'), /hero\.lead broken placeholder/);
   assert.match(broken((c) => { c.hero.note = 'Write to {{CONTACT_EMAIL}}'; }).join('\n'), /hero\.note may not use \{\{CONTACT_EMAIL\}\}/);
-  assert.match(broken((c) => { c.faq.items[27].a = 'You must be 16.'; })[0], /faq\.items\.27\.a must use exactly the placeholders of the English text \(\{\{MINIMUM_AGE\}\}\); found none/);
+  assert.match(broken((c) => { c.faq.items[26].a = 'You must be 16.'; })[0], /faq\.items\.26\.a must use exactly the placeholders of the English text \(\{\{MINIMUM_AGE\}\}\); found none/);
   // Links: only where the schema allows them, only the known targets, the same targets as English.
   assert.match(broken((c) => { c.hero.note = 'See the [[privacy|policy]]'; }).join('\n'), /hero\.note may not hold a link/);
   assert.match(broken((c) => { c.contact.notice = 'More in the [[policy|Privacy Policy]].'; }).join('\n'), /contact\.notice unknown link target \[\[policy\|\.\.\.\]\]/);
+  // "webapp" was a target until 2026-11-23 (the web version); it is refused like any other unknown one.
+  assert.match(broken((c) => { c.contact.notice = 'More in the [[privacy|Privacy Policy]], or [[webapp|open the diary]].'; }).join('\n'), /contact\.notice unknown link target \[\[webapp\|\.\.\.\]\] \(the targets: privacy, terms, faq, downloads, home, support, delete, contact\)/);
   assert.match(broken((c) => { c.contact.notice = 'More in the Privacy Policy.'; })[0], /contact\.notice must hold exactly the links of the English text \(\[\[privacy\|\.\.\.\]\]\); found none/);
   assert.match(broken((c) => { c.contact.notice = 'More in the [[terms|Terms of Use]].'; })[0], /contact\.notice must hold exactly the links of the English text \(\[\[privacy\|\.\.\.\]\]\); found \[\[terms\|\.\.\.\]\]/);
   assert.match(broken((c) => { c.contact.notice = 'More in the [[privacy|Privacy Policy].'; }).join('\n'), /contact\.notice broken link/);
@@ -1168,7 +1496,7 @@ test('pages: the frame of all 160 - head, skip link, header, menu, one h1, conta
 // The pages themselves
 // ---------------------------------------------------------------------------------------------
 
-test('home: the brand block with the large icon and the name, then the h1, the lead, three actions, the note and the phone - nothing else', () => {
+test('home: the brand block with the large icon and the name, then the h1, the lead, two actions, the note and the phone - nothing else', () => {
   for (const l of LOCALES) {
     const rel = pageFile('home', l.code);
     const page = parsed(rel);
@@ -1205,7 +1533,9 @@ test('home: the brand block with the large icon and the name, then the h1, the l
     const logo = page.all('img').find((el) => hasClass(el, 'app-icon'));
     assert.equal(icon.attrs.src, logo.attrs.src, `${rel}: one icon file for the header and the brand block`);
 
-    // Then the h1, the lead, the three actions and the note.
+    // Then the h1, the lead, the two actions and the note. Until 2026-11-23 a first action, "Open in your browser",
+    // opened the web version at the root of the server; the owner had it removed ("I want them to download"), and
+    // "Downloads" is the primary button since.
     assert.equal(h1.tag, 'h1');
     assert.ok(page.elements.indexOf(block) < page.elements.indexOf(h1), `${rel}: the brand block stands before the h1`);
     assert.equal(page.textOf(h1), plain(content.hero.heading, l), `${rel}: the heading`);
@@ -1215,18 +1545,20 @@ test('home: the brand block with the large icon and the name, then the h1, the l
     assert.deepEqual(
       actions.map((el) => [el.attrs.href, page.textOf(el), el.attrs.class]),
       [
-        [`${SITE_URL}/`, content.hero.openAction, 'btn primary'],
-        [relativeHref(dir, siteDir('downloads', l.code)), content.nav.downloads, 'btn'],
+        [relativeHref(dir, siteDir('downloads', l.code)), content.nav.downloads, 'btn primary'],
         [relativeHref(dir, siteDir('about', l.code)), content.nav.about, 'btn'],
       ],
-      `${rel}: "Open in your browser" (the web app), "Downloads" and "About the app"`,
+      `${rel}: "Downloads" (the primary button) and "About the app"`,
     );
-    assert.equal(page.children(actionsBox).length, 3, `${rel}: exactly three actions`);
-    // Where the third action leads: the About page of the same language, a file of the tree.
-    assert.equal(resolveAddress(dir, actions[2].attrs.href), `${l.code === DEFAULT_LOCALE ? '' : `${l.code}/`}app/`, `${rel}: the third action opens the About page`);
-    assert.ok(real().pages.has(`${resolveAddress(dir, actions[2].attrs.href)}index.html`));
+    assert.equal(page.children(actionsBox).length, 2, `${rel}: exactly two actions`);
+    assert.equal(page.elements.filter((el) => hasClass(el, 'primary') && el.parents.includes(mainEl)).length, 1, `${rel}: one primary button, "Downloads"`);
+    // Where the two actions lead: the Downloads page and the About page of the same language, files of the tree.
+    assert.equal(resolveAddress(dir, actions[0].attrs.href), `${l.code === DEFAULT_LOCALE ? '' : `${l.code}/`}downloads/`, `${rel}: the first action opens the Downloads page`);
+    assert.equal(resolveAddress(dir, actions[1].attrs.href), `${l.code === DEFAULT_LOCALE ? '' : `${l.code}/`}app/`, `${rel}: the second action opens the About page`);
+    for (const action of actions) assert.ok(real().pages.has(`${resolveAddress(dir, action.attrs.href)}index.html`), `${rel}: ${action.attrs.href} is a page of the tree`);
     assert.deepEqual([note.tag, note.attrs.class, page.textOf(note)], ['p', 'note', plain(content.hero.note, l)], `${rel}: the note`);
-    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/`).length, 1, `${rel}: one link to the web app`);
+    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/` || el.attrs.href === SITE_URL).length, 0, `${rel}: no link to the web version`);
+    assert.ok(!('openAction' in content.hero), `${rel}: the content file has no text for such a button`);
 
     // The phone: the first screen of the app in the language of the page.
     assert.deepEqual([shot.tag, shot.attrs.class], ['div', 'hero-shot phone']);
@@ -1240,8 +1572,9 @@ test('home: the brand block with the large icon and the name, then the h1, the l
   // By its literal markup, English.
   const html = real().pages.get('index.html');
   assert.ok(html.includes('<p class="home-brand"><img class="home-icon" src="./img/icon.svg" width="96" height="96" alt=""><bdi lang="en" dir="ltr">Your Personal Diary</bdi></p>\n<h1>A private diary that helps you notice your own patterns</h1>'), 'en: the brand block, then the h1');
-  assert.ok(html.includes('<a class="btn" href="./downloads/"><span>Downloads</span></a><a class="btn" href="./app/"><span>About the app</span></a></p>'), 'en: the second and the third action');
-  assert.ok(real().pages.get('he/index.html').includes('<a class="btn" href="./app/"><span>על האפליקציה</span></a></p>'), 'he: the third action');
+  assert.ok(html.includes('<p class="actions"><a class="btn primary" href="./downloads/"><span>Downloads</span></a><a class="btn" href="./app/"><span>About the app</span></a></p>'), 'en: the two actions');
+  assert.ok(real().pages.get('he/index.html').includes('<p class="actions"><a class="btn primary" href="./downloads/"><span>הורדות</span></a><a class="btn" href="./app/"><span>על האפליקציה</span></a></p>'), 'he: the two actions');
+  assert.ok(!html.includes('Open in your browser') && !html.includes(`href="${SITE_URL}/"`), 'en: the button that opened the web version is gone');
 });
 
 test('about: its own page - the h1 and the lead, then eight cards, the screens and the privacy list with its link', () => {
@@ -1294,7 +1627,7 @@ test('about: its own page - the h1 and the lead, then eight cards, the screens a
     assert.deepEqual(page.children(checks).map((li) => page.textOf(li)), content.privacy.items.map((item) => plain(item, l)), `${rel}: the privacy list`);
     const policy = page.all('a').find((el) => el.parents.at(-1).attrs.class === 'policy');
     assert.deepEqual([policy.attrs.href, page.textOf(policy), policy.attrs.class], [relativeHref(dir, siteDir('privacy', l.code)), content.privacy.policyLink, 'btn'], `${rel}: the button to the Privacy Policy page of the site`);
-    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/`).length, 0, `${rel}: the link to the web app is on the home page`);
+    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/` || el.attrs.href === SITE_URL).length, 0, `${rel}: no link to the web version`);
 
     // The menu marks this page; the home page is another item.
     const current = page.inside(page.all('nav')[0], 'a').filter((el) => 'aria-current' in el.attrs);
@@ -1361,21 +1694,23 @@ test('logo: on every page the logo and the name of the header are one link to th
   );
 });
 
-test('questions: exactly 30, in six groups, each a <details> with a plain <summary>; the links of the answers lead on', () => {
+test('questions: exactly 29, in six groups, each a <details> with a plain <summary>; the links of the answers lead on', () => {
   for (const l of LOCALES) {
     const rel = pageFile('faq', l.code);
     const page = parsed(rel);
     const content = contentOf(l.code);
     const dir = siteDir('faq', l.code);
     const to = (id) => relativeHref(dir, siteDir(id, l.code));
-    const hrefs = { home: to('home'), privacy: to('privacy'), terms: to('terms'), faq: to('faq'), downloads: to('downloads'), support: `${SITE_URL}${pagePath('support', l.code)}`, delete: `${SITE_URL}${pagePath('delete-account', l.code)}`, webapp: `${SITE_URL}/`, contact: '#contact' };
+    // Where each target of LINK_TARGETS leads. There is no target for the web version (the owner, 2026-11-23).
+    const hrefs = { home: to('home'), privacy: to('privacy'), terms: to('terms'), faq: to('faq'), downloads: to('downloads'), support: `${SITE_URL}${pagePath('support', l.code)}`, delete: `${SITE_URL}${pagePath('delete-account', l.code)}`, contact: '#contact' };
+    assert.deepEqual(Object.keys(hrefs).sort(), [...LINK_TARGETS].sort(), 'an address for every link target, and no other');
     assert.equal(page.textOf(page.all('title')[0]), `${content.faq.heading} - ${BRAND}`);
     assert.equal(page.textOf(page.all('h1')[0]), content.faq.heading);
     const groups = page.all('section').filter((el) => hasClass(el, 'group'));
     assert.equal(groups.length, 6, `${rel}: six groups`);
     const details = page.all('details');
-    assert.equal(details.length, 30, `${rel}: exactly 30 questions`);
-    assert.equal(page.all('summary').length, 30);
+    assert.equal(details.length, 29, `${rel}: exactly 29 questions`);
+    assert.equal(page.all('summary').length, 29);
     let index = 0;
     groups.forEach((group, g) => {
       const [heading, ...items] = page.children(group);
@@ -1392,6 +1727,7 @@ test('questions: exactly 30, in six groups, each a <details> with a plain <summa
         assert.ok(!page.inside(summary).some((el) => /^h[1-6]$/.test(el.tag)), `${rel}: no heading in <summary>`);
         // Every [[target|text]] of the answer is a link to its place, in the order of the text.
         const wanted = [...a.matchAll(/\[\[([a-z]+)\|([^\]]+)\]\]/g)].map((m) => [hrefs[m[1]], m[2]]);
+        for (const [href, text] of wanted) assert.equal(typeof href, 'string', `${rel}: the target of the link "${text}" of answer ${index} is known`);
         const found = page.inside(answer, 'a').filter((el) => !el.attrs.href.startsWith('mailto:')).map((el) => [el.attrs.href, page.textOf(el)]);
         assert.deepEqual(found, wanted, `${rel}: the links of answer ${index}`);
         index += 1;
@@ -1400,13 +1736,15 @@ test('questions: exactly 30, in six groups, each a <details> with a plain <summa
     assert.equal(index, FAQ_COUNT);
     // The publisher and the minimum age come from legal/settings.json.
     assert.ok(page.textOf(details[2]).includes(FILLED.publisherName), `${rel}: who publishes it`);
-    assert.ok(page.textOf(details[27]).includes(ageOf(l)), `${rel}: the minimum age`);
+    assert.ok(page.textOf(details[26]).includes(ageOf(l)), `${rel}: the minimum age`);
+    // No answer links to the web version.
+    assert.equal(page.all('a').filter((el) => el.attrs.href === `${SITE_URL}/` || el.attrs.href === SITE_URL).length, 0, `${rel}: no link to the web version`);
   }
   // The targets in use: each leads where the specification says (English, by its literal address).
   const page = parsed(pageFile('faq', 'en'));
   const hrefOf = (text) => page.all('a').filter((el) => page.textOf(el) === text).map((el) => el.attrs.href);
   assert.deepEqual(hrefOf('contact form'), ['#contact']);
-  assert.deepEqual(hrefOf('Open the web version'), [`${SITE_URL}/`]);
+  assert.deepEqual(hrefOf('Open the web version'), [], 'the answer that opened the web version was deleted with its question (2026-11-23)');
   assert.deepEqual(hrefOf('account-deletion page'), [`${SITE_URL}/delete-account/`]);
   assert.deepEqual([...new Set(hrefOf('Privacy Policy'))], ['../privacy/']);
   assert.deepEqual([...new Set(hrefOf('Downloads'))], ['../downloads/']);
@@ -1460,18 +1798,25 @@ test('downloads: three panels in tab order, each a table of File, Version and Si
       const sums = page.inside(check, 'dl')[0];
       assert.deepEqual(page.children(sums).map((el) => [el.tag, page.textOf(el)]), rows.flatMap((row) => [['dt', row.file], ['dd', row.sha256]]), `${where}: the SHA-256 of each row`);
       for (const code of page.inside(sums, 'code')) assert.equal(code.attrs.dir, 'ltr');
+      // site/settings.json names no store link today (the settings test: "nothing is published yet"), and the checks
+      // of the real tree describe the pages as they are without one: this one, the iPhone line and the links of the
+      // page below, and the section under the tabs in the test "the web version: the pages of all 20 languages ...".
+      // On the day the owner sets a link they must follow; the page with links is described by the next test.
       assert.equal(page.inside(panel, 'a').length, rows.length, `${where}: no store link while none is set`);
     }
-    // Under the tabs: the web version, and the iPhone line.
+    // Under the tabs: the iPhone line under its heading, and nothing else. Until 2026-11-23 a paragraph about the web
+    // version stood before it, with a link that opened it (downloads.web); the owner had it removed.
     const more = page.all('section').find((el) => hasClass(el, 'more'));
     assert.ok(page.elements.indexOf(more) > page.elements.indexOf(panels[2]) && !more.parents.includes(box), `${rel}: under the tabs`);
-    const [moreHeading, web, iphone] = page.children(more);
+    const [moreHeading, iphone] = page.children(more);
     assert.deepEqual([moreHeading.tag, page.textOf(moreHeading)], ['h2', texts.moreHeading]);
-    assert.equal(page.textOf(web), plain(texts.web, l), `${rel}: the web version`);
-    assert.deepEqual(page.inside(web, 'a').map((el) => el.attrs.href), [`${SITE_URL}/`]);
-    assert.equal(page.textOf(iphone), texts.iphone, `${rel}: the iPhone line`);
-    assert.equal(page.children(more).length, 3);
-    assert.deepEqual(page.elements.filter((el) => /^h[1-6]$/.test(el.tag)).map((el) => el.tag), ['h1', 'h2', 'h2', 'h2', 'h2', 'h2'], `${rel}: three platforms, "Browser and iPhone", "Contact us"`);
+    assert.deepEqual([iphone.tag, page.textOf(iphone)], ['p', texts.iphone], `${rel}: the iPhone line`);
+    assert.equal(page.children(more).length, 2, `${rel}: a heading and the iPhone paragraph`);
+    assert.deepEqual(page.inside(more, 'a'), [], `${rel}: no link under the tabs while no store link is set`);
+    assert.ok(!('web' in texts), `${rel}: the content file has no text about the web version`);
+    assert.deepEqual(page.elements.filter((el) => /^h[1-6]$/.test(el.tag)).map((el) => el.tag), ['h1', 'h2', 'h2', 'h2', 'h2', 'h2'], `${rel}: three platforms, "iPhone", "Contact us"`);
+    // The only links of the page content are the installer files.
+    assert.deepEqual(page.inside(page.all('main')[0], 'a').map((el) => el.attrs.class), PLATFORMS.flatMap((platform) => site.downloads[platform].map(() => 'get')), `${rel}: the links of the page are the download links (while no store link is set)`);
   }
   assert.equal(parsed(pageFile('downloads', 'en')).textOf(parsed(pageFile('downloads', 'en')).all('caption')[0]), 'Installation files for Windows, newest version first');
 });
@@ -1495,6 +1840,9 @@ test('downloads: a store link that is set stands above the table of its platform
     const more = page.all('section').find((el) => hasClass(el, 'more'));
     assert.deepEqual(storeLinks(more).map((a) => [a.attrs.href, page.textOf(a)]), [[links.appStoreIphone, texts.storeLinks.appStoreIphone]], `${rel}: the App Store link in the iPhone line`);
     assert.ok(page.textOf(more).includes(plain(texts.iphoneStore, l)) && !page.textOf(more).includes(texts.iphone), `${rel}: "not available yet" is gone`);
+    // Under the tabs: the heading, the iPhone sentence and the button of the App Store - still no word about a browser.
+    assert.deepEqual(page.children(more).map((el) => [el.tag, el.attrs.class]), [['h2', undefined], ['p', undefined], ['p', 'actions']], `${rel}: the heading, the sentence, the store link`);
+    assert.equal(page.inside(more, 'a').length, 1, `${rel}: the one link under the tabs is the App Store`);
     const hosts = new Set([...html.matchAll(/https?:\/\/([^/"'\s<>)]+)/g)].map((m) => m[1]));
     assert.deepEqual([...hosts].sort(), ['apps.apple.com', 'play.google.com', SERVER_HOST].sort(), `${rel}: the store hosts appear only because the settings name them`);
   }
@@ -1527,13 +1875,26 @@ test('legal pages: the whole document of legal/ inside the frame, the standalone
       // The effective date of this document, written out in the language of the page.
       assert.ok(page.textOf(doc).includes(dateInWords(kind === 'terms' ? FILLED.termsEffectiveDate : FILLED.effectiveDate, l.intl)), `${rel}: the effective date`);
       // The links: the two documents of the site lead to the site's own pages of the same language (relative);
-      // the support page and the deletion page stay on the server; the web app keeps its address.
+      // the support page and the deletion page stay on the server. The address of the server itself, where the web
+      // version is, is NOT a link inside the site (the owner's rule of 2026-11-23): the document still names it -
+      // the web version is part of the service it describes - but as text, read left to right.
       const other = kind === 'terms' ? 'privacy' : 'terms';
-      const allowed = new Set([relativeHref(dir, siteDir('terms', l.code)), relativeHref(dir, siteDir('privacy', l.code)), SITE_URL, `${SITE_URL}${pagePath('support', l.code)}`, `${SITE_URL}${pagePath('delete-account', l.code)}`, `mailto:${FILLED.contactEmail}`]);
+      const allowed = new Set([relativeHref(dir, siteDir('terms', l.code)), relativeHref(dir, siteDir('privacy', l.code)), `${SITE_URL}${pagePath('support', l.code)}`, `${SITE_URL}${pagePath('delete-account', l.code)}`, `mailto:${FILLED.contactEmail}`]);
       const hrefs = page.inside(doc, 'a').map((el) => el.attrs.href);
       for (const href of hrefs) assert.ok(allowed.has(href), `${rel}: the link ${href}`);
+      assert.ok(!hrefs.includes(SITE_URL) && !hrefs.includes(`${SITE_URL}/`), `${rel}: no link to the web version`);
       assert.ok(hrefs.includes(relativeHref(dir, siteDir(other, l.code))), `${rel}: links the other document inside the site`);
       assert.ok(!hrefs.includes(`${SITE_URL}${pagePath(other, l.code)}`), `${rel}: not the standalone page`);
+      // Every place where the source names the address of the server shows it, isolated, and none of them is a link.
+      const named = body.split('[{{SITE_URL}}]({{SITE_URL}})').length - 1;
+      assert.equal(body.split('{{SITE_URL}}').length - 1, named * 2, `${rel}: the source names the address of the server only as [{{SITE_URL}}]({{SITE_URL}})`);
+      assert.equal(named, kind === 'terms' ? 2 : 1, `${rel}: the source names the address of the server`);
+      const shown = page.inside(doc, 'bdi').filter((el) => el.attrs.dir === 'ltr' && page.textOf(el) === SITE_URL);
+      assert.equal(shown.length, named, `${rel}: the address of the server, as text, wherever the document names it`);
+      for (const el of shown) assert.ok(!el.parents.some((parent) => parent.tag === 'a') && page.inside(el).length === 0, `${rel}: the address of the server is not a link`);
+      // (An address below it - the support page, the page of the site - is another address: only the bare one counts.)
+      const bare = new RegExp(`${SITE_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![/\\w.-])`);
+      assert.equal(page.texts.filter((node) => bare.test(node.text) && node.parents.includes(doc)).length, named, `${rel}: and it stands nowhere else in the document`);
       // Where the document shows such an address as text, it shows the address of the site's page.
       for (const el of page.inside(doc, 'a')) {
         const text = page.textOf(el);
@@ -1546,6 +1907,12 @@ test('legal pages: the whole document of legal/ inside the frame, the standalone
   assert.ok(terms.all('a').some((el) => el.attrs.href === '../privacy/' && terms.textOf(el) === `${SITE_BASE}privacy/`));
   assert.deepEqual(terms.all('link').filter((el) => el.attrs.rel === 'canonical').map((el) => el.attrs.href), [`${SITE_URL}/terms/`], 'the stores and the apps link to the standalone page');
   assert.deepEqual(parsed(pageFile('privacy', 'he')).all('link').filter((el) => el.attrs.rel === 'canonical').map((el) => el.attrs.href), [`${SITE_URL}/privacy/he/`]);
+  // By its literal markup, English: the policy names the website with its address - the words of legal/ unchanged,
+  // the address as text. (The standalone page, which scripts/legal/build-pages.mjs writes, keeps the link.)
+  const policy = real().pages.get(pageFile('privacy', 'en'));
+  assert.ok(policy.includes(`the <strong>iPhone app</strong> (App Store) and the <strong>website</strong> <bdi dir="ltr">${SITE_URL}</bdi>. All of them use the same server and the same account.`), 'en: the address of the server in the policy is text');
+  assert.ok(!policy.includes(`<a href="${SITE_URL}"`) && !real().pages.get(pageFile('terms', 'en')).includes(`<a href="${SITE_URL}"`), 'en: and not a link, in the policy and in the terms');
+  assert.ok(real().pages.get(pageFile('terms', 'en')).includes(`we will announce it on <bdi dir="ltr">${SITE_URL}</bdi> at least 30 days before it ends.`), 'en: the terms name where the end of the service would be announced');
 });
 
 test("legal pages: the Mac item of the policy says nothing about Apple's signature, in any language (the owner, 2026-11-23)", () => {
@@ -1643,7 +2010,7 @@ test('pages: the publisher, the e-mail address and the minimum age come from leg
     const page = parse(older.pages.get(rel), rel);
     const age = ageOf(l, 17);
     assert.ok(older.pages.get(rel).includes(`<bdi>${age}</bdi>`), `${l.code}: ${age}, isolated`);
-    assert.equal(page.textOf(page.children(page.all('details')[27])[1]), plain(contentOf(l.code).faq.items[27].a, l, { ...FILLED, minimumAge: 17 }), `${l.code}: the sentence of the content file with the number of the settings`);
+    assert.equal(page.textOf(page.children(page.all('details')[26])[1]), plain(contentOf(l.code).faq.items[26].a, l, { ...FILLED, minimumAge: 17 }), `${l.code}: the sentence of the content file with the number of the settings`);
   }
   // A setting that is not set yet leaves its placeholder visible, as in the legal pages.
   const unset = buildSite({ settings: { ...FILLED, publisherName: null, contactEmail: null } });
@@ -1654,7 +2021,8 @@ test('pages: the publisher, the e-mail address and the minimum age come from leg
   assert.ok(unset.pages.get(pageFile('error', 'en')).includes('or write to us by e-mail: {{CONTACT_EMAIL}}'));
   assert.ok(unset.pages.get(pageFile('terms', 'en')).includes('{{PUBLISHER_NAME}}'));
   // The base address of the site: only the absolute addresses of the head follow it.
-  const moved = buildSite({ settings: FILLED, siteSettings: { ...SITE_SETTINGS, siteBaseUrl: 'https://diary.example.org/' } });
+  const moved = movedSite();
+  assert.equal(MOVED_BASE, 'https://diary.example.org/');
   assert.equal(moved.siteBase, 'https://diary.example.org/');
   const home = moved.pages.get(pageFile('faq', 'he'));
   assert.ok(home.includes('<link rel="canonical" href="https://diary.example.org/he/faq/">'));
@@ -1825,10 +2193,17 @@ test('fixture tree: one error lists every problem - a text, a link, an image, a 
     assert.ok(site.pages.get('index.html').includes(`<link rel="canonical" href="${FIXTURE_HOST}/about/">`));
     assert.ok(site.pages.get('he/terms/index.html').includes(`<a href="../privacy/" dir="ltr">${FIXTURE_HOST}/about/he/privacy/</a>`), 'the document shows the address of the page of the site');
     assert.ok(site.pages.get('he/terms/index.html').includes(`<a href="${FIXTURE_HOST}/support/he/" dir="ltr">${FIXTURE_HOST}/support/he/</a>`), 'the support page stays outside');
+    // The address of the server itself is text, not a link (the owner's rule of 2026-11-23), on another server too.
+    for (const rel of ['terms/index.html', 'de/privacy/index.html']) assert.ok(site.pages.get(rel).includes(`The website: <bdi dir="ltr">${FIXTURE_HOST}</bdi>.`), `${rel}: the address of the server as text`);
+    assert.ok(site.pages.get('he/privacy/index.html').includes(`<bdi dir="ltr">${FIXTURE_HOST}</bdi>`), 'he: and in a right-to-left page, read left to right');
+    for (const [rel, html] of site.pages) assert.ok(!html.includes(`href="${FIXTURE_HOST}"`) && !html.includes(`href="${FIXTURE_HOST}/"`), `${rel}: no link to the root of the server`);
 
     const de = readJson(contentFile(root, 'de'));
     de.hero.heading = 'Ein <b>Tagebuch</b>';
-    de.faq.items[27].a = 'Ab 16 Jahren.';
+    // What the site offered until 2026-11-23: the button of the home page and a link to the web version.
+    de.hero.openAction = 'Im Browser öffnen';
+    de.faq.items[0].a = `${de.faq.items[0].a} [[webapp|Webversion öffnen]].`;
+    de.faq.items[26].a = 'Ab 16 Jahren.';
     de.contact.notice = 'Mehr in den [[terms|Nutzungsbedingungen]].';
     delete de.faq.heading;
     write(contentFile(root, 'de'), JSON.stringify(de));
@@ -1851,8 +2226,11 @@ test('fixture tree: one error lists every problem - a text, a link, an image, a 
       'site/settings.json: "siteBaseUrl" must be written as https://example.org/; "links.googlePlay" must start with https://',
       'site/site.js: it may not hold fetch (the script makes no network call, keeps nothing and names no address)',
       'site/content/site-de.json: hero.heading may not contain < or >',
+      'site/content/site-de.json: unknown key hero.openAction',
+      'site/content/site-de.json: faq.items.0.a unknown link target [[webapp|...]] (the targets: privacy, terms, faq, downloads, home, support, delete, contact)',
+      'site/content/site-de.json: faq.items.0.a must hold exactly the links of the English text (none); found [[webapp|...]]',
       'site/content/site-de.json: faq.heading is missing',
-      'site/content/site-de.json: faq.items.27.a must use exactly the placeholders of the English text ({{MINIMUM_AGE}}); found none',
+      'site/content/site-de.json: faq.items.26.a must use exactly the placeholders of the English text ({{MINIMUM_AGE}}); found none',
       'site/content/site-de.json: contact.notice must hold exactly the links of the English text ([[privacy|...]]); found [[terms|...]]',
       'site/content/site-fr.json: not valid JSON',
       'site/content/site-it.json is missing',
@@ -1866,7 +2244,7 @@ test('fixture tree: one error lists every problem - a text, a link, an image, a 
     ]) {
       assert.ok(text.includes(needle), `${needle}\n--- found:\n${text}`);
     }
-    assert.equal(problems.length, 15, text);
+    assert.equal(problems.length, 18, text);
     assert.equal(run(['--check'], root).code, 1, '--check exits 1');
     assert.match(run(['--check'], root).out, /^build-site: the site cannot be built:\n {2}site\/settings\.json: /);
     assert.equal(run([], root).code, 1);
@@ -1876,7 +2254,7 @@ test('fixture tree: one error lists every problem - a text, a link, an image, a 
   }
 });
 
-test('fixture tree: a broken list, a broken document, a lost theme token and a page over the budget are build errors', () => {
+test('fixture tree: a broken list, a broken document, a link to the web version, a lost theme token and a page over the budget are build errors', () => {
   const root = fixture();
   try {
     // site/downloads.json itself.
@@ -1899,6 +2277,17 @@ test('fixture tree: a broken list, a broken document, a lost theme token and a p
     // A document that outgrows the budget of a page.
     write(terms, `${original}\n${'A long paragraph about nothing in particular. '.repeat(4000)}\n`);
     assert.match(problemsOf(() => buildSite({ root }))[0], /^he\/terms\/index\.html is \d+ bytes, over the budget of 163840$/);
+    // A document that links to the root of the server in a form the builder does not turn into text (it does so
+    // for the bare address, [{{SITE_URL}}]({{SITE_URL}})): the page would lead a visitor to the web version, so it
+    // is not built (the owner's rule of 2026-11-23) - and --check, the gate before a deploy, exits 1 with the reason.
+    write(terms, `${original}\nOpen the diary: [the web version]({{SITE_URL}}/?lang=he).\n`);
+    const offered = `he/terms/index.html: the address ${FIXTURE_HOST}/?lang=he leads to the root of the server, where the web version is - the site does not offer it (the owner's decision of 2026-11-23)`;
+    assert.deepEqual(problemsOf(() => buildSite({ root })), [offered]);
+    const refused = run(['--check', '--strict'], root);
+    assert.deepEqual([refused.code, refused.out], [1, `build-site: the site cannot be built:\n  ${offered}`]);
+    // The same link to a page below the root - the support page - is no such address.
+    write(terms, `${original}\nWrite to us: [the support page]({{SITE_URL}}/support/).\n`);
+    assert.equal(buildSite({ root }).pages.size, PAGE_COUNT);
     write(terms, original);
     // The theme: a token that left the app is a build error, not a silent default.
     const file = path.join(root, TOKENS_FILE);

@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Un diario privato che ti aiuta a notare le tue tendenze",
     "lead": "Scrivi della tua giornata con parole tue. Se vuoi, aggiungi umore, sonno e abitudini. Nel corso di settimane, mesi e anni, {{BRAND}} segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna.",
-    "openAction": "Apri nel tuo browser",
     "note": "Gratuito. Niente pubblicità, niente statistiche d’uso, nessun tracciamento."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "Che cos’è {{BRAND}}?",
-        "a": "Un diario privato. Scrivi della tua giornata con parole tue e, se vuoi, aggiungi umore, sonno, abitudini e altro. Nel corso di settimane, mesi e anni, l’app segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna. Funziona in un browser e come app per Windows, Mac, Android e iPhone, con un solo account per tutte le versioni."
+        "a": "Un diario privato. Scrivi della tua giornata con parole tue e, se vuoi, aggiungi umore, sonno, abitudini e altro. Nel corso di settimane, mesi e anni, l’app segnala tendenze nelle tue voci e mostra i numeri dietro ciascuna. Funziona come app per Windows, Mac, Android e iPhone, con un solo account per tutte le versioni."
       },
       {
         "q": "È gratuito?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Quali dispositivi posso usare?",
-        "a": "Un computer con Windows 10 o 11, un Mac con macOS 12.3 o versioni successive, un telefono Android con Android 7.0 o versioni successive, un iPhone con iOS 16 o versioni successive, e qualsiasi browser moderno su computer o telefono. I file di installazione si trovano nella pagina [[downloads|Download]]. È un solo account ovunque: quello che scrivi su un dispositivo compare sugli altri."
+        "a": "Un computer con Windows 10 o 11, un Mac con macOS 12.3 o versioni successive, un telefono Android con Android 7.0 o versioni successive, e un iPhone con iOS 16 o versioni successive. I file di installazione si trovano nella pagina [[downloads|Download]]. È un solo account ovunque: quello che scrivi su un dispositivo compare sugli altri."
       },
       {
         "q": "In quali lingue è disponibile?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Posso provarlo senza account?",
-        "a": "Nell’app Android, sì. Nella prima schermata scegli “Salta - voglio solo dare un’occhiata” ed esplora l’app con dati di esempio. Niente di ciò che scrivi lì viene salvato, e il tour termina da solo dopo 30 minuti. Nelle app per Windows, Mac e iPhone e nel browser serve un account; crearlo è gratuito."
+        "a": "Nell’app Android, sì. Nella prima schermata scegli “Salta - voglio solo dare un’occhiata” ed esplora l’app con dati di esempio. Niente di ciò che scrivi lì viene salvato, e il tour termina da solo dopo 30 minuti. Nelle app per Windows, Mac e iPhone serve un account; crearlo è gratuito."
       },
       {
         "q": "Che cosa può contenere una voce del diario?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Come funzionano abitudini e promemoria?",
-        "a": "Imposti abitudini giornaliere o settimanali, ciascuna con un obiettivo, e le spunti man mano. L’app mostra la tua serie e quanta parte dell’obiettivo hai completato. I promemoria fanno parte delle abitudini: imposti l’orario di ogni abitudine nella pagina Abitudini e attivi i promemoria in Impostazioni, sotto Promemoria. Su un telefono Android o su un iPhone che consente le notifiche dell’app, il promemoria arriva anche quando l’app è chiusa; su un computer e nel browser compare mentre il diario è aperto. I promemoria vengono creati sul dispositivo stesso; non viene inviato nulla all’esterno."
+        "a": "Imposti abitudini giornaliere o settimanali, ciascuna con un obiettivo, e le spunti man mano. L’app mostra la tua serie e quanta parte dell’obiettivo hai completato. I promemoria fanno parte delle abitudini: imposti l’orario di ogni abitudine nella pagina Abitudini e attivi i promemoria in Impostazioni, sotto Promemoria. Su un telefono Android o su un iPhone che consente le notifiche dell’app, il promemoria arriva anche quando l’app è chiusa; su un computer compare mentre il diario è aperto. I promemoria vengono creati sul dispositivo stesso; non viene inviato nulla all’esterno."
       },
       {
         "q": "Che cosa sono le osservazioni, e come vedo i numeri dietro ciascuna?",
@@ -175,16 +174,12 @@
         "a": "Viene mantenuta la modifica più recente, e l’app te lo segnala in una riga. L’altra versione resta disponibile su quel dispositivo finché non chiudi l’avviso: puoi leggerla, copiarne il testo o salvarla come nuova voce."
       },
       {
-        "q": "Posso usarlo in un browser, senza installare niente?",
-        "a": "Sì. [[webapp|Apri la versione web]] in qualsiasi browser moderno, su computer o telefono, e accedi con lo stesso account. Il browser non conserva alcuna copia di ciò che leggi. Se la connessione cade mentre il diario è aperto, puoi continuare a scrivere: le modifiche vengono conservate cifrate nel browser e caricate quando la connessione torna."
-      },
-      {
         "q": "A che cosa serve “Ricordami”?",
         "a": "Ti mantiene connesso su quel dispositivo fino a 90 giorni invece di 12 ore. Nelle app per Windows, Mac, Android e iPhone conserva anche una copia cifrata di ciò che hai visto di recente, così l’app può aprirsi e mostrarlo senza connessione. Nelle schermate di accesso e di registrazione è selezionato per impostazione predefinita: su un dispositivo usato anche da altre persone, deselezionalo ed esci dall’account quando hai finito."
       },
       {
         "q": "Dove viene conservato il mio diario?",
-        "a": "Nel tuo account sul server di {{BRAND}}, in un file cifrato separato per ogni account. Il server si trova presso il fornitore di hosting Fly.io, nel suo data center di Francoforte, in Germania. Le app e il browser mostrano tutti questo stesso diario. L’[[privacy|Informativa sulla privacy]] dice esattamente che cosa viene conservato e dove."
+        "a": "Nel tuo account sul server di {{BRAND}}, in un file cifrato separato per ogni account. Il server si trova presso il fornitore di hosting Fly.io, nel suo data center di Francoforte, in Germania. Le app mostrano tutte questo stesso diario. L’[[privacy|Informativa sulla privacy]] dice esattamente che cosa viene conservato e dove."
       },
       {
         "q": "Chi può leggere il mio diario?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Ci sono pubblicità o tracciamento?",
-        "a": "No. Non ci sono pubblicità, statistiche d’uso o tracciamento, né nelle app, né nella versione web, né su questo sito. Non vendiamo né condividiamo i tuoi dati, e il tuo diario non viene mai usato per addestrare alcuna IA. Le app e la versione web si collegano solo al server di {{BRAND}}, sempre tramite HTTPS."
+        "a": "No. Non ci sono pubblicità, statistiche d’uso o tracciamento, né nelle app, né su questo sito. Non vendiamo né condividiamo i tuoi dati, e il tuo diario non viene mai usato per addestrare alcuna IA. Le app si collegano solo al server di {{BRAND}}, sempre tramite HTTPS."
       },
       {
         "q": "Come si blocca il diario?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Download",
-    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app, anche in quella per iPhone, e nel browser.",
+    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app, anche in quella per iPhone.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Verifica il file",
     "checkText": "Ogni file ha un checksum SHA-256. Se il file che hai scaricato ne ha uno diverso, il download è danneggiato o il file è stato modificato: non installarlo. Per vedere il checksum di un file, digita Get-FileHash e il nome del file in Windows PowerShell, oppure shasum -a 256 e il nome del file nel Terminale di un Mac. Maiuscole e minuscole sono considerate uguali.",
-    "moreHeading": "Browser e iPhone",
-    "web": "Niente da installare: {{BRAND}} funziona anche in qualsiasi browser moderno, su computer o telefono. [[webapp|Aprilo nel browser]].",
+    "moreHeading": "iPhone",
     "iphone": "Non esiste un file di installazione per iPhone: l’app per iPhone si installa da App Store.",
     "iphoneStore": "Su iPhone, l’app si installa da App Store.",
     "storeLinks": {

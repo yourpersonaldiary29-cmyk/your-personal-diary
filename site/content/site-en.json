@@ -16,7 +16,6 @@
   "hero": {
     "heading": "A private diary that helps you notice your own patterns",
     "lead": "Write about your day in your own words. Add your mood, sleep and habits if you like. Over weeks, months and years, {{BRAND}} points out patterns in your own entries and shows the numbers behind each one.",
-    "openAction": "Open in your browser",
     "note": "Free. No ads, no analytics, no tracking."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "What is {{BRAND}}?",
-        "a": "A private diary. You write about your day in your own words and, if you like, add your mood, sleep, habits and more. Over weeks, months and years, the app points out patterns in your own entries and shows the numbers behind each one. It runs in a browser and as an app for Windows, Mac, Android and iPhone, with one account for all of them."
+        "a": "A private diary. You write about your day in your own words and, if you like, add your mood, sleep, habits and more. Over weeks, months and years, the app points out patterns in your own entries and shows the numbers behind each one. It runs as an app for Windows, Mac, Android and iPhone, with one account for all of them."
       },
       {
         "q": "Is it free?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Which devices can I use?",
-        "a": "A computer with Windows 10 or 11, a Mac with macOS 12.3 or later, an Android phone with Android 7.0 or later, an iPhone with iOS 16 or later, and any modern browser on a computer or a phone. The installation files are on the [[downloads|Downloads]] page. It is one account everywhere: what you write on one device appears on the others."
+        "a": "A computer with Windows 10 or 11, a Mac with macOS 12.3 or later, an Android phone with Android 7.0 or later, or an iPhone with iOS 16 or later. The installation files are on the [[downloads|Downloads]] page. It is one account everywhere: what you write on one device appears on the others."
       },
       {
         "q": "Which languages is it available in?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Can I try it without an account?",
-        "a": "In the Android app, yes. On the first screen choose \"Skip - just look around\" and explore the app with sample data. Nothing you write there is saved, and the tour ends by itself after 30 minutes. In the Windows, Mac and iPhone apps and in the browser you need an account; creating one is free."
+        "a": "In the Android app, yes. On the first screen choose \"Skip - just look around\" and explore the app with sample data. Nothing you write there is saved, and the tour ends by itself after 30 minutes. In the Windows, Mac and iPhone apps you need an account; creating one is free."
       },
       {
         "q": "What can a diary entry hold?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "How do habits and reminders work?",
-        "a": "You set up daily or weekly habits, each with a target, and tick them off as you go. The app shows your streak and how much of the target you completed. Reminders belong to habits: you set the time for each habit on the Habits page and turn reminders on in Settings, under Reminders. On an Android phone or an iPhone that allows notifications for the app, a reminder arrives even when the app is closed; on a computer and in the browser it appears while the diary is open. Reminders are created on the device itself; nothing is sent out."
+        "a": "You set up daily or weekly habits, each with a target, and tick them off as you go. The app shows your streak and how much of the target you completed. Reminders belong to habits: you set the time for each habit on the Habits page and turn reminders on in Settings, under Reminders. On an Android phone or an iPhone that allows notifications for the app, a reminder arrives even when the app is closed; on a computer it appears while the diary is open. Reminders are created on the device itself; nothing is sent out."
       },
       {
         "q": "What are insights, and how do I see the numbers behind one?",
@@ -175,16 +174,12 @@
         "a": "The newer change is kept, and the app tells you so in one line. The other version stays available on that device until you dismiss the note: you can read it, copy its text or save it as a new entry."
       },
       {
-        "q": "Can I use it in a browser, without installing anything?",
-        "a": "Yes. [[webapp|Open the web version]] in any modern browser, on a computer or a phone, and sign in with the same account. The browser keeps no copy of what you read. If the connection drops while the diary is open, you can go on writing: your changes are kept encrypted in the browser and uploaded when the connection returns."
-      },
-      {
         "q": "What does \"Remember me\" do?",
         "a": "It keeps you signed in on that device for up to 90 days instead of 12 hours. In the Windows, Mac, Android and iPhone apps it also keeps an encrypted copy of what you viewed recently, so that the app can open and show it without a connection. On the sign-in and sign-up screens it is ticked at first: on a device that other people also use, clear it, and sign out when you finish."
       },
       {
         "q": "Where is my diary kept?",
-        "a": "In your own account on the {{BRAND}} server, in a separate encrypted file for each account. The server runs at the hosting provider Fly.io, in its data centre in Frankfurt, Germany. The apps and the browser all show this one diary. The [[privacy|Privacy Policy]] says exactly what is stored and where."
+        "a": "In your own account on the {{BRAND}} server, in a separate encrypted file for each account. The server runs at the hosting provider Fly.io, in its data centre in Frankfurt, Germany. The apps all show this one diary. The [[privacy|Privacy Policy]] says exactly what is stored and where."
       },
       {
         "q": "Who can read my diary?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Are there ads or tracking?",
-        "a": "No. There is no advertising, no analytics and no tracking, in the apps, in the web version or on this site. We do not sell or share your data, and your diary is never used to train any AI. The apps and the web version connect only to the {{BRAND}} server, always over HTTPS."
+        "a": "No. There is no advertising, no analytics and no tracking, in the apps or on this site. We do not sell or share your data, and your diary is never used to train any AI. The apps connect only to the {{BRAND}} server, always over HTTPS."
       },
       {
         "q": "How is the diary locked?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Downloads",
-    "lead": "Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them, in the iPhone app and in the browser.",
+    "lead": "Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them and in the iPhone app.",
     "tabsLabel": "Operating system",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Check the file",
     "checkText": "Each file has a SHA-256 checksum. If the file you downloaded has a different one, the download is damaged or the file was changed: do not install it. To see the checksum of a file, type Get-FileHash and the file name in Windows PowerShell, or shasum -a 256 and the file name in the Terminal of a Mac. Capital and small letters count as the same.",
-    "moreHeading": "Browser and iPhone",
-    "web": "Nothing to install: {{BRAND}} also works in any modern browser, on a computer or a phone. [[webapp|Open it in your browser]].",
+    "moreHeading": "iPhone",
     "iphone": "There is no installation file for iPhone: the iPhone app is installed from the App Store.",
     "iphoneStore": "On an iPhone, the app is installed from the App Store.",
     "storeLinks": {

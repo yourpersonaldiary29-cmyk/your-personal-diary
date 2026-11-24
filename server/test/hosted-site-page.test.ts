@@ -27,6 +27,9 @@
  *     - only the two result pages keep search engines away;
  *     - the form of a page, posted as a browser posts it, is answered with a redirect to a result page of
  *       the same language that the site really has;
+ *     - the site does not offer the web version (the owner's rule of 2026-11-23: "delete the option of opening
+ *       the app in the browser. I want them to download."): the web client still answers at the root of the
+ *       server, but no address in any of the 160 pages leads there, and the home page leads to Downloads;
  *     - another Host is refused before anything is served.
  */
 import { spawnSync } from 'node:child_process';
@@ -35,7 +38,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import supertest from 'supertest';
 import { afterAll, afterEach, describe, expect, it } from 'vitest';
-import { LOCALES } from '../../scripts/legal/build-pages.mjs';
+import { LOCALES, readSiteUrl } from '../../scripts/legal/build-pages.mjs';
 import { buildSite, CONTACT_ACTION, CSS_NAME, FILES_DIR, formatDownloads, IMAGE_LIST_FILE, pageFile, PLATFORMS, SCRIPT_NAME, SITE_ID, SITE_PAGES, siteDir, siteTreeProblems, writeSite } from '../../scripts/site/build-site.mjs';
 import { loadConfig, loadHostedEnv } from '../src/config';
 import { startHosted, type RunningHosted } from '../src/hosted';
@@ -508,6 +511,69 @@ describe('the public site on the hosted server', () => {
       expect(landed.text, where).toBe(built.pages.get(pageFile(outcome, fields.lang)));
       expect(landed.text, where).toContain(`<html lang="${fields.lang}"`);
     }
+  });
+
+  it('the site does not offer the web version: the web client answers at the root, and no address in a page leads there (the owner, 2026-11-23)', async () => {
+    const { get } = await boot();
+    // The web version itself is untouched: the root of the server answers with the web client, as before.
+    const root = await get('/');
+    expect([root.status, root.text.includes('<div id="root">')]).toEqual([200, true]);
+
+    // What a visitor can follow from a page: every address in its markup, resolved from the address of the page -
+    // on this server (the relative addresses) and on the fixed server (the absolute ones, which name it).
+    const fixedHost = new URL(readSiteUrl()).host;
+    const opensWebVersion = (address: string, pageUrl: string): boolean => {
+      let url: URL;
+      try {
+        url = new URL(address, pageUrl);
+      } catch {
+        return false;
+      }
+      return /^https?:$/.test(url.protocol) && (url.host === HOST || url.host === fixedHost) && url.pathname === '/';
+    };
+    // The check sees the links the pages held until that day, and leaves the others alone.
+    expect(opensWebVersion(`https://${fixedHost}/`, `https://${HOST}/about/`)).toBe(true);
+    expect(opensWebVersion(`https://${fixedHost}`, `https://${HOST}/about/privacy/`)).toBe(true);
+    expect(opensWebVersion('../', `https://${HOST}/about/`)).toBe(true);
+    expect(opensWebVersion('../../', `https://${HOST}/about/he/`)).toBe(true);
+    expect(opensWebVersion('/', `https://${HOST}/about/he/faq/`)).toBe(true);
+    expect(opensWebVersion('./', `https://${HOST}/about/`)).toBe(false);
+    expect(opensWebVersion('../', `https://${HOST}/about/he/`)).toBe(false);
+    expect(opensWebVersion(`https://${fixedHost}/support/`, `https://${HOST}/about/`)).toBe(false);
+    expect(opensWebVersion(CONTACT_ACTION, `https://${HOST}/about/`)).toBe(false);
+
+    // The server answers every page with the built bytes (the first test), so the addresses are read from them.
+    let read = 0;
+    for (const l of LOCALES) {
+      for (const page of SITE_PAGES) {
+        const url = `/about/${siteDir(page.id, l.code)}`;
+        const html = built.pages.get(pageFile(page.id, l.code)) ?? '';
+        const addresses = [...html.matchAll(/\s(?:href|src|action|value)="([^"]*)"/g)].map((m) => m[1].replace(/&amp;/g, '&'));
+        expect(addresses.length, url).toBeGreaterThan(40);
+        read += addresses.length;
+        expect(addresses.filter((address) => opensWebVersion(address, `https://${HOST}${url}`)), url).toEqual([]);
+        expect(html.includes(`href="https://${fixedHost}"`) || html.includes(`href="https://${fixedHost}/"`), url).toBe(false);
+        // Nor does a page send the visitor on by itself: a <meta http-equiv="refresh"> would hold an address that
+        // the scan above does not read, so no page has a <meta http-equiv> at all.
+        expect(/http-equiv/i.test(html), url).toBe(false);
+      }
+    }
+    expect(read).toBeGreaterThan(PAGE_COUNT * 40);
+
+    // The home page as the server answers it: two actions - Downloads, the primary button, and About the app -
+    // and both lead to pages the server has.
+    const home = (await get('/about/')).text;
+    expect(home).toContain('<p class="actions"><a class="btn primary" href="./downloads/"><span>Downloads</span></a><a class="btn" href="./app/"><span>About the app</span></a></p>');
+    expect(home).not.toContain('Open in your browser');
+    const hebrewHome = (await get('/about/he/')).text;
+    expect(hebrewHome.match(/<p class="actions">(?:<a class="btn(?: primary)?" href="\.\/(?:downloads|app)\/"><span>[^<]+<\/span><\/a>){2}<\/p>/)).not.toBeNull();
+    for (const url of ['/about/downloads/', '/about/app/', '/about/he/downloads/', '/about/he/app/']) expect((await get(url)).status, url).toBe(200);
+    // Under the tabs of the Downloads page: the heading "iPhone" and one paragraph; the Questions page has 29 questions.
+    // (One paragraph while site/settings.json names no App Store link, as today; with that link set, the button of
+    // the App Store follows the paragraph - scripts/site/build-site.test.mjs, "downloads: a store link that is set ...".)
+    const downloads = (await get('/about/downloads/')).text;
+    expect(downloads).toMatch(/<section class="more">\n<h2>iPhone<\/h2>\n<p>[^<]+<\/p>\n<\/section>/);
+    expect(((await get('/about/faq/')).text.match(/<details class="qa">/g) ?? []).length).toBe(29);
   });
 
   it('another Host is refused before anything is served', async () => {

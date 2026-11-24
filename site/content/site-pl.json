@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Prywatny dziennik, który pomaga dostrzec własne wzorce",
     "lead": "Pisz o swoim dniu własnymi słowami. Jeśli chcesz, dodaj nastrój, sen i nawyki. Na przestrzeni tygodni, miesięcy i lat {{BRAND}} wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich.",
-    "openAction": "Otwórz w przeglądarce",
     "note": "Bezpłatnie. Bez reklam, bez analityki, bez śledzenia."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "Czym jest {{BRAND}}?",
-        "a": "Prywatnym dziennikiem. Piszesz o swoim dniu własnymi słowami i, jeśli chcesz, dodajesz nastrój, sen, nawyki i nie tylko. Na przestrzeni tygodni, miesięcy i lat aplikacja wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich. Działa w przeglądarce oraz jako aplikacja na Windows, Maca, Androida i iPhone'a, z jednym kontem dla wszystkich."
+        "a": "Prywatnym dziennikiem. Piszesz o swoim dniu własnymi słowami i, jeśli chcesz, dodajesz nastrój, sen, nawyki i nie tylko. Na przestrzeni tygodni, miesięcy i lat aplikacja wskazuje wzorce w twoich własnych wpisach i pokazuje liczby, które stoją za każdym z nich. Działa jako aplikacja na Windows, Maca, Androida i iPhone'a, z jednym kontem dla wszystkich."
       },
       {
         "q": "Czy jest bezpłatny?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Z jakich urządzeń mogę korzystać?",
-        "a": "Komputer z Windows 10 lub 11, Mac z macOS 12.3 lub nowszym, telefon z Androidem 7.0 lub nowszym, iPhone z iOS 16 lub nowszym oraz dowolna nowoczesna przeglądarka na komputerze lub telefonie. Pliki instalacyjne są na stronie [[downloads|Pobieranie]]. Wszędzie to jedno konto: to, co napiszesz na jednym urządzeniu, pojawi się na pozostałych."
+        "a": "Komputer z Windows 10 lub 11, Mac z macOS 12.3 lub nowszym, telefon z Androidem 7.0 lub nowszym oraz iPhone z iOS 16 lub nowszym. Pliki instalacyjne są na stronie [[downloads|Pobieranie]]. Wszędzie to jedno konto: to, co napiszesz na jednym urządzeniu, pojawi się na pozostałych."
       },
       {
         "q": "W jakich językach jest dostępny?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Czy mogę go wypróbować bez konta?",
-        "a": "W aplikacji na Androida tak. Na pierwszym ekranie wybierz „Pomiń - chcę się tylko rozejrzeć” i poznaj aplikację na przykładowych danych. Nic, co tam napiszesz, nie zostanie zapisane, a wycieczka kończy się sama po 30 minutach. W aplikacjach na Windows, Maca i iPhone'a oraz w przeglądarce potrzebujesz konta; jego utworzenie jest bezpłatne."
+        "a": "W aplikacji na Androida tak. Na pierwszym ekranie wybierz „Pomiń - chcę się tylko rozejrzeć” i poznaj aplikację na przykładowych danych. Nic, co tam napiszesz, nie zostanie zapisane, a wycieczka kończy się sama po 30 minutach. W aplikacjach na Windows, Maca i iPhone'a potrzebujesz konta; jego utworzenie jest bezpłatne."
       },
       {
         "q": "Co może zawierać wpis?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Jak działają nawyki i przypomnienia?",
-        "a": "Ustalasz nawyki codzienne lub cotygodniowe, każdy z własnym celem, i odhaczasz je na bieżąco. Aplikacja pokazuje twoją serię i to, jaką część celu udało ci się wykonać. Przypomnienia należą do nawyków: godzinę dla każdego nawyku ustawiasz na stronie Nawyki, a przypomnienia włączasz w Ustawieniach, w sekcji Przypomnienia. Na telefonie z Androidem lub na iPhonie, który zezwala aplikacji na powiadomienia, przypomnienie przychodzi nawet wtedy, gdy aplikacja jest zamknięta; na komputerze i w przeglądarce pojawia się, gdy dziennik jest otwarty. Przypomnienia są tworzone na samym urządzeniu; nic nie jest wysyłane na zewnątrz."
+        "a": "Ustalasz nawyki codzienne lub cotygodniowe, każdy z własnym celem, i odhaczasz je na bieżąco. Aplikacja pokazuje twoją serię i to, jaką część celu udało ci się wykonać. Przypomnienia należą do nawyków: godzinę dla każdego nawyku ustawiasz na stronie Nawyki, a przypomnienia włączasz w Ustawieniach, w sekcji Przypomnienia. Na telefonie z Androidem lub na iPhonie, który zezwala aplikacji na powiadomienia, przypomnienie przychodzi nawet wtedy, gdy aplikacja jest zamknięta; na komputerze pojawia się, gdy dziennik jest otwarty. Przypomnienia są tworzone na samym urządzeniu; nic nie jest wysyłane na zewnątrz."
       },
       {
         "q": "Czym są spostrzeżenia i jak zobaczyć liczby, które za nimi stoją?",
@@ -175,16 +174,12 @@
         "a": "Zachowywana jest nowsza zmiana, a aplikacja informuje o tym w jednym wierszu. Druga wersja pozostaje dostępna na tamtym urządzeniu, dopóki nie zamkniesz komunikatu: możesz ją przeczytać, skopiować jej tekst albo zapisać ją jako nowy wpis."
       },
       {
-        "q": "Czy mogę korzystać z niego w przeglądarce, bez instalowania czegokolwiek?",
-        "a": "Tak. [[webapp|Otwórz wersję internetową]] w dowolnej nowoczesnej przeglądarce, na komputerze lub telefonie, i zaloguj się na to samo konto. Przeglądarka nie przechowuje żadnej kopii tego, co czytasz. Jeśli połączenie zniknie, gdy dziennik jest otwarty, możesz pisać dalej: zmiany są przechowywane w przeglądarce w postaci zaszyfrowanej i wysyłane, gdy połączenie wróci."
-      },
-      {
         "q": "Co robi opcja „Zapamiętaj mnie”?",
         "a": "Utrzymuje sesję na tym urządzeniu przez maksymalnie 90 dni zamiast 12 godzin. W aplikacjach na Windows, Maca, Androida i iPhone'a przechowuje też zaszyfrowaną kopię ostatnio oglądanych treści, aby aplikacja mogła się otworzyć i pokazać je bez połączenia. Na ekranach logowania i rejestracji jest domyślnie zaznaczona: na urządzeniu, z którego korzystają też inne osoby, odznacz ją i wyloguj się po skończeniu pracy."
       },
       {
         "q": "Gdzie jest przechowywany mój dziennik?",
-        "a": "Na twoim własnym koncie na serwerze {{BRAND}}, w osobnym zaszyfrowanym pliku dla każdego konta. Serwer działa u dostawcy hostingu Fly.io, w jego centrum danych we Frankfurcie w Niemczech. Aplikacje i przeglądarka pokazują ten jeden dziennik. [[privacy|Polityka prywatności]] mówi dokładnie, co jest przechowywane i gdzie."
+        "a": "Na twoim własnym koncie na serwerze {{BRAND}}, w osobnym zaszyfrowanym pliku dla każdego konta. Serwer działa u dostawcy hostingu Fly.io, w jego centrum danych we Frankfurcie w Niemczech. Aplikacje pokazują ten jeden dziennik. [[privacy|Polityka prywatności]] mówi dokładnie, co jest przechowywane i gdzie."
       },
       {
         "q": "Kto może czytać mój dziennik?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Czy są reklamy lub śledzenie?",
-        "a": "Nie. Nie ma reklam, analityki ani śledzenia - ani w aplikacjach, ani w wersji internetowej, ani w tej witrynie. Nie sprzedajemy ani nie udostępniamy twoich danych, a twój dziennik nigdy nie jest używany do trenowania żadnej sztucznej inteligencji. Aplikacje i wersja internetowa łączą się tylko z serwerem {{BRAND}}, zawsze przez HTTPS."
+        "a": "Nie. Nie ma reklam, analityki ani śledzenia - ani w aplikacjach, ani w tej witrynie. Nie sprzedajemy ani nie udostępniamy twoich danych, a twój dziennik nigdy nie jest używany do trenowania żadnej sztucznej inteligencji. Aplikacje łączą się tylko z serwerem {{BRAND}}, zawsze przez HTTPS."
       },
       {
         "q": "Jak blokuje się dziennik?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Pobieranie",
-    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich, w aplikacji na iPhone'a oraz w przeglądarce.",
+    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich oraz w aplikacji na iPhone'a.",
     "tabsLabel": "System operacyjny",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Sprawdź plik",
     "checkText": "Każdy plik ma sumę kontrolną SHA-256. Jeśli pobrany plik ma inną, pobieranie jest uszkodzone albo plik został zmieniony: nie instaluj go. Aby zobaczyć sumę kontrolną pliku, wpisz Get-FileHash i nazwę pliku w Windows PowerShell albo shasum -a 256 i nazwę pliku w aplikacji Terminal na Macu. Wielkość liter nie ma znaczenia.",
-    "moreHeading": "Przeglądarka i iPhone",
-    "web": "Nic do instalowania: {{BRAND}} działa też w każdej nowoczesnej przeglądarce, na komputerze lub telefonie. [[webapp|Otwórz go w przeglądarce]].",
+    "moreHeading": "iPhone",
     "iphone": "Nie ma pliku instalacyjnego dla iPhone'a: aplikację na iPhone'a instaluje się z App Store.",
     "iphoneStore": "Na iPhonie aplikację instaluje się z App Store.",
     "storeLinks": {

@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Kendi örüntülerinizi fark etmenize yardımcı olan özel bir günlük",
     "lead": "Gününüzü kendi sözlerinizle yazın. İsterseniz ruh halinizi, uykunuzu ve alışkanlıklarınızı da ekleyin. {{BRAND}} haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir.",
-    "openAction": "Tarayıcınızda açın",
     "note": "Ücretsiz. Reklam yok, kullanım analizi yok, izleme yok."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "{{BRAND}} nedir?",
-        "a": "Özel bir günlük. Gününüzü kendi sözlerinizle yazarsınız ve isterseniz ruh halinizi, uykunuzu, alışkanlıklarınızı ve daha fazlasını eklersiniz. Uygulama haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir. Tarayıcıda ve Windows, Mac, Android ve iPhone için bir uygulama olarak çalışır; hepsinde tek bir hesap kullanılır."
+        "a": "Özel bir günlük. Gününüzü kendi sözlerinizle yazarsınız ve isterseniz ruh halinizi, uykunuzu, alışkanlıklarınızı ve daha fazlasını eklersiniz. Uygulama haftalar, aylar ve yıllar boyunca kendi kayıtlarınızdaki örüntülere dikkat çeker ve her birinin arkasındaki sayıları gösterir. Windows, Mac, Android ve iPhone için bir uygulama olarak çalışır; hepsinde tek bir hesap kullanılır."
       },
       {
         "q": "Ücretsiz mi?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Hangi cihazları kullanabilirim?",
-        "a": "Windows 10 veya 11 yüklü bir bilgisayar, macOS 12.3 veya üstü yüklü bir Mac, Android 7.0 veya üstü yüklü bir Android telefon, iOS 16 veya üstü yüklü bir iPhone ve bir bilgisayarda ya da telefonda herhangi bir güncel tarayıcı. Kurulum dosyaları [[downloads|İndirmeler]] sayfasındadır. Her yerde tek bir hesap vardır: bir cihazda yazdıklarınız diğerlerinde de görünür."
+        "a": "Windows 10 veya 11 yüklü bir bilgisayar, macOS 12.3 veya üstü yüklü bir Mac, Android 7.0 veya üstü yüklü bir Android telefon ve iOS 16 veya üstü yüklü bir iPhone. Kurulum dosyaları [[downloads|İndirmeler]] sayfasındadır. Her yerde tek bir hesap vardır: bir cihazda yazdıklarınız diğerlerinde de görünür."
       },
       {
         "q": "Hangi dillerde kullanılabilir?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Hesap olmadan deneyebilir miyim?",
-        "a": "Android uygulamasında evet. İlk ekranda \"Atla - sadece göz atmak istiyorum\" seçeneğini seçin ve uygulamayı örnek verilerle keşfedin. Orada yazdığınız hiçbir şey kaydedilmez ve tur 30 dakika sonra kendiliğinden sona erer. Windows, Mac ve iPhone uygulamalarında ve tarayıcıda bir hesap gerekir; hesap oluşturmak ücretsizdir."
+        "a": "Android uygulamasında evet. İlk ekranda \"Atla - sadece göz atmak istiyorum\" seçeneğini seçin ve uygulamayı örnek verilerle keşfedin. Orada yazdığınız hiçbir şey kaydedilmez ve tur 30 dakika sonra kendiliğinden sona erer. Windows, Mac ve iPhone uygulamalarında bir hesap gerekir; hesap oluşturmak ücretsizdir."
       },
       {
         "q": "Bir günlük kaydı neler içerebilir?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Alışkanlıklar ve hatırlatıcılar nasıl çalışır?",
-        "a": "Her birinin bir hedefi olan günlük veya haftalık alışkanlıklar oluşturur ve yaptıkça işaretlersiniz. Uygulama serinizi ve hedefin ne kadarını tamamladığınızı gösterir. Hatırlatıcılar alışkanlıklara bağlıdır: her alışkanlığın saatini Alışkanlıklar sayfasında belirlersiniz, hatırlatıcıları da Ayarlar'da, Hatırlatıcılar bölümünde açarsınız. Uygulamaya bildirim izni veren bir Android telefonda veya iPhone'da hatırlatıcı, uygulama kapalıyken de gelir; bilgisayarda ve tarayıcıda ise günlük açıkken görünür. Hatırlatıcılar cihazın kendisinde oluşturulur; dışarıya hiçbir şey gönderilmez."
+        "a": "Her birinin bir hedefi olan günlük veya haftalık alışkanlıklar oluşturur ve yaptıkça işaretlersiniz. Uygulama serinizi ve hedefin ne kadarını tamamladığınızı gösterir. Hatırlatıcılar alışkanlıklara bağlıdır: her alışkanlığın saatini Alışkanlıklar sayfasında belirlersiniz, hatırlatıcıları da Ayarlar'da, Hatırlatıcılar bölümünde açarsınız. Uygulamaya bildirim izni veren bir Android telefonda veya iPhone'da hatırlatıcı, uygulama kapalıyken de gelir; bilgisayarda ise günlük açıkken görünür. Hatırlatıcılar cihazın kendisinde oluşturulur; dışarıya hiçbir şey gönderilmez."
       },
       {
         "q": "İçgörüler nedir ve bir içgörünün arkasındaki sayıları nasıl görürüm?",
@@ -175,16 +174,12 @@
         "a": "Daha yeni değişiklik korunur ve uygulama bunu size tek satırla bildirir. Diğer sürüm, notu kapatana kadar o cihazda kalır: onu okuyabilir, metnini kopyalayabilir veya yeni bir kayıt olarak kaydedebilirsiniz."
       },
       {
-        "q": "Hiçbir şey kurmadan tarayıcıda kullanabilir miyim?",
-        "a": "Evet. [[webapp|Web sürümünü]] bir bilgisayarda veya telefonda herhangi bir güncel tarayıcıda açın ve aynı hesapla oturum açın. Tarayıcı okuduklarınızın kopyasını saklamaz. Günlük açıkken bağlantı koparsa yazmaya devam edebilirsiniz: değişiklikleriniz tarayıcıda şifreli olarak saklanır ve bağlantı geri geldiğinde yüklenir."
-      },
-      {
         "q": "\"Beni hatırla\" ne işe yarar?",
         "a": "O cihazda oturumunuzu 12 saat yerine 90 güne kadar açık tutar. Windows, Mac, Android ve iPhone uygulamalarında ayrıca son görüntülediklerinizin şifreli bir kopyasını saklar; böylece uygulama bağlantı olmadan açılıp bunları gösterebilir. Oturum açma ve kaydolma ekranlarında başlangıçta işaretlidir: başkalarının da kullandığı bir cihazda işareti kaldırın ve işiniz bitince oturumu kapatın."
       },
       {
         "q": "Günlüğüm nerede saklanıyor?",
-        "a": "{{BRAND}} sunucusundaki kendi hesabınızda, her hesap için ayrı ve şifreli bir dosyada. Sunucu, barındırma sağlayıcısı Fly.io'nun Frankfurt'taki (Almanya) veri merkezinde çalışır. Uygulamaların ve tarayıcının hepsi bu tek günlüğü gösterir. Neyin nerede saklandığını [[privacy|Gizlilik Politikası]] tam olarak açıklar."
+        "a": "{{BRAND}} sunucusundaki kendi hesabınızda, her hesap için ayrı ve şifreli bir dosyada. Sunucu, barındırma sağlayıcısı Fly.io'nun Frankfurt'taki (Almanya) veri merkezinde çalışır. Uygulamaların hepsi bu tek günlüğü gösterir. Neyin nerede saklandığını [[privacy|Gizlilik Politikası]] tam olarak açıklar."
       },
       {
         "q": "Günlüğümü kim okuyabilir?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Reklam veya izleme var mı?",
-        "a": "Hayır. Uygulamalarda, web sürümünde veya bu sitede reklam, kullanım analizi ya da izleme yoktur. Verilerinizi satmayız ve paylaşmayız; günlüğünüz hiçbir zaman bir yapay zekâyı eğitmek için kullanılmaz. Uygulamalar ve web sürümü yalnızca {{BRAND}} sunucusuna, her zaman HTTPS üzerinden bağlanır."
+        "a": "Hayır. Uygulamalarda veya bu sitede reklam, kullanım analizi ya da izleme yoktur. Verilerinizi satmayız ve paylaşmayız; günlüğünüz hiçbir zaman bir yapay zekâyı eğitmek için kullanılmaz. Uygulamalar yalnızca {{BRAND}} sunucusuna, her zaman HTTPS üzerinden bağlanır."
       },
       {
         "q": "Günlük nasıl kilitlenir?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "İndirmeler",
-    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde, iPhone uygulamasında ve tarayıcıda çalışır.",
+    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde ve iPhone uygulamasında çalışır.",
     "tabsLabel": "İşletim sistemi",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Dosyayı kontrol edin",
     "checkText": "Her dosyanın bir SHA-256 sağlama toplamı vardır. İndirdiğiniz dosyanınki farklıysa indirme hasarlıdır ya da dosya değiştirilmiştir: onu kurmayın. Bir dosyanın sağlama toplamını görmek için Windows PowerShell'de Get-FileHash ve dosya adını, Mac'te Terminal'de ise shasum -a 256 ve dosya adını yazın. Büyük ve küçük harfler aynı sayılır.",
-    "moreHeading": "Tarayıcı ve iPhone",
-    "web": "Kurulacak bir şey yok: {{BRAND}} bir bilgisayarda veya telefonda herhangi bir güncel tarayıcıda da çalışır. [[webapp|Tarayıcınızda açın]].",
+    "moreHeading": "iPhone",
     "iphone": "iPhone için kurulum dosyası yoktur: iPhone uygulaması App Store'dan yüklenir.",
     "iphoneStore": "iPhone'da uygulama App Store'dan yüklenir.",
     "storeLinks": {

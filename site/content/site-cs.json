@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Soukromý deník, který ti pomáhá všímat si vlastních vzorců",
     "lead": "Piš o svém dni vlastními slovy. Jestli chceš, přidej náladu, spánek a návyky. V průběhu týdnů, měsíců a let {{BRAND}} upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí.",
-    "openAction": "Otevřít v prohlížeči",
     "note": "Zdarma. Žádné reklamy, žádná analytika, žádné sledování."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "Co je {{BRAND}}?",
-        "a": "Soukromý deník. Píšeš o svém dni vlastními slovy a jestli chceš, přidáš náladu, spánek, návyky a další. V průběhu týdnů, měsíců a let aplikace upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí. Funguje v prohlížeči a jako aplikace pro Windows, Mac, Android a iPhone, s jedním účtem pro všechny."
+        "a": "Soukromý deník. Píšeš o svém dni vlastními slovy a jestli chceš, přidáš náladu, spánek, návyky a další. V průběhu týdnů, měsíců a let aplikace upozorňuje na vzorce ve tvých vlastních záznamech a ukazuje čísla, která za každým z nich stojí. Funguje jako aplikace pro Windows, Mac, Android a iPhone, s jedním účtem pro všechny."
       },
       {
         "q": "Je zdarma?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Která zařízení můžu používat?",
-        "a": "Počítač s Windows 10 nebo 11, Mac se systémem macOS 12.3 nebo novějším, telefon s Androidem 7.0 nebo novějším, iPhone se systémem iOS 16 nebo novějším a jakýkoli moderní prohlížeč v počítači nebo v telefonu. Instalační soubory najdeš na stránce [[downloads|Ke stažení]]. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se i na ostatních."
+        "a": "Počítač s Windows 10 nebo 11, Mac se systémem macOS 12.3 nebo novějším, telefon s Androidem 7.0 nebo novějším a iPhone se systémem iOS 16 nebo novějším. Instalační soubory najdeš na stránce [[downloads|Ke stažení]]. Všude je to jeden účet: co napíšeš na jednom zařízení, objeví se i na ostatních."
       },
       {
         "q": "V jakých jazycích je k dispozici?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Můžu si aplikaci vyzkoušet bez účtu?",
-        "a": "V aplikaci pro Android ano. Na první obrazovce zvol „Přeskočit - chci se jen porozhlédnout“ a prozkoumej aplikaci s ukázkovými daty. Nic, co tam napíšeš, se neuloží, a prohlídka po 30 minutách sama skončí. V aplikacích pro Windows, Mac a iPhone a v prohlížeči potřebuješ účet; jeho vytvoření je zdarma."
+        "a": "V aplikaci pro Android ano. Na první obrazovce zvol „Přeskočit - chci se jen porozhlédnout“ a prozkoumej aplikaci s ukázkovými daty. Nic, co tam napíšeš, se neuloží, a prohlídka po 30 minutách sama skončí. V aplikacích pro Windows, Mac a iPhone potřebuješ účet; jeho vytvoření je zdarma."
       },
       {
         "q": "Co může záznam obsahovat?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Jak fungují návyky a připomínky?",
-        "a": "Nastavíš si denní nebo týdenní návyky, každý s vlastním cílem, a průběžně je odškrtáváš. Aplikace ukazuje tvou sérii a to, jakou část cíle jsi splnil. Připomínky patří k návykům: čas pro každý návyk nastavíš na stránce Návyky a připomínky zapneš v Nastavení, v části Připomínky. V telefonu s Androidem nebo v iPhonu, který aplikaci povoluje oznámení, připomínka přijde, i když je aplikace zavřená; v počítači a v prohlížeči se zobrazí, dokud je deník otevřený. Připomínky se vytvářejí přímo v zařízení; nic se neodesílá ven."
+        "a": "Nastavíš si denní nebo týdenní návyky, každý s vlastním cílem, a průběžně je odškrtáváš. Aplikace ukazuje tvou sérii a to, jakou část cíle jsi splnil. Připomínky patří k návykům: čas pro každý návyk nastavíš na stránce Návyky a připomínky zapneš v Nastavení, v části Připomínky. V telefonu s Androidem nebo v iPhonu, který aplikaci povoluje oznámení, připomínka přijde, i když je aplikace zavřená; v počítači se zobrazí, dokud je deník otevřený. Připomínky se vytvářejí přímo v zařízení; nic se neodesílá ven."
       },
       {
         "q": "Co jsou postřehy a jak zjistím, jaká čísla za nimi stojí?",
@@ -175,16 +174,12 @@
         "a": "Zachová se novější změna a aplikace ti to oznámí jedním řádkem. Druhá verze zůstane na tom zařízení k dispozici, dokud upozornění nezavřeš: můžeš si ji přečíst, zkopírovat její text nebo ji uložit jako nový záznam."
       },
       {
-        "q": "Můžu deník používat v prohlížeči, bez instalace čehokoli?",
-        "a": "Ano. [[webapp|Otevři webovou verzi]] v jakémkoli moderním prohlížeči, v počítači nebo v telefonu, a přihlas se stejným účtem. Prohlížeč si neuchovává žádnou kopii toho, co čteš. Když vypadne připojení, zatímco je deník otevřený, můžeš psát dál: změny se uloží zašifrované v prohlížeči a nahrají se, jakmile se připojení obnoví."
-      },
-      {
         "q": "Co dělá „Zapamatovat si mě“?",
         "a": "Udrží tě přihlášeného na daném zařízení až 90 dní místo 12 hodin. V aplikacích pro Windows, Mac, Android a iPhone navíc uchovává zašifrovanou kopii toho, co sis nedávno prohlížel, aby se aplikace mohla otevřít a zobrazit to bez připojení. Na obrazovkách přihlášení a registrace je ve výchozím stavu zaškrtnuté: na zařízení, které používají i jiní lidé, zaškrtnutí zruš a po skončení se odhlas."
       },
       {
         "q": "Kde je můj deník uložený?",
-        "a": "Ve tvém vlastním účtu na serveru {{BRAND}}, v samostatném zašifrovaném souboru pro každý účet. Server běží u poskytovatele hostingu Fly.io, v jeho datovém centru ve Frankfurtu v Německu. Aplikace i prohlížeč ukazují tento jediný deník. [[privacy|Zásady ochrany osobních údajů]] přesně uvádějí, co se ukládá a kde."
+        "a": "Ve tvém vlastním účtu na serveru {{BRAND}}, v samostatném zašifrovaném souboru pro každý účet. Server běží u poskytovatele hostingu Fly.io, v jeho datovém centru ve Frankfurtu v Německu. Aplikace ukazují tento jediný deník. [[privacy|Zásady ochrany osobních údajů]] přesně uvádějí, co se ukládá a kde."
       },
       {
         "q": "Kdo může číst můj deník?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Jsou tu reklamy nebo sledování?",
-        "a": "Ne. Nejsou tu žádné reklamy, žádná analytika ani sledování - v aplikacích, ve webové verzi ani na tomto webu. Tvá data neprodáváme ani nesdílíme a tvůj deník se nikdy nepoužívá k trénování žádné umělé inteligence. Aplikace a webová verze se připojují jen k serveru {{BRAND}}, vždy přes HTTPS."
+        "a": "Ne. Nejsou tu žádné reklamy, žádná analytika ani sledování - v aplikacích ani na tomto webu. Tvá data neprodáváme ani nesdílíme a tvůj deník se nikdy nepoužívá k trénování žádné umělé inteligence. Aplikace se připojují jen k serveru {{BRAND}}, vždy přes HTTPS."
       },
       {
         "q": "Jak se deník zamyká?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Ke stažení",
-    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich, v aplikaci pro iPhone i v prohlížeči.",
+    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich i v aplikaci pro iPhone.",
     "tabsLabel": "Operační systém",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Ověř soubor",
     "checkText": "Každý soubor má kontrolní součet SHA-256. Pokud má stažený soubor jiný, stahování je poškozené nebo byl soubor změněn: neinstaluj ho. Kontrolní součet souboru zjistíš tak, že ve Windows PowerShell napíšeš Get-FileHash a název souboru, nebo v aplikaci Terminal na Macu shasum -a 256 a název souboru. Na velikosti písmen nezáleží.",
-    "moreHeading": "Prohlížeč a iPhone",
-    "web": "Není potřeba nic instalovat: {{BRAND}} funguje i v jakémkoli moderním prohlížeči, v počítači nebo v telefonu. [[webapp|Otevři ho v prohlížeči]].",
+    "moreHeading": "iPhone",
     "iphone": "Pro iPhone instalační soubor neexistuje: aplikace pro iPhone se instaluje z App Store.",
     "iphoneStore": "Na iPhonu se aplikace instaluje z App Store.",
     "storeLinks": {

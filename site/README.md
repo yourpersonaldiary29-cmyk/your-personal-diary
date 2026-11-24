@@ -3,7 +3,11 @@
 A small static site for a visitor who has never seen Your Personal Diary: a home page with the logo, what the app
 is, the Terms of Use, questions and answers, the Privacy Policy, the installation files, and a way to write to us.
 Eight pages in each of the app's 20 languages, English by default. The decisions behind it:
-`docs/site-tasks/SITE.md` (version 2, and the owner's two decisions of 2026-11-22).
+`docs/site-tasks/SITE.md` (version 2, the owner's two decisions of 2026-11-22 and his decision of 2026-11-23).
+
+**The site does not offer the web version** (the owner's decision of 2026-11-23: "delete the option of opening the
+app in the browser. I want them to download."). The web version itself keeps working at the root of the server;
+the site leads a visitor to the Downloads page. See "The site does not offer the web version" below.
 
 ## Pages and addresses
 
@@ -15,7 +19,7 @@ no folder of its own; every other language has one (`he`, `ar`, ...). There is n
 | Home (the home page) | `/about/` | `/about/he/` |
 | About the app | `/about/app/` | `/about/he/app/` |
 | Terms of Use | `/about/terms/` | `/about/he/terms/` |
-| Questions and answers (30) | `/about/faq/` | `/about/he/faq/` |
+| Questions and answers (29) | `/about/faq/` | `/about/he/faq/` |
 | Privacy Policy | `/about/privacy/` | `/about/he/privacy/` |
 | Downloads | `/about/downloads/` | `/about/he/downloads/` |
 | "Your message was sent" | `/about/contact/sent/` | `/about/he/contact/sent/` |
@@ -25,10 +29,11 @@ That is 8 x 20 = 160 pages. Shared by all of them: `/about/site.css`, `/about/si
 `/about/files/**` (the installers).
 
 The home page is a page of its own since 2026-11-22 (the owner asked for a page at the beginning with the logo,
-which a click on the logo opens): the app icon, large, and the name, then the heading, the lead, three actions (the
-web app, Downloads, About the app) and the phone. "About the app", which was also the home page until then, shows
-what you can do, what it looks like and your privacy. Both are built from the same texts (`hero`, `features`,
-`screens`, `privacy`); the list of pages is `SITE_PAGES` in the builder, the menu is `MENU`.
+which a click on the logo opens): the app icon, large, and the name, then the heading, the lead, two actions
+("Downloads", the primary button, and "About the app") and the phone. Until 2026-11-23 a first action, "Open in your
+browser", opened the web version; the owner had it removed. "About the app", which was also the home page until
+2026-11-22, shows what you can do, what it looks like and your privacy. Both are built from the same texts (`hero`,
+`features`, `screens`, `privacy`); the list of pages is `SITE_PAGES` in the builder, the menu is `MENU`.
 
 Every page has the same frame: skip link, header (logo and name: one link to the home page of the language), menu
 (Home, About the app, Terms of Use, Questions and answers, Privacy Policy, Downloads, Contact us; the current page
@@ -37,9 +42,9 @@ with the language chooser and the copyright line.
 
 **Every address inside the site is relative** (`../terms/`, `./he/`, `../../site.css`), computed from the depth of the
 page. The same tree therefore works under `/about/` today and at the root of the owner's domain later. Absolute
-addresses appear only where they must: `canonical`, `hreflang`, `og:url`, `og:image`, the links to the web app and to
-the two documents that stay outside the site (support, account deletion), store links, and the one absolute path of the
-site - the form's action, `/api/contact`.
+addresses appear only where they must: `canonical`, `hreflang`, `og:url`, `og:image`, the links to the two documents
+that stay outside the site (support, account deletion), store links, and the one absolute path of the site - the
+form's action, `/api/contact`. No address in any page leads to the root of the server, where the web version is.
 
 ## Where things are
 
@@ -71,17 +76,54 @@ Markdown, no line breaks.
   the placeholders of the English text. The minimum age is never written as a number.
 - Links, in the answers of the questions and in a few other texts: `[[target|link text]]`. The targets: `privacy`,
   `terms`, `faq`, `downloads`, `home` (pages of the site, in the language of the page), `support`, `delete` (the two
-  documents outside the site), `webapp`, `contact` (the contact block). A translation keeps the targets and translates
-  the link text.
-- `faq.items` has exactly 30 questions, in six groups of 7, 7, 5, 5, 4 and 2 (`faq.groups`).
+  documents outside the site), `contact` (the contact block). A translation keeps the targets and translates the
+  link text. There is no target for the web version: `webapp`, a target until 2026-11-23, is refused like any
+  unknown one.
+- `faq.items` has exactly 29 questions, in six groups of 7, 7, 4, 5, 4 and 2 (`faq.groups`). (30 until 2026-11-23:
+  the question about using the diary in a browser, then `faq.items[17]`, was deleted, and every later question
+  moved up by one.)
 - Every text must be true of the app as it is: no medical promise, no superlative, no "end-to-end" (one question
   asks it, and the answer is No), no claim that a store has published the app.
 - **No text tells a visitor that a file is not signed** (the owner's rule of 2026-11-22) - nor that it is
   uncertified, not verified, not notarized, or from an unidentified developer or publisher. The installing notes
-  (`downloads.install.*`) and the answer about the warnings (`faq.items[28].a`) say where the file does not come
-  from, name the warning the system shows and give the steps past it. A test keeps the words for "signed" and
-  "certificate" out of these texts in all 20 languages (`UNSIGNED_WORDS` in `scripts/site/build-site.test.mjs`).
+  (`downloads.install.*`) and the answer about the warnings (`faq.items[27].a`; `faq.items[28].a` until 2026-11-23)
+  say where the file does not come from, name the warning the system shows and give the steps past it. A test keeps
+  the words for "signed" and "certificate" out of these texts in all 20 languages (`UNSIGNED_WORDS` in
+  `scripts/site/build-site.test.mjs`).
+- **No text tells a visitor that the diary can be opened, used or read in a web browser** (the owner's rule of
+  2026-11-23) - see the next section.
 - `nav.home` is the usual word of the language for the home page of a web site, as a menu item ("Home", "דף הבית").
+
+### The site does not offer the web version
+
+The owner's decision of 2026-11-23, in his words (translated): "on the site, delete the option of opening the app in
+the browser. I want them to download." The web version itself is not touched: the server still serves it at its
+root address, the apps and the legal documents know it. What changed is the site:
+
+- **No button and no link.** The home page has two actions, "Downloads" (the primary button) and "About the app".
+  `hero.openAction` and `downloads.web` are no longer keys of a content file, `webapp` is no longer a link target,
+  and the question "Can I use it in a browser, without installing anything?" is gone. No address in any of the 160
+  pages leads to the root of the server, and the builder refuses to build a page that holds one (a link, a button,
+  a form or a redirect; `serverRootAddresses`).
+- **No sentence.** No text of `site/content/` says, in any language, that the diary runs in a browser or has a web
+  version. The word for "browser" stays in exactly three texts, where a file is downloaded or installed:
+  `downloads.install.windows`, `downloads.install.android` and `faq.items[27].a`. `privacy.items[2]` ("The apps and
+  the website connect only to the ... server") stays as it is.
+- **Under the tabs of the Downloads page** stands one heading, `downloads.moreHeading` ("iPhone" in every language),
+  and the iPhone paragraph (`downloads.iphone`, or `downloads.iphoneStore` with the App Store link once it is set).
+- **The two legal documents are not changed** (`legal/` is the one source, and the Privacy Policy must still say
+  what the web version stores). So the Terms of Use page and the Privacy Policy page of the site still describe the
+  website (the web version) as part of the service. They name the address of the server; inside the site that
+  address is shown as text, not as a link (`renderLegalDocument` in the builder). The standalone pages
+  (`<server>/privacy/`, `<server>/terms/`) keep their link.
+
+The builder itself refuses four things that would bring the option back (and so does `--check`, the gate before a
+deploy): a page with an address that leads to the root of the server, a `[[webapp|...]]` link, one of the two keys,
+a 30th question. Tests keep all of it so (`scripts/site/build-site.test.mjs`, the three tests named "the web
+version: ..."; and one in `server/test/hosted-site-page.test.ts`): each of those four fails them, and so does the
+word for "browser" or "the web version" of a language in another text (`WEB_VERSION_WORDS`). A sentence that comes
+back in a content file is seen by that table only - not by `--check`. When a text must change, change the text, not
+the table.
 
 ### Change a text
 

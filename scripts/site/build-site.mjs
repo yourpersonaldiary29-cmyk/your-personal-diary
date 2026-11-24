@@ -6,7 +6,7 @@
  *   <server>/about/                    The home page, English  - the logo and the name, large, and the first sentences
  *   <server>/about/app/                About the app           - what you can do, what it looks like, your privacy
  *   <server>/about/terms/              Terms of Use            - the document of legal/terms/, inside the site's frame
- *   <server>/about/faq/                Questions and answers   - 30, in six groups
+ *   <server>/about/faq/                Questions and answers   - 29, in six groups
  *   <server>/about/privacy/            Privacy Policy          - the document of legal/privacy/, inside the frame
  *   <server>/about/downloads/          Downloads               - a tab per platform, a table of installer files
  *   <server>/about/contact/sent/       "Your message was sent"      (where POST /api/contact sends the visitor)
@@ -20,9 +20,18 @@
  * own content, the contact block with the form (not on the two result pages), and the footer with the language
  * chooser and the copyright line. EVERY LINK INSIDE THE SITE IS RELATIVE, computed from the depth of the page, so
  * the same tree works under /about/ today and at the root of the owner's domain later. Absolute addresses appear
- * only where they must: canonical, hreflang, og:url and og:image (built from "siteBaseUrl"), the links to the web
- * app and to the two documents that stay outside the site (support, account deletion), store links, and the one
- * absolute path of the site: the form's action, /api/contact.
+ * only where they must: canonical, hreflang, og:url and og:image (built from "siteBaseUrl"), the links to the two
+ * documents that stay outside the site (support, account deletion), store links, and the one absolute path of the
+ * site: the form's action, /api/contact.
+ *
+ * THE SITE DOES NOT OFFER THE WEB VERSION (the owner's decision of 2026-11-23: "delete the option of opening the
+ * app in the browser. I want them to download."). The web version keeps working at the root of the server, but no
+ * page of the site links to it and no text of site/content/ says that the diary can be used in a browser: the home
+ * page has two actions (Downloads, About the app), there is no link target for the web version (LINK_TARGETS), and
+ * where a legal document names the address of the server, the site shows it as text, not as a link
+ * (renderLegalDocument). The two legal documents themselves are not changed: they still describe the website as
+ * part of the service. A page that holds an address to the root of the server is not built (serverRootAddresses),
+ * so --check refuses it. A visitor is led to the Downloads page.
  *
  * The site is hosted-only. It is NOT written into public/ (public/ goes into every client: the Windows and Mac
  * installers, the Android and iPhone bundles). scripts/hosted/stage-image.mjs calls buildSite() / writeSite()
@@ -73,7 +82,8 @@
  *   node scripts/site/build-site.mjs --out=<dir>  write <dir>/about/** instead
  *   node scripts/site/build-site.mjs --check      build in memory, write nothing; exit 1 on any problem (a key, a
  *                                                 placeholder or a link that differs from English, a missing image,
- *                                                 a missing or changed installer, a bad setting)
+ *                                                 a missing or changed installer, a bad setting, a page with an
+ *                                                 address that leads to the root of the server)
  *   node scripts/site/build-site.mjs --strict     also exit 1 while a text is marked TODO-TRANSLATE, a legal translation
  *                                                 is behind the English document or a value of legal/settings.json is
  *                                                 unset (use before a deploy; goes with --check)
@@ -397,9 +407,11 @@ export function downloadFileProblem(dir, row, name = slash(DOWNLOADS_DIR), list 
 export const PLACEHOLDERS = ['BRAND', 'MINIMUM_AGE', 'PUBLISHER_NAME', 'CONTACT_EMAIL'];
 /**
  * The targets of a link inside a text, [[target|link text]]: five pages of the site (in the language of the
- * page), the two documents that stay outside it (support, delete), the web app and the contact block.
+ * page), the two documents that stay outside it (support, delete) and the contact block. There is no target for
+ * the web version (until 2026-11-23: "webapp"): the site does not offer it - the owner's decision of that day - so
+ * a text that still holds [[webapp|...]] is refused like any unknown target.
  */
-export const LINK_TARGETS = ['privacy', 'terms', 'faq', 'downloads', 'home', 'support', 'delete', 'webapp', 'contact'];
+export const LINK_TARGETS = ['privacy', 'terms', 'faq', 'downloads', 'home', 'support', 'delete', 'contact'];
 const PLACEHOLDER_RE = /\{\{([A-Z][A-Z0-9_]*)\}\}/g;
 const LINK_RE = /\[\[([a-z]+)\|([^[\]|{}]+)\]\]/g;
 /** One pass over a text: a placeholder (group 1) or a link (groups 2 and 3). */
@@ -409,8 +421,11 @@ const TOKEN_RE = /\{\{([A-Z][A-Z0-9_]*)\}\}|\[\[([a-z]+)\|([^[\]|{}]+)\]\]/g;
 const T = 'text';
 const R = 'rich';
 const platformTexts = { windows: T, android: T, mac: T };
-/** The questions of each group of the Questions page, in the order of faq.groups; together faq.items. */
-export const FAQ_GROUP_SIZES = [7, 7, 5, 5, 4, 2];
+/**
+ * The questions of each group of the Questions page, in the order of faq.groups; together faq.items. 29 since
+ * 2026-11-23: the question about using the diary in a browser left the third group (the owner's decision).
+ */
+export const FAQ_GROUP_SIZES = [7, 7, 4, 5, 4, 2];
 export const FAQ_COUNT = FAQ_GROUP_SIZES.reduce((sum, size) => sum + size, 0);
 /**
  * The keys of a content file. [n, item] = a list of exactly n items (the page has that many icons, images or
@@ -422,7 +437,7 @@ export const CONTENT_SCHEMA = {
   skipLink: T,
   languagesLabel: T,
   nav: { label: T, home: T, about: T, terms: T, faq: T, privacy: T, downloads: T, contact: T },
-  hero: { heading: T, lead: T, openAction: T, note: T },
+  hero: { heading: T, lead: T, note: T },
   features: { heading: T, items: [8, { title: T, text: T }] },
   screens: { heading: T, items: [5, { caption: T, alt: T }] },
   privacy: { heading: T, lead: T, items: [0, T], policyLink: T },
@@ -441,7 +456,6 @@ export const CONTENT_SCHEMA = {
     checkFile: T,
     checkText: T,
     moreHeading: T,
-    web: R,
     iphone: T,
     iphoneStore: T,
     storeLinks: { googlePlay: T, appStoreIphone: T, appStoreMac: T, microsoftStore: T },
@@ -1044,11 +1058,21 @@ function isolateLatinInHtml(html) {
 }
 
 /**
+ * A link of a legal document to the address of the server itself, as markdownToHtml writes it before the
+ * placeholders are filled: [{{SITE_URL}}]({{SITE_URL}}), with or without a final slash. Group 1: the direction
+ * of the link, group 2: its text.
+ */
+const SERVER_LINK_RE = /<a href="\{\{SITE_URL\}\}\/?"( dir="ltr")?>([\s\S]*?)<\/a>/g;
+
+/**
  * A legal document for a page of the site: { title, description, html }. The text is the source of legal/, through
  * the functions of scripts/legal/build-pages.mjs - never a second copy. Inside the site {{TERMS_URL}} and
  * {{PRIVACY_URL}} lead to the site's own pages of the same language (`links`, relative), and where a document
  * shows such an address as text it shows the address of that page (`shown`, absolute); {{SUPPORT_URL}} and
- * {{DELETE_URL}} keep leading to the standalone pages on the server; {{SITE_URL}} stays the web app's address.
+ * {{DELETE_URL}} keep leading to the standalone pages on the server. {{SITE_URL}} stays the address of the server,
+ * where the web version is - but inside the site it is TEXT, not a link (the owner's decision of 2026-11-23: no
+ * page of the site links to the web version). The documents themselves are not changed: they still name the
+ * address, because the web version is part of the service they describe, and the standalone pages keep their link.
  */
 export function renderLegalDocument({ kind, locale, source, settings, siteUrl, links, shown }) {
   const def = localeOf(locale);
@@ -1066,7 +1090,11 @@ export function renderLegalDocument({ kind, locale, source, settings, siteUrl, l
     DELETE_URL: `${siteUrl}${pagePath('delete-account', locale)}`,
     SUPPORT_URL: `${siteUrl}${pagePath('support', locale)}`,
   };
-  const linked = markdownToHtml(body).replaceAll('href="{{PRIVACY_URL}}"', `href="${links.privacy}"`).replaceAll('href="{{TERMS_URL}}"', `href="${links.terms}"`);
+  const linked = markdownToHtml(body)
+    .replaceAll('href="{{PRIVACY_URL}}"', `href="${links.privacy}"`)
+    .replaceAll('href="{{TERMS_URL}}"', `href="${links.terms}"`)
+    // The address of the server: its text stays, isolated as the link was; the link goes.
+    .replace(SERVER_LINK_RE, (_all, ltr, text) => (ltr ? `<bdi dir="ltr">${text}</bdi>` : text));
   const html = fillPlaceholders(linked, values, name);
   if (!html.startsWith('<h1>') || html.split('<h1>').length !== 2) throw new Error(`${name}: the document must start with its one "# " heading (it is the heading of the page)`);
   return { title: meta.title, description: meta.description, html: def.dir === 'rtl' ? isolateLatinInHtml(html) : html };
@@ -1103,7 +1131,10 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
     return `<bdi>${escapeHtml(values[name])}</bdi>`;
   };
   const literal = rtl ? isolateLatin : escapeHtml;
-  /** Where a link of a text leads: the pages of the site in this language, the documents outside it, the web app. */
+  /**
+   * Where a link of a text leads: the pages of the site in this language, the two documents outside it, the contact
+   * block. Nothing leads to the web version at the root of the server (the owner's decision of 2026-11-23).
+   */
   const linkHref = {
     home: toPage('home'),
     privacy: toPage('privacy'),
@@ -1112,7 +1143,6 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
     downloads: toPage('downloads'),
     support: `${siteUrl}${pagePath('support', locale)}`,
     delete: `${siteUrl}${pagePath('delete-account', locale)}`,
-    webapp: `${siteUrl}/`,
     contact: page.contact ? '#contact' : `${toPage('home')}#contact`,
   };
   /** A text as HTML: escaped, the placeholders filled, the links made, direction-neutral fragments isolated. */
@@ -1161,7 +1191,9 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
   } else if (pageId === 'home') {
     // The home page (the owner, 2026-11-22: a page at the beginning with the logo): ONE hero section. First the app
     // icon, large, with the name next to it - not a link, this IS the page the logo of the header opens - then the
-    // heading, the lead, the three actions (the web app, the Downloads page, the About page), the note and the phone.
+    // heading, the lead, the two actions (the Downloads page - the primary one - and the About page), the note and
+    // the phone. Until 2026-11-23 a first action opened the web version; the owner had it removed ("I want them to
+    // download"), so the page leads a visitor to the Downloads page.
     title = attr(content.title);
     description = attr(content.description);
     main = [
@@ -1172,7 +1204,7 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
       `<p class="home-brand"><img class="home-icon" src="${to(ICON_IMAGE.rel)}" width="96" height="96" alt="">${brand}</p>`,
       `<h1>${rich(content.hero.heading)}</h1>`,
       `<p class="lead">${rich(content.hero.lead)}</p>`,
-      `<p class="actions"><a class="btn primary" href="${siteUrl}/">${label(content.hero.openAction)}</a><a class="btn" href="${toPage('downloads')}">${label(content.nav.downloads)}</a><a class="btn" href="${toPage('about')}">${label(content.nav.about)}</a></p>`,
+      `<p class="actions"><a class="btn primary" href="${toPage('downloads')}">${label(content.nav.downloads)}</a><a class="btn" href="${toPage('about')}">${label(content.nav.about)}</a></p>`,
       `<p class="note">${rich(content.hero.note)}</p>`,
       '</div>',
       `<div class="hero-shot phone">${screenshot(shotsOf(locale)[0], content.screens.items[0].alt, true)}</div>`,
@@ -1278,6 +1310,8 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
       ];
     };
     const iphone = siteSettings.links.appStoreIphone ? `<p>${rich(texts.iphoneStore)}</p>\n<p class="actions">${storeLink('appStoreIphone')}</p>` : `<p>${rich(texts.iphone)}</p>`;
+    // Under the tabs: the iPhone line under its heading - nothing else. Until 2026-11-23 a paragraph about the web
+    // version stood before it, with a link that opened it; the owner had it removed.
     main = [
       '<div class="wrap page">',
       `<h1>${rich(texts.heading)}</h1>`,
@@ -1287,7 +1321,6 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
       '</div>',
       '<section class="more">',
       `<h2>${rich(texts.moreHeading)}</h2>`,
-      `<p>${rich(texts.web)}</p>`,
       iphone,
       '</section>',
       '</div>',
@@ -1426,6 +1459,40 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
 // Build, check, write
 // ---------------------------------------------------------------------------------------------
 
+/** The attributes of a page that hold an address a visitor or a browser may follow (group 1: the name, group 2: the value). */
+const ADDRESS_ATTRIBUTE_RE = /\s(href|src|srcset|action|formaction|poster|data|value|content)="([^"]*)"/g;
+/**
+ * The content of <meta http-equiv="refresh">: the seconds, a separator and the address the browser goes to, with or
+ * without "url=" and quotes ("0; url=https://example.org/"). Group 2: the address.
+ */
+const REFRESH_RE = /^\s*\d[\d.]*\s*[;,]\s*(?:url\s*=\s*)?(['"]?)(.*?)\1\s*$/i;
+
+/**
+ * The addresses in the markup of a page that lead to the root of the server - where the web version is - each
+ * once, as the page writes them. `pageUrl` is the public address of the page (a relative address is resolved from
+ * there), `siteUrl` the address of the server. A query or a fragment does not make the root another place, and the
+ * address a <meta http-equiv="refresh"> names counts too. The owner's decision of 2026-11-23: the site does not
+ * offer the web version, so no page holds such an address - buildSite() refuses a page that does, and with it
+ * --check (the gate before a deploy) and the staging of the hosted image.
+ */
+export function serverRootAddresses(html, pageUrl, siteUrl) {
+  const server = new URL(siteUrl).host;
+  const found = new Set();
+  for (const [, name, raw] of html.matchAll(ADDRESS_ATTRIBUTE_RE)) {
+    const value = unescapeHtml(raw);
+    const refresh = name === 'content' ? REFRESH_RE.exec(value) : null;
+    const address = refresh ? refresh[2] : value;
+    let url;
+    try {
+      url = new URL(address, pageUrl);
+    } catch {
+      continue;
+    }
+    if (/^https?:$/.test(url.protocol) && url.host === server && url.pathname === '/') found.add(address);
+  }
+  return [...found];
+}
+
 /**
  * Builds the whole site in memory. Every path is relative to the top of the site (the folder about/ of a tree):
  *   pages         'index.html', 'app/index.html', 'he/terms/index.html', ... -> HTML (160)
@@ -1439,8 +1506,8 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
  *                 'legal/privacy/privacy-he.md ("3. How we use your data": 3 list items, English 4)'
  *   unset         placeholders of legal/settings.json values that are still null
  * Throws ONE error that lists every problem found (a key, placeholder or link that differs from English, a
- * missing or wrong-sized image, a missing or changed installer, a bad setting, a page over the budget); nothing
- * is written here.
+ * missing or wrong-sized image, a missing or changed installer, a bad setting, a page over the budget, a page
+ * with an address that leads to the root of the server - serverRootAddresses); nothing is written here.
  */
 export function buildSite({ root = ROOT, settings, siteSettings, siteUrl } = {}) {
   const problems = [];
@@ -1561,6 +1628,7 @@ export function buildSite({ root = ROOT, settings, siteSettings, siteUrl } = {})
     // The list the Downloads pages are built from, next to the installers: the hosted server merges it with the files
     // the owner uploads (server/src/hosted/downloads.ts). It never serves this file itself.
     files.set(IMAGE_LIST_FILE, formatDownloads(downloads));
+    const siteBase = siteBaseOf(store, origin);
     for (const l of LOCALES) {
       for (const page of SITE_PAGES) {
         const rel = pageFile(page.id, l.code);
@@ -1574,6 +1642,11 @@ export function buildSite({ root = ROOT, settings, siteSettings, siteUrl } = {})
         const bytes = Buffer.byteLength(html, 'utf8');
         const limit = page.legal ? MAX_LEGAL_PAGE_BYTES : MAX_PAGE_BYTES;
         if (bytes > limit) problems.push(`${rel} is ${bytes} bytes, over the budget of ${limit}`);
+        // The site does not offer the web version (the owner's decision of 2026-11-23): a page that would lead a
+        // visitor to the root of the server - by a link, a button, a form or a redirect - is not built.
+        for (const address of serverRootAddresses(html, `${siteBase}${siteDir(page.id, l.code)}`, origin)) {
+          problems.push(`${rel}: the address ${address} leads to the root of the server, where the web version is - the site does not offer it (the owner's decision of 2026-11-23)`);
+        }
         pages.set(rel, html);
       }
     }
@@ -1646,7 +1719,7 @@ export function siteFolderProblems(folder) {
     const dir = rel.slice(0, -'index.html'.length);
     for (const m of html.matchAll(/\s(?:href|src|action)="([^"]*)"/g)) {
       const address = m[1].replace(/&amp;/g, '&');
-      // Absolute by design: canonical, hreflang, the web app, the documents outside the site, a store, the form's action.
+      // Absolute by design: canonical, hreflang, the documents outside the site, a store, the form's action.
       if (/^(?:https:\/\/|mailto:|#)/.test(address) || address === CONTACT_ACTION) continue;
       if (!/^\.\.?\//.test(address)) {
         problems.push(`${rel}: the address ${address} is not relative (it would break when the site moves)`);

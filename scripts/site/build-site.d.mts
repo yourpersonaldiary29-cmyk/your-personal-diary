@@ -120,9 +120,17 @@ export declare function fileSha256(file: string): string;
 export declare function downloadFileProblem(dir: string, row: DownloadRow, name?: string, list?: string): string | null;
 export declare function megabytes(bytes: number, intl: string): string;
 export declare const PLACEHOLDERS: readonly string[];
+/**
+ * The targets of a link inside a text ([[target|link text]]): privacy, terms, faq, downloads, home, support, delete,
+ * contact. There is no target for the web version - the site does not offer it (the owner's decision of
+ * 2026-11-23) - so "webapp", a target until that day, is refused like any unknown one.
+ */
 export declare const LINK_TARGETS: readonly string[];
+/** The questions of each of the six groups of the Questions page: 7, 7, 4, 5, 4 and 2. */
 export declare const FAQ_GROUP_SIZES: readonly number[];
+/** 29 (30 until 2026-11-23, when the question about using the diary in a browser was deleted). */
 export declare const FAQ_COUNT: number;
+/** The keys of a content file. The hero has no text for a button that opens the web version, the Downloads page none about it. */
 export declare const CONTENT_SCHEMA: Record<string, unknown>;
 export declare function placeholdersOf(text: string): string[];
 export declare function linkTargetsOf(text: string): string[];
@@ -149,6 +157,10 @@ export declare const DECOR_COLORS: readonly string[];
 export declare function readThemeTokens(root?: string): SiteTheme;
 export declare const FONT_STACK: string;
 export declare function siteCss(theme: SiteTheme): string;
+/**
+ * A legal document for a page of the site. Inside the site the address of the server itself ({{SITE_URL}}, where
+ * the web version is) is text, not a link: no page of the site links to the web version.
+ */
 export declare function renderLegalDocument(args: {
   kind: string;
   locale: string;
@@ -168,6 +180,14 @@ export declare function renderSitePage(args: {
   downloads?: Downloads;
   source?: string;
 }): string;
+/**
+ * The addresses in the markup of a page that lead to the root of the server, where the web version is - each once,
+ * as the page writes them (`pageUrl`: the public address of the page, `siteUrl`: the address of the server; the
+ * address a <meta http-equiv="refresh"> names counts too). buildSite refuses a page that holds one: the site does
+ * not offer the web version (the owner's decision of 2026-11-23).
+ */
+export declare function serverRootAddresses(html: string, pageUrl: string, siteUrl: string): string[];
+/** Throws one error that lists every problem (`problems`), a page with an address to the root of the server among them. */
 export declare function buildSite(args?: { root?: string; settings?: LegalSettings; siteSettings?: SiteSettings; siteUrl?: string }): BuiltSite;
 export declare function writeSite(site: BuiltSite, webRoot: string): string;
 export declare function siteFolderProblems(folder: string): string[];

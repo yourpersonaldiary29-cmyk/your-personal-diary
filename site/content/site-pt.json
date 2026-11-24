@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Um diário privado que ajuda a descobrir os seus próprios padrões",
     "lead": "Escreva sobre o seu dia com as suas próprias palavras. Se quiser, acrescente o humor, o sono e os hábitos. Ao longo de semanas, meses e anos, o {{BRAND}} aponta padrões nas suas próprias entradas e mostra os números por trás de cada um.",
-    "openAction": "Abrir no seu navegador",
     "note": "Gratuito. Sem anúncios, sem análises de utilização, sem rastreio."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "O que é o {{BRAND}}?",
-        "a": "Um diário privado. Escreve sobre o seu dia com as suas próprias palavras e, se quiser, acrescenta o humor, o sono, os hábitos e mais. Ao longo de semanas, meses e anos, a aplicação aponta padrões nas suas próprias entradas e mostra os números por trás de cada um. Funciona num navegador e como aplicação para Windows, Mac, Android e iPhone, com uma só conta para todos."
+        "a": "Um diário privado. Escreve sobre o seu dia com as suas próprias palavras e, se quiser, acrescenta o humor, o sono, os hábitos e mais. Ao longo de semanas, meses e anos, a aplicação aponta padrões nas suas próprias entradas e mostra os números por trás de cada um. Funciona como aplicação para Windows, Mac, Android e iPhone, com uma só conta para todos."
       },
       {
         "q": "É gratuito?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Que dispositivos posso usar?",
-        "a": "Um computador com Windows 10 ou 11, um Mac com macOS 12.3 ou posterior, um telemóvel Android com Android 7.0 ou posterior, um iPhone com iOS 16 ou posterior, e qualquer navegador moderno num computador ou num telemóvel. Os ficheiros de instalação estão na página [[downloads|Transferências]]. É uma só conta em todo o lado: o que escreve num dispositivo aparece nos outros."
+        "a": "Um computador com Windows 10 ou 11, um Mac com macOS 12.3 ou posterior, um telemóvel Android com Android 7.0 ou posterior, e um iPhone com iOS 16 ou posterior. Os ficheiros de instalação estão na página [[downloads|Transferências]]. É uma só conta em todo o lado: o que escreve num dispositivo aparece nos outros."
       },
       {
         "q": "Em que idiomas está disponível?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Posso experimentar sem conta?",
-        "a": "Na aplicação Android, sim. No primeiro ecrã escolha «Ignorar - só quero ver» e explore a aplicação com dados de exemplo. Nada do que escrever aí fica guardado, e a visita termina sozinha ao fim de 30 minutos. Nas aplicações para Windows, Mac e iPhone e no navegador precisa de uma conta; criá-la é gratuito."
+        "a": "Na aplicação Android, sim. No primeiro ecrã escolha «Ignorar - só quero ver» e explore a aplicação com dados de exemplo. Nada do que escrever aí fica guardado, e a visita termina sozinha ao fim de 30 minutos. Nas aplicações para Windows, Mac e iPhone precisa de uma conta; criá-la é gratuito."
       },
       {
         "q": "O que pode conter uma entrada do diário?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Como funcionam os hábitos e os lembretes?",
-        "a": "Define hábitos diários ou semanais, cada um com um objetivo, e vai marcando-os à medida que os cumpre. A aplicação mostra a sua sequência e quanto do objetivo cumpriu. Os lembretes pertencem aos hábitos: define a hora de cada hábito na página Hábitos e ativa os lembretes nas Definições, em Lembretes. Num telemóvel Android ou num iPhone que permita notificações da aplicação, o lembrete chega mesmo com a aplicação fechada; num computador e no navegador aparece enquanto o diário está aberto. Os lembretes são criados no próprio dispositivo; nada é enviado para fora."
+        "a": "Define hábitos diários ou semanais, cada um com um objetivo, e vai marcando-os à medida que os cumpre. A aplicação mostra a sua sequência e quanto do objetivo cumpriu. Os lembretes pertencem aos hábitos: define a hora de cada hábito na página Hábitos e ativa os lembretes nas Definições, em Lembretes. Num telemóvel Android ou num iPhone que permita notificações da aplicação, o lembrete chega mesmo com a aplicação fechada; num computador aparece enquanto o diário está aberto. Os lembretes são criados no próprio dispositivo; nada é enviado para fora."
       },
       {
         "q": "O que são as observações, e como vejo os números por trás de uma?",
@@ -175,16 +174,12 @@
         "a": "Fica a alteração mais recente, e a aplicação avisa-o disso numa linha. A outra versão continua disponível nesse dispositivo até fechar o aviso: pode lê-la, copiar o texto dela ou guardá-la como uma nova entrada."
       },
       {
-        "q": "Posso usá-lo num navegador, sem instalar nada?",
-        "a": "Sim. [[webapp|Abra a versão web]] em qualquer navegador moderno, num computador ou num telemóvel, e inicie sessão com a mesma conta. O navegador não guarda nenhuma cópia do que lê. Se a ligação falhar com o diário aberto, pode continuar a escrever: as suas alterações ficam guardadas encriptadas no navegador e são enviadas quando a ligação voltar."
-      },
-      {
         "q": "O que faz «Manter sessão iniciada»?",
         "a": "Mantém a sessão iniciada nesse dispositivo durante até 90 dias, em vez de 12 horas. Nas aplicações para Windows, Mac, Android e iPhone guarda também uma cópia encriptada do que viu recentemente, para que a aplicação possa abrir e mostrá-lo sem ligação. Nos ecrãs de início de sessão e de registo, a opção vem assinalada por predefinição: num dispositivo que outras pessoas também usam, desmarque-a e termine a sessão quando acabar."
       },
       {
         "q": "Onde fica guardado o meu diário?",
-        "a": "Na sua própria conta no servidor do {{BRAND}}, num ficheiro encriptado separado para cada conta. O servidor funciona no fornecedor de alojamento Fly.io, no seu centro de dados em Frankfurt, na Alemanha. As aplicações e o navegador mostram todos este mesmo diário. A [[privacy|Política de privacidade]] diz exatamente o que é guardado e onde."
+        "a": "Na sua própria conta no servidor do {{BRAND}}, num ficheiro encriptado separado para cada conta. O servidor funciona no fornecedor de alojamento Fly.io, no seu centro de dados em Frankfurt, na Alemanha. As aplicações mostram todas este mesmo diário. A [[privacy|Política de privacidade]] diz exatamente o que é guardado e onde."
       },
       {
         "q": "Quem pode ler o meu diário?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Há anúncios ou rastreio?",
-        "a": "Não. Não há publicidade, análises de utilização nem rastreio, nas aplicações, na versão web ou neste site. Não vendemos nem partilhamos os seus dados, e o seu diário nunca é usado para treinar qualquer IA. As aplicações e a versão web ligam-se apenas ao servidor do {{BRAND}}, sempre por HTTPS."
+        "a": "Não. Não há publicidade, análises de utilização nem rastreio, nas aplicações ou neste site. Não vendemos nem partilhamos os seus dados, e o seu diário nunca é usado para treinar qualquer IA. As aplicações ligam-se apenas ao servidor do {{BRAND}}, sempre por HTTPS."
       },
       {
         "q": "Como é bloqueado o diário?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Transferências",
-    "lead": "Ficheiros de instalação do {{BRAND}} para Windows, Android e Mac. Uma só conta funciona em todos, na aplicação para iPhone e no navegador.",
+    "lead": "Ficheiros de instalação do {{BRAND}} para Windows, Android e Mac. Uma só conta funciona em todos e na aplicação para iPhone.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Verificar o ficheiro",
     "checkText": "Cada ficheiro tem uma soma de verificação SHA-256. Se o ficheiro que transferiu tiver uma diferente, a transferência está danificada ou o ficheiro foi alterado: não o instale. Para ver a soma de verificação de um ficheiro, escreva Get-FileHash e o nome do ficheiro no Windows PowerShell, ou shasum -a 256 e o nome do ficheiro no Terminal de um Mac. Não importa se as letras estão em maiúsculas ou minúsculas.",
-    "moreHeading": "Navegador e iPhone",
-    "web": "Nada para instalar: o {{BRAND}} também funciona em qualquer navegador moderno, num computador ou num telemóvel. [[webapp|Abra-o no seu navegador]].",
+    "moreHeading": "iPhone",
     "iphone": "Não há ficheiro de instalação para iPhone: a aplicação para iPhone é instalada a partir da App Store.",
     "iphoneStore": "Num iPhone, a aplicação é instalada a partir da App Store.",
     "storeLinks": {

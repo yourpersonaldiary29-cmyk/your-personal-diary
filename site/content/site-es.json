@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Un diario privado que te ayuda a descubrir tus propios patrones",
     "lead": "Escribe sobre tu día con tus propias palabras. Si quieres, añade tu estado de ánimo, tu sueño y tus hábitos. A lo largo de semanas, meses y años, {{BRAND}} señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno.",
-    "openAction": "Abrir en tu navegador",
     "note": "Gratis. Sin anuncios, sin analíticas, sin rastreo."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "¿Qué es {{BRAND}}?",
-        "a": "Un diario privado. Escribes sobre tu día con tus propias palabras y, si quieres, añades tu estado de ánimo, tu sueño, tus hábitos y más. A lo largo de semanas, meses y años, la aplicación señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno. Funciona en el navegador y como aplicación para Windows, Mac, Android y iPhone, con una sola cuenta para todo."
+        "a": "Un diario privado. Escribes sobre tu día con tus propias palabras y, si quieres, añades tu estado de ánimo, tu sueño, tus hábitos y más. A lo largo de semanas, meses y años, la aplicación señala patrones en tus propias entradas y muestra las cifras que hay detrás de cada uno. Funciona como aplicación para Windows, Mac, Android y iPhone, con una sola cuenta para todo."
       },
       {
         "q": "¿Es gratis?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "¿Qué dispositivos puedo usar?",
-        "a": "Un ordenador con Windows 10 u 11, un Mac con macOS 12.3 o posterior, un teléfono con Android 7.0 o posterior, un iPhone con iOS 16 o posterior y cualquier navegador moderno, en un ordenador o un teléfono. Los archivos de instalación están en la página [[downloads|Descargas]]. Es una sola cuenta en todas partes: lo que escribes en un dispositivo aparece en los demás."
+        "a": "Un ordenador con Windows 10 u 11, un Mac con macOS 12.3 o posterior, un teléfono con Android 7.0 o posterior y un iPhone con iOS 16 o posterior. Los archivos de instalación están en la página [[downloads|Descargas]]. Es una sola cuenta en todas partes: lo que escribes en un dispositivo aparece en los demás."
       },
       {
         "q": "¿En qué idiomas está disponible?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "¿Puedo probarlo sin una cuenta?",
-        "a": "En la aplicación para Android, sí. En la primera pantalla, elige «Omitir - solo quiero mirar» y explora la aplicación con datos de ejemplo. Nada de lo que escribas ahí se guarda, y la visita termina sola al cabo de 30 minutos. En las aplicaciones para Windows, Mac y iPhone y en el navegador necesitas una cuenta; crearla es gratis."
+        "a": "En la aplicación para Android, sí. En la primera pantalla, elige «Omitir - solo quiero mirar» y explora la aplicación con datos de ejemplo. Nada de lo que escribas ahí se guarda, y la visita termina sola al cabo de 30 minutos. En las aplicaciones para Windows, Mac y iPhone necesitas una cuenta; crearla es gratis."
       },
       {
         "q": "¿Qué puede contener una entrada del diario?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "¿Cómo funcionan los hábitos y los recordatorios?",
-        "a": "Creas hábitos diarios o semanales, cada uno con un objetivo, y los vas marcando sobre la marcha. La aplicación muestra tu racha y qué parte del objetivo has cumplido. Los recordatorios van con los hábitos: fijas la hora de cada hábito en la página Hábitos y activas los recordatorios en Ajustes, en Recordatorios. En un teléfono Android o en un iPhone que permita las notificaciones de la aplicación, el recordatorio llega aunque la aplicación esté cerrada; en un ordenador y en el navegador aparece mientras el diario está abierto. Los recordatorios se crean en el propio dispositivo; no se envía nada fuera."
+        "a": "Creas hábitos diarios o semanales, cada uno con un objetivo, y los vas marcando sobre la marcha. La aplicación muestra tu racha y qué parte del objetivo has cumplido. Los recordatorios van con los hábitos: fijas la hora de cada hábito en la página Hábitos y activas los recordatorios en Ajustes, en Recordatorios. En un teléfono Android o en un iPhone que permita las notificaciones de la aplicación, el recordatorio llega aunque la aplicación esté cerrada; en un ordenador aparece mientras el diario está abierto. Los recordatorios se crean en el propio dispositivo; no se envía nada fuera."
       },
       {
         "q": "¿Qué son las observaciones y cómo veo las cifras que hay detrás de una?",
@@ -175,16 +174,12 @@
         "a": "Se conserva el cambio más reciente, y la aplicación te lo dice en una línea. La otra versión sigue disponible en ese dispositivo hasta que cierres el aviso: puedes leerla, copiar su texto o guardarla como entrada nueva."
       },
       {
-        "q": "¿Puedo usarlo en un navegador, sin instalar nada?",
-        "a": "Sí. [[webapp|Abre la versión web]] en cualquier navegador moderno, en un ordenador o un teléfono, e inicia sesión con la misma cuenta. El navegador no guarda ninguna copia de lo que lees. Si se corta la conexión mientras el diario está abierto, puedes seguir escribiendo: tus cambios se guardan cifrados en el navegador y se suben cuando vuelve la conexión."
-      },
-      {
         "q": "¿Qué hace «Recordarme»?",
         "a": "Mantiene tu sesión iniciada en ese dispositivo hasta 90 días en lugar de 12 horas. En las aplicaciones para Windows, Mac, Android y iPhone también guarda una copia cifrada de lo que has visto recientemente, para que la aplicación pueda abrirse y mostrarlo sin conexión. En las pantallas de inicio de sesión y de registro la casilla viene marcada: en un dispositivo que también usan otras personas, desmárcala y cierra sesión cuando termines."
       },
       {
         "q": "¿Dónde se guarda mi diario?",
-        "a": "En tu propia cuenta en el servidor de {{BRAND}}, en un archivo cifrado independiente para cada cuenta. El servidor funciona en el proveedor de alojamiento Fly.io, en su centro de datos de Fráncfort, Alemania. Las aplicaciones y el navegador muestran todos este mismo diario. La [[privacy|Política de privacidad]] indica con exactitud qué se guarda y dónde."
+        "a": "En tu propia cuenta en el servidor de {{BRAND}}, en un archivo cifrado independiente para cada cuenta. El servidor funciona en el proveedor de alojamiento Fly.io, en su centro de datos de Fráncfort, Alemania. Las aplicaciones muestran todas este mismo diario. La [[privacy|Política de privacidad]] indica con exactitud qué se guarda y dónde."
       },
       {
         "q": "¿Quién puede leer mi diario?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "¿Hay anuncios o rastreo?",
-        "a": "No. No hay publicidad, ni analíticas, ni rastreo: ni en las aplicaciones, ni en la versión web, ni en este sitio. No vendemos ni compartimos tus datos, y tu diario nunca se usa para entrenar ninguna IA. Las aplicaciones y la versión web solo se conectan al servidor de {{BRAND}}, siempre mediante HTTPS."
+        "a": "No. No hay publicidad, ni analíticas, ni rastreo: ni en las aplicaciones, ni en este sitio. No vendemos ni compartimos tus datos, y tu diario nunca se usa para entrenar ninguna IA. Las aplicaciones solo se conectan al servidor de {{BRAND}}, siempre mediante HTTPS."
       },
       {
         "q": "¿Cómo se bloquea el diario?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Descargas",
-    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos, en la aplicación para iPhone y en el navegador.",
+    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos y en la aplicación para iPhone.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Comprobar el archivo",
     "checkText": "Cada archivo tiene una suma de comprobación SHA-256. Si la del archivo que has descargado es distinta, la descarga está dañada o el archivo ha sido modificado: no lo instales. Para ver la suma de comprobación de un archivo, escribe Get-FileHash y el nombre del archivo en Windows PowerShell, o shasum -a 256 y el nombre del archivo en el Terminal de un Mac. No importa si las letras están en mayúsculas o en minúsculas.",
-    "moreHeading": "Navegador y iPhone",
-    "web": "No hay nada que instalar: {{BRAND}} también funciona en cualquier navegador moderno, en un ordenador o un teléfono. [[webapp|Ábrelo en tu navegador]].",
+    "moreHeading": "iPhone",
     "iphone": "No hay archivo de instalación para iPhone: la aplicación para iPhone se instala desde el App Store.",
     "iphoneStore": "En un iPhone, la aplicación se instala desde el App Store.",
     "storeLinks": {

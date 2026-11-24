@@ -16,7 +16,6 @@
   "hero": {
     "heading": "Un journal privé qui vous aide à repérer vos propres tendances",
     "lead": "Racontez votre journée avec vos propres mots. Si vous le souhaitez, ajoutez votre humeur, votre sommeil et vos habitudes. Au fil des semaines, des mois et des années, {{BRAND}} signale des tendances dans vos propres entrées et indique les chiffres derrière chacune.",
-    "openAction": "Ouvrir dans votre navigateur",
     "note": "Gratuit. Sans publicité, sans statistiques d’usage, sans pistage."
   },
   "features": {
@@ -108,7 +107,7 @@
     "items": [
       {
         "q": "Qu’est-ce que {{BRAND}} ?",
-        "a": "Un journal privé. Vous racontez votre journée avec vos propres mots et, si vous le souhaitez, vous ajoutez votre humeur, votre sommeil, vos habitudes et d’autres éléments. Au fil des semaines, des mois et des années, l’application signale des tendances dans vos propres entrées et indique les chiffres derrière chacune. Elle fonctionne dans un navigateur et comme application pour Windows, Mac, Android et iPhone, avec un seul compte pour l’ensemble."
+        "a": "Un journal privé. Vous racontez votre journée avec vos propres mots et, si vous le souhaitez, vous ajoutez votre humeur, votre sommeil, vos habitudes et d’autres éléments. Au fil des semaines, des mois et des années, l’application signale des tendances dans vos propres entrées et indique les chiffres derrière chacune. Elle fonctionne comme application pour Windows, Mac, Android et iPhone, avec un seul compte pour l’ensemble."
       },
       {
         "q": "Est-ce gratuit ?",
@@ -120,7 +119,7 @@
       },
       {
         "q": "Quels appareils puis-je utiliser ?",
-        "a": "Un ordinateur sous Windows 10 ou 11, un Mac sous macOS 12.3 ou version ultérieure, un téléphone Android sous Android 7.0 ou version ultérieure, un iPhone sous iOS 16 ou version ultérieure, et n’importe quel navigateur récent sur un ordinateur ou un téléphone. Les fichiers d’installation se trouvent sur la page [[downloads|Téléchargements]]. C’est un seul compte partout : ce que vous écrivez sur un appareil apparaît sur les autres."
+        "a": "Un ordinateur sous Windows 10 ou 11, un Mac sous macOS 12.3 ou version ultérieure, un téléphone Android sous Android 7.0 ou version ultérieure, et un iPhone sous iOS 16 ou version ultérieure. Les fichiers d’installation se trouvent sur la page [[downloads|Téléchargements]]. C’est un seul compte partout : ce que vous écrivez sur un appareil apparaît sur les autres."
       },
       {
         "q": "Dans quelles langues l’application est-elle disponible ?",
@@ -132,7 +131,7 @@
       },
       {
         "q": "Puis-je l’essayer sans compte ?",
-        "a": "Dans l’application Android, oui. Sur le premier écran, choisissez « Passer - juste jeter un œil » et découvrez l’application avec des données d’exemple. Rien de ce que vous y écrivez n’est enregistré, et la visite se termine d’elle-même au bout de 30 minutes. Dans les applications Windows, Mac et iPhone et dans le navigateur, il faut un compte ; sa création est gratuite."
+        "a": "Dans l’application Android, oui. Sur le premier écran, choisissez « Passer - juste jeter un œil » et découvrez l’application avec des données d’exemple. Rien de ce que vous y écrivez n’est enregistré, et la visite se termine d’elle-même au bout de 30 minutes. Dans les applications Windows, Mac et iPhone, il faut un compte ; sa création est gratuite."
       },
       {
         "q": "Que peut contenir une entrée du journal ?",
@@ -140,7 +139,7 @@
       },
       {
         "q": "Comment fonctionnent les habitudes et les rappels ?",
-        "a": "Vous créez des habitudes quotidiennes ou hebdomadaires, chacune avec un objectif, et vous les cochez au fur et à mesure. L’application affiche votre série et la part de l’objectif atteinte. Les rappels sont liés aux habitudes : vous réglez l’heure de chaque habitude sur la page Habitudes et vous activez les rappels dans Paramètres, sous Rappels. Sur un téléphone Android ou un iPhone qui autorise les notifications de l’application, le rappel arrive même quand l’application est fermée ; sur un ordinateur et dans le navigateur, il apparaît pendant que le journal est ouvert. Les rappels sont créés sur l’appareil lui-même ; rien n’est envoyé à l’extérieur."
+        "a": "Vous créez des habitudes quotidiennes ou hebdomadaires, chacune avec un objectif, et vous les cochez au fur et à mesure. L’application affiche votre série et la part de l’objectif atteinte. Les rappels sont liés aux habitudes : vous réglez l’heure de chaque habitude sur la page Habitudes et vous activez les rappels dans Paramètres, sous Rappels. Sur un téléphone Android ou un iPhone qui autorise les notifications de l’application, le rappel arrive même quand l’application est fermée ; sur un ordinateur, il apparaît pendant que le journal est ouvert. Les rappels sont créés sur l’appareil lui-même ; rien n’est envoyé à l’extérieur."
       },
       {
         "q": "Que sont les observations, et comment voir les chiffres derrière l’une d’elles ?",
@@ -175,16 +174,12 @@
         "a": "La modification la plus récente est conservée, et l’application vous le signale en une ligne. L’autre version reste disponible sur cet appareil jusqu’à ce que vous fermiez ce message : vous pouvez la lire, copier son texte ou l’enregistrer comme nouvelle entrée."
       },
       {
-        "q": "Puis-je l’utiliser dans un navigateur, sans rien installer ?",
-        "a": "Oui. [[webapp|Ouvrez la version web]] dans n’importe quel navigateur récent, sur un ordinateur ou un téléphone, et connectez-vous avec le même compte. Le navigateur ne garde aucune copie de ce que vous lisez. Si la connexion est coupée pendant que le journal est ouvert, vous pouvez continuer à écrire : vos modifications sont conservées chiffrées dans le navigateur et envoyées dès que la connexion revient."
-      },
-      {
         "q": "À quoi sert « Se souvenir de moi » ?",
         "a": "Cette option vous garde connecté sur cet appareil jusqu’à 90 jours au lieu de 12 heures. Dans les applications Windows, Mac, Android et iPhone, elle conserve aussi une copie chiffrée de ce que vous avez consulté récemment, pour que l’application puisse s’ouvrir et l’afficher sans connexion. Sur les écrans de connexion et d’inscription, elle est cochée par défaut : sur un appareil que d’autres personnes utilisent aussi, décochez-la et déconnectez-vous quand vous avez terminé."
       },
       {
         "q": "Où mon journal est-il conservé ?",
-        "a": "Dans votre propre compte sur le serveur de {{BRAND}}, dans un fichier chiffré distinct pour chaque compte. Le serveur fonctionne chez l’hébergeur Fly.io, dans son centre de données de Francfort, en Allemagne. Les applications et le navigateur affichent tous ce même journal. La [[privacy|Politique de confidentialité]] indique précisément ce qui est conservé et où."
+        "a": "Dans votre propre compte sur le serveur de {{BRAND}}, dans un fichier chiffré distinct pour chaque compte. Le serveur fonctionne chez l’hébergeur Fly.io, dans son centre de données de Francfort, en Allemagne. Les applications affichent toutes ce même journal. La [[privacy|Politique de confidentialité]] indique précisément ce qui est conservé et où."
       },
       {
         "q": "Qui peut lire mon journal ?",
@@ -196,7 +191,7 @@
       },
       {
         "q": "Y a-t-il de la publicité ou du pistage ?",
-        "a": "Non. Il n’y a ni publicité, ni statistiques d’usage, ni pistage, dans les applications, dans la version web ou sur ce site. Nous ne vendons ni ne partageons vos données, et votre journal n’est jamais utilisé pour entraîner une IA. Les applications et la version web se connectent uniquement au serveur de {{BRAND}}, toujours en HTTPS."
+        "a": "Non. Il n’y a ni publicité, ni statistiques d’usage, ni pistage, dans les applications ou sur ce site. Nous ne vendons ni ne partageons vos données, et votre journal n’est jamais utilisé pour entraîner une IA. Les applications se connectent uniquement au serveur de {{BRAND}}, toujours en HTTPS."
       },
       {
         "q": "Comment le journal est-il verrouillé ?",
@@ -230,7 +225,7 @@
   },
   "downloads": {
     "heading": "Téléchargements",
-    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux, dans l’application iPhone et dans le navigateur.",
+    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux et dans l’application iPhone.",
     "tabsLabel": "Système d’exploitation",
     "tabs": {
       "windows": "Windows",
@@ -260,8 +255,7 @@
     },
     "checkFile": "Vérifier le fichier",
     "checkText": "Chaque fichier a une somme de contrôle SHA-256. Si le fichier que vous avez téléchargé en a une autre, le téléchargement est endommagé ou le fichier a été modifié : ne l’installez pas. Pour voir la somme de contrôle d’un fichier, tapez Get-FileHash suivi du nom du fichier dans Windows PowerShell, ou shasum -a 256 suivi du nom du fichier dans le Terminal d’un Mac. Les majuscules et les minuscules sont considérées comme identiques.",
-    "moreHeading": "Navigateur et iPhone",
-    "web": "Rien à installer : {{BRAND}} fonctionne aussi dans n’importe quel navigateur récent, sur un ordinateur ou un téléphone. [[webapp|Ouvrez-le dans votre navigateur]].",
+    "moreHeading": "iPhone",
     "iphone": "Il n’y a pas de fichier d’installation pour iPhone : l’application iPhone s’installe depuis l’App Store.",
     "iphoneStore": "Sur un iPhone, l’application s’installe depuis l’App Store.",
     "storeLinks": {
