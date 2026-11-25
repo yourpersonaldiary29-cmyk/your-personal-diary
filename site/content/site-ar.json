@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "التنزيلات",
-    "lead": "ملفات تثبيت {{BRAND}} لأنظمة Windows وAndroid وMac. حساب واحد يعمل فيها كلها وفي تطبيق iPhone.",
+    "lead": "ملفات تثبيت {{BRAND}} لأنظمة Windows وAndroid وMac. حساب واحد يعمل فيها كلها.",
     "tabsLabel": "نظام التشغيل",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "تحقق من الملف",
     "checkText": "لكل ملف مجموع تحقق SHA-256. إذا كان للملف الذي نزلته مجموع مختلف، فالتنزيل تالف أو أن الملف قد تغير: لا تثبته. لرؤية مجموع التحقق لملف، اكتب Get-FileHash واسم الملف في Windows PowerShell، أو shasum -a 256 واسم الملف في Terminal على Mac. لا فرق بين الأحرف اللاتينية الكبيرة والصغيرة.",
     "moreHeading": "iPhone",
-    "iphone": "لا يوجد ملف تثبيت لـ iPhone: يثبت تطبيق iPhone من App Store.",
     "iphoneStore": "على iPhone، يثبت التطبيق من App Store.",
     "storeLinks": {
       "googlePlay": "احصل عليه من Google Play",

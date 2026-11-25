@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Загрузки",
-    "lead": "Установочные файлы {{BRAND}} для Windows, Android и Mac. Один аккаунт работает во всех них и в приложении для iPhone.",
+    "lead": "Установочные файлы {{BRAND}} для Windows, Android и Mac. Один аккаунт работает во всех них.",
     "tabsLabel": "Операционная система",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Проверка файла",
     "checkText": "У каждого файла есть контрольная сумма SHA-256. Если у скачанного файла она другая, загрузка повреждена или файл был изменён: не устанавливайте его. Чтобы увидеть контрольную сумму файла, введите Get-FileHash и имя файла в Windows PowerShell или shasum -a 256 и имя файла в Terminal на Mac. Заглавные и строчные буквы считаются одинаковыми.",
     "moreHeading": "iPhone",
-    "iphone": "Установочного файла для iPhone нет: приложение для iPhone устанавливается из App Store.",
     "iphoneStore": "На iPhone приложение устанавливается из App Store.",
     "storeLinks": {
       "googlePlay": "Доступно в Google Play",

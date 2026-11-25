@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "ダウンロード",
-    "lead": "Windows、Android、Mac 向けの {{BRAND}} インストール用ファイルです。1つのアカウントで、どのアプリでも iPhone アプリでも使えます。",
+    "lead": "Windows、Android、Mac 向けの {{BRAND}} インストール用ファイルです。1つのアカウントで、どのアプリでも使えます。",
     "tabsLabel": "オペレーティングシステム",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "ファイルを確認する",
     "checkText": "各ファイルには SHA-256 チェックサムがあります。ダウンロードしたファイルのチェックサムが異なる場合は、ダウンロードが壊れているか、ファイルが改変されています。インストールしないでください。ファイルのチェックサムを確認するには、Windows PowerShell で Get-FileHash とファイル名を、Mac の Terminal（ターミナル）で shasum -a 256 とファイル名を入力します。英字の大文字と小文字は同じものとして扱います。",
     "moreHeading": "iPhone",
-    "iphone": "iPhone 用のインストールファイルはありません。iPhone アプリは App Store からインストールします。",
     "iphoneStore": "iPhone では、アプリは App Store からインストールします。",
     "storeLinks": {
       "googlePlay": "Google Play で手に入れよう",

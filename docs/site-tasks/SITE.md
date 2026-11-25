@@ -59,8 +59,8 @@ languages. A visitor is led to the Downloads page. In detail:
 * The question "Can I use it in a browser, without installing anything?" (then `faq.items[17]`) is deleted. The
   Questions page has 29 questions; the third group, "Devices and working offline", has four; every later question
   stands one place earlier (the answer about the warnings is `faq.items[27].a`).
-* Under the tabs of the Downloads page stands the iPhone line alone, under the heading "iPhone"
-  (`downloads.moreHeading`). The paragraph about the web version (`downloads.web`) is gone.
+* Under the tabs of the Downloads page the paragraph about the web version (`downloads.web`) is gone. (The iPhone
+  line that stood alone there afterwards went one day later - the amendment of 2026-11-24 below.)
 * `webapp` is no longer a link target; a text that uses `[[webapp|...]]` fails the check like any unknown target.
 * Six more answers named the browser or "the web version" (what it is, which devices, trying it without an
   account, reminders, where the diary is kept, ads and tracking), and so did the lead of the Downloads page: that
@@ -74,7 +74,30 @@ languages. A visitor is led to the Downloads page. In detail:
   of the service; but where they name the address of the server (`{{SITE_URL}}`), the site shows the address as
   text, not as a link. The standalone legal pages keep their link.
 * Not part of the decision: the web version itself (it keeps working at the root address of the server), the apps
-  and their texts, the legal texts, and the iPhone sentence of the Downloads page.
+  and their texts, the legal texts, and the iPhone sentence of the Downloads page (decided one day later, below).
+* The owner was asked on 2026-11-24 whether he wants a new 30th question in place of the deleted one: he leaves 29.
+
+**Amended on 2026-11-24: one decision of the owner** (Hebrew, his words, typos kept). The main session had told him
+that under the installers of the Downloads page only the note about the iPhone was left, and asked what to tell
+iPhone owners, who have nothing to download yet (the iPhone app is not in the App Store):
+
+> "כן. להשעיר. אבל תמחקי את ההארה על אייפון."
+
+(Yes, leave it [29 questions]. But delete the note about iPhone.)
+
+**The Downloads page does not name the iPhone.** In all 20 languages:
+
+* The note under the tabs (`downloads.iphone`: "There is no installation file for iPhone: the iPhone app is
+  installed from the App Store.") is deleted, with its key. While no App Store link is set, the page ends with the
+  tabs: there is no section under them.
+* The lead of the page loses its iPhone clause: "... One account works in all of them and in the iPhone app." is
+  now "... One account works in all of them." (the main session told the owner so).
+* The iPhone section comes back by itself, with a link, on the day `links.appStoreIphone` is set in
+  `site/settings.json` (section 6): the heading `downloads.moreHeading` ("iPhone"), the sentence
+  `downloads.iphoneStore` and the button of the App Store. Its style rule (`.more`) stays for that day.
+* Not part of the decision: the other texts of the site that name the iPhone app (answers of the Questions page:
+  which devices, the tour, reminders, the lock, "Remember me"). The main session asked the owner about them; unless
+  he says otherwise they stay.
 
 ## 1. Pages and addresses
 
@@ -195,11 +218,14 @@ when installing a file from this site and what to do; how to update to a new ver
   PC", the message that the app is "damaged") and give the steps past it - and never that a file or the app is
   unsigned, uncertified, not verified, not notarized, or from an unidentified developer or publisher. A test keeps
   the words for "signed" and "certificate" out of these texts in all 20 languages.
-* under the tabs: the iPhone line alone, under the heading "iPhone" (`downloads.iphone`: "There is no installation
-  file for iPhone: the iPhone app is installed from the App Store." - when `links.appStoreIphone` is set, the
-  sentence `downloads.iphoneStore` and the link instead). Until 2026-11-23 a line on the web version, with a link to
-  the web app, stood before it (`downloads.web`); the owner had it removed. When a store link of section 6 is set,
-  the matching panel shows it above its table.
+* under the tabs: nothing, while no App Store link is set - the page ends with the tabs and does not name the
+  iPhone. When `links.appStoreIphone` is set, a section stands there: the heading "iPhone"
+  (`downloads.moreHeading`), the sentence `downloads.iphoneStore` and the link. Until 2026-11-24 a note stood there
+  without a link too (`downloads.iphone`: "There is no installation file for iPhone: the iPhone app is installed
+  from the App Store."), and the lead of the page ended "... and in the iPhone app"; the owner had the note deleted
+  ("תמחקי את ההארה על אייפון"), because an iPhone owner has nothing to download yet. Until 2026-11-23 a line on the
+  web version, with a link to the web app, stood there as well (`downloads.web`); the owner had it removed. When a
+  store link of section 6 is set, the matching panel shows it above its table.
 
 **The two result pages**. An `<h1>` ("Your message was sent" / "Your message was not sent"), one or two sentences
 (the error page gives the e-mail address as the other way), and a link back to the home page. `noindex`.
@@ -322,8 +348,9 @@ placeholders `{{BRAND}}`, `{{MINIMUM_AGE}}`, `{{PUBLISHER_NAME}}`, `{{CONTACT_EM
   the language for the home page of a web site - first after the label), `contact` (heading, lead, the four field labels,
   the notice, the button, the two result pages' headings and texts, "Back to the home page"), `downloads` (heading,
   lead, the three tab names, the tab list's label, the three column headings, the table captions, the requirement
-  and install notes of each platform, "Check the file", the heading and the iPhone line under the tabs - until
-  2026-11-23 also a line on the web version - the store link texts), `faq` (heading, the group headings, 29 items
+  and install notes of each platform, "Check the file", the heading and the sentence of the iPhone section that an
+  App Store link brings - until 2026-11-23 also a line on the web version, until 2026-11-24 also a note about the
+  iPhone - the store link texts), `faq` (heading, the group headings, 29 items
   of q/a - 30 until 2026-11-23), `footer` (the language label, "Change", "All rights reserved.",
   the label of the list of language links), `legal` (the two page titles as menu texts are in `nav`; here only what the frame
   needs around a legal document, if anything). Keys of version 1 that no page uses any more are removed
@@ -380,7 +407,7 @@ version (the owner's rule of 2026-11-23): no address in any of the 160 pages lea
 the builder refuses to build a page that holds one - a link, a button, a form or a redirect), no
 content file has a `[[webapp|...]]` link or the keys `hero.openAction` / `downloads.web`, the English sentences
 that named the browser are pinned as they read now, and in all 20 languages the home page has two actions, the
-Questions page 29 questions, the Downloads page ends with a heading and the iPhone paragraph, and the word for
+Questions page 29 questions, the Downloads page ends with the tabs and does not name the iPhone, and the word for
 "browser" stands only in the three texts about downloading and installing a file; the
 contact block is on every page except the result pages, with the six controls, labels, `autocomplete`, `maxlength`
 and the hidden fields; the language chooser has 20 options in the fixed order and the right one selected; exactly

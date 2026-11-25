@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "İndirmeler",
-    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde ve iPhone uygulamasında çalışır.",
+    "lead": "Windows, Android ve Mac için {{BRAND}} kurulum dosyaları. Tek bir hesap hepsinde çalışır.",
     "tabsLabel": "İşletim sistemi",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Dosyayı kontrol edin",
     "checkText": "Her dosyanın bir SHA-256 sağlama toplamı vardır. İndirdiğiniz dosyanınki farklıysa indirme hasarlıdır ya da dosya değiştirilmiştir: onu kurmayın. Bir dosyanın sağlama toplamını görmek için Windows PowerShell'de Get-FileHash ve dosya adını, Mac'te Terminal'de ise shasum -a 256 ve dosya adını yazın. Büyük ve küçük harfler aynı sayılır.",
     "moreHeading": "iPhone",
-    "iphone": "iPhone için kurulum dosyası yoktur: iPhone uygulaması App Store'dan yüklenir.",
     "iphoneStore": "iPhone'da uygulama App Store'dan yüklenir.",
     "storeLinks": {
       "googlePlay": "Google Play'den edinin",

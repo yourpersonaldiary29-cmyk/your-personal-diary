@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Pobieranie",
-    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich oraz w aplikacji na iPhone'a.",
+    "lead": "Pliki instalacyjne {{BRAND}} dla Windows, Androida i Maca. Jedno konto działa we wszystkich.",
     "tabsLabel": "System operacyjny",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Sprawdź plik",
     "checkText": "Każdy plik ma sumę kontrolną SHA-256. Jeśli pobrany plik ma inną, pobieranie jest uszkodzone albo plik został zmieniony: nie instaluj go. Aby zobaczyć sumę kontrolną pliku, wpisz Get-FileHash i nazwę pliku w Windows PowerShell albo shasum -a 256 i nazwę pliku w aplikacji Terminal na Macu. Wielkość liter nie ma znaczenia.",
     "moreHeading": "iPhone",
-    "iphone": "Nie ma pliku instalacyjnego dla iPhone'a: aplikację na iPhone'a instaluje się z App Store.",
     "iphoneStore": "Na iPhonie aplikację instaluje się z App Store.",
     "storeLinks": {
       "googlePlay": "Pobierz z Google Play",

@@ -109,8 +109,14 @@ root address, the apps and the legal documents know it. What changed is the site
   version. The word for "browser" stays in exactly three texts, where a file is downloaded or installed:
   `downloads.install.windows`, `downloads.install.android` and `faq.items[27].a`. `privacy.items[2]` ("The apps and
   the website connect only to the ... server") stays as it is.
-- **Under the tabs of the Downloads page** stands one heading, `downloads.moreHeading` ("iPhone" in every language),
-  and the iPhone paragraph (`downloads.iphone`, or `downloads.iphoneStore` with the App Store link once it is set).
+- **The Downloads page ends with the tabs and does not name the iPhone** (the owner's decision of 2026-11-24:
+  "תמחקי את ההארה על אייפון"). An iPhone owner has nothing to download yet, so the note that stood under the tabs
+  (`downloads.iphone`: "There is no installation file for iPhone: the iPhone app is installed from the App Store.")
+  is deleted in all 20 languages, and the lead of the page ends "One account works in all of them." - without "and
+  in the iPhone app". The iPhone section comes back by itself on the day `links.appStoreIphone` is set in
+  `site/settings.json`: the heading `downloads.moreHeading` ("iPhone" in every language), the sentence
+  `downloads.iphoneStore` and the button of the App Store. The other texts of the site that name the iPhone app
+  (the answers of the Questions page) were not changed.
 - **The two legal documents are not changed** (`legal/` is the one source, and the Privacy Policy must still say
   what the web version stores). So the Terms of Use page and the Privacy Policy page of the site still describe the
   website (the web version) as part of the service. They name the address of the server; inside the site that
@@ -209,8 +215,9 @@ the live pages are the built pages byte for byte. A row the owner removed there 
 - `copyrightYear`: the year of the line `(c) <year> Your Personal Diary. All rights reserved.`
 - `links`: when a store has published the app, put its link in place of `null`. Only `https` links on the store's own
   host are accepted (`play.google.com`, `apps.apple.com`, `apps.microsoft.com`, `www.microsoft.com`). The link is then
-  shown on the Downloads page, above the table of its platform; the iPhone link replaces the sentence "not available
-  yet".
+  shown on the Downloads page, above the table of its platform. The iPhone has no table: its link brings the iPhone
+  section under the tabs (the heading `downloads.moreHeading`, the sentence `downloads.iphoneStore` and the button of
+  the App Store), which is not there while the link is `null`.
 
 ## The contact form
 

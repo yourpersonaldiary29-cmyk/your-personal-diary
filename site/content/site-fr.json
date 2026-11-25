@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Téléchargements",
-    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux et dans l’application iPhone.",
+    "lead": "Les fichiers d’installation de {{BRAND}} pour Windows, Android et Mac. Un seul compte fonctionne dans chacun d’eux.",
     "tabsLabel": "Système d’exploitation",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Vérifier le fichier",
     "checkText": "Chaque fichier a une somme de contrôle SHA-256. Si le fichier que vous avez téléchargé en a une autre, le téléchargement est endommagé ou le fichier a été modifié : ne l’installez pas. Pour voir la somme de contrôle d’un fichier, tapez Get-FileHash suivi du nom du fichier dans Windows PowerShell, ou shasum -a 256 suivi du nom du fichier dans le Terminal d’un Mac. Les majuscules et les minuscules sont considérées comme identiques.",
     "moreHeading": "iPhone",
-    "iphone": "Il n’y a pas de fichier d’installation pour iPhone : l’application iPhone s’installe depuis l’App Store.",
     "iphoneStore": "Sur un iPhone, l’application s’installe depuis l’App Store.",
     "storeLinks": {
       "googlePlay": "Disponible sur Google Play",

@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "डाउनलोड",
-    "lead": "Windows, Android और Mac के लिए {{BRAND}} की इंस्टॉलेशन फ़ाइलें। एक ही खाता इन सभी में और iPhone ऐप में काम करता है।",
+    "lead": "Windows, Android और Mac के लिए {{BRAND}} की इंस्टॉलेशन फ़ाइलें। एक ही खाता इन सभी में काम करता है।",
     "tabsLabel": "ऑपरेटिंग सिस्टम",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "फ़ाइल जाँचें",
     "checkText": "हर फ़ाइल का एक SHA-256 चेकसम होता है। अगर आपकी डाउनलोड की गई फ़ाइल का चेकसम अलग है, तो डाउनलोड ख़राब हुआ है या फ़ाइल बदली गई है: उसे इंस्टॉल न करें। किसी फ़ाइल का चेकसम देखने के लिए Windows PowerShell में Get-FileHash और फ़ाइल का नाम टाइप करें, या Mac के Terminal में shasum -a 256 और फ़ाइल का नाम। चेकसम में बड़े और छोटे अक्षर (जैसे A और a) एक जैसे माने जाते हैं।",
     "moreHeading": "iPhone",
-    "iphone": "iPhone के लिए कोई इंस्टॉलेशन फ़ाइल नहीं है: iPhone ऐप App Store से इंस्टॉल किया जाता है।",
     "iphoneStore": "iPhone पर ऐप App Store से इंस्टॉल किया जाता है।",
     "storeLinks": {
       "googlePlay": "इसे Google Play पर पाएँ",

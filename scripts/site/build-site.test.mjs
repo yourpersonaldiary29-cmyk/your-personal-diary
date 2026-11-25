@@ -13,7 +13,8 @@
  * not offer the web version (the owner's rule of 2026-11-23: "delete the option of opening the app in the browser.
  * I want them to download.") - no page links to the root of the server, no text has a link target, a key or a
  * sentence for it in any of the 20 languages, the home page has two actions and the Downloads page ends with the
- * iPhone line; the 160 pages exist and each has the frame of section 2 - skip link, header (the logo leads to the
+ * tabs (2026-11-24: the note about the iPhone is gone too; the iPhone section stands there only once an App Store
+ * link is set); the 160 pages exist and each has the frame of section 2 - skip link, header (the logo leads to the
  * home page), the menu with seven items and one current item, one h1, the contact block with its six controls (not
  * on the two result pages), the language chooser with 20 options, the copyright line; the home page is the brand
  * block and one hero, and "About the app" is a page of its own; every address in a page is relative and leads to a
@@ -363,7 +364,7 @@ test('content: the English text keeps to the fixed facts - 29 questions, no prom
   const content = english();
   const leaves = leavesOf(content);
   // A store is named only by its own link text (shown once the link is set) and where a text says where a file does NOT come from.
-  const STORE_KEYS = ['downloads.install.windows', 'downloads.install.android', 'downloads.iphone', 'downloads.iphoneStore', ...Object.keys(STORE_LINKS).map((key) => `downloads.storeLinks.${key}`)];
+  const STORE_KEYS = ['downloads.install.windows', 'downloads.install.android', 'downloads.iphoneStore', ...Object.keys(STORE_LINKS).map((key) => `downloads.storeLinks.${key}`)];
   for (const [where, text] of leaves) {
     for (const re of FORBIDDEN) assert.ok(!re.test(text), `${where}: ${re} matches "${text}"`);
     if (!STORE_KEYS.includes(where)) assert.ok(!/Google Play|App Store|Microsoft Store/.test(text), `${where}: no store is named here`);
@@ -382,8 +383,12 @@ test('content: the English text keeps to the fixed facts - 29 questions, no prom
   assert.match(content.faq.items[27].a, /may even say that it is damaged: do not move it to the Bin.*on macOS 12: System Preferences, then Security & Privacy/);
   // Android 7 (the oldest the app runs on) has one switch, Unknown sources, instead of a permission per app.
   assert.match(content.downloads.install.android, /on Android 7 this setting is called Unknown sources/);
-  // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "not available yet".
-  assert.equal(content.downloads.iphone, 'There is no installation file for iPhone: the iPhone app is installed from the App Store.');
+  // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "not available yet". The
+  // note of the Downloads page ("There is no installation file for iPhone: the iPhone app is installed from the App
+  // Store.") is gone since 2026-11-24 (the owner: delete it); the sentence with the App Store link is shown only
+  // once that link is set.
+  assert.ok(!('iphone' in content.downloads), 'downloads.iphone: the note about the iPhone is gone');
+  assert.equal(content.downloads.iphoneStore, 'On an iPhone, the app is installed from the App Store.');
   assert.match(content.faq.items[3].a, /an iPhone with iOS 16 or later/);
   for (const [where, text] of leaves) assert.ok(!/not available yet|when it is published/i.test(text), `${where}: the iPhone app is not called unpublished`);
   assert.match(content.downloads.requires.windows, /Windows 10 or Windows 11/);
@@ -443,8 +448,10 @@ test('content: the English text keeps to the fixed facts - 29 questions, no prom
   // No app offers a fingerprint / face unlock online: the device's screen lock is offered only without a connection.
   assert.match(content.faq.items[22].a, /Without a connection, an app can also open with the screen lock of your device instead of the password \(Windows Hello, Touch ID or the Mac password, Face ID \/ Touch ID or the iPhone passcode, or the Android screen lock\)/);
   assert.ok(!/open it with your fingerprint or face/.test(content.faq.items[22].a), 'no online fingerprint unlock is promised');
-  // The one account also works in the iPhone app; the device in use cannot be disconnected from the list (sign out there).
-  assert.match(content.downloads.lead, /One account works in all of them and in the iPhone app\.$/);
+  // The lead of the Downloads page names the three systems that have a file, and no other (2026-11-24: its iPhone
+  // clause went with the note); the device in use cannot be disconnected from the list (sign out there).
+  assert.match(content.downloads.lead, /for Windows, Android and Mac\. One account works in all of them\.$/);
+  assert.ok(!/iPhone/.test(content.downloads.lead), 'the lead of the Downloads page does not name the iPhone');
   assert.match(content.faq.items[15].a, /and you can disconnect any of them except the one you are using\.$/);
   assert.ok(![...leaves.values()].some((text) => /Settings - Backup/.test(text)), 'no text sends the visitor to a Backup card in Settings');
   assert.match(content.faq.items[17].a, /it is ticked at first: on a device that other people also use, clear it/);
@@ -712,7 +719,10 @@ test('the web version: no text, key or link target of the site offers it, in any
   assert.ok(!LINK_TARGETS.includes('webapp'), 'there is no link target for the web version');
   assert.deepEqual(Object.keys(CONTENT_SCHEMA.hero), ['heading', 'lead', 'note'], 'the hero has no text for a button that opens the web version');
   assert.ok(!('web' in CONTENT_SCHEMA.downloads) && !('openAction' in CONTENT_SCHEMA.hero));
-  assert.deepEqual(Object.keys(CONTENT_SCHEMA.downloads).slice(-5), ['checkText', 'moreHeading', 'iphone', 'iphoneStore', 'storeLinks'], 'under the tabs: the heading and the iPhone line');
+  // Under the tabs: only the iPhone section of the App Store link (its heading and its sentence). The note that stood
+  // there while no link is set (downloads.iphone) is gone - the owner, 2026-11-24.
+  assert.deepEqual(Object.keys(CONTENT_SCHEMA.downloads).slice(-4), ['checkText', 'moreHeading', 'iphoneStore', 'storeLinks'], 'under the tabs: the heading and the sentence of the App Store link');
+  assert.ok(!('iphone' in CONTENT_SCHEMA.downloads), 'the Downloads page has no note about the iPhone');
   // A content file that brings one of them back is refused: as the English file, and as a translation of it.
   const base = english();
   const broken = (change, against = base) => {
@@ -724,6 +734,8 @@ test('the web version: no text, key or link target of the site offers it, in any
   assert.deepEqual(broken((c) => { c.hero.openAction = 'Open in your browser'; }, null), ['unknown key hero.openAction']);
   assert.deepEqual(broken((c) => { c.downloads.web = 'Nothing to install: {{BRAND}} also works in any modern browser.'; }), ['unknown key downloads.web']);
   assert.deepEqual(broken((c) => { c.downloads.web = 'Nothing to install.'; }, null), ['unknown key downloads.web']);
+  assert.deepEqual(broken((c) => { c.downloads.iphone = 'There is no installation file for iPhone: the iPhone app is installed from the App Store.'; }), ['unknown key downloads.iphone']);
+  assert.deepEqual(broken((c) => { c.downloads.iphone = 'There is no installation file for iPhone.'; }, null), ['unknown key downloads.iphone']);
   const linked = (c) => { c.faq.items[0].a = `${c.faq.items[0].a} [[webapp|Open the web version]].`; };
   assert.deepEqual(broken(linked, null), ['faq.items.0.a unknown link target [[webapp|...]] (the targets: privacy, terms, faq, downloads, home, support, delete, contact)']);
   assert.deepEqual(broken(linked), [
@@ -732,8 +744,8 @@ test('the web version: no text, key or link target of the site offers it, in any
   ]);
   assert.match(broken((c) => { c.faq.items.splice(17, 0, { q: 'Can I use it in a browser, without installing anything?', a: 'Yes. Open the web version in any modern browser, on a computer or a phone, and sign in with the same account.' }); })[0], /^faq\.items must have 29 items \(found 30\)$/);
 
-  // The 20 files, by their structure: no such key, no such link, 29 questions, and under the tabs of the Downloads
-  // page a heading that names the iPhone only.
+  // The 20 files, by their structure: no such key, no such link, 29 questions; the heading of the iPhone section names
+  // the iPhone only, and (2026-11-24) the Downloads page has no note about the iPhone and its lead does not name it.
   assert.deepEqual(Object.keys(WEB_VERSION_WORDS).sort(), [...CODES].sort(), 'the table has a row for every app locale');
   for (const code of CODES) {
     const raw = readFileSync(contentFile(ROOT, code), 'utf8');
@@ -745,6 +757,8 @@ test('the web version: no text, key or link target of the site offers it, in any
     assert.ok(!('web' in content.downloads), `${code}: no downloads.web`);
     assert.equal(content.faq.items.length, 29, `${code}: 29 questions`);
     assert.equal(content.downloads.moreHeading, 'iPhone', `${code}: the heading under the tabs names the iPhone, and nothing else`);
+    assert.ok(!('iphone' in content.downloads), `${code}: no downloads.iphone - the note about the iPhone is gone`);
+    assert.ok(!content.downloads.lead.includes('iPhone'), `${code}: the lead of the Downloads page does not name the iPhone`);
     // No link of any text leads anywhere but to the eight targets.
     for (const [where, text] of leaves) for (const target of linkTargetsOf(text)) assert.ok(LINK_TARGETS.includes(target), `${code} ${where}: [[${target}|...]]`);
 
@@ -766,9 +780,8 @@ test('the web version: no text, key or link target of the site offers it, in any
   assert.equal(en.faq.items[17].q, 'What does "Remember me" do?', 'the question about the browser stood between these two');
   assert.equal(en.faq.items[18].a, 'In your own account on the {{BRAND}} server, in a separate encrypted file for each account. The server runs at the hosting provider Fly.io, in its data centre in Frankfurt, Germany. The apps all show this one diary. The [[privacy|Privacy Policy]] says exactly what is stored and where.');
   assert.equal(en.faq.items[21].a, 'No. There is no advertising, no analytics and no tracking, in the apps or on this site. We do not sell or share your data, and your diary is never used to train any AI. The apps connect only to the {{BRAND}} server, always over HTTPS.');
-  assert.equal(en.downloads.lead, 'Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them and in the iPhone app.');
+  assert.equal(en.downloads.lead, 'Installation files of {{BRAND}} for Windows, Android and Mac. One account works in all of them.');
   assert.equal(en.downloads.moreHeading, 'iPhone');
-  assert.equal(en.downloads.iphone, 'There is no installation file for iPhone: the iPhone app is installed from the App Store.');
   // What stays: the short privacy list still names the website (the web version exists, and the site is one too).
   assert.equal(en.privacy.items[2], 'The apps and the website connect only to the {{BRAND}} server, always over HTTPS.');
   // The rule in English words, over every English text. ("Your browser may first warn ..." and "allow your browser
@@ -796,10 +809,10 @@ test('the web version: no text, key or link target of the site offers it, in any
   assert.ok(he.faq.items[0].a.endsWith(' היא פועלת כאפליקציה ל-Windows, ל-Mac, ל-Android ול-iPhone, עם חשבון אחד לכולם.'));
   assert.ok(he.faq.items[3].a.startsWith('מחשב עם Windows 10 או 11, Mac עם macOS 12.3 ואילך, טלפון Android עם Android 7.0 ואילך, או iPhone עם iOS 16 ואילך. '));
   assert.ok(he.faq.items[18].a.includes(' האפליקציות מציגות כולן את אותו יומן. '));
-  assert.equal(he.downloads.lead, 'קובצי התקנה של {{BRAND}} ל-Windows, ל-Android ול-Mac. חשבון אחד עובד בכולם, וגם באפליקציית iPhone.');
+  assert.equal(he.downloads.lead, 'קובצי התקנה של {{BRAND}} ל-Windows, ל-Android ול-Mac. חשבון אחד עובד בכולם.');
 });
 
-test('the web version: the pages of all 20 languages - two actions on the home page, 29 questions, the iPhone line alone under the tabs', () => {
+test('the web version: the pages of all 20 languages - two actions on the home page, 29 questions, nothing under the tabs of the Downloads page', () => {
   for (const l of LOCALES) {
     const content = contentOf(l.code);
     // The home page: Downloads first, as the primary button, then About the app. Both lead into the site.
@@ -818,18 +831,21 @@ test('the web version: the pages of all 20 languages - two actions on the home p
     assert.equal(faq.all('details').length, 29, `${faqRel}: 29 questions`);
     assert.deepEqual(faq.all('section').filter((el) => hasClass(el, 'group')).map((group) => faq.inside(group, 'details').length), [7, 7, 4, 5, 4, 2], `${faqRel}: the questions of the six groups`);
     assert.deepEqual(faq.all('summary').map((el) => faq.textOf(el)), content.faq.items.map((item) => plain(item.q, l)), `${faqRel}: the questions of the content file, in order`);
-    // The Downloads page: under the tabs, exactly a heading and the iPhone paragraph - no link, nothing else. (This is
-    // the page while site/settings.json names no App Store link, as today. With that link set, the paragraph is
-    // downloads.iphoneStore and the button of the App Store follows it - the test "downloads: a store link that is
-    // set ..." describes that page - and the three checks below must then expect it.)
+    // The Downloads page: it ends with the tabs, and nothing on it names the iPhone - an iPhone owner has nothing to
+    // download yet, and the owner had the note that stood under the tabs deleted (2026-11-24). (This is the page
+    // while site/settings.json names no App Store link, as today. With that link set, a section with the heading
+    // "iPhone", the sentence downloads.iphoneStore and the button of the App Store stands under the tabs - the test
+    // "downloads: a store link that is set ..." describes that page - and the checks below must then expect it.)
     const downloadsRel = pageFile('downloads', l.code);
     const downloads = parsed(downloadsRel);
-    const more = downloads.all('section').filter((el) => hasClass(el, 'more'));
-    assert.equal(more.length, 1, `${downloadsRel}: one section under the tabs`);
-    assert.deepEqual(downloads.children(more[0]).map((el) => [el.tag, el.attrs, downloads.textOf(el)]), [['h2', {}, 'iPhone'], ['p', {}, content.downloads.iphone]], `${downloadsRel}: under the tabs, the heading and the iPhone paragraph (while no App Store link is set)`);
-    // Inside them only text (in a right-to-left page with its Latin fragments isolated): no link, no button.
-    assert.deepEqual(downloads.inside(more[0]).map((el) => el.tag).filter((tag) => !['h2', 'p', 'bdi'].includes(tag)), [], `${downloadsRel}: nothing else under the tabs (while no App Store link is set)`);
-    assert.equal(downloads.inside(more[0], 'a').length, 0, `${downloadsRel}: no link under the tabs (while no App Store link is set)`);
+    assert.deepEqual(downloads.all('section').filter((el) => hasClass(el, 'more')), [], `${downloadsRel}: no section under the tabs (while no App Store link is set)`);
+    const downloadsMain = downloads.all('main')[0];
+    assert.ok(!downloads.textOf(downloadsMain).includes('iPhone'), `${downloadsRel}: the page does not name the iPhone (while no App Store link is set)`);
+    assert.deepEqual(downloads.inside(downloadsMain, 'section').map((el) => el.attrs.class), ['panel', 'panel', 'panel'], `${downloadsRel}: the three panels of the tabs are the only sections of the page`);
+    // "Nothing under the tabs" in full: the page is the heading, the lead and the tabs - no further paragraph either.
+    const downloadsWrap = downloads.inside(downloadsMain, 'div').find((el) => hasClass(el, 'wrap') && hasClass(el, 'page'));
+    assert.ok(downloadsWrap, `${downloadsRel}: the page wrap`);
+    assert.deepEqual(downloads.children(downloadsWrap).map((el) => `${el.tag}${el.attrs.class ? `.${el.attrs.class}` : ''}${el.attrs.id ? `#${el.attrs.id}` : ''}`), ['h1', 'p.lead', 'div.tabs#platforms'], `${downloadsRel}: the heading, the lead and the tabs - nothing after them (while no App Store link is set)`);
   }
 });
 
@@ -957,7 +973,7 @@ test('settings: the base address, the copyright year and the four store links', 
   assert.deepEqual(siteSettingsProblems({ ...SITE_SETTINGS, links: three }), ['"links.microsoftStore" is missing (null = not published yet)']);
   assert.deepEqual(storeHosts(SITE_SETTINGS), []);
   assert.deepEqual(storeHosts({ ...SITE_SETTINGS, links: good }).sort(), ['apps.apple.com', 'apps.microsoft.com', 'play.google.com']);
-  // Every store link belongs to a platform of the Downloads page (or to the iPhone line) and has its link text.
+  // Every store link belongs to a platform of the Downloads page (or to the iPhone section that its link brings) and has its link text.
   for (const [key, link] of Object.entries(STORE_LINKS)) {
     assert.ok([...PLATFORMS, 'iphone'].includes(link.platform), key);
     assert.equal(typeof english().downloads.storeLinks[key], 'string');
@@ -1799,29 +1815,26 @@ test('downloads: three panels in tab order, each a table of File, Version and Si
       assert.deepEqual(page.children(sums).map((el) => [el.tag, page.textOf(el)]), rows.flatMap((row) => [['dt', row.file], ['dd', row.sha256]]), `${where}: the SHA-256 of each row`);
       for (const code of page.inside(sums, 'code')) assert.equal(code.attrs.dir, 'ltr');
       // site/settings.json names no store link today (the settings test: "nothing is published yet"), and the checks
-      // of the real tree describe the pages as they are without one: this one, the iPhone line and the links of the
-      // page below, and the section under the tabs in the test "the web version: the pages of all 20 languages ...".
-      // On the day the owner sets a link they must follow; the page with links is described by the next test.
+      // of the real tree describe the pages as they are without one: this one, the missing iPhone section and the
+      // links of the page below, and the end of the page in the test "the web version: the pages of all 20 languages
+      // ...". On the day the owner sets a link they must follow; the page with links is described by the next test.
       assert.equal(page.inside(panel, 'a').length, rows.length, `${where}: no store link while none is set`);
     }
-    // Under the tabs: the iPhone line under its heading, and nothing else. Until 2026-11-23 a paragraph about the web
-    // version stood before it, with a link that opened it (downloads.web); the owner had it removed.
-    const more = page.all('section').find((el) => hasClass(el, 'more'));
-    assert.ok(page.elements.indexOf(more) > page.elements.indexOf(panels[2]) && !more.parents.includes(box), `${rel}: under the tabs`);
-    const [moreHeading, iphone] = page.children(more);
-    assert.deepEqual([moreHeading.tag, page.textOf(moreHeading)], ['h2', texts.moreHeading]);
-    assert.deepEqual([iphone.tag, page.textOf(iphone)], ['p', texts.iphone], `${rel}: the iPhone line`);
-    assert.equal(page.children(more).length, 2, `${rel}: a heading and the iPhone paragraph`);
-    assert.deepEqual(page.inside(more, 'a'), [], `${rel}: no link under the tabs while no store link is set`);
-    assert.ok(!('web' in texts), `${rel}: the content file has no text about the web version`);
-    assert.deepEqual(page.elements.filter((el) => /^h[1-6]$/.test(el.tag)).map((el) => el.tag), ['h1', 'h2', 'h2', 'h2', 'h2', 'h2'], `${rel}: three platforms, "iPhone", "Contact us"`);
+    // Under the tabs: nothing. The iPhone section (heading, sentence, button of the App Store) stands there only while
+    // an App Store link is set - the next test. The note about the iPhone that stood there without a link
+    // (downloads.iphone) is gone - the owner, 2026-11-24 - and so is, since 2026-11-23, the paragraph about the web
+    // version with its link (downloads.web).
+    assert.equal(page.all('section').find((el) => hasClass(el, 'more')), undefined, `${rel}: no section under the tabs while no App Store link is set`);
+    assert.ok(!('web' in texts) && !('iphone' in texts), `${rel}: the content file has no text about the web version and no note about the iPhone`);
+    assert.equal(typeof texts.moreHeading, 'string', `${rel}: the heading of the iPhone section waits for the App Store link`);
+    assert.deepEqual(page.elements.filter((el) => /^h[1-6]$/.test(el.tag)).map((el) => el.tag), ['h1', 'h2', 'h2', 'h2', 'h2'], `${rel}: three platforms, "Contact us"`);
     // The only links of the page content are the installer files.
     assert.deepEqual(page.inside(page.all('main')[0], 'a').map((el) => el.attrs.class), PLATFORMS.flatMap((platform) => site.downloads[platform].map(() => 'get')), `${rel}: the links of the page are the download links (while no store link is set)`);
   }
   assert.equal(parsed(pageFile('downloads', 'en')).textOf(parsed(pageFile('downloads', 'en')).all('caption')[0]), 'Installation files for Windows, newest version first');
 });
 
-test('downloads: a store link that is set stands above the table of its platform; the iPhone link replaces the iPhone sentence', () => {
+test('downloads: a store link that is set stands above the table of its platform; the iPhone link brings its own section under the tabs', () => {
   const links = { googlePlay: 'https://play.google.com/store/apps/details?id=app.yourpersonaldiary&hl=en', appStoreIphone: 'https://apps.apple.com/app/id1234567890', appStoreMac: null, microsoftStore: null };
   const site = buildSite({ settings: FILLED, siteSettings: { ...SITE_SETTINGS, links } });
   for (const code of ['en', 'he']) {
@@ -1838,8 +1851,11 @@ test('downloads: a store link that is set stands above the table of its platform
     assert.ok(html.includes('href="https://play.google.com/store/apps/details?id=app.yourpersonaldiary&amp;hl=en"'), 'the link is escaped');
     for (const id of ['windows', 'mac']) assert.deepEqual(storeLinks(panelOf(id)), [], `${rel}: ${id} has no store link yet`);
     const more = page.all('section').find((el) => hasClass(el, 'more'));
-    assert.deepEqual(storeLinks(more).map((a) => [a.attrs.href, page.textOf(a)]), [[links.appStoreIphone, texts.storeLinks.appStoreIphone]], `${rel}: the App Store link in the iPhone line`);
-    assert.ok(page.textOf(more).includes(plain(texts.iphoneStore, l)) && !page.textOf(more).includes(texts.iphone), `${rel}: "not available yet" is gone`);
+    assert.ok(more && page.elements.indexOf(more) > page.elements.indexOf(panelOf('mac')), `${rel}: with an App Store link the iPhone section stands under the tabs`);
+    assert.ok(!more.parents.includes(page.elements.find((el) => el.attrs.id === 'platforms')), `${rel}: the iPhone section stands outside the box of the tabs, not inside it`);
+    assert.deepEqual(storeLinks(more).map((a) => [a.attrs.href, page.textOf(a)]), [[links.appStoreIphone, texts.storeLinks.appStoreIphone]], `${rel}: the App Store link in the iPhone section`);
+    assert.equal(page.textOf(page.children(more)[0]), texts.moreHeading, `${rel}: the heading of the iPhone section`);
+    assert.ok(page.textOf(more).includes(plain(texts.iphoneStore, l)), `${rel}: the sentence of the App Store link`);
     // Under the tabs: the heading, the iPhone sentence and the button of the App Store - still no word about a browser.
     assert.deepEqual(page.children(more).map((el) => [el.tag, el.attrs.class]), [['h2', undefined], ['p', undefined], ['p', 'actions']], `${rel}: the heading, the sentence, the store link`);
     assert.equal(page.inside(more, 'a').length, 1, `${rel}: the one link under the tabs is the App Store`);
@@ -2131,8 +2147,17 @@ test('style: site.css - the app theme tokens, contrast of at least 4.5:1 (contro
   const inPages = new Set();
   for (const [, html] of real().pages) for (const m of html.matchAll(/ class="([^"]+)"/g)) for (const name of m[1].split(' ')) inPages.add(name);
   const SCRIPT_CLASSES = ['tablist', 'tab', 'tabs-on'];
+  // The iPhone section under the tabs of the Downloads page (.more) is on a page only while an App Store link is set
+  // (2026-11-24: the note that stood there without a link is gone). No page of the real tree has it today; the page
+  // with the link does, and its rule waits for that day.
+  const STORE_LINK_CLASSES = ['more'];
+  const withStoreLink = buildSite({ settings: FILLED, siteSettings: { ...SITE_SETTINGS, links: { ...NO_LINKS, appStoreIphone: 'https://apps.apple.com/app/id1234567890' } } });
+  const inStoreLinkPages = new Set();
+  for (const [, html] of withStoreLink.pages) for (const m of html.matchAll(/ class="([^"]+)"/g)) for (const name of m[1].split(' ')) inStoreLinkPages.add(name);
+  for (const name of STORE_LINK_CLASSES) assert.ok(!inPages.has(name) && inStoreLinkPages.has(name), `.${name} is on a page only once an App Store link is set`);
+  for (const name of inStoreLinkPages) assert.ok(inCss.has(name), `the class ${name} of a page with a store link has a rule`);
   for (const name of inPages) assert.ok(inCss.has(name), `the class ${name} of a page has a rule`);
-  for (const name of inCss) assert.ok(inPages.has(name) || SCRIPT_CLASSES.includes(name), `the rule of .${name} is used by a page or by the script`);
+  for (const name of inCss) assert.ok(inPages.has(name) || SCRIPT_CLASSES.includes(name) || STORE_LINK_CLASSES.includes(name), `the rule of .${name} is used by a page, by the script, or by the page with an App Store link`);
 });
 
 test('script: site.js is small, is published as it is, and holds nothing forbidden', () => {

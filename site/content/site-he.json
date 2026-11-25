@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "הורדות",
-    "lead": "קובצי התקנה של {{BRAND}} ל-Windows, ל-Android ול-Mac. חשבון אחד עובד בכולם, וגם באפליקציית iPhone.",
+    "lead": "קובצי התקנה של {{BRAND}} ל-Windows, ל-Android ול-Mac. חשבון אחד עובד בכולם.",
     "tabsLabel": "מערכת הפעלה",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "בדיקת הקובץ",
     "checkText": "לכל קובץ יש סכום ביקורת SHA-256. אם לקובץ שהורדתם יש סכום אחר, ההורדה פגומה או שהקובץ שונה: אל תתקינו אותו. כדי לראות את סכום הביקורת של קובץ, הקלידו Get-FileHash ואת שם הקובץ ב-Windows PowerShell, או shasum -a 256 ואת שם הקובץ ב-Terminal של Mac. אין הבדל בין אותיות גדולות לקטנות.",
     "moreHeading": "iPhone",
-    "iphone": "אין קובץ התקנה ל-iPhone: אפליקציית iPhone מותקנת מ-App Store.",
     "iphoneStore": "ב-iPhone, האפליקציה מותקנת מ-App Store.",
     "storeLinks": {
       "googlePlay": "זמין ב-Google Play",

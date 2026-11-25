@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Descargas",
-    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos y en la aplicación para iPhone.",
+    "lead": "Archivos de instalación de {{BRAND}} para Windows, Android y Mac. Una misma cuenta sirve en todos ellos.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Comprobar el archivo",
     "checkText": "Cada archivo tiene una suma de comprobación SHA-256. Si la del archivo que has descargado es distinta, la descarga está dañada o el archivo ha sido modificado: no lo instales. Para ver la suma de comprobación de un archivo, escribe Get-FileHash y el nombre del archivo en Windows PowerShell, o shasum -a 256 y el nombre del archivo en el Terminal de un Mac. No importa si las letras están en mayúsculas o en minúsculas.",
     "moreHeading": "iPhone",
-    "iphone": "No hay archivo de instalación para iPhone: la aplicación para iPhone se instala desde el App Store.",
     "iphoneStore": "En un iPhone, la aplicación se instala desde el App Store.",
     "storeLinks": {
       "googlePlay": "Disponible en Google Play",

@@ -568,11 +568,17 @@ describe('the public site on the hosted server', () => {
     const hebrewHome = (await get('/about/he/')).text;
     expect(hebrewHome.match(/<p class="actions">(?:<a class="btn(?: primary)?" href="\.\/(?:downloads|app)\/"><span>[^<]+<\/span><\/a>){2}<\/p>/)).not.toBeNull();
     for (const url of ['/about/downloads/', '/about/app/', '/about/he/downloads/', '/about/he/app/']) expect((await get(url)).status, url).toBe(200);
-    // Under the tabs of the Downloads page: the heading "iPhone" and one paragraph; the Questions page has 29 questions.
-    // (One paragraph while site/settings.json names no App Store link, as today; with that link set, the button of
-    // the App Store follows the paragraph - scripts/site/build-site.test.mjs, "downloads: a store link that is set ...".)
-    const downloads = (await get('/about/downloads/')).text;
-    expect(downloads).toMatch(/<section class="more">\n<h2>iPhone<\/h2>\n<p>[^<]+<\/p>\n<\/section>/);
+    // The Downloads page ends with the tabs and does not name the iPhone: an iPhone owner has nothing to download
+    // yet, and the owner had the note that stood under the tabs deleted (2026-11-24). (So while site/settings.json
+    // names no App Store link, as today; with that link set, a section with the heading "iPhone", one sentence and
+    // the button of the App Store stands there - scripts/site/build-site.test.mjs, "downloads: a store link that is
+    // set ...".) The Questions page has 29 questions.
+    for (const url of ['/about/downloads/', '/about/he/downloads/']) {
+      const downloads = (await get(url)).text;
+      expect(downloads, url).not.toContain('<section class="more">');
+      expect(downloads, url).not.toContain('iPhone');
+      expect(downloads.match(/<section class="panel" id="(?:windows|android|mac)">/g) ?? [], url).toHaveLength(3);
+    }
     expect(((await get('/about/faq/')).text.match(/<details class="qa">/g) ?? []).length).toBe(29);
   });
 

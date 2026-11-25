@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Letöltések",
-    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben, az iPhone-alkalmazásban is.",
+    "lead": "A {{BRAND}} telepítőfájljai Windowsra, Androidra és Macre. Egyetlen fiók működik mindegyikben.",
     "tabsLabel": "Operációs rendszer",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "A fájl ellenőrzése",
     "checkText": "Minden fájlnak van SHA-256 ellenőrzőösszege. Ha a letöltött fájlé eltér, a letöltés sérült, vagy a fájlt módosították: ne telepítsd. Egy fájl ellenőrzőösszegét úgy láthatod, hogy a Windows PowerShell ablakában beírod a Get-FileHash parancsot és a fájl nevét, Macen pedig a Terminal alkalmazásban a shasum -a 256 parancsot és a fájl nevét. A kis- és nagybetűk között nincs különbség.",
     "moreHeading": "iPhone",
-    "iphone": "iPhone-ra nincs telepítőfájl: az iPhone-alkalmazást az App Store-ból kell telepíteni.",
     "iphoneStore": "iPhone-on az alkalmazást az App Store-ból lehet telepíteni.",
     "storeLinks": {
       "googlePlay": "Szerezd be: Google Play",

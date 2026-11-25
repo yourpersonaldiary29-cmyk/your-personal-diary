@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Transferências",
-    "lead": "Ficheiros de instalação do {{BRAND}} para Windows, Android e Mac. Uma só conta funciona em todos e na aplicação para iPhone.",
+    "lead": "Ficheiros de instalação do {{BRAND}} para Windows, Android e Mac. Uma só conta funciona em todos.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Verificar o ficheiro",
     "checkText": "Cada ficheiro tem uma soma de verificação SHA-256. Se o ficheiro que transferiu tiver uma diferente, a transferência está danificada ou o ficheiro foi alterado: não o instale. Para ver a soma de verificação de um ficheiro, escreva Get-FileHash e o nome do ficheiro no Windows PowerShell, ou shasum -a 256 e o nome do ficheiro no Terminal de um Mac. Não importa se as letras estão em maiúsculas ou minúsculas.",
     "moreHeading": "iPhone",
-    "iphone": "Não há ficheiro de instalação para iPhone: a aplicação para iPhone é instalada a partir da App Store.",
     "iphoneStore": "Num iPhone, a aplicação é instalada a partir da App Store.",
     "storeLinks": {
       "googlePlay": "Disponível no Google Play",

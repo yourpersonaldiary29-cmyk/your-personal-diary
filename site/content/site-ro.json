@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Descărcări",
-    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea și în aplicația pentru iPhone.",
+    "lead": "Fișierele de instalare {{BRAND}} pentru Windows, Android și Mac. Un singur cont funcționează în toate acestea.",
     "tabsLabel": "Sistem de operare",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Verifică fișierul",
     "checkText": "Fiecare fișier are o sumă de control SHA-256. Dacă fișierul descărcat are alta, descărcarea este deteriorată sau fișierul a fost modificat: nu-l instala. Ca să vezi suma de control a unui fișier, tastează Get-FileHash și numele fișierului în Windows PowerShell sau shasum -a 256 și numele fișierului în Terminal pe Mac. Nu contează dacă literele sunt mari sau mici.",
     "moreHeading": "iPhone",
-    "iphone": "Nu există fișier de instalare pentru iPhone: aplicația pentru iPhone se instalează din App Store.",
     "iphoneStore": "Pe iPhone, aplicația se instalează din App Store.",
     "storeLinks": {
       "googlePlay": "Disponibil pe Google Play",

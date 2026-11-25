@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Ke stažení",
-    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich i v aplikaci pro iPhone.",
+    "lead": "Instalační soubory {{BRAND}} pro Windows, Android a Mac. Jeden účet funguje ve všech z nich.",
     "tabsLabel": "Operační systém",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Ověř soubor",
     "checkText": "Každý soubor má kontrolní součet SHA-256. Pokud má stažený soubor jiný, stahování je poškozené nebo byl soubor změněn: neinstaluj ho. Kontrolní součet souboru zjistíš tak, že ve Windows PowerShell napíšeš Get-FileHash a název souboru, nebo v aplikaci Terminal na Macu shasum -a 256 a název souboru. Na velikosti písmen nezáleží.",
     "moreHeading": "iPhone",
-    "iphone": "Pro iPhone instalační soubor neexistuje: aplikace pro iPhone se instaluje z App Store.",
     "iphoneStore": "Na iPhonu se aplikace instaluje z App Store.",
     "storeLinks": {
       "googlePlay": "Stáhnout z Google Play",

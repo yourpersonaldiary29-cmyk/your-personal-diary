@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Download",
-    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app, anche in quella per iPhone.",
+    "lead": "I file di installazione di {{BRAND}} per Windows, Android e Mac. Un solo account funziona in tutte le app.",
     "tabsLabel": "Sistema operativo",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Verifica il file",
     "checkText": "Ogni file ha un checksum SHA-256. Se il file che hai scaricato ne ha uno diverso, il download è danneggiato o il file è stato modificato: non installarlo. Per vedere il checksum di un file, digita Get-FileHash e il nome del file in Windows PowerShell, oppure shasum -a 256 e il nome del file nel Terminale di un Mac. Maiuscole e minuscole sono considerate uguali.",
     "moreHeading": "iPhone",
-    "iphone": "Non esiste un file di installazione per iPhone: l’app per iPhone si installa da App Store.",
     "iphoneStore": "Su iPhone, l’app si installa da App Store.",
     "storeLinks": {
       "googlePlay": "Disponibile su Google Play",

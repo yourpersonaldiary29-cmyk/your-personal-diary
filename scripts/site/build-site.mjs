@@ -251,7 +251,8 @@ export function pageFile(pageId, locale) {
 
 /**
  * The four store links: the hosts a link may point to and the platform it belongs to. A link that is set is
- * shown on the Downloads page (above the table of its platform; the iPhone link in the line about iPhone), with
+ * shown on the Downloads page (above the table of its platform; the iPhone link in a section of its own under the
+ * tabs, which exists only while that link is set), with
  * the text downloads.storeLinks.<key> of the content files. Anything else in site/settings.json is a build error.
  */
 export const STORE_LINKS = {
@@ -455,8 +456,8 @@ export const CONTENT_SCHEMA = {
     install: platformTexts,
     checkFile: T,
     checkText: T,
+    // The iPhone section under the tabs: its heading and its sentence. Shown only while an App Store link is set.
     moreHeading: T,
-    iphone: T,
     iphoneStore: T,
     storeLinks: { googlePlay: T, appStoreIphone: T, appStoreMac: T, microsoftStore: T },
   },
@@ -1309,9 +1310,14 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
         '</section>',
       ];
     };
-    const iphone = siteSettings.links.appStoreIphone ? `<p>${rich(texts.iphoneStore)}</p>\n<p class="actions">${storeLink('appStoreIphone')}</p>` : `<p>${rich(texts.iphone)}</p>`;
-    // Under the tabs: the iPhone line under its heading - nothing else. Until 2026-11-23 a paragraph about the web
-    // version stood before it, with a link that opened it; the owner had it removed.
+    // Under the tabs: the iPhone section - its heading, one sentence and the button of the App Store - and ONLY while
+    // an App Store link is set (site/settings.json links.appStoreIphone). While none is set the page ends with the
+    // tabs: an iPhone owner has nothing to download yet, and the owner had the note that stood here deleted
+    // (2026-11-24: "There is no installation file for iPhone: the iPhone app is installed from the App Store.").
+    // Until 2026-11-23 a paragraph about the web version stood here too, with a link that opened it.
+    const more = siteSettings.links.appStoreIphone
+      ? ['<section class="more">', `<h2>${rich(texts.moreHeading)}</h2>`, `<p>${rich(texts.iphoneStore)}</p>\n<p class="actions">${storeLink('appStoreIphone')}</p>`, '</section>']
+      : [];
     main = [
       '<div class="wrap page">',
       `<h1>${rich(texts.heading)}</h1>`,
@@ -1319,10 +1325,7 @@ export function renderSitePage({ page: pageId, locale, content, settings, siteSe
       `<div class="tabs" id="platforms" data-tabs-label="${attr(texts.tabsLabel)}">`,
       ...PLATFORMS.flatMap(panel),
       '</div>',
-      '<section class="more">',
-      `<h2>${rich(texts.moreHeading)}</h2>`,
-      iphone,
-      '</section>',
+      ...more,
       '</div>',
     ];
   } else {

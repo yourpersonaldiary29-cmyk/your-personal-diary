@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "下载",
-    "lead": "{{BRAND}} 的 Windows、Android 和 Mac 安装文件。一个账户可在所有这些应用以及 iPhone 应用中使用。",
+    "lead": "{{BRAND}} 的 Windows、Android 和 Mac 安装文件。一个账户可在所有这些应用中使用。",
     "tabsLabel": "操作系统",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "检查文件",
     "checkText": "每个文件都有一个 SHA-256 校验和。如果您下载的文件校验和不同，说明下载已损坏或文件已被改动：请不要安装。要查看文件的校验和，请在 Windows PowerShell 中输入 Get-FileHash 和文件名，或在 Mac 的 Terminal（终端）中输入 shasum -a 256 和文件名。其中的字母不区分大小写。",
     "moreHeading": "iPhone",
-    "iphone": "没有 iPhone 安装文件：iPhone 应用需从 App Store 安装。",
     "iphoneStore": "在 iPhone 上，应用从 App Store 安装。",
     "storeLinks": {
       "googlePlay": "下载应用，请到 Google Play",

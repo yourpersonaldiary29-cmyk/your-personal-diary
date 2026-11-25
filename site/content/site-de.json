@@ -225,7 +225,7 @@
   },
   "downloads": {
     "heading": "Downloads",
-    "lead": "Installationsdateien von {{BRAND}} für Windows, Android und Mac. Ein Konto funktioniert in allen Apps, auch in der iPhone-App.",
+    "lead": "Installationsdateien von {{BRAND}} für Windows, Android und Mac. Ein Konto funktioniert in allen Apps.",
     "tabsLabel": "Betriebssystem",
     "tabs": {
       "windows": "Windows",
@@ -256,7 +256,6 @@
     "checkFile": "Datei prüfen",
     "checkText": "Zu jeder Datei gibt es eine SHA-256-Prüfsumme. Hat die Datei, die du heruntergeladen hast, eine andere, dann ist der Download beschädigt oder die Datei wurde verändert: Installiere sie nicht. Um die Prüfsumme einer Datei zu sehen, gib in Windows PowerShell Get-FileHash und den Dateinamen ein oder im Terminal eines Mac shasum -a 256 und den Dateinamen. Groß- und Kleinbuchstaben gelten als gleich.",
     "moreHeading": "iPhone",
-    "iphone": "Für das iPhone gibt es keine Installationsdatei: Die iPhone-App wird aus dem App Store installiert.",
     "iphoneStore": "Auf einem iPhone wird die App aus dem App Store installiert.",
     "storeLinks": {
       "googlePlay": "Jetzt bei Google Play",
