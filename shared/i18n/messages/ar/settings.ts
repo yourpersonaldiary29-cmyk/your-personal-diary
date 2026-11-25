@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'التذكيرات',
   'settings.reminders.enabled': 'عرض تذكيرات العادات',
   'settings.reminders.hint': 'التذكيرات إشعارات محلية فقط - على الحاسوب أو في المتصفح المفتوحة فيه اليوميات. لا يُرسل أي شيء إلى الخارج.',
+  'settings.reminders.hintPhone': 'على هذا الهاتف يصل التذكير كإشعار، حتى عندما يكون التطبيق مغلقًا. تُنشأ التذكيرات على الهاتف نفسه؛ ولا يُرسل أي شيء إلى الخارج.',
   'settings.reminders.explanation': 'يُحدَّد وقت التذكير لكل عادة على حدة في صفحة العادات. وما دام هذا الخيار متوقفًا فلن يظهر أي تذكير.',
   'settings.reminders.on': 'تم تشغيل التذكيرات.',
   'settings.reminders.off': 'تم إيقاف التذكيرات.',

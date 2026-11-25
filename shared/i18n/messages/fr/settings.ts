@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'Rappels',
   'settings.reminders.enabled': 'Afficher les rappels d’habitudes',
   'settings.reminders.hint': 'Les rappels sont uniquement des notifications locales - sur l’ordinateur ou dans le navigateur où le journal est ouvert. Rien n’est envoyé à l’extérieur.',
+  'settings.reminders.hintPhone': 'Sur ce téléphone, un rappel arrive sous forme de notification, même quand l’application est fermée. Les rappels sont créés sur le téléphone lui-même ; rien n’est envoyé à l’extérieur.',
   'settings.reminders.explanation': 'L’heure du rappel se règle pour chaque habitude, sur la page des habitudes. Tant que cette option est désactivée, aucun rappel n’est affiché.',
   'settings.reminders.on': 'Rappels activés.',
   'settings.reminders.off': 'Rappels désactivés.',

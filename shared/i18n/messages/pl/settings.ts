@@ -97,6 +97,8 @@ const messages: Record<string, string> = {
   'settings.reminders.enabled': 'Pokazuj przypomnienia o nawykach',
   'settings.reminders.hint':
     'Przypomnienia to wyłącznie lokalne powiadomienia – na komputerze lub w przeglądarce, w której otwarty jest dziennik. Nic nie jest wysyłane na zewnątrz.',
+  'settings.reminders.hintPhone':
+    'Na tym telefonie przypomnienie przychodzi jako powiadomienie, także przy zamkniętej aplikacji. Przypomnienia powstają w samym telefonie; nic nie jest wysyłane na zewnątrz.',
   'settings.reminders.explanation':
     'Godzinę przypomnienia ustawia się osobno dla każdego nawyku na stronie nawyków. Gdy ta opcja jest wyłączona, przypomnienia się nie pojawiają.',
   'settings.reminders.on': 'Przypomnienia włączone.',

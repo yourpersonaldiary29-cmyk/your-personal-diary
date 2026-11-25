@@ -96,6 +96,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'Mementouri',
   'settings.reminders.enabled': 'Afișează mementourile pentru obiceiuri',
   'settings.reminders.hint': 'Mementourile sunt doar notificări locale – pe computer sau în browserul în care este deschis jurnalul. Nu se trimite nimic în afară.',
+  'settings.reminders.hintPhone': 'Pe acest telefon, mementoul sosește ca notificare, chiar și cu aplicația închisă. Mementourile sunt create chiar pe telefon; nu se trimite nimic în afară.',
   'settings.reminders.explanation': 'Ora mementoului se stabilește separat pentru fiecare obicei, pe pagina Obiceiuri. Cât timp această opțiune este dezactivată, nu se afișează niciun memento.',
   'settings.reminders.on': 'Mementourile au fost activate.',
   'settings.reminders.off': 'Mementourile au fost dezactivate.',

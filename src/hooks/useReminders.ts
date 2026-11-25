@@ -31,7 +31,7 @@ export type PhoneNotificationPermission = 'granted' | 'denied' | 'prompt';
 
 export interface PhoneReminders {
   permission(): Promise<PhoneNotificationPermission>;
-  /** Asks Android 13+ for POST_NOTIFICATIONS (from a button in the Reminders card). */
+  /** Asks Android 13+ for POST_NOTIFICATIONS (through `askPhoneNotificationPermission`, from a tap). */
   requestPermission(): Promise<PhoneNotificationPermission>;
   /** Re-plans the system notifications; `enabled` = a session exists and reminders are on. */
   sync(options: { enabled: boolean }): Promise<unknown>;
@@ -50,6 +50,34 @@ export function setPhoneReminders(impl: PhoneReminders | null): void {
 
 export function getPhoneReminders(): PhoneReminders | null {
   return phoneReminders;
+}
+
+/**
+ * Asks for the notification permission only while the phone has not been asked yet: 'prompt' (the
+ * bridge also maps Android's 'prompt-with-rationale' to it) shows the system dialog "Allow Your
+ * Personal Diary to send you notifications?" and resolves with the answer; 'granted' and 'denied'
+ * ask nothing and resolve with the state as it is. Called from the user's own tap (the Reminders
+ * card, the habit form's "Daily reminder", the notice of the Habits page) - never on its own.
+ * Never throws: when the phone could not answer it resolves null and the caller changes nothing.
+ * Quick taps while an ask is still open share that ask, so the dialog is never requested twice.
+ */
+const pendingAsks = new WeakMap<PhoneReminders, Promise<PhoneNotificationPermission | null>>();
+
+export function askPhoneNotificationPermission(phone: PhoneReminders): Promise<PhoneNotificationPermission | null> {
+  const pending = pendingAsks.get(phone);
+  if (pending) return pending;
+  const ask = (async () => {
+    try {
+      const state = await phone.permission();
+      return state === 'prompt' ? await phone.requestPermission() : state;
+    } catch {
+      return null;
+    } finally {
+      pendingAsks.delete(phone);
+    }
+  })();
+  pendingAsks.set(phone, ask);
+  return ask;
 }
 
 /**

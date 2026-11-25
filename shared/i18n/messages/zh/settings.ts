@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': '提醒',
   'settings.reminders.enabled': '显示习惯提醒',
   'settings.reminders.hint': '提醒仅为本地通知——只出现在打开日记的电脑或浏览器上，不会向外发送任何内容。',
+  'settings.reminders.hintPhone': '在这部手机上，即使应用已关闭，提醒也会以通知的形式送达。提醒在手机本地创建，不会向外发送任何内容。',
   'settings.reminders.explanation': '每个习惯的提醒时间可在习惯页面中单独设置。此选项关闭时，不会显示任何提醒。',
   'settings.reminders.on': '提醒已开启。',
   'settings.reminders.off': '提醒已关闭。',

@@ -99,6 +99,8 @@ const messages: Record<string, string> = {
   'settings.reminders.enabled': 'Mostrar recordatorios de hábitos',
   'settings.reminders.hint':
     'Los recordatorios son solo notificaciones locales, en el ordenador o en el navegador donde está abierto el diario. No se envía nada al exterior.',
+  'settings.reminders.hintPhone':
+    'En este teléfono, el recordatorio llega como notificación, también con la aplicación cerrada. Los recordatorios se crean en el propio teléfono; no se envía nada al exterior.',
   'settings.reminders.explanation':
     'La hora del recordatorio se define para cada hábito por separado en la página de hábitos. Mientras esta opción esté desactivada, no se muestra ningún recordatorio.',
   'settings.reminders.on': 'Se han activado los recordatorios.',

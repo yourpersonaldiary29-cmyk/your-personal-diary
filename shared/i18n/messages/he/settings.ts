@@ -94,6 +94,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'תזכורות',
   'settings.reminders.enabled': 'הצג תזכורות להרגלים',
   'settings.reminders.hint': 'התזכורות הן התראות מקומיות בלבד - במחשב או בדפדפן שבו היומן פתוח. שום דבר לא נשלח החוצה.',
+  'settings.reminders.hintPhone': 'בטלפון הזה תזכורת מגיעה כהתראה, גם כשהאפליקציה סגורה. התזכורות נוצרות בטלפון עצמו; שום דבר לא נשלח החוצה.',
   'settings.reminders.explanation': 'שעת התזכורת נקבעת לכל הרגל בנפרד בעמוד ההרגלים. כשהאפשרות כבויה, לא תוצג אף תזכורת.',
   'settings.reminders.on': 'התזכורות הופעלו.',
   'settings.reminders.off': 'התזכורות כובו.',

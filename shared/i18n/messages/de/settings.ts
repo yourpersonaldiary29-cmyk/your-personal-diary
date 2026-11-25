@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'Erinnerungen',
   'settings.reminders.enabled': 'Erinnerungen an Gewohnheiten anzeigen',
   'settings.reminders.hint': 'Erinnerungen sind nur lokale Benachrichtigungen – auf dem Computer oder im Browser, in dem das Tagebuch geöffnet ist. Es wird nichts nach außen gesendet.',
+  'settings.reminders.hintPhone': 'Auf diesem Telefon kommt eine Erinnerung als Benachrichtigung an, auch bei geschlossener App. Die Erinnerungen entstehen auf dem Telefon selbst; es wird nichts nach außen gesendet.',
   'settings.reminders.explanation': 'Die Uhrzeit der Erinnerung wird für jede Gewohnheit einzeln auf der Seite „Gewohnheiten“ festgelegt. Solange diese Option ausgeschaltet ist, wird keine Erinnerung angezeigt.',
   'settings.reminders.on': 'Erinnerungen sind eingeschaltet.',
   'settings.reminders.off': 'Erinnerungen sind ausgeschaltet.',

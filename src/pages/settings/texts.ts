@@ -240,6 +240,10 @@ export const ST = {
   get remindersHint() {
     return tr('settings.reminders.hint');
   },
+  /** The phone app's hint under the switch (there the reminders are system notifications). */
+  get remindersHintPhone() {
+    return tr('settings.reminders.hintPhone');
+  },
   get remindersExplanation() {
     return tr('settings.reminders.explanation');
   },

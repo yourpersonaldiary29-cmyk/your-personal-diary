@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'Reminders',
   'settings.reminders.enabled': 'Show habit reminders',
   'settings.reminders.hint': 'Reminders are local notifications only - on the computer or in the browser where the diary is open. Nothing is sent out.',
+  'settings.reminders.hintPhone': 'On this phone a reminder arrives as a notification, also when the app is closed. Reminders are created on the phone itself; nothing is sent out.',
   'settings.reminders.explanation': 'The reminder time is set for each habit separately on the habits page. While this option is off, no reminder is shown.',
   'settings.reminders.on': 'Reminders turned on.',
   'settings.reminders.off': 'Reminders turned off.',

@@ -99,6 +99,8 @@ const messages: Record<string, string> = {
   'settings.reminders.enabled': 'Mostrar lembretes de hábitos',
   'settings.reminders.hint':
     'Os lembretes são apenas notificações locais, no computador ou no navegador onde o diário está aberto. Nada é enviado para fora.',
+  'settings.reminders.hintPhone':
+    'Neste telemóvel, o lembrete chega como notificação, mesmo com a aplicação fechada. Os lembretes são criados no próprio telemóvel; nada é enviado para fora.',
   'settings.reminders.explanation':
     'A hora do lembrete é definida para cada hábito separadamente, na página de hábitos. Enquanto esta opção estiver desativada, não é mostrado nenhum lembrete.',
   'settings.reminders.on': 'Os lembretes foram ativados.',

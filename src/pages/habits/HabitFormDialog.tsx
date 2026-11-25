@@ -5,9 +5,11 @@
  * field. Saves through `POST /api/habits` or `PUT /api/habits/:id`. Messages go to a live region
  * INSIDE the dialog: everything outside a modal <dialog> is inert, so the global announcer would
  * never be heard while the dialog is open.
+ * Phone app: ticking "Daily reminder" asks for the notification permission (only while the phone
+ * was never asked); after a refusal the box explains how to allow notifications in the phone settings.
  * Texts: 'habits.form.*'.
  */
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { Habit, HabitFrequency, HabitInput } from '@shared/types';
 import { habitTemplates } from '@shared/constants';
 import * as api from '@/api';
@@ -24,6 +26,7 @@ import { TextArea } from '@/components/ui/TextArea';
 import { TextInput } from '@/components/ui/TextInput';
 import { TimeInput } from '@/components/forms/TimeInput';
 import { T } from '@/constants/texts';
+import { askPhoneNotificationPermission, getPhoneReminders } from '@/hooks/useReminders';
 import { getCurrentLocale, tr } from '@/i18n/runtime';
 import { isValidTime } from '@/utils/dates';
 import { errorField, errorMessage } from '@/utils/errors';
@@ -178,16 +181,28 @@ export interface HabitFormDialogProps {
   onClose: () => void;
   /** Called with the saved habit after a successful create/update. */
   onSaved: (habit: Habit, mode: 'create' | 'edit') => void | Promise<void>;
+  /**
+   * The account switch "Show habit reminders" of Settings (default: on). While it is off no reminder can arrive,
+   * so ticking the box does not ask the phone for its permission; turning the switch on asks (RemindersSection).
+   */
+  remindersEnabled?: boolean;
 }
 
-export function HabitFormDialog({ open, habit, onClose, onSaved }: HabitFormDialogProps) {
+export function HabitFormDialog({ open, habit, onClose, onSaved, remindersEnabled = true }: HabitFormDialogProps) {
   const mode: 'create' | 'edit' = habit ? 'edit' : 'create';
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<FormErrors>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [liveMessage, setLiveMessage] = useState('');
   const [busy, setBusy] = useState(false);
+  // Phone only: the phone answered 'denied' when the box was ticked (the notice under the box).
+  const [notificationsDenied, setNotificationsDenied] = useState(false);
+  // Counts the ticks: an answer that arrives after the box was unticked (or the dialog reopened) is ignored.
+  const askRef = useRef(0);
   const formId = 'habit-form';
+  // `__MOBILE__` is a build-time constant (false on the desktop, where this folds to `null`); under
+  // the root vitest config it is not defined.
+  const phone = typeof __MOBILE__ !== 'undefined' && __MOBILE__ ? getPhoneReminders() : null;
 
   // Read per render so the picker follows the UI language (memoised per locale in shared/constants).
   const templates = habitTemplates(getCurrentLocale());
@@ -200,6 +215,8 @@ export function HabitFormDialog({ open, habit, onClose, onSaved }: HabitFormDial
     setServerError(null);
     setLiveMessage('');
     setBusy(false);
+    setNotificationsDenied(false);
+    askRef.current += 1;
   }, [open, habit]);
 
   const templateOptions: SelectOption[] = [{ value: '', label: HABIT_FORM_TEXTS.noTemplate }, ...templates.map((t) => ({ value: t.name, label: t.name }))];
@@ -356,8 +373,23 @@ export function HabitFormDialog({ open, habit, onClose, onSaved }: HabitFormDial
           onChange={(checked) => {
             patch({ reminderEnabled: checked });
             clearError('reminderTime');
+            setNotificationsDenied(false);
+            const ask = (askRef.current += 1);
+            // Phone: ticking the box is the moment to ask - the system dialog only while the phone was
+            // never asked, and only while reminders are on in the account (otherwise nothing could arrive
+            // yet). It never blocks or delays the form.
+            if (checked && !form.reminderEnabled && phone && remindersEnabled) {
+              void askPhoneNotificationPermission(phone).then((state) => {
+                if (ask === askRef.current) setNotificationsDenied(state === 'denied');
+              });
+            }
           }}
         />
+        {form.reminderEnabled && notificationsDenied && (
+          <Alert kind="warning" role="none" id="habit-form-reminder-denied">
+            {tr('mobile.reminders.denied')}
+          </Alert>
+        )}
         {form.reminderEnabled && (
           <TimeInput
             id={FIELD_IDS.reminderTime}
@@ -377,6 +409,7 @@ export function HabitFormDialog({ open, habit, onClose, onSaved }: HabitFormDial
         </button>
       </form>
       <LiveRegion politeness="assertive" message={liveMessage} />
+      <LiveRegion politeness="polite" message={form.reminderEnabled && notificationsDenied ? tr('mobile.reminders.denied') : ''} />
     </Dialog>
   );
 }

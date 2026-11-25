@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'リマインダー',
   'settings.reminders.enabled': '習慣のリマインダーを表示',
   'settings.reminders.hint': 'リマインダーはローカルの通知のみで、日記を開いているパソコンやブラウザーにだけ表示されます。外部には何も送信されません。',
+  'settings.reminders.hintPhone': 'この端末では、アプリを閉じているときもリマインダーが通知として届きます。リマインダーは端末内で作成され、外部には何も送信されません。',
   'settings.reminders.explanation': 'リマインダーの時刻は、習慣ページで習慣ごとに設定します。このオプションがオフの間は、リマインダーは表示されません。',
   'settings.reminders.on': 'リマインダーをオンにしました。',
   'settings.reminders.off': 'リマインダーをオフにしました。',

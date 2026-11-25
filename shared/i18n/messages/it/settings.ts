@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'Promemoria',
   'settings.reminders.enabled': 'Mostra i promemoria delle abitudini',
   'settings.reminders.hint': 'I promemoria sono solo notifiche locali - sul computer o nel browser in cui il diario è aperto. Non viene inviato nulla all’esterno.',
+  'settings.reminders.hintPhone': 'Su questo telefono un promemoria arriva come notifica, anche ad app chiusa. I promemoria vengono creati sul telefono stesso; non viene inviato nulla all’esterno.',
   'settings.reminders.explanation': 'L’orario del promemoria si imposta per ogni abitudine nella pagina delle abitudini. Finché questa opzione è disattivata, non viene mostrato alcun promemoria.',
   'settings.reminders.on': 'Promemoria attivati.',
   'settings.reminders.off': 'Promemoria disattivati.',

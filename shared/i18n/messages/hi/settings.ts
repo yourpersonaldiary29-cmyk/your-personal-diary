@@ -95,6 +95,7 @@ const messages: Record<string, string> = {
   'settings.reminders.title': 'रिमाइंडर',
   'settings.reminders.enabled': 'आदतों के रिमाइंडर दिखाएँ',
   'settings.reminders.hint': 'रिमाइंडर केवल स्थानीय सूचनाएँ हैं - उसी कंप्यूटर या ब्राउज़र में जहाँ डायरी खुली है। बाहर कुछ भी नहीं भेजा जाता।',
+  'settings.reminders.hintPhone': 'इस फ़ोन पर रिमाइंडर सूचना के रूप में आता है, ऐप बंद होने पर भी। रिमाइंडर फ़ोन में ही बनते हैं; बाहर कुछ भी नहीं भेजा जाता।',
   'settings.reminders.explanation': 'रिमाइंडर का समय आदतों के पेज पर हर आदत के लिए अलग से तय किया जाता है। जब तक यह विकल्प बंद है, कोई रिमाइंडर नहीं दिखाया जाता।',
   'settings.reminders.on': 'रिमाइंडर चालू किए गए।',
   'settings.reminders.off': 'रिमाइंडर बंद किए गए।',

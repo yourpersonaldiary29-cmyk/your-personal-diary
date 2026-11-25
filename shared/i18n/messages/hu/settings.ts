@@ -98,6 +98,8 @@ const messages: Record<string, string> = {
   'settings.reminders.enabled': 'Szokásemlékeztetők megjelenítése',
   'settings.reminders.hint':
     'Az emlékeztetők csak helyi értesítések – azon a számítógépen vagy abban a böngészőben, ahol a napló nyitva van. Semmi nem kerül ki innen.',
+  'settings.reminders.hintPhone':
+    'Ezen a telefonon az emlékeztető értesítésként érkezik, zárt alkalmazás mellett is. Az emlékeztetők magán a telefonon jönnek létre; semmi nem kerül ki innen.',
   'settings.reminders.explanation':
     'Az emlékeztető időpontját minden szokásnál külön állíthatod be a szokások oldalán. Amíg ez a beállítás ki van kapcsolva, nem jelenik meg emlékeztető.',
   'settings.reminders.on': 'Emlékeztetők bekapcsolva.',

@@ -96,6 +96,8 @@ const messages: Record<string, string> = {
   'settings.reminders.enabled': 'Alışkanlık hatırlatıcılarını göster',
   'settings.reminders.hint':
     'Hatırlatıcılar yalnızca yerel bildirimlerdir - günlüğün açık olduğu bilgisayarda veya tarayıcıda. Dışarıya hiçbir şey gönderilmez.',
+  'settings.reminders.hintPhone':
+    'Bu telefonda hatırlatıcı, uygulama kapalıyken de bildirim olarak gelir. Hatırlatıcılar telefonun kendisinde oluşturulur; dışarıya hiçbir şey gönderilmez.',
   'settings.reminders.explanation':
     'Hatırlatma saati, alışkanlıklar sayfasında her alışkanlık için ayrı ayrı belirlenir. Bu seçenek kapalıyken hiçbir hatırlatıcı gösterilmez.',
   'settings.reminders.on': 'Hatırlatıcılar açıldı.',

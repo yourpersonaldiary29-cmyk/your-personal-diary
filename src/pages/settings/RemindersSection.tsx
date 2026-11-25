@@ -3,8 +3,9 @@
  * local notifications only (useReminders polls the local server; the Android app
  * schedules system notifications instead); nothing leaves the device.
  *
- * Phone (Android app) only: the notification permission of Android 13+ is asked HERE, with an
- * explanation and a button - never at start-up - and a denial is explained; plus the phone
+ * Phone (Android app) only: the notification permission of Android 13+ is asked when this switch is
+ * turned on, and HERE with an explanation and a button as the fallback - never at start-up - and a
+ * denial is explained; the hint under the switch is the phone's own sentence; plus the phone
  * setting "Show habit names in notifications" (off by default: a reminder on the lock screen
  * then says only that it is time for a habit).
  */
@@ -17,7 +18,7 @@ import { Checkbox } from '@/components/ui/Checkbox';
 import { PATHS } from '@/constants/routes';
 import { useAnnouncer } from '@/context/AnnouncerContext';
 import { useSettings } from '@/context/SettingsContext';
-import { getPhoneReminders, type PhoneNotificationPermission, type PhoneReminders } from '@/hooks/useReminders';
+import { askPhoneNotificationPermission, getPhoneReminders, type PhoneNotificationPermission, type PhoneReminders } from '@/hooks/useReminders';
 import { tr } from '@/i18n/runtime';
 import { errorMessage } from '@/utils/errors';
 import { ST } from './texts';
@@ -57,17 +58,19 @@ function PhoneRemindersBlock({ phone }: { phone: PhoneReminders }) {
     if (busy) return;
     setBusy(true);
     setError(null);
-    try {
-      const next = await phone.requestPermission();
-      setPermission(next);
-      announce(next === 'granted' ? tr('mobile.reminders.granted') : tr('mobile.reminders.denied'), 'polite');
-    } catch (e) {
-      const message = errorMessage(e);
+    const next = await askPhoneNotificationPermission(phone);
+    setBusy(false);
+    if (next === null) {
+      // The phone could not answer: the generic error, the button stays for another try.
+      const message = errorMessage(null);
       setError(message);
       announce(message, 'assertive');
-    } finally {
-      setBusy(false);
+      return;
     }
+    setPermission(next);
+    // After Android's first "Don't allow" the phone still answers 'prompt' and the button stays: nothing to say.
+    if (next === 'granted') announce(tr('mobile.reminders.granted'), 'polite');
+    else if (next === 'denied') announce(tr('mobile.reminders.denied'), 'polite');
   };
 
   const onShowNames = async (checked: boolean) => {
@@ -123,13 +126,16 @@ export function RemindersSection() {
 
   const onToggle = (checked: boolean) => {
     void save({ remindersEnabled: checked }, checked ? ST.remindersOn : ST.remindersOff);
+    // Phone: turning reminders on is the moment to ask for the notification permission (only while
+    // it was never answered). The block below follows the answer through the bridge's subscription.
+    if (checked && phone) void askPhoneNotificationPermission(phone);
   };
 
   return (
     <Card title={ST.reminders}>
       <div className="stack">
         {error && <Alert kind="error">{error}</Alert>}
-        <Checkbox id="settings-reminders" label={ST.remindersEnabled} hint={ST.remindersHint} checked={settings.remindersEnabled} onChange={onToggle} />
+        <Checkbox id="settings-reminders" label={ST.remindersEnabled} hint={phone ? ST.remindersHintPhone : ST.remindersHint} checked={settings.remindersEnabled} onChange={onToggle} />
         {phone && settings.remindersEnabled && <PhoneRemindersBlock phone={phone} />}
         <p className="text-muted">
           {ST.remindersExplanation} <Link to={PATHS.habits}>{ST.habitsLink}</Link>

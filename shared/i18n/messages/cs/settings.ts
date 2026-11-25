@@ -97,6 +97,8 @@ const messages: Record<string, string> = {
   'settings.reminders.enabled': 'Zobrazovat připomínky návyků',
   'settings.reminders.hint':
     'Připomínky jsou jen místní oznámení – v počítači nebo v prohlížeči, kde je deník otevřený. Nic se nikam neodesílá.',
+  'settings.reminders.hintPhone':
+    'V tomto telefonu přichází připomínka jako oznámení, i když je aplikace zavřená. Připomínky vznikají přímo v telefonu; nic se nikam neodesílá.',
   'settings.reminders.explanation':
     'Čas připomínky se nastavuje u každého návyku zvlášť na stránce návyků. Dokud je tato volba vypnutá, žádná připomínka se nezobrazí.',
   'settings.reminders.on': 'Připomínky jsou zapnuté.',

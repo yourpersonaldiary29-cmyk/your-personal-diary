@@ -8,7 +8,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import * as api from '@/api';
 import { Providers, type ProviderOptions } from '@/test/render';
-import { setPhoneReminders, useReminders, type PhoneNotificationPermission, type PhoneReminders } from './useReminders';
+import { askPhoneNotificationPermission, setPhoneReminders, useReminders, type PhoneNotificationPermission, type PhoneReminders } from './useReminders';
 
 vi.mock('@/api', async (importOriginal) => {
   const { createApiMock } = await import('@/test/api-mock');
@@ -109,5 +109,50 @@ describe('useReminders on the phone', () => {
     renderHook(() => useReminders(), { wrapper: wrapperFor({ auth: 'authenticated', settings: { remindersEnabled: false } }) });
     await waitFor(() => expect(off.sync).toHaveBeenCalledWith({ enabled: false }));
     expect(api.habits.dueReminders).not.toHaveBeenCalled();
+  });
+});
+
+describe('askPhoneNotificationPermission', () => {
+  it('shows the system dialog only while the phone was never asked, and returns the answer', async () => {
+    const phone = fakePhone('prompt');
+    vi.mocked(phone.requestPermission).mockImplementation(async () => 'denied');
+    await expect(askPhoneNotificationPermission(phone)).resolves.toBe('denied');
+    expect(phone.requestPermission).toHaveBeenCalledTimes(1);
+  });
+
+  it('asks nothing when the phone already answered', async () => {
+    for (const state of ['granted', 'denied'] as const) {
+      const phone = fakePhone(state);
+      await expect(askPhoneNotificationPermission(phone)).resolves.toBe(state);
+      expect(phone.requestPermission).not.toHaveBeenCalled();
+    }
+  });
+
+  it('never throws: null when the phone could not answer', async () => {
+    const checkFails = fakePhone('prompt');
+    vi.mocked(checkFails.permission).mockRejectedValue(new Error('bridge gone'));
+    await expect(askPhoneNotificationPermission(checkFails)).resolves.toBeNull();
+    expect(checkFails.requestPermission).not.toHaveBeenCalled();
+
+    const requestFails = fakePhone('prompt');
+    vi.mocked(requestFails.requestPermission).mockRejectedValue(new Error('dialog failed'));
+    await expect(askPhoneNotificationPermission(requestFails)).resolves.toBeNull();
+  });
+
+  it('quick taps while the dialog is still open share one ask', async () => {
+    const phone = fakePhone('prompt');
+    let answer: (state: PhoneNotificationPermission) => void = () => undefined;
+    vi.mocked(phone.requestPermission).mockImplementation(() => new Promise((resolve) => (answer = resolve)));
+    const first = askPhoneNotificationPermission(phone);
+    const second = askPhoneNotificationPermission(phone);
+    await waitFor(() => expect(phone.requestPermission).toHaveBeenCalledTimes(1));
+    phone.state = 'granted';
+    answer('granted');
+    await expect(first).resolves.toBe('granted');
+    await expect(second).resolves.toBe('granted');
+    expect(phone.permission).toHaveBeenCalledTimes(1);
+    // Once answered, a later tap asks the phone again.
+    await askPhoneNotificationPermission(phone);
+    expect(phone.permission).toHaveBeenCalledTimes(2);
   });
 });

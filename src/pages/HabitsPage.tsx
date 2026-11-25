@@ -4,6 +4,8 @@
  *   quick log with a note), edit / archive / reorder buttons, a "New habit"
  *   dialog and an archived section with restore / delete.
  * - "History": the last 14 days as a habits x days table.
+ * Phone app: while a habit has a reminder and the phone does not allow notifications, a notice above
+ * the list asks for them (PhoneRemindersNotice).
  * Texts: 'habits.*'.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -22,12 +24,14 @@ import { Spinner } from '@/components/ui/Spinner';
 import { Tabs } from '@/components/ui/Tabs';
 import { T } from '@/constants/texts';
 import { useAnnouncer } from '@/context/AnnouncerContext';
+import { useSettings } from '@/context/SettingsContext';
 import { useToast } from '@/context/ToastContext';
 import { NeedsConnectionHint } from '@/components/sync/NeedsConnection';
 import { PartialViewHint } from '@/components/sync/PartialViewHint';
 import { useOfflineNow } from '@/components/sync/hooks';
 import { drainBeforeOnlineWrite, savedOnDevice, showSavedOnDevice } from '@/components/sync/syncGate';
 import { useApi } from '@/hooks/useApi';
+import { getPhoneReminders } from '@/hooks/useReminders';
 import { isPendingRecord, offline } from '@/offline';
 import { getCurrentLocale, tr } from '@/i18n/runtime';
 import { addDays, dateRange, formatDayMonth, isValidTime, todayIso, weekdayShort } from '@/utils/dates';
@@ -35,6 +39,7 @@ import { errorMessage } from '@/utils/errors';
 import { formatNumber, formatPercent } from '@/utils/format';
 import { HABIT_FORM_TEXTS, HabitFormDialog } from './habits/HabitFormDialog';
 import { HabitQuickLog } from './habits/HabitQuickLog';
+import { PhoneRemindersNotice } from './habits/PhoneRemindersNotice';
 import { completionText, frequencyLabel, streakText, targetText } from './habits/habit-text';
 
 export const HABITS_TEXTS = {
@@ -128,6 +133,7 @@ export function historyCellText(status: HabitDayStatus | undefined, weekly = fal
 export default function HabitsPage() {
   const toast = useToast();
   const { announce } = useAnnouncer();
+  const { settings } = useSettings();
   const [today] = useState(() => todayIso());
   const [tab, setTab] = useState<TabId>('today');
   const [dialog, setDialog] = useState<{ open: boolean; habit: Habit | null }>({ open: false, habit: null });
@@ -154,6 +160,10 @@ export default function HabitsPage() {
 
   const active: HabitWithProgress[] = useMemo(() => progress.data ?? [], [progress.data]);
   const archived: Habit[] = useMemo(() => (allHabits.data ?? []).filter((h) => h.isArchived), [allHabits.data]);
+  // Phone app only (`__MOBILE__` is a build-time constant: false on the desktop, where this folds to
+  // `null` and the notice is dropped from the bundle; not defined under the root vitest config).
+  const phone = typeof __MOBILE__ !== 'undefined' && __MOBILE__ ? getPhoneReminders() : null;
+  const remindersInUse = settings.remindersEnabled && active.some(({ habit }) => habit.reminderEnabled && Boolean(habit.reminderTime));
 
   useEffect(() => {
     if (!focusTarget) return;
@@ -250,6 +260,7 @@ export default function HabitsPage() {
           action={<Button onClick={() => setDialog({ open: true, habit: null })}>{HABIT_FORM_TEXTS.newTitle}</Button>}
         />
       )}
+      {phone && remindersInUse && <PhoneRemindersNotice phone={phone} onSettled={() => setFocusTarget(PAGE_TITLE_ID)} />}
       {active.length > 0 && <NeedsConnectionHint id={onlineOnlyHintId} />}
       {active.length > 0 && (
         <ul className="stack" aria-label={HABITS_TEXTS.activeList}>
@@ -400,6 +411,7 @@ export default function HabitsPage() {
       <HabitFormDialog
         open={dialog.open}
         habit={dialog.habit}
+        remindersEnabled={settings.remindersEnabled}
         onClose={() => setDialog((d) => ({ ...d, open: false }))}
         onSaved={async (saved, mode) => {
           setDialog({ open: false, habit: null });
