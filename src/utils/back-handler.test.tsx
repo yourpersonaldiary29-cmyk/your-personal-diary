@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { Dialog } from '@/components/a11y/Dialog';
 import { clearLeaveGuard, useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard';
-import { __resetBackHandlerForTests, handleBack, registerBackLayer, setBackNavigator, type BackNavigator } from './back-handler';
+import { __resetBackHandlerForTests, handleBack, registerBackLayer, registerBlockingScreen, setBackNavigator, type BackNavigator } from './back-handler';
 
 function fakeNavigator(overrides: Partial<BackNavigator> = {}): BackNavigator & { back: ReturnType<typeof vi.fn>; goHome: ReturnType<typeof vi.fn> } {
   return {
@@ -134,6 +134,54 @@ describe('handleBack', () => {
 
     expect(handleBack()).toBe('navigated');
     expect(nav.back).toHaveBeenCalledTimes(1);
+  });
+
+  it('while a blocking screen is shown: a dialog above it is closed first, then Back leaves the app and moves nothing', async () => {
+    const nav = fakeNavigator({ canGoBack: () => true, isHome: () => false });
+    setBackNavigator(nav);
+    const closeLayer = vi.fn();
+    const unregisterLayer = registerBackLayer(closeLayer);
+    const unregister = registerBlockingScreen();
+    render(<TwoDialogs />);
+
+    let result = '';
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('closed-dialog');
+    await waitFor(() => expect(screen.queryByText('in second')).not.toBeInTheDocument());
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('closed-dialog');
+    await waitFor(() => expect(screen.queryByText('in first')).not.toBeInTheDocument());
+
+    // Nothing behind the screen moves: no page, no overlay of the hidden app.
+    expect(handleBack()).toBe('exit');
+    expect(handleBack()).toBe('exit');
+    expect(nav.back).not.toHaveBeenCalled();
+    expect(nav.goHome).not.toHaveBeenCalled();
+    expect(closeLayer).not.toHaveBeenCalled();
+
+    // The screen goes (unregistering twice is harmless): Back works as before.
+    unregister();
+    unregister();
+    unregisterLayer();
+    expect(handleBack()).toBe('navigated');
+    expect(nav.back).toHaveBeenCalledTimes(1);
+  });
+
+  it('a blocking screen without the phone frame: the browser history does not move either', () => {
+    const back = vi.spyOn(window.history, 'back').mockImplementation(() => undefined);
+    window.history.replaceState({ idx: 2 }, '', '#/diary');
+    const unregister = registerBlockingScreen();
+    expect(handleBack()).toBe('exit');
+    expect(back).not.toHaveBeenCalled();
+    expect(window.location.hash).toBe('#/diary');
+    unregister();
+    expect(handleBack()).toBe('navigated');
+    expect(back).toHaveBeenCalledTimes(1);
+    back.mockRestore();
   });
 
   it('honours the unsaved-changes guard: asks first, leaves only after "Leave"', async () => {

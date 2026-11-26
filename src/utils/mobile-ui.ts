@@ -28,5 +28,9 @@ export function isMobileUi(): boolean {
   return typeof __MOBILE__ !== 'undefined' && __MOBILE__ === true;
 }
 
-/** Class set on <html> while the phone shell is mounted; every rule of src/styles/mobile.css hangs on it. */
+/**
+ * Class set on <html> in the phone UI (src/components/layout/useMobileDocument.ts, while a holder is mounted:
+ * src/App.tsx for the whole app, and the phone frame MobileShell.tsx); every rule of src/styles/mobile.css
+ * hangs on it.
+ */
 export const MOBILE_UI_CLASS = 'platform-mobile';

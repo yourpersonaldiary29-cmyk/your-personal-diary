@@ -25,10 +25,15 @@
  * is said under the button and announced once, politely; when the server cannot be reached, "Still no
  * connection to the diary server." (the same way).
  *
+ * In the phone apps the screen keeps the phone setup of the document (the phone stylesheet and the class
+ * 'platform-mobile' on <html>: src/App.tsx holds it for the whole app, src/components/layout/useMobileDocument.ts),
+ * and the system Back button answers 'exit' while it is shown (it registers as a blocking screen with
+ * src/utils/back-handler.ts): a dialog above it is closed first, nothing behind it moves.
+ *
  * Styles: src/pages/update-required.css (theme tokens: light, dark and forced colours; logical properties
  * for right-to-left; the buttons are at least 44 px high, 48 px on the phone).
  */
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import { FocusHeading } from '@/components/a11y/FocusHeading';
 import { openInSystemBrowser } from '@/components/legal/LegalPageLink';
 import { Button } from '@/components/ui/Button';
@@ -38,6 +43,8 @@ import { useAnnouncer } from '@/context/AnnouncerContext';
 import { retryConnection, useConnection } from '@/context/ConnectionContext';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { getCurrentLocale, tr } from '@/i18n/runtime';
+import { registerBlockingScreen } from '@/utils/back-handler';
+import { isMobileUi } from '@/utils/mobile-ui';
 import { otherUpdateTarget, updateRequirement, updateTarget, type UpdateRequirement, type UpdateTarget } from '@/utils/appUpdate';
 import { isTauri } from '@/utils/platform';
 import './update-required.css';
@@ -74,6 +81,10 @@ export default function UpdateRequiredPage({ requirement }: UpdateRequiredPagePr
   const mounted = useRef(true);
   const title = tr('shell.update.title');
   useDocumentTitle(title);
+
+  // Phone UI: the system Back button leaves the app while the screen is shown - the hidden pages do not move.
+  // Registered before the first paint and unregistered when the screen goes.
+  useLayoutEffect(() => (isMobileUi() ? registerBlockingScreen() : undefined), []);
 
   useEffect(() => {
     mounted.current = true;

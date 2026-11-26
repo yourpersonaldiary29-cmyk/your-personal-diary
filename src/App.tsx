@@ -24,12 +24,16 @@
  * the shortcuts dialog. Everything above this component keeps running: the session, the offline engine (its
  * uploads), the toasts. The keyboard shortcuts are off meanwhile (nothing they act on is on screen), and a lock
  * the idle timer calls for waits until the screen goes. When it goes, the focus moves to the restored page.
+ * In the phone UI the app holds the phone setup of the document for as long as it is mounted
+ * (src/components/layout/useMobileDocument.ts: the phone stylesheet, the class 'platform-mobile' on <html>), so the
+ * screen keeps it just like the phone frame - from its first paint and across every change between the two.
  */
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { RouteAnnouncer } from '@/components/a11y/RouteAnnouncer';
 import { ConnectionBanner } from '@/components/ConnectionBanner';
 import { SyncStatusBar } from '@/components/sync/SyncStatusBar';
 import { AppShell, MAIN_ID } from '@/components/layout/AppShell';
+import { MobileDocument } from '@/components/layout/useMobileDocument';
 import { PAGE_TITLE_ID } from '@/components/ui/PageTitle';
 import { isGuestUser, useAuth } from '@/context/AuthContext';
 import { useLocale, useRestoreFocusAfterLanguageChange } from '@/context/LanguageContext';
@@ -116,30 +120,41 @@ export default function App() {
 
   useRestoreFocusAfterLanguageChange(locale);
 
+  // The phone setup of the document, at the same place of both trees below: it stays mounted while the "Update
+  // needed" screen and the frame replace each other (and across the remounts of the keyed subtree). The flag is
+  // spelled out so the desktop build drops it together with the phone stylesheet.
+  const phoneDocument = typeof __MOBILE__ !== 'undefined' && __MOBILE__ ? <MobileDocument /> : null;
+
   if (updateRequired) {
     return (
-      <Fragment key={`${locale}#${accountGeneration}`}>
-        <UpdateRequiredPage requirement={updateRequired} />
-      </Fragment>
+      <>
+        {phoneDocument}
+        <Fragment key={`${locale}#${accountGeneration}`}>
+          <UpdateRequiredPage requirement={updateRequired} />
+        </Fragment>
+      </>
     );
   }
 
   return (
-    <Fragment key={`${locale}#${accountGeneration}`}>
-      <RouteAnnouncer />
-      <AppShell onShowShortcuts={showShortcuts}>
-        {!restoredLocked && (
-          <>
-            {/* "No connection to the diary server" over a running app (the full page lives in the routes);
-                the offline mode's status bar instead while it runs for the signed-in account. */}
-            <ConnectionBanner />
-            <SyncStatusBar />
-            <AppRoutes />
-          </>
-        )}
-      </AppShell>
-      <LockScreen />
-      <ShortcutsDialog open={shortcutsOpen} onClose={hideShortcuts} />
-    </Fragment>
+    <>
+      {phoneDocument}
+      <Fragment key={`${locale}#${accountGeneration}`}>
+        <RouteAnnouncer />
+        <AppShell onShowShortcuts={showShortcuts}>
+          {!restoredLocked && (
+            <>
+              {/* "No connection to the diary server" over a running app (the full page lives in the routes);
+                  the offline mode's status bar instead while it runs for the signed-in account. */}
+              <ConnectionBanner />
+              <SyncStatusBar />
+              <AppRoutes />
+            </>
+          )}
+        </AppShell>
+        <LockScreen />
+        <ShortcutsDialog open={shortcutsOpen} onClose={hideShortcuts} />
+      </Fragment>
+    </>
   );
 }

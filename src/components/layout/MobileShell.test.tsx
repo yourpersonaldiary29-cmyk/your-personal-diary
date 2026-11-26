@@ -4,7 +4,8 @@
  * panel with every destination; there is no bottom bar and no "More" sheet any more.
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { useLayoutEffect } from 'react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { Route, Routes, useLocation, useNavigate, type NavigateFunction } from 'react-router-dom';
 import { LOCALE_CODES, hasMessage, type Locale } from '@shared/i18n';
 import { trWith } from '@/i18n/runtime';
@@ -17,6 +18,7 @@ import { MOBILE_UI_CLASS } from '@/utils/mobile-ui';
 import { AppShell } from './AppShell';
 import { MAIN_MENU_ID } from './MainMenu';
 import { MOBILE_STYLE_ID, MobileShell } from './MobileShell';
+import { MobileDocument } from './useMobileDocument';
 import { MENU_PATHS, fabTargetFor, isTopLevelPath, menuNavItems, navSectionOf } from './mobile-nav';
 
 const en = trWith('en');
@@ -543,6 +545,48 @@ describe('MobileShell', () => {
     expect(document.documentElement).not.toHaveClass(MOBILE_UI_CLASS);
     renderShell();
     expect(document.querySelectorAll(`style#${MOBILE_STYLE_ID}`)).toHaveLength(1);
+  });
+
+  it('two holders of the phone setup: the classes go only when the last one lets go', () => {
+    vi.stubGlobal('Capacitor', { isNativePlatform: () => true, getPlatform: () => 'android' });
+    vi.stubGlobal('__MOBILE__', true);
+    const shell = renderShell();
+    const other = render(<MobileDocument />);
+    expect(document.documentElement).toHaveClass(MOBILE_UI_CLASS, 'platform-android');
+    shell.unmount();
+    expect(document.documentElement).toHaveClass(MOBILE_UI_CLASS, 'platform-android');
+    expect(document.querySelectorAll(`style#${MOBILE_STYLE_ID}`)).toHaveLength(1);
+    // The last holder lets go: now the classes go.
+    other.unmount();
+    expect(document.documentElement).not.toHaveClass(MOBILE_UI_CLASS);
+    expect(document.documentElement).not.toHaveClass('platform-android');
+  });
+
+  it('the phone setup is on <html> before the first paint: a layout effect of a later sibling already sees it', () => {
+    vi.stubGlobal('Capacitor', { isNativePlatform: () => true, getPlatform: () => 'android' });
+    vi.stubGlobal('__MOBILE__', true);
+    // A layout effect runs before the browser paints; a passive effect (useEffect) would only run after it.
+    const seen: Array<{ mobile: boolean; android: boolean; styles: number }> = [];
+    function LayoutProbe() {
+      useLayoutEffect(() => {
+        const root = document.documentElement;
+        seen.push({
+          mobile: root.classList.contains(MOBILE_UI_CLASS),
+          android: root.classList.contains('platform-android'),
+          styles: document.querySelectorAll(`style#${MOBILE_STYLE_ID}`).length,
+        });
+      }, []);
+      return null;
+    }
+    const view = render(
+      <>
+        <MobileDocument />
+        <LayoutProbe />
+      </>,
+    );
+    expect(seen).toEqual([{ mobile: true, android: true, styles: 1 }]);
+    view.unmount();
+    expect(document.documentElement).not.toHaveClass(MOBILE_UI_CLASS);
   });
 
   it('the system Back button goes through the router: back to Home, then out of the app', async () => {

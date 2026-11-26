@@ -17,14 +17,16 @@
  * and registration screens get the app bar alone.
  *
  * While mounted the shell
- *   - adds the phone stylesheet (src/styles/mobile.css) to the document, before the first paint;
- *   - puts the class 'platform-mobile' (plus 'platform-android' / 'platform-ios' inside the native
- *     app) on <html>: every rule of src/styles/mobile.css hangs on it;
+ *   - holds the phone setup of the document (useMobileDocument.ts): the phone stylesheet
+ *     (src/styles/mobile.css), added before the first paint, and the class 'platform-mobile' (plus
+ *     'platform-android' / 'platform-ios' inside the native app) on <html> - every rule of
+ *     src/styles/mobile.css hangs on it. src/App.tsx holds the same setup for the whole app, so the
+ *     "Update needed" screen, rendered instead of this shell, keeps it too;
  *   - routes the system Back button through the router (src/utils/back-handler.ts).
  * The wrapper keeps the id "app-root" (the lock screen marks it inert) and <main> keeps the id
  * "main" (skip link, focus after unlocking), exactly like the desktop frame.
  */
-import { useEffect, useInsertionEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SkipLink } from '@/components/a11y/SkipLink';
 import { GuestBanner } from '@/components/GuestBanner';
@@ -32,43 +34,16 @@ import { PATHS } from '@/constants/routes';
 import { isGuestUser, useAuth } from '@/context/AuthContext';
 import { useLock } from '@/context/LockContext';
 import { setBackNavigator } from '@/utils/back-handler';
-import { MOBILE_UI_CLASS } from '@/utils/mobile-ui';
 import { canGoBack } from '@/utils/navigation';
-import { platformName } from '@/utils/platform';
-// As a string, not as a stylesheet of the bundle: the desktop build must not carry the phone styles,
-// and a tree-shaken module cannot take a CSS side effect with it. The shell adds them itself.
-import mobileCss from '@/styles/mobile.css?inline';
 import type { AppShellProps } from './AppShell';
 import { Fab } from './Fab';
 import { MainMenu } from './MainMenu';
 import { APP_ROOT_ID, MAIN_ID } from './shell-ids';
 import { fabTargetFor } from './mobile-nav';
 import { TopAppBar } from './TopAppBar';
+import { useMobileDocument } from './useMobileDocument';
 
-/** Id of the <style> element holding src/styles/mobile.css. */
-export const MOBILE_STYLE_ID = 'mobile-ui-styles';
-
-/** Adds the phone stylesheet once, before the browser paints the shell (allowed by the app's CSP: style-src 'unsafe-inline'). */
-function useMobileStyles(): void {
-  useInsertionEffect(() => {
-    if (document.getElementById(MOBILE_STYLE_ID)) return;
-    const style = document.createElement('style');
-    style.id = MOBILE_STYLE_ID;
-    style.textContent = mobileCss;
-    document.head.appendChild(style);
-  }, []);
-}
-
-/** Marks <html> for mobile.css while the phone shell is mounted. */
-function usePlatformClass(): void {
-  useLayoutEffect(() => {
-    const root = document.documentElement;
-    const platform = platformName();
-    const classes = [MOBILE_UI_CLASS, ...(platform === 'android' || platform === 'ios' ? [`platform-${platform}`] : [])];
-    root.classList.add(...classes);
-    return () => root.classList.remove(...classes);
-  }, []);
-}
+export { MOBILE_STYLE_ID } from './useMobileDocument';
 
 export function MobileShell({ children, onShowShortcuts }: AppShellProps) {
   const { status, user } = useAuth();
@@ -82,8 +57,7 @@ export function MobileShell({ children, onShowShortcuts }: AppShellProps) {
   const guest = authenticated && isGuestUser(user);
   const showFab = authenticated && fabTargetFor(location.pathname) !== null;
 
-  useMobileStyles();
-  usePlatformClass();
+  useMobileDocument();
 
   // The system Back button navigates through the router while the shell is mounted.
   const pathRef = useRef(location.pathname);

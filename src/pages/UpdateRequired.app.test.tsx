@@ -12,13 +12,20 @@
  *    opened with unsaved text by "Open and fix" and nothing was typed (the editor's own hold);
  *  - a start without a connection is never blocked (the rule is not kept on the device), and the web version is
  *    never asked;
- *  - every request of the app carried the mark `X-Diary-Client: 2`.
+ *  - every request of the app carried the mark `X-Diary-Client: 2`;
+ *  - in the phone apps the screen keeps the phone setup of the document (the class 'platform-mobile' on <html>,
+ *    the phone stylesheet) - also after "Check again" brought the frame back - and the system Back button leaves
+ *    the app while it is shown (a dialog above it is closed first) without moving the hidden pages; the desktop
+ *    app and the web version never get the class.
  */
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { useLayoutEffect, useState } from 'react';
 import { act, screen, waitFor } from '@testing-library/react';
 import { APP_VERSION } from '@shared/constants';
 import type { EntryInput } from '@shared/types';
 import * as api from '@/api';
+import { Dialog } from '@/components/a11y/Dialog';
+import { MOBILE_STYLE_ID } from '@/components/layout/useMobileDocument';
 import type { EntryPrefillState } from '@/components/sync/PendingChangesDialog';
 import { PATHS } from '@/constants/routes';
 import { T } from '@/constants/texts';
@@ -30,6 +37,8 @@ import { retryConnection } from '@/context/ConnectionContext';
 import { ET } from '@/pages/entries';
 import { renderOfflineApp, resetOfflineApp } from '@/test/offline-app';
 import { currentPath } from '@/test/render';
+import { handleBack } from '@/utils/back-handler';
+import { MOBILE_UI_CLASS } from '@/utils/mobile-ui';
 
 // The reminder poll is not part of these flows (and would ask the desktop shell, which a test has not).
 vi.mock('@/hooks/useReminders', async (importOriginal) => ({
@@ -104,6 +113,8 @@ describe('the screen replaces everything, and everything goes on underneath', ()
     expect(screen.getByRole('link', { name: en('shell.update.openDownloads') })).toBeInTheDocument();
     // The frame is gone: no menu, no skip link, no app root.
     expect(document.getElementById('app-root')).toBeNull();
+    // The desktop app gets nothing of the phone setup.
+    expect(document.documentElement).not.toHaveClass(MOBILE_UI_CLASS);
 
     // Underneath, the session check ran and the engine uploaded the waiting change; nothing was signed out.
     await waitFor(() => expect(server.diary(DANA).entries.size).toBe(1), { timeout: 15000 });
@@ -295,5 +306,129 @@ describe('when it may appear', () => {
     await waitFor(() => expect(api.getServerInfo()?.appUpdate?.windows).toBeDefined());
     await waitFor(() => expect(offline.isActive()).toBe(true));
     expect(updateScreen()).not.toBeInTheDocument();
+    expect(document.documentElement).not.toHaveClass(MOBILE_UI_CLASS);
   }, 30000);
+});
+
+/** A dialog that lives outside App (as the dialogs of the sync provider do), opened by a button of its own. */
+function DialogOutsideApp() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)}>
+        test: open a dialog
+      </button>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Above the screen">
+        <p>test: dialog content</p>
+      </Dialog>
+    </>
+  );
+}
+
+describe('the phone apps (Android) under the screen', () => {
+  beforeEach(() => {
+    vi.stubGlobal('__MOBILE__', true);
+    vi.stubGlobal('Capacitor', { isNativePlatform: () => true, getPlatform: () => 'android' });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    window.history.replaceState(null, '', '#/');
+  });
+
+  it('keeps the phone setup of the document while shown and after the frame is back; Back leaves the app and moves nothing', async () => {
+    wireDevice({ server });
+    api.setServerInfo(null);
+    server.infoOverrides = { appUpdate: { android: { minVersion: NEWER } } };
+    // A browser history with pages behind this one: the default way of Back (without the phone frame's
+    // navigator) would go back in it.
+    window.history.replaceState({ idx: 2 }, '', '#/diary');
+    const historyBack = vi.spyOn(window.history, 'back').mockImplementation(() => undefined);
+    const { user } = renderOfflineApp('/diary', <DialogOutsideApp />);
+
+    const page = await screen.findByTestId('update-required-page', {}, { timeout: 15000 });
+    expect(page).toHaveAttribute('data-platform', 'android');
+    expect(document.getElementById('app-root')).toBeNull();
+    // The phone setup is there, exactly as under the frame.
+    expect(document.documentElement).toHaveClass(MOBILE_UI_CLASS, 'platform-android');
+    expect(document.querySelectorAll(`style#${MOBILE_STYLE_ID}`)).toHaveLength(1);
+
+    // Back: the app is left, the hidden page stays where it was.
+    let result = '';
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('exit');
+    expect(historyBack).not.toHaveBeenCalled();
+    expect(currentPath()).toBe('/diary');
+
+    // A dialog above the screen is closed first; the next press leaves the app.
+    await user.click(screen.getByRole('button', { name: 'test: open a dialog' }));
+    expect(await screen.findByRole('dialog', { name: 'Above the screen' })).toBeInTheDocument();
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('closed-dialog');
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Above the screen' })).not.toBeInTheDocument());
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('exit');
+    expect(historyBack).not.toHaveBeenCalled();
+    expect(currentPath()).toBe('/diary');
+    expect(updateScreen()).toBeInTheDocument();
+
+    // The rule is gone: the frame is back on the same page, with the phone setup still on <html>.
+    server.infoOverrides = {};
+    await user.click(screen.getByRole('button', { name: en('shell.update.retry') }));
+    await waitFor(() => expect(updateScreen()).not.toBeInTheDocument());
+    expect(document.getElementById('app-root')).not.toBeNull();
+    expect(document.documentElement).toHaveClass(MOBILE_UI_CLASS, 'platform-android');
+    expect(currentPath()).toBe('/diary');
+
+    // Back works as before: through the frame's router, from this page with nothing behind it to Home.
+    window.history.replaceState(null, '', '#/diary');
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('navigated');
+    await waitFor(() => expect(currentPath()).toBe('/'));
+    expect(historyBack).not.toHaveBeenCalled();
+    historyBack.mockRestore();
+  }, 60000);
+
+  it('the screen as the very first thing the app shows: the phone setup is on <html> before its first paint', async () => {
+    wireDevice({ server });
+    // The rule is already known when the app mounts, so its first commit is the screen.
+    server.infoOverrides = { appUpdate: { android: { minVersion: NEWER } } };
+    api.setServerInfo({
+      version: '1.2.0', port: 8080, lanEnabled: false, lanUrls: [], dataDir: '', isLocalRequest: false, startedAt: '', mode: 'hosted',
+      appUpdate: { android: { minVersion: NEWER } },
+    });
+    // Rendered after App: its layout effect runs in App's first commit, after App's own layout effects and
+    // before the browser paints (and before any passive effect). It records what that first paint would show.
+    const firstPaint: Array<{ screen: boolean; mobile: boolean; android: boolean; styles: number }> = [];
+    function FirstPaintProbe() {
+      useLayoutEffect(() => {
+        const root = document.documentElement;
+        firstPaint.push({
+          screen: document.querySelector('[data-testid="update-required-page"]') !== null,
+          mobile: root.classList.contains(MOBILE_UI_CLASS),
+          android: root.classList.contains('platform-android'),
+          styles: document.querySelectorAll(`style#${MOBILE_STYLE_ID}`).length,
+        });
+      }, []);
+      return null;
+    }
+    renderOfflineApp('/diary', <FirstPaintProbe />);
+
+    expect(firstPaint).toEqual([{ screen: true, mobile: true, android: true, styles: 1 }]);
+    expect(await screen.findByTestId('update-required-page', {}, { timeout: 15000 })).toHaveAttribute('data-platform', 'android');
+    expect(document.documentElement).toHaveClass(MOBILE_UI_CLASS, 'platform-android');
+    let result = '';
+    act(() => {
+      result = handleBack();
+    });
+    expect(result).toBe('exit');
+  }, 60000);
 });

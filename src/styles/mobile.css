@@ -1,7 +1,8 @@
 /*
- * Phone layout of the Android and iPhone app. Used by the phone shell only: MobileShell.tsx imports this file
- * as text (`?inline`) and adds it to the document when it mounts, so the desktop bundle does not
- * contain it; and every rule hangs on the class the shell puts on <html> while it is mounted -
+ * Phone layout of the Android and iPhone app. Used by the phone UI only: src/components/layout/useMobileDocument.ts
+ * imports this file as text (`?inline`) and adds it to the document when its first holder mounts, so the
+ * desktop bundle does not contain it; and every rule hangs on the class that hook puts on <html> while a
+ * holder is mounted (src/App.tsx for the whole app in the phone UI, and the phone frame MobileShell.tsx) -
  * `.platform-mobile` - so nothing here can ever restyle the desktop app.
  *
  * Contents: tokens and safe areas · shell (app bar with the "Menu" button, tour banner, floating

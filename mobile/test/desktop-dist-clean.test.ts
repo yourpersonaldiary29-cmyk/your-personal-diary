@@ -26,7 +26,18 @@ const projectRoot = process.cwd();
 const viteBin = path.join(projectRoot, 'node_modules', 'vite', 'bin', 'vite.js');
 
 /** Strings that only the Android builds may contain. */
-const MOBILE_ONLY = ['@capacitor', 'Capacitor', 'mobile-splash', 'core not ready', 'diary-core', 'mpdFormBoundary'];
+const MOBILE_ONLY = [
+  '@capacitor',
+  'Capacitor',
+  'mobile-splash',
+  'core not ready',
+  'diary-core',
+  'mpdFormBoundary',
+  // The phone setup of the document (src/components/layout/useMobileDocument.ts: the id of the phone stylesheet and the
+  // class every phone rule hangs on). src/App.tsx imports it behind the spelled-out __MOBILE__ flag.
+  'mobile-ui-styles',
+  'platform-mobile',
+];
 /** Strings that only the local-core build may contain (the in-process diary core and its worker). */
 const CORE_ONLY = ['core not ready', 'diary-core', 'new Worker(', CORE_SQL_WASM_FILE, 'express-shim', 'storage-rpc'];
 
