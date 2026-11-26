@@ -132,7 +132,7 @@ export class Outbox {
             return key;
           }, STRICT);
           await this.mirror.putOutbox({ ...row, seq });
-          await this.load();
+          await this.reloadAfterCommit();
           return { action: 'append', seq, q: next };
         }
         const p = prev as LoadedOp;
@@ -150,7 +150,7 @@ export class Outbox {
           }, STRICT);
           await this.mirror.remove(opFileName(p.row.seq, p.row.rid));
           await this.mirror.putOutbox(row);
-          await this.load();
+          await this.reloadAfterCommit();
           return { action: 'replace', seq: p.row.seq, q: merged };
         }
         // drop-both
@@ -161,7 +161,7 @@ export class Outbox {
           await IdMap.putRows(t, idRows);
         }, STRICT);
         await this.mirror.remove(opFileName(p.row.seq, p.row.rid));
-        await this.load();
+        await this.reloadAfterCommit();
         return { action: 'drop-both', seq: p.row.seq, q: p.q };
       } catch (e) {
         if (e instanceof TxConflict) continue;
@@ -169,6 +169,16 @@ export class Outbox {
       }
     }
     throw new Error('offline outbox: could not queue the change (busy)');
+  }
+
+  /**
+   * The re-read after an enqueue transaction COMMITTED. The change is on the device from that moment, so
+   * a re-read that fails - the store was closed meanwhile (the teardown of a 401 calls stop() at any
+   * moment) - must not turn the save into "not saved" for the page; the list in memory is refreshed by
+   * the next load.
+   */
+  private async reloadAfterCommit(): Promise<void> {
+    await this.load().catch(() => undefined);
   }
 
   /**

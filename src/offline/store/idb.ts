@@ -19,6 +19,7 @@ import {
   type StoreTx,
   type TxOptions,
 } from './types';
+import { StoreSeal } from './seal';
 
 let factoryOverride: IDBFactory | null = null;
 
@@ -51,6 +52,8 @@ function promisify<T>(req: IDBRequest<T>): Promise<T> {
 class IdbStore implements OfflineStore {
   readonly persistent = true;
   private closed = false;
+  /** The 401 purge's seal of this connection (./seal.ts). */
+  private readonly seal = new StoreSeal();
 
   constructor(private readonly db: IDBDatabase) {
     // Another tab deleting the database (a wipe) must not be blocked by this connection.
@@ -71,6 +74,8 @@ class IdbStore implements OfflineStore {
         transaction = durability
           ? this.db.transaction([...stores], mode, { durability })
           : this.db.transaction([...stores], mode);
+        // The purge transaction exists from here on: so does its seal (in the same step, see ./seal.ts).
+        if (options.seal) this.seal.add(options.seal);
       } catch (e) {
         reject(e);
         return;
@@ -91,7 +96,7 @@ class IdbStore implements OfflineStore {
         // The abort event follows; keep the first error as the reason.
         if (!failure) failure = transaction.error ?? (ev.target as IDBRequest | null)?.error ?? new Error('IndexedDB error');
       };
-      const api: StoreTx = {
+      const raw: StoreTx = {
         get: <S extends StoreName>(store: S, key: IDBValidKey) =>
           promisify(transaction.objectStore(store).get(key)) as Promise<RowOf[S] | undefined>,
         getAll: <S extends StoreName>(store: S) =>
@@ -101,6 +106,7 @@ class IdbStore implements OfflineStore {
         clear: (store) => promisify(transaction.objectStore(store).clear()).then(() => undefined),
         count: (store) => promisify(transaction.objectStore(store).count()),
       };
+      const api = this.seal.guard(raw);
       Promise.resolve()
         .then(() => fn(api))
         .then(

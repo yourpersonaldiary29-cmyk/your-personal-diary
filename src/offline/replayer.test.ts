@@ -384,6 +384,26 @@ function stubWebLocks() {
   };
 }
 
+/**
+ * Runs `action` once, right after the first readwrite transaction of `engine.store` over exactly the
+ * stores `scope` (sorted, comma-joined) has committed - before its caller's next step. Returns
+ * whether it ran.
+ */
+function afterCommitOf(engine: OfflineEngine, scope: string, action: () => void): () => boolean {
+  const store = engine.store as { tx: OfflineEngine['store']['tx'] };
+  const origTx = store.tx.bind(engine.store);
+  let ran = false;
+  store.tx = (async (...args: Parameters<typeof origTx>) => {
+    const out = await origTx(...args);
+    if (!ran && args[1] === 'readwrite' && [...args[0]].sort().join() === scope) {
+      ran = true;
+      action();
+    }
+    return out;
+  }) as typeof origTx;
+  return () => ran;
+}
+
 describe('replayer fixes (verified findings)', () => {
   let server: FakeSyncServer;
 
@@ -395,6 +415,38 @@ describe('replayer fixes (verified findings)', () => {
   afterEach(async () => {
     __setOpTimeoutForTests(null);
     await resetOfflineTestEnv();
+  });
+
+  it.each([
+    ['a sign-out (offline.stop())', 'stop'],
+    ['another tab closing the connection', 'close'],
+  ] as const)('a 400 for a save whose page waits: %s right after the rejection is committed still tells the page, or leaves a note', async (_name, how) => {
+    const { engine } = await bootDevice({ server, rememberMe: true, app: true });
+    // Right after the rejection's transaction (outbox + notes) has committed, the row is gone from the outbox.
+    const injected = afterCommitOf(engine, 'notes,outbox', () => (how === 'stop' ? offline.stop() : engine.store.close()));
+    const answer = await api.entries.create(entryInput('x'.repeat(300))).then(
+      (r) => ({ saved: r as Entry }),
+      (err: unknown) => ({ error: err as { status?: number } }),
+    );
+    expect(injected()).toBe(true);
+    const disk = await onDisk();
+    expect(disk.outbox).toBe(0);
+    expect(server.diary(DANA).entries.size).toBe(0);
+    // Never silently lost: either the page heard "rejected" (the user still has the text in the form), or a note holds it.
+    if ('saved' in answer) expect(disk.notes).toBe(1);
+    else expect(answer.error.status).toBe(400);
+  });
+
+  it('a save the server applied, with the engine stopped right after the answer is committed, gives the page the server record', async () => {
+    const { engine } = await bootDevice({ server, rememberMe: true, app: true });
+    const injected = afterCommitOf(engine, 'idmap,journal,notes,outbox', () => offline.stop());
+    const saved = await api.entries.create(entryInput('Applied'));
+    expect(injected()).toBe(true);
+    expect(server.diary(DANA).entries.size).toBe(1);
+    // Not "saved on this device": the row is no longer on the device, the server has it.
+    expect(isPendingRecord(saved)).toBe(false);
+    expect(saved.id).toBe([...server.diary(DANA).entries.values()][0].id);
+    expect((await onDisk()).outbox).toBe(0);
   });
 
   it('stale drops the id map: after a restore a local id no longer resolves to the record that reused its server id', async () => {

@@ -20,7 +20,7 @@ import type { EntryInput } from '@shared/types';
 import * as api from '@/api';
 import { T } from '@/constants/texts';
 import { trWith } from '@/i18n/runtime';
-import { BINDING_KEY, getSyncStatus, offline } from '@/offline';
+import { BINDING_KEY, getSyncStatus, isPendingRecord, offline } from '@/offline';
 import { bootDevice, DANA, LIOR, fakeKeyVault, fakeMirror, installWebCrypto, waitForAsync, wireDevice } from '@/offline/test-utils/env';
 import { FakeSyncServer, fakeUser } from '@/offline/test-utils/fake-sync-server';
 import { ET } from '@/pages/entries';
@@ -66,6 +66,7 @@ beforeEach(() => {
 });
 
 afterEach(async () => {
+  vi.restoreAllMocks();
   await resetOfflineApp();
 });
 
@@ -300,6 +301,144 @@ describe('the safe paths (section 4.8)', () => {
     await waitFor(async () => expect(await offline.otherAccountsWithPending(null)).toEqual([]));
     await waitFor(() => expect(currentPath()).toBe('/'));
     expect(server.diary(DANA).entries.size).toBe(0);
+  }, 40000);
+
+  it('a sign-out whose upload meets a 401: the waiting change is kept (never wiped without "Delete them and sign out") and the login page says so', async () => {
+    const { account } = wireDevice({ server });
+    // The home page: after the sign-out it would be the welcome page, which has no waiting line.
+    const { user } = renderOfflineApp('/', <LogoutButton />);
+    await waitFor(() => expect(offline.isActive()).toBe(true));
+    goDown();
+    await act(async () => {
+      await api.entries.create(ENTRY);
+    });
+    expect(getSyncStatus().pending).toBe(1);
+
+    // The session was ended elsewhere meanwhile (a password change on another device). The connection
+    // returns on a slow network and the upload starts; the user signs out while it is under way. The
+    // sign-out waits for that upload, which is answered 401: the engine is torn down while it waits.
+    server.revoke(account.token);
+    server.latencyMs = 250;
+    server.mode = 'online';
+    void offline.tryNow();
+    await waitFor(() => expect(getSyncStatus().phase).toBe('syncing'), { timeout: 5000 });
+    expect(getSyncStatus().pending).toBe(1);
+    await user.click(screen.getByTestId('test-logout'));
+
+    expect(await screen.findByTestId('login-waiting', {}, { timeout: 15000 })).toHaveTextContent(en('shell.sync.login.waiting', { count: 1 }));
+    await waitFor(() => expect(currentPath()).toBe('/login'));
+    expect(offline.isActive()).toBe(false);
+    // No "Delete them and sign out" was ever chosen: the change is still on the device (ciphertext; it
+    // uploads after the next sign-in), and nothing of it reached the server.
+    expect(screen.queryByRole('dialog', { name: en('shell.sync.logout.title') })).not.toBeInTheDocument();
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 300));
+    });
+    expect(await offline.otherAccountsWithPending(null)).toEqual([{ userId: DANA, count: 1 }]);
+    expect(server.diary(DANA).entries.size).toBe(0);
+    // The upload did go out with the revoked token (and was answered 401).
+    expect(server.calls('/api/sync/').some((r) => r.token === account.token)).toBe(true);
+  }, 40000);
+
+  it('a change saved while the sign-out waits for the server (nothing was waiting when it asked): it is not deleted unasked', async () => {
+    wireDevice({ server });
+    const { user } = renderOfflineApp('/', <LogoutButton />);
+    await waitFor(() => expect(offline.isActive()).toBe(true));
+    expect(getSyncStatus().pending).toBe(0);
+
+    // Nothing waits, so the sign-out asks nothing and signs out at the server - on a slow network. While
+    // that request is under way the connection drops and a save lands in the outbox ("Saved on this device").
+    server.latencyMs = 300;
+    await user.click(screen.getByTestId('test-logout'));
+    await waitFor(() => expect(server.calls('/api/auth/logout').length).toBe(1));
+    server.mode = 'down';
+    let saved: unknown;
+    await act(async () => {
+      saved = await api.entries.create(ENTRY);
+    });
+    expect(isPendingRecord(saved)).toBe(true);
+
+    await waitFor(() => expect(offline.isActive()).toBe(false), { timeout: 10000 });
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 300));
+    });
+    // The user was never asked about this change: it is still on the device.
+    expect(await offline.otherAccountsWithPending(null)).toEqual([{ userId: DANA, count: 1 }]);
+  }, 40000);
+
+  it('a save whose outbox transaction commits just as the server logout answers (its count not yet published) is kept', async () => {
+    wireDevice({ server });
+    const { user } = renderOfflineApp('/', <LogoutButton />);
+    await waitFor(() => expect(offline.isActive()).toBe(true));
+    const e = offline.__engineForTests()!;
+    goDown();
+    expect(getSyncStatus().pending).toBe(0);
+    // The moment the enqueue's outbox transaction has committed - before the engine has re-read the outbox
+    // and published the new count.
+    let committed!: () => void;
+    const commit = new Promise<void>((r) => (committed = r));
+    const realTx = e.store.tx.bind(e.store);
+    (e.store as { tx: typeof realTx }).tx = ((stores, mode, fn, o) => {
+      const p = realTx(stores, mode, fn, o);
+      if (mode === 'readwrite' && stores.includes('outbox')) void p.then(() => committed(), () => undefined);
+      return p;
+    }) as typeof realTx;
+    let saved: unknown = 'not settled';
+    let saving: Promise<unknown> | null = null;
+    // The server logout is under way; the autosave of an open page fires, and its transaction commits just as the answer arrives.
+    vi.spyOn(api.auth, 'logout').mockImplementation(async () => {
+      saving = api.entries.create(ENTRY).then(
+        (r) => (saved = r),
+        (err: unknown) => (saved = err),
+      );
+      await commit;
+      throw new Error('no connection');
+    });
+    await user.click(screen.getByTestId('test-logout'));
+    await waitFor(() => expect(offline.isActive()).toBe(false), { timeout: 10000 });
+    await act(async () => {
+      await saving;
+      await new Promise((r) => setTimeout(r, 300));
+    });
+    // The page was told "Saved on this device", so the change is still on the device.
+    expect(isPendingRecord(saved)).toBe(true);
+    expect(await offline.otherAccountsWithPending(null)).toEqual([{ userId: DANA, count: 1 }]);
+    expect(await screen.findByTestId('login-waiting', {}, { timeout: 5000 })).toHaveTextContent(en('shell.sync.login.waiting', { count: 1 }));
+  }, 40000);
+
+  it('"Delete them and sign out" about one change: one uploads and another is saved while the server logout runs - the other is kept', async () => {
+    wireDevice({ server });
+    const { user } = renderOfflineApp('/', <LogoutButton />);
+    await waitFor(() => expect(offline.isActive()).toBe(true));
+    const e = offline.__engineForTests()!;
+    goDown();
+    await act(async () => {
+      await api.entries.create(ENTRY);
+    });
+    expect(getSyncStatus().pending).toBe(1);
+    let second: unknown = null;
+    vi.spyOn(api.auth, 'logout').mockImplementation(async () => {
+      // The connection comes back for a moment: the first change uploads; then it drops and the page saves another.
+      server.mode = 'online';
+      await offline.tryNow();
+      await offline.drain();
+      server.mode = 'down';
+      e.connectivity.noteFailure();
+      second = await api.entries.create({ ...ENTRY, title: 'Evening' });
+      throw new Error('no connection');
+    });
+    await user.click(screen.getByTestId('test-logout'));
+    const question = await screen.findByRole('dialog', { name: en('shell.sync.logout.title') });
+    expect(question).toHaveTextContent(en('shell.sync.logout.text', { count: 1 }));
+    await user.click(within(question).getByRole('button', { name: en('shell.sync.logout.delete') }));
+    await waitFor(() => expect(offline.isActive()).toBe(false), { timeout: 10000 });
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 300));
+    });
+    expect(server.diary(DANA).entries.size).toBe(1);
+    expect(isPendingRecord(second)).toBe(true);
+    // The count is the same (1), but it is another change, which nobody chose to delete.
+    expect(await offline.otherAccountsWithPending(null)).toEqual([{ userId: DANA, count: 1 }]);
   }, 40000);
 
   it('another account on this device: its changes are never sent; a neutral line offers [Delete] with a confirmation', async () => {

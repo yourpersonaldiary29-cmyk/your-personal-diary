@@ -1,9 +1,11 @@
 /**
  * In-memory implementation of `OfflineStore`: the read cache of sessions without "Remember me" (and
  * of the web), which must never reach the disk (section 4.6), and a stand-in in tests. Same
- * semantics as IndexedDB: key paths, key generators, one transaction at a time, all-or-nothing.
+ * semantics as IndexedDB: key paths, key generators, one transaction at a time, all-or-nothing, and
+ * the 401 purge's seal (./seal.ts), armed when the purge transaction is created (queued).
  */
-import { STORE_NAMES, STORE_SCHEMA, type OfflineStore, type RowOf, type StoreName, type StoreTx } from './types';
+import { StoreSeal } from './seal';
+import { STORE_NAMES, STORE_SCHEMA, type OfflineStore, type RowOf, type StoreName, type StoreTx, type TxOptions } from './types';
 
 type Table = Map<string, unknown>;
 
@@ -22,8 +24,11 @@ export class MemoryStore implements OfflineStore {
   private counters = new Map<StoreName, number>(STORE_NAMES.map((n) => [n, 0]));
   private queue: Promise<unknown> = Promise.resolve();
   private closed = false;
+  private readonly seal = new StoreSeal();
 
-  tx<T>(stores: readonly StoreName[], _mode: 'readonly' | 'readwrite', fn: (t: StoreTx) => Promise<T>): Promise<T> {
+  tx<T>(stores: readonly StoreName[], _mode: 'readonly' | 'readwrite', fn: (t: StoreTx) => Promise<T>, options: TxOptions = {}): Promise<T> {
+    // As in IndexedDB: the seal exists from the moment the purge transaction does (not when it runs).
+    if (options.seal && !this.closed) this.seal.add(options.seal);
     const run = async (): Promise<T> => {
       if (this.closed) throw new Error('offline store closed');
       // Copy-on-write: work on copies of the touched tables, swap them in only on success.
@@ -34,7 +39,7 @@ export class MemoryStore implements OfflineStore {
         if (!t) throw new Error(`store ${s} is not part of this transaction`);
         return t;
       };
-      const api: StoreTx = {
+      const raw: StoreTx = {
         get: async <S extends StoreName>(s: S, key: IDBValidKey) => {
           const v = table(s).get(keyString(key));
           return (v === undefined ? undefined : structuredClone(v)) as RowOf[S] | undefined;
@@ -62,6 +67,7 @@ export class MemoryStore implements OfflineStore {
         },
         count: async (s) => table(s).size,
       };
+      const api = this.seal.guard(raw);
       const result = await fn(api);
       for (const [s, t] of work) this.tables.set(s, t);
       this.counters = counters;
@@ -74,5 +80,10 @@ export class MemoryStore implements OfflineStore {
 
   close(): void {
     this.closed = true;
+  }
+
+  /** Tests only: the committed rows of a table as they really are - past the seal, also after close(). */
+  __rowsForTests<S extends StoreName>(s: S): RowOf[S][] {
+    return [...(this.tables.get(s) ?? new Map()).values()].map((v) => structuredClone(v)) as RowOf[S][];
   }
 }

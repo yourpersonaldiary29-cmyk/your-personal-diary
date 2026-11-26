@@ -45,6 +45,13 @@ export const BLOCKED_AFTER_STRIKES = 3;
 
 export type AckOutcome = { kind: 'ack'; result: SyncOpResult; q: QueuedOp } | { kind: 'rejected'; error: ApiClientError } | { kind: 'timeout' };
 
+/** A page waiting for the answer to one row (`awaitAck`). */
+interface AckWatcher {
+  answer(o: AckOutcome): void;
+  /** Cancels the timeout: an answer has claimed this watcher and replies to it itself. */
+  hold(): void;
+}
+
 let opTimeoutOverride: number | null = null;
 
 /** Tests: a shorter send timeout (null restores the contract's). */
@@ -106,7 +113,7 @@ export class Replayer {
   private keyFresh = false;
   private sendingSeq: number | null = null;
   private readonly strikes = new Map<string, number>();
-  private readonly watchers = new Map<number, Set<(o: AckOutcome) => void>>();
+  private readonly watchers = new Map<number, Set<AckWatcher>>();
 
   constructor(private readonly e: OfflineEngine) {}
 
@@ -154,7 +161,8 @@ export class Replayer {
     this.again = false;
     if (this.wakeTimer) clearTimeout(this.wakeTimer);
     this.wakeTimer = null;
-    for (const set of this.watchers.values()) for (const w of set) w({ kind: 'timeout' });
+    // A watcher that an answer has already claimed (`claim`) is not here: only that answer replies to it.
+    for (const set of this.watchers.values()) for (const w of [...set]) w.answer({ kind: 'timeout' });
     this.watchers.clear();
   }
 
@@ -162,33 +170,45 @@ export class Replayer {
   awaitAck(seq: number, timeoutMs: number): Promise<AckOutcome> {
     return new Promise<AckOutcome>((resolve) => {
       let done = false;
-      const finish = (o: AckOutcome) => {
-        if (done) return;
-        done = true;
-        clearTimeout(timer);
-        this.watchers.get(seq)?.delete(finish);
-        resolve(o);
+      let timer: ReturnType<typeof setTimeout> | null = null;
+      const w: AckWatcher = {
+        answer: (o) => {
+          if (done) return;
+          done = true;
+          if (timer) clearTimeout(timer);
+          timer = null;
+          this.watchers.get(seq)?.delete(w);
+          resolve(o);
+        },
+        hold: () => {
+          if (timer) clearTimeout(timer);
+          timer = null;
+        },
       };
-      const timer = setTimeout(() => finish({ kind: 'timeout' }), timeoutMs);
+      timer = setTimeout(() => w.answer({ kind: 'timeout' }), timeoutMs);
       let set = this.watchers.get(seq);
       if (!set) {
         set = new Set();
         this.watchers.set(seq, set);
       }
-      set.add(finish);
+      set.add(w);
       this.kick();
     });
   }
 
-  private deliver(seq: number, outcome: AckOutcome): void {
+  /**
+   * Takes the pages waiting for `seq` out of the reach of their timeout and of `stop()`: from now on
+   * only the caller answers them, on every path. An answer that removes the row from the outbox claims
+   * them BEFORE its transaction, so "saved on this device" (a timeout) is never told about a row that
+   * is no longer on the device, and a rejection whose page was claimed never goes unheard.
+   */
+  private claim(seq: number): AckWatcher[] {
     const set = this.watchers.get(seq);
-    if (!set) return;
+    if (!set) return [];
     this.watchers.delete(seq);
-    for (const w of [...set]) w(outcome);
-  }
-
-  hasWatcher(seq: number): boolean {
-    return (this.watchers.get(seq)?.size ?? 0) > 0;
+    const out = [...set];
+    for (const w of out) w.hold();
+    return out;
   }
 
   /** The waiting operations as the review list shows them. */
@@ -414,25 +434,38 @@ export class Replayer {
     const journalRow = await e.journal.encryptRow(journalEntry);
     const idRows = await Promise.all(idmapRows.map((r) => e.idmap.encryptRow(r)));
     const noteRows: NoteRow[] = await Promise.all(notes.map((n) => e.notes.prepare(n, now)));
-    const noteIds = await e.store.tx(['outbox', 'journal', 'idmap', 'notes'], 'readwrite', async (t) => {
-      const cur = await t.get('outbox', sealed.row.seq);
-      if (cur && cur.rid === sealed.row.rid) await t.delete('outbox', sealed.row.seq);
-      await t.put('journal', journalRow);
-      await IdMap.putRows(t, idRows);
-      return Notes.putRows(t, noteRows);
-    });
-    await e.mirror.remove(opFileName(sealed.row.seq, sealed.row.rid));
-    e.journal.remember(journalEntry);
-    for (const r of idmapRows) e.idmap.remember(r);
-    await e.notes.committed(noteRows, noteIds, notes);
+    // From here the page waiting for this row hears the server's answer, whatever stops the engine meanwhile.
+    const held = this.claim(sealed.row.seq);
+    let noteIds: number[];
+    try {
+      noteIds = await e.store.tx(['outbox', 'journal', 'idmap', 'notes'], 'readwrite', async (t) => {
+        const cur = await t.get('outbox', sealed.row.seq);
+        if (cur && cur.rid === sealed.row.rid) await t.delete('outbox', sealed.row.seq);
+        await t.put('journal', journalRow);
+        await IdMap.putRows(t, idRows);
+        return Notes.putRows(t, noteRows);
+      });
+    } catch (failure) {
+      // Nothing was removed: the row is still in the outbox, "saved on this device" is the truth.
+      for (const w of held) w.answer({ kind: 'timeout' });
+      throw failure;
+    }
+    try {
+      await e.mirror.remove(opFileName(sealed.row.seq, sealed.row.rid));
+      e.journal.remember(journalEntry);
+      for (const r of idmapRows) e.idmap.remember(r);
+      await e.notes.committed(noteRows, noteIds, notes);
 
-    await this.maintainCache(q, result);
-    if (result.epoch && result.epoch !== e.epoch) await e.setEpoch(result.epoch);
-    await e.outbox.load();
-    e.publishCounts();
-    bumpDataVersion();
-    e.broadcast('changed');
-    this.deliver(sealed.row.seq, { kind: 'ack', result, q });
+      await this.maintainCache(q, result);
+      if (result.epoch && result.epoch !== e.epoch) await e.setEpoch(result.epoch);
+      await e.outbox.load();
+      e.publishCounts();
+      bumpDataVersion();
+      e.broadcast('changed');
+    } finally {
+      // Committed: the server's answer is the truth even when the engine was stopped in between.
+      for (const w of held) w.answer({ kind: 'ack', result, q });
+    }
   }
 
   /**
@@ -514,26 +547,47 @@ export class Replayer {
     const first = rows.find((r) => r.row.seq === sealed.row.seq);
     const notes: NoteBody[] = [];
     const removed: LoadedOp[] = [];
+    // The pages waiting for these rows are claimed first: no timeout and no stop() can answer them any
+    // more. So "no note, the page hears it" is decided once and kept: a claimed page is told "rejected"
+    // once the commit is done, on every path (also when a later step fails on a closed store); a row
+    // with no claimed page gets a note.
+    const held = new Map<number, AckWatcher[]>();
+    for (const r of first ? [first, ...doomed] : doomed) held.set(r.row.seq, this.claim(r.row.seq));
+    const answerAll = (o: AckOutcome) => {
+      for (const ws of held.values()) for (const w of ws) w.answer(o);
+    };
     if (first) {
       removed.push(first);
-      if (!this.hasWatcher(first.row.seq)) notes.push(noteOfRejection(first.q, err, e.idmap));
+      if (!held.get(first.row.seq)?.length) notes.push(noteOfRejection(first.q, err, e.idmap));
     }
     for (const r of doomed) {
       removed.push(r);
       notes.push({ reason: 'blocked', label: labelOf(r.q), op: r.q.op, mine: entryOfOp(r.q.op, displayIdOf(e.idmap, r.q), r.q.hint?.createdAt) });
     }
-    const noteRows = await Promise.all(notes.map((n) => e.notes.prepare(n, e.now())));
-    const noteIds = await e.store.tx(['outbox', 'notes'], 'readwrite', async (t) => {
-      for (const r of removed) {
-        const cur = await t.get('outbox', r.row.seq);
-        if (cur && cur.rid === r.row.rid) await t.delete('outbox', r.row.seq);
-      }
-      return Notes.putRows(t, noteRows);
-    });
-    for (const r of removed) await e.mirror.remove(opFileName(r.row.seq, r.row.rid));
-    await e.notes.committed(noteRows, noteIds, notes);
-    await e.outbox.load();
-    for (const r of removed) this.deliver(r.row.seq, { kind: 'rejected', error: err });
+    let noteRows: NoteRow[];
+    let noteIds: number[];
+    try {
+      noteRows = await Promise.all(notes.map((n) => e.notes.prepare(n, e.now())));
+      noteIds = await e.store.tx(['outbox', 'notes'], 'readwrite', async (t) => {
+        for (const r of removed) {
+          const cur = await t.get('outbox', r.row.seq);
+          if (cur && cur.rid === r.row.rid) await t.delete('outbox', r.row.seq);
+        }
+        return Notes.putRows(t, noteRows);
+      });
+    } catch (failure) {
+      // Nothing was removed: the rows are still in the outbox, "saved on this device" is the truth.
+      answerAll({ kind: 'timeout' });
+      throw failure;
+    }
+    try {
+      for (const r of removed) await e.mirror.remove(opFileName(r.row.seq, r.row.rid));
+      await e.notes.committed(noteRows, noteIds, notes);
+      await e.outbox.load(); // before the page hears it: its next look at the waiting list no longer shows the rows
+    } finally {
+      // Committed: the pages hear "rejected" even when the engine was stopped or its store closed in between.
+      answerAll({ kind: 'rejected', error: err });
+    }
     e.publishCounts();
     bumpDataVersion();
     e.broadcast('changed');

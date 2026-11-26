@@ -8,6 +8,7 @@
  * Two implementations share the `OfflineStore` interface: IndexedDB (./idb.ts) and an in-memory twin
  * (./memory.ts: the read cache of sessions without "Remember me", and tests).
  */
+import type { SealSpec } from './seal';
 
 export const DB_PREFIX = 'ypd-offline-v1-';
 export const DB_VERSION = 1;
@@ -111,6 +112,12 @@ export interface StoreTx {
 export interface TxOptions {
   /** IndexedDB durability hint; every write of the engine passes 'strict' (section 4.3). */
   durability?: 'strict' | 'relaxed' | 'default';
+  /**
+   * The 401 purge only (./seal.ts): from the moment THIS transaction is created, this store (this
+   * connection) writes nothing more into what `seal` names - a write there is a silent no-op, a read
+   * answers as for an empty store - while every other store and `meta` row goes on as before.
+   */
+  seal?: SealSpec;
 }
 
 export interface OfflineStore {

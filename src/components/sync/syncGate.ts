@@ -13,10 +13,11 @@
  *  - "Drain first" for the online-only writes (habit delete / reorder, demo data, restore, profile,
  *    password, sessions): upload what is waiting, then go ahead only when nothing is left.
  *  - The full wipe of an account on this device (`wipeAccountQuietly`), called explicitly by the sign-out
- *    after the dialog and by the account deletion (section 4.8, E16) - never from
- *    `clearSignedOutAccountData`.
+ *    after the dialog - through `finishSignOut`, only when everything at rest was covered by the answer -
+ *    and by the account deletion (section 4.8, E16) - never from `clearSignedOutAccountData`.
  */
-import { getSyncStatus, isPendingRecord, offline, subscribeSyncStatus } from '@/offline';
+import { getSyncStatus, isPendingRecord, offline, subscribeSyncStatus, type ChangesAtRest } from '@/offline';
+import { getToken } from '@/api/client';
 import { tr } from '@/i18n/runtime';
 
 // ---------------------------------------------------------------------------
@@ -27,11 +28,15 @@ import { tr } from '@/i18n/runtime';
  * The last counts seen for an armed account. A 401 tears the engine down at once (its own listener), so
  * the login page's waiting line reads the count from here instead of from the stopped engine.
  */
-let lastKnown: { userId: string; pending: number } | null = null;
+let lastKnown: { userId: string; pending: number; notes: number } | null = null;
 
 function trackStatus(): void {
   const s = getSyncStatus();
-  if (s.enabled && s.userId) lastKnown = { userId: s.userId, pending: s.pending };
+  if (!s.enabled || !s.userId) return;
+  // The notes are read from the engine while it is armed for that account (they cannot be counted at rest).
+  const armed = offline.isActive() && offline.activeUserId() === s.userId;
+  const notes = armed ? offline.notes.list().length : lastKnown?.userId === s.userId ? lastKnown.notes : 0;
+  lastKnown = { userId: s.userId, pending: s.pending, notes };
 }
 subscribeSyncStatus(trackStatus);
 
@@ -86,36 +91,125 @@ export function changesOnDevice(userId: string | null | undefined): number {
   return getSyncStatus().pending + offline.notes.list().length;
 }
 
+/** True while the engine is armed for `userId` (not stopped, not armed for another account). */
+function armedFor(userId: string): boolean {
+  return offline.isActive() && offline.activeUserId() === userId;
+}
+
+/** True when every change in `now` is one of `covered` (compared by row id, never by count). */
+function coveredBy(covered: ChangesAtRest | null, now: ChangesAtRest): boolean {
+  if (!now.operations.length && !now.notes.length) return true;
+  if (!covered) return false;
+  const ops = new Set(covered.operations);
+  const notes = new Set(covered.notes);
+  return now.operations.every((id) => ops.has(id)) && now.notes.every((id) => notes.has(id));
+}
+
+/**
+ * What the sign-out does with the account's copy on this device (section 4.8):
+ *  - 'wipe': nothing is left, or the user chose "Delete them and sign out": the sign-out goes on and
+ *    deletes the device's copy;
+ *  - 'stay': "Stay signed in" / "Review": nothing is signed out;
+ *  - 'keep': the session was lost while the sign-out waited (the upload before it was answered 401: the
+ *    api client dropped the token, the engine was torn down) and changes are left. What a 401 does: the
+ *    outbox and the notes stay (ciphertext; they upload after the next sign-in of this account), the
+ *    cache and the key go, and the login page says "Sign in again to upload the {n} changes saved on
+ *    this device". Never a wipe: nobody chose "Delete them and sign out", and "Stay signed in" can no
+ *    longer be offered.
+ */
+export type SignOutDecision = 'wipe' | 'stay' | 'keep';
+
+export interface SignOutAnswer {
+  decision: SignOutDecision;
+  /** The changes the decision was made about, as the dialog showed them (0: nothing was left). */
+  count: number;
+  /**
+   * The same changes by row id, read at rest when the answer was given; null when they could not be read.
+   * A 'wipe' deletes these and no more (`finishSignOut`): a change saved after the answer - while the
+   * dialog is open or the sign-out waits for the server - was never part of it, even when the count is
+   * the same (one change uploaded, another saved).
+   */
+  covered: ChangesAtRest | null;
+}
+
 /**
  * The sign-out's question (section 4.8 "Logout with pending operations or notes"): online, the outbox is
- * uploaded first; when anything is left, the dialog decides. Resolves true when the sign-out may go on
- * (nothing left, or "Delete them and sign out"), false for "Stay signed in" / "Review".
+ * uploaded first; when anything is left, the dialog decides.
  *
- * An account whose engine is not armed (the server stopped offering offline mode, a start that failed)
- * can still have an outbox in its database: it is counted without opening it, and the same dialog asks.
+ * What is left is counted at rest, on a connection of its own, after the upload: a 401 met by the upload
+ * tears the engine down while this function waits (a stopped engine counts nothing), the engine's own
+ * count lags behind a save whose transaction has just committed, and notes count as changes too. A session
+ * that is gone ends as a 401, not as a sign-out that deletes what is waiting. When the database cannot be
+ * read, the count is unknown - never "nothing": the dialog then asks with the engine's count when one is
+ * armed, and the sign-out deletes nothing that it could not read (`covered` is null).
  */
-export async function mayEndSessionWithChanges(userId: string): Promise<boolean> {
-  let count: number;
-  if (offline.isActive() && offline.activeUserId() === userId) {
-    count = changesOnDevice(userId);
-    if (count > 0 && getSyncStatus().phase !== 'offline') {
-      try {
-        await offline.drain();
-      } catch {
-        /* what is left is counted below */
-      }
-      count = changesOnDevice(userId);
-    }
-  } else {
+export async function signOutDecision(userId: string): Promise<SignOutAnswer> {
+  if (armedFor(userId) && changesOnDevice(userId) > 0 && getSyncStatus().phase !== 'offline') {
     try {
-      count = (await offline.otherAccountsWithPending(null)).find((a) => a.userId === userId)?.count ?? 0;
+      await offline.drain();
     } catch {
-      count = 0;
+      /* what is left is counted below */
     }
   }
-  if (count <= 0) return true;
-  const choice = await confirmLogoutWithPending({ count, allowReview: !isLockScreenUp() && offline.isActive() });
-  return choice === 'delete';
+  const covered = await offline.changesAtRest(userId);
+  const known = lastKnown?.userId === userId ? lastKnown.pending + lastKnown.notes : 0;
+  const count = covered ? covered.operations.length + covered.notes.length : armedFor(userId) ? changesOnDevice(userId) : known;
+  if (count <= 0) return { decision: 'wipe', count: 0, covered };
+  // The session is gone (the api client drops the token at a 401 before anyone hears of it).
+  if (!getToken()) return { decision: 'keep', count, covered };
+  const choice = await confirmLogoutWithPending({ count, allowReview: !isLockScreenUp() && armedFor(userId) });
+  return { decision: choice === 'delete' ? 'wipe' : 'stay', count, covered };
+}
+
+/** `signOutDecision` as a yes / no: true when the sign-out may go on (it then deletes what the answer covered). */
+export async function mayEndSessionWithChanges(userId: string): Promise<boolean> {
+  return (await signOutDecision(userId)).decision === 'wipe';
+}
+
+/**
+ * The end of a sign-out the user did not cancel ('wipe'), after the server logout. First the engine
+ * stops, so that no change can land any more: a save whose transaction was created before is in the
+ * database (and its page is told "Saved on this device"), one that starts later is refused and its page
+ * says so. Then the database is read at rest: it is deleted only when everything in it was covered by
+ * the answer (row ids); otherwise - or when it cannot be read - the session ends as a 401 does and the
+ * changes stay (`endSessionKeepingChanges`). Never throws. Resolves 'kept' or 'wiped'.
+ */
+export async function finishSignOut(userId: string, answer: SignOutAnswer): Promise<'wiped' | 'kept'> {
+  if (offline.activeUserId() === userId) {
+    try {
+      await offline.stop();
+    } catch {
+      /* the store is closed either way */
+    }
+  }
+  const now = await offline.changesAtRest(userId);
+  if (now && coveredBy(answer.covered, now)) {
+    await wipeAccountQuietly(userId);
+    return 'wiped';
+  }
+  await endSessionKeepingChanges(userId, now);
+  return 'kept';
+}
+
+/**
+ * The session ends with changes on the device that nobody agreed to delete: it ends as a 401 does
+ * (section 4.8). The outbox and the notes stay (ciphertext; they upload after the next sign-in of this
+ * account), the cache, the journal, the id map, the snapshot, the key and the binding go - through the
+ * engine's purge when one is armed (a real 401 has usually run it already; a second run finds nothing to
+ * do), else straight from the account's database - and the login page says "Sign in again to upload the
+ * {n} changes saved on this device". The line counts the waiting operations (what uploads); notes stay
+ * on the device too and are shown after the next sign-in. Never throws.
+ */
+export async function endSessionKeepingChanges(userId: string, known?: ChangesAtRest | null): Promise<void> {
+  const atRest = known ?? (await offline.changesAtRest(userId));
+  const fallback = lastKnown?.userId === userId ? lastKnown.pending : 0;
+  const operations = atRest ? atRest.operations.length : armedFor(userId) ? getSyncStatus().pending : fallback;
+  try {
+    await offline.onUnauthorized(userId);
+  } catch {
+    /* what is left is ciphertext */
+  }
+  if (operations > 0) rememberSignedOutPending(userId, operations);
 }
 
 /** How long a sign-out waits for the wipe of the device's copy before it goes on (a blocked IndexedDB delete). */
@@ -230,6 +324,7 @@ export interface DrainNotify {
  */
 export async function drainBeforeOnlineWrite(notify: DrainNotify = {}): Promise<boolean> {
   if (!offline.isActive()) return true;
+  const userId = offline.activeUserId();
   if (getSyncStatus().pending === 0) return true;
   notify.onDraining?.(tr('shell.sync.drainFirst'));
   let left = 1;
@@ -237,6 +332,13 @@ export async function drainBeforeOnlineWrite(notify: DrainNotify = {}): Promise<
     left = (await offline.drain()).remaining;
   } catch {
     left = getSyncStatus().pending;
+  }
+  // The engine may have gone while the upload ran (a 401, a stop): its answer is then what it last knew,
+  // while the database may hold more (another tab's save) - they are counted there. A database that
+  // cannot be read counts as "something waits": the write does not go ahead on a guess.
+  if (userId && !armedFor(userId)) {
+    const atRest = await offline.changesAtRest(userId);
+    left = Math.max(left, atRest ? atRest.operations.length : 1);
   }
   if (left > 0) {
     notify.onLeft?.(tr('shell.sync.drainFailed'));

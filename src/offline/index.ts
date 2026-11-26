@@ -16,7 +16,9 @@
  *    journal, id map, snapshot, wrapped key (the vault's entry included) and binding go; the outbox,
  *    notes and mirror stay.
  *  - `offline.stop()` on sign-out (after the dialog), `offline.wipeAccount(userId)` to delete
- *    everything of an account on this device (logout with "Delete", account deletion).
+ *    everything of an account on this device (logout with "Delete", account deletion). A start that is
+ *    under way when either lands arms nothing (`sessionTicket`). `offline.changesAtRest(userId)` reads
+ *    the ids of what an account keeps on the device, so a sign-out deletes only what its dialog covered.
  *  - `offline.drain()` before an online-only write; `offline.tryNow()` for "Try now";
  *    `offline.notifyUnlocked()` after the lock screen; `offline.updateSession()` to keep the snapshot
  *    current (locked, last activity).
@@ -75,11 +77,45 @@ export type StartOutcome =
   | { enabled: true; recovered: number | null; readOnly: boolean }
   | { enabled: false; reason: 'unsupported' | 'guest' | 'noKey' | 'noToken' | 'failed' };
 
+/** `offline.changesAtRest`: the row ids (not secret: AAD keys and mirror file names) of what an account keeps on the device. */
+export interface ChangesAtRest {
+  operations: string[];
+  notes: string[];
+}
+
 let engine: OfflineEngine | null = null;
 /** Starts are serialised: a `start` and a `startFromCache` never race for the same database. */
 let starting: Promise<unknown> | null = null;
 let lastWarmUpAt = 0;
 let listenersInstalled = false;
+
+/**
+ * Ends of a session that are not serialised with starts: `stop()` (a sign-out) and `wipeAccount(userId)`.
+ * A start takes a ticket when it is ASKED for (it may wait behind another start) and arms nothing once
+ * the session it was asked for has ended: a `stop()` since, a wipe of its account since, or no token in
+ * storage any more (a sign-out clears it before anything else, also when no engine was armed yet and so
+ * nobody called `stop()`). Without it a start that opened a new engine while the user signed out armed
+ * that engine afterwards (`engine = e`) and wrote the binding of a session that was gone.
+ */
+let sessionEnds = 0;
+const accountWipes = new Map<string, number>();
+
+interface SessionTicket {
+  /** The session this start was asked for has ended (see above). */
+  ended(userId: string): boolean;
+}
+
+/**
+ * The check runs right before the database is opened, in the same synchronous step as the open request
+ * (`OfflineEngine.open` reaches `indexedDB.open` without an await), and after every later await. A wipe
+ * that comes first is seen there and nothing is opened; a wipe that comes after the open request is
+ * queued behind it and deletes the database the start opened (its connection closes on versionchange).
+ */
+function sessionTicket(): SessionTicket {
+  const ends = sessionEnds;
+  const wipes = new Map(accountWipes);
+  return { ended: (userId) => sessionEnds !== ends || (accountWipes.get(userId) ?? 0) !== (wipes.get(userId) ?? 0) || !getToken() };
+}
 
 setEngineAccessor(() => (engine && isOfflineEnabled() && engine.userId === armedAccount() ? engine : null));
 
@@ -164,7 +200,7 @@ function snapshotOf(args: StartArgs, info: ServerInfo | null): SessionSnapshot {
   };
 }
 
-async function doStart(args: StartArgs): Promise<StartOutcome> {
+async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOutcome> {
   installWindowListeners();
   if (args.user.guest) {
     await teardown(false);
@@ -185,6 +221,13 @@ async function doStart(args: StartArgs): Promise<StartOutcome> {
 
   // Another account signed in on this device: its cache, snapshot, wrapped key and vault entry go; its outbox stays in its own database.
   if (engine && engine.userId !== args.user.id) await teardown(true);
+  // The engine this start found armed for the account (a cache start, an earlier `me()`), or null. Every
+  // step below works on it, never on whatever `engine` names after an await: a sign-out (`stop`,
+  // `wipeAccount`) is not serialised with a start and may tear it down meanwhile (`stillArmed`).
+  const running = engine;
+  const stillArmed = (): boolean => running !== null && engine === running && !running.isStopped;
+  // The session this start was asked for is over (a sign-out, a wipe): nothing more is written or armed.
+  const ended = (): boolean => ticket.ended(args.user.id);
 
   // No "Remember me": nothing decryptable at rest (section 5.1). The binding and the vault's entry of an
   // earlier remembered session of this account go right here, before anything that can still fail (the
@@ -200,48 +243,85 @@ async function doStart(args: StartArgs): Promise<StartOutcome> {
     res = await fetchSyncKey();
   } catch (e) {
     args.onError?.(e);
-    if (engine && engine.userId === args.user.id && isConnectionError(e)) {
+    if (running && stillArmed() && isConnectionError(e)) {
       // A cache session whose `me()` succeeded earlier: keep running with the keys in hand.
-      return { enabled: true, recovered: engine.recovered, readOnly: engine.readOnly };
+      return { enabled: true, recovered: running.recovered, readOnly: running.readOnly };
+    }
+    if (isApiClientError(e) && e.status === 401) {
+      // The key fetch met the 401 first (section 4.8): the account's cache, journal, id map, snapshot and
+      // keys at rest go - through the armed engine, or, when none is (a session without "Remember me" has
+      // no binding for `onUnauthorized` to find), straight from the account's database. The outbox stays.
+      const armedHere = stillArmed();
+      await teardown(armedHere);
+      if (!armedHere) await purgeAccountAtRest(args.user.id).catch(args.onError);
+      return { enabled: false, reason: 'noKey' };
     }
     await teardown(false);
     return { enabled: false, reason: isApiClientError(e) && e.status === 403 ? 'guest' : 'noKey' };
   }
 
   const tokenTag = await tokenTagOf(token);
-  if (engine && engine.userId === args.user.id) {
-    // Already running (a cache start, or `me()` again): refresh the token tag and the snapshot.
-    engine.tokenTag = tokenTag;
-    await engine.setEpoch(res.epoch);
-    if (persistent) await saveSnapshot(engine.store, engine.keys, snapshotOf(args, info)).catch(args.onError);
+  if (running) {
+    // Already running (a cache start, or `me()` again): refresh the token tag and the snapshot - of THIS
+    // engine, and only while it is still the armed one.
+    if (!stillArmed() || ended()) return { enabled: false, reason: 'failed' };
+    running.tokenTag = tokenTag;
+    await running.setEpoch(res.epoch);
+    if (persistent && stillArmed()) await saveSnapshot(running.store, running.keys, snapshotOf(args, info)).catch(args.onError);
+    if (!stillArmed() || ended()) return { enabled: false, reason: 'failed' };
     if (persistent) await writeBinding(args.user.id, token);
-    else await removeWrappedKey(engine.store, args.user.id, false, args.onError);
+    else await removeWrappedKey(running.store, args.user.id, false, args.onError);
     // At rest only when THIS start is remembered (the engine may have been opened persistent earlier).
-    if (args.password) await keepPasswordWrap(engine, args.password, res, args.onError, persistent);
-    engine.replayer.kick();
-    return { enabled: true, recovered: engine.recovered, readOnly: engine.readOnly };
+    if (args.password && stillArmed()) await keepPasswordWrap(running, args.password, res, args.onError, persistent);
+    if (!stillArmed() || ended()) return { enabled: false, reason: 'failed' };
+    running.replayer.kick();
+    return { enabled: true, recovered: running.recovered, readOnly: running.readOnly };
   }
 
   try {
     const raw = aokBytes(res);
     const forVault = persistent && keyVault() ? new Uint8Array(raw) : null;
     const keys = await armKeys(raw, args.user.id);
+    if (ended()) {
+      forVault?.fill(0);
+      return { enabled: false, reason: 'failed' }; // signed out meanwhile: the database is not even opened
+    }
     const e = await openEngine({ userId: args.user.id, keys, persistentCache: persistent, tokenTag, probe: args.probe, onError: args.onError, rememberMe: args.rememberMe });
+    // Signed out while the database opened, or while one of the steps below waited: `e` is stopped, nothing armed.
+    const abandoned = (): boolean => {
+      if (!ended()) return false;
+      forVault?.fill(0);
+      e.stop();
+      return true;
+    };
+    const FAILED: StartOutcome = { enabled: false, reason: 'failed' };
+    if (abandoned()) return FAILED;
     await e.setEpoch(res.epoch);
     e.clock.learn(res.serverNow, Date.now() - 50, Date.now());
     if (persistent) {
+      if (abandoned()) return FAILED;
       if (forVault) {
         await storeWrappedKey(e.store, args.user.id, forVault).catch(args.onError);
         forVault.fill(0);
+        if (abandoned()) return FAILED;
       }
       await saveSnapshot(e.store, e.keys, snapshotOf(args, info)).catch(args.onError);
+      if (abandoned()) return FAILED;
       await writeBinding(args.user.id, token);
+      if (abandoned()) {
+        if (readBinding()?.userId === args.user.id) clearBinding(); // the one just written, for a session that is gone
+        return FAILED;
+      }
     } else {
       // No "Remember me": the wrapped key of an earlier remembered session goes (its binding and the
       // vault's entry went above, before the database was opened).
       await removeWrappedKey(e.store, args.user.id, false, args.onError);
     }
-    if (args.password) await keepPasswordWrap(e, args.password, res, args.onError);
+    if (args.password) {
+      if (abandoned()) return FAILED;
+      await keepPasswordWrap(e, args.password, res, args.onError);
+    }
+    if (abandoned()) return FAILED;
     engine = e;
     setArmedAccount(args.user.id);
     e.start();
@@ -265,7 +345,7 @@ export interface CacheStartArgs {
 
 export type CacheStartOutcome = { ok: true; snapshot: SessionSnapshot; userId: string } | { ok: false; reason: 'noBinding' | 'notApp' | 'noKey' | 'unreadable' | 'noSnapshot' | 'unsupported' };
 
-async function doStartFromCache(args: CacheStartArgs): Promise<CacheStartOutcome> {
+async function doStartFromCache(args: CacheStartArgs, ticket: SessionTicket): Promise<CacheStartOutcome> {
   installWindowListeners();
   if (!cryptoAvailable()) return { ok: false, reason: 'unsupported' };
   if (!isApp()) return { ok: false, reason: 'notApp' };
@@ -274,7 +354,10 @@ async function doStartFromCache(args: CacheStartArgs): Promise<CacheStartOutcome
   if (!binding || !token) return { ok: false, reason: 'noBinding' };
   if (engine && engine.userId !== binding.userId) await teardown(true);
   if (engine && engine.userId === binding.userId) {
-    const snap = await loadSnapshot(engine.store, engine.keys);
+    const running = engine;
+    const snap = await loadSnapshot(running.store, running.keys).catch(() => null);
+    // Torn down while the snapshot was read (a sign-out, a 401): nothing is armed any more.
+    if (engine !== running || running.isStopped || ticket.ended(binding.userId)) return { ok: false, reason: 'noSnapshot' };
     if (snap && !getServerInfo()) setServerInfo(serverInfoFromSnapshot(snap));
     return snap ? { ok: true, snapshot: snap, userId: binding.userId } : { ok: false, reason: 'noSnapshot' };
   }
@@ -290,6 +373,8 @@ async function doStartFromCache(args: CacheStartArgs): Promise<CacheStartOutcome
   }
   if (!raw) return { ok: false, reason: 'noKey' };
   const keys = await armKeys(raw, binding.userId);
+  // Signed out while the key was read (see `sessionTicket`): the database is not opened again.
+  if (ticket.ended(binding.userId)) return { ok: false, reason: 'noSnapshot' };
   const e = await openEngine({ userId: binding.userId, keys, persistentCache: true, tokenTag: binding.tokenTag, probe: args.probe, onError: args.onError, rememberMe: true });
   if (e.readOnly) {
     e.stop();
@@ -297,6 +382,10 @@ async function doStartFromCache(args: CacheStartArgs): Promise<CacheStartOutcome
   }
   const snapshot = await loadSnapshot(e.store, e.keys);
   if (!snapshot) {
+    e.stop();
+    return { ok: false, reason: 'noSnapshot' };
+  }
+  if (ticket.ended(binding.userId)) {
     e.stop();
     return { ok: false, reason: 'noSnapshot' };
   }
@@ -314,12 +403,14 @@ async function doStartFromCache(args: CacheStartArgs): Promise<CacheStartOutcome
 export const offline = {
   /** After a successful `me()` or login (section 4.1 / 5.1). */
   start(args: StartArgs): Promise<StartOutcome> {
-    return serialised(() => doStart(args));
+    const ticket = sessionTicket(); // taken when asked for, not when it runs (it may wait behind another start)
+    return serialised(() => doStart(args, ticket));
   },
 
   /** Offline start on an app (section 4.7 step 2). */
   startFromCache(args: CacheStartArgs = {}): Promise<CacheStartOutcome> {
-    return serialised(() => doStartFromCache(args));
+    const ticket = sessionTicket();
+    return serialised(() => doStartFromCache(args, ticket));
   },
 
   /** True while the engine is armed for the signed-in account. */
@@ -338,44 +429,82 @@ export const offline = {
    * Also when no engine runs (a session revoked while the app was closed: the first `me()` answers
    * 401): the binding names the account whose data is at rest on this device.
    */
-  onUnauthorized(): Promise<void> {
+  onUnauthorized(userId?: string): Promise<void> {
     return serialised(async () => {
       const binding = readBinding();
       clearBinding();
       const running = engine?.userId ?? null;
       await teardown(true);
-      if (binding && binding.userId !== running) await purgeAccountAtRest(binding.userId).catch(() => false);
+      // The binding's account, and the account whose session the caller knows has ended (a sign-out that
+      // ends as a 401 while no engine is armed for it and, without "Remember me", there is no binding).
+      const atRest = new Set<string>();
+      if (binding && binding.userId !== running) atRest.add(binding.userId);
+      if (userId && userId !== running) atRest.add(userId);
+      for (const id of atRest) await purgeAccountAtRest(id).catch(() => false);
     });
+  },
+
+  /**
+   * The changes of `userId` as they are in its database - the row ids of its waiting operations and of
+   * its notes, never their contents (no key needed). An account without a database holds none. null when
+   * the database cannot be read: "unknown", never to be taken for "none" (the sign-out then deletes
+   * nothing). Read on a connection of its own, so it sees every transaction created before it - also one
+   * whose engine has not yet published the new count.
+   */
+  async changesAtRest(userId: string): Promise<ChangesAtRest | null> {
+    try {
+      const store = await openExistingAccountStore(userId);
+      if (!store) return { operations: [], notes: [] };
+      try {
+        return await store.tx(['outbox', 'notes'], 'readonly', async (t) => ({
+          operations: (await t.getAll('outbox')).map((r) => r.rid),
+          notes: (await t.getAll('notes')).map((r) => r.rid),
+        }));
+      } finally {
+        store.close();
+      }
+    } catch {
+      return null;
+    }
   },
 
   /** Sign-out without deleting the outbox (the user chose "Stay signed in" is not this; this is the end of a session). */
   async stop(): Promise<void> {
+    sessionEnds++; // a start under way arms nothing after this (`sessionTicket`)
     await teardown(false);
   },
 
   /** Deletes everything of an account on this device (logout with "Delete", account deletion). */
   async wipeAccount(userId: string): Promise<void> {
+    accountWipes.set(userId, (accountWipes.get(userId) ?? 0) + 1); // a start of this account under way arms nothing after this
     if (engine && engine.userId === userId) await teardown(false);
     await wipeAccountData(userId);
     if (readBinding()?.userId === userId) clearBinding();
     await removeWrappedKey(null, userId, true);
   },
 
-  /** Uploads what is waiting (online-only writes call it first). Resolves with what is left. */
+  /**
+   * Uploads what is waiting (online-only writes call it first). Resolves with what is left - never
+   * rejects. When the engine is torn down while the upload runs (its 401 tears it down) or its store
+   * was closed under it (another tab deleted the database), the answer is what that engine last knew;
+   * whether it is still armed for the account is `isActive()` / `activeUserId()`.
+   */
   async drain(): Promise<{ remaining: number; attention: number }> {
-    if (!engine || !isOfflineEnabled()) return { remaining: 0, attention: 0 };
     const e = engine;
+    if (!e || !isOfflineEnabled()) return { remaining: 0, attention: 0 };
     if (e.connectivity.dataOffline) await e.connectivity.probeNow('drain', true);
-    await e.replayer.settle();
-    await e.outbox.load();
+    if (engine === e && !e.isStopped) await e.replayer.settle();
+    if (engine === e && !e.isStopped) await e.outbox.load().catch(() => undefined);
     return { remaining: e.outbox.size, attention: e.notes.count };
   },
 
-  /** "Try now": probe and replay. */
+  /** "Try now": probe and replay - on the engine armed when it was tapped, and only while it still is. */
   async tryNow(): Promise<boolean> {
-    if (!engine) return false;
-    const ok = await engine.connectivity.probeNow('tryNow', true);
-    await engine.replayer.tryNow();
+    const e = engine;
+    if (!e) return false;
+    const ok = await e.connectivity.probeNow('tryNow', true);
+    if (engine !== e || e.isStopped) return false;
+    await e.replayer.tryNow().catch(() => undefined);
     return ok;
   },
 
@@ -425,12 +554,15 @@ export const offline = {
 
   /** Keeps the session snapshot current (apps with "Remember me"); cheap when nothing changed. */
   async updateSession(patch: { locked?: boolean; lastActivityAt?: number }): Promise<void> {
-    if (!engine || !engine.cache.persistent) return;
-    const snap = await loadSnapshot(engine.store, engine.keys);
-    if (!snap) return;
+    const e = engine;
+    if (!e || !e.cache.persistent) return;
+    const snap = await loadSnapshot(e.store, e.keys).catch(() => null);
+    // The engine may have been torn down (a 401, a sign-out) or replaced (another account signed in)
+    // while the snapshot was read: one account's snapshot is never saved through another's engine.
+    if (!snap || engine !== e || e.isStopped) return;
     const next = { ...snap, ...patch };
     if (next.locked === snap.locked && next.lastActivityAt === snap.lastActivityAt) return;
-    await saveSnapshot(engine.store, engine.keys, next).catch(() => undefined);
+    await saveSnapshot(e.store, e.keys, next).catch(() => undefined);
   },
 
   /** The waiting operations (the review list). */
@@ -443,9 +575,10 @@ export const offline = {
       return engine?.notes.list() ?? [];
     },
     async dismiss(id: number): Promise<void> {
-      if (!engine) return;
-      await engine.notes.remove(id);
-      engine.publishCounts();
+      const e = engine;
+      if (!e) return;
+      await e.notes.remove(id);
+      if (engine === e && !e.isStopped) e.publishCounts();
     },
   },
 

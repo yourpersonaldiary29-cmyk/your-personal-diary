@@ -30,6 +30,7 @@ import { isPasswordWrap, openPasswordWrap, passwordUnlockWaitMs, readPasswordThr
 import { Replayer } from './replayer';
 import { MemoryStore } from './store/memory';
 import { deleteAccountStore, openAccountStore, openExistingAccountStore } from './store/idb';
+import type { SealSpec } from './store/seal';
 import type { OfflineStore } from './store/types';
 import { bumpDataVersion, patchSyncStatus } from './status';
 import type { IdMapEntry, QueuedOp } from './types';
@@ -538,7 +539,14 @@ export class OfflineEngine {
       this.channel = new BroadcastChannel(`ypd-offline-${this.userId}`);
       this.channel.onmessage = (ev: MessageEvent<{ type?: string }>) => {
         if (this.stopped) return;
-        void this.outbox.load().then(() => this.publishCounts());
+        // The store can be closed under a running engine (another tab deleted the database: onversionchange)
+        // or by stop() while the read runs: nothing to count then, and never an unhandled rejection.
+        void this.outbox
+          .load()
+          .then(() => {
+            if (!this.stopped) this.publishCounts();
+          })
+          .catch(() => undefined);
         bumpDataVersion();
         if (ev.data?.type === 'enqueued') this.replayer.kick();
       };
@@ -609,6 +617,14 @@ export class OfflineEngine {
    * 401 / account switch (section 4.8, 5.5): the cache, journal, id map, snapshot, wrapped key and
    * password wrap go - and the vault's own entry with them (on the Mac the Keychain item IS the key at
    * rest; keys.ts); the outbox, notes and mirror stay. The engine is unusable afterwards (stop it).
+   *
+   * The purge SEALS what it deletes (./store/seal.ts): from the moment its transaction is created, this
+   * engine's connection writes nothing more into the cache, the journal, the id map or the sensitive
+   * `meta` rows - whatever the engine still has under way (the warm-up, a page read, the replayer, a
+   * snapshot update, a password wrap) lands as a silent no-op there - while the outbox and the notes go
+   * on exactly as before (a save under way is kept, and its page is told it was saved) until `stop()`
+   * closes the connection. The in-memory read cache of a session without "Remember me" is purged and
+   * sealed the same way.
    */
   async purgeSensitive(): Promise<void> {
     this.passwordWrap = null;
@@ -617,6 +633,7 @@ export class OfflineEngine {
     } catch (e) {
       this.onError(e);
     }
+    if (this.cache.store !== this.store) await purgeSensitiveRows(this.cache.store).catch(this.onError);
     await removeVaultKey(this.userId, this.onError);
     this.journal.forgetAll();
     this.idmap.forgetAll();
@@ -624,17 +641,22 @@ export class OfflineEngine {
   }
 }
 
-/** The 401 purge of one database (section 5.5): cache, journal, id map, snapshot, wrapped key and password wrap; outbox, notes and mirror stay. */
+/** What a 401 deletes (section 5.5) and then seals on the connection that deleted it (./store/seal.ts). */
+const SENSITIVE_AT_REST: SealSpec = {
+  stores: ['cache', 'journal', 'idmap'],
+  metaRows: [META.snapshot, META.wrappedKey, META.wrappedBy, META.passwordWrap],
+};
+
+/**
+ * The 401 purge of one database (section 5.5): cache, journal, id map, snapshot, wrapped key and password
+ * wrap; outbox, notes and mirror stay. The transaction carries the seal, so nothing written through
+ * `store` after it was created brings any of them back (see `OfflineEngine.purgeSensitive`).
+ */
 async function purgeSensitiveRows(store: OfflineStore): Promise<void> {
   await store.tx(['cache', 'journal', 'idmap', 'meta'], 'readwrite', async (t) => {
-    await t.clear('cache');
-    await t.clear('journal');
-    await t.clear('idmap');
-    await t.delete('meta', META.snapshot);
-    await t.delete('meta', META.wrappedKey);
-    await t.delete('meta', META.wrappedBy);
-    await t.delete('meta', META.passwordWrap);
-  });
+    for (const s of SENSITIVE_AT_REST.stores) await t.clear(s);
+    for (const name of SENSITIVE_AT_REST.metaRows) await t.delete('meta', name);
+  }, { durability: 'strict', seal: SENSITIVE_AT_REST });
 }
 
 /**

@@ -42,7 +42,8 @@
  *  - sign-out: online, the outbox is uploaded first; with changes left, the user decides first ("Stay
  *    signed in" / "Review" / "Delete them and sign out"); then `offline.wipeAccount` deletes the device's
  *    copy - explicitly here, never inside `clearSignedOutAccountData` (E16). The account deletion wipes
- *    it itself (DeleteAccountSection).
+ *    it itself (DeleteAccountSection). A sign-out whose upload was answered 401 (the session had ended
+ *    elsewhere) with changes left ends as a 401: the changes stay on the device, the login page says so.
  */
 import {
   createContext,
@@ -78,11 +79,12 @@ import {
   UNAUTHORIZED_EVENT,
 } from '@/api';
 import {
+  endSessionKeepingChanges,
+  finishSignOut,
   forgetSignedOutPending,
-  mayEndSessionWithChanges,
   pendingOnDevice,
   rememberSignedOutPending,
-  wipeAccountQuietly,
+  signOutDecision,
 } from '@/components/sync/syncGate';
 import { DEFAULT_APP_SETTINGS } from '@/constants/settings';
 import { T } from '@/constants/texts';
@@ -499,7 +501,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userId = userIdRef.current;
       // Changes still on this device (section 4.8): uploaded first when online; when some are left,
       // the user decides before anything is signed out ("Stay signed in" / "Review" end here).
-      if (!wasGuest && userId && !(await mayEndSessionWithChanges(userId))) return;
+      const answer = !wasGuest && userId ? await signOutDecision(userId) : null;
+      if (answer?.decision === 'stay') return;
+      if (answer?.decision === 'keep' && userId) {
+        // The upload before the sign-out was answered 401: the session had already ended elsewhere, and
+        // the api client's 401 has made this an anonymous session ("Your session has expired"). It ends as
+        // a 401 (section 4.8): the changes stay on the device (they upload after the next sign-in), the
+        // cache and the key go, the login page says how many wait. The diary-derived text of the device
+        // goes as for any sign-out.
+        clearToken();
+        clearSignedOutAccountData(userId);
+        await endSessionKeepingChanges(userId);
+        becomeAnonymous();
+        navigate('/login', { replace: true });
+        return;
+      }
       suppressUnauthorized.current = true;
       try {
         if (getToken()) await authApi.logout();
@@ -511,15 +527,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       clearToken();
       // Diary-derived text this device kept for the account (recent search questions) goes too.
       clearSignedOutAccountData(userId);
-      // The offline copy of the account on this device (outbox, notes, cache, key) - explicitly, after the question.
-      if (!wasGuest && userId) await wipeAccountQuietly(userId);
+      // The offline copy of the account on this device (outbox, notes, cache, key) - explicitly, after the
+      // question, and only what the answer covered (by row id, after the engine has stopped taking saves):
+      // a change saved while the sign-out waited for the server (the page was told "Saved on this device")
+      // was never asked about, so the copy is then kept the way a 401 keeps it, and the login page says
+      // how many changes wait.
+      const keptChanges = !!answer && !!userId && (await finishSignOut(userId, answer)) === 'kept';
       becomeAnonymous();
       if (noticeMode !== 'none') {
         // The guest never signed in: "The tour has ended", not "You have logged out".
         const message = wasGuest ? tr('mobile.guest.ended') : T.loggedOut;
         setNotice({ id: noticeCounter++, message, kind: 'info', reason: 'logout' });
       }
-      navigate('/');
+      navigate(keptChanges ? '/login' : '/');
     },
     [becomeAnonymous, navigate],
   );
