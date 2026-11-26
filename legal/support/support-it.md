@@ -33,7 +33,7 @@ Apri **Impostazioni** e, nella scheda **Lingua**, scegli dall'elenco la lingua d
 
 ### Come porto fuori i miei dati?
 
-Nella pagina **Backup** del menu (nelle app Android e iPhone, sotto Altro) puoi creare un **backup**: una copia cifrata dell'intero diario (voci, abitudini e impostazioni) nel formato proprio dell'app, protetta da una password, che puoi ripristinare in seguito nell'app. L'**esportazione** nella stessa pagina scrive le tue voci in un file leggibile - TXT, CSV, JSON o PDF - per leggerle, stamparle o usarle in un altro programma. Un file esportato non è cifrato: chiunque abbia il file può leggerlo, quindi conservalo con la stessa cura del diario.
+Nella pagina **Backup** del menu puoi creare un **backup**: una copia cifrata dell'intero diario (voci, abitudini e impostazioni) nel formato proprio dell'app, protetta da una password, che puoi ripristinare in seguito nell'app. L'**esportazione** nella stessa pagina scrive le tue voci in un file leggibile - TXT, CSV, JSON o PDF - per leggerle, stamparle o usarle in un altro programma. Un file esportato non è cifrato: chiunque abbia il file può leggerlo, quindi conservalo con la stessa cura del diario.
 
 ### Come elimino il mio account?
 

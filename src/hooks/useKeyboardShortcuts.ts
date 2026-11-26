@@ -22,7 +22,7 @@
  *
  * Phone app: the shortcuts keep working for a Bluetooth keyboard (Shift+? still opens the list),
  * but nothing on a touch screen hints at them: the phone shell offers "Keyboard shortcuts" in its
- * "More" sheet only where `shortcutHintsAvailable()` says a keyboard and a pointer are in use.
+ * menu (the "Menu" button of the top app bar) only where `shortcutHintsAvailable()` says a keyboard and a pointer are in use.
  * The guest of the tour mode cannot lock the diary (there is no password to unlock it): Ctrl+L does
  * nothing for a guest.
  */

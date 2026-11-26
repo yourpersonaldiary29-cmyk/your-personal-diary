@@ -3,8 +3,8 @@
  * <main> landmark (focus target of the skip link) and the footer.
  * The wrapper has id "app-root" so the lock screen can mark it `inert`.
  *
- * In the Android build the frame is the phone shell instead (MobileShell: top app bar, bottom
- * navigation, floating "New entry" button, "More" sheet). `__MOBILE__` is a build-time constant -
+ * In the phone build (Android and iPhone) the frame is the phone shell instead (MobileShell: top app
+ * bar with the "Menu" button, the menu panel, floating "New entry" button). `__MOBILE__` is a build-time constant -
  * false in the desktop / browser build, so that branch and the phone shell behind it are not part of
  * the desktop bundle at all. No platform has a first-run language screen
  * (docs/android-tasks/HOSTED-IMPL.md item 13).
@@ -21,7 +21,7 @@ export { APP_ROOT_ID, MAIN_ID };
 
 export interface AppShellProps {
   children: ReactNode;
-  /** Opens the keyboard-shortcuts dialog (footer button; in the phone shell an entry of the "More" sheet). */
+  /** Opens the keyboard-shortcuts dialog (footer button; in the phone shell a row of the menu). */
   onShowShortcuts?: () => void;
 }
 

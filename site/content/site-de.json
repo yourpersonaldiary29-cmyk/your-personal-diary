@@ -203,7 +203,7 @@
       },
       {
         "q": "Wie sichere ich mein Tagebuch und stelle es wieder her?",
-        "a": "Öffne im Menü „Backup“ (in der Android- und der iPhone-App unter „Mehr“) und erstelle eine Backup-Datei: eine verschlüsselte Kopie des gesamten Tagebuchs (Einträge, Gewohnheiten und Einstellungen), geschützt durch ein Passwort, die du aufbewahrst, wo du willst. Zum Wiederherstellen wählst du diese Datei auf derselben Seite aus und gibst ihr Passwort ein. Beim Wiederherstellen wird das aktuelle Tagebuch durch den Inhalt der Datei ersetzt; erstelle deshalb vorher ein Backup des aktuellen Tagebuchs."
+        "a": "Öffne im Menü „Backup“ und erstelle eine Backup-Datei: eine verschlüsselte Kopie des gesamten Tagebuchs (Einträge, Gewohnheiten und Einstellungen), geschützt durch ein Passwort, die du aufbewahrst, wo du willst. Zum Wiederherstellen wählst du diese Datei auf derselben Seite aus und gibst ihr Passwort ein. Beim Wiederherstellen wird das aktuelle Tagebuch durch den Inhalt der Datei ersetzt; erstelle deshalb vorher ein Backup des aktuellen Tagebuchs."
       },
       {
         "q": "Wie lösche ich mein Konto?",

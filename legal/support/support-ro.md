@@ -33,7 +33,7 @@ Deschide **Setări** și, în cardul **Limbă**, alege din listă limba interfe�
 
 ### Cum îmi scot datele?
 
-Pe pagina **Backup** din meniu (în aplicațiile Android și iPhone, la Mai mult) poți crea un **backup**: o copie criptată a întregului jurnal (înregistrări, obiceiuri și setări) în formatul propriu al aplicației, protejată cu o parolă, pe care o poți restaura mai târziu în aplicație. **Exportul** de pe aceeași pagină scrie înregistrările tale într-un fișier lizibil - TXT, CSV, JSON sau PDF - pentru citit, tipărit sau pentru alt program. Un fișier de export nu este criptat: oricine are fișierul îl poate citi, așa că păstrează-l la fel de atent ca jurnalul însuși.
+Pe pagina **Backup** din meniu poți crea un **backup**: o copie criptată a întregului jurnal (înregistrări, obiceiuri și setări) în formatul propriu al aplicației, protejată cu o parolă, pe care o poți restaura mai târziu în aplicație. **Exportul** de pe aceeași pagină scrie înregistrările tale într-un fișier lizibil - TXT, CSV, JSON sau PDF - pentru citit, tipărit sau pentru alt program. Un fișier de export nu este criptat: oricine are fișierul îl poate citi, așa că păstrează-l la fel de atent ca jurnalul însuși.
 
 ### Cum îmi șterg contul?
 

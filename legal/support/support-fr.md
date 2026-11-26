@@ -33,7 +33,7 @@ Ouvrez les **Paramètres** et, dans la carte **Langue**, choisissez la langue de
 
 ### Comment récupérer mes données ?
 
-Sur la page **Sauvegarde** du menu (dans les applications Android et iPhone, sous Plus), vous pouvez créer une **sauvegarde** : une copie chiffrée de tout le journal (entrées, habitudes et paramètres) dans le format propre à l'application, protégée par un mot de passe, que vous pourrez restaurer plus tard dans l'application. L'**export**, sur la même page, écrit vos entrées dans un fichier lisible (TXT, CSV, JSON ou PDF) pour les lire, les imprimer ou les utiliser dans un autre programme. Un fichier exporté n'est pas chiffré : toute personne qui possède ce fichier peut le lire, alors conservez-le aussi soigneusement que le journal lui-même.
+Sur la page **Sauvegarde** du menu, vous pouvez créer une **sauvegarde** : une copie chiffrée de tout le journal (entrées, habitudes et paramètres) dans le format propre à l'application, protégée par un mot de passe, que vous pourrez restaurer plus tard dans l'application. L'**export**, sur la même page, écrit vos entrées dans un fichier lisible (TXT, CSV, JSON ou PDF) pour les lire, les imprimer ou les utiliser dans un autre programme. Un fichier exporté n'est pas chiffré : toute personne qui possède ce fichier peut le lire, alors conservez-le aussi soigneusement que le journal lui-même.
 
 ### Comment supprimer mon compte ?
 

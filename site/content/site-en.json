@@ -203,7 +203,7 @@
       },
       {
         "q": "How do I back up my diary and restore it?",
-        "a": "Open Backup in the menu (in the Android and iPhone apps, under More) and create a backup file: an encrypted copy of the whole diary (entries, habits and settings), protected by a password, which you keep wherever you choose. To restore, choose that file on the same page and enter its password. Restoring replaces the current diary with the contents of the file, so create a backup of the current diary first."
+        "a": "Open Backup in the menu and create a backup file: an encrypted copy of the whole diary (entries, habits and settings), protected by a password, which you keep wherever you choose. To restore, choose that file on the same page and enter its password. Restoring replaces the current diary with the contents of the file, so create a backup of the current diary first."
       },
       {
         "q": "How do I delete my account?",

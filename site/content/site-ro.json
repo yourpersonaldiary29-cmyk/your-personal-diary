@@ -203,7 +203,7 @@
       },
       {
         "q": "Cum fac backup jurnalului și cum îl restaurez?",
-        "a": "Deschide Backup din meniu (în aplicațiile Android și iPhone, la Mai mult) și creează un fișier de backup: o copie criptată a întregului jurnal (însemnări, obiceiuri și setări), protejată cu o parolă, pe care o păstrezi unde vrei. Pentru restaurare, alege fișierul pe aceeași pagină și introdu parola lui. Restaurarea înlocuiește jurnalul actual cu conținutul fișierului, așa că mai întâi creează un backup al jurnalului actual."
+        "a": "Deschide Backup din meniu și creează un fișier de backup: o copie criptată a întregului jurnal (însemnări, obiceiuri și setări), protejată cu o parolă, pe care o păstrezi unde vrei. Pentru restaurare, alege fișierul pe aceeași pagină și introdu parola lui. Restaurarea înlocuiește jurnalul actual cu conținutul fișierului, așa că mai întâi creează un backup al jurnalului actual."
       },
       {
         "q": "Cum îmi șterg contul?",

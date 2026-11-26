@@ -155,7 +155,8 @@ test('layout rules by the glyphs\' ink (desktop only): air above the bottom edge
   // The window's bottom edge is the image's edge on the desktop: the last line keeps air under its ink.
   assert.ok(DESKTOP_CHROME.ink && DESKTOP_CHROME.ink.air >= 2, 'DESKTOP_CHROME.ink.air (CSS px)');
   assert.equal(PROFILES.desktop.chrome, DESKTOP_CHROME);
-  // The phone (Play) frame has no ink rule: its screenshots stay byte-identical.
+  // The phone frame (Play and iPhone sets) has no ink rule: its line rules stay as they were, also since its
+  // bottom edge is the screen's own (no bottom navigation since 2026-11-25).
   assert.equal(PHONE_CHROME.ink, undefined);
   const probe = layoutProbe.toString();
   // Measured from the font (canvas measureText: the real ink above / below the baseline) ...

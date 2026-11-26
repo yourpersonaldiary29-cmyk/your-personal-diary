@@ -1,15 +1,19 @@
 /**
- * Page frame of the phone app (the Android build; AppShell.tsx switches to it):
+ * Page frame of the phone app (the Android and iPhone build; AppShell.tsx switches to it):
  *
  *   skip link
- *   top app bar            back arrow, page title, today's date on Home          (TopAppBar)
+ *   top app bar            back arrow, page title, today's date on Home, "Menu"   (TopAppBar)
  *   tour banner            only for the guest of the tour mode                   (GuestBanner)
  *   <main id="main">       the routes
  *   floating "New entry"   on Home, My diary and a day page                      (Fab)
- *   bottom navigation      Home, My diary, Calendar, Habits, More                (BottomNav)
- *   "More" sheet           Insights, Statistics, Search, Backup, Settings, Log out (MoreSheet)
+ *   the menu               a panel from the top: Home, My diary, Calendar, Habits, Insights,
+ *                          Statistics, Search, Backup, Settings, Log out          (MainMenu)
  *
- * The navigation, the floating button and the sheet exist only with a session; the welcome, login
+ * Owner's decision of 2026-11-25: the menu is at the TOP - the bottom bar and its folded "More" sheet
+ * are gone, every option stands in the one menu, and the "Menu" button is in the app bar from the
+ * first screen on.
+ *
+ * The "Menu" button, the floating button and the menu exist only with a session; the welcome, login
  * and registration screens get the app bar alone.
  *
  * While mounted the shell
@@ -35,9 +39,8 @@ import { platformName } from '@/utils/platform';
 // and a tree-shaken module cannot take a CSS side effect with it. The shell adds them itself.
 import mobileCss from '@/styles/mobile.css?inline';
 import type { AppShellProps } from './AppShell';
-import { BottomNav } from './BottomNav';
 import { Fab } from './Fab';
-import { MoreSheet } from './MoreSheet';
+import { MainMenu } from './MainMenu';
 import { APP_ROOT_ID, MAIN_ID } from './shell-ids';
 import { fabTargetFor } from './mobile-nav';
 import { TopAppBar } from './TopAppBar';
@@ -72,8 +75,8 @@ export function MobileShell({ children, onShowShortcuts }: AppShellProps) {
   const { locked } = useLock();
   const location = useLocation();
   const navigate = useNavigate();
-  const [moreOpen, setMoreOpen] = useState(false);
-  const moreButtonRef = useRef<HTMLButtonElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const authenticated = status === 'authenticated' && !!user;
   const guest = authenticated && isGuestUser(user);
@@ -95,37 +98,32 @@ export function MobileShell({ children, onShowShortcuts }: AppShellProps) {
     return () => setBackNavigator(null);
   }, [navigate]);
 
-  // The sheet never outlives the page it was opened on, the session or an unlocked diary.
+  // The menu never outlives the page it was opened on, the session or an unlocked diary.
   useEffect(() => {
-    setMoreOpen(false);
+    setMenuOpen(false);
   }, [location.pathname, authenticated, locked]);
 
   return (
     <>
-      <div
-        id={APP_ROOT_ID}
-        className="app-root mobile-shell"
-        data-bottom-nav={authenticated ? 'true' : undefined}
-        data-fab={showFab ? 'true' : undefined}
-      >
+      <div id={APP_ROOT_ID} className="app-root mobile-shell" data-fab={showFab ? 'true' : undefined}>
         <SkipLink targetId={MAIN_ID} />
         <div className="mobile-shell__top">
-          <TopAppBar />
+          <TopAppBar
+            onMenu={authenticated ? () => setMenuOpen(true) : undefined}
+            menuOpen={menuOpen}
+            menuButtonRef={menuButtonRef}
+          />
           {guest && <GuestBanner />}
         </div>
         <main id={MAIN_ID} tabIndex={-1} className="main">
           {children}
         </main>
         {authenticated && (
-          // One block fixed to the bottom edge: the floating button always rides on top of the
-          // navigation, however tall the navigation is (long labels wrap).
-          <div className="mobile-shell__bottom">
-            {showFab && <Fab />}
-            <BottomNav moreOpen={moreOpen} onMore={() => setMoreOpen(true)} moreButtonRef={moreButtonRef} />
-          </div>
+          // Fixed to the bottom edge, above the gesture bar: the floating "New entry" button.
+          <div className="mobile-shell__bottom">{showFab && <Fab />}</div>
         )}
       </div>
-      {authenticated && <MoreSheet open={moreOpen} onClose={() => setMoreOpen(false)} onShowShortcuts={onShowShortcuts} />}
+      {authenticated && <MainMenu open={menuOpen} onClose={() => setMenuOpen(false)} onShowShortcuts={onShowShortcuts} />}
     </>
   );
 }

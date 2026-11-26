@@ -436,8 +436,13 @@ test('content: the English text keeps to the fixed facts - 29 questions, no prom
   assert.match(content.faq.items[5].a, /^No\. .*not a medical or diagnostic tool.*not medical or psychological advice/);
   assert.match(content.faq.items[6].a, /^In the Android app, yes\./, 'the tour exists in the Android app only');
   assert.match(content.faq.items[19].a, /could technically reset the password of any account and read its diary without knowing the password\. We promise not to do this/);
-  // Backup is a page of the menu (in the Android and iPhone apps under More), not a card of Settings; "Remember me" is ticked at first.
-  assert.match(content.faq.items[24].a, /^Open Backup in the menu \(in the Android and iPhone apps, under More\)/);
+  // Backup is a page of the menu, not a card of Settings; "Remember me" is ticked at first. Since 2026-11-25 (the
+  // owner's decision) the phone apps have one "Menu" button at the top and no "More" tab, so the answer names no tab
+  // and no phone, in any language.
+  assert.match(content.faq.items[24].a, /^Open Backup in the menu and create a backup file: /);
+  for (const code of CODES) {
+    assert.ok(!contentOf(code).faq.items[24].a.includes('iPhone'), `${code}: the Backup answer names no tab of the phone apps`);
+  }
   // The iPhone app is named with the others wherever the answer is true for it too (the owner's wording of 2026-11-18,
   // "the iPhone app in all places"); the tour stays Android only.
   assert.match(content.faq.items[0].a, /as an app for Windows, Mac, Android and iPhone, with one account for all of them/);

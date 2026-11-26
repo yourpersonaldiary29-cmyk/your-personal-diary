@@ -33,7 +33,7 @@ Otevři **Nastavení** a na kartě **Jazyk** vyber ze seznamu jazyk rozhraní; c
 
 ### Jak dostanu svá data ven?
 
-Na stránce **Záloha** v nabídce (v aplikacích pro Android a iPhone v části Více) můžeš vytvořit **zálohu**: zašifrovanou kopii celého deníku (záznamy, návyky a nastavení) ve vlastním formátu aplikace, chráněnou heslem, kterou můžeš později v aplikaci obnovit. **Export** na stejné stránce zapíše tvé záznamy jako čitelný soubor (TXT, CSV, JSON nebo PDF) ke čtení, tisku nebo pro jiný program. Exportovaný soubor není zašifrovaný: kdokoli, kdo ho má, si ho může přečíst, proto ho chraň stejně pečlivě jako samotný deník.
+Na stránce **Záloha** v nabídce můžeš vytvořit **zálohu**: zašifrovanou kopii celého deníku (záznamy, návyky a nastavení) ve vlastním formátu aplikace, chráněnou heslem, kterou můžeš později v aplikaci obnovit. **Export** na stejné stránce zapíše tvé záznamy jako čitelný soubor (TXT, CSV, JSON nebo PDF) ke čtení, tisku nebo pro jiný program. Exportovaný soubor není zašifrovaný: kdokoli, kdo ho má, si ho může přečíst, proto ho chraň stejně pečlivě jako samotný deník.
 
 ### Jak smažu svůj účet?
 

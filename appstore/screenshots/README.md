@@ -9,6 +9,12 @@ the iPhone `07-offline.png` of `ja` and `zh-Hans` (both iPhone sets) were render
 `docs/apple-tasks/SHOTS.md`, rules `docs/apple-tasks/ENV-FINAL.md`, Apple's requirements `docs/apple-tasks/APPSTORE-FACTS.md`
 sections 6 and 7). The Hebrew owner's guide is `README.he.md`; this file is the developer's reference.
 
+**Phone frame changed on 2026-11-25 (the owner's decision):** the iPhone app (the same phone build as Android) has no
+bottom navigation and no "More" tab any more. A "Menu" button (icon and word) at the inline end of the top app bar
+opens one panel that drops down from the top with every page; only the floating "New entry" button stays at the
+bottom. Both iPhone sets (`iphone-6.3/` and `iphone-6.9/`, 266 images) were rendered again with the new frame on
+2026-11-26; the Mac sets are not affected.
+
 ## 1. What is in this folder
 
 | Path | Set | Pixels | Images | Goes to |
@@ -187,8 +193,7 @@ number changes (section 7).
 
 * **Fonts.** The renders run on Windows: the text is set in Segoe UI (and the Windows fonts for Hebrew, Arabic, CJK,
   Thai and Devanagari), while an iPhone or Mac shows the same screens in San Francisco and Apple's system fonts.
-  Glyph shapes, line lengths, and in a few languages the height of the bottom navigation differ slightly; the
-  layout, colours, texts and content are identical. Accepted for the first release. **Re-shooting on a Mac is
+  Glyph shapes and line lengths differ slightly; the layout, colours, texts and content are identical. Accepted for the first release. **Re-shooting on a Mac is
   optional and not set up:** the build Mac has no Edge, no Playwright browser and no tool folder (no Homebrew, little
   free disk). With **Microsoft Edge for macOS** installed, `playwright-core` in `mpd-store-tools/` (or
   `$MPD_STORE_TOOLS`) and the project's `node_modules`, the scripts run unchanged. **Playwright's own Chromium** does
@@ -211,17 +216,28 @@ number changes (section 7).
   Check it by eye - the checker does not read the version: bottom right of `mac/en-US/02-diary.png` must say
   `v1.0.0`. With `v0.1.0` the sets are still valid uploads (only the small version label is old). The iPhone layout
   has no footer, so the iPhone sets do not show the version.
-* **The 6.3-inch iPhone set starts some screens slightly scrolled** (the 874 CSS px high screen has no other clean
-  position - at scroll 0 a chip or a line at the bottom would be cut by the bottom navigation, and the layout rules
-  take the nearest clean position): `03-entry` in 10 localizations (`en-US`, `he`, `ar-SA`, `zh-Hans`, `ja`, `hi`,
-  `th`, `fr-FR`, `cs`, `hu`; `scrollY` 47) starts with the entry's date line - its title ("A wonderful morning") is
-  under the app bar (the 6.9-inch set and the other nine localizations show it); `fr-FR/01-home.png` (`scrollY` 71)
-  starts with the top edge of the greeting card ("Bonjour Camille") under the app bar; and `07-offline.png` of
-  `en-US`, `pl` and `pt-PT` uses the layout rules' last resort (`boxUnderTopBar` in `render-log.json`): the bottoms
-  of three empty emotion-chip outlines of the previous entry show just under the app bar (their labels are hidden).
-  No text is cut anywhere. A fix would need another entry for shot 03 or a different demo text - not done (the shot-03
-  entry is the same in every set by design). The Play set has the same last-resort case in `hi-IN` and `hu-HU` 07,
-  the Store set in 03 (by 1 px) and `zh-CN` 08. The Mac set has none (see `appStoreOfflineEntry`, section 6).
+* **Some iPhone screens start slightly scrolled** (the state of the render of 2026-11-26; `scrollY` in each set's
+  `render-log.json` is the exact list). The layout rules take the nearest position at which no line of text is cut
+  by the app bar or by the bottom edge of the screen. In the 6.9-inch set, `01-home` of all 19 localizations
+  (`scrollY` 47) starts with the greeting card: the page's own heading is under the app bar, whose title says the
+  same word. In the 6.3-inch set, `03-entry` of `de-DE`, `es-ES`, `it`, `ro` and `ru` (`scrollY` 72) starts with the
+  "Edit" button - the entry's title and its date are under the app bar (the 14 other localizations, at `scrollY` 10
+  or 1, and the 6.9-inch set show them); `fr-FR/01-home.png` is 6 px down; and `de-DE/07-offline.png` uses the
+  layout rules' last resort (`boxUnderTopBar` in `render-log.json`): the bottom edge of the frame of the previous
+  entry's "Open" button shows just under the app bar (its label is hidden). No line of text is cut in the middle anywhere. A fix would
+  need another entry for shot 03 or a different demo text - not done (the shot-03 entry is the same in every set by
+  design). The Play set of 2026-11-26 has no last-resort picture; the Store set has one in 03 (by 1 px) and `zh-CN`
+  08. The Mac set has none (see `appStoreOfflineEntry`, section 6).
+* **A line on the picture's bottom edge.** Since the phone frame has no bottom bar, the bottom edge of the page is
+  the bottom edge of the picture, and the phone profiles' layout rules go by the line boxes: in some pictures of
+  both iPhone sets (and of the Play set) the last line on the screen sits on that edge and its lowest strokes touch
+  it (51 of the 406 phone pictures of 2026-11-26 have dark pixels in their last pixel row; the text is readable).
+  The desktop profile's glyph-ink rule (`DESKTOP_CHROME.ink`: 3 CSS px of air under the last line's ink) is to be
+  switched on for the phone profiles at the next full render, before the release.
+* **An entry's text in the list can end in the middle of a word** (`de-DE/02-diary.png`: "... Ich habe mit Ma"):
+  the app shows the first 160 characters of an entry in the list and cuts there without an ellipsis (`makeExcerpt` in
+  `server/src/db/entries-repo.ts`). The iPhone profiles show the app as it is, as the Play set does
+  (`play/screenshots/README.he.md` has the same note); the Mac profile avoids it with `wholeExcerpts: 160`.
 * **The iPhone offline shot shows the badge and the message, not the yellow offline bar** (the phone layout keeps
   the one-line bar above the screen, as the Play set does - section 4). The Mac shot shows the full bar.
 * The demo data is the app's own sample diary, translated per language; the dates are those of the fixed instant

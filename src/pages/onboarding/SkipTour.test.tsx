@@ -209,8 +209,8 @@ describe('Skip - just look around', () => {
     expect(banner).toHaveAttribute('role', 'status');
     expect(screen.getByRole('button', { name: en('mobile.guest.createAccount') })).toBeInTheDocument();
     expect(await screen.findByText(en('mobile.guest.started'))).toBeInTheDocument();
-    // The app itself is there: bottom navigation and the floating button.
-    expect(screen.getByRole('navigation', { name: en('shell.mainNavLabel') })).toBeInTheDocument();
+    // The app itself is there: the "Menu" button of the top app bar and the floating button.
+    expect(within(screen.getByRole('banner')).getByRole('button', { name: en('shell.menu') })).toHaveAttribute('aria-haspopup', 'dialog');
     expect(screen.getByRole('link', { name: en('shell.nav.newEntry') })).toBeInTheDocument();
   });
 
@@ -287,6 +287,7 @@ describe('Skip - just look around', () => {
     expect(sessionStorage.getItem(TOKEN_KEY)).toBeNull();
     expect(screen.queryByText(en('mobile.guest.banner'))).not.toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: en('shell.mainNavLabel') })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: en('shell.menu') })).not.toBeInTheDocument();
     // The one registration form, with its privacy checkbox - unticked, the tour ticks nothing for the visitor
     // (docs/android-tasks/PRIVACY-CHECKBOX.md).
     expect(screen.getByRole('checkbox', { name: en('auth.legalConsent', { policy: en('auth.privacyConsentLink'), terms: en('auth.termsConsentLink') }) })).not.toBeChecked();
@@ -306,11 +307,11 @@ describe('Skip - just look around', () => {
     expect(screen.queryByText(T.loggedOut)).not.toBeInTheDocument();
     expect(screen.queryByText(en('mobile.guest.ended'))).not.toBeInTheDocument();
 
-    // A second tour, ended from the "More" sheet.
+    // A second tour, ended from the menu.
     await user.click(screen.getByRole('button', { name: en('mobile.guest.skip') }));
     await screen.findByRole('heading', { name: 'home page (signed in)' });
-    await user.click(within(screen.getByRole('navigation', { name: en('shell.mainNavLabel') })).getByRole('button', { name: en('mobile.nav.more') }));
-    await user.click(within(screen.getByRole('dialog', { name: en('mobile.nav.more') })).getByRole('button', { name: en('mobile.guest.endTour') }));
+    await user.click(within(screen.getByRole('banner')).getByRole('button', { name: en('shell.menu') }));
+    await user.click(within(screen.getByRole('dialog', { name: en('shell.menu') })).getByRole('button', { name: en('mobile.guest.endTour') }));
     expect(await screen.findByRole('heading', { level: 1, name: T.welcomeTitle })).toBeInTheDocument();
     expect(await screen.findByText(en('mobile.guest.ended'))).toBeInTheDocument();
     expect(screen.queryByText(T.loggedOut)).not.toBeInTheDocument();

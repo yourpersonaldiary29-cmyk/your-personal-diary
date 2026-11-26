@@ -25,6 +25,7 @@ import {
   assertLoopbackOnly,
   browserLocaleOf,
   DEFAULT_LOCALE,
+  DESKTOP_CHROME,
   entryScore,
   FICTIONAL_PEOPLE,
   fictionalAccount,
@@ -38,6 +39,7 @@ import {
   NO_WORD_SPACES,
   offlineEntry,
   parseArgs,
+  PHONE_CHROME,
   pickEntry,
   PROFILES,
   scrollCandidates,
@@ -436,6 +438,35 @@ test('the server clock: anchored to the fixed time, running on, restored', () =>
   assert.equal(Date, RealDate);
 });
 
+test('the server clock: withRealDate gives Playwright\'s clock call the real time (the page\'s timers stopped otherwise)', async () => {
+  const RealDate = Date;
+  const clock = installServerClock();
+  try {
+    clock.anchor(Date.parse(FIXED_TIME));
+    const Anchored = Date;
+    assert.notEqual(Anchored, RealDate);
+    const seen = await clock.withRealDate(async () => {
+      await new Promise((r) => setTimeout(r, 5));
+      return { same: Date === RealDate, now: Date.now() };
+    });
+    assert.equal(seen.same, true, 'the real Date during the call, also after an await');
+    assert.ok(Math.abs(seen.now - RealDate.now()) < 1000);
+    assert.equal(Date, Anchored, 'the anchored Date is back afterwards');
+    assert.ok(Math.abs(Date.now() - RealDate.parse(FIXED_TIME)) < 1000);
+    // ... also when the call fails.
+    await assert.rejects(clock.withRealDate(async () => {
+      throw new Error('boom');
+    }), /boom/);
+    assert.equal(Date, Anchored);
+  } finally {
+    clock.restore();
+  }
+  assert.equal(Date, RealDate);
+  // The renderer sets the browser's fixed time through it.
+  const source = readFileSync(path.join(HERE, 'render-screenshots.mjs'), 'utf8');
+  assert.match(source, /clock\.withRealDate\(\(\) => page\.clock\.setFixedTime\(/);
+});
+
 test('PNG conversion: an opaque capture becomes a 24-bit RGB PNG with the same pixels; a transparent pixel fails', () => {
   const img = noise(40, 60, 11);
   const out = toOpaqueRgbPng(encodePng(img, { alpha: true }));
@@ -491,6 +522,32 @@ test('shot 07: an entry written offline from the set\'s own demo texts; the last
   assert.equal(last.scrollTo, 'end');
   // Settings shows the account card with all its fields.
   assert.ok(SHOTS.find((s) => s.slug === 'settings').show.includes('main dl'));
+});
+
+test('the phone frame since 2026-11-25: no bottom navigation, "My diary" of shot 07 through the "Menu" button of the top bar', () => {
+  // The bottom edge of the layout rules is the screen's own; the bottom block keeps only the floating button.
+  assert.equal(PHONE_CHROME.nav, null);
+  assert.equal(PHONE_CHROME.bottom, '.mobile-shell__bottom');
+  assert.equal(PHONE_CHROME.fab, '.fab');
+  assert.match(PHONE_CHROME.bottomName, /bottom edge of the screen/);
+  // Shot 07 opens the menu with the top bar's button, then chooses the "My diary" row inside the menu.
+  assert.equal(PHONE_CHROME.menuButton, '.top-bar__menu');
+  assert.equal(PHONE_CHROME.diaryLink, '#main-menu a[href$="#/diary"]');
+  // ... and those selectors are the components' own (TopAppBar's button, MainMenu's dialog id).
+  const layout = path.join(ROOT, 'src', 'components', 'layout');
+  assert.match(readFileSync(path.join(layout, 'TopAppBar.tsx'), 'utf8'), /className="top-bar__menu"/);
+  assert.match(readFileSync(path.join(layout, 'MainMenu.tsx'), 'utf8'), /MAIN_MENU_ID = 'main-menu'/);
+  // The desktop frame keeps its own navigation row and no menu step.
+  assert.equal(DESKTOP_CHROME.menuButton, undefined);
+  assert.equal(DESKTOP_CHROME.diaryLink, '.nav a[href$="#/diary"]');
+  // Nothing in the renderer still knows the old bar, and the render log has no "bottomNav" field any more.
+  const source = readFileSync(path.join(HERE, 'render-screenshots.mjs'), 'utf8');
+  assert.doesNotMatch(source, /\.bottom-nav/);
+  assert.doesNotMatch(source, /bottomNav:/);
+  assert.doesNotMatch(source, /navHeight/);
+  assert.doesNotMatch(layoutProbe.toString(), /bottom navigation/);
+  // The privacy guard measures to the bottom edge (chrome.nav), not to the top of the floating button's block.
+  assert.match(source, /bottomSel: chrome\.nav \}/);
 });
 
 test('arguments: locales are Play folder names, dark needs its own folder, unknown options fail', () => {

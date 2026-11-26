@@ -1,8 +1,5 @@
-/** fr - mobile messages: the Android shell and the tour mode. Keys are prefixed 'mobile.'. */
+/** fr - mobile messages: the tour mode. Keys are prefixed 'mobile.'. */
 const messages: Record<string, string> = {
-  // Android shell (src/components/layout/MobileShell.tsx, BottomNav.tsx, MoreSheet.tsx) ---------------
-  'mobile.nav.more': 'Plus',
-
   // Tour mode: the "Skip" button, the banner and the settings card (guest account, nothing is saved) --
   'mobile.guest.skip': 'Passer - juste jeter un œil',
   'mobile.guest.skipHint': 'Découvrez l’application avec des données d’exemple. Rien de ce que vous écrivez n’est enregistré.',

@@ -294,14 +294,16 @@ describe('the rendered pages', () => {
     }
     const english = all.get('support/index.html') as string;
     expect(english).toMatch(/<h1>[^<]*Your Personal Diary/);
-    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', 'On the <strong>Backup</strong> page in the menu (in the Android and iPhone apps, under More)', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
+    for (const needle of ['<strong>Forgot password?</strong>', '30 minutes', '10 wrong passwords', '15 minutes', '<strong>Remember me</strong>', '<strong>Language</strong>', 'On the <strong>Backup</strong> page in the menu you can create', 'TXT, CSV, JSON or PDF', '<strong>Delete account</strong>', '<strong>Settings - Reminders</strong>', 'not medical or psychological advice']) {
       expect(english, needle).toContain(needle);
     }
     // The iPhone app is named like the others: no "when it is published" (the owner's wording of 2026-11-18).
     expect(english).not.toContain('when it is published');
     expect(english).toContain('<strong>iPhone</strong>, and on the website');
-    // Backup is a page of the menu (on the phones under More), not a card of Settings (2026-11-19).
+    // Backup is a page of the menu, not a card of Settings (2026-11-19); since 2026-11-25 the phone apps have no "More"
+    // tab, so the support page names none.
     expect(english).not.toContain('Settings - Backup');
+    expect(english).not.toContain('under More');
   });
 
   it('the deletion page names the app and the publisher, the steps, the e-mail route and the 30-day snapshot window', () => {

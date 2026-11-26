@@ -203,7 +203,7 @@
       },
       {
         "q": "Como faço uma cópia de segurança do diário e como a restauro?",
-        "a": "Abra Cópia de segurança no menu (nas aplicações Android e iPhone, em Mais) e crie um ficheiro de cópia de segurança: uma cópia encriptada de todo o diário (entradas, hábitos e definições), protegida por uma palavra-passe, que guarda onde quiser. Para restaurar, escolha esse ficheiro na mesma página e introduza a palavra-passe dele. O restauro substitui o diário atual pelo conteúdo do ficheiro, por isso crie primeiro uma cópia de segurança do diário atual."
+        "a": "Abra Cópia de segurança no menu e crie um ficheiro de cópia de segurança: uma cópia encriptada de todo o diário (entradas, hábitos e definições), protegida por uma palavra-passe, que guarda onde quiser. Para restaurar, escolha esse ficheiro na mesma página e introduza a palavra-passe dele. O restauro substitui o diário atual pelo conteúdo do ficheiro, por isso crie primeiro uma cópia de segurança do diário atual."
       },
       {
         "q": "Como elimino a minha conta?",

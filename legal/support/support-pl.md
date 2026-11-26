@@ -33,7 +33,7 @@ Otwórz **Ustawienia** i na karcie **Język** wybierz z listy język interfejsu;
 
 ### Jak zabrać swoje dane?
 
-Na stronie **Kopia zapasowa** w menu (w aplikacjach na Androida i iPhone'a w sekcji Więcej) możesz utworzyć **kopię zapasową**: zaszyfrowaną kopię całego dziennika (wpisy, nawyki i ustawienia) we własnym formacie aplikacji, chronioną hasłem, którą możesz później przywrócić w aplikacji. **Eksport** na tej samej stronie zapisuje Twoje wpisy jako czytelny plik (TXT, CSV, JSON lub PDF) do czytania, drukowania lub użycia w innym programie. Plik eksportu nie jest zaszyfrowany: każdy, kto ma ten plik, może go przeczytać, więc przechowuj go równie starannie jak sam dziennik.
+Na stronie **Kopia zapasowa** w menu możesz utworzyć **kopię zapasową**: zaszyfrowaną kopię całego dziennika (wpisy, nawyki i ustawienia) we własnym formacie aplikacji, chronioną hasłem, którą możesz później przywrócić w aplikacji. **Eksport** na tej samej stronie zapisuje Twoje wpisy jako czytelny plik (TXT, CSV, JSON lub PDF) do czytania, drukowania lub użycia w innym programie. Plik eksportu nie jest zaszyfrowany: każdy, kto ma ten plik, może go przeczytać, więc przechowuj go równie starannie jak sam dziennik.
 
 ### Jak usunąć konto?
 

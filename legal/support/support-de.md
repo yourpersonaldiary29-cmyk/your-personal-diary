@@ -33,7 +33,7 @@ Die App braucht den Server für die Anmeldung, die Suche, Statistiken und Erkenn
 
 ### Wie bekomme ich meine Daten heraus?
 
-Auf der Seite **Backup** im Menü (in der Android- und der iPhone-App unter „Mehr") kannst du ein **Backup** erstellen: eine verschlüsselte Kopie des ganzen Tagebuchs (Einträge, Gewohnheiten und Einstellungen) im eigenen Format der App, durch ein Passwort geschützt, die du später in der App wiederherstellen kannst. Der **Export** auf derselben Seite schreibt deine Einträge als lesbare Datei - TXT, CSV, JSON oder PDF - zum Lesen, Drucken oder für ein anderes Programm. Eine Exportdatei ist nicht verschlüsselt: Jeder, der die Datei hat, kann sie lesen, also bewahre sie so sorgfältig auf wie das Tagebuch selbst.
+Auf der Seite **Backup** im Menü kannst du ein **Backup** erstellen: eine verschlüsselte Kopie des ganzen Tagebuchs (Einträge, Gewohnheiten und Einstellungen) im eigenen Format der App, durch ein Passwort geschützt, die du später in der App wiederherstellen kannst. Der **Export** auf derselben Seite schreibt deine Einträge als lesbare Datei - TXT, CSV, JSON oder PDF - zum Lesen, Drucken oder für ein anderes Programm. Eine Exportdatei ist nicht verschlüsselt: Jeder, der die Datei hat, kann sie lesen, also bewahre sie so sorgfältig auf wie das Tagebuch selbst.
 
 ### Wie lösche ich mein Konto?
 

@@ -203,7 +203,7 @@
       },
       {
         "q": "Comment sauvegarder mon journal et le restaurer ?",
-        "a": "Ouvrez Sauvegarde dans le menu (dans les applications Android et iPhone, sous Plus) et créez un fichier de sauvegarde : une copie chiffrée de tout le journal (entrées, habitudes et paramètres), protégée par un mot de passe, que vous conservez où vous voulez. Pour restaurer, choisissez ce fichier sur la même page et saisissez son mot de passe. La restauration remplace le journal actuel par le contenu du fichier, alors créez d’abord une sauvegarde du journal actuel."
+        "a": "Ouvrez Sauvegarde dans le menu et créez un fichier de sauvegarde : une copie chiffrée de tout le journal (entrées, habitudes et paramètres), protégée par un mot de passe, que vous conservez où vous voulez. Pour restaurer, choisissez ce fichier sur la même page et saisissez son mot de passe. La restauration remplace le journal actuel par le contenu du fichier, alors créez d’abord une sauvegarde du journal actuel."
       },
       {
         "q": "Comment supprimer mon compte ?",

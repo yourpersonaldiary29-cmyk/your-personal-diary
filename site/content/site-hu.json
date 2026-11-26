@@ -203,7 +203,7 @@
       },
       {
         "q": "Hogyan készíthetek biztonsági mentést a naplómról, és hogyan állíthatom vissza?",
-        "a": "Nyisd meg a menüben a Biztonsági mentés oldalt (az Android- és az iPhone-alkalmazásban a Továbbiak alatt), és hozz létre egy biztonsági mentési fájlt: az egész napló (bejegyzések, szokások és beállítások) titkosított, jelszóval védett másolatát, amelyet ott tárolsz, ahol szeretnéd. A visszaállításhoz válaszd ki ezt a fájlt ugyanazon az oldalon, és add meg a jelszavát. A visszaállítás a fájl tartalmával felülírja a jelenlegi naplót, ezért előbb készíts biztonsági mentést a jelenlegi naplóról."
+        "a": "Nyisd meg a menüben a Biztonsági mentés oldalt, és hozz létre egy biztonsági mentési fájlt: az egész napló (bejegyzések, szokások és beállítások) titkosított, jelszóval védett másolatát, amelyet ott tárolsz, ahol szeretnéd. A visszaállításhoz válaszd ki ezt a fájlt ugyanazon az oldalon, és add meg a jelszavát. A visszaállítás a fájl tartalmával felülírja a jelenlegi naplót, ezért előbb készíts biztonsági mentést a jelenlegi naplóról."
       },
       {
         "q": "Hogyan törölhetem a fiókomat?",

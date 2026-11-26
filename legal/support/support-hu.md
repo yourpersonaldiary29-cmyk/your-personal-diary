@@ -33,7 +33,7 @@ Nyisd meg a **Beállítások** oldalt, és a **Nyelv** kártyán válaszd ki a l
 
 ### Hogyan vihetem ki az adataimat?
 
-A menü **Biztonsági mentés** oldalán (az Android- és az iPhone-alkalmazásban a Továbbiak alatt) **biztonsági mentést** készíthetsz: a teljes napló (bejegyzések, szokások és beállítások) titkosított másolatát az alkalmazás saját formátumában, jelszóval védve, amelyet később visszaállíthatsz az alkalmazásban. Ugyanezen az oldalon az **exportálás** olvasható fájlba írja a bejegyzéseidet - TXT, CSV, JSON vagy PDF formátumban - olvasáshoz, nyomtatáshoz vagy egy másik programhoz. Az exportált fájl nincs titkosítva: bárki elolvashatja, akinél a fájl van, ezért ugyanolyan gondosan őrizd, mint magát a naplót.
+A menü **Biztonsági mentés** oldalán **biztonsági mentést** készíthetsz: a teljes napló (bejegyzések, szokások és beállítások) titkosított másolatát az alkalmazás saját formátumában, jelszóval védve, amelyet később visszaállíthatsz az alkalmazásban. Ugyanezen az oldalon az **exportálás** olvasható fájlba írja a bejegyzéseidet - TXT, CSV, JSON vagy PDF formátumban - olvasáshoz, nyomtatáshoz vagy egy másik programhoz. Az exportált fájl nincs titkosítva: bárki elolvashatja, akinél a fájl van, ezért ugyanolyan gondosan őrizd, mint magát a naplót.
 
 ### Hogyan törölhetem a fiókomat?
 

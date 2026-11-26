@@ -203,7 +203,7 @@
       },
       {
         "q": "Jak zrobić kopię zapasową dziennika i ją przywrócić?",
-        "a": "Otwórz w menu stronę Kopia zapasowa (w aplikacjach na Androida i iPhone'a w sekcji Więcej) i utwórz plik kopii zapasowej: zaszyfrowaną kopię całego dziennika (wpisów, nawyków i ustawień), chronioną hasłem, którą przechowujesz, gdzie chcesz. Aby ją przywrócić, wybierz ten plik na tej samej stronie i wpisz jego hasło. Przywrócenie zastępuje obecny dziennik zawartością pliku, więc najpierw utwórz kopię zapasową obecnego dziennika."
+        "a": "Otwórz w menu stronę Kopia zapasowa i utwórz plik kopii zapasowej: zaszyfrowaną kopię całego dziennika (wpisów, nawyków i ustawień), chronioną hasłem, którą przechowujesz, gdzie chcesz. Aby ją przywrócić, wybierz ten plik na tej samej stronie i wpisz jego hasło. Przywrócenie zastępuje obecny dziennik zawartością pliku, więc najpierw utwórz kopię zapasową obecnego dziennika."
       },
       {
         "q": "Jak usunąć konto?",

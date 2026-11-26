@@ -33,7 +33,7 @@ Open **Settings** and, in the **Language** card, choose the interface language f
 
 ### How do I get my data out?
 
-On the **Backup** page in the menu (in the Android and iPhone apps, under More) you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
+On the **Backup** page in the menu you can create a **backup**: an encrypted copy of the whole diary (entries, habits and settings) in the app's own format, protected by a password, which you can restore later in the app. The **export** on the same page writes your entries as a readable file - TXT, CSV, JSON or PDF - for reading, printing or another program. An export file is not encrypted: anyone who has the file can read it, so keep it as carefully as the diary itself.
 
 ### How do I delete my account?
 

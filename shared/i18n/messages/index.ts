@@ -51,7 +51,7 @@ export const AREA_NAMES = [
   'server', // server: errors, validation, reminders, backup descriptions, export labels
   'analysis', // server: insight templates, notes, phrasing
   'searchAnswers', // server: search answers/explanations
-  'mobile', // Android app: shell (bottom navigation, "More"), tour mode
+  'mobile', // phone app: tour mode, files, lock, security, reminders (its "Menu" button reuses 'shell.menu' since 2026-11-25)
 ] as const;
 
 export type AreaName = (typeof AREA_NAMES)[number];

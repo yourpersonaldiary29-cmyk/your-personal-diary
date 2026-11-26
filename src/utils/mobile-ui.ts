@@ -1,9 +1,10 @@
 /**
  * The phone UI switch.
  *
- * The Android app is the same React UI built with `__MOBILE__ = true` (mobile/vite.config.mobile.ts).
- * In that build the app gets the Android-comfortable shell (top app bar, bottom navigation, floating
- * "New entry" button, "More" sheet - src/components/layout/MobileShell.tsx) and the "Skip - just look
+ * The Android and iPhone app is the same React UI built with `__MOBILE__ = true`
+ * (mobile/vite.config.mobile.ts). In that build the app gets the phone shell (a top app bar with the
+ * "Menu" button that opens the menu of every page - owner's decision of 2026-11-25 - and the
+ * floating "New entry" button; src/components/layout/MobileShell.tsx) and the "Skip - just look
  * around" tour button (src/pages/onboarding/SkipTourButton.tsx). In the desktop / browser build - the
  * Windows app and the web UI served by the diary server - the flag is the constant `false`, so
  * nothing of it is ever shown there, whatever the window size (docs/android-tasks/HOSTED-IMPL.md

@@ -203,7 +203,7 @@
       },
       {
         "q": "Jak deník zálohovat a obnovit?",
-        "a": "V nabídce otevři Záloha (v aplikacích pro Android a iPhone v části Více) a vytvoř záložní soubor: zašifrovanou kopii celého deníku (záznamů, návyků a nastavení) chráněnou heslem, kterou si uložíš, kam chceš. Při obnovení zvol tento soubor na stejné stránce a zadej jeho heslo. Obnovení nahradí současný deník obsahem souboru, proto si nejdřív vytvoř zálohu současného deníku."
+        "a": "V nabídce otevři Záloha a vytvoř záložní soubor: zašifrovanou kopii celého deníku (záznamů, návyků a nastavení) chráněnou heslem, kterou si uložíš, kam chceš. Při obnovení zvol tento soubor na stejné stránce a zadej jeho heslo. Obnovení nahradí současný deník obsahem souboru, proto si nejdřív vytvoř zálohu současného deníku."
       },
       {
         "q": "Jak smažu svůj účet?",

@@ -1,12 +1,13 @@
 /*
- * Phone layout of the Android app. Used by the phone shell only: MobileShell.tsx imports this file
+ * Phone layout of the Android and iPhone app. Used by the phone shell only: MobileShell.tsx imports this file
  * as text (`?inline`) and adds it to the document when it mounts, so the desktop bundle does not
  * contain it; and every rule hangs on the class the shell puts on <html> while it is mounted -
  * `.platform-mobile` - so nothing here can ever restyle the desktop app.
  *
- * Contents: tokens and safe areas · shell (app bar, tour banner, bottom navigation, floating
- * button, "More" sheet) · touch targets and inputs · full-width buttons · keyboard hints · dialogs
- * as bottom sheets · compact calendar · tour button.
+ * Contents: tokens and safe areas · shell (app bar with the "Menu" button, tour banner, floating
+ * button) · touch targets and inputs · full-width buttons · keyboard hints · dialogs as bottom
+ * sheets · the menu, a panel from the top · compact calendar · tour button.
+ * Owner's decision of 2026-11-25: the menu is at the top; there is no bottom bar and no "More" sheet.
  * Colours come from the theme tokens (tokens.css), so light, dark and high contrast follow the
  * app's theme setting. Offsets use logical properties: the layout mirrors in Hebrew and Arabic.
  */
@@ -15,7 +16,6 @@
 .platform-mobile {
   --touch-target: 48px;
   --top-bar-height: 3.5rem;
-  --bottom-nav-height: 4rem;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
@@ -72,6 +72,37 @@
 
 .platform-mobile .top-bar__back:active {
   background: var(--color-surface-alt);
+}
+
+/* "Menu": at the inline end, opposite the back arrow (the left edge in Hebrew and Arabic). The icon
+   and the word; the word never shrinks or wraps - the title beside it takes the ellipsis. */
+.platform-mobile .top-bar__menu {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  margin-inline-start: var(--space-2);
+  margin-inline-end: calc(var(--space-2) * -1);
+  padding-block: 0;
+  padding-inline: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.platform-mobile .top-bar__menu:active,
+.platform-mobile .top-bar__menu[aria-expanded="true"] {
+  background: var(--color-primary-soft);
+}
+
+.platform-mobile .top-bar__menu-label {
+  flex: 0 0 auto;
 }
 
 .platform-mobile .top-bar__titles {
@@ -142,13 +173,16 @@
   overflow-x: clip;
 }
 
-/* Room for the bottom navigation (taller when a label wraps) and, where shown, the floating button. */
-.platform-mobile .app-root[data-bottom-nav] .main {
-  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-7));
-}
-
+/* Room for the floating button where it is shown (it sits above the gesture bar) AND for a message
+   (toast) above it. A message stands 5.25rem above the gesture bar, over the button (see the toast
+   rules below). It is about 4.6rem high with one line (the 48 px close button, the box's padding and its
+   border), about 5.4rem with two lines, about 6.9rem with three and about 8.5rem with four. The longer
+   messages of the app take three lines on a phone in the languages with long words; such a message ends
+   about 12.2rem above the gesture bar. The list ends above that, so its last entry and the "Open" button
+   of that entry are not under a message of up to three lines. (While the bottom navigation stood here
+   the list ended 4rem + 7rem above the edge, and a message of three lines reached over its end.) */
 .platform-mobile .app-root[data-fab] .main {
-  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 7rem);
+  padding-block-end: calc(var(--safe-bottom) + 13.5rem);
 }
 
 /* The floating button is the page's "New entry": the same button in the title row would be a duplicate. */
@@ -177,9 +211,9 @@
   min-width: 0;
 }
 
-/* Shell: bottom navigation ------------------------------------------------------------------------ */
-/* The floating button and the navigation are one block fixed to the bottom edge; only the two of
-   them take touches, the gap beside the button lets the page through. */
+/* Shell: bottom block -------------------------------------------------------------------------- */
+/* Fixed to the bottom edge, above the gesture bar: only the floating button takes touches, the rest
+   of the block lets the page through. (Until 2026-11-25 the bottom navigation stood here too.) */
 .platform-mobile .mobile-shell__bottom {
   position: fixed;
   inset-inline: 0;
@@ -188,110 +222,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  padding-block-end: var(--safe-bottom);
   pointer-events: none;
 }
 
-.platform-mobile .bottom-nav {
-  width: 100%;
-  pointer-events: auto;
-  padding-bottom: var(--safe-bottom);
-  padding-left: var(--safe-left);
-  padding-right: var(--safe-right);
-  background: var(--color-surface);
-  border-top: var(--border-width) solid var(--color-border);
-  box-shadow: 0 -1px 3px var(--color-shadow);
-}
-
-.platform-mobile .bottom-nav__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  /* Five equal columns; a column whose label has a long word ("Περισσότερα") takes the width that
-     word needs and the others share the rest, so no word is ever cut in the middle. */
-  grid-template-columns: repeat(5, minmax(min-content, 1fr));
-  overflow: hidden;
-}
-
-.platform-mobile .bottom-nav__item {
-  margin: 0;
-  min-width: 0;
-}
-
-.platform-mobile .bottom-nav__link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* From the top, so the icons stay on one line when one label needs more lines than another. */
-  justify-content: flex-start;
-  gap: 0.15rem;
-  width: 100%;
-  height: 100%;
-  min-height: var(--bottom-nav-height);
-  padding: var(--space-2) 0.15rem var(--space-1);
-  border: 0;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--color-text-muted);
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.platform-mobile .bottom-nav__label {
-  max-width: 100%;
-  /* Follows the text-size setting up to a point: five labels must still fit side by side. */
-  font-size: min(0.75rem, 13px);
-  line-height: 1.2;
-  text-align: center;
-  /* Whole words only (the page default may break anywhere). */
-  overflow-wrap: break-word;
-  /* A long label ("Το ημερολόγιό μου") wraps - up to three short lines - instead of being cut. */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  overflow: hidden;
-}
-
-@media (max-width: 380px) {
-  .platform-mobile .bottom-nav__link {
-    padding-inline: 0;
-  }
-
-  .platform-mobile .bottom-nav__label {
-    font-size: min(0.6875rem, 12px);
-  }
-}
-
-.platform-mobile .bottom-nav__link--active {
-  color: var(--color-primary);
-}
-
-/* The current destination's label is emphasised with a thin stroke in its own colour, not with a
-   heavier font weight: bold glyphs are wider, and in Greek, Polish and Bulgarian the bold label of
-   the current destination wrapped to one line more than the same label on the other screens, so
-   the bar's height changed from screen to screen (Play screenshots, 2026-10-27). The stroke is
-   paint only - the label keeps the metrics of the other four - so every label wraps the same way
-   whichever destination is current, and the bar keeps one height in all 20 languages. */
-.platform-mobile .bottom-nav__link--active .bottom-nav__label {
-  -webkit-text-stroke: 0.03em currentColor;
-  paint-order: stroke fill;
-}
-
-/* Every icon sits in the same pill-shaped box; the current section's pill is filled. */
-.platform-mobile .bottom-nav__link .shell-icon {
-  border-radius: 999px;
-  box-sizing: content-box;
-  padding: 0.15rem 0.9rem;
-}
-
-.platform-mobile .bottom-nav__link--active .shell-icon {
-  background: var(--color-primary-soft);
-}
-
-.platform-mobile .bottom-nav__link:focus-visible,
-.platform-mobile .more-sheet__item:focus-visible,
+.platform-mobile .main-menu__item:focus-visible,
 .platform-mobile .top-bar__back:focus-visible,
+.platform-mobile .top-bar__menu:focus-visible,
 .platform-mobile .fab:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-focus);
   outline-offset: -3px;
@@ -326,15 +263,17 @@
   box-shadow: 0 0 0 2px var(--color-focus-inner);
 }
 
-/* Toasts sit above the bottom navigation. */
+/* Toasts sit above the gesture bar and, where it is shown, above the floating button (the button is
+   1rem above the gesture bar and at least 3.5rem high; the message keeps 0.75rem of air over it). The
+   page keeps room for the message there: see the bottom padding of .main with the button. */
 .platform-mobile .toast-region {
   inset-inline: var(--space-4);
   inset-block-end: calc(var(--space-4) + var(--safe-bottom));
   max-width: none;
 }
 
-.platform-mobile body:has(.app-root[data-bottom-nav]) .toast-region {
-  inset-block-end: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-3));
+.platform-mobile body:has(.app-root[data-fab]) .toast-region {
+  inset-block-end: calc(var(--safe-bottom) + 5.25rem);
 }
 
 /* Touch targets and inputs --------------------------------------------------------------------- */
@@ -489,18 +428,61 @@
   width: 100%;
 }
 
-/* "More" sheet */
-.platform-mobile .more-sheet .dialog__body {
+/* The menu: a panel from the top ------------------------------------------------------------------ */
+/* Owner's decision of 2026-11-25: the menu drops down from the top edge, under the status bar, not
+   from the bottom like every other dialog of the phone. These rules undo the bottom-sheet rules
+   above for the menu only (`dialog--menu`, MainMenu.tsx): its position, its corners, its border, its
+   shadow, its animation and the grab handle. Every other dialog stays a bottom sheet. */
+.platform-mobile .dialog.dialog--menu {
+  inset-block: 0 auto;
+  max-height: calc(100vh - var(--space-7));
+  max-height: calc(100dvh - var(--space-7));
+  border-block-start-width: 0;
+  border-block-end-width: var(--border-width);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding-block: var(--safe-top) 0;
+  box-shadow: 0 8px 30px var(--color-shadow);
+}
+
+/* Slides down from the top edge (base.css switches the animation off for reduced motion). */
+.platform-mobile .dialog.dialog--menu[open] {
+  animation: mobile-menu-in 200ms ease-out;
+}
+
+@keyframes mobile-menu-in {
+  from {
+    transform: translateY(-24%);
+    opacity: 0.4;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.platform-mobile .dialog--menu .dialog__content {
+  max-height: calc(100vh - var(--space-7) - var(--safe-top));
+  max-height: calc(100dvh - var(--space-7) - var(--safe-top));
+}
+
+/* No grab handle: the panel is not dragged up from the bottom. */
+.platform-mobile .dialog--menu .dialog__content::before {
+  content: none;
+  display: none;
+}
+
+.platform-mobile .main-menu .dialog__body {
   padding-inline: var(--space-2);
 }
 
-.platform-mobile .more-sheet__list {
+.platform-mobile .main-menu__list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.platform-mobile .more-sheet__item {
+.platform-mobile .main-menu__item {
   display: flex;
   align-items: center;
   gap: var(--space-4);
@@ -517,21 +499,29 @@
   text-decoration: none;
 }
 
-.platform-mobile .more-sheet__item:active {
+/* The name of a row: a long single word (at 200 % text size, in German or Hungarian) wraps inside
+   the row instead of running past it and scrolling the panel sideways. */
+.platform-mobile .main-menu__item > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.platform-mobile .main-menu__item:active {
   background: var(--color-surface-alt);
 }
 
-.platform-mobile .more-sheet__item[aria-current="page"] {
+/* The row of the current section. */
+.platform-mobile .main-menu__item[aria-current="page"] {
   background: var(--color-primary-soft);
   color: var(--color-primary);
   font-weight: 700;
 }
 
-.platform-mobile .more-sheet__item--logout {
+/* Keyboard shortcuts and Log out, under a line after the destinations. */
+.platform-mobile .main-menu__actions {
   margin-block-start: var(--space-2);
-  border-top: var(--border-width) solid var(--color-border);
-  border-radius: 0;
-  padding-block-start: var(--space-3);
+  padding-block-start: var(--space-2);
+  border-block-start: var(--border-width) solid var(--color-border);
 }
 
 /* Compact calendar ------------------------------------------------------------------------------- */
@@ -617,9 +607,15 @@
 }
 
 @media (forced-colors: active) {
-  .platform-mobile .bottom-nav__link,
-  .platform-mobile .more-sheet__item,
+  .platform-mobile .top-bar__menu,
+  .platform-mobile .main-menu__item,
   .platform-mobile .fab {
     border: 1px solid CanvasText;
+  }
+
+  /* The current row keeps a mark of its own when the background colour is dropped. */
+  .platform-mobile .main-menu__item[aria-current="page"] {
+    border-color: Highlight;
+    border-inline-start-width: 6px;
   }
 }

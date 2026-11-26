@@ -61,7 +61,7 @@
  *
  * LAYOUT RULES (Google: screenshots must not be misleading, text must be legible - and the owner: no cut
  * or covered text): in the visible part of the screen no line of text may be cut by the top app bar or
- * the bottom navigation, lie (even partly) under the floating "New entry" button, straddle the edge of a
+ * the bottom edge of the screen, lie (even partly) under the floating "New entry" button, straddle the edge of a
  * toast, be cut off by its own box (an ellipsis "...", a clamped label, a box that scrolls sideways) or run
  * off the screen, and no word may be broken across two lines (an address like "x@example.c / om"; in
  * Chinese, Japanese and Thai, which break between characters, only Latin words and numbers are checked).
@@ -69,7 +69,16 @@
  * lie under the floating button or cross a toast's edge - except, as a last resort when no position is
  * clean otherwise, the frame of one running under the top app bar like any scrolled content (its label,
  * being text, is still never cut; render-log.json then says "boxUnderTopBar" for that file). A shot can
- * also name elements that must be entirely on the screen (`show`).
+ * also name elements that must be entirely on the screen (`show`). The top app bar's own texts count too:
+ * a page title shortened with "..." beside the "Menu" button fails the shot like any other cut text.
+ *
+ * THE PHONE FRAME (MobileShell, the same build for the Android and the iPhone sets; the owner's decision of
+ * 2026-11-25): a sticky top app bar with the back arrow, the page title and, at its inline end, the "Menu"
+ * button (icon and word) that opens the one menu of every page - a panel that drops down from the top; at
+ * the bottom only the floating "New entry" button. There is no bottom navigation any more, so the bottom
+ * edge of the layout rules is the bottom edge of the screen (PHONE_CHROME.nav null), as on the desktop. The
+ * sets rendered before 2026-11-25 show the old bottom bar and its "More" tab; their render-log.json entries
+ * still carry its height ("bottomNav"), which the new renders no longer write.
  *
  * DETERMINISTIC: one fixed clock for the server and the browser (FIXED_TIME, UTC; the server's clock is
  * re-anchored to it before every language and every shot, so every set sees the same "today" and the same
@@ -102,8 +111,8 @@
  * not the Android build), a desktop window of 1536x864 CSS px at device scale 1.25 (= 1920x1080 pixels:
  * a maximized window on a 1920x1080 screen at Windows' 125 % scaling; Microsoft: desktop screenshots
  * "1366 x 768 pixels or larger", PNG), no touch, the desktop frame (sticky header, navigation row, no
- * bottom bar and no floating button: the bottom edge of the window takes the bottom bar's place in the
- * layout rules), its own shot list (DESKTOP_SHOTS: Home, My diary, an entry, Calendar, Habits, Insights,
+ * floating button: the bottom edge of the window is the bottom edge of the layout rules, as on the
+ * phone), its own shot list (DESKTOP_SHOTS: Home, My diary, an entry, Calendar, Habits, Insights,
  * Settings, the offline status bar) and the output store/screenshots/<tag>/. Desktop-only additions
  * (DESKTOP_CHROME / PROFILES.desktop): the navigation row's links count as framed things (a filled tab
  * half under the header is refused); a list card's excerpt that the server cut at 160 characters in the
@@ -299,21 +308,28 @@ export const IPHONE_MEDIUM_PEOPLE = {
 
 /**
  * The fixed parts of a frame, for the layout rules (layoutProbe), the scroll helper and the privacy guard:
- * `top` the sticky bar the page scrolls under, `bottom` / `nav` the fixed bar at the bottom (null: the
- * window's own bottom edge), `fab` the floating button (null: none). PHONE_CHROME is the Android shell
- * (MobileShell); DESKTOP_CHROME the desktop shell (AppShell: the sticky .header, the .nav row that
- * scrolls with the page, the footer at the end of the page).
+ * `top` the sticky bar the page scrolls under, `bottom` the fixed block at the bottom whose own texts are
+ * not page text (null: none), `nav` a fixed bar at the bottom edge that hides the page under it (null: the
+ * window's own bottom edge is the edge), `fab` the floating button (null: none), `bottomName` how the
+ * problems name that bottom edge. PHONE_CHROME is the phone shell of the Android and iPhone apps
+ * (MobileShell: the sticky top app bar with the "Menu" button, and at the bottom only the floating button -
+ * the bottom navigation is gone since 2026-11-25); DESKTOP_CHROME the desktop shell (AppShell: the sticky
+ * .header, the .nav row that scrolls with the page, the footer at the end of the page).
  */
 export const PHONE_CHROME = {
   top: '.mobile-shell__top',
   bottom: '.mobile-shell__bottom',
-  nav: '.bottom-nav',
+  nav: null,
   fab: '.fab',
   topName: 'the top app bar',
-  bottomName: 'the bottom navigation',
-  /** How the offline shot opens the new-entry form and then "My diary" without a page load. */
+  bottomName: 'the bottom edge of the screen',
+  /**
+   * How the offline shot opens the new-entry form and then "My diary" without a page load: "My diary" is a
+   * row of the menu, so the "Menu" button of the top app bar opens it first (`menuButton`, then the row).
+   */
   newEntryLink: 'a.fab',
-  diaryLink: '.bottom-nav a[href$="#/diary"]',
+  menuButton: '.top-bar__menu',
+  diaryLink: '#main-menu a[href$="#/diary"]',
 };
 export const DESKTOP_CHROME = {
   top: '.header',
@@ -812,7 +828,15 @@ export function parseArgs(argv) {
 /**
  * Replaces the global Date of THIS process with one whose "now" is `anchor()`ed to a fixed instant and
  * then runs at the normal pace (sessions, timeouts and limiters keep working). The browser gets the same
- * instant through Playwright's clock. Returns { anchor(ms), restore() }.
+ * instant through Playwright's clock. Returns { anchor(ms), restore(), withRealDate(fn) }.
+ *
+ * withRealDate(fn): runs the async `fn` with the REAL Date in this process, then puts the anchored one back.
+ * Playwright's clock (page.clock.setFixedTime) runs in this process too and stamps its call with this
+ * process's Date.now(); the page later replays the call and moves its timer clock on by "its own real now
+ * minus that stamp". With the anchored Date the stamp is the fixed time, so the page's timer clock jumped
+ * by (today - FIXED_TIME): harmless while that was under 2^31 ms (24.8 days), but from 2026-11-17 on the
+ * jump overflows the 32-bit delay of the clock's own real-time timer, no page timer fires any more, and
+ * every shot waited for ever on the splash (found 2026-11-26; the Date the PAGE sees is fixed either way).
  */
 export function installServerClock() {
   const RealDate = globalThis.Date;
@@ -833,6 +857,14 @@ export function installServerClock() {
     },
     restore() {
       globalThis.Date = RealDate;
+    },
+    async withRealDate(fn) {
+      globalThis.Date = RealDate;
+      try {
+        return await fn();
+      } finally {
+        globalThis.Date = AnchoredDate;
+      }
     },
   };
 }
@@ -1002,7 +1034,11 @@ async function scrollUnderTopBar(page, selector, gap = 12, last = false, top = P
   await page.waitForTimeout(200);
 }
 
-/** Throws when an element of NEVER_VISIBLE is inside the visible part of the page (between the top app bar and the bottom navigation). */
+/**
+ * Throws when an element of NEVER_VISIBLE is inside the visible part of the page: between the top app bar
+ * and the bottom edge (chrome.nav, a bar that hides the page under it; null: the bottom of the window - on
+ * the phone since 2026-11-25, beside the floating button too).
+ */
 async function assertNothingPrivate(page, chrome = PHONE_CHROME) {
   const seen = await page.evaluate(
     ({ selectors, topSel, bottomSel }) => {
@@ -1017,7 +1053,7 @@ async function assertNothingPrivate(page, chrome = PHONE_CHROME) {
       }
       return out;
     },
-    { selectors: NEVER_VISIBLE, topSel: chrome.top, bottomSel: chrome.bottom },
+    { selectors: NEVER_VISIBLE, topSel: chrome.top, bottomSel: chrome.nav },
   );
   if (seen.length) throw new Error(`would show ${seen.join(', ')} - must never be in a store screenshot`);
 }
@@ -1025,14 +1061,14 @@ async function assertNothingPrivate(page, chrome = PHONE_CHROME) {
 /**
  * The LAYOUT RULES, measured IN THE PAGE (passed to page.evaluate, so it is self-contained). Measures
  * every line of text once (range rects), then judges scroll positions without scrolling: the app bar is
- * sticky and the navigation, the floating button and the toasts are fixed, so only the page moves.
+ * sticky and the floating button, the toasts and any bottom bar (chrome.nav) are fixed, so only the page moves.
  *
  *   args.find      false: judge the current position; true: try scrollCandidates-like positions around
  *                  it (args.up / args.down / args.step) and scroll to the first clean one
  *   args.show      selectors whose first element must be entirely on the screen
  *   args.spaced    false for zh / ja / th (see isMidWordBreak)
  *
- * Returns { y, moved, problems, navHeight } - `problems` empty when the screen is clean at `y`.
+ * Returns { y, moved, problems } - `problems` empty when the screen is clean at `y`.
  */
 export function layoutProbe(args) {
   // Tolerances in CSS px: EPS for a line of text (the top and bottom of a line box are empty leading),
@@ -1042,7 +1078,7 @@ export function layoutProbe(args) {
   const H = window.innerHeight;
   const W = window.innerWidth;
   // The frame (args.chrome: PHONE_CHROME / DESKTOP_CHROME; a null part is not there - the window's edge).
-  const frame = { top: '.mobile-shell__top', bottom: '.mobile-shell__bottom', nav: '.bottom-nav', fab: '.fab', ...(args.chrome ?? {}) };
+  const frame = { top: '.mobile-shell__top', bottom: '.mobile-shell__bottom', nav: null, fab: '.fab', bottomName: 'the bottom edge of the screen', ...(args.chrome ?? {}) };
   const pick = (selector) => (selector ? document.querySelector(selector) : null);
   const topBar = pick(frame.top);
   const nav = pick(frame.nav);
@@ -1182,7 +1218,7 @@ export function layoutProbe(args) {
     const selector = typeof item === 'string' ? item : item.selector;
     const all = [...document.querySelectorAll(selector)];
     const els = typeof item === 'string' ? all.slice(0, 1) : item.any ? all : item.last ? all.slice(-1) : all.slice(0, 1);
-    if (!els.length) return { y: y0, moved: 0, problems: [`${selector} is not on the page`], navHeight: nav ? nav.getBoundingClientRect().height : 0 };
+    if (!els.length) return { y: y0, moved: 0, problems: [`${selector} is not on the page`] };
     shows.push({
       selector,
       options: els.map((el) => {
@@ -1194,8 +1230,9 @@ export function layoutProbe(args) {
   }
 
   // The floating button gets a few pixels of air (text or a button touching it looks stuck to it); a
-  // toast, an overlay across the screen, only must not cut anything (in the languages whose message
-  // takes three lines it reaches down to the end of the list - the app's own bottom space).
+  // toast, an overlay across the screen, only must not cut anything (the app keeps room for a message of
+  // up to three lines at the end of a list with the floating button, so there it lies over that bottom
+  // space only).
   const AIR = 4;
   const overlaps = (a, top, bottom, f) => {
     const m = f.wide ? -HIDE : AIR;
@@ -1220,7 +1257,7 @@ export function layoutProbe(args) {
       }
       if (bottom <= topEdge + HIDE || top >= navEdge - HIDE) continue; // scrolled under a bar: not on the screen
       if (top < topEdge - EPS) out.push(`cut by the top app bar: ${quote(l.text)}`);
-      if (bottom > navEdge + EPS) out.push(`cut by the bottom navigation: ${quote(l.text)}`);
+      if (bottom > navEdge + EPS) out.push(`cut by ${frame.bottomName}: ${quote(l.text)}`);
       for (const f of floating) {
         if (!overlaps(l, top, bottom, f)) continue;
         if (behind(top, bottom, f)) continue;
@@ -1233,7 +1270,7 @@ export function layoutProbe(args) {
       if (bottom <= topEdge + HIDE || top >= navEdge - HIDE) continue;
       // (args.boxUnderTopBar: a frame may run under the top bar - its text never may; see settleLayout)
       if (top < topEdge - HIDE && !args.boxUnderTopBar) out.push(`a box cut by the top app bar: ${quote(b.text)}`);
-      if (bottom > navEdge + HIDE) out.push(`a box cut by the bottom navigation: ${quote(b.text)}`);
+      if (bottom > navEdge + HIDE) out.push(`a box cut by ${frame.bottomName}: ${quote(b.text)}`);
       for (const f of floating) {
         if (!overlaps(b, top, bottom, f)) continue;
         if (behind(top, bottom, f)) continue;
@@ -1256,8 +1293,7 @@ export function layoutProbe(args) {
     return [...new Set(out)];
   };
 
-  const navHeight = nav ? Math.round(nav.getBoundingClientRect().height * 10) / 10 : 0;
-  if (!args.find) return { y: y0, moved: 0, problems: problemsAt(y0), navHeight };
+  if (!args.find) return { y: y0, moved: 0, problems: problemsAt(y0) };
   const maxY = Math.max(0, document.documentElement.scrollHeight - H);
   const lo = Math.max(0, y0 - (args.up ?? 0));
   const hi = Math.min(maxY, y0 + (args.down ?? 0));
@@ -1269,13 +1305,13 @@ export function layoutProbe(args) {
       const problems = problemsAt(y);
       if (problems.length === 0) {
         window.scrollTo(0, y);
-        return { y, moved: y - y0, problems: [], navHeight };
+        return { y, moved: y - y0, problems: [] };
       }
       if (!best || problems.length < best.problems.length) best = { y, problems };
     }
   }
   // Nothing clean: the position with the fewest problems, to say what stands in the way.
-  return { y: best?.y ?? y0, moved: 0, problems: [`(tried ${lo}..${hi} of 0..${maxY}; fewest problems at ${best?.y ?? y0})`, ...(best?.problems ?? problemsAt(y0))], navHeight };
+  return { y: best?.y ?? y0, moved: 0, problems: [`(tried ${lo}..${hi} of 0..${maxY}; fewest problems at ${best?.y ?? y0})`, ...(best?.problems ?? problemsAt(y0))] };
 }
 
 /**
@@ -1283,13 +1319,13 @@ export function layoutProbe(args) {
  * that position. Throws with the problems when there is none - such a shot is never written.
  */
 async function settleLayout(page, shot, appLocale, chrome = PHONE_CHROME) {
-  const { top, bottom, nav, fab, boxes, excerpt, ink } = chrome;
-  const args = { show: shot.show ?? [], spaced: !NO_WORD_SPACES.has(appLocale), up: shot.up ?? 0, down: shot.down ?? 0, step: 1, chrome: { top, bottom, nav, fab, boxes, excerpt, ink } };
+  const { top, bottom, nav, fab, bottomName, boxes, excerpt, ink } = chrome;
+  const args = { show: shot.show ?? [], spaced: !NO_WORD_SPACES.has(appLocale), up: shot.up ?? 0, down: shot.down ?? 0, step: 1, chrome: { top, bottom, nav, fab, bottomName, boxes, excerpt, ink } };
   // `prefer`: like `show`, but given up when no clean position has it on the screen.
   let found = shot.prefer ? await page.evaluate(layoutProbe, { ...args, show: [...args.show, ...shot.prefer], find: true }) : null;
   if (!found || found.problems.length) found = await page.evaluate(layoutProbe, { ...args, find: true });
   // Last resort: a button's frame may run under the top app bar (content scrolled under the bar, as on the
-  // phone) - its label may not, nor anything at the bottom bar, the floating button or a toast.
+  // phone) - its label may not, nor anything at the bottom edge, the floating button or a toast.
   let relaxed = false;
   if (found.problems.length) {
     const again = await page.evaluate(layoutProbe, { ...args, boxUnderTopBar: true, find: true });
@@ -1299,7 +1335,7 @@ async function settleLayout(page, shot, appLocale, chrome = PHONE_CHROME) {
   await page.waitForTimeout(150);
   const final = await page.evaluate(layoutProbe, { ...args, boxUnderTopBar: relaxed, find: false });
   if (final.problems.length) throw new Error(`${shot.n}-${shot.slug}: the screen is not clean at ${final.y}:\n  ${final.problems.join('\n  ')}`);
-  return { scrollY: final.y, moved: found.moved, bottomNav: final.navHeight, ...(relaxed ? { boxUnderTopBar: true } : {}) };
+  return { scrollY: final.y, moved: found.moved, ...(relaxed ? { boxUnderTopBar: true } : {}) };
 }
 
 /** Checks language and direction of the page against the set (a wrong language must never be shot). */
@@ -1489,7 +1525,10 @@ async function shootLocale({ browser, profile, base, log, folder, appLocale, pre
     if (theme === 'dark') await api(base, log, '/api/settings', { method: 'PUT', token: prepared.token, locale: lang, body: { theme: 'dark' } });
     const page = await context.newPage();
     page.setDefaultTimeout(30000);
-    await page.clock.setFixedTime(new Date(FIXED_TIME));
+    // Stamped with the real time of this process (installServerClock withRealDate): with the anchored one
+    // the page's timers stop when today is more than 24.8 days after FIXED_TIME. No page is loaded yet, so
+    // the server answers no request during it.
+    await clock.withRealDate(() => page.clock.setFixedTime(new Date(FIXED_TIME)));
     let counter = 0;
     const chrome = profile.chrome ?? PHONE_CHROME;
     for (const shot of profile.shots ?? SHOTS) {
@@ -1586,10 +1625,17 @@ async function writeOffline(page, entry, chrome = PHONE_CHROME, afterWrite = 'di
     await page.waitForTimeout(400);
     return;
   }
-  // Then "My diary" in the bottom navigation (in-app again): the week's list, read from this device,
-  // with the new entry at its end. On the entry page itself the message would cover the entry's lines
-  // in most languages; at the end of the list it covers only the list's bottom space.
+  // Then "My diary" (in-app again): the week's list, read from this device, with the new entry at its
+  // end. On the entry page itself the message would cover the entry's lines in most languages; at the
+  // end of the list it covers only the list's bottom space. On the phone "My diary" is a row of the menu:
+  // the "Menu" button of the top app bar opens it (chrome.menuButton), choosing the row closes it and goes
+  // there; the focus that returns to the button is taken off before the capture (blurFocus).
+  if (chrome.menuButton) {
+    await page.click(chrome.menuButton);
+    await page.waitForSelector(chrome.diaryLink, { state: 'visible', timeout: 30000 });
+  }
   await page.click(chrome.diaryLink);
+  if (chrome.menuButton) await page.waitForFunction(() => !document.querySelector('dialog[open]'), null, { timeout: 30000 });
   await page.waitForFunction(() => /#\/diary/.test(location.hash), null, { timeout: 30000 });
   await page.waitForSelector('main .entry-card .pending-badge', { timeout: 30000 });
   await page.waitForFunction(() => !document.querySelector('.spinner, [aria-busy="true"]'), null, { timeout: 30000 });
@@ -1707,17 +1753,14 @@ export async function renderScreenshots(options) {
         appLocale,
         account: prepared.account.displayName,
         entry: `${prepared.entryDate} ${prepared.entryTime}`,
-        // scrollY: where the page stood (CSS px); bottomNav: the navigation's height (CSS px) - it grows
-        // when a label wraps (the app wraps a long label, and the current section's bold label can need
-        // one line more than the same label in normal weight).
-        files: Object.fromEntries(files.map((f) => [path.basename(f.file), { bytes: f.bytes, sha256: f.sha256, scrollY: f.scrollY, bottomNav: f.bottomNav, ...(f.boxUnderTopBar ? { boxUnderTopBar: true } : {}) }])),
+        // scrollY: where the page stood (CSS px). (Until 2026-11-25 a field "bottomNav" gave the height of
+        // the phone's bottom navigation; the phone frame has none now.)
+        files: Object.fromEntries(files.map((f) => [path.basename(f.file), { bytes: f.bytes, sha256: f.sha256, scrollY: f.scrollY, ...(f.boxUnderTopBar ? { boxUnderTopBar: true } : {}) }])),
         layout: 'clean',
         transport: { requests: transport.requests, hosts: transport.hosts.map((h) => h.replace(/:\d+$/, '')).filter((h, i, a) => a.indexOf(h) === i), refused: 0 },
       };
       const kb = files.map((f) => `${path.basename(f.file)} ${(f.bytes / 1024).toFixed(0)} KB`).join(', ');
       console.log(`  ${folder.padEnd(6)} (${appLocale}, ${prepared.account.displayName}, ${prepared.seeded.entries ?? '?'} entries) ${((performance.now() - t0) / 1000).toFixed(1)} s: ${kb}`);
-      const navHeights = [...new Set(files.map((f) => f.bottomNav))];
-      if (navHeights.length > 1) console.log(`         note: the bottom navigation is ${navHeights.join(' / ')} px high in this set (a label of the current section wraps in bold)`);
     }
     if (failures?.length) throw new Error(`${failures.length} shot(s) failed (--keep-going; no render log written):\n${failures.join('\n')}`);
     const verdict = assertLoopbackOnly(log, base);

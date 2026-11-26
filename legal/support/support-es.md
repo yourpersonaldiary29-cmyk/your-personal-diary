@@ -33,7 +33,7 @@ Abre **Ajustes** y, en la tarjeta **Idioma**, elige el idioma de la interfaz en 
 
 ### ¿Cómo saco mis datos?
 
-En la página **Copia de seguridad** del menú (en las aplicaciones para Android y iPhone, en Más) puedes crear una **copia de seguridad**: una copia cifrada de todo el diario (entradas, hábitos y ajustes) en el formato propio de la aplicación, protegida con una contraseña, que más adelante puedes restaurar en la aplicación. La **exportación**, en la misma página, escribe tus entradas como un archivo legible (TXT, CSV, JSON o PDF) para leerlas, imprimirlas o usarlas en otro programa. Un archivo exportado no está cifrado: cualquiera que tenga el archivo puede leerlo, así que guárdalo con el mismo cuidado que el propio diario.
+En la página **Copia de seguridad** del menú puedes crear una **copia de seguridad**: una copia cifrada de todo el diario (entradas, hábitos y ajustes) en el formato propio de la aplicación, protegida con una contraseña, que más adelante puedes restaurar en la aplicación. La **exportación**, en la misma página, escribe tus entradas como un archivo legible (TXT, CSV, JSON o PDF) para leerlas, imprimirlas o usarlas en otro programa. Un archivo exportado no está cifrado: cualquiera que tenga el archivo puede leerlo, así que guárdalo con el mismo cuidado que el propio diario.
 
 ### ¿Cómo elimino mi cuenta?
 

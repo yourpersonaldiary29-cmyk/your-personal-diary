@@ -33,7 +33,7 @@ Abra as **Definições** e, no cartão **Idioma**, escolha o idioma da interface
 
 ### Como retiro os meus dados?
 
-Na página **Cópia de segurança** do menu (nas aplicações Android e iPhone, em Mais) pode criar uma **cópia de segurança**: uma cópia encriptada de todo o diário (entradas, hábitos e definições) no formato próprio da aplicação, protegida por uma palavra-passe, que pode restaurar mais tarde na aplicação. A **exportação**, na mesma página, escreve as suas entradas num ficheiro legível (TXT, CSV, JSON ou PDF) para ler, imprimir ou usar noutro programa. Um ficheiro exportado não está encriptado: qualquer pessoa que tenha o ficheiro pode lê-lo, por isso guarde-o com o mesmo cuidado que o próprio diário.
+Na página **Cópia de segurança** do menu pode criar uma **cópia de segurança**: uma cópia encriptada de todo o diário (entradas, hábitos e definições) no formato próprio da aplicação, protegida por uma palavra-passe, que pode restaurar mais tarde na aplicação. A **exportação**, na mesma página, escreve as suas entradas num ficheiro legível (TXT, CSV, JSON ou PDF) para ler, imprimir ou usar noutro programa. Um ficheiro exportado não está encriptado: qualquer pessoa que tenha o ficheiro pode lê-lo, por isso guarde-o com o mesmo cuidado que o próprio diário.
 
 ### Como elimino a minha conta?
 

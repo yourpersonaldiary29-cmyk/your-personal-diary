@@ -33,7 +33,7 @@ Uygulamanın oturum açmak, arama yapmak, istatistikler ve içgörüler, yedekle
 
 ### Verilerimi nasıl dışarı alırım?
 
-Menüdeki **Yedekleme** sayfasında (Android ve iPhone uygulamalarında Diğer altında) bir **yedek** oluşturabilirsiniz: tüm günlüğün (kayıtlar, alışkanlıklar ve ayarlar) uygulamanın kendi biçiminde, parolayla korunan ve daha sonra uygulamada geri yükleyebileceğiniz şifreli bir kopyası. Aynı sayfadaki **dışa aktarma**, kayıtlarınızı okunabilir bir dosya olarak yazar - TXT, CSV, JSON veya PDF - okumak, yazdırmak ya da başka bir programda kullanmak için. Dışa aktarma dosyası şifrelenmez: dosyaya sahip olan herkes onu okuyabilir, bu yüzden onu günlüğün kendisi kadar özenle saklayın.
+Menüdeki **Yedekleme** sayfasında bir **yedek** oluşturabilirsiniz: tüm günlüğün (kayıtlar, alışkanlıklar ve ayarlar) uygulamanın kendi biçiminde, parolayla korunan ve daha sonra uygulamada geri yükleyebileceğiniz şifreli bir kopyası. Aynı sayfadaki **dışa aktarma**, kayıtlarınızı okunabilir bir dosya olarak yazar - TXT, CSV, JSON veya PDF - okumak, yazdırmak ya da başka bir programda kullanmak için. Dışa aktarma dosyası şifrelenmez: dosyaya sahip olan herkes onu okuyabilir, bu yüzden onu günlüğün kendisi kadar özenle saklayın.
 
 ### Hesabımı nasıl silerim?
 

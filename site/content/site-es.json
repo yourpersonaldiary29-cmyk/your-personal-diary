@@ -203,7 +203,7 @@
       },
       {
         "q": "¿Cómo hago una copia de seguridad de mi diario y cómo la restauro?",
-        "a": "Abre Copia de seguridad en el menú (en las aplicaciones para Android y iPhone, en Más) y crea un archivo de copia de seguridad: una copia cifrada de todo el diario (entradas, hábitos y ajustes), protegida con una contraseña, que guardas donde quieras. Para restaurarla, elige ese archivo en la misma página e introduce su contraseña. La restauración sustituye el diario actual por el contenido del archivo, así que antes crea una copia de seguridad del diario actual."
+        "a": "Abre Copia de seguridad en el menú y crea un archivo de copia de seguridad: una copia cifrada de todo el diario (entradas, hábitos y ajustes), protegida con una contraseña, que guardas donde quieras. Para restaurarla, elige ese archivo en la misma página e introduce su contraseña. La restauración sustituye el diario actual por el contenido del archivo, así que antes crea una copia de seguridad del diario actual."
       },
       {
         "q": "¿Cómo elimino mi cuenta?",

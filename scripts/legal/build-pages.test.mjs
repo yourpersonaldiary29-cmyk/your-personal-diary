@@ -168,8 +168,10 @@ test('real tree: the support page shows the operator and the contact e-mail befo
   // The iPhone app is named like the other apps (the owner's wording of 2026-11-18): no "when it is published".
   assert.ok(!english.includes('when it is published'), 'the iPhone app is named without a qualifier');
   assert.ok(english.includes('<strong>iPhone</strong>, and on the website'), 'the iPhone app is in the list of devices');
-  // Backup is a page of the menu (on the phones under More), not a card of Settings (2026-11-19).
-  assert.ok(english.includes('On the <strong>Backup</strong> page in the menu (in the Android and iPhone apps, under More)'), 'support: where Backup is');
+  // Backup is a page of the menu, not a card of Settings (2026-11-19). Since 2026-11-25 (the owner's decision) the phone
+  // apps have one "Menu" button at the top and no "More" tab, so the sentence names no tab.
+  assert.ok(english.includes('On the <strong>Backup</strong> page in the menu you can create'), 'support: where Backup is');
+  assert.ok(!english.includes('under More'), 'support: no "More" tab');
   assert.ok(!english.includes('Settings - Backup'), 'support: no Backup card in Settings');
   // "No connection": the page, the banner and the notices say Try again; Try now is only the offline status bar's.
   assert.ok(english.includes('then choose <strong>Try again</strong> or <strong>Try now</strong> in the app.'), 'support: both retry buttons');
@@ -184,7 +186,7 @@ function menuLabel(code, key) {
 }
 
 test('real tree: no document in any language sends the reader to a Backup card of Settings', () => {
-  // Backup (with the export) is a page of the app's menu - on the Android and iPhone apps under More - and Settings has
+  // Backup (with the export) is a page of the app's menu (on the phones the "Menu" button at the top) and Settings has
   // no Backup card; until 2026-11-19 the terms, the policy and the support page said "Settings - Backup".
   for (const l of LOCALES) {
     const pair = `${menuLabel(l.code, 'shell.nav.settings')} - ${menuLabel(l.code, 'shell.nav.backup')}`.toLowerCase();

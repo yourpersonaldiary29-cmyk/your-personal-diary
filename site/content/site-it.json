@@ -203,7 +203,7 @@
       },
       {
         "q": "Come faccio il backup del diario e come lo ripristino?",
-        "a": "Apri Backup nel menu (nelle app Android e iPhone, sotto Altro) e crea un file di backup: una copia cifrata dell’intero diario (voci, abitudini e impostazioni), protetta da una password, che conservi dove preferisci. Per ripristinare, scegli quel file nella stessa pagina e inserisci la sua password. Il ripristino sostituisce il diario attuale con il contenuto del file, quindi crea prima un backup del diario attuale."
+        "a": "Apri Backup nel menu e crea un file di backup: una copia cifrata dell’intero diario (voci, abitudini e impostazioni), protetta da una password, che conservi dove preferisci. Per ripristinare, scegli quel file nella stessa pagina e inserisci la sua password. Il ripristino sostituisce il diario attuale con il contenuto del file, quindi crea prima un backup del diario attuale."
       },
       {
         "q": "Come elimino il mio account?",
