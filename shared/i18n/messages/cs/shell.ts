@@ -292,5 +292,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'V tomto zařízení čeká mnoho změn. Připoj se k serveru deníku, aby se nahrály.',
   'shell.sync.uninstallHint': 'Před odinstalací se odhlas, aby se kopie v tomto zařízení smazala.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Je potřeba aktualizace',
+  'shell.update.body': 'Tuto verzi aplikace Your Personal Diary ({version}) už nelze používat. Nainstaluj novou verzi a pokračuj v používání deníku.',
+  'shell.update.safe': 'Tvůj deník je v bezpečí: je uložený v tvém účtu a aktualizace nic nesmaže.',
+  'shell.update.openGooglePlay': 'Otevřít Google Play',
+  'shell.update.openAppStore': 'Otevřít App Store',
+  'shell.update.openDownloads': 'Otevřít stránku Ke stažení',
+  'shell.update.iphoneNoLink': 'Aktualizuj aplikaci v App Store.',
+  'shell.update.retry': 'Zkontrolovat znovu',
+  'shell.update.stillRequired': 'Tato verze stále potřebuje aktualizaci.',
 };
 export default messages;

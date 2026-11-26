@@ -32,8 +32,10 @@
  * installation files the public site offers per system, each with Remove, and "Publish a new version"
  * with an upload progress bar. Disk size (ServerDisk.tsx, B3): enlarging the disk with its monthly
  * cost, the steps of the change as they happen and, when needed, "Restart the server now"; when the
- * button is not set up, the reason and the PowerShell line that sets it up. Both read their own state
- * once the status is there, and again with Refresh.
+ * button is not set up, the reason and the PowerShell line that sets it up. Required update
+ * (ServerAppUpdate.tsx, app version 1.1.0): per platform the oldest version of the app that may still be
+ * used, with Save / Turn off and the account password. All three read their own state once the status is
+ * there, and again with Refresh.
  *
  * Deletion request by e-mail (DeletionRequest.tsx, docs/android-tasks/ADMIN-TOOL.md item 3): the last
  * part of the card builds the two commands of the operator tool (find, then delete --confirm) for the
@@ -67,6 +69,7 @@ import { errorCode, errorField, errorMessage } from '@/utils/errors';
 import { formatNumber, formatPercent } from '@/utils/format';
 import { CommandBlock } from './CommandBlock';
 import { DeletionRequest } from './DeletionRequest';
+import { ServerAppUpdate } from './ServerAppUpdate';
 import { ServerDisk } from './ServerDisk';
 import { ServerDownloads } from './ServerDownloads';
 import { SVT, formatServerBytes, formatUptime } from './serverTexts';
@@ -541,6 +544,7 @@ function ServerCard({ publicUrl }: { publicUrl?: string }) {
         </section>
 
         <ServerDownloads refresh={refreshCount} />
+        <ServerAppUpdate refresh={refreshCount} />
         <ServerDisk refresh={refreshCount} />
 
         {deletionRequest}

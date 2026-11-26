@@ -123,6 +123,7 @@ import {
   downloadsProblems,
   FILES_DIR,
   formatDownloads,
+  formatStoreLinks,
   IMAGE_LIST_FILE,
   isIsoDate,
   isolateLatin,
@@ -130,11 +131,13 @@ import {
   megabytes,
   PLATFORMS,
   relativeHref,
+  STORE_LINK_KEYS,
+  STORE_LINKS_FILE,
 } from './downloads-shared.mjs';
 
 export { ROOT, UNTRANSLATED_MARKER };
 // The list and its markup live in ./downloads-shared.mjs (the hosted server uses them too); exported here as before.
-export { compareVersions, DOWNLOAD_PLATFORMS, DOWNLOAD_ROW_KEYS, downloadsProblems, FILES_DIR, formatDownloads, IMAGE_LIST_FILE, isIsoDate, isVersion, megabytes, PLATFORMS, relativeHref };
+export { compareVersions, DOWNLOAD_PLATFORMS, DOWNLOAD_ROW_KEYS, downloadsProblems, FILES_DIR, formatDownloads, formatStoreLinks, IMAGE_LIST_FILE, isIsoDate, isVersion, megabytes, PLATFORMS, relativeHref, STORE_LINKS_FILE };
 
 /** The URL path segment of the site on the fixed server and the name of its folder in a built tree. */
 export const SITE_ID = 'about';
@@ -1500,7 +1503,8 @@ export function serverRootAddresses(html, pageUrl, siteUrl) {
  * Builds the whole site in memory. Every path is relative to the top of the site (the folder about/ of a tree):
  *   pages         'index.html', 'app/index.html', 'he/terms/index.html', ... -> HTML (160)
  *   files         'site.css', 'site.js', 'files/downloads.json' (the list of the installers, for the hosted server:
- *                 IMAGE_LIST_FILE) -> their text
+ *                 IMAGE_LIST_FILE), 'files/store-links.json' (the store links of site/settings.json, for the hosted
+ *                 server's required update: STORE_LINKS_FILE) -> their text
  *   assets        'img/he/phone-home.png', 'files/<installer>', ... -> the file to copy
  *   downloads     the rows of site/downloads.json by platform
  *   siteBase      the public address of the top of the site
@@ -1631,6 +1635,9 @@ export function buildSite({ root = ROOT, settings, siteSettings, siteUrl } = {})
     // The list the Downloads pages are built from, next to the installers: the hosted server merges it with the files
     // the owner uploads (server/src/hosted/downloads.ts). It never serves this file itself.
     files.set(IMAGE_LIST_FILE, formatDownloads(downloads));
+    // The store links next to it (STORE_LINKS_FILE): the hosted server gives the phone apps the link of their store
+    // while a required update is on (server/src/hosted/app-update.ts) - site/settings.json stays the one place for them.
+    files.set(STORE_LINKS_FILE, formatStoreLinks(store.links));
     const siteBase = siteBaseOf(store, origin);
     for (const l of LOCALES) {
       for (const page of SITE_PAGES) {
@@ -1766,6 +1773,21 @@ export function siteFolderProblems(folder) {
       const listed = PLATFORMS.flatMap((platform) => list[platform].map(key)).sort();
       const shown = [...rows.values()].map(key).sort();
       if (listed.join('\n') !== shown.join('\n')) problems.push(`${IMAGE_LIST_FILE} does not list exactly the files of the Downloads page`);
+    }
+  }
+  // The store links the hosted server reads (the required update): there, and the four keys with null or an https link.
+  const linksFile = path.join(folder, ...STORE_LINKS_FILE.split('/'));
+  if (!existsSync(linksFile)) problems.push(`${STORE_LINKS_FILE} is missing (the hosted server reads the store links from it)`);
+  else {
+    try {
+      const raw = JSON.parse(readFileSync(linksFile, 'utf8'));
+      const ok =
+        isObject(raw) &&
+        Object.keys(raw).sort().join(',') === [...STORE_LINK_KEYS].sort().join(',') &&
+        STORE_LINK_KEYS.every((key) => raw[key] === null || (typeof raw[key] === 'string' && raw[key].startsWith('https://')));
+      if (!ok) problems.push(`${STORE_LINKS_FILE}: must hold ${STORE_LINK_KEYS.join(', ')}, each null or an https link`);
+    } catch (e) {
+      problems.push(`${STORE_LINKS_FILE}: cannot read it (${e.message})`);
     }
   }
   return problems;

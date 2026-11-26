@@ -294,5 +294,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'มีการเปลี่ยนแปลงจำนวนมากรออยู่ในอุปกรณ์นี้ โปรดเชื่อมต่อกับเซิร์ฟเวอร์ไดอารี่เพื่ออัปโหลด',
   'shell.sync.uninstallHint': 'ออกจากระบบก่อนถอนการติดตั้งเพื่อลบสำเนาในอุปกรณ์นี้',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'ต้องอัปเดตแอป',
+  'shell.update.body': 'Your Personal Diary เวอร์ชันนี้ ({version}) ใช้งานไม่ได้อีกต่อไป โปรดติดตั้งเวอร์ชันใหม่เพื่อใช้ไดอารี่ของคุณต่อ',
+  'shell.update.safe': 'ไดอารี่ของคุณปลอดภัย: ไดอารี่ถูกเก็บไว้ในบัญชีของคุณ และการอัปเดตจะไม่ลบสิ่งใด',
+  'shell.update.openGooglePlay': 'เปิด Google Play',
+  'shell.update.openAppStore': 'เปิด App Store',
+  'shell.update.openDownloads': 'เปิดหน้า "ดาวน์โหลด"',
+  'shell.update.iphoneNoLink': 'โปรดอัปเดตแอปใน App Store',
+  'shell.update.retry': 'ตรวจสอบอีกครั้ง',
+  'shell.update.stillRequired': 'เวอร์ชันนี้ยังต้องอัปเดต',
 };
 export default messages;

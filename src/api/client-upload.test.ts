@@ -116,7 +116,8 @@ describe('requestRawUpload', () => {
     const xhr = await opened();
     expect(xhr.method).toBe('PUT');
     expect(xhr.url).toBe('/api/server/downloads/upload/abc');
-    expect(xhr.headers).toEqual({ 'Accept-Language': 'he', Accept: 'application/json', Authorization: 'Bearer tok', 'Content-Type': 'application/octet-stream' });
+    // The mark of an app from 1.1.0 on (shared/constants.ts CLIENT_MARK_HEADER) rides along, as on every request.
+    expect(xhr.headers).toEqual({ 'Accept-Language': 'he', 'X-Diary-Client': '2', Accept: 'application/json', Authorization: 'Bearer tok', 'Content-Type': 'application/octet-stream' });
     // The Blob itself: the browser streams it and sets Content-Length from it.
     expect(xhr.body).toBe(body);
     xhr.progress(512, 2048);

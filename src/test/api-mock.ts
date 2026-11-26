@@ -15,6 +15,7 @@ import { vi } from 'vitest';
 import type {
   MailSettingsView,
   RemoteStatus,
+  ServerAppUpdate,
   ServerArchiveInfo,
   ServerDiskChange,
   ServerDiskInfo,
@@ -160,6 +161,17 @@ export function serverDownloadsFixture(overrides: Partial<ServerDownloads> = {})
   };
 }
 
+/** GET /api/server/app-update of a server of version 1.1.0 with no rule on and the files of the Downloads page of 1.0.1. */
+export function serverAppUpdateFixture(overrides: Partial<ServerAppUpdate> = {}): ServerAppUpdate {
+  return {
+    rules: { android: null, ios: null, windows: null, mac: null },
+    serverVersion: '1.1.0',
+    newestDownload: { windows: '1.0.1', android: '1.0.1', mac: '1.0.1' },
+    email: 'ready',
+    ...overrides,
+  };
+}
+
 /** One change of the disk size (fictional id): 50 GB to 60 GB, just started. */
 export function serverDiskChangeFixture(overrides: Partial<ServerDiskChange> = {}): ServerDiskChange {
   return {
@@ -296,7 +308,10 @@ export function createApiMock(actual: ApiModule): ApiModule {
   downloads.list.mockImplementation(async () => serverDownloadsFixture());
   const disk = fnGroup(['get', 'extend', 'restart'] as const);
   disk.get.mockImplementation(async () => serverDiskFixture());
-  const server = { ...serverCalls, remote, mail, downloads, disk };
+  // The required-update part reads the rules on open (no rule on); the change is set up by each test.
+  const appUpdate = fnGroup(['get', 'set'] as const);
+  appUpdate.get.mockImplementation(async () => serverAppUpdateFixture());
+  const server = { ...serverCalls, remote, mail, downloads, disk, appUpdate };
 
   return {
     ...actual,

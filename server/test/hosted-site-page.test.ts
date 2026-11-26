@@ -39,7 +39,7 @@ import path from 'node:path';
 import supertest from 'supertest';
 import { afterAll, afterEach, describe, expect, it } from 'vitest';
 import { LOCALES, readSiteUrl } from '../../scripts/legal/build-pages.mjs';
-import { buildSite, CONTACT_ACTION, CSS_NAME, FILES_DIR, formatDownloads, IMAGE_LIST_FILE, pageFile, PLATFORMS, SCRIPT_NAME, SITE_ID, SITE_PAGES, siteDir, siteTreeProblems, writeSite } from '../../scripts/site/build-site.mjs';
+import { buildSite, CONTACT_ACTION, CSS_NAME, FILES_DIR, formatDownloads, IMAGE_LIST_FILE, pageFile, PLATFORMS, SCRIPT_NAME, SITE_ID, SITE_PAGES, siteDir, siteTreeProblems, STORE_LINKS_FILE, writeSite } from '../../scripts/site/build-site.mjs';
 import { loadConfig, loadHostedEnv } from '../src/config';
 import { startHosted, type RunningHosted } from '../src/hosted';
 import { cleanupTempDirs, tempDataDir } from './helpers';
@@ -127,8 +127,9 @@ describe('scripts/hosted/stage-image.mjs: the public site in the staged image', 
     expect(built.pages.size).toBe(PAGE_COUNT);
     expect(installers.length).toBeGreaterThanOrEqual(3);
     expect(filesUnder(about)).toEqual([...built.pages.keys(), ...built.files.keys(), ...built.assets.keys()].sort());
-    // The pages, site.css, site.js, the list of the installers (files/downloads.json, for the server), the images, the installers.
-    expect(filesUnder(about)).toHaveLength(PAGE_COUNT + 3 + IMAGE_COUNT + installers.length);
+    // The pages, site.css, site.js, the list of the installers (files/downloads.json, for the server), the store links
+    // (files/store-links.json, for the server's required update), the images, the installers.
+    expect(filesUnder(about)).toHaveLength(PAGE_COUNT + 4 + IMAGE_COUNT + installers.length);
     expect(fs.readFileSync(path.join(about, ...IMAGE_LIST_FILE.split('/')), 'utf8')).toBe(formatDownloads(built.downloads));
     for (const [rel, html] of built.pages) expect(fs.readFileSync(path.join(about, ...rel.split('/')), 'utf8'), rel).toBe(html);
     expect(fs.readFileSync(path.join(about, 'he', 'faq', 'index.html'), 'utf8')).toContain('<html lang="he" dir="rtl">');
@@ -413,7 +414,7 @@ describe('the public site on the hosted server', () => {
     }
     // A file that is not listed does not exist (docs/server-tasks/SERVER-CARD-V2.md A2): 404 - never another file of
     // the disk, never the list of the installers itself, never the web client.
-    for (const url of [`/about/${FILES_DIR}/nothing.exe`, `/about/${FILES_DIR}/..%2f..%2findex.html`, `/about/${IMAGE_LIST_FILE}`, `/about/${FILES_DIR}/`, `/about/${FILES_DIR}`]) {
+    for (const url of [`/about/${FILES_DIR}/nothing.exe`, `/about/${FILES_DIR}/..%2f..%2findex.html`, `/about/${IMAGE_LIST_FILE}`, `/about/${STORE_LINKS_FILE}`, `/about/${FILES_DIR}/`, `/about/${FILES_DIR}`]) {
       const missing = await get(url);
       expect([url, missing.status], url).toEqual([url, 404]);
       expect(missing.text, url).not.toContain('<div id="root">');

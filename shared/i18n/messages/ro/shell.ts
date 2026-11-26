@@ -290,5 +290,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'Multe modificări așteaptă pe acest dispozitiv. Conectează-te la serverul jurnalului pentru a le încărca.',
   'shell.sync.uninstallHint': 'Deconectează-te înainte de dezinstalare pentru a șterge copia de pe acest dispozitiv.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Este nevoie de o actualizare',
+  'shell.update.body': 'Această versiune a aplicației Your Personal Diary ({version}) nu mai poate fi folosită. Instalează versiunea nouă ca să poți folosi în continuare jurnalul.',
+  'shell.update.safe': 'Jurnalul tău este în siguranță: este păstrat în contul tău, iar actualizarea nu șterge nimic.',
+  'shell.update.openGooglePlay': 'Deschide Google Play',
+  'shell.update.openAppStore': 'Deschide App Store',
+  'shell.update.openDownloads': 'Deschide pagina Descărcări',
+  'shell.update.iphoneNoLink': 'Actualizează aplicația în App Store.',
+  'shell.update.retry': 'Verifică din nou',
+  'shell.update.stillRequired': 'Această versiune încă trebuie actualizată.',
 };
 export default messages;

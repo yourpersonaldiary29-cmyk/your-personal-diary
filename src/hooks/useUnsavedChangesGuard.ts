@@ -30,10 +30,29 @@ subscribe(() => {
 type Guard = () => Promise<boolean>;
 
 let activeGuard: Guard | null = null;
+const guardListeners = new Set<() => void>();
+
+/** Sets (or clears) the active guard and tells the subscribers when that changes whether one is active. */
+function setActiveGuard(next: Guard | null): void {
+  const was = activeGuard !== null;
+  activeGuard = next;
+  if (was !== (next !== null)) for (const listener of [...guardListeners]) listener();
+}
 
 /** True when a form with unsaved changes is currently mounted. */
 export function hasActiveLeaveGuard(): boolean {
   return activeGuard !== null;
+}
+
+/**
+ * Subscribes to `hasActiveLeaveGuard()` changing (for useSyncExternalStore): the "Update needed" screen waits
+ * while a page holds unsaved changes and appears once they are saved or left (src/hooks/useUpdateGate.ts).
+ */
+export function subscribeLeaveGuard(listener: () => void): () => void {
+  guardListeners.add(listener);
+  return () => {
+    guardListeners.delete(listener);
+  };
 }
 
 /**
@@ -46,7 +65,7 @@ export function confirmNavigation(): Promise<boolean> {
 
 /** Test helper / emergency reset. */
 export function clearLeaveGuard(): void {
-  activeGuard = null;
+  setActiveGuard(null);
 }
 
 export interface UnsavedChangesGuard {
@@ -112,9 +131,9 @@ export function useUnsavedChangesGuard(dirty: boolean, options: UnsavedChangesOp
   useEffect(() => {
     if (!dirty) return;
     const guard: Guard = confirmLeave;
-    activeGuard = guard;
+    setActiveGuard(guard);
     return () => {
-      if (activeGuard === guard) activeGuard = null;
+      if (activeGuard === guard) setActiveGuard(null);
     };
   }, [dirty, confirmLeave]);
 

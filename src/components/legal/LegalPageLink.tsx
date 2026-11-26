@@ -14,9 +14,16 @@
  *    shown as text to open by hand.
  * Only the legal pages of the fixed diary server are ever opened (the one origin the network audit allows); the
  * shell checks the address again with the same rule (`LEGAL_PAGE_PREFIXES`) and refuses anything else.
+ *
+ * The one other page the shell opens is the Downloads page of the site (`downloadsPageUrl`: <server>/about/downloads/
+ * in English, <server>/about/<locale>/downloads/ in the other languages - scripts/site/build-site.mjs), for the
+ * "Update needed" screen of the Windows and Mac apps (src/pages/UpdateRequiredPage.tsx). Those addresses are
+ * matched EXACTLY (`isDownloadsPageUrl`, `DOWNLOADS_PAGE_PATHS` - mirrored by `DOWNLOADS_PAGE_PATHS` in
+ * src-tauri/src/opener.rs): no query, no fragment, no other path, no other host. No store address is ever opened
+ * by the shell.
  */
 import { useState, type MouseEvent, type ReactNode } from 'react';
-import type { Locale } from '@shared/i18n';
+import { DEFAULT_LOCALE, LOCALE_CODES, type Locale } from '@shared/i18n';
 import { DEFAULT_SERVER_URL } from '@/config/server-default';
 import { getCurrentLocale, tr } from '@/i18n/runtime';
 import { isTauri } from '@/utils/platform';
@@ -54,13 +61,34 @@ export function isLegalPageUrl(url: string): boolean {
   return parsed.href === url && !parsed.search && !parsed.hash && LEGAL_PAGE_PATHS.some((path) => parsed.pathname.startsWith(path));
 }
 
+/** The path of the site's Downloads page in `locale`: /about/downloads/ for the default language (English), /about/<locale>/downloads/ otherwise. */
+export function downloadsPagePath(locale: Locale): string {
+  return `/about/${locale === DEFAULT_LOCALE ? '' : `${locale}/`}downloads/`;
+}
+
+/**
+ * The Downloads pages the Windows / Mac shell opens - one per UI language, exactly these paths (`DOWNLOADS_PAGE_PATHS`
+ * in src-tauri/src/opener.rs - a test keeps the two lists equal).
+ */
+export const DOWNLOADS_PAGE_PATHS: readonly string[] = LOCALE_CODES.map(downloadsPagePath);
+
+/** The address of the site's Downloads page of the diary server in `locale`. */
+export function downloadsPageUrl(locale: Locale = getCurrentLocale()): string {
+  return `${DEFAULT_SERVER_URL}${downloadsPagePath(locale)}`;
+}
+
+/** True only for one of the Downloads pages of the diary server, character for character (`downloadsPageUrl`). */
+export function isDownloadsPageUrl(url: string): boolean {
+  return DOWNLOADS_PAGE_PATHS.some((path) => url === `${DEFAULT_SERVER_URL}${path}`) && isDiaryServerUrl(url);
+}
+
 /**
  * Windows / Mac app: asks the shell to open `url` in the system browser. Resolves false when the address is not
- * a legal page of the diary server or the shell cannot open it (an older shell without the command, no browser
- * found), so the caller can show the address.
+ * a legal page or a Downloads page of the diary server or the shell cannot open it (an older shell without the
+ * command or without the page in its list, no browser found), so the caller can show the address.
  */
 export async function openInSystemBrowser(url: string): Promise<boolean> {
-  if (!isLegalPageUrl(url) || !isTauri()) return false;
+  if (!(isLegalPageUrl(url) || isDownloadsPageUrl(url)) || !isTauri()) return false;
   try {
     const { invoke } = await import('@tauri-apps/api/core');
     await invoke('open_external_url', { url });

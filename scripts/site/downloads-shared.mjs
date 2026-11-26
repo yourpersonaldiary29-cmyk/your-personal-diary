@@ -30,6 +30,21 @@
 /** The folder of the installers inside the site, and the list the builder writes next to them. */
 export const FILES_DIR = 'files';
 export const IMAGE_LIST_FILE = `${FILES_DIR}/downloads.json`;
+/**
+ * The store links of site/settings.json (`links`, the ONE place for them), written by the builder next to the list
+ * of the installers - { googlePlay, appStoreIphone, appStoreMac, microsoftStore }, each an https address or null -
+ * so that the hosted server knows them at run time without the owner typing a link a second time: the required
+ * update (server/src/hosted/app-update.ts) gives the phone apps the link of their store. Never served itself.
+ */
+export const STORE_LINKS_FILE = `${FILES_DIR}/store-links.json`;
+/** The keys of STORE_LINKS_FILE, in order (the keys of `links` in site/settings.json). */
+export const STORE_LINK_KEYS = ['googlePlay', 'appStoreIphone', 'appStoreMac', 'microsoftStore'];
+
+/** The text of STORE_LINKS_FILE for `links` (missing keys are null), one key per line. */
+export function formatStoreLinks(links) {
+  const lines = STORE_LINK_KEYS.map((key) => `  ${JSON.stringify(key)}: ${JSON.stringify(typeof links?.[key] === 'string' ? links[key] : null)}`);
+  return `{\n${lines.join(',\n')}\n}\n`;
+}
 
 /** The platforms of the Downloads page, in tab order, and the kind of file each one lists. */
 export const DOWNLOAD_PLATFORMS = {

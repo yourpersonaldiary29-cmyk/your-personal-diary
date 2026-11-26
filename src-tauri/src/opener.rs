@@ -17,6 +17,13 @@
 //! scheme (javascript:, file:, ms-settings:...), no local file or program, no other page of the
 //! server, no address with user-info, a port, an escape, a dot segment, a backslash, a query or a
 //! fragment.
+//!
+//! The one other page it opens is the Downloads page of the site, for the "Update needed" screen of the
+//! Windows and Mac apps (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): EXACTLY
+//! `<origin>/about/downloads/` (English, the default language) or `<origin>/about/<code>/downloads/` for one
+//! of the other 19 UI languages (scripts/site/build-site.mjs `siteDir`), compared character for character -
+//! nothing before, after or inside it (no query, no fragment, no locale folder that is not an app language,
+//! no missing slash). No store address (Google Play, App Store, Microsoft Store) is ever opened by the shell.
 
 use crate::platform;
 
@@ -24,12 +31,30 @@ use crate::platform;
 /// src/components/legal/LegalPageLink.tsx - a test keeps the two lists equal).
 const LEGAL_PAGE_PREFIXES: [&str; 4] = ["/privacy/", "/delete-account/", "/terms/", "/support/"];
 
+/// The language whose pages have no locale folder (scripts/legal/build-pages.mjs `DEFAULT_LOCALE`).
+const DEFAULT_LOCALE: &str = "en";
+
+/// The paths of the site's Downloads pages (`downloadsPagePath` / `DOWNLOADS_PAGE_PATHS` in
+/// src/components/legal/LegalPageLink.tsx - a test keeps the two equal): the default language (English) at
+/// /about/downloads/, every other UI language at /about/<code>/downloads/. Matched exactly.
+fn downloads_page_paths() -> Vec<String> {
+    crate::UI_LOCALES
+        .iter()
+        .map(|code| if *code == DEFAULT_LOCALE { "/about/downloads/".to_string() } else { format!("/about/{code}/downloads/") })
+        .collect()
+}
+
+/// True only for one of the Downloads pages, character for character (`downloads_page_paths`).
+fn is_downloads_page_path(path: &str) -> bool {
+    downloads_page_paths().iter().any(|page| page == path)
+}
+
 /// Longest address accepted (bytes). The real ones are about 50.
 const MAX_URL_LEN: usize = 512;
 
 /// The error of a refused address. The address itself is not repeated.
 const REFUSED: &str =
-    "open_external_url opens only the legal pages (privacy, terms, delete-account, support) of the diary server";
+    "open_external_url opens only the legal pages (privacy, terms, delete-account, support) and the Downloads page of the diary server";
 
 /// The origin of the fixed diary server (`https://<host>`, lower case, no trailing slash), read from
 /// the same src/config/server-default.json the UI is built with, so no second copy of the address
@@ -98,6 +123,9 @@ fn is_openable_url(url: &str, origin: &str) -> bool {
     let Some(path) = url.strip_prefix(origin) else {
         return false;
     };
+    if is_downloads_page_path(path) {
+        return true;
+    }
     let Some(rest) = LEGAL_PAGE_PREFIXES.iter().find_map(|page| path.strip_prefix(page)) else {
         return false;
     };
@@ -485,5 +513,98 @@ mod tests {
         );
         assert!(!frontend.contains("plugin:opener"), "the shell has no opener plugin");
         assert_eq!(LEGAL_PAGE_PREFIXES, ["/privacy/", "/delete-account/", "/terms/", "/support/"]);
+        // The Downloads pages: the UI builds them with the same rule (English without a folder) from the same
+        // 20 languages, and opens them through the same command.
+        assert!(
+            frontend.contains("return `/about/${locale === DEFAULT_LOCALE ? '' : `${locale}/`}downloads/`;"),
+            "the same Downloads page paths"
+        );
+        assert!(frontend.contains("LOCALE_CODES.map(downloadsPagePath)"), "one Downloads page per UI language");
+    }
+
+    #[test]
+    fn opens_exactly_the_downloads_pages_of_the_diary_server() {
+        let origin = origin();
+        let paths = downloads_page_paths();
+        assert_eq!(paths.len(), 20);
+        assert_eq!(paths[0], "/about/downloads/");
+        assert!(paths.contains(&"/about/he/downloads/".to_string()));
+        assert!(!paths.contains(&"/about/en/downloads/".to_string()), "English has no folder");
+        for locale in crate::UI_LOCALES {
+            let url = if locale == DEFAULT_LOCALE {
+                format!("{origin}/about/downloads/")
+            } else {
+                format!("{origin}/about/{locale}/downloads/")
+            };
+            assert!(is_openable_url(&url, &origin), "{url:?}");
+            let mut opened = Vec::new();
+            let result = open_checked(&url, Some(&origin), |u| {
+                opened.push(u.to_string());
+                Ok(())
+            });
+            assert_eq!(result, Ok(()), "{url:?}");
+            assert_eq!(opened, [url.clone()], "handed on unchanged");
+        }
+    }
+
+    #[test]
+    fn refuses_everything_near_the_downloads_pages() {
+        let origin = origin();
+        let host = host();
+        for url in [
+            // Not exactly the page: no slash, other folders, other pages of the site, deeper paths.
+            format!("{origin}/about/downloads"),
+            format!("{origin}/about/he/downloads"),
+            format!("{origin}/about/en/downloads/"),
+            format!("{origin}/about/xx/downloads/"),
+            format!("{origin}/about/pt-br/downloads/"),
+            format!("{origin}/about/HE/downloads/"),
+            format!("{origin}/about/Downloads/"),
+            format!("{origin}/about/downloads/index.html"),
+            format!("{origin}/about/downloads/he/"),
+            format!("{origin}/about/downloads//"),
+            format!("{origin}/about//downloads/"),
+            format!("{origin}/about/he//downloads/"),
+            format!("{origin}/about/he/he/downloads/"),
+            format!("{origin}/about/"),
+            format!("{origin}/about/he/"),
+            format!("{origin}/about/app/"),
+            format!("{origin}/about/faq/"),
+            format!("{origin}/about/files/"),
+            format!("{origin}/about/files/downloads.json"),
+            format!("{origin}/downloads/"),
+            format!("{origin}/he/downloads/"),
+            format!("{origin}/about/downloads/../../api/"),
+            format!("{origin}/about/downloads/%2e%2e/"),
+            format!("{origin}/about/%64ownloads/"),
+            // A query or a fragment.
+            format!("{origin}/about/downloads/?x=1"),
+            format!("{origin}/about/downloads/?"),
+            format!("{origin}/about/downloads/#windows"),
+            format!("{origin}/about/he/downloads/#"),
+            // Another host, scheme, port or user-info.
+            format!("http://{host}/about/downloads/"),
+            format!("https://{OTHER}/about/downloads/"),
+            format!("https://{host}.{OTHER}/about/downloads/"),
+            format!("https://{WWW}.{host}/about/downloads/"),
+            format!("https://{host}:8443/about/downloads/"),
+            format!("https://{USER}@{host}/about/downloads/"),
+            format!("https://{OTHER}/{host}/about/downloads/"),
+            format!(" {origin}/about/downloads/"),
+            format!("{origin}/about/downloads/ "),
+        ] {
+            assert_refused(&url);
+        }
+    }
+
+    #[test]
+    fn no_store_host_is_ever_opened() {
+        // The stores are opened by the phone apps only (an ordinary link); the shell knows no store host.
+        for store in [["play", "google", "com"], ["apps", "apple", "com"], ["apps", "microsoft", "com"], ["www", "microsoft", "com"]] {
+            let host = store.join(".");
+            for url in [format!("https://{host}/"), format!("https://{host}/store/apps/details"), format!("https://{host}/about/downloads/")] {
+                assert_refused(&url);
+            }
+        }
     }
 }

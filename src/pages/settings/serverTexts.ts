@@ -4,7 +4,7 @@
  * every member is a getter or a function so call sites always read the live language.
  */
 import { hasMessage } from '@shared/i18n';
-import type { ServerDiskEmail, ServerDiskReason, ServerDiskState, ServerDownloadEmail, ServerDownloadPlatform } from '@shared/types';
+import type { AppPlatform, ServerDiskEmail, ServerDiskReason, ServerDiskState, ServerDownloadEmail, ServerDownloadPlatform } from '@shared/types';
 import { intlTag, tr } from '@/i18n/runtime';
 import { formatBytes, formatDays, formatMinutes, formatNumber } from '@/utils/format';
 
@@ -357,6 +357,56 @@ export const DLT = {
   exists: (platform: string, version: string) => tr('server.downloads.exists', { platform, version }),
   tooLarge: (maxMb: number) => tr('server.downloads.tooLarge', { maxMb }),
   tooSmall: (minMb: number) => tr('server.downloads.tooSmall', { minMb }),
+};
+
+/** "Required update" (ServerAppUpdate.tsx; keys 'settings.server.update.*'). */
+export const UPT = {
+  get title() {
+    return tr('settings.server.update.title');
+  },
+  get intro() {
+    return tr('settings.server.update.intro');
+  },
+  get warning() {
+    return tr('settings.server.update.warning');
+  },
+  get offline() {
+    return tr('settings.server.update.offline');
+  },
+  /** "Android", "iPhone", "Windows", "Mac" - never translated. */
+  platformName: (platform: AppPlatform) => tr(`settings.server.update.platform.${platform}`),
+  get versionLabel() {
+    return tr('settings.server.update.versionLabel');
+  },
+  get versionHint() {
+    return tr('settings.server.update.versionHint');
+  },
+  newestHint: (version: string) => tr('settings.server.update.newestHint', { version }),
+  get stateOff() {
+    return tr('settings.server.update.stateOff');
+  },
+  stateOn: (version: string) => tr('settings.server.update.stateOn', { version }),
+  get save() {
+    return tr('settings.server.update.save');
+  },
+  saveFor: (platform: string) => tr('settings.server.update.saveFor', { platform }),
+  get turnOff() {
+    return tr('settings.server.update.turnOff');
+  },
+  turnOffFor: (platform: string) => tr('settings.server.update.turnOffFor', { platform }),
+  get saved() {
+    return tr('settings.server.update.saved');
+  },
+  get turnedOff() {
+    return tr('settings.server.update.turnedOff');
+  },
+  get invalidVersion() {
+    return tr('settings.server.update.invalidVersion');
+  },
+  tooNew: (version: string) => tr('settings.server.update.tooNew', { version }),
+  /** Said before a change when the e-mail about it would not be sent (`ServerAppUpdate.email`). */
+  emailWarning: (email: 'notConfigured' | 'noAddress') =>
+    tr(email === 'noAddress' ? 'settings.server.update.emailNoAddress' : 'settings.server.update.emailNotConfigured'),
 };
 
 /** The server's text of each `ServerDiskReason` (server/src/hosted/disk-errors.ts DISK_REASON_KEYS). */

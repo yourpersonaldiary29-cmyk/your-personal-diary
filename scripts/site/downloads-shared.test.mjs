@@ -33,6 +33,7 @@ import {
   escapeHtml,
   FILES_DIR,
   formatDownloads,
+  formatStoreLinks,
   IMAGE_LIST_FILE,
   isolateLatin,
   megabytes,
@@ -40,6 +41,8 @@ import {
   PUBLIC_NAMES,
   relativeHref,
   replaceDownloadRegions,
+  STORE_LINK_KEYS,
+  STORE_LINKS_FILE,
 } from './downloads-shared.mjs';
 import { FILLED, fixture, fixtureDownloads, readJson } from './fixture-tree.mjs';
 
@@ -52,7 +55,7 @@ const contentOf = (code) => readJson(contentFile(ROOT, code));
 const ROW = { version: '1.1.0', date: '2026-11-18', file: PUBLIC_NAMES.windows('1.1.0'), bytes: 3_456_789, sha256: 'ab'.repeat(32) };
 
 test('the builder and add-download.mjs use the shared rules themselves, and the module imports nothing', () => {
-  for (const name of ['PLATFORMS', 'DOWNLOAD_PLATFORMS', 'DOWNLOAD_ROW_KEYS', 'downloadsProblems', 'formatDownloads', 'compareVersions', 'isVersion', 'isIsoDate', 'relativeHref', 'megabytes', 'FILES_DIR', 'IMAGE_LIST_FILE']) {
+  for (const name of ['PLATFORMS', 'DOWNLOAD_PLATFORMS', 'DOWNLOAD_ROW_KEYS', 'downloadsProblems', 'formatDownloads', 'compareVersions', 'isVersion', 'isIsoDate', 'relativeHref', 'megabytes', 'FILES_DIR', 'IMAGE_LIST_FILE', 'formatStoreLinks', 'STORE_LINKS_FILE']) {
     assert.ok(shared[name] !== undefined && builder[name] === shared[name], `build-site.mjs exports ${name} of downloads-shared.mjs`);
   }
   assert.equal(addDownload.PUBLIC_NAMES, PUBLIC_NAMES);
@@ -185,5 +188,38 @@ test('a built tree carries files/downloads.json; siteFolderProblems notices it m
   writeFileSync(listFile, formatDownloads(other));
   assert.deepEqual(siteFolderProblems(folder), [`${IMAGE_LIST_FILE} does not list exactly the files of the Downloads page`]);
   writeFileSync(listFile, formatDownloads(fixtureDownloads()));
+  assert.deepEqual(siteFolderProblems(folder), []);
+});
+
+test('a built tree carries files/store-links.json - the store links of site/settings.json for the hosted server; siteFolderProblems notices it missing or broken', (t) => {
+  assert.equal(STORE_LINKS_FILE, 'files/store-links.json');
+  assert.deepEqual(STORE_LINK_KEYS, ['googlePlay', 'appStoreIphone', 'appStoreMac', 'microsoftStore']);
+  // One key per line, every key present; anything that is not a string is null.
+  assert.equal(formatStoreLinks(null), '{\n  "googlePlay": null,\n  "appStoreIphone": null,\n  "appStoreMac": null,\n  "microsoftStore": null\n}\n');
+  assert.deepEqual(JSON.parse(formatStoreLinks({ googlePlay: 'https://play.google.com/store/apps/details?id=app.example', appStoreIphone: 7 })), {
+    googlePlay: 'https://play.google.com/store/apps/details?id=app.example',
+    appStoreIphone: null,
+    appStoreMac: null,
+    microsoftStore: null,
+  });
+  const root = fixture();
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const out = mkdtempSync(path.join(os.tmpdir(), 'downloads-shared-'));
+  t.after(() => rmSync(out, { recursive: true, force: true }));
+  const links = { googlePlay: 'https://play.google.com/store/apps/details?id=app.example', appStoreIphone: null, appStoreMac: null, microsoftStore: null };
+  const built = buildSite({ root, siteSettings: { ...readSiteSettings(root), links } });
+  const folder = writeSite(built, out);
+  const linksFile = path.join(folder, ...STORE_LINKS_FILE.split('/'));
+  assert.deepEqual(JSON.parse(readFileSync(linksFile, 'utf8')), links, 'the links the site was built with');
+  assert.deepEqual(siteFolderProblems(folder), []);
+  rmSync(linksFile);
+  assert.deepEqual(siteFolderProblems(folder), [`${STORE_LINKS_FILE} is missing (the hosted server reads the store links from it)`]);
+  writeFileSync(linksFile, '{ not json');
+  assert.match(siteFolderProblems(folder)[0], /^files\/store-links\.json: cannot read it \(/);
+  for (const bad of [{ googlePlay: null }, { ...links, other: null }, { ...links, googlePlay: 'http://play.google.com/x' }, []]) {
+    writeFileSync(linksFile, JSON.stringify(bad));
+    assert.deepEqual(siteFolderProblems(folder), [`${STORE_LINKS_FILE}: must hold googlePlay, appStoreIphone, appStoreMac, microsoftStore, each null or an https link`], JSON.stringify(bad));
+  }
+  writeFileSync(linksFile, formatStoreLinks(links));
   assert.deepEqual(siteFolderProblems(folder), []);
 });

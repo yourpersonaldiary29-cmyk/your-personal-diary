@@ -1,0 +1,68 @@
+/*
+ * "Update needed" (UpdateRequiredPage.tsx): one full page in place of the app. Colours come from the theme
+ * tokens (tokens.css), so light, dark and high contrast follow the app's theme; offsets use logical
+ * properties and mirror in Hebrew and Arabic; the buttons keep the touch target of .btn (44 px, 48 px in the
+ * phone UI) and wrap their label rather than push the page sideways.
+ */
+
+.update-required {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 36rem;
+  margin-inline: auto;
+  padding-block: var(--space-6);
+  padding-inline: var(--space-4);
+  /* The phone apps draw under the status bar and the gesture bar: keep the text clear of them. */
+  padding-block-start: max(var(--space-6), env(safe-area-inset-top, 0px));
+  padding-block-end: max(var(--space-6), env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  color: var(--color-text);
+}
+
+.update-required__app {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.update-required__title {
+  margin-block: var(--space-3) var(--space-3);
+}
+
+.update-required__text {
+  margin-block: 0 var(--space-3);
+  margin-inline: auto;
+  max-width: 30rem;
+}
+
+.update-required__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-start: var(--space-5);
+}
+
+.update-required__store-hint {
+  margin: 0;
+  font-weight: 600;
+}
+
+.update-required__address {
+  margin-block: var(--space-3) 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text-muted);
+}
+
+.update-required__status {
+  min-height: 1.5em;
+  margin-block: var(--space-3) 0;
+  font-weight: 600;
+}
+
+@media (forced-colors: active) {
+  .update-required__open {
+    border: 1px solid ButtonText;
+  }
+}

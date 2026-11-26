@@ -28,6 +28,7 @@ import { habitsRouter } from './routes/habits';
 import { homeRouter, insightsRouter } from './routes/insights';
 import { searchRouter } from './routes/search';
 import { serverRouter } from './routes/server';
+import { serverAppUpdateRouter } from './routes/server-app-update';
 import { serverDiskRouter } from './routes/server-disk';
 import { serverDownloadsRouter } from './routes/server-downloads';
 import { serverStatusRouter } from './routes/server-status';
@@ -166,7 +167,14 @@ export function createApp(deps: AppDeps): Express {
   // The files of the Downloads page (Part A): /api/server/downloads*, hosted only. The upload itself
   // (PUT .../upload/<token>, application/octet-stream) passes the JSON parser unread and is streamed.
   if (hosted) app.use('/api/server', smallJson, serverDownloadsRouter(deps));
+  // The required update (app version 1.1.0): /api/server/app-update, hosted only, the owner over HTTPS only.
+  if (hosted) app.use('/api/server', smallJson, serverAppUpdateRouter(deps));
   app.use('/api/server', smallJson, serverRouter(deps));
+  // The required update: a version before 1.1.0 (an app origin without the mark) is refused on the session routes
+  // only - GET /me, POST /login, /register, /guest - while its platform's rule is 1.1.0 or later
+  // (hosted/app-update.ts): 503 UPDATE_REQUIRED with the ordinary JSON error body. Before the limiters, so that the
+  // refused attempts of an old app use up nobody's sign-in budget; behind CORS, so that the app can read the message.
+  if (hosted?.appUpdate) app.use('/api/auth', hosted.appUpdate.refuseOld);
   if (hosted) {
     // Per-bucket limit of the real client (10/min by default) and the global cap (finding 8).
     app.use('/api/auth', globalRateLimit(hosted.authGlobalPerMinute), rateLimit(hosted.loginPerMinute), smallJson, authRouter(deps));

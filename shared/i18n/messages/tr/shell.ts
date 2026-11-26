@@ -294,5 +294,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'Bu cihazda çok sayıda değişiklik bekliyor. Bunları yüklemek için günlük sunucusuna bağlanın.',
   'shell.sync.uninstallHint': 'Bu cihazdaki kopyayı silmek için kaldırmadan önce çıkış yapın.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Güncelleme gerekiyor',
+  'shell.update.body': 'Your Personal Diary uygulamasının bu sürümü ({version}) artık kullanılamıyor. Günlüğünüzü kullanmaya devam etmek için yeni sürümü yükleyin.',
+  'shell.update.safe': 'Günlüğünüz güvende: hesabınızda saklanıyor ve güncelleme hiçbir şeyi silmez.',
+  'shell.update.openGooglePlay': 'Google Play’i aç',
+  'shell.update.openAppStore': 'App Store’u aç',
+  'shell.update.openDownloads': 'İndirmeler sayfasını aç',
+  'shell.update.iphoneNoLink': 'Uygulamayı App Store’dan güncelleyin.',
+  'shell.update.retry': 'Yeniden denetle',
+  'shell.update.stillRequired': 'Bu sürümün hâlâ güncellenmesi gerekiyor.',
 };
 export default messages;

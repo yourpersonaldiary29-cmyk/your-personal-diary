@@ -106,6 +106,7 @@ import {
   siteTreeProblems,
   STORE_FOLDER,
   STORE_LINKS,
+  STORE_LINKS_FILE,
   storeHosts,
   THEME_TOKENS,
   TOKENS_FILE,
@@ -1129,8 +1130,10 @@ test('tree: the 160 pages, site.css, site.js, every image and every installer - 
     assert.ok(site.pages.has(`he/${rel}`), `he/${rel}`);
   }
   assert.equal([...site.pages.keys()].filter((rel) => rel.endsWith('app/index.html')).length, 20, 'one About page per language');
-  assert.deepEqual([...site.files.keys()], [CSS_NAME, SCRIPT_NAME, IMAGE_LIST_FILE]);
+  assert.deepEqual([...site.files.keys()], [CSS_NAME, SCRIPT_NAME, IMAGE_LIST_FILE, STORE_LINKS_FILE]);
   assert.equal(site.files.get(IMAGE_LIST_FILE), formatDownloads(site.downloads), 'the list of the installers, for the hosted server');
+  // The store links of site/settings.json, for the hosted server's required update (server/src/hosted/app-update.ts).
+  assert.deepEqual(JSON.parse(site.files.get(STORE_LINKS_FILE)), readSiteSettings().links);
   assert.equal(site.assets.size, IMAGE_COUNT + installers.length);
   assert.deepEqual([...site.assets.keys()].filter((rel) => rel.startsWith(`${FILES_DIR}/`)).sort(), installers.map((row) => `${FILES_DIR}/${row.file}`).sort());
   assert.equal(site.siteBase, SITE_BASE);
@@ -1139,7 +1142,7 @@ test('tree: the 160 pages, site.css, site.js, every image and every installer - 
   const out = temp(t, 'site-out-');
   const target = writeSite(site, out);
   assert.equal(target, path.join(out, SITE_ID));
-  assert.deepEqual(filesUnder(target), [...site.pages.keys(), ...site.files.keys(), ...site.assets.keys()].sort(), 'the tree is the pages, the three files, the images and the installers - nothing else');
+  assert.deepEqual(filesUnder(target), [...site.pages.keys(), ...site.files.keys(), ...site.assets.keys()].sort(), 'the tree is the pages, the four files, the images and the installers - nothing else');
   assert.deepEqual(siteTreeProblems(out), []);
   assert.deepEqual(siteFolderProblems(target), []);
 
@@ -2380,9 +2383,9 @@ test('command line: --strict fails while a marker is left and passes without; --
     const outDir = path.join(root, 'site', 'out');
     const snapshot = () => new Map(filesUnder(outDir).map((f) => [f, readFileSync(path.join(outDir, f)).toString('base64')]));
     const before = snapshot();
-    // The pages, site.css, site.js and the list of the installers (files/downloads.json), the images, the three installers.
-    assert.equal(before.size, PAGE_COUNT + 3 + IMAGE_COUNT + 3);
-    for (const rel of ['about/index.html', 'about/he/contact/sent/index.html', 'about/site.css', 'about/site.js', `about/${IMAGE_LIST_FILE}`, 'about/img/he/phone-home.png', 'about/img/share.png', 'about/img/icon.svg', `about/files/${FIXTURE_FILES.android.file}`]) assert.ok(before.has(rel), rel);
+    // The pages, site.css, site.js, the list of the installers (files/downloads.json) and the store links (files/store-links.json), the images, the three installers.
+    assert.equal(before.size, PAGE_COUNT + 4 + IMAGE_COUNT + 3);
+    for (const rel of ['about/index.html', 'about/he/contact/sent/index.html', 'about/site.css', 'about/site.js', `about/${IMAGE_LIST_FILE}`, `about/${STORE_LINKS_FILE}`, 'about/img/he/phone-home.png', 'about/img/share.png', 'about/img/icon.svg', `about/files/${FIXTURE_FILES.android.file}`]) assert.ok(before.has(rel), rel);
     assert.ok(!before.has('about/en/index.html'));
     writeFileSync(path.join(outDir, 'about', 'stale.html'), 'left over');
     assert.equal(run([], root).code, 0);

@@ -157,7 +157,7 @@ describe('hosted mode: forwarded protocol, headers and server info', () => {
     for (const origin of ['http://tauri.localhost', 'https://tauri.localhost', 'tauri://localhost', 'https://localhost', 'capacitor://localhost']) {
       const res = await app.anon().options('/api/auth/login').set('Host', HOST).set('Origin', origin);
       expect({ origin, status: res.status, allow: res.headers['access-control-allow-origin'] }).toEqual({ origin, status: 204, allow: origin });
-      expect(res.headers['access-control-allow-headers']).toBe('Authorization, Content-Type, Accept-Language');
+      expect(res.headers['access-control-allow-headers']).toBe('Authorization, Content-Type, Accept-Language, X-Diary-Client');
     }
     for (const origin of ['https://evil.example', 'http://localhost', 'https://localhost:8443', 'http://localhost:1420', 'http://127.0.0.1:1430', 'null']) {
       const res = await app.anon().options('/api/auth/login').set('Host', HOST).set('Origin', origin);

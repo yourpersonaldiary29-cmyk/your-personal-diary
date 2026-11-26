@@ -21,6 +21,11 @@ export interface DownloadPage {
 
 export declare const FILES_DIR: string;
 export declare const IMAGE_LIST_FILE: string;
+/** files/store-links.json: the store links of site/settings.json, for the hosted server (required update). */
+export declare const STORE_LINKS_FILE: string;
+export type StoreLinkKey = 'googlePlay' | 'appStoreIphone' | 'appStoreMac' | 'microsoftStore';
+export declare const STORE_LINK_KEYS: readonly StoreLinkKey[];
+export declare function formatStoreLinks(links: Partial<Record<StoreLinkKey, string | null>> | null | undefined): string;
 export declare const DOWNLOAD_PLATFORMS: Record<DownloadPlatform, { extension: string }>;
 export declare const PLATFORMS: readonly DownloadPlatform[];
 export declare const DOWNLOAD_ROW_KEYS: readonly (keyof DownloadRow)[];

@@ -8,6 +8,7 @@ import type { Request, RequestHandler } from 'express';
 import type { Locale } from '@shared/i18n';
 import type { ServerArchiveInfo, ServerArchiveResult, ServerDiskChange, ServerDiskInfo } from '@shared/types';
 import type { ServerDownloadPlatform, ServerDownloadResult, ServerDownloads, ServerDownloadUploadTicket } from '@shared/types';
+import type { AppPlatform, AppUpdateInfo, ServerAppUpdate } from '@shared/types';
 import type { RegistrationMode } from '../config';
 
 /** The health answers of hosted mode (3.6). `strict` is what the external uptime monitor polls. */
@@ -166,6 +167,36 @@ export interface DownloadsController {
   remove(target: DownloadTarget, notice: DownloadNotice): Promise<ServerDownloadResult>;
 }
 
+/** A checked change of a required-update rule (`AppUpdateController.checkChange`): before the password. */
+export interface AppUpdateChange {
+  platform: AppPlatform;
+  /** The oldest version that may still be used, or null: the rule goes off. */
+  minVersion: string | null;
+}
+
+/**
+ * The required update (app version 1.1.0), built by server/src/hosted/app-update.ts in the hosted composition only:
+ * one rule per platform on the data volume (<dataDir>/site/app-update.json), in the owner's hands. The routes
+ * (routes/server-app-update.ts) check HTTPS, the owner and the account password; everything else is checked here.
+ */
+export interface AppUpdateController {
+  /** `ServerInfo.appUpdate`: the platforms whose rule is on (with the store link where the site has one); undefined while none is. Never throws, never reads the disk. */
+  info(): AppUpdateInfo | undefined;
+  /**
+   * Mounted by app.ts on /api/auth before the auth router: answers 503 UPDATE_REQUIRED to a session route
+   * (GET /me, POST /login, /register, /guest) of an app version before 1.1.0 - an app origin without
+   * CLIENT_MARK_HEADER - while the rule of that origin's platform is on. Every other request passes on untouched.
+   * Never throws, never reads the disk.
+   */
+  refuseOld: RequestHandler;
+  /** `GET /api/server/app-update`; `ownerEmail` = the owner's account address ('' = none). */
+  view(ownerEmail: string): ServerAppUpdate;
+  /** Before the password: the body's platform and version (a.b.c, not above the server's own; null = off). */
+  checkChange(body: Record<string, unknown>): AppUpdateChange;
+  /** After the password: saves the change (atomically), sends the owner's e-mail, returns the new view (the 200 body). */
+  change(change: AppUpdateChange, notice: DownloadNotice): Promise<ServerAppUpdate>;
+}
+
 export interface HostedAppOptions {
   /** Lower-cased host (with a non-default port) of DIARY_PUBLIC_URL: the accepted Host header (with `extraHosts`). */
   publicHost: string;
@@ -220,6 +251,11 @@ export interface HostedAppOptions {
    * answer 403 'server.downloads.unavailable' and the site's pages and installers are the static files as built.
    */
   downloads?: DownloadsController;
+  /**
+   * The required update (app version 1.1.0). Absent = `/api/server/app-update` answers 403 'server.appUpdate.unavailable',
+   * `ServerInfo.appUpdate` is never set and no request is refused (test apps built by hand).
+   */
+  appUpdate?: AppUpdateController;
   /** When the server started (ISO); defaults to the listen info's `startedAt`. */
   startedAt?: string;
   /** Mounts /api/debug/proxy and /api/debug/crash (staging only). */

@@ -293,5 +293,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'Πολλές αλλαγές περιμένουν σε αυτή τη συσκευή. Συνδέσου με τον διακομιστή του ημερολογίου για να σταλούν.',
   'shell.sync.uninstallHint': 'Αποσυνδέσου πριν από την απεγκατάσταση, ώστε να διαγραφεί το αντίγραφο αυτής της συσκευής.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Χρειάζεται ενημέρωση',
+  'shell.update.body': 'Αυτή η έκδοση του Your Personal Diary ({version}) δεν μπορεί πια να χρησιμοποιηθεί. Εγκατάστησε τη νέα έκδοση για να συνεχίσεις να χρησιμοποιείς το ημερολόγιό σου.',
+  'shell.update.safe': 'Το ημερολόγιό σου είναι ασφαλές: φυλάγεται στον λογαριασμό σου και η ενημέρωση δεν διαγράφει τίποτα.',
+  'shell.update.openGooglePlay': 'Άνοιγμα του Google Play',
+  'shell.update.openAppStore': 'Άνοιγμα του App Store',
+  'shell.update.openDownloads': 'Άνοιγμα της σελίδας Λήψεων',
+  'shell.update.iphoneNoLink': 'Ενημέρωσε την εφαρμογή στο App Store.',
+  'shell.update.retry': 'Νέος έλεγχος',
+  'shell.update.stillRequired': 'Αυτή η έκδοση χρειάζεται ακόμη ενημέρωση.',
 };
 export default messages;

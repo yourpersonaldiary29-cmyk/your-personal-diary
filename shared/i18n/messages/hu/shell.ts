@@ -290,5 +290,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'Sok módosítás vár ezen az eszközön. Csatlakozz a napló szerveréhez a feltöltésükhöz.',
   'shell.sync.uninstallHint': 'Eltávolítás előtt jelentkezz ki, hogy törlődjön az eszközön lévő másolat.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Frissítés szükséges',
+  'shell.update.body': 'A Your Personal Diary ezen verziója ({version}) már nem használható. Telepítsd az új verziót, hogy tovább használhasd a naplódat.',
+  'shell.update.safe': 'A naplód biztonságban van: a fiókodban van tárolva, és a frissítés semmit sem töröl.',
+  'shell.update.openGooglePlay': 'Google Play megnyitása',
+  'shell.update.openAppStore': 'App Store megnyitása',
+  'shell.update.openDownloads': 'A Letöltések oldal megnyitása',
+  'shell.update.iphoneNoLink': 'Frissítsd az alkalmazást az App Store-ban.',
+  'shell.update.retry': 'Újbóli ellenőrzés',
+  'shell.update.stillRequired': 'Ezt a verziót továbbra is frissíteni kell.',
 };
 export default messages;

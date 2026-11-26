@@ -292,5 +292,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': '此设备上有许多更改正在等待。请连接到日记服务器以上传它们。',
   'shell.sync.uninstallHint': '卸载前请先退出登录，以删除此设备上的副本。',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': '需要更新应用',
+  'shell.update.body': '此版本的 Your Personal Diary（{version}）已无法再使用。请安装新版本，以继续使用您的日记。',
+  'shell.update.safe': '您的日记很安全：它保存在您的账户中，更新不会删除任何内容。',
+  'shell.update.openGooglePlay': '打开 Google Play',
+  'shell.update.openAppStore': '打开 App Store',
+  'shell.update.openDownloads': '打开“下载”页面',
+  'shell.update.iphoneNoLink': '请在 App Store 中更新应用。',
+  'shell.update.retry': '再次检查',
+  'shell.update.stillRequired': '此版本仍需要更新。',
 };
 export default messages;

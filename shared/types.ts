@@ -31,6 +31,9 @@ export type ErrorCode =
   | 'FORBIDDEN'
   | 'LAN_DISABLED'
   | 'LOCKED' // the session is locked (lock screen): only /me, /verify-password, /lock, /logout and GET /settings answer
+  // 503 (hosted): a version before 1.1.0 (an app origin without CLIENT_MARK_HEADER) on a session route while the
+  // required-update rule of its platform is on (server/src/hosted/app-update.ts); the message says where to update.
+  | 'UPDATE_REQUIRED'
   | 'OTHER';
 
 /** Every non-2xx response body has this shape. */
@@ -788,6 +791,53 @@ export interface RemoteTestResult {
   at: string;
 }
 
+// ---------------------------------------------------------------------------
+// Required update (app version 1.1.0): the owner sets, per platform, the oldest version that may still
+// be used (server/src/hosted/app-update.ts, server/src/routes/server-app-update.ts,
+// src/pages/UpdateRequiredPage.tsx). The header every app sends: CLIENT_MARK_HEADER in shared/constants.ts.
+// ---------------------------------------------------------------------------
+
+/** The platforms that have an app of their own. The web version is never asked to update: the server always serves the newest one. */
+export type AppPlatform = 'android' | 'ios' | 'windows' | 'mac';
+export const APP_PLATFORMS: readonly AppPlatform[] = ['android', 'ios', 'windows', 'mac'];
+
+/** One platform's required-update rule, as the public server info gives it (`ServerInfo.appUpdate`). */
+export interface AppUpdateRule {
+  /** The oldest version that may still be used (`a.b.c`): an app whose own version is lower shows the update screen. */
+  minVersion: string;
+  /**
+   * The app's page in its store (an https address), when the deployed site has that link (`site/settings.json`
+   * `links.googlePlay` for android, `links.appStoreIphone` for ios). Absent for windows and mac, and while the
+   * site has no link: the app then opens the Downloads page of the site (android, windows, mac) or only says
+   * where to update (ios).
+   */
+  storeUrl?: string;
+}
+
+/** `ServerInfo.appUpdate`: the platforms whose rule is on, and nothing else. */
+export type AppUpdateInfo = Partial<Record<AppPlatform, AppUpdateRule>>;
+
+/** `GET /api/server/app-update` and the answer (200) of `POST /api/server/app-update` - the owner over HTTPS only. */
+export interface ServerAppUpdate {
+  /** Per platform: the oldest version that may still be used, or null while no update is required. */
+  rules: Record<AppPlatform, string | null>;
+  /** The server's own version (`APP_VERSION`): a rule may not be above it. */
+  serverVersion: string;
+  /** Per platform, the newest version on the Downloads page, where the server knows one (a hint beside the field). */
+  newestDownload: Partial<Record<AppPlatform, string>>;
+  /** Whether the e-mail about a change would be sent now ('ready'), or why not - as for the Downloads list. */
+  email: 'ready' | 'notConfigured' | 'noAddress';
+}
+
+/** Body of `POST /api/server/app-update`: sets or clears the rule of ONE platform. */
+export interface ServerAppUpdateChange {
+  platform: AppPlatform;
+  /** `a.b.c` (each part 0..9999, no leading zero), not above the server's own version; null turns the rule off. */
+  minVersion: string | null;
+  /** The signed-in owner's account password (the confirmation lockout applies). */
+  password: string;
+}
+
 export interface ServerInfo {
   version: string;
   /** Actual port the server listens on. */
@@ -839,6 +889,13 @@ export interface ServerInfo {
    * then still answer so that queued changes can drain).
    */
   offlineSync?: 1;
+  /**
+   * Hosted only: the required-update rules that are ON (the owner turns them on in the Server card), one per
+   * platform. An app from version 1.1.0 on compares its own version with the rule of its platform and shows
+   * the "Update needed" screen when it is older. Absent while no rule is on, on local servers and on older
+   * servers; apps before 1.1.0 ignore it.
+   */
+  appUpdate?: AppUpdateInfo;
 }
 
 /**

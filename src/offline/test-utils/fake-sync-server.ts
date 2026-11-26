@@ -73,6 +73,8 @@ export interface RecordedRequest {
   token: string | null;
   /** Device epoch ms when the request arrived. */
   at: number;
+  /** The client mark of an app from 1.1.0 on (`X-Diary-Client`, shared/constants.ts), or null when the request had none. */
+  clientMark: string | null;
 }
 
 export interface FakeAccount {
@@ -276,6 +278,8 @@ export class FakeSyncServer {
   syncMounted = true;
   /** `ServerInfo.offlineSync` present. */
   offlineSyncFlag = true;
+  /** Merged into the answer of `GET /api/server/info` (e.g. the required-update rules, `appUpdate`). */
+  infoOverrides: Partial<ServerInfo> = {};
   /** Simulated latency per request in ms (real timers). */
   latencyMs: number;
   /** The next n `POST /api/sync/op` are applied, then their answer is lost (a TypeError). */
@@ -456,7 +460,8 @@ export class FakeSyncServer {
         body = init.body;
       }
     }
-    this.requests.push({ method, path, body, token, at: Date.now() });
+    const clientMark = headers['X-Diary-Client'] ?? headers['x-diary-client'] ?? null;
+    this.requests.push({ method, path, body, token, at: Date.now(), clientMark });
     const signal = init.signal ?? undefined;
     if (signal?.aborted) throw abortError();
     if (this.mode === 'down') throw new TypeError('Failed to fetch');
@@ -520,7 +525,7 @@ export class FakeSyncServer {
     }
 
     if (path === '/api/health') return makeResponse(200, { ok: true, version: '0.1.0', mode: 'hosted' });
-    if (path === '/api/server/info') return makeResponse(200, fakeServerInfo(this.offlineSyncFlag ? {} : { offlineSync: undefined }));
+    if (path === '/api/server/info') return makeResponse(200, fakeServerInfo({ ...(this.offlineSyncFlag ? {} : { offlineSync: undefined }), ...this.infoOverrides }));
 
     const account = token ? this.accounts.get(token) : undefined;
     if (!account) return this.error(401, 'UNAUTHORIZED', 'Please sign in again.');

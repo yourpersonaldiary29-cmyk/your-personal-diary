@@ -286,5 +286,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'Many changes are waiting on this device. Connect to the diary server to upload them.',
   'shell.sync.uninstallHint': 'Sign out before uninstalling to delete this device\'s copy.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Update needed',
+  'shell.update.body': 'This version of Your Personal Diary ({version}) can no longer be used. Install the new version to go on using your diary.',
+  'shell.update.safe': 'Your diary is safe: it is kept in your account, and the update deletes nothing.',
+  'shell.update.openGooglePlay': 'Open Google Play',
+  'shell.update.openAppStore': 'Open the App Store',
+  'shell.update.openDownloads': 'Open the Downloads page',
+  'shell.update.iphoneNoLink': 'Update the app in the App Store.',
+  'shell.update.retry': 'Check again',
+  'shell.update.stillRequired': 'This version still needs an update.',
 };
 export default messages;

@@ -251,3 +251,34 @@ export function downloadRemovedEmail(locale: Locale, input: DownloadEmailInput):
     { kind: 'small', text: tr('server.email.footer') },
   ]);
 }
+
+/** What the owner's e-mail about a change of a required update needs (hosted/app-update.ts). */
+export interface AppUpdateEmailInput {
+  /** The owner's account address. */
+  to: string;
+  firstName: string;
+  /** 'Android', 'iPhone', 'Windows' or 'Mac' (product names, not translated). */
+  platformName: string;
+  /** The new oldest version that may still be used; null = the rule was turned off. */
+  minVersion: string | null;
+  /** ISO time of the change. */
+  at: string;
+}
+
+/**
+ * The owner's notice after a required update was set or turned off in the Server card: which platform, the new
+ * oldest version (or that it is off), when, and what to do if it was not him. Sent to his own account address.
+ */
+export function appUpdateChangedEmail(locale: Locale, input: AppUpdateEmailInput): MailContent {
+  const tr = (key: string, params?: Record<string, string | number>) => t(locale, key, params);
+  const when = formatTimestamp(locale, input.at);
+  const body = input.minVersion
+    ? tr('server.email.appUpdate.on.body', { platform: input.platformName, version: input.minVersion, when })
+    : tr('server.email.appUpdate.off.body', { platform: input.platformName, when });
+  return render(locale, input.to, tr(input.minVersion ? 'server.email.appUpdate.on.subject' : 'server.email.appUpdate.off.subject'), [
+    { kind: 'p', text: tr('server.email.greeting', { firstName: input.firstName }) },
+    { kind: 'p', text: body },
+    { kind: 'p', text: tr('server.email.appUpdate.notYou') },
+    { kind: 'small', text: tr('server.email.footer') },
+  ]);
+}

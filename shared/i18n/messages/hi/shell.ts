@@ -294,5 +294,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'इस डिवाइस पर कई बदलाव प्रतीक्षा में हैं। उन्हें अपलोड करने के लिए डायरी सर्वर से कनेक्ट करें।',
   'shell.sync.uninstallHint': 'इस डिवाइस की कॉपी हटाने के लिए अनइंस्टॉल करने से पहले लॉग आउट करें।',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'ऐप अपडेट करना ज़रूरी है',
+  'shell.update.body': 'Your Personal Diary के इस संस्करण ({version}) का अब उपयोग नहीं किया जा सकता। अपनी डायरी का उपयोग जारी रखने के लिए नया संस्करण इंस्टॉल करें।',
+  'shell.update.safe': 'आपकी डायरी सुरक्षित है: वह आपके खाते में रखी है, और अपडेट कुछ भी नहीं मिटाता।',
+  'shell.update.openGooglePlay': 'Google Play खोलें',
+  'shell.update.openAppStore': 'App Store खोलें',
+  'shell.update.openDownloads': '"डाउनलोड" पेज खोलें',
+  'shell.update.iphoneNoLink': 'App Store में ऐप अपडेट करें।',
+  'shell.update.retry': 'फिर से जाँचें',
+  'shell.update.stillRequired': 'इस संस्करण को अब भी अपडेट की ज़रूरत है।',
 };
 export default messages;

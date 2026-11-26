@@ -6,7 +6,7 @@
  */
 import type { IncomingMessage } from 'node:http';
 import type { NextFunction, Request, Response } from 'express';
-import { APP_NAME } from '@shared/constants';
+import { APP_NAME, CLIENT_MARK_HEADER } from '@shared/constants';
 import { localeDef, t, type Locale } from '@shared/i18n';
 import { ApiError } from '../errors';
 import { localeOf } from './locale';
@@ -203,7 +203,9 @@ export function cors(req: Request, res: Response, next: NextFunction, dev = fals
   if (origin && (origins.has(origin) || (dev && DEV_ORIGINS.has(origin)))) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Vary', 'Origin');
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept-Language');
+    // CLIENT_MARK_HEADER: the mark every app sends from version 1.1.0 on (shared/constants.ts) - allowed before any
+    // app sends it, or its preflight would fail and the app would look offline.
+    res.setHeader('Access-Control-Allow-Headers', `Authorization, Content-Type, Accept-Language, ${CLIENT_MARK_HEADER}`);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     // Content-Disposition: the file name of a download; X-Entries-Exported: the entry count of an export download.
     res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition, X-Entries-Exported');

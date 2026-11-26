@@ -59,6 +59,35 @@ describe('useAutoLock', () => {
     expect(lock2).not.toHaveBeenCalled();
   });
 
+  it('held (the "Update needed" screen): the idle time keeps counting, the lock waits and is done the moment the hold ends', () => {
+    const lock = vi.fn();
+    const { rerender } = renderHook(({ hold }) => useAutoLock(1, { hold }), {
+      wrapper: wrapperFor({ auth: 'authenticated', lock: { lock } }),
+      initialProps: { hold: true },
+    });
+    act(() => vi.advanceTimersByTime(5 * MINUTE));
+    expect(lock).not.toHaveBeenCalled();
+    // Pressing a button on the screen after the idle time passed does not undo the lock that is due.
+    act(() => {
+      fireEvent.keyDown(window, { key: 'Enter' });
+    });
+    rerender({ hold: false });
+    expect(lock).toHaveBeenCalledTimes(1);
+  });
+
+  it('held, but the hold ends before the idle time passed: no lock, the countdown goes on', () => {
+    const lock = vi.fn();
+    const { rerender } = renderHook(({ hold }) => useAutoLock(1, { hold }), {
+      wrapper: wrapperFor({ auth: 'authenticated', lock: { lock } }),
+      initialProps: { hold: true },
+    });
+    act(() => vi.advanceTimersByTime(30_000));
+    rerender({ hold: false });
+    expect(lock).not.toHaveBeenCalled();
+    act(() => vi.advanceTimersByTime(30_000));
+    expect(lock).toHaveBeenCalledTimes(1);
+  });
+
   it('stops the timer on unmount', () => {
     const lock = vi.fn();
     const { unmount } = renderHook(() => useAutoLock(1), { wrapper: wrapperFor({ auth: 'authenticated', lock: { lock } }) });

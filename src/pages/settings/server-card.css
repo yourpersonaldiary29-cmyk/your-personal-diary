@@ -247,3 +247,28 @@
     border: 1px solid CanvasText;
   }
 }
+
+/*
+ * "Required update" (ServerAppUpdate.tsx): one framed group per platform - its name, its state in words (never
+ * by colour alone), the version field and Save / Turn off.
+ */
+.server-card__update-row {
+  margin: 0;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.server-card__update-name {
+  padding-inline: var(--space-1);
+  font-weight: 600;
+}
+
+.server-card__update-state {
+  margin: 0;
+}
+
+.server-card__update-state--on {
+  font-weight: 600;
+}

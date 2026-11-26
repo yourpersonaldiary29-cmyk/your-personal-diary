@@ -57,6 +57,8 @@ import type {
   ServerDownloadRemoveRequest,
   ServerDownloadResult,
   ServerDownloads,
+  ServerAppUpdate,
+  ServerAppUpdateChange,
   ServerDownloadUploadIntent,
   ServerDownloadUploadTicket,
   ServerInfo,
@@ -194,6 +196,19 @@ export const server = {
     extend: (body: ServerDiskExtendRequest) => request<ServerDiskChange>('/api/server/disk/extend', { method: 'POST', body }),
     /** POST /api/server/disk/restart -> 202 the change (state 'restarting'); the server then goes away for a moment. */
     restart: (body: ServerDiskRestartRequest) => request<ServerDiskChange>('/api/server/disk/restart', { method: 'POST', body }),
+  },
+  /**
+   * The required-update rules (app version 1.1.0; the section "Required update" of the Server card,
+   * src/pages/settings/ServerAppUpdate.tsx): per platform the oldest version that may still be used, for the
+   * owner only and over HTTPS only, like the downloads. `set` changes ONE platform (`minVersion` null turns
+   * its rule off) and needs the account password (the confirmation lockout applies); the server refuses a
+   * version that is not `a.b.c` or is above its own version, and e-mails the owner about every change.
+   */
+  appUpdate: {
+    /** The rules, the server's own version, the newest Downloads version per platform and the e-mail state (GET /api/server/app-update). */
+    get: (signal?: AbortSignal) => request<ServerAppUpdate>('/api/server/app-update', { signal }),
+    /** POST /api/server/app-update -> 200 the rules after the change. */
+    set: (body: ServerAppUpdateChange) => request<ServerAppUpdate>('/api/server/app-update', { method: 'POST', body }),
   },
 };
 

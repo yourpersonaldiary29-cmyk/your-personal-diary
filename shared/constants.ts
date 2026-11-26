@@ -38,6 +38,18 @@ export const LEGACY_LOCALE: Locale = 'he';
 export const APP_NAME = 'Your Personal Diary';
 export const APP_VERSION = '1.0.1';
 
+/**
+ * The mark that every request of an app carries from version 1.1.0 on (src/api/client.ts): ONE constant header -
+ * no version, no platform, nothing about the user or the device. It tells the hosted server only that this app
+ * knows the "Update needed" screen and decides by itself from `ServerInfo.appUpdate`. A request from an app origin
+ * WITHOUT it comes from version 1.0.0 or 1.0.1: while a required-update rule of that platform is on, the server
+ * refuses that version's session routes with a message (server/src/hosted/app-update.ts). The server must allow
+ * the header for the app origins BEFORE any app sends it (Access-Control-Allow-Headers,
+ * server/src/middleware/access.ts): deploy the server first.
+ */
+export const CLIENT_MARK_HEADER = 'X-Diary-Client';
+export const CLIENT_MARK_VALUE = '2';
+
 /** Product name for a locale - identical in every language (see APP_NAME). */
 export function appName(_locale: Locale = LEGACY_LOCALE): string {
   return APP_NAME;

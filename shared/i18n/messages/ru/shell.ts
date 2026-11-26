@@ -297,5 +297,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'На этом устройстве ожидает много изменений. Подключитесь к серверу дневника, чтобы загрузить их.',
   'shell.sync.uninstallHint': 'Перед удалением приложения выйдите из аккаунта, чтобы удалить копию на этом устройстве.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Нужно обновить приложение',
+  'shell.update.body': 'Эту версию Your Personal Diary ({version}) больше нельзя использовать. Установите новую версию, чтобы продолжить пользоваться дневником.',
+  'shell.update.safe': 'Ваш дневник в сохранности: он хранится в вашем аккаунте, и обновление ничего не удаляет.',
+  'shell.update.openGooglePlay': 'Открыть Google Play',
+  'shell.update.openAppStore': 'Открыть App Store',
+  'shell.update.openDownloads': 'Открыть страницу «Загрузки»',
+  'shell.update.iphoneNoLink': 'Обновите приложение в App Store.',
+  'shell.update.retry': 'Проверить снова',
+  'shell.update.stillRequired': 'Этой версии по-прежнему нужно обновление.',
 };
 export default messages;

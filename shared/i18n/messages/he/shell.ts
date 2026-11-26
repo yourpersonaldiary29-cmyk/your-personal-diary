@@ -287,5 +287,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'שינויים רבים ממתינים במכשיר הזה. התחבר לשרת היומן כדי להעלות אותם.',
   'shell.sync.uninstallHint': 'כדי למחוק את העותק שבמכשיר הזה, התנתק לפני הסרת ההתקנה.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'צריך לעדכן את האפליקציה',
+  'shell.update.body': 'אי אפשר להשתמש יותר בגרסה הזאת של Your Personal Diary ({version}). התקינו את הגרסה החדשה כדי להמשיך להשתמש ביומן.',
+  'shell.update.safe': 'היומן שלכם שמור: הוא נשמר בחשבון שלכם, והעדכון לא מוחק דבר.',
+  'shell.update.openGooglePlay': 'פתיחת Google Play',
+  'shell.update.openAppStore': 'פתיחת App Store',
+  'shell.update.openDownloads': 'פתיחת דף ההורדות',
+  'shell.update.iphoneNoLink': 'עדכנו את האפליקציה ב-App Store.',
+  'shell.update.retry': 'בדיקה חוזרת',
+  'shell.update.stillRequired': 'הגרסה הזאת עדיין צריכה עדכון.',
 };
 export default messages;

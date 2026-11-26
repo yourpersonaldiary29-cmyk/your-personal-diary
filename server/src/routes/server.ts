@@ -217,6 +217,7 @@ export function serverRouter(deps: AppDeps): Router {
     const hosted = deps.hosted;
     // A hosted server has no remote access of its own; its public address plays that role for the
     // clients (the reset links, `remoteUrl`), but it is never reported as "remote access on".
+    const appUpdate = hosted?.appUpdate?.info();
     const remote = hosted ? { enabled: false, url: hosted.publicUrl } : ((deps as ServerRouterDeps).remote?.info() ?? { enabled: false, url: '' });
     const info: ServerInfo = {
       version: APP_VERSION,
@@ -247,6 +248,8 @@ export function serverRouter(deps: AppDeps): Router {
         : {}),
       // Offline sync (shared/sync.ts): hosted only, unless the kill switch DIARY_OFFLINE_SYNC=0 is set.
       ...(hosted && hosted.offlineSync !== false ? { offlineSync: 1 as const } : {}),
+      // The required update (app version 1.1.0): only the platforms whose rule is on; absent while none is.
+      ...(appUpdate ? { appUpdate } : {}),
     };
     res.json(info);
   });

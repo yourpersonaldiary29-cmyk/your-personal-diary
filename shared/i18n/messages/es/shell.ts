@@ -293,5 +293,15 @@ const messages: Record<string, string> = {
   'shell.sync.storageWarning': 'Hay muchos cambios pendientes en este dispositivo. Conéctate al servidor del diario para subirlos.',
   'shell.sync.uninstallHint': 'Cierra sesión antes de desinstalar para eliminar la copia de este dispositivo.',
   // Automatic offline mode - END
+  // Required update (src/pages/UpdateRequiredPage.tsx, app version 1.1.0): the one screen of an app whose version may no longer be used. {version} = this app's own version; Google Play, App Store and the app's name stay in Latin letters
+  'shell.update.title': 'Hay que actualizar la aplicación',
+  'shell.update.body': 'Esta versión de Your Personal Diary ({version}) ya no se puede usar. Instala la nueva versión para seguir usando tu diario.',
+  'shell.update.safe': 'Tu diario está a salvo: se guarda en tu cuenta y la actualización no borra nada.',
+  'shell.update.openGooglePlay': 'Abrir Google Play',
+  'shell.update.openAppStore': 'Abrir el App Store',
+  'shell.update.openDownloads': 'Abrir la página de Descargas',
+  'shell.update.iphoneNoLink': 'Actualiza la aplicación en el App Store.',
+  'shell.update.retry': 'Comprobar de nuevo',
+  'shell.update.stillRequired': 'Esta versión todavía necesita una actualización.',
 };
 export default messages;

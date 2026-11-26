@@ -31,6 +31,7 @@ import { useAnnouncer } from '@/context/AnnouncerContext';
 import { useToast } from '@/context/ToastContext';
 import { useApi } from '@/hooks/useApi';
 import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard';
+import { useUpdateScreenHold } from '@/hooks/useUpdateGate';
 import {
   countErrors,
   emptyEntryValues,
@@ -135,6 +136,10 @@ export default function NewEntryPage() {
   }, []);
 
   const { confirmLeave, dialog } = useUnsavedChangesGuard(form.dirty && !busy && !deleting);
+  // The leave guard is down while a save or a deletion is in flight, but the text is safe only once it was
+  // kept (markClean): the "Update needed" screen (src/hooks/useUpdateGate.ts) waits until then - a refused save
+  // leaves the editor and its text in place.
+  useUpdateScreenHold(form.dirty);
 
   const onSubmit = async () => {
     if (busy) return;

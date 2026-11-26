@@ -33,6 +33,10 @@
  *     The listener's request timeout is UPLOAD_REQUEST_TIMEOUT_MS (30 minutes, not Node's 5), so that an
  *     upload of up to 300 MB over a slow line is not cut; every other request - an upload too, until its
  *     one-time token and its checks have passed - must still arrive within 5 minutes (limitRequestTime);
+ *   - the required update (app version 1.1.0, hosted/app-update.ts): the owner sets per platform the oldest app
+ *     version that may still be used (<dataDir>/site/app-update.json); `ServerInfo.appUpdate` tells the apps from
+ *     1.1.0 on, and the session routes refuse an older version (an app origin without the mark X-Diary-Client)
+ *     with a 503 that says where to update;
  *   - no disk paths (2.3).
  *
  * The outbound connections of a hosted server: the SMTP host of the Mail card (5.8) and - only while the
@@ -46,6 +50,7 @@ import { createApp, type AppDeps } from './app';
 import type { HostedEnv, ServerConfig } from './config';
 import { ApiError } from './errors';
 import { AdminToken, adminTokenPath } from './hosted/admin-token';
+import { createAppUpdateController, type AppUpdateOptions } from './hosted/app-update';
 import { createArchiveController, type ArchiveOptions } from './hosted/archive';
 import { createContactForm, type ContactForm, type ContactFormOptions } from './hosted/contact';
 import { createDiskController, type DiskOptions, type RunningDiskController } from './hosted/disk';
@@ -100,6 +105,8 @@ export interface HostedStartOptions {
   disk?: Partial<Omit<DiskOptions, 'dataDir' | 'mail' | 'ownerContact'>>;
   /** Downloads page options (tests: smaller limits, a fake free-space probe, a clock). The folders and the mail service come from the composition. */
   downloads?: Partial<Omit<DownloadsOptions, 'dataDir' | 'staticDir' | 'mail'>>;
+  /** Required-update options (tests: another server version, a clock). The folders, the public address, the mail service and the Downloads hint come from the composition. */
+  appUpdate?: Partial<Omit<AppUpdateOptions, 'dataDir' | 'staticDir' | 'publicUrl' | 'mail'>>;
   /** How long any request but an opened installer upload may take to arrive whole (tests: shorter); default REQUEST_TIMEOUT_MS. */
   requestTimeoutMs?: number;
 }
@@ -246,6 +253,24 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
   // The files of the Downloads page: the image's list (ui/about/files/downloads.json) merged with what the owner
   // uploads in the Server card (<dataDir>/site/); an e-mail to the owner after every change.
   const downloads = createDownloadsController({ dataDir: config.dataDir, ...(config.staticDir ? { staticDir: config.staticDir } : {}), mail, now, log, ...opts.downloads });
+  // The required update (app version 1.1.0): the owner's rule per platform on the volume (<dataDir>/site/app-update.json),
+  // the store links of the deployed site (ui/about/files/store-links.json), an e-mail to the owner after every change.
+  const appUpdate = createAppUpdateController({
+    dataDir: config.dataDir,
+    ...(config.staticDir ? { staticDir: config.staticDir } : {}),
+    publicUrl: env.publicUrl,
+    mail,
+    // The owner's hint beside each field: the newest file of the Downloads page (there is no iPhone file).
+    newestDownload: () => {
+      const { platforms } = downloads.list('');
+      const newest: Partial<Record<'android' | 'windows' | 'mac', string>> = {};
+      for (const platform of ['android', 'windows', 'mac'] as const) if (platforms[platform][0]) newest[platform] = platforms[platform][0].version;
+      return newest;
+    },
+    now,
+    log,
+    ...opts.appUpdate,
+  });
 
   const hosted: HostedAppOptions = {
     publicHost: env.publicHost,
@@ -266,6 +291,7 @@ export async function startHosted(config: ServerConfig, env: HostedEnv, opts: Ho
     archive: createArchiveController({ dataDir: config.dataDir, log, ...opts.archive }),
     disk,
     downloads,
+    appUpdate,
     startedAt,
     debugRoutes: env.debugRoutes,
     // Offline sync: the ServerInfo flag; DIARY_OFFLINE_SYNC=0 hides it (the /api/sync routes stay).

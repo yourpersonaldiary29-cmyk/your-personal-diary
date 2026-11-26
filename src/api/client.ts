@@ -18,6 +18,15 @@
  * Every request carries `Accept-Language: <current UI locale>` (docs/API.md, "כללי") so
  * the server answers - errors, insights, search answers, exports - in the UI language.
  *
+ * Every request also carries the mark of an app from version 1.1.0 on, `X-Diary-Client: 2`
+ * (CLIENT_MARK_HEADER / CLIENT_MARK_VALUE of shared/constants.ts) - in every build (phone, desktop,
+ * web) and on every path of this module (`request`, `requestBlob`, `requestUpload` and
+ * `requestRawUpload` all take their headers from `baseHeaders`). One constant: no version, no
+ * platform, nothing about the user or the device. It tells the hosted server that this app knows the
+ * "Update needed" screen (src/pages/UpdateRequiredPage.tsx) and decides by itself from
+ * `ServerInfo.appUpdate`; a request from an app origin WITHOUT it comes from a version before 1.1.0,
+ * whose session routes the server may refuse while a required-update rule of that platform is on.
+ *
  * Connection state: a request that cannot reach the server rejects with `ApiClientError` status 0 and
  * reports it to the connection store (./connection.ts) - so does a 502 / 503 / 504 that did not come
  * from the diary server but from the proxy in front of it (`isConnectionError`). Any answer from the
@@ -32,6 +41,7 @@
  * upload of the hosted server's Server card (`requestRawUpload`): an XMLHttpRequest, for its upload
  * progress, with the same headers and the same error handling.
  */
+import { CLIENT_MARK_HEADER, CLIENT_MARK_VALUE } from '@shared/constants';
 import type { ApiErrorBody, ErrorCode } from '@shared/types';
 import { DEFAULT_SERVER_URL, developerApiBase, isLocalServerBuild, shouldBootLocalCore } from '@/config/server-default';
 import { getCurrentLocale, tr } from '@/i18n/runtime';
@@ -287,9 +297,9 @@ export function withQuery(path: string, query?: Query): string {
 /** Header name carrying the UI language to the server. */
 export const LANGUAGE_HEADER = 'Accept-Language';
 
-/** Headers common to every request: JSON accept + the UI language (+ the bearer token). */
+/** Headers common to every request: the UI language, the client mark, JSON accept (+ the bearer token). */
 function baseHeaders(token: string | null, json = true): Record<string, string> {
-  const headers: Record<string, string> = { [LANGUAGE_HEADER]: getCurrentLocale() };
+  const headers: Record<string, string> = { [LANGUAGE_HEADER]: getCurrentLocale(), [CLIENT_MARK_HEADER]: CLIENT_MARK_VALUE };
   if (json) headers.Accept = 'application/json';
   if (token) headers.Authorization = `Bearer ${token}`;
   return headers;
