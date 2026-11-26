@@ -19,6 +19,12 @@ export const APP_UPDATE_PLATFORM_KEY = 'server.appUpdate.platformInvalid';
 export const APP_UPDATE_VERSION_KEY = DOWNLOADS_VERSION_KEY;
 /** 400 VALIDATION (field 'minVersion', {version} = the server's own version): higher than the server's own version. */
 export const APP_UPDATE_TOO_NEW_KEY = 'server.appUpdate.tooNew';
+/**
+ * 400 VALIDATION (field 'minVersion', {version} = FIRST_UPDATE_AWARE_VERSION): lower than the first version that knows
+ * the "Update needed" screen - such a rule would refuse nobody (LAST_UNMARKED_VERSION) while the owner's card said
+ * otherwise.
+ */
+export const APP_UPDATE_TOO_OLD_KEY = 'server.appUpdate.tooOld';
 /** 400 VALIDATION (field 'password'): no account password in the body. */
 export const APP_UPDATE_PASSWORD_REQUIRED_KEY = DOWNLOADS_PASSWORD_REQUIRED_KEY;
 /** 400 WRONG_PASSWORD (field 'password'): the account password is wrong - not 401, the session stays. */
@@ -32,7 +38,10 @@ export const APP_UPDATE_FAILED_KEY = 'server.appUpdate.failed';
  * and starts nothing from its cache (src/context/AuthContext.tsx and src/api/client.ts of 1.0.0 and 1.0.1).
  */
 export const UPDATE_REQUIRED_STATUS = 503;
-/** {store}: "Google Play" or "App Store". */
+/**
+ * {store}: the store's name. Only the iPhone gets this message ("App Store"): an unmarked Android request is always
+ * sent to the Downloads page of the site (hosted/app-update.ts `refusalFor`).
+ */
 export const UPDATE_REQUIRED_STORE_KEY = 'server.app.updateRequiredStore';
 /** {url}: the Downloads page of the site in the request's language. */
 export const UPDATE_REQUIRED_SITE_KEY = 'server.app.updateRequiredSite';

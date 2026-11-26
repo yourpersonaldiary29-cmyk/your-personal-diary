@@ -11,6 +11,7 @@ import {
   compareVersions,
   currentAppPlatform,
   httpsLink,
+  otherUpdateTarget,
   parseVersion,
   storeLink,
   updateRequirement,
@@ -154,6 +155,28 @@ describe('updateTarget - the button of the screen', () => {
   it('Windows and Mac: the Downloads page of the site in the app\'s language', () => {
     expect(updateTarget(need('windows'), 'de')).toEqual({ kind: 'downloads', url: `${DEFAULT_SERVER_URL}/about/de/downloads/` });
     expect(updateTarget(need('mac'), 'en')).toEqual({ kind: 'downloads', url: `${DEFAULT_SERVER_URL}/about/downloads/` });
+  });
+});
+
+describe('otherUpdateTarget - the second way of the screen (Android has two sources of the same app)', () => {
+  const need = (platform: 'android' | 'ios' | 'windows' | 'mac', storeUrl: string | null = null) => ({ platform, installed: '1.1.0', minVersion: '1.2.0', storeUrl });
+
+  it('Android with a store link: Google Play first, and the Downloads page of the site in the app\'s language as the other way', () => {
+    expect(updateTarget(need('android', PLAY), 'he')).toEqual({ kind: 'googlePlay', url: PLAY });
+    expect(otherUpdateTarget(need('android', PLAY), 'he')).toEqual({ kind: 'downloads', url: `${DEFAULT_SERVER_URL}/about/he/downloads/` });
+    expect(otherUpdateTarget(need('android', PLAY), 'en')).toEqual({ kind: 'downloads', url: `${DEFAULT_SERVER_URL}/about/downloads/` });
+  });
+
+  it('Android without a store link: only the Downloads page, no other way', () => {
+    expect(updateTarget(need('android'), 'en').kind).toBe('downloads');
+    expect(otherUpdateTarget(need('android'), 'en')).toBeNull();
+  });
+
+  it('iPhone, Windows and Mac never have another way, with or without a link', () => {
+    for (const platform of ['ios', 'windows', 'mac'] as const) {
+      expect(otherUpdateTarget(need(platform), 'en'), platform).toBeNull();
+      expect(otherUpdateTarget(need(platform, platform === 'ios' ? APPLE : PLAY), 'en'), `${platform} with a link`).toBeNull();
+    }
   });
 });
 

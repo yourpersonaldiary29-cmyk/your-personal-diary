@@ -671,6 +671,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'ปิดแล้ว',
   'settings.server.update.invalidVersion': 'โปรดพิมพ์เวอร์ชัน เช่น 1.1.0',
   'settings.server.update.tooNew': 'เวอร์ชันนี้ใหม่กว่าเวอร์ชันของเซิร์ฟเวอร์ ({version}) ยังไม่มีใครมีเวอร์ชันนี้',
+  'settings.server.update.tooOld': 'เวอร์ชันเก่าที่สุดที่ตั้งค่าได้ที่นี่คือ {version}',
   'settings.server.update.emailNotConfigured': 'จะไม่มีการส่งอีเมลเมื่อเปลี่ยนกฎ: ยังไม่ได้ตั้งค่าการส่งอีเมล (การ์ด "อีเมลสำหรับรีเซ็ตรหัสผ่าน")',
   'settings.server.update.emailNoAddress': 'จะไม่มีการส่งอีเมลเมื่อเปลี่ยนกฎ: บัญชีของคุณไม่มีที่อยู่อีเมล (การ์ด "บัญชี")',
 };

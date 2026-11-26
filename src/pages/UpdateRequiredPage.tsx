@@ -8,11 +8,15 @@
  *
  * What it shows: the app's name, one h1 (it takes the focus when the screen appears), the installed
  * version inside the first sentence, the sentence that the diary is safe, and the button of the platform:
- *  - Android: "Open Google Play" when the server gave the store link, else "Open the Downloads page";
+ *  - Android: "Open Google Play" when the server gave the store link - and under it the sentence "If you
+ *    installed the app from the site and not from Google Play, update it from the Downloads page." with a second,
+ *    quieter link "Open the Downloads page" (the site's page in the app's language; an install from the site's
+ *    file cannot be updated from Google Play - src/utils/appUpdate.ts `otherUpdateTarget`); without the store
+ *    link only "Open the Downloads page", no sentence;
  *  - iPhone: "Open the App Store" when the server gave the link, else only "Update the app in the App Store.";
  *  - Windows and Mac: "Open the Downloads page" (the site's page in the app's language).
  * The phone apps open the address by an ordinary link (the WebView hands an address of another origin to
- * the system: the store app or the browser). The Windows and Mac shells open it through `open_external_url`
+ * the system: the store app or the browser) - the second link of Android as well. The Windows and Mac shells open it through `open_external_url`
  * (src-tauri/src/opener.rs: the Downloads pages are on its list, no store host is); when that fails the
  * address is shown as text to open by hand ("shell.legal.openInBrowser").
  *
@@ -34,11 +38,14 @@ import { useAnnouncer } from '@/context/AnnouncerContext';
 import { retryConnection, useConnection } from '@/context/ConnectionContext';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { getCurrentLocale, tr } from '@/i18n/runtime';
-import { updateRequirement, updateTarget, type UpdateRequirement, type UpdateTarget } from '@/utils/appUpdate';
+import { otherUpdateTarget, updateRequirement, updateTarget, type UpdateRequirement, type UpdateTarget } from '@/utils/appUpdate';
 import { isTauri } from '@/utils/platform';
 import './update-required.css';
 
 export const UPDATE_REQUIRED_TEST_ID = 'update-required-page';
+
+/** The sentence "If you installed the app from the site ..." - the description of the second link. */
+const OTHER_TEXT_ID = 'update-required-from-site';
 
 /** The visible text of the button for a target that has one. */
 function targetLabel(target: Exclude<UpdateTarget, { kind: 'none' }>): string {
@@ -76,6 +83,9 @@ export default function UpdateRequiredPage({ requirement }: UpdateRequiredPagePr
   }, []);
 
   const target = updateTarget(requirement, getCurrentLocale());
+  // Android with a store link only: the Downloads page as the other way (an install from the site's file
+  // cannot be updated from Google Play, and the app cannot tell where it was installed from).
+  const other = otherUpdateTarget(requirement, getCurrentLocale());
 
   const onOpen = (event: MouseEvent<HTMLAnchorElement>) => {
     // The phone apps open the link themselves (the WebView hands it to the system); only the desktop shell needs the command.
@@ -133,6 +143,23 @@ export default function UpdateRequiredPage({ requirement }: UpdateRequiredPagePr
           >
             {targetLabel(target)}
           </a>
+        )}
+        {other && (
+          <div className="update-required__other">
+            <p className="update-required__other-text" id={OTHER_TEXT_ID} data-testid="update-required-from-site">
+              {tr('shell.update.fromSite')}
+            </p>
+            <a
+              className="btn btn--secondary btn--lg update-required__open-other"
+              href={other.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-describedby={OTHER_TEXT_ID}
+              data-testid="update-required-open-other"
+            >
+              {tr('shell.update.openDownloads')}
+            </a>
+          </div>
         )}
         <Button variant="secondary" size="lg" loading={retrying} onClick={() => void onCheck()} data-testid="update-required-retry">
           {tr('shell.update.retry')}

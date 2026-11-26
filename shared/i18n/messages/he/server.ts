@@ -552,6 +552,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'עדכון חובה אינו זמין בשרת הזה.',
   'server.appUpdate.platformInvalid': 'יש לבחור Android, iPhone, Windows או Mac.',
   'server.appUpdate.tooNew': 'הגרסה הזאת חדשה יותר מהגרסה של השרת ({version}). לאף אחד אין אותה עדיין.',
+  'server.appUpdate.tooOld': 'הגרסה הישנה ביותר שאפשר לקבוע כאן היא {version}.',
   'server.appUpdate.failed': 'לא ניתן היה לשמור את ההגדרה, ולכן שום דבר לא השתנה. נסו שוב מאוחר יותר.',
   'server.email.appUpdate.on.subject': 'הוגדר עדכון חובה - Your Personal Diary',
   'server.email.appUpdate.on.body': 'ב-{when} הוגדר עדכון חובה ל-{platform}: גרסאות ישנות מ-{version} חייבות לעדכן לפני שאפשר להשתמש בהן.',

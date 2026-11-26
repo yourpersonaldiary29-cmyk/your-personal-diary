@@ -562,6 +562,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'เซิร์ฟเวอร์นี้ไม่รองรับการอัปเดตแบบบังคับ',
   'server.appUpdate.platformInvalid': 'โปรดเลือก Android, iPhone, Windows หรือ Mac',
   'server.appUpdate.tooNew': 'เวอร์ชันนี้ใหม่กว่าเวอร์ชันของเซิร์ฟเวอร์ ({version}) ยังไม่มีใครมีเวอร์ชันนี้',
+  'server.appUpdate.tooOld': 'เวอร์ชันเก่าที่สุดที่ตั้งค่าได้ที่นี่คือ {version}',
   'server.appUpdate.failed': 'บันทึกการตั้งค่าไม่ได้ จึงไม่มีสิ่งใดเปลี่ยนแปลง โปรดลองอีกครั้งภายหลัง',
   'server.email.appUpdate.on.subject': 'มีการตั้งค่าการอัปเดตแบบบังคับ - Your Personal Diary',
   'server.email.appUpdate.on.body': 'มีการตั้งค่าการอัปเดตแบบบังคับสำหรับ {platform} เมื่อ {when}: เวอร์ชันที่เก่ากว่า {version} ต้องอัปเดตก่อนจึงจะใช้งานได้',

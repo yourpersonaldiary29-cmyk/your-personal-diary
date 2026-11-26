@@ -555,6 +555,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': '此服务器不提供强制更新功能。',
   'server.appUpdate.platformInvalid': '请选择 Android、iPhone、Windows 或 Mac。',
   'server.appUpdate.tooNew': '此版本比服务器自身的版本（{version}）更新，目前还没有人拥有它。',
+  'server.appUpdate.tooOld': '此处可设置的最旧版本是 {version}。',
   'server.appUpdate.failed': '无法保存该设置，因此没有任何更改。请稍后重试。',
   'server.email.appUpdate.on.subject': '已设置强制更新 - Your Personal Diary',
   'server.email.appUpdate.on.body': '已于 {when} 为 {platform} 设置强制更新：低于 {version} 的版本必须先更新才能继续使用。',

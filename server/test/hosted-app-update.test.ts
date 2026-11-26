@@ -7,8 +7,9 @@
  *
  *   - the origin table, the session routes (and that they are exactly the routes of routes/auth.ts that hand out a
  *     token, plus GET /me), the store links (https on the store's own host only), the Downloads page address;
- *   - the rule store: the a.b.c guard, never above the server's own version, turning off always allowed; atomic and
- *     kept across a restart; a missing, unreadable or damaged file = no rule (one log line), repaired by a save;
+ *   - the rule store: the a.b.c guard, never below FIRST_UPDATE_AWARE_VERSION (1.1.0), never above the server's own
+ *     version, turning off always allowed; a rule of 1.0.x that is already in the file is read as it is and refuses
+ *     nobody; atomic and kept across a restart; a missing, unreadable or damaged file = no rule (one log line), repaired by a save;
  *     nothing read from the disk per request; the refusal never becomes a 500;
  *   - the routes: owner only, HTTPS only, the cheap checks before the password, the password, the rate limit, the
  *     e-mail; the local server has no such route;
@@ -22,11 +23,11 @@ import path from 'node:path';
 import type { Request, Response } from 'express';
 import supertest from 'supertest';
 import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
-import { APP_VERSION, CLIENT_MARK_HEADER, CLIENT_MARK_VALUE } from '@shared/constants';
+import { APP_VERSION, CLIENT_MARK_HEADER, CLIENT_MARK_VALUE, FIRST_UPDATE_AWARE_VERSION } from '@shared/constants';
 import { t } from '@shared/i18n';
 import type { AppPlatform, AuthResponse, ServerAppUpdate, ServerInfo } from '@shared/types';
 import { buildSite, readSiteSettings, writeSite } from '../../scripts/site/build-site.mjs';
-import { formatStoreLinks, STORE_LINKS_FILE } from '../../scripts/site/downloads-shared.mjs';
+import { compareVersions, formatStoreLinks, STORE_LINKS_FILE } from '../../scripts/site/downloads-shared.mjs';
 import { loadConfig, loadHostedEnv } from '../src/config';
 import { startHosted, type RunningHosted } from '../src/hosted';
 import {
@@ -49,6 +50,7 @@ import {
   APP_UPDATE_PASSWORD_REQUIRED_KEY,
   APP_UPDATE_PLATFORM_KEY,
   APP_UPDATE_TOO_NEW_KEY,
+  APP_UPDATE_TOO_OLD_KEY,
   APP_UPDATE_UNAVAILABLE_KEY,
   APP_UPDATE_VERSION_KEY,
   APP_UPDATE_WRONG_PASSWORD_KEY,
@@ -301,22 +303,22 @@ describe('the controller', () => {
     fs.rmSync(rulesFile(dataDir), { recursive: true });
     // The owner's next save writes a whole new file.
     fs.writeFileSync(rulesFile(dataDir), '{ not json');
-    const c = createAppUpdateController({ dataDir, publicUrl: PUBLIC_URL, mail, log: () => {} });
-    const view = await c.change(c.checkChange({ platform: 'ios', minVersion: '1.0.1' }), { to: '', firstName: 'X', locale: 'en' });
-    expect(view.rules).toEqual({ android: null, ios: '1.0.1', windows: null, mac: null });
-    expect(JSON.parse(fs.readFileSync(rulesFile(dataDir), 'utf8'))).toEqual({ rules: { android: null, ios: '1.0.1', windows: null, mac: null } });
+    const c = createAppUpdateController({ dataDir, publicUrl: PUBLIC_URL, mail, serverVersion: '1.1.0', log: () => {} });
+    const view = await c.change(c.checkChange({ platform: 'ios', minVersion: '1.1.0' }), { to: '', firstName: 'X', locale: 'en' });
+    expect(view.rules).toEqual({ android: null, ios: '1.1.0', windows: null, mac: null });
+    expect(JSON.parse(fs.readFileSync(rulesFile(dataDir), 'utf8'))).toEqual({ rules: { android: null, ios: '1.1.0', windows: null, mac: null } });
     expect(fs.readdirSync(path.join(dataDir, 'site'))).toEqual([APP_UPDATE_FILE]);
     // A write that fails: 500, and nothing changed - in memory and on the disk.
     const write = vi.spyOn(fs, 'renameSync').mockImplementation(() => {
       throw Object.assign(new Error('disk'), { code: 'EIO' });
     });
     try {
-      await expect(c.change(c.checkChange({ platform: 'android', minVersion: '1.0.0' }), { to: '', firstName: 'X', locale: 'en' })).rejects.toMatchObject({ status: 500, key: 'server.appUpdate.failed' });
+      await expect(c.change(c.checkChange({ platform: 'android', minVersion: '1.1.0' }), { to: '', firstName: 'X', locale: 'en' })).rejects.toMatchObject({ status: 500, key: 'server.appUpdate.failed' });
     } finally {
       write.mockRestore();
     }
     expect(c.view('').rules.android).toBeNull();
-    expect(c.info()).toEqual({ ios: { minVersion: '1.0.1' } });
+    expect(c.info()).toEqual({ ios: { minVersion: '1.1.0' } });
     expect(JSON.parse(fs.readFileSync(rulesFile(dataDir), 'utf8')).rules.android).toBeNull();
     expect(fs.readdirSync(path.join(dataDir, 'site')), 'no temporary file is left').toEqual([APP_UPDATE_FILE]);
   });
@@ -356,11 +358,15 @@ describe('the controller', () => {
     ]);
   });
 
-  it('the guards: a.b.c only, never above the server\'s own version, turning off always allowed, a known platform', () => {
+  it('the guards: a.b.c only, never below 1.1.0, never above the server\'s own version, turning off always allowed, a known platform', () => {
     const c = createAppUpdateController({ dataDir: tempDataDir(), publicUrl: PUBLIC_URL, mail, serverVersion: '1.1.0', log: () => {} });
+    expect(FIRST_UPDATE_AWARE_VERSION).toBe('1.1.0');
     expect(c.checkChange({ platform: 'android', minVersion: '1.1.0' })).toEqual({ platform: 'android', minVersion: '1.1.0' });
-    expect(c.checkChange({ platform: 'mac', minVersion: '0.0.0' })).toEqual({ platform: 'mac', minVersion: '0.0.0' });
     expect(c.checkChange({ platform: 'windows', minVersion: null })).toEqual({ platform: 'windows', minVersion: null });
+    // Below the first version that knows the screen: such a rule would refuse nobody, so it cannot be saved.
+    for (const v of ['1.0.0', '1.0.1', '1.0.9', '0.9.12', '0.0.0']) {
+      expect(() => c.checkChange({ platform: 'mac', minVersion: v }), v).toThrow(expect.objectContaining({ status: 400, code: 'VALIDATION', key: APP_UPDATE_TOO_OLD_KEY, field: 'minVersion', params: { version: '1.1.0' } }));
+    }
     for (const v of ['1.1', '1.1.0.0', 'v1.1.0', '01.1.0', '1.10000.0', ' 1.1.0', '', 110, undefined, true]) {
       expect(() => c.checkChange({ platform: 'android', minVersion: v }), String(v)).toThrow(expect.objectContaining({ status: 400, key: APP_UPDATE_VERSION_KEY, field: 'minVersion' }));
     }
@@ -374,6 +380,25 @@ describe('the controller', () => {
     const own = createAppUpdateController({ dataDir: tempDataDir(), publicUrl: PUBLIC_URL, mail, log: () => {} });
     expect(own.view('').serverVersion).toBe(APP_VERSION);
     expect(() => own.checkChange({ platform: 'android', minVersion: '99.0.0' })).toThrow(expect.objectContaining({ key: APP_UPDATE_TOO_NEW_KEY }));
+  });
+
+  it('the order of the two refusals: below 1.1.0 first, then above the server\'s own version; turning off always', () => {
+    // A server of 1.0.1 (today's APP_VERSION): no rule can be saved at all - below 1.1.0 is too old, 1.1.0 too new.
+    const today = createAppUpdateController({ dataDir: tempDataDir(), publicUrl: PUBLIC_URL, mail, serverVersion: '1.0.1', log: () => {} });
+    for (const v of ['1.0.0', '1.0.1', '1.0.9']) {
+      expect(() => today.checkChange({ platform: 'android', minVersion: v }), v).toThrow(expect.objectContaining({ status: 400, key: APP_UPDATE_TOO_OLD_KEY, field: 'minVersion', params: { version: FIRST_UPDATE_AWARE_VERSION } }));
+    }
+    for (const v of ['1.1.0', '1.2.0']) {
+      expect(() => today.checkChange({ platform: 'android', minVersion: v }), v).toThrow(expect.objectContaining({ status: 400, key: APP_UPDATE_TOO_NEW_KEY, field: 'minVersion', params: { version: '1.0.1' } }));
+    }
+    const release = createAppUpdateController({ dataDir: tempDataDir(), publicUrl: PUBLIC_URL, mail, serverVersion: '1.1.0', log: () => {} });
+    for (const c of [today, release]) {
+      for (const platform of ['android', 'ios', 'windows', 'mac'] as const) expect(c.checkChange({ platform, minVersion: null })).toEqual({ platform, minVersion: null });
+    }
+    // A later server accepts every version from 1.1.0 up to its own.
+    const later = createAppUpdateController({ dataDir: tempDataDir(), publicUrl: PUBLIC_URL, mail, serverVersion: '1.3.2', log: () => {} });
+    for (const v of ['1.1.0', '1.2.7', '1.3.2']) expect(later.checkChange({ platform: 'ios', minVersion: v })).toEqual({ platform: 'ios', minVersion: v });
+    expect(() => later.checkChange({ platform: 'ios', minVersion: '1.0.9' })).toThrow(expect.objectContaining({ key: APP_UPDATE_TOO_OLD_KEY }));
   });
 
   it('the store links of the deployed site: missing, broken or another host = no link (one log line); a good link is given to its platform only', () => {
@@ -414,7 +439,8 @@ describe('the controller', () => {
 
 describe('the owner\'s routes', () => {
   it('owner only, over HTTPS only; the cheap checks before the password; the password; a guest is never the owner', async () => {
-    const b = await boot();
+    // The server of the release that brings the rule: a rule may be as high as 1.1.0.
+    const b = await boot({ serverVersion: '1.1.0' });
     const stranger = await b.register('strangerau');
     const so = b.as(stranger.token);
     // No owner configured: nobody, the would-be owner included.
@@ -440,35 +466,40 @@ describe('the owner\'s routes', () => {
     expect((await b.common(b.agent.get('/api/server/app-update'))).status).toBe(401);
     // The owner.
     const view = (await o.get('/api/server/app-update')).body as ServerAppUpdate;
-    expect(view).toEqual({ rules: { android: null, ios: null, windows: null, mac: null }, serverVersion: APP_VERSION, newestDownload: expect.any(Object), email: 'notConfigured' });
+    expect(view).toEqual({ rules: { android: null, ios: null, windows: null, mac: null }, serverVersion: '1.1.0', newestDownload: expect.any(Object), email: 'notConfigured' });
     // The site of the test lists installers: the hint is their newest version, never one for the iPhone.
     for (const platform of ['android', 'windows', 'mac'] as const) expect(view.newestDownload[platform]).toBe(built.downloads[platform][0].version);
     expect(view.newestDownload.ios).toBeUndefined();
     // The body first: a wrong password with a bad body costs no password attempt and says what is wrong with the body.
     const verify = vi.spyOn(b.srv.auth, 'verifyPassword');
-    for (const [body, key, field] of [
-      [{ platform: 'linux', minVersion: '1.0.0', password: 'wrong' }, APP_UPDATE_PLATFORM_KEY, 'platform'],
-      [{ platform: 'android', minVersion: '1.0', password: 'wrong' }, APP_UPDATE_VERSION_KEY, 'minVersion'],
-      [{ platform: 'android', minVersion: '99.0.0', password: 'wrong' }, APP_UPDATE_TOO_NEW_KEY, 'minVersion'],
+    for (const [body, key, field, version] of [
+      [{ platform: 'linux', minVersion: '1.1.0', password: 'wrong' }, APP_UPDATE_PLATFORM_KEY, 'platform', ''],
+      [{ platform: 'android', minVersion: '1.0', password: 'wrong' }, APP_UPDATE_VERSION_KEY, 'minVersion', ''],
+      [{ platform: 'android', minVersion: '1.0.0', password: 'wrong' }, APP_UPDATE_TOO_OLD_KEY, 'minVersion', FIRST_UPDATE_AWARE_VERSION],
+      [{ platform: 'ios', minVersion: '1.0.1', password: 'wrong' }, APP_UPDATE_TOO_OLD_KEY, 'minVersion', FIRST_UPDATE_AWARE_VERSION],
+      [{ platform: 'mac', minVersion: '1.0.9', password: 'wrong' }, APP_UPDATE_TOO_OLD_KEY, 'minVersion', FIRST_UPDATE_AWARE_VERSION],
+      [{ platform: 'android', minVersion: '99.0.0', password: 'wrong' }, APP_UPDATE_TOO_NEW_KEY, 'minVersion', '1.1.0'],
     ] as const) {
       const res = await o.post('/api/server/app-update', body);
-      expect({ status: res.status, code: res.body.code, field: res.body.field, message: res.body.message }).toEqual({ status: 400, code: 'VALIDATION', field, message: t('en', key, { version: APP_VERSION }) });
+      expect({ status: res.status, code: res.body.code, field: res.body.field, message: res.body.message }).toEqual({ status: 400, code: 'VALIDATION', field, message: t('en', key, { version }) });
     }
+    expect(t('en', APP_UPDATE_TOO_OLD_KEY, { version: FIRST_UPDATE_AWARE_VERSION })).toBe('The oldest version that can be set here is 1.1.0.');
+    expect(t('he', APP_UPDATE_TOO_OLD_KEY, { version: FIRST_UPDATE_AWARE_VERSION })).toBe('הגרסה הישנה ביותר שאפשר לקבוע כאן היא 1.1.0.');
     expect(verify).not.toHaveBeenCalled();
     const bad = await b.common(b.agent.post('/api/server/app-update')).set('Authorization', `Bearer ${auth.token}`).set('Content-Type', 'application/json').send('[1]');
     expect(bad.status).toBe(400);
     // The password: missing, wrong (400, the session stays), right.
-    const missing = await o.post('/api/server/app-update', { platform: 'android', minVersion: '1.0.0' });
+    const missing = await o.post('/api/server/app-update', { platform: 'android', minVersion: '1.1.0' });
     expect({ status: missing.status, field: missing.body.field, message: missing.body.message }).toEqual({ status: 400, field: 'password', message: t('en', APP_UPDATE_PASSWORD_REQUIRED_KEY) });
-    const wrong = await o.post('/api/server/app-update', { platform: 'android', minVersion: '1.0.0', password: 'wrong' });
+    const wrong = await o.post('/api/server/app-update', { platform: 'android', minVersion: '1.1.0', password: 'wrong' });
     expect({ status: wrong.status, code: wrong.body.code, field: wrong.body.field, message: wrong.body.message }).toEqual({ status: 400, code: 'WRONG_PASSWORD', field: 'password', message: t('en', APP_UPDATE_WRONG_PASSWORD_KEY) });
     expect(verify).toHaveBeenCalledTimes(1);
     verify.mockRestore();
     expect((await o.get('/api/server/app-update')).status).toBe(200);
     expect(fs.existsSync(rulesFile(b.dataDir))).toBe(false);
-    const saved = await b.setRule(o, 'android', '1.0.0');
-    expect(saved.rules).toEqual({ android: '1.0.0', ios: null, windows: null, mac: null });
-    expect(b.logs).toContain('app-update: android: versions older than 1.0.0 must update');
+    const saved = await b.setRule(o, 'android', '1.1.0');
+    expect(saved.rules).toEqual({ android: '1.1.0', ios: null, windows: null, mac: null });
+    expect(b.logs).toContain('app-update: android: versions older than 1.1.0 must update');
     const off = await b.setRule(o, 'android', null);
     expect(off.rules.android).toBeNull();
     expect(b.logs).toContain('app-update: android: turned off - no update is required');
@@ -486,39 +517,39 @@ describe('the owner\'s routes', () => {
   });
 
   it('every change: one e-mail to the owner\'s own address in his language - which platform, the version or "turned off", when', async () => {
-    const b = await boot();
+    const b = await boot({ serverVersion: '1.1.0' });
     const { auth, o } = await b.owner('ownermail', { language: 'he' });
     expect(((await o.get('/api/server/app-update')).body as ServerAppUpdate).email).toBe('ready');
-    await b.setRule(o, 'ios', '1.0.1');
+    await b.setRule(o, 'ios', '1.1.0');
     await b.setRule(o, 'ios', null);
     expect(b.sent).toHaveLength(2);
     for (const s of b.sent) expect(s.envelope.to).toBe(auth.user.email);
     expect(decodeWords(headersOf(b.sent[0].data).subject)).toBe(t('he', 'server.email.appUpdate.on.subject'));
     const on = partsOf(b.sent[0].data).text;
-    for (const part of ['iPhone', '1.0.1', t('he', 'server.email.appUpdate.notYou')]) expect(on).toContain(part);
+    for (const part of ['iPhone', '1.1.0', t('he', 'server.email.appUpdate.notYou')]) expect(on).toContain(part);
     expect(decodeWords(headersOf(b.sent[1].data).subject)).toBe(t('he', 'server.email.appUpdate.off.subject'));
     expect(partsOf(b.sent[1].data).text).toContain('iPhone');
     // The mail server refuses: the change is made all the same, and one log line says so without the failure's text.
-    const failing = await boot({ failMail: true });
+    const failing = await boot({ failMail: true, serverVersion: '1.1.0' });
     const f = await failing.owner('ownerfail');
-    const res = await f.o.post('/api/server/app-update', { platform: 'mac', minVersion: '1.0.0', password: PASSWORD });
+    const res = await f.o.post('/api/server/app-update', { platform: 'mac', minVersion: '1.1.0', password: PASSWORD });
     expect(res.status).toBe(200);
-    expect((res.body as ServerAppUpdate).rules.mac).toBe('1.0.0');
+    expect((res.body as ServerAppUpdate).rules.mac).toBe('1.1.0');
     expect(failing.logs.join('\n')).not.toContain('secret');
     expect(failing.logs.some((l) => l.startsWith('app-update: the e-mail about it was not sent ('))).toBe(true);
   });
 
   it('the rules are kept across a restart; the local server and a hosted app without the controller have no such route', async () => {
     const dataDir = tempDataDir();
-    const first = await boot({ dataDir });
+    const first = await boot({ dataDir, serverVersion: '1.2.0' });
     const { o } = await first.owner('ownerkeep', { mail: false });
-    await first.setRule(o, 'android', '1.0.1');
-    await first.setRule(o, 'windows', '1.0.0');
+    await first.setRule(o, 'android', '1.1.0');
+    await first.setRule(o, 'windows', '1.2.0');
     await first.srv.stop();
     running.splice(running.indexOf(first.srv), 1);
     const again = await boot({ dataDir });
-    expect((await again.info()).appUpdate).toEqual({ android: { minVersion: '1.0.1' }, windows: { minVersion: '1.0.0' } });
-    expect(again.logs).toContain('app-update: on for android (older than 1.0.1), windows (older than 1.0.0)');
+    expect((await again.info()).appUpdate).toEqual({ android: { minVersion: '1.1.0' }, windows: { minVersion: '1.2.0' } });
+    expect(again.logs).toContain('app-update: on for android (older than 1.1.0), windows (older than 1.2.0)');
 
     const local = await makeTestApp();
     expect((await local.get('/api/server/app-update')).status).toBe(404);
@@ -533,26 +564,26 @@ describe('the owner\'s routes', () => {
 
 describe('ServerInfo.appUpdate', () => {
   it('absent while no rule is on; only the platforms that are on; the store link of the deployed site for android and ios', async () => {
-    const b = await boot({ ui: ui({ googlePlay: PLAY, appStoreIphone: APPLE, appStoreMac: null, microsoftStore: null }) });
+    const b = await boot({ serverVersion: '1.2.0', ui: ui({ googlePlay: PLAY, appStoreIphone: APPLE, appStoreMac: null, microsoftStore: null }) });
     expect('appUpdate' in (await b.info())).toBe(false);
     const { o } = await b.owner('ownerinfo', { mail: false });
-    await b.setRule(o, 'android', '1.0.1');
-    expect((await b.info()).appUpdate).toEqual({ android: { minVersion: '1.0.1', storeUrl: PLAY } });
-    await b.setRule(o, 'ios', '1.0.0');
-    await b.setRule(o, 'mac', '1.0.0');
-    expect((await b.info()).appUpdate).toEqual({ android: { minVersion: '1.0.1', storeUrl: PLAY }, ios: { minVersion: '1.0.0', storeUrl: APPLE }, mac: { minVersion: '1.0.0' } });
+    await b.setRule(o, 'android', '1.2.0');
+    expect((await b.info()).appUpdate).toEqual({ android: { minVersion: '1.2.0', storeUrl: PLAY } });
+    await b.setRule(o, 'ios', '1.1.0');
+    await b.setRule(o, 'mac', '1.1.0');
+    expect((await b.info()).appUpdate).toEqual({ android: { minVersion: '1.2.0', storeUrl: PLAY }, ios: { minVersion: '1.1.0', storeUrl: APPLE }, mac: { minVersion: '1.1.0' } });
     // Public: no session needed; plain HTTP too.
-    expect(((await b.common(b.agent.get('/api/server/info'), false)).body as ServerInfo).appUpdate?.mac).toEqual({ minVersion: '1.0.0' });
+    expect(((await b.common(b.agent.get('/api/server/info'), false)).body as ServerInfo).appUpdate?.mac).toEqual({ minVersion: '1.1.0' });
     for (const platform of ['android', 'ios', 'mac'] as const) await b.setRule(o, platform, null);
     expect('appUpdate' in (await b.info())).toBe(false);
   });
 
   it('today\'s site has no store link: nothing about a store is exposed', async () => {
     expect(readSiteSettings().links).toEqual({ googlePlay: null, appStoreIphone: null, appStoreMac: null, microsoftStore: null });
-    const b = await boot({ ui: ui(readSiteSettings().links) });
+    const b = await boot({ serverVersion: '1.1.0', ui: ui(readSiteSettings().links) });
     const { o } = await b.owner('ownertoday', { mail: false });
-    for (const platform of ['android', 'ios'] as const) await b.setRule(o, platform, '1.0.0');
-    expect((await b.info()).appUpdate).toEqual({ android: { minVersion: '1.0.0' }, ios: { minVersion: '1.0.0' } });
+    for (const platform of ['android', 'ios'] as const) await b.setRule(o, platform, '1.1.0');
+    expect((await b.info()).appUpdate).toEqual({ android: { minVersion: '1.1.0' }, ios: { minVersion: '1.1.0' } });
   });
 });
 
@@ -579,7 +610,9 @@ describe('the versions before 1.1.0: refused on the session routes of their own 
     { name: 'no rule', on: [], version: '' },
     { name: 'android only', on: ['android'], version: '1.1.0' },
     { name: 'every platform', on: ['android', 'ios', 'windows', 'mac'], version: '1.1.0' },
-    // A rule of 1.0.x cannot tell 1.0.0 from 1.0.1 (neither sends the mark): it refuses nobody.
+    // A rule of 1.0.x cannot tell 1.0.0 from 1.0.1 (neither sends the mark): it refuses nobody. The owner's route
+    // cannot save it any more (tooOld), so it is put into the file and the server is started again - the state of a
+    // rule written by hand or by an earlier build. These come last.
     { name: 'android at 1.0.1', on: ['android'], version: '1.0.1' },
     { name: 'every platform at 1.0.0', on: ['android', 'ios', 'windows', 'mac'], version: '1.0.0' },
   ];
@@ -609,10 +642,33 @@ describe('the versions before 1.1.0: refused on the session routes of their own 
 
   it('the matrix origin x mark x rule x route', async () => {
     // The server of the release that brings the rule: a rule may be as high as 1.1.0.
-    const b = await boot({ serverVersion: '1.1.0' });
-    const { o } = await b.owner('ownermatrix', { mail: false });
+    const first = await boot({ serverVersion: '1.1.0' });
+    let b = first;
+    const { auth: ownerAuth, o } = await b.owner('ownermatrix', { mail: false });
+    let ownerToken = ownerAuth.token;
     const user = await b.register('usermatrix');
     const ctx: Ctx = { token: user.token, username: 'usermatrix' };
+    /** A new session (a regular session dies with the process); without an Origin, so never refused. */
+    const signIn = async (username: string): Promise<string> => {
+      const res = await b.common(b.agent.post('/api/auth/login'), true, nextIp()).send({ username, password: PASSWORD });
+      expect(res.status, JSON.stringify(res.body)).toBe(200);
+      return (res.body as AuthResponse).token;
+    };
+    /** A rule below 1.1.0: refused by the owner's route, then written into the file and read at the next start. */
+    const restartWith = async (rule: (typeof RULES)[number]) => {
+      const res = await b.as(ownerToken).post('/api/server/app-update', { platform: rule.on[0], minVersion: rule.version, password: PASSWORD });
+      expect({ status: res.status, message: res.body.message, field: res.body.field }).toEqual({ status: 400, message: t('en', APP_UPDATE_TOO_OLD_KEY, { version: FIRST_UPDATE_AWARE_VERSION }), field: 'minVersion' });
+      await b.srv.stop();
+      running.splice(running.indexOf(b.srv), 1);
+      const all = ['android', 'ios', 'windows', 'mac'] as const;
+      fs.writeFileSync(rulesFile(first.dataDir), formatRules(Object.fromEntries(all.map((p) => [p, rule.on.includes(p) ? rule.version : null])) as Record<AppPlatform, string | null>));
+      b = await boot({ dataDir: first.dataDir, serverVersion: '1.1.0' });
+      b.setOwner(ownerAuth.user.id);
+      ownerToken = await signIn('ownermatrix');
+      ctx.token = await signIn('usermatrix');
+      // Read as it is: the apps from 1.1.0 on still learn it.
+      expect((await b.info()).appUpdate, rule.name).toEqual(Object.fromEntries(rule.on.map((p) => [p, { minVersion: rule.version }])));
+    };
     const request = (origin: string | null, mark: string | null) => {
       const prepare = (r: supertest.Test) => {
         b.common(r, true, nextIp());
@@ -627,7 +683,8 @@ describe('the versions before 1.1.0: refused on the session routes of their own 
     const cell = (o2: (typeof ORIGINS)[number], mark: string | null, route: (typeof ROUTES)[number]) => `${o2.name} | mark ${mark ?? 'none'} | ${route.name}`;
     const failures: string[] = [];
     for (const rule of RULES) {
-      for (const platform of ['android', 'ios', 'windows', 'mac'] as const) await b.setRule(o, platform, rule.on.includes(platform) ? rule.version : null);
+      if (rule.version && compareVersions(rule.version, FIRST_UPDATE_AWARE_VERSION) < 0) await restartWith(rule);
+      else for (const platform of ['android', 'ios', 'windows', 'mac'] as const) await b.setRule(o, platform, rule.on.includes(platform) ? rule.version : null);
       for (const origin of ORIGINS) {
         for (const mark of MARKS) {
           for (const route of ROUTES) {
@@ -666,7 +723,9 @@ describe('the versions before 1.1.0: refused on the session routes of their own 
     expect(base('GET / (the web UI)')).toBe(200);
     expect(base('GET /about/site.css (a static file)')).toBe(200);
     // The refusals are logged, at most once in 10 minutes per platform, without anything about the request.
-    expect(b.logs.filter((l) => l.includes('was asked to update')).sort()).toEqual([
+    expect(b).not.toBe(first);
+    expect(b.logs.filter((l) => l.includes('was asked to update')), 'a rule of 1.0.x refuses nobody').toEqual([]);
+    expect(first.logs.filter((l) => l.includes('was asked to update')).sort()).toEqual([
       'app-update: a version before 1.1.0 of the android app was asked to update (the first in 10 minutes)',
       'app-update: a version before 1.1.0 of the ios app was asked to update (the first in 10 minutes)',
       'app-update: a version before 1.1.0 of the mac app was asked to update (the first in 10 minutes)',
@@ -674,33 +733,42 @@ describe('the versions before 1.1.0: refused on the session routes of their own 
     ]);
   }, 120_000);
 
-  it('the answer: 503, the server\'s ordinary JSON error body, the localized message - the store when the site has its link, else the Downloads page in the request\'s language; the token stays valid', async () => {
-    const b = await boot({ serverVersion: '1.1.0', ui: ui({ googlePlay: null, appStoreIphone: null, appStoreMac: null, microsoftStore: null }) });
-    const { o } = await b.owner('owneranswer', { mail: false });
-    const user = await b.register('useranswer');
-    for (const platform of ['android', 'ios', 'windows', 'mac'] as const) await b.setRule(o, platform, '1.1.0');
-    const me = (origin: string, language: string) => b.common(b.agent.get('/api/auth/me'), true, nextIp()).set('Origin', origin).set('Accept-Language', language).set('Authorization', `Bearer ${user.token}`);
-    const android = await me('https://localhost', 'he');
-    expect(android.status).toBe(503);
-    expect(android.body).toEqual({ code: 'UPDATE_REQUIRED', message: t('he', UPDATE_REQUIRED_SITE_KEY, { url: 'https://diary.example/about/he/downloads/' }) });
-    expect(android.body.message).toBe('אי אפשר להשתמש יותר בגרסה הזאת של Your Personal Diary. הורידו את הגרסה החדשה בכתובת https://diary.example/about/he/downloads/');
-    expect(android.headers['retry-after']).toBeUndefined();
-    expect((await me('http://tauri.localhost', 'en')).body.message).toBe('This version of Your Personal Diary can no longer be used. Download the new version at https://diary.example/about/downloads/');
-    expect((await me('tauri://localhost', 'de')).body.message).toBe(t('de', UPDATE_REQUIRED_SITE_KEY, { url: 'https://diary.example/about/de/downloads/' }));
-    // The iPhone app comes only from the App Store: its message names the store, with or without a link.
-    expect((await me('capacitor://localhost', 'en')).body.message).toBe('This version of Your Personal Diary can no longer be used. Update the app in App Store.');
-    // The session itself is untouched: the same token, with the mark (the updated app), is in at once.
-    const updated = await b.common(b.agent.get('/api/auth/me'), true, nextIp()).set('Origin', 'https://localhost').set(CLIENT_MARK_HEADER, CLIENT_MARK_VALUE).set('Authorization', `Bearer ${user.token}`);
-    expect(updated.status).toBe(200);
-    expect(updated.body.user.username).toBe('useranswer');
-
-    const withLinks = await boot({ serverVersion: '1.1.0', ui: ui({ googlePlay: PLAY, appStoreIphone: APPLE, appStoreMac: null, microsoftStore: null }) });
-    const w = await withLinks.owner('owneranswer2', { mail: false });
-    await withLinks.setRule(w.o, 'android', '1.1.0');
-    const login = await withLinks.common(withLinks.agent.post('/api/auth/login'), true, nextIp()).set('Origin', 'https://localhost').set('Accept-Language', 'he').send({ username: 'owneranswer2', password: PASSWORD });
-    expect(login.status).toBe(503);
-    expect(login.body).toEqual({ code: 'UPDATE_REQUIRED', message: t('he', UPDATE_REQUIRED_STORE_KEY, { store: 'Google Play' }) });
-    expect(login.body.message).toBe('אי אפשר להשתמש יותר בגרסה הזאת של Your Personal Diary. עדכנו את האפליקציה ב-Google Play.');
+  it('the answer: 503, the server\'s ordinary JSON error body, the localized message - the App Store for the iPhone, the Downloads page in the request\'s language for every other platform, with or without store links on the site; the token stays valid', async () => {
+    // Android: every install of 1.0.0 and 1.0.1 came from the site's file, and an install from the site can be
+    // updated only with the site's file (Google Play signs with its own key) - so the Downloads page also while the
+    // site has a Google Play link. `ServerInfo.appUpdate` still carries that link for the apps from 1.1.0 on.
+    const NO_LINKS = { googlePlay: null, appStoreIphone: null, appStoreMac: null, microsoftStore: null };
+    const LINKS = { googlePlay: PLAY, appStoreIphone: APPLE, appStoreMac: APPLE, microsoftStore: 'https://apps.microsoft.com/detail/x' };
+    for (const [n, links] of [[1, NO_LINKS], [2, LINKS]] as const) {
+      const b = await boot({ serverVersion: '1.1.0', ui: ui(links) });
+      const { o } = await b.owner(`owneranswer${n}`, { mail: false });
+      const user = await b.register(`useranswer${n}`);
+      for (const platform of ['android', 'ios', 'windows', 'mac'] as const) await b.setRule(o, platform, '1.1.0');
+      expect((await b.info()).appUpdate?.android, `site ${n}`).toEqual(links === LINKS ? { minVersion: '1.1.0', storeUrl: PLAY } : { minVersion: '1.1.0' });
+      const me = (origin: string, language: string) => b.common(b.agent.get('/api/auth/me'), true, nextIp()).set('Origin', origin).set('Accept-Language', language).set('Authorization', `Bearer ${user.token}`);
+      const android = await me('https://localhost', 'he');
+      expect(android.status, `site ${n}`).toBe(503);
+      expect(android.body, `site ${n}`).toEqual({ code: 'UPDATE_REQUIRED', message: t('he', UPDATE_REQUIRED_SITE_KEY, { url: 'https://diary.example/about/he/downloads/' }) });
+      expect(android.body.message).toBe('אי אפשר להשתמש יותר בגרסה הזאת של Your Personal Diary. הורידו את הגרסה החדשה בכתובת https://diary.example/about/he/downloads/');
+      expect(android.body.message).not.toContain('Google Play');
+      expect(android.headers['retry-after']).toBeUndefined();
+      expect((await me('https://localhost', 'en')).body.message, `site ${n}`).toBe('This version of Your Personal Diary can no longer be used. Download the new version at https://diary.example/about/downloads/');
+      for (const origin of ['http://tauri.localhost', 'https://tauri.localhost']) {
+        expect((await me(origin, 'en')).body.message, `site ${n} ${origin}`).toBe('This version of Your Personal Diary can no longer be used. Download the new version at https://diary.example/about/downloads/');
+      }
+      expect((await me('tauri://localhost', 'de')).body.message, `site ${n}`).toBe(t('de', UPDATE_REQUIRED_SITE_KEY, { url: 'https://diary.example/about/de/downloads/' }));
+      // The iPhone app comes only from the App Store: its message names the store, with or without a link.
+      const iphone = await me('capacitor://localhost', 'en');
+      expect(iphone.body, `site ${n}`).toEqual({ code: 'UPDATE_REQUIRED', message: t('en', UPDATE_REQUIRED_STORE_KEY, { store: 'App Store' }) });
+      expect(iphone.body.message).toBe('This version of Your Personal Diary can no longer be used. Update the app in App Store.');
+      // The sign-in route answers the same as the session check.
+      const login = await b.common(b.agent.post('/api/auth/login'), true, nextIp()).set('Origin', 'https://localhost').set('Accept-Language', 'he').send({ username: `useranswer${n}`, password: PASSWORD });
+      expect({ status: login.status, body: login.body }, `site ${n}`).toEqual({ status: 503, body: android.body });
+      // The session itself is untouched: the same token, with the mark (the updated app), is in at once.
+      const updated = await b.common(b.agent.get('/api/auth/me'), true, nextIp()).set('Origin', 'https://localhost').set(CLIENT_MARK_HEADER, CLIENT_MARK_VALUE).set('Authorization', `Bearer ${user.token}`);
+      expect(updated.status).toBe(200);
+      expect(updated.body.user.username).toBe(`useranswer${n}`);
+    }
   });
 
   it('the preflight of the apps allows the mark; a refused request spends nothing of the sign-in limits', async () => {

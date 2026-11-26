@@ -690,6 +690,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Kapatıldı.',
   'settings.server.update.invalidVersion': '1.1.0 gibi bir sürüm yazın.',
   'settings.server.update.tooNew': 'Bu sürüm, sunucunun kendi sürümünden ({version}) daha yeni. Henüz kimsede yok.',
+  'settings.server.update.tooOld': 'Burada ayarlanabilecek en eski sürüm {version}.',
   'settings.server.update.emailNotConfigured': 'Bir kural değiştirildiğinde e-posta gönderilmez: e-posta gönderimi ayarlanmamış ("Parola sıfırlama e-postası" kartı).',
   'settings.server.update.emailNoAddress': 'Bir kural değiştirildiğinde e-posta gönderilmez: hesabınızda e-posta adresi yok (Hesap kartı).',
 };

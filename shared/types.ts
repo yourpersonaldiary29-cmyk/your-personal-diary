@@ -32,7 +32,8 @@ export type ErrorCode =
   | 'LAN_DISABLED'
   | 'LOCKED' // the session is locked (lock screen): only /me, /verify-password, /lock, /logout and GET /settings answer
   // 503 (hosted): a version before 1.1.0 (an app origin without CLIENT_MARK_HEADER) on a session route while the
-  // required-update rule of its platform is on (server/src/hosted/app-update.ts); the message says where to update.
+  // required-update rule of its platform is 1.1.0 or later (server/src/hosted/app-update.ts, LAST_UNMARKED_VERSION);
+  // the message says where to update.
   | 'UPDATE_REQUIRED'
   | 'OTHER';
 

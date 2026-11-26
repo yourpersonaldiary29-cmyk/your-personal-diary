@@ -575,6 +575,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Povinná aktualizace není na tomto serveru k dispozici.',
   'server.appUpdate.platformInvalid': 'Zvol Android, iPhone, Windows nebo Mac.',
   'server.appUpdate.tooNew': 'Tato verze je novější než verze serveru ({version}). Zatím ji nikdo nemá.',
+  'server.appUpdate.tooOld': 'Nejstarší verze, kterou zde lze nastavit, je {version}.',
   'server.appUpdate.failed': 'Nastavení se nepodařilo uložit, proto se nic nezměnilo. Zkus to prosím později.',
   'server.email.appUpdate.on.subject': 'Byla nastavena povinná aktualizace - Your Personal Diary',
   'server.email.appUpdate.on.body': 'Pro {platform} byla {when} nastavena povinná aktualizace: verze starší než {version} se musí aktualizovat, než je bude možné používat.',

@@ -569,6 +569,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Zorunlu güncelleme bu sunucuda kullanılamıyor.',
   'server.appUpdate.platformInvalid': 'Android, iPhone, Windows veya Mac seçin.',
   'server.appUpdate.tooNew': 'Bu sürüm, sunucunun kendi sürümünden ({version}) daha yeni. Henüz kimsede yok.',
+  'server.appUpdate.tooOld': 'Burada ayarlanabilecek en eski sürüm {version}.',
   'server.appUpdate.failed': 'Ayar kaydedilemedi, bu yüzden hiçbir şey değişmedi. Lütfen daha sonra yeniden deneyin.',
   'server.email.appUpdate.on.subject': 'Zorunlu güncelleme ayarlandı - Your Personal Diary',
   'server.email.appUpdate.on.body': '{platform} için zorunlu güncelleme ayarlandı. Zaman: {when}. {version} sürümünden eski sürümler kullanılabilmek için güncellenmelidir.',

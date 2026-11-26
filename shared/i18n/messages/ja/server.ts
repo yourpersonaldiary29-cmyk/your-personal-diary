@@ -556,6 +556,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'このサーバーでは必須の更新を設定できません。',
   'server.appUpdate.platformInvalid': 'Android、iPhone、Windows、Mac のいずれかを選んでください。',
   'server.appUpdate.tooNew': 'このバージョンはサーバー自身のバージョン（{version}）より新しいため、まだ誰も持っていません。',
+  'server.appUpdate.tooOld': 'ここで設定できる最も古いバージョンは {version} です。',
   'server.appUpdate.failed': '設定を保存できなかったため、何も変更されませんでした。しばらくしてからもう一度お試しください。',
   'server.email.appUpdate.on.subject': '必須の更新が設定されました - Your Personal Diary',
   'server.email.appUpdate.on.body': '{when}に{platform}の必須の更新が設定されました。{version}より古いバージョンは、更新しないと使用できません。',

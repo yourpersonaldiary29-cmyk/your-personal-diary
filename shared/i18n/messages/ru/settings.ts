@@ -710,6 +710,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Выключено.',
   'settings.server.update.invalidVersion': 'Введите версию, например 1.1.0.',
   'settings.server.update.tooNew': 'Эта версия новее версии сервера ({version}). Её ещё ни у кого нет.',
+  'settings.server.update.tooOld': 'Самая старая версия, которую можно здесь задать, — {version}.',
   'settings.server.update.emailNotConfigured': 'При изменении правила письмо не отправляется: отправка почты не настроена (карточка «Почта для сброса пароля»).',
   'settings.server.update.emailNoAddress': 'При изменении правила письмо не отправляется: у вашего аккаунта нет адреса электронной почты (карточка «Аккаунт»).',
 };

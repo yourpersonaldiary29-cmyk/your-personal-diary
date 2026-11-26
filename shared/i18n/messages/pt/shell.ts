@@ -303,5 +303,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Atualize a aplicação na App Store.',
   'shell.update.retry': 'Verificar novamente',
   'shell.update.stillRequired': 'Esta versão ainda precisa de ser atualizada.',
+  'shell.update.fromSite': 'Se instalou a aplicação a partir do site e não do Google Play, atualize-a na página Transferências.',
 };
 export default messages;

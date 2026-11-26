@@ -644,6 +644,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': '已关闭。',
   'settings.server.update.invalidVersion': '请输入类似 1.1.0 的版本。',
   'settings.server.update.tooNew': '此版本比服务器自身的版本（{version}）更新。目前还没有人拥有它。',
+  'settings.server.update.tooOld': '此处可设置的最旧版本是 {version}。',
   'settings.server.update.emailNotConfigured': '更改规则时不会发送电子邮件：尚未设置发送电子邮件（“用于重置密码的电子邮件”卡片）。',
   'settings.server.update.emailNoAddress': '更改规则时不会发送电子邮件：您的账户没有电子邮件地址（“账户”卡片）。',
 };

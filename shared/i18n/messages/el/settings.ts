@@ -726,6 +726,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Απενεργοποιήθηκε.',
   'settings.server.update.invalidVersion': 'Γράψε μια έκδοση όπως 1.1.0.',
   'settings.server.update.tooNew': 'Αυτή η έκδοση είναι νεότερη από την έκδοση του διακομιστή ({version}). Δεν την έχει ακόμη κανείς.',
+  'settings.server.update.tooOld': 'Η παλαιότερη έκδοση που μπορεί να οριστεί εδώ είναι η {version}.',
   'settings.server.update.emailNotConfigured': 'Δεν στέλνεται e-mail όταν αλλάζει ένας κανόνας: η αποστολή e-mail δεν έχει ρυθμιστεί (η κάρτα «E-mail για επαναφορά κωδικού»).',
   'settings.server.update.emailNoAddress': 'Δεν στέλνεται e-mail όταν αλλάζει ένας κανόνας: ο λογαριασμός σου δεν έχει διεύθυνση e-mail (η κάρτα «Λογαριασμός»).',
 };

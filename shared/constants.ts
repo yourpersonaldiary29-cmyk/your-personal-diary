@@ -42,13 +42,22 @@ export const APP_VERSION = '1.0.1';
  * The mark that every request of an app carries from version 1.1.0 on (src/api/client.ts): ONE constant header -
  * no version, no platform, nothing about the user or the device. It tells the hosted server only that this app
  * knows the "Update needed" screen and decides by itself from `ServerInfo.appUpdate`. A request from an app origin
- * WITHOUT it comes from version 1.0.0 or 1.0.1: while a required-update rule of that platform is on, the server
- * refuses that version's session routes with a message (server/src/hosted/app-update.ts). The server must allow
- * the header for the app origins BEFORE any app sends it (Access-Control-Allow-Headers,
+ * WITHOUT it comes from version 1.0.0 or 1.0.1: while the required-update rule of that platform is 1.1.0 or later,
+ * the server refuses that version's session routes with a message (server/src/hosted/app-update.ts). The server
+ * must allow the header for the app origins BEFORE any app sends it (Access-Control-Allow-Headers,
  * server/src/middleware/access.ts): deploy the server first.
  */
 export const CLIENT_MARK_HEADER = 'X-Diary-Client';
 export const CLIENT_MARK_VALUE = '2';
+
+/**
+ * The first version of the apps that sends CLIENT_MARK_HEADER and knows the "Update needed" screen. A
+ * required-update rule cannot be older than it: the versions before it (1.0.0 and 1.0.1) cannot be told apart by
+ * the server, so a rule of 1.0.0 or 1.0.1 would do nothing while the owner's card said otherwise. The owner's
+ * route (server/src/hosted/app-update.ts `checkChange`) and his card (src/pages/settings/ServerAppUpdate.tsx)
+ * both refuse a lower version.
+ */
+export const FIRST_UPDATE_AWARE_VERSION = '1.1.0';
 
 /** Product name for a locale - identical in every language (see APP_NAME). */
 export function appName(_locale: Locale = LEGACY_LOCALE): string {

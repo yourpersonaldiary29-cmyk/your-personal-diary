@@ -555,6 +555,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Required updates are not available on this server.',
   'server.appUpdate.platformInvalid': 'Choose Android, iPhone, Windows or Mac.',
   'server.appUpdate.tooNew': "This version is newer than the server's own ({version}). Nobody has it yet.",
+  'server.appUpdate.tooOld': 'The oldest version that can be set here is {version}.',
   'server.appUpdate.failed': 'The setting could not be saved, so nothing changed. Please try again later.',
   'server.email.appUpdate.on.subject': 'A required update was set - Your Personal Diary',
   'server.email.appUpdate.on.body': 'A required update for {platform} was set on {when}: versions older than {version} must update before they can be used.',

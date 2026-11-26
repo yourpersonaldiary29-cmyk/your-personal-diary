@@ -577,6 +577,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Задължителната актуализация не е налична на този сървър.',
   'server.appUpdate.platformInvalid': 'Изберете Android, iPhone, Windows или Mac.',
   'server.appUpdate.tooNew': 'Тази версия е по-нова от версията на сървъра ({version}). Все още никой няма такава.',
+  'server.appUpdate.tooOld': 'Най-старата версия, която може да се зададе тук, е {version}.',
   'server.appUpdate.failed': 'Настройката не можа да бъде запазена, затова нищо не е променено. Опитайте отново по-късно.',
   'server.email.appUpdate.on.subject': 'Зададена е задължителна актуализация - Your Personal Diary',
   'server.email.appUpdate.on.body': 'На {when} беше зададена задължителна актуализация за {platform}: версиите, по-стари от {version}, трябва да бъдат актуализирани, преди да могат да се използват.',

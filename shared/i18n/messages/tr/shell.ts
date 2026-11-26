@@ -304,5 +304,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Uygulamayı App Store’dan güncelleyin.',
   'shell.update.retry': 'Yeniden denetle',
   'shell.update.stillRequired': 'Bu sürümün hâlâ güncellenmesi gerekiyor.',
+  'shell.update.fromSite': 'Uygulamayı Google Play’den değil web sitesinden yüklediyseniz İndirmeler sayfasından güncelleyin.',
 };
 export default messages;

@@ -8,7 +8,8 @@
  *    the routes and the lock screen;
  *  - under it the session and the offline engine go on: a change that waited on the device uploads, the token
  *    stays, nothing is deleted - and once the rule is gone ("Check again") the diary is back without a sign-in;
- *  - it never appears over a page with unsaved changes: it waits until they are saved;
+ *  - it never appears over a page with unsaved changes: it waits until they are saved - also when the editor was
+ *    opened with unsaved text by "Open and fix" and nothing was typed (the editor's own hold);
  *  - a start without a connection is never blocked (the rule is not kept on the device), and the web version is
  *    never asked;
  *  - every request of the app carried the mark `X-Diary-Client: 2`.
@@ -18,6 +19,8 @@ import { act, screen, waitFor } from '@testing-library/react';
 import { APP_VERSION } from '@shared/constants';
 import type { EntryInput } from '@shared/types';
 import * as api from '@/api';
+import type { EntryPrefillState } from '@/components/sync/PendingChangesDialog';
+import { PATHS } from '@/constants/routes';
 import { T } from '@/constants/texts';
 import { trWith } from '@/i18n/runtime';
 import { getSyncStatus, offline } from '@/offline';
@@ -204,6 +207,39 @@ describe('when it may appear', () => {
     await user.click(screen.getAllByRole('link', { name: en('shell.nav.home') })[0]);
     await user.click(await screen.findByRole('button', { name: en('shell.unsaved.leave') }));
     expect(await screen.findByTestId('update-required-page', {}, { timeout: 10000 })).toBeInTheDocument();
+  }, 40000);
+
+  it('"Open and fix" opens the editor with unsaved text and nothing typed: a refused save keeps it, the screen does not appear', async () => {
+    // A rejected edit: the entry as the server has it is the baseline, the user's version is on top, unsaved (router
+    // state `prefill`, as src/components/sync/PendingChangesDialog.tsx passes it). Nothing is typed on this page, so
+    // only the editor's own hold (useUpdateScreenHold(form.dirty)) keeps the screen back while the save is in flight.
+    const entry = server.seedEntry(DANA, { title: 'Morning walk', date: '2026-11-20' });
+    wireDevice({ server, app: true });
+    const state: EntryPrefillState = { prefill: { ...ENTRY, title: 'My own version' } };
+    const { user } = renderOfflineApp({ pathname: PATHS.editEntry(entry.id), state });
+    await waitFor(() => expect(offline.isActive()).toBe(true));
+    await waitFor(() => expect(screen.getByRole('textbox', { name: ET.title })).toHaveValue('My own version'), { timeout: 10000 });
+
+    server.infoOverrides = { appUpdate: { windows: { minVersion: NEWER } } };
+    await act(async () => {
+      await retryConnection();
+    });
+    expect(api.getServerInfo()?.appUpdate?.windows?.minVersion).toBe(NEWER);
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 200));
+    });
+    expect(updateScreen()).not.toBeInTheDocument();
+
+    // Save without typing; the server refuses it.
+    server.failNext({ status: 400, body: { code: 'VALIDATION', message: 'Refused for this test.' }, pathPrefix: '/api/sync/op' });
+    await user.click(screen.getByRole('button', { name: ET.save }));
+    await waitFor(() => expect(server.calls('/api/sync/op', 'POST').length).toBeGreaterThan(0), { timeout: 10000 });
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 500));
+    });
+    expect(updateScreen()).not.toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: ET.title })).toHaveValue('My own version');
+    expect(server.diary(DANA).entries.get(entry.id)?.title).toBe('Morning walk');
   }, 40000);
 
   it('text typed into a dialog without a leave guard survives: the habit description stays until the person goes to another page', async () => {

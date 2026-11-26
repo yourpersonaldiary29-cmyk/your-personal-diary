@@ -5,8 +5,9 @@
  *   GET  /api/server/app-update   -> ServerAppUpdate: the rule of each platform (null = off), the server's own
  *                                    version, the newest file of the Downloads page per platform, the e-mail state
  *   POST /api/server/app-update   { platform, minVersion | null, password } (ServerAppUpdateChange)
- *                                 -> 200 ServerAppUpdate; minVersion is a.b.c and not above the server's own version
- *                                    (null turns the rule off - always allowed); the cheap checks first, then the
+ *                                 -> 200 ServerAppUpdate; minVersion is a.b.c, not below FIRST_UPDATE_AWARE_VERSION
+ *                                    (1.1.0) and not above the server's own version (null turns the rule off -
+ *                                    always allowed); the cheap checks first, then the
  *                                    password like every password-confirmed action (AuthService.verifyPassword, the
  *                                    confirmation lockout); at most 30 a minute per address; an e-mail to the owner
  *

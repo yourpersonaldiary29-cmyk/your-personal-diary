@@ -671,6 +671,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Turned off.',
   'settings.server.update.invalidVersion': 'Write a version such as 1.1.0.',
   'settings.server.update.tooNew': 'This version is newer than the server\'s own ({version}). Nobody has it yet.',
+  'settings.server.update.tooOld': 'The oldest version that can be set here is {version}.',
   'settings.server.update.emailNotConfigured': 'No e-mail is sent when a rule is changed: sending e-mail is not set up (the "E-mail for password reset" card).',
   'settings.server.update.emailNoAddress': 'No e-mail is sent when a rule is changed: your account has no e-mail address (the Account card).',
 };

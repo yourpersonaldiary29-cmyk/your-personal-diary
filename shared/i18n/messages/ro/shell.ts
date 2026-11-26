@@ -300,5 +300,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Actualizează aplicația în App Store.',
   'shell.update.retry': 'Verifică din nou',
   'shell.update.stillRequired': 'Această versiune încă trebuie actualizată.',
+  'shell.update.fromSite': 'Dacă ai instalat aplicația de pe site, nu din Google Play, actualizeaz-o de pe pagina Descărcări.',
 };
 export default messages;

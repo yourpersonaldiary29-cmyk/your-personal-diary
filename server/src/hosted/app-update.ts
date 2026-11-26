@@ -26,12 +26,17 @@
  *     refused on the session routes only (refuseOld, mounted on /api/auth) while its platform's rule is 1.1.0 or
  *     later (a rule of 1.0.0 or 1.0.1 refuses nobody) - see LAST_UNMARKED_VERSION, SESSION_ROUTES and
  *     APP_ORIGIN_PLATFORMS below. Every other route answers an old version exactly as before (its
- *     queued changes keep uploading through /api/sync), and nothing else is ever refused.
+ *     queued changes keep uploading through /api/sync), and nothing else is ever refused. The message names the
+ *     App Store for the iPhone and gives the Downloads page of the site for every other platform - for Android
+ *     also when the site has a Google Play link (refusalFor says why).
+ *
+ * The owner's route cannot save a rule below FIRST_UPDATE_AWARE_VERSION (1.1.0) - checkChange; a rule of 1.0.x that
+ * is already in the file (written by hand or by an earlier build) is still read as it is and refuses nobody.
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
-import { APP_VERSION, CLIENT_MARK_HEADER } from '@shared/constants';
+import { APP_VERSION, CLIENT_MARK_HEADER, FIRST_UPDATE_AWARE_VERSION } from '@shared/constants';
 import { DEFAULT_LOCALE, type Locale } from '@shared/i18n';
 import { APP_PLATFORMS, type AppPlatform, type AppUpdateInfo, type AppUpdateRule, type ServerAppUpdate } from '@shared/types';
 import { compareVersions, STORE_LINKS_FILE } from '../../../scripts/site/downloads-shared.mjs';
@@ -39,7 +44,7 @@ import { ApiError } from '../errors';
 import { isSmtpError, mailFailureTag } from '../mail/errors';
 import { appUpdateChangedEmail } from '../mail/templates';
 import { localeOf } from '../middleware/locale';
-import { APP_UPDATE_PLATFORM_KEY, APP_UPDATE_TOO_NEW_KEY, APP_UPDATE_VERSION_KEY, appUpdateFailed, updateRequired } from './app-update-errors';
+import { APP_UPDATE_PLATFORM_KEY, APP_UPDATE_TOO_NEW_KEY, APP_UPDATE_TOO_OLD_KEY, APP_UPDATE_VERSION_KEY, appUpdateFailed, updateRequired } from './app-update-errors';
 import { SITE_DATA_DIR, UPLOAD_VERSION_RE, type DownloadsMailer } from './downloads';
 import type { AppUpdateChange, AppUpdateController, DownloadNotice } from './types';
 
@@ -277,11 +282,18 @@ export function createAppUpdateController(opts: AppUpdateOptions): AppUpdateCont
   // The refusal of the versions before 1.1.0 --------------------------------------------------------------
   const lastRefusalLog = new Map<AppPlatform, number>();
   const refusalFor = (platform: AppPlatform, locale: Locale): ApiError => {
-    const store = STORES[platform];
-    // The iPhone app comes only from the App Store, so its message names the store also while the site has no link
-    // (the Downloads page offers no iPhone file). Android names Google Play once the site has that link; until then -
-    // and for Windows and Mac always - the message gives the Downloads page of the site in the request's language.
-    if (store && (storeLinks[platform] || platform === 'ios')) return updateRequired({ store: store.name });
+    // The iPhone app comes only from the App Store, so its message names the store, with or without a link on the
+    // site (the Downloads page offers no iPhone file).
+    if (platform === 'ios') return updateRequired({ store: 'App Store' });
+    // Android, Windows and Mac: always the Downloads page of the site in the request's language - for Android also
+    // when the site has a Google Play link. Android has two sources of the same app, and an install from one cannot
+    // be updated from the other: the APK of the Downloads page is signed with the owner's upload key, what Google
+    // Play installs is signed by Google with its own key (Play App Signing), and Android refuses an update with
+    // another signature. Every Android install of 1.0.0 and 1.0.1 (the only unmarked versions) came from the site's
+    // file - Google Play never had them - so only the site's file can update it; sending it to Google Play would
+    // leave it nothing to install but a reinstall that deletes what the app keeps on the device. (Should 1.0.1 ever
+    // reach Google Play, the Downloads page carries the Google Play button as well.) `ServerInfo.appUpdate` still
+    // gives Android its store link: the apps from 1.1.0 on offer both ways.
     return updateRequired({ url: downloadsPageUrl(opts.publicUrl, locale) });
   };
 
@@ -364,6 +376,11 @@ export function createAppUpdateController(opts: AppUpdateOptions): AppUpdateCont
       // Turning a rule off is always allowed.
       if (minVersion === null) return { platform, minVersion: null };
       if (typeof minVersion !== 'string' || !UPLOAD_VERSION_RE.test(minVersion)) throw ApiError.validation(APP_UPDATE_VERSION_KEY, 'minVersion');
+      // A rule below the first version that knows the screen would refuse nobody (see LAST_UNMARKED_VERSION: the
+      // server cannot tell 1.0.0 from 1.0.1, and every later app is newer than such a rule) while the owner's card
+      // said "Versions older than 1.0.1 must update". So it cannot be saved. (A rule that is already in the file is
+      // still read as it is, and refuses nobody.)
+      if (compareVersions(minVersion, FIRST_UPDATE_AWARE_VERSION) < 0) throw ApiError.validation(APP_UPDATE_TOO_OLD_KEY, 'minVersion', { version: FIRST_UPDATE_AWARE_VERSION });
       // Nobody can have a newer app than the newest release: a typing mistake must not lock everybody out.
       if (compareVersions(minVersion, serverVersion) > 0) throw ApiError.validation(APP_UPDATE_TOO_NEW_KEY, 'minVersion', { version: serverVersion });
       return { platform, minVersion };

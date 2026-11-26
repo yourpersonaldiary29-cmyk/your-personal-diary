@@ -8,7 +8,7 @@
 import { type ReactNode, useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { screen, waitFor, within } from '@testing-library/react';
-import { APP_VERSION } from '@shared/constants';
+import { APP_VERSION, FIRST_UPDATE_AWARE_VERSION } from '@shared/constants';
 import { getCatalog, LOCALE_CODES, t } from '@shared/i18n';
 import type { ServerInfo, ServerSettings } from '@shared/types';
 import * as api from '@/api';
@@ -92,10 +92,22 @@ describe('checkMinVersion - the server\'s rule, checked before the request', () 
     expect(checkMinVersion('', '1.1.0')).toEqual({ minVersion: null });
     expect(checkMinVersion('   ', '1.1.0')).toEqual({ minVersion: null });
     expect(checkMinVersion(' 1.1.0 ', '1.1.0')).toEqual({ minVersion: '1.1.0' });
-    expect(checkMinVersion('1.0.1', '1.1.0')).toEqual({ minVersion: '1.0.1' });
     expect(checkMinVersion('1.1', '1.1.0')).toEqual({ error: UPT.invalidVersion });
     expect(checkMinVersion('v1.1.0', '1.1.0')).toEqual({ error: UPT.invalidVersion });
     expect(checkMinVersion('1.2.0', '1.1.0')).toEqual({ error: UPT.tooNew('1.1.0') });
+  });
+
+  it('a version below the first one that knows the screen (1.1.0) is refused, before the check against the server\'s version', () => {
+    expect(FIRST_UPDATE_AWARE_VERSION).toBe('1.1.0');
+    for (const old of ['1.0.0', '1.0.1', '1.0.9']) {
+      expect(checkMinVersion(old, '1.1.0'), old).toEqual({ error: UPT.tooOld('1.1.0') });
+      // On a server of 1.0.1 a version below 1.1.0 is too old, not too new.
+      expect(checkMinVersion(old, '1.0.1'), `${old} on 1.0.1`).toEqual({ error: UPT.tooOld('1.1.0') });
+    }
+    expect(checkMinVersion('1.1.0', '1.1.0')).toEqual({ minVersion: '1.1.0' });
+    expect(checkMinVersion('1.1.0', '1.0.1')).toEqual({ error: UPT.tooNew('1.0.1') });
+    expect(checkMinVersion('', '1.0.1')).toEqual({ minVersion: null });
+    expect(en('settings.server.update.tooOld', { version: '1.1.0' })).toBe('The oldest version that can be set here is 1.1.0.');
   });
 });
 
@@ -158,7 +170,7 @@ describe('the section', () => {
     expect(byId(updateVersionId('windows'))).toHaveValue(APP_VERSION);
   });
 
-  it('a version that is not a.b.c or is above the server\'s own is said at the field; nothing is sent', async () => {
+  it('a version that is not a.b.c, is below 1.1.0 or is above the server\'s own is said at the field; nothing is sent', async () => {
     const { user } = renderCard();
     const section = await part();
     await user.type(byId(UPDATE_PASSWORD_ID), PASSWORD);
@@ -167,6 +179,10 @@ describe('the section', () => {
     await user.click(within(section).getByRole('button', { name: 'Save the rule for Mac' }));
     await waitFor(() => expect(byId(updateVersionId('mac'))).toHaveAccessibleDescription(expect.stringContaining('Write a version such as 1.1.0.')));
     expect(byId(updateVersionId('mac'))).toHaveFocus();
+    await user.clear(byId(updateVersionId('mac')));
+    await user.type(byId(updateVersionId('mac')), '1.0.1');
+    await user.click(within(section).getByRole('button', { name: 'Save the rule for Mac' }));
+    await waitFor(() => expect(byId(updateVersionId('mac'))).toHaveAccessibleDescription(expect.stringContaining('The oldest version that can be set here is 1.1.0.')));
     await user.clear(byId(updateVersionId('mac')));
     await user.type(byId(updateVersionId('mac')), '2.0.0');
     await user.click(within(section).getByRole('button', { name: 'Save the rule for Mac' }));
@@ -178,6 +194,9 @@ describe('the section', () => {
     vi.mocked(api.server.appUpdate.set).mockRejectedValue(new ApiClientError(400, { code: 'WRONG_PASSWORD', field: 'password', message: 'The password is not correct.' }));
     const { user } = renderCard();
     const section = await part();
+    // The field's suggestion is this app's own version (below 1.1.0 in this tree): write one that can be saved.
+    await user.clear(byId(updateVersionId('android')));
+    await user.type(byId(updateVersionId('android')), '1.1.0');
     await user.click(within(section).getByRole('button', { name: 'Save the rule for Android' }));
     expect(api.server.appUpdate.set).not.toHaveBeenCalled();
     await waitFor(() => expect(byId(UPDATE_PASSWORD_ID)).toHaveFocus());
@@ -193,6 +212,8 @@ describe('the section', () => {
       .mockRejectedValueOnce(new ApiClientError(429, { code: 'OTHER', message: 'Too many attempts. Wait a few minutes.' }));
     const { user } = renderCard();
     const section = await part();
+    await user.clear(byId(updateVersionId('ios')));
+    await user.type(byId(updateVersionId('ios')), '1.1.0');
     await user.type(byId(UPDATE_PASSWORD_ID), PASSWORD);
     await user.click(within(section).getByRole('button', { name: 'Save the rule for iPhone' }));
     await waitFor(() => expect(byId(updateVersionId('ios'))).toHaveAccessibleDescription(expect.stringContaining('(1.0.9)')));

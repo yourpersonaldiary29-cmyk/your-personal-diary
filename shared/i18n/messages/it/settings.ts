@@ -682,6 +682,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Disattivato.',
   'settings.server.update.invalidVersion': 'Scrivi una versione come 1.1.0.',
   'settings.server.update.tooNew': 'Questa versione è più recente di quella del server ({version}). Nessuno ce l’ha ancora.',
+  'settings.server.update.tooOld': 'La versione più vecchia che si può impostare qui è la {version}.',
   'settings.server.update.emailNotConfigured': 'Quando una regola viene modificata non viene inviata nessuna e-mail: l’invio di e-mail non è configurato (la scheda “E-mail per reimpostare la password”).',
   'settings.server.update.emailNoAddress': 'Quando una regola viene modificata non viene inviata nessuna e-mail: il tuo account non ha un indirizzo e-mail (la scheda “Account”).',
 };

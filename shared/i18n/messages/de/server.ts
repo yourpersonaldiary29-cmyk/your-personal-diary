@@ -573,6 +573,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Pflicht-Aktualisierungen sind auf diesem Server nicht verfügbar.',
   'server.appUpdate.platformInvalid': 'Wähle Android, iPhone, Windows oder Mac.',
   'server.appUpdate.tooNew': 'Diese Version ist neuer als die des Servers ({version}). Noch niemand hat sie.',
+  'server.appUpdate.tooOld': 'Die älteste Version, die hier festgelegt werden kann, ist {version}.',
   'server.appUpdate.failed': 'Die Einstellung konnte nicht gespeichert werden, daher wurde nichts geändert. Bitte versuche es später erneut.',
   'server.email.appUpdate.on.subject': 'Eine Pflicht-Aktualisierung wurde eingestellt – Your Personal Diary',
   'server.email.appUpdate.on.body': 'Am {when} wurde für {platform} eine Pflicht-Aktualisierung eingestellt: Versionen, die älter als {version} sind, müssen aktualisiert werden, bevor sie verwendet werden können.',

@@ -308,5 +308,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'حدّث التطبيق من App Store.',
   'shell.update.retry': 'التحقق مرة أخرى',
   'shell.update.stillRequired': 'لا يزال هذا الإصدار بحاجة إلى تحديث.',
+  'shell.update.fromSite': 'إذا كان التطبيق مثبّتًا من الموقع وليس من Google Play، فحدّثه من صفحة التنزيلات.',
 };
 export default messages;

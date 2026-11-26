@@ -185,13 +185,14 @@ export interface AppUpdateController {
   /**
    * Mounted by app.ts on /api/auth before the auth router: answers 503 UPDATE_REQUIRED to a session route
    * (GET /me, POST /login, /register, /guest) of an app version before 1.1.0 - an app origin without
-   * CLIENT_MARK_HEADER - while the rule of that origin's platform is on. Every other request passes on untouched.
-   * Never throws, never reads the disk.
+   * CLIENT_MARK_HEADER - while the rule of that origin's platform is 1.1.0 or later (above LAST_UNMARKED_VERSION of
+   * hosted/app-update.ts: a rule of 1.0.0 or 1.0.1 that is in the file refuses nobody). Every other request passes on
+   * untouched. Never throws, never reads the disk.
    */
   refuseOld: RequestHandler;
   /** `GET /api/server/app-update`; `ownerEmail` = the owner's account address ('' = none). */
   view(ownerEmail: string): ServerAppUpdate;
-  /** Before the password: the body's platform and version (a.b.c, not above the server's own; null = off). */
+  /** Before the password: the body's platform and version (a.b.c, not below FIRST_UPDATE_AWARE_VERSION, not above the server's own; null = off). */
   checkChange(body: Record<string, unknown>): AppUpdateChange;
   /** After the password: saves the change (atomically), sends the owner's e-mail, returns the new view (the 200 body). */
   change(change: AppUpdateChange, notice: DownloadNotice): Promise<ServerAppUpdate>;

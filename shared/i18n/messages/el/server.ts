@@ -585,6 +585,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Η υποχρεωτική ενημέρωση δεν είναι διαθέσιμη σε αυτόν τον διακομιστή.',
   'server.appUpdate.platformInvalid': 'Επίλεξε Android, iPhone, Windows ή Mac.',
   'server.appUpdate.tooNew': 'Αυτή η έκδοση είναι νεότερη από την έκδοση του διακομιστή ({version}). Δεν την έχει ακόμη κανείς.',
+  'server.appUpdate.tooOld': 'Η παλαιότερη έκδοση που μπορεί να οριστεί εδώ είναι η {version}.',
   'server.appUpdate.failed': 'Δεν ήταν δυνατή η αποθήκευση της ρύθμισης, οπότε δεν άλλαξε τίποτα. Δοκίμασε ξανά αργότερα.',
   'server.email.appUpdate.on.subject': 'Ορίστηκε υποχρεωτική ενημέρωση - Your Personal Diary',
   'server.email.appUpdate.on.body': 'Στις {when} ορίστηκε υποχρεωτική ενημέρωση για {platform}: οι εκδόσεις που είναι παλαιότερες από την {version} πρέπει να ενημερωθούν για να μπορούν να χρησιμοποιηθούν.',

@@ -566,6 +566,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Actualizările obligatorii nu sunt disponibile pe acest server.',
   'server.appUpdate.platformInvalid': 'Alege Android, iPhone, Windows sau Mac.',
   'server.appUpdate.tooNew': 'Această versiune este mai nouă decât versiunea serverului ({version}). Încă nu o are nimeni.',
+  'server.appUpdate.tooOld': 'Cea mai veche versiune care poate fi setată aici este {version}.',
   'server.appUpdate.failed': 'Setarea nu a putut fi salvată, așa că nu s-a schimbat nimic. Încearcă din nou mai târziu.',
   'server.email.appUpdate.on.subject': 'A fost setată o actualizare obligatorie - Your Personal Diary',
   'server.email.appUpdate.on.body': 'Pe {when} a fost setată o actualizare obligatorie pentru {platform}: versiunile mai vechi decât {version} trebuie actualizate înainte de a putea fi folosite.',

@@ -709,6 +709,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Desativado.',
   'settings.server.update.invalidVersion': 'Escreva uma versão como 1.1.0.',
   'settings.server.update.tooNew': 'Esta versão é mais recente do que a do servidor ({version}). Ainda ninguém a tem.',
+  'settings.server.update.tooOld': 'A versão mais antiga que pode ser definida aqui é a {version}.',
   'settings.server.update.emailNotConfigured': 'Não é enviado nenhum e-mail quando uma regra é alterada: o envio de e-mail não está configurado (o cartão «E-mail para repor a palavra-passe»).',
   'settings.server.update.emailNoAddress': 'Não é enviado nenhum e-mail quando uma regra é alterada: a sua conta não tem endereço de e-mail (o cartão «Conta»).',
 };

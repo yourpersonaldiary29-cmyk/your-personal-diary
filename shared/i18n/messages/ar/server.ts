@@ -564,6 +564,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'التحديث الإلزامي غير متاح على هذا الخادم.',
   'server.appUpdate.platformInvalid': 'يُرجى اختيار Android أو iPhone أو Windows أو Mac.',
   'server.appUpdate.tooNew': 'هذا الإصدار أحدث من إصدار الخادم ({version}). لا أحد يملكه بعد.',
+  'server.appUpdate.tooOld': 'أقدم إصدار يمكن تحديده هنا هو {version}.',
   'server.appUpdate.failed': 'تعذّر حفظ الإعداد، لذلك لم يتغيّر أي شيء. يُرجى المحاولة لاحقًا.',
   'server.email.appUpdate.on.subject': 'ضُبط تحديث إلزامي - Your Personal Diary',
   'server.email.appUpdate.on.body': 'ضُبط تحديث إلزامي لـ {platform} (الوقت: {when}): يجب تحديث الإصدارات الأقدم من {version} قبل أن يمكن استخدامها.',

@@ -716,6 +716,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Изключено.',
   'settings.server.update.invalidVersion': 'Въведете версия като 1.1.0.',
   'settings.server.update.tooNew': 'Тази версия е по-нова от версията на сървъра ({version}). Още никой я няма.',
+  'settings.server.update.tooOld': 'Най-старата версия, която може да се зададе тук, е {version}.',
   'settings.server.update.emailNotConfigured': 'При промяна на правило не се изпраща имейл: изпращането на имейли не е настроено (картата „Имейл за нулиране на паролата“).',
   'settings.server.update.emailNoAddress': 'При промяна на правило не се изпраща имейл: профилът ви няма имейл адрес (картата „Профил“).',
 };

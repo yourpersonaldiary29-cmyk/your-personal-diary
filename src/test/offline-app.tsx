@@ -57,8 +57,8 @@ export function OfflineAppProviders({ children }: { children: ReactNode }) {
 
 export type OfflineAppResult = RenderResult & { user: UserEvent };
 
-/** Renders the whole app at `route` (plus `extra`, e.g. <LogoutButton />) with the real providers. */
-export function renderOfflineApp(route = '/', extra?: ReactNode): OfflineAppResult {
+/** Renders the whole app at `route` (a path, or a path with router state) (plus `extra`, e.g. <LogoutButton />) with the real providers. */
+export function renderOfflineApp(route: string | { pathname: string; state?: unknown } = '/', extra?: ReactNode): OfflineAppResult {
   setCurrentLocale('en');
   const user = userEvent.setup();
   const view = render(

@@ -1,7 +1,8 @@
 /**
  * The "Update needed" screen (src/pages/UpdateRequiredPage.tsx, app version 1.1.0), per platform:
- *  - Android: "Open Google Play" with the server's store link, else "Open the Downloads page" (the site's page in
- *    the app's language); iPhone: "Open the App Store" with the link, else only "Update the app in the App Store.";
+ *  - Android: "Open Google Play" with the server's store link - and under it the sentence "If you installed the
+ *    app from the site ..." with a second link "Open the Downloads page" - else only "Open the Downloads page" (the
+ *    site's page in the app's language); the sentence is shown in that one case only; iPhone: "Open the App Store" with the link, else only "Update the app in the App Store.";
  *    Windows and Mac: "Open the Downloads page", opened by the shell (`open_external_url`) - and when that fails the
  *    address as text;
  *  - the app's name, ONE h1 that takes the focus, the installed version in the first sentence, the second sentence;
@@ -76,9 +77,55 @@ describe('what the screen shows', () => {
     expect(link).toHaveClass('btn');
   });
 
+  it('Android with the store link also offers the other way: the sentence and "Open the Downloads page" of the site', () => {
+    renderWithProviders(<UpdateRequiredPage requirement={need('android', PLAY)} />, { locale: 'en' });
+    const links = screen.getAllByRole('link');
+    expect(links).toHaveLength(2);
+    expect(links[0]).toHaveAccessibleName('Open Google Play');
+    expect(links[0]).toHaveAttribute('href', PLAY);
+    const other = links[1];
+    expect(other).toHaveAccessibleName('Open the Downloads page');
+    expect(other).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/about/downloads/`);
+    expect(other).toHaveAttribute('target', '_blank');
+    expect(other).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(other).toHaveClass('btn', 'btn--secondary');
+    // The sentence comes before the link in reading order and describes it.
+    const sentence = screen.getByText('If you installed the app from the site and not from Google Play, update it from the Downloads page.');
+    expect(sentence.compareDocumentPosition(other) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(other).toHaveAccessibleDescription(en('shell.update.fromSite'));
+    // Then "Check again", as before.
+    const retry = screen.getByRole('button', { name: 'Check again' });
+    expect(other.compareDocumentPosition(retry) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('the other way in Hebrew: the Downloads page of the site in Hebrew, the Hebrew sentence', () => {
+    renderWithProviders(<UpdateRequiredPage requirement={need('android', PLAY)} />, { locale: 'he' });
+    expect(screen.getByRole('link', { name: 'פתיחת Google Play' })).toHaveAttribute('href', PLAY);
+    expect(screen.getByRole('link', { name: 'פתיחת דף ההורדות' })).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/about/he/downloads/`);
+    expect(screen.getByText('אם התקנתם את האפליקציה מהאתר ולא מ-Google Play, עדכנו אותה מדף ההורדות.')).toBeInTheDocument();
+  });
+
+  it('the sentence of the other way is never shown without the store link on Android, on the iPhone, Windows or Mac', () => {
+    for (const [platform, link] of [
+      ['android', null],
+      ['ios', APPLE],
+      ['ios', null],
+      ['windows', null],
+      ['mac', null],
+    ] as const) {
+      const { unmount } = renderWithProviders(<UpdateRequiredPage requirement={need(platform, link)} />, { locale: 'en' });
+      expect(screen.queryByTestId('update-required-from-site'), `${platform} ${link ?? 'no link'}`).not.toBeInTheDocument();
+      expect(screen.queryByText(en('shell.update.fromSite'))).not.toBeInTheDocument();
+      expect(screen.queryByTestId('update-required-open-other')).not.toBeInTheDocument();
+      expect(screen.queryAllByRole('link').length).toBeLessThanOrEqual(1);
+      unmount();
+    }
+  });
+
   it('Android without a store link: "Open the Downloads page" of the site in the app\'s language', () => {
     renderWithProviders(<UpdateRequiredPage requirement={need('android')} />, { locale: 'he' });
     const link = screen.getByRole('link', { name: 'פתיחת דף ההורדות' });
+    expect(screen.getAllByRole('link')).toHaveLength(1);
     expect(link).toHaveAttribute('href', `${DEFAULT_SERVER_URL}/about/he/downloads/`);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('צריך לעדכן את האפליקציה');
     expect(screen.getByRole('button', { name: 'בדיקה חוזרת' })).toBeInTheDocument();
@@ -120,6 +167,7 @@ describe('what the screen shows', () => {
   it('the buttons are real controls with the touch-target class, in a right-to-left page as well', () => {
     renderWithProviders(<UpdateRequiredPage requirement={need('android', PLAY)} />, { locale: 'ar' });
     expect(screen.getByRole('link', { name: 'فتح Google Play' })).toHaveClass('btn', 'btn--lg');
+    expect(screen.getByTestId('update-required-open-other')).toHaveClass('btn', 'btn--lg');
     expect(screen.getByRole('button', { name: 'التحقق مرة أخرى' })).toHaveClass('btn', 'btn--lg');
   });
 });

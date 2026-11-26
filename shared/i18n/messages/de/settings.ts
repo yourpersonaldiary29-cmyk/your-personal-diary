@@ -685,6 +685,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Ausgeschaltet.',
   'settings.server.update.invalidVersion': 'Gib eine Version wie 1.1.0 ein.',
   'settings.server.update.tooNew': 'Diese Version ist neuer als die des Servers ({version}). Noch niemand hat sie.',
+  'settings.server.update.tooOld': 'Die älteste Version, die hier festgelegt werden kann, ist {version}.',
   'settings.server.update.emailNotConfigured': 'Beim Ändern einer Regel wird keine E-Mail gesendet: Der E-Mail-Versand ist nicht eingerichtet (Karte „E-Mail zum Zurücksetzen des Passworts“).',
   'settings.server.update.emailNoAddress': 'Beim Ändern einer Regel wird keine E-Mail gesendet: Dein Konto hat keine E-Mail-Adresse (Karte „Konto“).',
 };

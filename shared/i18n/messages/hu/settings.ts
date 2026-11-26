@@ -704,6 +704,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Kikapcsolva.',
   'settings.server.update.invalidVersion': 'Írj be egy verziót, például 1.1.0.',
   'settings.server.update.tooNew': 'Ez a verzió újabb, mint a szerver saját verziója ({version}). Még senkinek sincs meg.',
+  'settings.server.update.tooOld': 'Az itt beállítható legrégebbi verzió: {version}.',
   'settings.server.update.emailNotConfigured': 'Szabály módosításakor nem megy e-mail: az e-mail-küldés nincs beállítva („A jelszó visszaállításához használt e-mail” kártya).',
   'settings.server.update.emailNoAddress': 'Szabály módosításakor nem megy e-mail: a fiókodhoz nincs e-mail-cím (a Fiók kártya).',
 };

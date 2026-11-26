@@ -1,6 +1,7 @@
 /**
  * The versions ALREADY installed (1.0.0 = commit 2f24cde, 1.0.1 = commit a879d82) and the server's refusal of
- * their session routes while a required-update rule of their platform is on (app version 1.1.0, brief section C):
+ * their session routes while the required-update rule of their platform is 1.1.0 or later (app version 1.1.0,
+ * brief section C; a rule of 1.0.x refuses nobody - the server cannot tell those versions apart):
  * status 503 with the server's ordinary JSON error body `{ code: 'UPDATE_REQUIRED', message }`.
  *
  * The client code these tests run is the code of the released versions: src/context/AuthContext.tsx,

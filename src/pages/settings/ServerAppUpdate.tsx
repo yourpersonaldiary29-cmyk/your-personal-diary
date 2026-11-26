@@ -21,7 +21,7 @@
  * these routes (404) shows nothing of it; one that refuses them (403) shows the server's sentence.
  */
 import { useEffect, useId, useRef, useState } from 'react';
-import { APP_VERSION } from '@shared/constants';
+import { APP_VERSION, FIRST_UPDATE_AWARE_VERSION } from '@shared/constants';
 import { APP_PLATFORMS, type AppPlatform } from '@shared/types';
 import { isApiClientError, server as serverApi } from '@/api';
 import { Alert } from '@/components/ui/Alert';
@@ -46,12 +46,16 @@ export const updateSaveId = (platform: AppPlatform) => `settings-server-update-$
 
 /**
  * Checks a version as the server will (it checks again): empty turns the rule off (null), otherwise a version
- * `a.b.c` not above the server's own version. Returns the version to send, or the error to show.
+ * `a.b.c` not below FIRST_UPDATE_AWARE_VERSION (1.1.0: the versions before it cannot be told apart by the server,
+ * so such a rule would refuse nobody) and not above the server's own version - in that order. Returns the version
+ * to send, or the error to show.
  */
 export function checkMinVersion(value: string, serverVersion: string): { minVersion: string | null } | { error: string } {
   const wanted = value.trim();
   if (!wanted) return { minVersion: null };
   if (!parseVersion(wanted)) return { error: UPT.invalidVersion };
+  const oldest = compareVersions(wanted, FIRST_UPDATE_AWARE_VERSION);
+  if (oldest !== null && oldest < 0) return { error: UPT.tooOld(FIRST_UPDATE_AWARE_VERSION) };
   const order = compareVersions(wanted, serverVersion);
   if (order !== null && order > 0) return { error: UPT.tooNew(serverVersion) };
   return { minVersion: wanted };

@@ -303,5 +303,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Ενημέρωσε την εφαρμογή στο App Store.',
   'shell.update.retry': 'Νέος έλεγχος',
   'shell.update.stillRequired': 'Αυτή η έκδοση χρειάζεται ακόμη ενημέρωση.',
+  'shell.update.fromSite': 'Αν εγκατέστησες την εφαρμογή από τον ιστότοπο και όχι από το Google Play, ενημέρωσέ την από τη σελίδα Λήψεων.',
 };
 export default messages;

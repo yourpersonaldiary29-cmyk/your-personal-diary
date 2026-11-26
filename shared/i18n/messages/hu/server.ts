@@ -580,6 +580,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Ezen a szerveren nem lehet kötelező frissítést beállítani.',
   'server.appUpdate.platformInvalid': 'Válaszd az Android, az iPhone, a Windows vagy a Mac lehetőséget.',
   'server.appUpdate.tooNew': 'Ez a verzió újabb, mint a szerver saját verziója ({version}). Még senkinek sincs meg.',
+  'server.appUpdate.tooOld': 'Az itt beállítható legrégebbi verzió: {version}.',
   'server.appUpdate.failed': 'A beállítást nem sikerült menteni, ezért semmi sem változott. Próbáld újra később.',
   'server.email.appUpdate.on.subject': 'Kötelező frissítés lett beállítva - Your Personal Diary',
   'server.email.appUpdate.on.body': 'Kötelező frissítés lett beállítva ehhez: {platform}. Időpont: {when}. A(z) {version} verziónál régebbi verziókat frissíteni kell, mielőtt használni lehetne őket.',

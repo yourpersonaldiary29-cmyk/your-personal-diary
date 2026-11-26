@@ -699,6 +699,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Vypnuto.',
   'settings.server.update.invalidVersion': 'Napiš verzi, například 1.1.0.',
   'settings.server.update.tooNew': 'Tato verze je novější než verze serveru ({version}). Zatím ji nikdo nemá.',
+  'settings.server.update.tooOld': 'Nejstarší verze, kterou zde lze nastavit, je {version}.',
   'settings.server.update.emailNotConfigured': 'Při změně pravidla se neposílá žádný e-mail: odesílání e-mailů není nastavené (karta „E-mail pro obnovení hesla“).',
   'settings.server.update.emailNoAddress': 'Při změně pravidla se neposílá žádný e-mail: tvůj účet nemá e-mailovou adresu (karta „Účet“).',
 };

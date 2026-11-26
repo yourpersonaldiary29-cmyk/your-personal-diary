@@ -681,6 +681,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'تم الإيقاف.',
   'settings.server.update.invalidVersion': 'اكتب إصدارًا مثل 1.1.0.',
   'settings.server.update.tooNew': 'هذا الإصدار أحدث من إصدار الخادم ({version}). لا أحد يملكه بعد.',
+  'settings.server.update.tooOld': 'أقدم إصدار يمكن تحديده هنا هو {version}.',
   'settings.server.update.emailNotConfigured': 'لا تُرسَل رسالة بريد إلكتروني عند تغيير قاعدة: إرسال البريد الإلكتروني غير مُعدّ (بطاقة «البريد الإلكتروني لإعادة تعيين كلمة المرور»).',
   'settings.server.update.emailNoAddress': 'لا تُرسَل رسالة بريد إلكتروني عند تغيير قاعدة: لا يوجد عنوان بريد إلكتروني في حسابك (بطاقة «الحساب»).',
 };

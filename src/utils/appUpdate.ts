@@ -18,7 +18,13 @@
  * What the screen offers (`updateTarget`): Android - Google Play when the server gave a store link, else
  * the Downloads page of the site in the app's language; iPhone - the App Store when the server gave a
  * link, else only the sentence to update in the App Store; Windows and Mac - the Downloads page of the
- * site (which carries the store button, once there is one, and the installer). A link the server gave is
+ * site (which carries the store button, once there is one, and the installer).
+ * The other way (`otherUpdateTarget`), on Android with a store link only: the Downloads page of the site as
+ * well, under the sentence "If you installed the app from the site and not from Google Play, ...". Android has
+ * two sources of the same app and an install from one cannot be updated from the other: the file on the
+ * Downloads page is signed with the owner's upload key, what Google Play installs is signed with Google's own
+ * key (Play App Signing), and Android refuses an update with a different signature. The app cannot tell where
+ * it was installed from, so the screen offers both. Everywhere else there is no other way. A link the server gave is
  * used only when it is an https address without credentials on the store host of its platform
  * (`storeLink`: play.google.com for Android, apps.apple.com for the iPhone): anything else counts as "no link".
  * No address is written here: the store links come from the server, the Downloads page is built from the
@@ -122,6 +128,17 @@ export function updateTarget(requirement: UpdateRequirement, locale?: Locale): U
     default:
       return { kind: 'downloads', url: downloadsPageUrl(locale) };
   }
+}
+
+/**
+ * The second, quieter way of the screen for `requirement` (see the module comment): the Downloads page of the
+ * site in `locale` when the app is the Android app and its main button goes to Google Play (somebody who
+ * installed the file from the site can update only with the site's file); null everywhere else - Android
+ * without a store link (its main button already is the Downloads page), the iPhone, Windows and Mac.
+ */
+export function otherUpdateTarget(requirement: UpdateRequirement, locale?: Locale): { kind: 'downloads'; url: string } | null {
+  if (requirement.platform !== 'android' || !requirement.storeUrl) return null;
+  return { kind: 'downloads', url: downloadsPageUrl(locale) };
 }
 
 /**

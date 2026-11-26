@@ -658,6 +658,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'כובה.',
   'settings.server.update.invalidVersion': 'כתבו גרסה כמו 1.1.0.',
   'settings.server.update.tooNew': 'הגרסה הזאת חדשה יותר מהגרסה של השרת ({version}). לאף אחד אין אותה עדיין.',
+  'settings.server.update.tooOld': 'הגרסה הישנה ביותר שאפשר לקבוע כאן היא {version}.',
   'settings.server.update.emailNotConfigured': 'כשכלל משתנה לא נשלח מייל: שליחת מיילים לא הוגדרה (הכרטיס "דואר אלקטרוני לאיפוס סיסמה").',
   'settings.server.update.emailNoAddress': 'כשכלל משתנה לא נשלח מייל: בחשבון שלך אין כתובת מייל (הכרטיס "חשבון").',
 };

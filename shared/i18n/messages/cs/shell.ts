@@ -302,5 +302,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Aktualizuj aplikaci v App Store.',
   'shell.update.retry': 'Zkontrolovat znovu',
   'shell.update.stillRequired': 'Tato verze stále potřebuje aktualizaci.',
+  'shell.update.fromSite': 'Pokud máš aplikaci nainstalovanou z webu, a ne z Google Play, aktualizuj ji ze stránky Ke stažení.',
 };
 export default messages;

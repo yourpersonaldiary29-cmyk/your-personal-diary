@@ -562,6 +562,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'इस सर्वर पर अनिवार्य अपडेट उपलब्ध नहीं है।',
   'server.appUpdate.platformInvalid': 'Android, iPhone, Windows या Mac चुनें।',
   'server.appUpdate.tooNew': 'यह संस्करण सर्वर के अपने संस्करण ({version}) से नया है। यह अभी किसी के पास नहीं है।',
+  'server.appUpdate.tooOld': 'यहाँ तय किया जा सकने वाला सबसे पुराना संस्करण {version} है।',
   'server.appUpdate.failed': 'सेटिंग सहेजी नहीं जा सकी, इसलिए कुछ नहीं बदला। कृपया बाद में फिर से कोशिश करें।',
   'server.email.appUpdate.on.subject': 'एक अनिवार्य अपडेट सेट किया गया - Your Personal Diary',
   'server.email.appUpdate.on.body': '{when} को {platform} के लिए एक अनिवार्य अपडेट सेट किया गया: {version} से पुराने संस्करणों को इस्तेमाल करने से पहले अपडेट करना होगा।',

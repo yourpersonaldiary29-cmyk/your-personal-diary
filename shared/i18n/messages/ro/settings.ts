@@ -681,6 +681,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Dezactivat.',
   'settings.server.update.invalidVersion': 'Scrie o versiune, de exemplu 1.1.0.',
   'settings.server.update.tooNew': 'Această versiune este mai nouă decât cea a serverului ({version}). Încă nu o are nimeni.',
+  'settings.server.update.tooOld': 'Cea mai veche versiune care poate fi setată aici este {version}.',
   'settings.server.update.emailNotConfigured': 'Nu se trimite niciun e-mail când se schimbă o regulă: trimiterea e-mailurilor nu este configurată (cardul „E-mail pentru resetarea parolei”).',
   'settings.server.update.emailNoAddress': 'Nu se trimite niciun e-mail când se schimbă o regulă: contul tău nu are o adresă de e-mail (cardul „Cont”).',
 };

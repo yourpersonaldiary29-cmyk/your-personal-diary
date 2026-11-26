@@ -296,5 +296,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Update the app in the App Store.',
   'shell.update.retry': 'Check again',
   'shell.update.stillRequired': 'This version still needs an update.',
+  'shell.update.fromSite': 'If you installed the app from the site and not from Google Play, update it from the Downloads page.',
 };
 export default messages;

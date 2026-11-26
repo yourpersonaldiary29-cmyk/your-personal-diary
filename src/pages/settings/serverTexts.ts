@@ -404,6 +404,8 @@ export const UPT = {
     return tr('settings.server.update.invalidVersion');
   },
   tooNew: (version: string) => tr('settings.server.update.tooNew', { version }),
+  /** A version below the first one that knows the update screen (FIRST_UPDATE_AWARE_VERSION). */
+  tooOld: (version: string) => tr('settings.server.update.tooOld', { version }),
   /** Said before a change when the e-mail about it would not be sent (`ServerAppUpdate.email`). */
   emailWarning: (email: 'notConfigured' | 'noAddress') =>
     tr(email === 'noAddress' ? 'settings.server.update.emailNoAddress' : 'settings.server.update.emailNotConfigured'),

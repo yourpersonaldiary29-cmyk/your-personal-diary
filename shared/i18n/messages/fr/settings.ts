@@ -687,6 +687,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'Désactivé.',
   'settings.server.update.invalidVersion': 'Saisissez une version comme 1.1.0.',
   'settings.server.update.tooNew': 'Cette version est plus récente que celle du serveur ({version}). Personne ne l’a encore.',
+  'settings.server.update.tooOld': 'La plus ancienne version qui peut être définie ici est la {version}.',
   'settings.server.update.emailNotConfigured': 'Aucun e-mail n’est envoyé quand une règle est modifiée : l’envoi d’e-mails n’est pas configuré (la carte « E-mail de réinitialisation du mot de passe »).',
   'settings.server.update.emailNoAddress': 'Aucun e-mail n’est envoyé quand une règle est modifiée : votre compte n’a pas d’adresse e-mail (la carte « Compte »).',
 };

@@ -652,6 +652,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'オフにしました。',
   'settings.server.update.invalidVersion': '1.1.0 のようにバージョンを入力してください。',
   'settings.server.update.tooNew': 'このバージョンはサーバーのバージョン（{version}）より新しいです。まだ誰も持っていません。',
+  'settings.server.update.tooOld': 'ここで設定できる最も古いバージョンは {version} です。',
   'settings.server.update.emailNotConfigured': 'ルールを変更しても、メールは送信されません。メールの送信が設定されていません（「パスワード再設定用のメール」カード）。',
   'settings.server.update.emailNoAddress': 'ルールを変更しても、メールは送信されません。アカウントにメールアドレスが登録されていません（「アカウント」カード）。',
 };

@@ -581,6 +581,7 @@ const messages: Record<string, string> = {
   'server.appUpdate.unavailable': 'Las actualizaciones obligatorias no están disponibles en este servidor.',
   'server.appUpdate.platformInvalid': 'Elige Android, iPhone, Windows o Mac.',
   'server.appUpdate.tooNew': 'Esta versión es más reciente que la del servidor ({version}). Todavía nadie la tiene.',
+  'server.appUpdate.tooOld': 'La versión más antigua que se puede fijar aquí es la {version}.',
   'server.appUpdate.failed': 'No se pudo guardar el ajuste, así que no cambió nada. Inténtalo de nuevo más tarde.',
   'server.email.appUpdate.on.subject': 'Se ha establecido una actualización obligatoria - Your Personal Diary',
   'server.email.appUpdate.on.body': 'El {when} se estableció una actualización obligatoria para {platform}: las versiones anteriores a {version} deben actualizarse antes de poder usarse.',

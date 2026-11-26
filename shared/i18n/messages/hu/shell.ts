@@ -300,5 +300,6 @@ const messages: Record<string, string> = {
   'shell.update.iphoneNoLink': 'Frissítsd az alkalmazást az App Store-ban.',
   'shell.update.retry': 'Újbóli ellenőrzés',
   'shell.update.stillRequired': 'Ezt a verziót továbbra is frissíteni kell.',
+  'shell.update.fromSite': 'Ha az alkalmazást a weboldalról telepítetted, és nem a Google Play áruházból, a Letöltések oldalról frissítsd.',
 };
 export default messages;

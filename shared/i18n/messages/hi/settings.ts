@@ -677,6 +677,7 @@ const messages: Record<string, string> = {
   'settings.server.update.turnedOff': 'बंद किया गया।',
   'settings.server.update.invalidVersion': '1.1.0 जैसा संस्करण लिखें।',
   'settings.server.update.tooNew': 'यह संस्करण सर्वर के अपने संस्करण ({version}) से नया है। यह अभी किसी के पास नहीं है।',
+  'settings.server.update.tooOld': 'यहाँ तय किया जा सकने वाला सबसे पुराना संस्करण {version} है।',
   'settings.server.update.emailNotConfigured': 'नियम बदलने पर कोई ई-मेल नहीं भेजा जाता: ई-मेल भेजना सेट नहीं है ("पासवर्ड रीसेट के लिए ई-मेल" कार्ड)।',
   'settings.server.update.emailNoAddress': 'नियम बदलने पर कोई ई-मेल नहीं भेजा जाता: आपके खाते में कोई ई-मेल पता नहीं है ("खाता" कार्ड)।',
 };

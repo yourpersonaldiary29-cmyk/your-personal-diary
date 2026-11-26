@@ -44,6 +44,22 @@
   margin-block-start: var(--space-5);
 }
 
+/* Android with a store link: the sentence and the second, quieter link to the Downloads page of the site
+   (a secondary button: .btn keeps the touch target, 48 px in the phone UI). */
+.update-required__other {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 30rem;
+  padding-block-start: var(--space-2);
+}
+
+.update-required__other-text {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
 .update-required__store-hint {
   margin: 0;
   font-weight: 600;
@@ -62,7 +78,12 @@
 }
 
 @media (forced-colors: active) {
-  .update-required__open {
+  .update-required__open,
+  .update-required__open-other {
     border: 1px solid ButtonText;
+  }
+
+  .update-required__other-text {
+    color: CanvasText;
   }
 }
