@@ -1,6 +1,17 @@
 import '@testing-library/jest-dom/vitest';
 import { afterEach } from 'vitest';
 import { cleanup, configure } from '@testing-library/react';
+import { installBrowserEventOrder } from './browser-event-order';
+
+// Every test types in the browser's order of an event's listeners (src/test/browser-event-order.ts): what a
+// listener on the window or the document makes React schedule synchronously is rendered before React's own
+// handler sees the event, as the browser's microtask checkpoint does. A listener that re-renders while a key is
+// being delivered (the lost first character of release 1.1.0 before it was released, src/hooks/useUpdateGate.ts)
+// then fails in jsdom too, not only in a real browser: one in App fails the whole-app tests that type
+// (renderOfflineApp - UpdateRequired.app, offline-app, TypingFirstCharacter.app), one inside a page fails that
+// page's typing tests. A notification put off with a microtask or a promise is not seen here (the helper's
+// header says why and what catches it instead).
+if (typeof document !== 'undefined' && document.body) installBrowserEventOrder();
 
 // findBy* / waitFor give up after 1 second by default. On a busy machine (parallel builds, other
 // test runs) the first render of a page with its providers can take longer, and tests such as

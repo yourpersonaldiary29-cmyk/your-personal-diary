@@ -27,6 +27,7 @@ import {
   DEFAULT_LOCALE,
   DESKTOP_CHROME,
   entryScore,
+  expectTyped,
   FICTIONAL_PEOPLE,
   fictionalAccount,
   FIXED_TIME,
@@ -45,6 +46,7 @@ import {
   scrollCandidates,
   SHOTS,
   toOpaqueRgbPng,
+  typedTextProblem,
 } from './render-screenshots.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -522,6 +524,45 @@ test('shot 07: an entry written offline from the set\'s own demo texts; the last
   assert.equal(last.scrollTo, 'end');
   // Settings shows the account card with all its fields.
   assert.ok(SHOTS.find((s) => s.slug === 'settings').show.includes('main dl'));
+});
+
+test('shot 07 / 08: the title is typed key by key and what stayed is checked - a lost character fails the shot', () => {
+  // The message says what was typed, what the field held, and the usual cause.
+  assert.equal(typedTextProblem('the title field', 'A day of small wins', 'A day of small wins'), null);
+  const lost = typedTextProblem('the title field', 'A day of small wins', ' day of small wins');
+  assert.ok(lost.startsWith('the title field holds " day of small wins", but "A day of small wins" was typed - its FIRST character is lost.'), lost);
+  assert.match(lost, /A lost first character is the usual cause/);
+  assert.ok(lost.includes('src/hooks/useUpdateGate.ts'), lost);
+  // Another difference (a whole input lost, a character elsewhere) is named without the "FIRST" remark.
+  const empty = typedTextProblem("the saved entry page's heading", 'Hello', 'Untitled entry');
+  assert.ok(empty.includes('holds "Untitled entry", but "Hello" was typed. A lost first character'), empty);
+  assert.doesNotMatch(empty, /FIRST/);
+  assert.match(typedTextProblem('the text field', 'Hello', ''), /holds "", but "Hello" was typed/);
+  // A title of another script: the first CHARACTER (code point), not the first UTF-16 unit.
+  assert.match(typedTextProblem('the title field', '𝒜bc', 'bc'), /FIRST character is lost/);
+  // expectTyped is what fails the shot: it throws that message on any difference and is silent on none.
+  assert.throws(
+    () => expectTyped('the title field', 'Hello', 'ello'),
+    (error) => error instanceof Error && error.message === typedTextProblem('the title field', 'Hello', 'ello'),
+  );
+  assert.throws(() => expectTyped("the saved entry page's heading", 'Hello', 'Untitled entry'), /holds "Untitled entry", but "Hello" was typed/);
+  assert.doesNotThrow(() => expectTyped('the title field', 'Hello', 'Hello'));
+  // writeOffline types the title with real key presses (the first text input of the page), fills the text,
+  // and checks the form, the saved entry's page and (on the phone flow) the new entry's card.
+  const source = readFileSync(path.join(HERE, 'render-screenshots.mjs'), 'utf8');
+  const body = source.slice(source.indexOf('async function writeOffline('), source.indexOf('/** No focus ring in a shot'));
+  for (const piece of [
+    'await title.pressSequentially(entry.title);',
+    "expectTyped('the title field', entry.title, await title.inputValue());",
+    "expectTyped('the text field', entry.body, await body.inputValue());",
+    `expectTyped("the saved entry page's heading", entry.title, (await page.locator('#page-title').innerText()).trim());`,
+    'expectTyped(`the new entry\'s card in "My diary"`, entry.title,',
+  ]) assert.ok(body.includes(piece), piece);
+  assert.ok(!body.includes(`page.fill('main input[name="title"]'`), 'the title is not filled');
+  assert.ok(body.indexOf('pressSequentially(entry.title)') < body.indexOf('body.fill(entry.body)'), 'the title is the first text input of the page');
+  // The heading the check reads is the page title's own id (src/components/ui/PageTitle.tsx).
+  assert.match(readFileSync(path.join(ROOT, 'src', 'components', 'ui', 'PageTitle.tsx'), 'utf8'), /PAGE_TITLE_ID = 'page-title'/);
+  assert.match(readFileSync(path.join(ROOT, 'src', 'pages', 'entries', 'EntryCard.tsx'), 'utf8'), /className="entry-card__title"/);
 });
 
 test('the phone frame since 2026-11-25: no bottom navigation, "My diary" of shot 07 through the "Menu" button of the top bar', () => {

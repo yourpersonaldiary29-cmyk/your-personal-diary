@@ -637,7 +637,10 @@ export function assertLoopbackOnly(log, base) {
  *      and its "Not uploaded yet" badge, and the app's own message "Saved on this device. It will be
  *      uploaded to the server when the connection returns." The one-line offline bar of the phone layout
  *      cannot show its whole sentence (it ends in "..."), so it stays at the top of the list, off the
- *      screen; the message says the same in full.
+ *      screen; the message says the same in full. The title is typed with real key presses (the page's first
+ *      text input, as a user types it) and checked: in the form, on the saved entry's page and on its card -
+ *      a character the app lost fails the shot (typedTextProblem; release 1.1.0 lost the first one before
+ *      it was released, and this picture showed "Untitled entry").
  */
 export const SHOTS = [
   { n: '01', slug: 'home', route: '/', down: 240 },
@@ -693,7 +696,8 @@ export const CALENDAR_SYSTEM = { he: 'hebrew', ar: 'hijri' };
  *      "1 change waiting") and the entry with its "Not uploaded yet" badge. The app's passing message
  *      ("Saved on this device...", bottom corner, closes by itself after a few seconds) is not kept
  *      (`keepToast: false`): on the desktop it lies over the entry's last line and the footer, and the
- *      bar already says the same in full.
+ *      bar already says the same in full. The title is typed with real key presses and checked in the form
+ *      and on the saved entry's page, as in the phone's shot 07 (typedTextProblem).
  */
 export const DESKTOP_SHOTS = [
   { n: '01', slug: 'home', route: '/', down: 240 },
@@ -1637,17 +1641,50 @@ async function goOffline(context, page) {
 }
 
 /**
+ * The problem when a field (or a saved entry's title on the screen) does not hold exactly what the script
+ * typed into it, else null. `where` names the place ("the title field", "the entry page's heading", ...).
+ * This picture script is the one place where the app is driven in a real browser before every release, so
+ * a lost keystroke fails the shot loudly instead of showing up as "Untitled entry" in a picture.
+ */
+export function typedTextProblem(where, typed, held) {
+  if (held === typed) return null;
+  const lostFirst = typeof held === 'string' && typed.length > 0 && held === Array.from(typed).slice(1).join('');
+  return (
+    `${where} holds ${JSON.stringify(held)}, but ${JSON.stringify(typed)} was typed` +
+    (lostFirst ? ' - its FIRST character is lost' : '') +
+    '. A lost first character is the usual cause: something re-renders the app between the browser changing a field and' +
+    ' React handling that input event (a capture-phase listener on the document that notifies a store React reads -' +
+    ' src/hooks/useUpdateGate.ts), so React writes the old value back.'
+  );
+}
+
+/** Throws typedTextProblem's message when `held` is not what was typed (the shot then fails). */
+export function expectTyped(where, typed, held) {
+  const problem = typedTextProblem(where, typed, held);
+  if (problem) throw new Error(problem);
+}
+
+/**
  * Shot 07: with the network cut, writes an entry the way a user does - the floating "New entry" button
- * (an in-app navigation; a page load would need the network), the title and the text typed into the
- * form, "Save" - and waits for what the app then shows by itself: the entry page with the "Not uploaded
- * yet" badge (src/components/sync/PendingBadge.tsx) and the toast "Saved on this device. It will be
- * uploaded to the server when the connection returns." (src/components/sync/syncGate.ts).
+ * (an in-app navigation; a page load would need the network), the title typed with real key presses, one
+ * key at a time (the FIRST text input of the page, as a user types it; a character without a key on the US
+ * layout is inserted by Playwright as its own input event), the text filled, "Save" - and waits for what
+ * the app then shows by itself: the entry page with the "Not uploaded yet" badge
+ * (src/components/sync/PendingBadge.tsx) and the toast "Saved on this device. It will be uploaded to the
+ * server when the connection returns." (src/components/sync/syncGate.ts). What was typed is checked: both
+ * fields hold exactly it before "Save", the entry page's heading shows the typed title after it (and on the
+ * phone flow the new entry's card in "My diary" too) - otherwise the shot fails (typedTextProblem). The
+ * final screen is the same as with a filled title.
  */
 async function writeOffline(page, entry, chrome = PHONE_CHROME, afterWrite = 'diary') {
   await page.click(chrome.newEntryLink);
-  await page.waitForSelector('main input[name="title"]');
-  await page.fill('main input[name="title"]', entry.title);
-  await page.fill('main textarea[name="body"]', entry.body);
+  const title = page.locator('main input[name="title"]');
+  const body = page.locator('main textarea[name="body"]');
+  await title.waitFor();
+  await title.pressSequentially(entry.title);
+  await body.fill(entry.body);
+  expectTyped('the title field', entry.title, await title.inputValue());
+  expectTyped('the text field', entry.body, await body.inputValue());
   // The ratings through their number boxes (the slider's twin), as a user can type them.
   for (const [field, value] of Object.entries(entry.ratings ?? {})) {
     const box = page.locator(`main #entry-${field} + input[type="number"]`);
@@ -1658,6 +1695,7 @@ async function writeOffline(page, entry, chrome = PHONE_CHROME, afterWrite = 'di
   await page.waitForFunction(() => /#\/entry\/-?\d+/.test(location.hash), null, { timeout: 30000 });
   await page.waitForSelector('main .pending-badge', { timeout: 30000 });
   await page.waitForSelector('.toast-region > *', { timeout: 30000 });
+  expectTyped("the saved entry page's heading", entry.title, (await page.locator('#page-title').innerText()).trim());
   // `afterWrite: 'entry'` (desktop): the entry page as the app shows it right after "Save" (the desktop
   // offline bar says the whole sentence, so that shot does without the passing message - DESKTOP_SHOTS 08).
   if (afterWrite === 'entry') {
@@ -1680,6 +1718,8 @@ async function writeOffline(page, entry, chrome = PHONE_CHROME, afterWrite = 'di
   await page.waitForFunction(() => /#\/diary/.test(location.hash), null, { timeout: 30000 });
   await page.waitForSelector('main .entry-card .pending-badge', { timeout: 30000 });
   await page.waitForFunction(() => !document.querySelector('.spinner, [aria-busy="true"]'), null, { timeout: 30000 });
+  const card = page.locator('main .entry-card', { has: page.locator('.pending-badge') }).last();
+  expectTyped(`the new entry's card in "My diary"`, entry.title, (await card.locator('.entry-card__title').innerText()).trim());
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(400);
 }
