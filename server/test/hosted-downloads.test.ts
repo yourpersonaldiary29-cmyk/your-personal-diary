@@ -70,6 +70,15 @@ const SENDER = 'sender@example.test';
 const SETTINGS = { publisherName: 'Example Publisher', contactEmail: 'help@example.test', effectiveDate: '2026-11-08', termsEffectiveDate: '2026-11-12', minimumAge: 16 };
 const START = Date.UTC(2026, 10, 18, 9, 0, 0);
 const built = buildSite({ settings: SETTINGS });
+/**
+ * The versions these tests upload: `UP(n)` stands where a release would be called "1.n.0". The site of these tests is
+ * built from the real site/downloads.json (`built.downloads` is the real list), so a version written here as a
+ * literal collides with the real list as soon as a release reaches it - "1.1.0" did on 2026-11-27, and the upload
+ * was refused as already listed. They take the major number after the newest listed one instead, whatever the real
+ * list holds.
+ */
+const NEXT_MAJOR = 1 + Math.max(0, ...Object.values(built.downloads).flat().map((row) => Number(row.version.split('.')[0])));
+const UP = (minor: number): string => `${NEXT_MAJOR}.${minor}.0`;
 const running: RunningHosted[] = [];
 
 afterEach(async () => {
@@ -428,7 +437,7 @@ describe('the owner\'s API: who, how, and the body before the password', () => {
     const second = await b.register('othertwo');
     const o = b.as(first.token);
     const x = b.as(second.token);
-    const intent = { platform: 'windows', version: '1.1.0', password: PASSWORD };
+    const intent = { platform: 'windows', version: UP(1), password: PASSWORD };
     // No owner yet.
     const unset = await o.get('/api/server/downloads');
     expect([unset.status, unset.body.message]).toEqual([403, t('en', OWNER_UNSET_KEY)]);
@@ -466,27 +475,27 @@ describe('the owner\'s API: who, how, and the body before the password', () => {
     const { o } = await b.owner();
     const post = (body: object) => o.post('/api/server/downloads/upload-intent', body);
     const field = (res: supertest.Response) => [res.status, res.body.code, res.body.field, res.body.message];
-    expect(field(await post({ platform: 'iphone', version: '1.1.0', password: PASSWORD }))).toEqual([400, 'VALIDATION', 'platform', t('en', DOWNLOADS_PLATFORM_KEY)]);
+    expect(field(await post({ platform: 'iphone', version: UP(1), password: PASSWORD }))).toEqual([400, 'VALIDATION', 'platform', t('en', DOWNLOADS_PLATFORM_KEY)]);
     for (const version of ['1.1', '1.1.0.0', '01.1.0', '1.1.0-beta', '10000.0.0', ' 1.1.0', 110]) {
       expect(field(await post({ platform: 'windows', version, password: PASSWORD })), String(version)).toEqual([400, 'VALIDATION', 'version', t('en', DOWNLOADS_VERSION_KEY)]);
     }
     // The version of the image is listed: refused before the password (a wrong one costs nothing here).
     const listed = built.downloads.windows[0];
     expect(field(await post({ platform: 'windows', version: listed.version, password: 'wrong-password' }))).toEqual([409, 'VALIDATION', 'version', t('en', DOWNLOADS_EXISTS_KEY, { platform: 'Windows', version: listed.version })]);
-    expect(field(await post({ platform: 'windows', version: '1.1.0', removeOlder: 'yes', password: PASSWORD }))[0]).toBe(400);
+    expect(field(await post({ platform: 'windows', version: UP(1), removeOlder: 'yes', password: PASSWORD }))[0]).toBe(400);
     expect((await o.post('/api/server/downloads/upload-intent', [1, 2])).status).toBe(400);
-    expect(field(await post({ platform: 'windows', version: '1.1.0' }))).toEqual([400, 'VALIDATION', 'password', t('en', DOWNLOADS_PASSWORD_REQUIRED_KEY)]);
-    expect(field(await post({ platform: 'windows', version: '1.1.0', password: 'Wrong-Passw0rd' }))).toEqual([400, 'WRONG_PASSWORD', 'password', t('en', DOWNLOADS_WRONG_PASSWORD_KEY)]);
+    expect(field(await post({ platform: 'windows', version: UP(1) }))).toEqual([400, 'VALIDATION', 'password', t('en', DOWNLOADS_PASSWORD_REQUIRED_KEY)]);
+    expect(field(await post({ platform: 'windows', version: UP(1), password: 'Wrong-Passw0rd' }))).toEqual([400, 'WRONG_PASSWORD', 'password', t('en', DOWNLOADS_WRONG_PASSWORD_KEY)]);
     // The right password: a ticket for this platform and version, under the public name.
-    const ok = await post({ platform: 'windows', version: '1.1.0', password: PASSWORD, removeOlder: true, bytes: 2 * MiB });
+    const ok = await post({ platform: 'windows', version: UP(1), password: PASSWORD, removeOlder: true, bytes: 2 * MiB });
     expect(ok.status).toBe(201);
     const ticket = ok.body as ServerDownloadUploadTicket;
     expect(ticket.token).toMatch(/^[A-Za-z0-9_-]{43}$/);
-    expect(ticket).toMatchObject({ uploadPath: `/api/server/downloads/upload/${ticket.token}`, platform: 'windows', version: '1.1.0', file: PUBLIC_NAMES.windows('1.1.0'), removeOlder: true, maxBytes: 3 * MiB, minBytes: MiB });
+    expect(ticket).toMatchObject({ uploadPath: `/api/server/downloads/upload/${ticket.token}`, platform: 'windows', version: UP(1), file: PUBLIC_NAMES.windows(UP(1)), removeOlder: true, maxBytes: 3 * MiB, minBytes: MiB });
     expect(Date.parse(ticket.expiresAt) - Date.now()).toBeGreaterThan(14 * 60_000);
     // The size, when the card gives it, is checked before anything is uploaded.
-    expect(field(await post({ platform: 'windows', version: '1.1.0', password: PASSWORD, bytes: 4 * MiB }))).toEqual([413, 'VALIDATION', 'file', t('en', DOWNLOADS_TOO_LARGE_KEY, { maxMb: 3 })]);
-    expect(field(await post({ platform: 'windows', version: '1.1.0', password: PASSWORD, bytes: 1000 }))).toEqual([400, 'VALIDATION', 'file', t('en', DOWNLOADS_TOO_SMALL_KEY, { minMb: 1 })]);
+    expect(field(await post({ platform: 'windows', version: UP(1), password: PASSWORD, bytes: 4 * MiB }))).toEqual([413, 'VALIDATION', 'file', t('en', DOWNLOADS_TOO_LARGE_KEY, { maxMb: 3 })]);
+    expect(field(await post({ platform: 'windows', version: UP(1), password: PASSWORD, bytes: 1000 }))).toEqual([400, 'VALIDATION', 'file', t('en', DOWNLOADS_TOO_SMALL_KEY, { minMb: 1 })]);
   });
 });
 
@@ -495,10 +504,10 @@ describe('publishing a file', () => {
     const b = await boot();
     const { auth, o } = await b.owner('ownerpub', { language: 'he' });
     const exe = windowsExe(MiB + 12345);
-    const { ticket, put } = await b.publish(o, 'windows', '1.1.0', exe);
+    const { ticket, put } = await b.publish(o, 'windows', UP(1), exe);
     expect(put.status, JSON.stringify(put.body)).toBe(201);
     const result = put.body as ServerDownloadResult;
-    const row: ServerDownloadRow = { version: '1.1.0', date: new Date().toISOString().slice(0, 10), file: ticket.file, bytes: exe.length, sha256: sha256(exe), source: 'uploaded' };
+    const row: ServerDownloadRow = { version: UP(1), date: new Date().toISOString().slice(0, 10), file: ticket.file, bytes: exe.length, sha256: sha256(exe), source: 'uploaded' };
     expect(result).toMatchObject({ action: 'published', row, removedOlder: [], email: 'sent' });
     expect(result.downloads.platforms.windows).toEqual([row, ...built.downloads.windows.map((r) => ({ ...r, source: 'image' }))]);
     // On the volume: the file under its public name, its row in the list; nothing left in tmp/.
@@ -537,17 +546,17 @@ describe('publishing a file', () => {
     expect(b.sent[0].envelope).toEqual({ from: SENDER, to: 'ownerpub@example.test' });
     expect(decodeWords(headersOf(b.sent[0].data).subject)).toBe(t('he', 'server.email.downloads.published.subject'));
     const { text, html } = partsOf(b.sent[0].data);
-    for (const part of [ticket.file, '1.1.0', row.sha256, 'Windows', String(exe.length), t('he', 'server.email.downloads.published.notYou')]) expect(text).toContain(part);
+    for (const part of [ticket.file, UP(1), row.sha256, 'Windows', String(exe.length), t('he', 'server.email.downloads.published.notYou')]) expect(text).toContain(part);
     expect(html).toContain('<html lang="he" dir="rtl">');
     expect(auth.user.id).toBeTruthy();
     // The log: one line for the publication, without anything personal.
     const lines = b.logs.filter((line) => line.startsWith('downloads: '));
-    expect(lines).toEqual([`downloads: published windows 1.1.0 (${exe.length} bytes)`]);
+    expect(lines).toEqual([`downloads: published windows ${UP(1)} (${exe.length} bytes)`]);
     for (const line of b.logs) expect(line).not.toMatch(/ownerpub|example\.test|203\.0\.113|127\.0\.0\.1|Test Owner/);
 
     // The same version again: refused (remove it first).
-    const again = await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: '1.1.0', password: PASSWORD });
-    expect([again.status, again.body.message]).toEqual([409, t('en', DOWNLOADS_EXISTS_KEY, { platform: 'Windows', version: '1.1.0' })]);
+    const again = await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: UP(1), password: PASSWORD });
+    expect([again.status, again.body.message]).toEqual([409, t('en', DOWNLOADS_EXISTS_KEY, { platform: 'Windows', version: UP(1) })]);
   }, 60_000);
 
   it('removeOlder takes the older versions of the platform off the page - the image\'s into removed.json - and says so in the e-mail', async () => {
@@ -583,8 +592,8 @@ describe('publishing a file', () => {
     const shape = (res: supertest.Response) => [res.status, res.body.code, res.body.message];
     // (A body refused before it is read is kept small here: supertest asks for "Connection: close", and a server that
     // answers such a request early closes the socket under the rest of a large body. Browsers keep the connection.)
-    expect(shape(await refused('windows', '1.2.0', windowsExe(1000)))).toEqual([400, 'VALIDATION', t('en', DOWNLOADS_TOO_SMALL_KEY, { minMb: 1 })]);
-    expect(shape(await refused('windows', '1.2.0', Buffer.from('MZ - not sent as a file'), 'text/plain'))).toEqual([415, 'VALIDATION', t('en', DOWNLOADS_CONTENT_TYPE_KEY)]);
+    expect(shape(await refused('windows', UP(2), windowsExe(1000)))).toEqual([400, 'VALIDATION', t('en', DOWNLOADS_TOO_SMALL_KEY, { minMb: 1 })]);
+    expect(shape(await refused('windows', UP(2), Buffer.from('MZ - not sent as a file'), 'text/plain'))).toEqual([415, 'VALIDATION', t('en', DOWNLOADS_CONTENT_TYPE_KEY)]);
     // Each platform's signature: another installer, or something that only looks like one.
     const notWindows = t('en', DOWNLOADS_NOT_WINDOWS_KEY);
     const notAndroid = t('en', DOWNLOADS_NOT_ANDROID_KEY);
@@ -599,15 +608,15 @@ describe('publishing a file', () => {
       ['mac', androidApk(), notMac],
       ['mac', filler(MiB + 10), notMac],
     ] as const) {
-      const res = await refused(platform, '1.2.0', file);
+      const res = await refused(platform, UP(2), file);
       expect([platform, ...shape(res), res.body.field]).toEqual([platform, 400, 'VALIDATION', message, 'file']);
     }
     // No length (a chunked body): 411 before a byte is read, and the connection closes (the rest is never read).
-    const intent = await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: '1.2.0', password: PASSWORD });
+    const intent = await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: UP(2), password: PASSWORD });
     const noLength = await rawPut(b.srv, (intent.body as ServerDownloadUploadTicket).uploadPath, auth.token, { chunked: true, file: macDmg(), cutAt: 4096, hold: true });
     expect([noLength.status, JSON.parse(noLength.body).message]).toEqual([411, t('en', DOWNLOADS_LENGTH_REQUIRED_KEY)]);
     // Over the limit, said in advance: 413 before a byte is read.
-    const big = await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: '1.2.0', password: PASSWORD });
+    const big = await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: UP(2), password: PASSWORD });
     const tooBig = await rawPut(b.srv, (big.body as ServerDownloadUploadTicket).uploadPath, auth.token, { file: macDmg(3 * MiB + 1), cutAt: 4096, hold: true });
     expect([tooBig.status, JSON.parse(tooBig.body).message]).toEqual([413, t('en', DOWNLOADS_TOO_LARGE_KEY, { maxMb: 3 })]);
     // Nothing was published, nothing is left on the volume, and every refusal was logged without a personal value.
@@ -710,13 +719,13 @@ describe('the time a request may take', () => {
     expect(closedAfter).toBeLessThan(5_000);
     // The owner's upload over a slow line, longer than that limit: published.
     const { auth, o } = await b.owner('ownerslow');
-    const intent = await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: '1.7.0', password: PASSWORD });
+    const intent = await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: UP(7), password: PASSWORD });
     expect(intent.status, JSON.stringify(intent.body)).toBe(201);
     const ticket = intent.body as ServerDownloadUploadTicket;
     const exe = windowsExe();
     const put = await slowPut(b.srv, ticket.uploadPath, auth.token, exe, 4, 300);
     expect(put.status, put.body).toBe(201);
-    expect((JSON.parse(put.body) as ServerDownloadResult).row).toMatchObject({ version: '1.7.0', sha256: sha256(exe), source: 'uploaded' });
+    expect((JSON.parse(put.body) as ServerDownloadResult).row).toMatchObject({ version: UP(7), sha256: sha256(exe), source: 'uploaded' });
   }, 60_000);
 });
 
@@ -730,21 +739,21 @@ describe('the upload token', () => {
     // (A refused upload carries a small body here: see the note in the test of the body.)
     const small = Buffer.from('a small body');
     // Replayed: the first use publishes, the second is refused.
-    const { ticket, put } = await b.publish(o, 'windows', '1.3.0', exe);
+    const { ticket, put } = await b.publish(o, 'windows', UP(3), exe);
     expect(put.status).toBe(201);
     const replay = await o.put(ticket.uploadPath, small);
     expect([replay.status, replay.body.message]).toEqual([403, t('en', DOWNLOADS_TOKEN_KEY, { minutes: 15 })]);
     // Expired: 15 minutes after the password.
-    const late = (await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: '1.4.0', password: PASSWORD })).body as ServerDownloadUploadTicket;
+    const late = (await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: UP(4), password: PASSWORD })).body as ServerDownloadUploadTicket;
     clock += 15 * 60_000 + 1000;
     expect((await o.put(late.uploadPath, small)).status).toBe(403);
     // Another session of the same owner (his phone): refused - and the token is used up for the first one as well.
     const phone = b.as((await b.login('ownertok')).token);
-    const mine = (await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: '1.4.0', password: PASSWORD })).body as ServerDownloadUploadTicket;
+    const mine = (await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: UP(4), password: PASSWORD })).body as ServerDownloadUploadTicket;
     expect((await phone.put(mine.uploadPath, small)).status).toBe(403);
     expect((await o.put(mine.uploadPath, small)).status).toBe(403);
     // Another user's session: refused by the owner check, before the token is looked at - which stays usable.
-    const fresh = (await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: '1.4.0', password: PASSWORD })).body as ServerDownloadUploadTicket;
+    const fresh = (await o.post('/api/server/downloads/upload-intent', { platform: 'windows', version: UP(4), password: PASSWORD })).body as ServerDownloadUploadTicket;
     const stranger = await b.as(other.token).put(fresh.uploadPath, small);
     expect([stranger.status, stranger.body.code]).toEqual([403, 'FORBIDDEN']);
     // A path, a guess, a token of another length: nothing is written anywhere.
@@ -762,7 +771,7 @@ describe('the upload token', () => {
     // The genuine token was named by none of them: it still works.
     const ok = await o.put(fresh.uploadPath, windowsExe());
     expect(ok.status, JSON.stringify(ok.body)).toBe(201);
-    expect(filesBelow(path.join(b.dataDir, 'site'))).toEqual(['downloads.json', `files/${PUBLIC_NAMES.windows('1.3.0')}`, `files/${PUBLIC_NAMES.windows('1.4.0')}`]);
+    expect(filesBelow(path.join(b.dataDir, 'site'))).toEqual(['downloads.json', `files/${PUBLIC_NAMES.windows(UP(3))}`, `files/${PUBLIC_NAMES.windows(UP(4))}`]);
     expect(fs.existsSync(path.join(b.dataDir, 'accounts.json'))).toBe(true);
   }, 60_000);
 });
@@ -772,10 +781,10 @@ describe('the limits', () => {
     const b = await boot({ downloads: { volume: () => ({ totalBytes: 100 * MiB, freeBytes: 10 * MiB }) } });
     const { auth, o } = await b.owner('ownerroom', { mail: false });
     // 15 % of 100 MB must stay free: a file of 1.1 MB needs about 17 MB, 10 MB are free.
-    const early = await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: '1.5.0', password: PASSWORD, bytes: Math.round(1.1 * MiB) });
+    const early = await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: UP(5), password: PASSWORD, bytes: Math.round(1.1 * MiB) });
     expect([early.status, early.body.code, early.body.message]).toEqual([507, 'IO', t('en', DOWNLOADS_NO_SPACE_KEY, { needMb: 17, freeMb: 10 })]);
     // Without the size in advance: the PUT is refused on its declared length, with a few bytes sent (the client waits).
-    const ticket = (await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: '1.5.0', password: PASSWORD })).body as ServerDownloadUploadTicket;
+    const ticket = (await o.post('/api/server/downloads/upload-intent', { platform: 'mac', version: UP(5), password: PASSWORD })).body as ServerDownloadUploadTicket;
     const late = await rawPut(b.srv, ticket.uploadPath, auth.token, { file: macDmg(Math.round(1.1 * MiB)), cutAt: 4096, hold: true });
     expect([late.status, JSON.parse(late.body).message]).toEqual([507, t('en', DOWNLOADS_NO_SPACE_KEY, { needMb: 17, freeMb: 10 })]);
     expect(filesBelow(path.join(b.dataDir, 'site'))).toEqual([]);
@@ -834,19 +843,19 @@ describe('removing a file', () => {
     const b = await boot({ dataDir });
     const { auth, o } = await b.owner('ownerrm');
     const exe = windowsExe();
-    const { ticket, put } = await b.publish(o, 'windows', '1.6.0', exe);
+    const { ticket, put } = await b.publish(o, 'windows', UP(6), exe);
     expect(put.status).toBe(201);
     const remove = (body: object) => o.post('/api/server/downloads/remove', body);
     // Not listed, no password, a wrong password: nothing changes.
     const missing = await remove({ platform: 'android', version: '7.7.7', password: PASSWORD });
     expect([missing.status, missing.body.message]).toEqual([404, t('en', DOWNLOADS_NOT_LISTED_KEY, { platform: 'Android', version: '7.7.7' })]);
-    expect((await remove({ platform: 'windows', version: '1.6.0' })).status).toBe(400);
-    expect((await remove({ platform: 'windows', version: '1.6.0', password: 'Wrong-Passw0rd' })).body.code).toBe('WRONG_PASSWORD');
+    expect((await remove({ platform: 'windows', version: UP(6) })).status).toBe(400);
+    expect((await remove({ platform: 'windows', version: UP(6), password: 'Wrong-Passw0rd' })).body.code).toBe('WRONG_PASSWORD');
     // The uploaded file: its row and its file go.
-    const gone = await remove({ platform: 'windows', version: '1.6.0', password: PASSWORD });
+    const gone = await remove({ platform: 'windows', version: UP(6), password: PASSWORD });
     expect(gone.status, JSON.stringify(gone.body)).toBe(200);
     const removedUploaded = gone.body as ServerDownloadResult;
-    expect(removedUploaded).toMatchObject({ action: 'removed', row: { version: '1.6.0', file: ticket.file, source: 'uploaded', sha256: sha256(exe) }, removedOlder: [], email: 'sent' });
+    expect(removedUploaded).toMatchObject({ action: 'removed', row: { version: UP(6), file: ticket.file, source: 'uploaded', sha256: sha256(exe) }, removedOlder: [], email: 'sent' });
     expect(fs.existsSync(path.join(dataDir, 'site', 'files', ticket.file))).toBe(false);
     expect((await b.visit(`/about/${FILES_DIR}/${ticket.file}`)).status).toBe(404);
     // Every file of the image for Windows: recorded, not deleted (the image cannot change).
@@ -868,7 +877,7 @@ describe('removing a file', () => {
     expect(b.sent).toHaveLength(2 + built.downloads.windows.length);
     expect(decodeWords(headersOf(b.sent[1].data).subject)).toBe(t('en', 'server.email.downloads.removed.subject'));
     expect(partsOf(b.sent[1].data).text).toContain(t('en', 'server.email.downloads.removed.notYou'));
-    expect(b.logs.filter((line) => line.startsWith('downloads: removed '))).toEqual(['downloads: removed windows 1.6.0 (uploaded)', ...built.downloads.windows.map((row) => `downloads: removed windows ${row.version} (came with the server)`)]);
+    expect(b.logs.filter((line) => line.startsWith('downloads: removed '))).toEqual([`downloads: removed windows ${UP(6)} (uploaded)`, ...built.downloads.windows.map((row) => `downloads: removed windows ${row.version} (came with the server)`)]);
 
     // A restart - a later deploy of the same image: the removed rows stay removed.
     await b.srv.stop();
@@ -910,7 +919,7 @@ describe('server archives and the volume', () => {
       ['site/downloads.json', false, true],
       ['site/removed.json', false, true],
       ['site/files', true, false],
-      [`site/files/${PUBLIC_NAMES.windows('1.1.0')}`, false, false],
+      [`site/files/${PUBLIC_NAMES.windows(UP(1))}`, false, false],
       ['site/tmp', true, false],
       ['site/tmp/upload-0123456789abcdef.part', false, false],
       ['users/u_1.mpd', false, true],
