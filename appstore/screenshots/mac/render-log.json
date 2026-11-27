@@ -18,55 +18,47 @@
         "01-home.png": {
           "bytes": 156744,
           "sha256": "03ed6954721fda6a72ea842354b4391db8b845413ca6e1ae3a544de548785127",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 238475,
-          "sha256": "bd943914c32fc515972240f6a07f7903c40334b90b1d00c34a2d3e3702579e7c",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 238084,
+          "sha256": "fc1deccb5daaecf486a0689cb566b32a757c3f36d20e79af532e1618b4b2d3e6",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 218075,
-          "sha256": "56fb730650885890d4dd02ac94e0c3696855ebe6a417bf603f14c0c04620d055",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 217696,
+          "sha256": "bf628559a65a4edcc4832fa863ef37efa591bd5f9a56bb29a533858c46ddde50",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 229506,
           "sha256": "22d7e06f9a3560b6971c7a516f895babbcc251016ac8d91f725ba0b4507c3b36",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 178557,
           "sha256": "99058df4941da88dad92de975a980f54a79d5ab5583bc001245a3324ee1ae375",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 293098,
           "sha256": "24fab74fd1930e0ee92922df1bfde5b21d8b53ce4bd780621a5772e1569d7b6c",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 185300,
           "sha256": "eed60c6b32545cfe226ea28fd545850f2934101b57716f32262b1cc63af49fdb",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 234841,
-          "sha256": "a49e773a72ea762de49133d68a7348781247774119c155bab5f0bdca00396480",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 234461,
+          "sha256": "ec73f7dc8d64fdaf622f4ff393a5864bd71ad406f60d5f1e78dec0de5973a7ca",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -81,55 +73,47 @@
         "01-home.png": {
           "bytes": 172685,
           "sha256": "1e8c2900dbba49015811df7ce6a5ba8b387c952f54facdf324b970627dc41ec5",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 250621,
-          "sha256": "0b503e4c4006117711c6f3a08d9a795847595106af766d74ee0859486489544a",
-          "scrollY": 1147,
-          "bottomNav": 0
+          "bytes": 250269,
+          "sha256": "66a64958bdcd541f63884af91e354d72552c1b017edb928d7dad383f9c8924a9",
+          "scrollY": 1147
         },
         "03-entry.png": {
-          "bytes": 223697,
-          "sha256": "579a04a389d8246ba9c6adbc56142eeff9c564f9fb0370f11fde470b7736733f",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 223351,
+          "sha256": "44949f6ca3ccdcf048248f62b8ddeadd1686fee8bfb13e14cf808a1778999f95",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 310263,
           "sha256": "27f772f20af9f61480c9c4d7886f2797228b8da25e1e8cee015ec948f1b67bbd",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 202746,
           "sha256": "003f572a743adc56fbb4b4cd1e8901cd7bfb6345a906c1e8ad8ef1fcf7ee4bd3",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 322635,
           "sha256": "470612568065f962038cadc3d06a86dce3a428ea8ab49e6c6a4bfb3a1d3d91b4",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 194585,
           "sha256": "099c80d63bcae54f1d867cc197090372ae301cd967c9396f7df8b001a41700a4",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 244073,
-          "sha256": "1a167c4b6b93adc41881ec485ba604f37267dffcdaec479e66576852371c2edc",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 243727,
+          "sha256": "912ed4f700530a7b4dcf9fcbc54bf5c2b3accb968819bfedf4ace6af0f6ef25e",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -144,55 +128,47 @@
         "01-home.png": {
           "bytes": 189991,
           "sha256": "628103780c7bdfddf7a4a026c1bca2a1af78990deda4ef3e31529f72dceab3c0",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 271920,
-          "sha256": "6758d5b7b814b8be24856d8e84e03b278623dd53c90f956df3b3297342c9b79b",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 271561,
+          "sha256": "70083f63af953cdc7caa214c0b75e35c904738e6cb90f1da8767854749f0741f",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 250951,
-          "sha256": "c80b8a6344c06cd440efa11b3a8bdc8a9395841e7f1113ab673ef2a04231b872",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 250664,
+          "sha256": "e9a0a4ec012486749510c9f7b50b339e2fbf3f34c08e7f578573ad6d273e6fb8",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 315131,
           "sha256": "63de4da71ba5a1f1191ba6d161192b81a03dba192c276f0a41ba02790ba95b05",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 221916,
           "sha256": "183a0572cb49c32c576b54b4125c055939ae981f67826ef632fe0f9bbad30987",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 319584,
           "sha256": "6f47d36d20dfdfa6e2ff714f74b71624ea32d62b5b7cf257506c270b2bbddfd6",
-          "scrollY": 269,
-          "bottomNav": 0
+          "scrollY": 269
         },
         "07-settings.png": {
           "bytes": 215650,
           "sha256": "e088c04cae06c3bad02149bf52fdff9768061094d8273b48eb196b93b9bc3721",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 277433,
-          "sha256": "fe14cb0abadc23851ab6a891b4b3f6193f5b36bee4c88c84bcd432f29bff129d",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 277061,
+          "sha256": "b02b7dff065fb44f03bdea26701c3b26758feb1ce620fa86dacbc057715ab9fe",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 55,
+        "requests": 259,
         "hosts": [
           "127.0.0.1"
         ],
@@ -207,55 +183,47 @@
         "01-home.png": {
           "bytes": 229281,
           "sha256": "f088347bf35fbccd3cbb234801c90d4c1bac0acd69d5e69adb22c127f5da9c24",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 315196,
-          "sha256": "aaeeccf1e0c8d69f6ad7adfe032151ee00a970f6dfec0e74f6621c7a5d7e026d",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 314872,
+          "sha256": "b78dc63e51229489d70e2ab521678823460a53fb1cee07b48cc9522ba98676f7",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 310126,
-          "sha256": "2328c3f950ca1f1c69ce9738ff9c37a98445d9472f8c80d367377a81ef1bea23",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 309793,
+          "sha256": "03fc09e84d204917ddd25f55ee75246b402ab98adc398d1d1366929b69d23d07",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 392497,
           "sha256": "0efaf40fa09daf806d74b4eb14e2990099276ce96edbf5620afbd6f93a78da4e",
-          "scrollY": 57,
-          "bottomNav": 0
+          "scrollY": 57
         },
         "05-habits.png": {
           "bytes": 266003,
           "sha256": "b73296ac1016ea8f7125793e5066c27527e6ed9fd3744f0c0e711b347de3d69b",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 369563,
           "sha256": "5930cb3734907f3b9770110d1fcf646d4efca10cd50360c723fa930973eeec8a",
-          "scrollY": 269,
-          "bottomNav": 0
+          "scrollY": 269
         },
         "07-settings.png": {
           "bytes": 285304,
           "sha256": "5a20db3fde889c9f5064b0627fdfabed9a5bff5b03a1013765425d473bc0714e",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "08-offline.png": {
-          "bytes": 341684,
-          "sha256": "3f8a4097a5a3e8012a2f3894994c904a0bef7e57361a671396538e15ae2fc8f3",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 341360,
+          "sha256": "e6791f4255283cacd70c941f8d812714eb1b8a8f1f9b39e5acbf071fa1344484",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -270,55 +238,47 @@
         "01-home.png": {
           "bytes": 174753,
           "sha256": "ca5c341835e9b558bbe49c5d0e10d66d70920b064990b7fa071f450d9d114ede",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 257131,
-          "sha256": "613049916e58bd6ec117bfe20024cecb0814ea43b6cc761fdb36262cefb4f22a",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 256762,
+          "sha256": "9b92674a9187a7844acf51aaff067749f83500fe486cf5d2da894e977a845652",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 227264,
-          "sha256": "4618e539e018ec54dbafeaee5bd210fa00ceab1087e74887dabb7c13d9567288",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 227016,
+          "sha256": "8c1c5a251aa519c35b3aeb908b1f19f116f857a93e5ba061013b11cb98558f9c",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 294753,
           "sha256": "1619565aae9787131bb421fbdf686adce8e671744c57b6c8e5901d99d9ba6ec8",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 206390,
           "sha256": "4b6077d01a2c899a72d9b90ade2999da0206d1f640058a272663b88bcf72970f",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 314696,
           "sha256": "ce6408fd99e18bc30dea464037ed09d5a4f93170b9063e4b7ed3f6698fa29f4b",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 200201,
           "sha256": "d2e2dbc42c433f5572b79e269d68cb39a3a3bd1004f960f34b992de5f3dc6994",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 243924,
-          "sha256": "ce524686fc24cd06266662f268a43cb1676ea36a906fdbb23c81bbc31360f7ce",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 243566,
+          "sha256": "4d94435d6f72b4c4958e986f81a8ef141db1752bebb548e91324782019d27cd2",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -333,55 +293,47 @@
         "01-home.png": {
           "bytes": 181798,
           "sha256": "51a5ca44df837f2393bb3eea01ad5a060fe69af8f03a422be29e97bd9af465aa",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 258150,
-          "sha256": "ece420f9fc13ae1c3a6809572f366915f5359b7fe3128fd90076d0d0419fb1d6",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 257787,
+          "sha256": "70957afa62bcf5132f3b84c041b6b6efa4fa92608792e22f2821bf9f61aea864",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 237442,
-          "sha256": "ecd71fe20dd6839f53a2373d351a8201e09662c24153503dc3542fe43336be15",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 237076,
+          "sha256": "08c060c3f1797b2501adb7a71489f146d4df35c59aa356545ae69a40bcac8ff2",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 295931,
           "sha256": "cd84bd1c7a2a7ec9557dccc6d27bed04880e304eda9c886441b9ebb4a474c75a",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "05-habits.png": {
           "bytes": 202595,
           "sha256": "91fb2f2dfbe64f6c3872909b8faaa14636c4e248f0be24020f02778aad3c91f1",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 306599,
           "sha256": "d5ebdc44e4584aad8417c59f322284e01c22ed385ecb4239e6907850baee6260",
-          "scrollY": 269,
-          "bottomNav": 0
+          "scrollY": 269
         },
         "07-settings.png": {
           "bytes": 225461,
           "sha256": "fa342d8828a952f91561c6fd29039ad6bc9e957cf365ba27a43bbb55b5cc7bfa",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "08-offline.png": {
-          "bytes": 256201,
-          "sha256": "2aff01b042b9961802fd2ac82c201eba681fcc1d9edc0628eb0017f61eba60fe",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 255837,
+          "sha256": "80254b8ed4d205373b68ea8f9e6f36bf924c1d8bcc264ffbf9aa00070063522b",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -396,55 +348,47 @@
         "01-home.png": {
           "bytes": 187054,
           "sha256": "b301f784ff18ffadd34278f6ae1c6fb32406335f0431c6ab2555f8f9758c2ca3",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 255202,
-          "sha256": "2cd2b6f1da99d02329edeba123585a36431fb1ad1bd89d7a2fdd8be6f3d11ce8",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 254876,
+          "sha256": "275c2f597be8e2659d9a359d9328c4948ea4d21164f35bab6766f50b6ea347c7",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 243845,
-          "sha256": "582ea3602c50e88147da2fab25b98cac8a3f65251afa0fa8f1c2824b4c6ee9d4",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 243501,
+          "sha256": "9507e9f5df388016029bc5a09ccfba32e88fef1cd5d97e6ed1569decdd34c0fd",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 279995,
           "sha256": "59ac4fb8944b1d1caf6a57ad1c5fddc7ec916c4f7bcdffbd579d1b1a3083e0c8",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 219905,
           "sha256": "b21d70a0293f3e24917dd54053232d74598513cd80e09afa7b871757cc07e8c8",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 323805,
           "sha256": "de47330625feeb0f1e96e42177913065135d72f93a67af5c813415f750f46163",
-          "scrollY": 283,
-          "bottomNav": 0
+          "scrollY": 283
         },
         "07-settings.png": {
           "bytes": 206185,
           "sha256": "17aec123943ed8f6a09d8fe9c19851e99a4f3930bf479d60f5faba1c95484808",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 276241,
-          "sha256": "ac13dc96fd8351b691c4e5f44906359a245a69030d58b256c623cccce06fa289",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 275874,
+          "sha256": "ddaf6980a2b3560c83b0677b9f270c537aedce6587723bbdd601b3717c13df65",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -459,55 +403,47 @@
         "01-home.png": {
           "bytes": 142590,
           "sha256": "f872c7556ee45d8c52488a92f553c08697a2174f049de6208cc9591518d2d4ac",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 207366,
-          "sha256": "7f8fc38736ccb6018defbd4d359b4462e2bfdb9b73d9a9e7861ce2f159e019b1",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 206999,
+          "sha256": "a02be5919acaaf691df02b29def380f6828306610b0f24bf6a0fdd9f6ac43d40",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 186442,
-          "sha256": "a2a444eea7d268d8a68ea6f92573991da472c0308656efaa703848f63be23764",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 186039,
+          "sha256": "21cd6b016d039aaaba0128cb67498e499aca7981ae38cda4b99a72e1fe660ca7",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 198228,
           "sha256": "5f38611332a151817d57a3d436d491a56f7a7fe77ace653322e09242a56518cd",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "05-habits.png": {
           "bytes": 147807,
           "sha256": "e644f8f149f27f6f0e2b26fb06c1680b5b1e08cebfd4767ddd76cbaecf5ceeba",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 262585,
           "sha256": "f0834363aceae881f4c4a91753807c4adf7931001ccbb18312ba1ea69918ee4e",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 166840,
           "sha256": "a304b9dd6644d50d2d2bd98fe6e6c9ac761b23c128cc77f4167914ba3a62db72",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 191411,
-          "sha256": "f0164195407050d2e4e5d6daff463defaead3ade9697eec9c43e8c3686d42527",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 191007,
+          "sha256": "7416f1c7d444dfd909e309e9fb0c778ccf766f5e74c2ad317b68a7d3fb04c088",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -522,55 +458,47 @@
         "01-home.png": {
           "bytes": 168799,
           "sha256": "12c6f3f17f114ec76d09d137a1d8dbf39ffe9aa583dee463f1cfc63a2fe351a3",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 269409,
-          "sha256": "9f9bbefb0fe2465866d1e5326d6c8ea64a790fe7a9ac4c45026e4ac73e594969",
-          "scrollY": 1147,
-          "bottomNav": 0
+          "bytes": 269064,
+          "sha256": "f8c1073986a0857b5964ad3199340a833deb91491aa461aa61361af785dcb4c0",
+          "scrollY": 1147
         },
         "03-entry.png": {
-          "bytes": 239402,
-          "sha256": "8c0f126e596c5b58d1f17e281f4843fab8fec96f0d89a58131c290a4721451c6",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 239049,
+          "sha256": "441b396e7825acd472d2c80206e0fb8607590bad91f63edf1c8b4dd1673ebcbd",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 337515,
           "sha256": "d447f73f34591a652f72c3aaa0ae8bbec54c4ca22734d5fadf02761ed6a14f0b",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 202199,
           "sha256": "d4b6c471732a33cdb43e2c36c0dc2f01cb8f134623a9ed71fa679e91a0d11138",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 328242,
           "sha256": "257450899d3b9ef04665d4ee7082c8b609043f366645887e335a08bf3b7f3df8",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 206729,
           "sha256": "570072d086d01e1f657ff7ae5fdf68fd01f7112b07b9bce1ab64d25b26adc509",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 263640,
-          "sha256": "fcf259970cf93a9a19880e1e1331641f37fb0aba953cf0b7a8a6927c208127c2",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 263285,
+          "sha256": "af8c705c30c409260f6482f886eea9fa8f0a4732851eaeaceff8bcf76aebc433",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -585,55 +513,47 @@
         "01-home.png": {
           "bytes": 183146,
           "sha256": "3a9390d060039075982950e3206cb1a667a3b885179b3f7aa1e98fb76492ab20",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 266604,
-          "sha256": "369645808561ee8e08423626d1082d8cfd477790a6dbfde939a6a1f322b38963",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 266248,
+          "sha256": "09d548f811290233162f3a6b4601e935c38bca8c7f982965a350bba6c1c42c9e",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 248815,
-          "sha256": "eef587f08e34f527560be2e963efccf1492341d9e2fa0c000dc034c902f65e58",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 248491,
+          "sha256": "e504082c4453df4dbad488d387bac705dc13cac8dfc874efbb773ff12485eb2e",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 339575,
           "sha256": "c98e94f2df236953ba4662e9408438714cf732dfb3e122b964c72a388caf1aa0",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 206019,
           "sha256": "0823a414affeaafaf9c29d0b260031ae782bac8fada19a885ead062ab37edca7",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 335305,
           "sha256": "4c1de1e1e508cfcf794e6983de3df82f0a33e6a3aba3cf6cb1d0ab3a1f3e6e5f",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 234032,
           "sha256": "0b67ea097fd8b2cbb00857b222dadcb6cae6da1558200743e4b8c032b68c851b",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "08-offline.png": {
-          "bytes": 272887,
-          "sha256": "674cf22c62d5ab9ebfee3f5b5352bdfd94f40502706a3a9a7c616acd2308f242",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 272542,
+          "sha256": "e5c69e8dab34e68f18f4faef6922dddb486c0d63f7ff6ef1bf0ca1411473040e",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -648,55 +568,47 @@
         "01-home.png": {
           "bytes": 170319,
           "sha256": "273130e0aae3ebb162ccc96ae78495e0a61e6a017796777753556a99c5f1eb0a",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 252298,
-          "sha256": "ce6dbc97cff9e8887f1a48c2e81cb8d5fb380e4252b33219ef4ea40f22e70b93",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 251954,
+          "sha256": "5784383a1ffbc5c253634d384108c5e544707a02c159de4e0cf3b0038d7d8732",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 237548,
-          "sha256": "966c2a04372428f24d301f635e06d3c55a1f67d3a495b1f34270025976dbf29f",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 237200,
+          "sha256": "6ec304e5703833c4314c1ce4ea460e398c48b38a1abd2ec1c85cd6de717c02d3",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 278598,
           "sha256": "20a9ccd44feb72f4af04e9b7eef5fe54018bdf6588e6e07dd161e9dd4ff83d8f",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 217580,
           "sha256": "bd8af46b339bc1b4fffb293b8b42695e025130a8157998edda92c9a0a3ec5555",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 309687,
           "sha256": "95fdb5b4e713fffc8c83f350becfe487d0fafaa277bd598326bea75181d57b43",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 199229,
           "sha256": "d94ef3c2043233a94e1a8c62810188003d86a05e07f55eac05e67e11be9e8e7e",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 257815,
-          "sha256": "1b84383e51cf104dc89f4486edc394660d96cff28a7bfcf95dc2d7f6a760fcbb",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 257455,
+          "sha256": "94056416fc4ec79751875cdeb135dc820f56073b0c39b87b49ce82c98e789a6b",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -711,55 +623,47 @@
         "01-home.png": {
           "bytes": 182186,
           "sha256": "9400cb1fa98e7534dc4605e4e584570122b1c8146d73f2b47f0b2c7675fe43d5",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 291485,
-          "sha256": "c0a57d626e5945977f9e5244fdd7bcb6226f08d833a93478f97a1606256110c2",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 291169,
+          "sha256": "fbeea4cbddac3554810f8ce5fe9a30d80518c5c7d8a6337bd40f5ccb70d7d595",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 253364,
-          "sha256": "5700a90c41b337f6230ea7d8e4102ba193dadc3d55ad07b1db426f00e2777c2e",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 253003,
+          "sha256": "fd9d2f45be4bb4abc1c6ec5ea9d172c5a18c92b25f58e0aa056f71de7fc62cc6",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 296809,
           "sha256": "fcd69cd7d14bd7fa3accc27bad0238325cabb0ef4798aa8dadd53a3ba44001de",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "05-habits.png": {
           "bytes": 208570,
           "sha256": "84791e8abf4c3a71c07cf7c47c2977c7a6e32bd7157ef61f0bd8c1c51a2902dc",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 354079,
           "sha256": "e88e415419eb1c182284d69b222720f1594eb94192259fb39feb5c63e23b7743",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 240046,
           "sha256": "8064f3648e9c9f6cf4dd4d87ffdb2b86a82e41d3fe8c1231b95797f3c7e8aaad",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "08-offline.png": {
-          "bytes": 289162,
-          "sha256": "df24719a5f8481c60fb246ee6eb8b2064e7a3e80cc1d82ee0831fff00a70215a",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 288921,
+          "sha256": "cc1c91b3b0ff732f15544617214de9b4aea1c1b99a22054eca02fd3e5c62fa8c",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -774,55 +678,47 @@
         "01-home.png": {
           "bytes": 194663,
           "sha256": "ee749b7952f55818bfc78d86c8b53d39ea727fe0cd851501cb34a8ba72651295",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 284617,
-          "sha256": "eb86b22dd07480d5f5d796db475001858ffe774b060e5ec40b2ba132dfc97fe6",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 284274,
+          "sha256": "3fd59f41e8f6a517121eb10fcf0c54214a5638e4d26775a59d76650371d742b5",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 259754,
-          "sha256": "f6a7cbaa81cb2d5eb77ad8a0de32cef415c6b73da66ba6d76d32619ba4a0a5f2",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 259414,
+          "sha256": "a147a32d64093956f5559209c4322216de3cda887d4ec429760012b96ae1595c",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 326142,
           "sha256": "4b27d36011eb4aca0de2a9a250e7f5b5872c8b78cde7696179809d059e9f6a5c",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 222596,
           "sha256": "736232db03f7fc13f9571030d86af7722756e70f56516473487cec1cb363c5d1",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 349740,
           "sha256": "467e5c678dd5e4e4fac4515bc380c90c8509161e6362e27ac06b4ba45f1e84ab",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 220966,
           "sha256": "463afb6df47cdc392fd152139f8b2dde5ce064d7436c12766c916ba100b7c983",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 274225,
-          "sha256": "8f326d7b84bc503a3d1d99d47b7bdd502e9d00fd82a948e26d7d24d1402d7d94",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 273961,
+          "sha256": "360ac8466fd200b00b9a8f81dee72060018cc8abbfdce8ea0ef4d6c5590c498c",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -837,55 +733,47 @@
         "01-home.png": {
           "bytes": 189009,
           "sha256": "b08298e56ad47908f18439b25703a61fd6ae3f943f8d404784f536564dbfdf4f",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 262483,
-          "sha256": "fb62925ce9c14f6556883c92a2d2e34be6618c08c823f095cc8cdba48b9048f6",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 262140,
+          "sha256": "c6225a334a777315c76b6e46db68d3f82842ad3ab447e7ead38d57da8a3e0e82",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 246486,
-          "sha256": "edb08486dff65101ebc9806606bed7012e492c21236eeff9c00953b9d4f6e310",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 246143,
+          "sha256": "7c19294d17b69f161ae61f90a1ce0e6f4cdbfef1b8b2b540204e0183dd32008e",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 307701,
           "sha256": "296a1def16ea4146b58687a23958a838569933310374586366db6af3d8df5463",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 222231,
           "sha256": "11d8e8483b1a695a612a91000ce734726624d927c11cb63b7deee205981407df",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 313109,
           "sha256": "90e7d89d1beb28f146501bd4b871faf13c3725cd638c02c439bde1bd65edb242",
-          "scrollY": 269,
-          "bottomNav": 0
+          "scrollY": 269
         },
         "07-settings.png": {
           "bytes": 239154,
           "sha256": "2ad14f43a16d272d976c3473b48ae10180c687839ef988dfccaa734b1aa5ee0b",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "08-offline.png": {
-          "bytes": 269935,
-          "sha256": "50767bec35e753d7052b9c3092c8f13db50d1169e5bb4b46b2514daf14655242",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 269594,
+          "sha256": "4a85377c36d70e7e434633e715f8ed9012f5b686442f17ca0b66d493ed0b5820",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -900,55 +788,47 @@
         "01-home.png": {
           "bytes": 176578,
           "sha256": "a7ce170c363a1bf5ad30ebb9d5b3f024c844c3eca4fac77ec771fb9f3d0e14f2",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 248561,
-          "sha256": "e6d6b2aa98663ca746050b3059937846fb33c001ae4ec79d755d5f28917776c0",
-          "scrollY": 1147,
-          "bottomNav": 0
+          "bytes": 248219,
+          "sha256": "fbcc4dabff4dbdde4ee76e8a382eb1ee48b35741402b68caed1f8c5c18d2622e",
+          "scrollY": 1147
         },
         "03-entry.png": {
-          "bytes": 233358,
-          "sha256": "dbc48c064783688d5d52174e18955e85f1aaba808242677b201f3fe29d261399",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 232994,
+          "sha256": "eaed82ceef12042527406c192c152b8da9904587064de2730a57545483d6d9ab",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 291177,
           "sha256": "56daba1f4b9b69ec6cc4f813c9970b1372c503b08f6d7592a29cf51df37532c8",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 197683,
           "sha256": "ef12e9c6c98a95ce81389b1d759e3334ffd7682e814527c933bc41de881690fe",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 314083,
           "sha256": "f7af593ebc8bbf719301bec376f1c0293442b41649ee37add4084caf26404c77",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 197211,
           "sha256": "9cf8ec4effe507ed3fc838d4d9873160100f430ebdc15e7fc1b982e5a5e78435",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 248703,
-          "sha256": "3ff1b5aa842f098751d098d92c2f64e83c446b8f7bbea78dc112d565a158b6f9",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 248365,
+          "sha256": "bde80d3d218915019b79646480f73975e8a5b6f1ae43acba2332b16fd9df27cf",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -963,55 +843,47 @@
         "01-home.png": {
           "bytes": 178224,
           "sha256": "d64f76068b62f993c5b5e98e463294f2e963d6bfb61e6d53f1e6ae7a224eb950",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 255822,
-          "sha256": "decfa75a0f48cc1d97f4467d3cb69b75badb6a1dd897ea8bfe62ac410025e45d",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 255537,
+          "sha256": "791e0565cb712f52ad2dd95e3b4cfb40d7f80c7255d714b15fa470e4930d8287",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 235789,
-          "sha256": "aa95ec8973bd1fcf9ab37737a1970a8699353351f75960a94a3ad22617c0af19",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 235384,
+          "sha256": "332bce1829728af53bba0fead0f88e79a1e55cf179255a24800d82026eb809a6",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 299421,
           "sha256": "1b11938c6c9c828043a2e5fd3840f920c92a7172c7b71915ffa38b8ab79a0c63",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 197830,
           "sha256": "ae1ff2426c1b4e59884670e7fc5861760d218dc7c33a7b21e2ac7c665a307e91",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 347206,
           "sha256": "ff400a5f98235bc6fdba8649ec905dc7c00406dfe247b0b5f34ff05e2f2fedbf",
-          "scrollY": 284,
-          "bottomNav": 0
+          "scrollY": 284
         },
         "07-settings.png": {
           "bytes": 222209,
           "sha256": "383672b8a705164b414581b7b0f85328b9de23c6341a41450089bcd47528c1d8",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "08-offline.png": {
-          "bytes": 256554,
-          "sha256": "f51507b913df1b9601adcc7c169885200984eac0dd6048af3c17834eedfa03c7",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 256169,
+          "sha256": "a6ce96379a9114bab7ce67e4a319c60d5f11208a025f578ee055582ee4933e09",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -1026,55 +898,47 @@
         "01-home.png": {
           "bytes": 182828,
           "sha256": "f5db09fcbc69666a7e5dbb993424ab121c6147af8893cc812144a1deb1ceef94",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 266547,
-          "sha256": "059ff5415614dad55fd8cb6bf15a5b49704168796fe1640c692a991e6668921e",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 266172,
+          "sha256": "8b0586fe55415d1146cd2d6f29b5ae58803395f93b6caa8aa43d8b23a1eef4e8",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 251861,
-          "sha256": "27756dda05550ff6403eff274a8e21e93e1382b7fb963d1fa3382d9b6ae3126f",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 251470,
+          "sha256": "9224867c817f3e252241b0f819f8bae1c1b74c433c413ff64880e0094d817171",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 320581,
           "sha256": "86a297473289843fe531bdc80a6ece23d176310721c632778ff8d575580cd994",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 198679,
           "sha256": "c59e220d980e3c7d658176fdd88285d322cbdbbaeda9933b052d8cad30359631",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 336984,
           "sha256": "51eaf395d79ebd024c3373daff0e64a1e543d609760ae7c314f865d0b9e00728",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 213285,
           "sha256": "f40a9c4aff8b5d519ce0abc388e2d6cd5767d0510082678ae0ebb352f56204da",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 274233,
-          "sha256": "97e9e8a7108935fd340bd1585ff9901f44c99ae723728f57a7abe8806ac8fb21",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 273840,
+          "sha256": "048292f46a4fc8d7af1725ff32389395a8349b0001e91a52224fefe546942d83",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -1089,55 +953,47 @@
         "01-home.png": {
           "bytes": 169367,
           "sha256": "7e361be73f73a4c066d7efe95030f5f9373dfd34ff7d4f3cd87ef6129f6ffc91",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 246257,
-          "sha256": "5f2b478c6c41f971b5be2d89323b2b4fbc53508204228dd6344a163920c37780",
-          "scrollY": 1170,
-          "bottomNav": 0
+          "bytes": 245928,
+          "sha256": "cc9f10d42ba3d1d5d5eefa49a6de0fdf18e7cfed5673aec599e96b9b5712ed80",
+          "scrollY": 1170
         },
         "03-entry.png": {
-          "bytes": 216904,
-          "sha256": "d894d9b6c69e235c2c4172d68cd7dfa4f2650d55829e0b2eaceef4de68738f48",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 216566,
+          "sha256": "0784f552392af49680485d816ae91687d4eb91e1f3aad7ef72551527c397a30f",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 274183,
           "sha256": "23d7cb6bf6874f5c185b9c5b299319bf69747524f9a261dcb0f4b6d1fd0f7bd2",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 197075,
           "sha256": "771e64a5af8f0d8ef20f9023451085d6800e04a1da75a4aa5759e39689ef5745",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 308489,
           "sha256": "a4caff26e940b7a739702bc72a63175172fa4c0ecb3f12637f1d47f389e76c49",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
           "bytes": 181844,
           "sha256": "ba6b68b06ef4633ae35be6d0b8149a292dcc19d67d89d6a9efc4e6cf2f724902",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "08-offline.png": {
-          "bytes": 242607,
-          "sha256": "1fb8b5738ecd7de489d141071f7a6a267ff750114d5f5c9817bdc83bb54d7545",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 242268,
+          "sha256": "b8790f7f4eea77926c305c188f3312756100335373c1a8b5753942b8dbd6a95d",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],
@@ -1152,55 +1008,47 @@
         "01-home.png": {
           "bytes": 180611,
           "sha256": "f7097a0a9da6b15ab2326a94f2479fa9a99386e68333831f8457e13895480608",
-          "scrollY": 0,
-          "bottomNav": 0
+          "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 279129,
-          "sha256": "9c0b9f65de299c16c602c54fa74957bc67e081fff8f064fcd31a4397f6551e4d",
-          "scrollY": 1147,
-          "bottomNav": 0
+          "bytes": 278735,
+          "sha256": "df77e062a9872e29fb3f4f4b494aea11669011aa78bccf075a36e04bf3de6ecb",
+          "scrollY": 1147
         },
         "03-entry.png": {
-          "bytes": 245907,
-          "sha256": "f073972943518958778e8ec211dba86a452ae24610cd8deb696068aa21823937",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 245545,
+          "sha256": "1a65d8f8dcc739c9bfedceb4c6d4f23dec9b2dc94c2fa1ae21214cf8eb053fcd",
+          "scrollY": 0
         },
         "04-calendar.png": {
           "bytes": 365185,
           "sha256": "5283151e5137240b99af5cb55eefb3703d8c3df08a0fbdd8c46699d5b1387814",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "05-habits.png": {
           "bytes": 195382,
           "sha256": "eee7127c58a178e5d04e26c3c2cf4c57d7027dca2bd7c0eb1c1172b94ee22ce9",
-          "scrollY": 44,
-          "bottomNav": 0
+          "scrollY": 44
         },
         "06-insights.png": {
           "bytes": 357618,
           "sha256": "2652848cac71b48a5281ca83bcb801104b0780e1c5c66595d51cb767ee46b91e",
-          "scrollY": 280,
-          "bottomNav": 0
+          "scrollY": 280
         },
         "07-settings.png": {
-          "bytes": 229221,
-          "sha256": "124ba278a52ee970a35a79281ce253ab88fe331a01fb0e988876649c44a58d45",
-          "scrollY": 63,
-          "bottomNav": 0
+          "bytes": 227934,
+          "sha256": "5f4071df51413a33d4f80ba48054ee2f3f3a6389077d14287cef05ada95a9ea5",
+          "scrollY": 63
         },
         "08-offline.png": {
-          "bytes": 265645,
-          "sha256": "5364ee3c7496a1b8968501dbaacb68ee6e59926216f4d9db30c19066ebdf8c93",
-          "scrollY": 0,
-          "bottomNav": 0
+          "bytes": 265288,
+          "sha256": "208b549dd615db641a1e2f1197bc4b6e5472db2f29358c4591deb31b479dc2a3",
+          "scrollY": 0
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 54,
+        "requests": 258,
         "hosts": [
           "127.0.0.1"
         ],

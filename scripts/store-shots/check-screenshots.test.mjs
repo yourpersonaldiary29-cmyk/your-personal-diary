@@ -158,9 +158,12 @@ test('layout rules by the glyphs\' ink (desktop and phone): air above the bottom
   assert.ok(DESKTOP_CHROME.ink && DESKTOP_CHROME.ink.air >= 2, 'DESKTOP_CHROME.ink.air (CSS px)');
   assert.equal(PROFILES.desktop.chrome, DESKTOP_CHROME);
   // The phone frame (Play and iPhone sets) has the same rule since 2026-11-27: its bottom edge is the screen's
-  // own (no bottom navigation since 2026-11-25), and lines sat on it in 51 of the 406 pictures of 2026-11-26.
-  assert.deepEqual(PHONE_CHROME.ink, { air: 3 });
-  assert.deepEqual(PHONE_CHROME.ink, DESKTOP_CHROME.ink);
+  // own (no bottom navigation since 2026-11-25), and lines sat on it in 51 of the 406 pictures of 2026-11-26 -
+  // with a limit the desktop frame does not have: the air may cost at most 8 CSS px at the top of the screen
+  // (settleLayout keeps the line-box position otherwise; scripts/play/check-screenshots.test.mjs tests it).
+  assert.deepEqual(PHONE_CHROME.ink, { air: 3, down: 8 });
+  assert.deepEqual(DESKTOP_CHROME.ink, { air: 3 });
+  assert.equal(PHONE_CHROME.ink.air, DESKTOP_CHROME.ink.air);
   // The Play profile and both iPhone profiles take PHONE_CHROME (no chrome of their own).
   for (const name of ['phone', 'iphone-medium', 'iphone-large']) assert.equal(PROFILES[name].chrome, undefined, `${name} takes PHONE_CHROME`);
   const probe = layoutProbe.toString();
@@ -221,7 +224,7 @@ test('the ink rule reaches layoutProbe for every profile: a line whose ink ends 
   for (const name of ['phone', 'iphone-medium', 'iphone-large', 'desktop', 'mac']) {
     // Exactly the arguments settleLayout builds for a shot of this profile.
     const args = layoutArgs(shot, 'de', chromeOf(PROFILES[name]));
-    assert.deepEqual(args.chrome.ink, { air: 3 }, `${name}: the ink rule is passed on`);
+    assert.deepEqual(args.chrome.ink, ['desktop', 'mac'].includes(name) ? { air: 3 } : { air: 3, down: 8 }, `${name}: the ink rule (and the phone's limit) is passed on`);
     const problems = probeOneLine(args, 7);
     assert.ok(problems.some((p) => p.startsWith('text on the bottom edge')), `${name}: ${JSON.stringify(problems)}`);
     assert.deepEqual(probeOneLine(args, 4), [], `${name}: 3.5 px of air is clean`);
@@ -404,6 +407,17 @@ test('the render log: missing, wrong profile, a file the render did not write, a
     assert.ok(has(check(dir), /en-US\/02-diary\.png: differs from the file the render wrote/));
   });
 });
+
+test('the render log: the layout rules\' remarks on a file (boxUnderTopBar, lineOnBottomEdge, glyphsCutByTopBar) pass', () =>
+  withFixture({}, (dir) => {
+    rewrite(dir, 'render-log.json', (l) => {
+      Object.assign(l.sets['en-US'].files['01-home.png'], { scrollY: 15, lineOnBottomEdge: true });
+      Object.assign(l.sets['he-IL'].files['02-diary.png'], { scrollY: 0, glyphsCutByTopBar: true, boxUnderTopBar: true });
+    });
+    const result = check(dir);
+    assert.deepEqual(result.problems, []);
+    assert.equal(result.ok, true);
+  }));
 
 test('the render log: any host but 127.0.0.1, or a refused request, fails', () =>
   withFixture({}, (dir) => {

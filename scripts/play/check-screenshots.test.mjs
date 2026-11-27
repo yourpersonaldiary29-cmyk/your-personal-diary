@@ -24,6 +24,8 @@ import { decodePng, encodePng } from './render-graphics.mjs';
 import {
   assertLoopbackOnly,
   browserLocaleOf,
+  chooseLayout,
+  chromeOf,
   DEFAULT_LOCALE,
   DESKTOP_CHROME,
   entryScore,
@@ -34,7 +36,12 @@ import {
   FORBIDDEN_PORT,
   installServerClock,
   isAllowedUrl,
+  inkCountLine,
+  inkFields,
+  inkKeptLine,
+  inkSetAside,
   isMidWordBreak,
+  layoutArgs,
   layoutProbe,
   NEVER_VISIBLE,
   NO_WORD_SPACES,
@@ -43,7 +50,9 @@ import {
   PHONE_CHROME,
   pickEntry,
   PROFILES,
+  renderLogFile,
   scrollCandidates,
+  settleLayout,
   SHOTS,
   toOpaqueRgbPng,
   typedTextProblem,
@@ -590,6 +599,322 @@ test('the phone frame since 2026-11-25: no bottom navigation, "My diary" of shot
   // The privacy guard measures to the bottom edge (chrome.nav), not to the top of the floating button's block.
   assert.match(source, /bottomSel: chrome\.nav \}/);
 });
+
+// ---------------------------------------------------------------------------------------------
+// The ink rule of the phone frame and its limit (release 1.1.0): the air under the last line is kept only
+// when it costs at most PHONE_CHROME.ink.down CSS px at the top of the screen
+// ---------------------------------------------------------------------------------------------
+
+/** A search result as settleLayout hands it to chooseLayout: a clean position (or problems), maybe the last resort. */
+const at = (y, { relaxed = false, problems = [] } = {}) => ({ y, moved: y - 100, problems, relaxed });
+const nothing = () => at(100, { problems: ['(tried 0..200 of 0..900; fewest problems at 100)', 'cut by the bottom edge of the screen: "x"'] });
+
+test('chooseLayout: the ink position when it costs at most 8 CSS px at the top (or moves the page up), else the line-box position', () => {
+  const rule = PHONE_CHROME.ink;
+  const pick = (lineBox, ink, r = rule) => {
+    const c = chooseLayout(lineBox, ink, r);
+    return [c.rules, c.result?.y, c.inkGivenUp];
+  };
+  // A few px down: the air is kept.
+  assert.deepEqual(pick(at(100), at(103)), ['ink', 103, false]);
+  assert.deepEqual(pick(at(100), at(108)), ['ink', 108, false], 'exactly 8 px below');
+  assert.deepEqual(pick(at(100), at(109)), ['line boxes', 100, true], '9 px below: the top of the screen is worth more');
+  // Above the line-box position: nothing at the top is lost (Play 05-insights en-US: 87 px up).
+  assert.deepEqual(pick(at(100), at(99)), ['ink', 99, false]);
+  assert.deepEqual(pick(at(100), at(13)), ['ink', 13, false]);
+  // The last resort (a box under the top bar) only where the line-box position needs it too.
+  assert.deepEqual(pick(at(100), at(103, { relaxed: true })), ['line boxes', 100, true]);
+  assert.deepEqual(pick(at(100, { relaxed: true }), at(103, { relaxed: true })), ['ink', 103, false], 'both need it: the distance decides');
+  assert.deepEqual(pick(at(100, { relaxed: true }), at(150, { relaxed: true })), ['line boxes', 100, true]);
+  assert.deepEqual(pick(at(100, { relaxed: true }), at(103)), ['ink', 103, false]);
+  // Only one search found a clean position: that one.
+  assert.deepEqual(pick(nothing(), at(160)), ['ink', 160, false]);
+  assert.deepEqual(pick(at(100), nothing()), ['line boxes', 100, true]);
+  // Neither: the ink search's problems, and the shot fails as before.
+  const none = chooseLayout(nothing(), nothing(), rule);
+  assert.equal(none.rules, 'ink');
+  assert.ok(none.result.problems.length > 0);
+  assert.equal(none.inkGivenUp, false);
+  // A frame without the limit (the desktop's, { air: 3 }): always the ink position, also 300 px below.
+  assert.deepEqual(DESKTOP_CHROME.ink, { air: 3 });
+  assert.deepEqual(pick(at(100), at(400), DESKTOP_CHROME.ink), ['ink', 400, false]);
+  assert.deepEqual(pick(null, at(400), DESKTOP_CHROME.ink), ['ink', 400, false]);
+  // The result says why, in words that go into the run's output.
+  assert.match(chooseLayout(at(100), at(150), rule).why, /50 CSS px below the line-box position \(more than 8\)/);
+  assert.match(chooseLayout(at(100), at(103, { relaxed: true }), rule).why, /last resort/);
+  assert.match(chooseLayout(at(100), at(13), rule).why, /87 CSS px above/);
+});
+
+test('the pinned frames: the phone\'s ink rule has the limit, the desktop\'s has none, and layoutArgs passes both on', () => {
+  assert.deepEqual(PHONE_CHROME.ink, { air: 3, down: 8 });
+  assert.deepEqual(DESKTOP_CHROME.ink, { air: 3 });
+  const shot = { n: '03', slug: 'entry', up: 4, down: 120 };
+  assert.deepEqual(layoutArgs(shot, 'el', PHONE_CHROME).chrome.ink, { air: 3, down: 8 });
+  assert.deepEqual(layoutArgs(shot, 'en', DESKTOP_CHROME).chrome.ink, { air: 3 });
+  for (const name of ['phone', 'iphone-medium', 'iphone-large']) assert.equal(chromeOf(PROFILES[name]), PHONE_CHROME, name);
+  for (const name of ['desktop', 'mac']) assert.equal(chromeOf(PROFILES[name]).ink.down, undefined, name);
+});
+
+/**
+ * A fake browser page for settleLayout and layoutProbe (both written for the browser): a window of 400 x 800
+ * CSS px over a page of 2000, no bars, and the given lines of text, each { text, top, descent } in page
+ * coordinates - a line box of 25 px in a font whose metrics put the baseline 17.5 px below the box's top, its
+ * ink 12 px above the baseline and `descent` px below it (+ 0.5 px of anti-aliasing). `evaluate` runs the
+ * function with the fake page as the browser's globals, and the window really scrolls (layoutProbe with
+ * `find: true` moves it), so settleLayout runs exactly as in the browser.
+ *
+ * Options: `scrollY`, where the window stands when settleLayout starts; `buttons`, framed boxes
+ * ({ text, top, bottom } in page coordinates, 300 px wide) that layoutProbe finds as buttons. The page
+ * records in `starts` where the window stood at each search (layoutProbe with `find: true`).
+ */
+function fakePage(lines, { scrollY = 0, buttons = [] } = {}) {
+  const H = 800;
+  const PAGE = 2000;
+  const body = { tagName: 'BODY' };
+  const el = { tagName: 'P', className: '', parentElement: body, closest: () => null };
+  const nodes = lines.map((l) => ({ data: l.text, parentElement: el, top: l.top, descent: l.descent }));
+  const style = { clipPath: 'none', clip: 'auto', overflowX: 'visible', overflowY: 'visible', lineHeight: '25px', textTransform: 'none', fontStyle: 'normal', fontWeight: '400', fontSize: '16px', fontFamily: 'Test' };
+  const starts = [];
+  const win = {
+    innerHeight: H,
+    innerWidth: 400,
+    scrollY,
+    scrollTo(x, y) {
+      this.scrollY = Math.max(0, Math.min(PAGE - H, Math.round(y)));
+    },
+  };
+  let current = null;
+  const fake = {
+    window: win,
+    NodeFilter: { SHOW_TEXT: 4 },
+    getComputedStyle: () => style,
+    document: {
+      body,
+      documentElement: { scrollHeight: PAGE },
+      querySelector: () => null,
+      // The selector of layoutProbe's framed boxes starts with "button"; nothing else is on the page.
+      querySelectorAll: (selector) =>
+        selector.startsWith('button')
+          ? buttons.map((b) => ({ tagName: 'BUTTON', textContent: b.text, getAttribute: () => null, getBoundingClientRect: () => ({ top: b.top - win.scrollY, bottom: b.bottom - win.scrollY, left: 16, right: 316, width: 300, height: b.bottom - b.top }) }))
+          : [],
+      createRange: () => ({
+        selectNodeContents(node) {
+          current = node;
+        },
+        setStart() {},
+        setEnd() {},
+        getClientRects: () => [{ top: current.top - win.scrollY, bottom: current.top + 25 - win.scrollY, left: 16, right: 300, width: 284, height: 25 }],
+      }),
+      createTreeWalker: () => {
+        let i = 0;
+        return { nextNode: () => nodes[i++] ?? null };
+      },
+      createElement: () => ({
+        getContext: () => ({
+          font: '',
+          measureText: (t) => ({ fontBoundingBoxAscent: 14, fontBoundingBoxDescent: 4, actualBoundingBoxAscent: 12, actualBoundingBoxDescent: nodes.find((n) => n.data === t).descent }),
+        }),
+      }),
+    },
+  };
+  const names = Object.keys(fake);
+  const evaluate = async (fn, arg) => {
+    const saved = names.map((n) => [n, Object.getOwnPropertyDescriptor(globalThis, n)]);
+    for (const n of names) Object.defineProperty(globalThis, n, { value: fake[n], configurable: true, writable: true });
+    if (fn === layoutProbe && arg?.find) starts.push(win.scrollY);
+    try {
+      return fn(arg);
+    } finally {
+      for (const [n, d] of saved) {
+        if (d) Object.defineProperty(globalThis, n, d);
+        else delete globalThis[n];
+      }
+    }
+  };
+  return { evaluate, waitForTimeout: async () => {}, window: win, starts };
+}
+
+/**
+ * The entry's title at the top of the page (20..45), and a paragraph whose first line (775..800) sits in the
+ * line-box leeway of the bottom edge with its strokes on the edge (ink to 800; the air needs it to end by 797).
+ */
+const TITLE = { text: 'The title of the entry', top: 20, descent: 3 };
+const ENTRY_SHOT = { n: '03', slug: 'entry', up: 0, down: 120 };
+
+test('settleLayout: the air 3 px down is kept - the page moves 3 px and the title stays', async () => {
+  // Only the one line: at 3 px down its ink ends at 797 (3 px of air); the line boxes alone are clean at 0.
+  const page = fakePage([TITLE, { text: 'The last line, its strokes on the edge', top: 775, descent: 7 }]);
+  const settled = await settleLayout(page, ENTRY_SHOT, 'en', PHONE_CHROME);
+  assert.deepEqual(settled, { scrollY: 3, moved: 3 });
+  assert.equal(page.window.scrollY, 3, 'the page stands where the picture is taken');
+});
+
+test('settleLayout: the final check judges an ink position under the ink rules - a page that moved after the search fails the shot', async () => {
+  // The same page, but between the search and the final check the bottom edge moves 1 px up (a late layout
+  // shift): at 3 the line's ink then ends 2 px above the edge. The line boxes alone would still pass it;
+  // the ink rule, which chose the position, must not - the shot fails instead of being written.
+  const page = fakePage([TITLE, { text: 'The last line, its strokes on the edge', top: 775, descent: 7 }]);
+  page.waitForTimeout = async () => {
+    page.window.innerHeight = 799;
+  };
+  await assert.rejects(settleLayout(page, ENTRY_SHOT, 'en', PHONE_CHROME), /the screen is not clean at 3/);
+});
+
+/**
+ * The same page where the only position with the air is 100 px down: the paragraph goes on in lines of 25 px
+ * (800.., 825.., ...), so between the positions where a whole line ends on the edge (0, 24-25, 49-50, ...) a
+ * line is cut by the bottom edge, and the strokes of lines 1-3 sit on the edge too (descent 7); line 4 has
+ * 3 px of air at 100 (descent 4). At 100 the title (20..45) is gone.
+ */
+const FAR_PAGE = [
+  TITLE,
+  { text: 'Line 0 of the paragraph', top: 775, descent: 7 },
+  { text: 'Line 1 of the paragraph', top: 800, descent: 7 },
+  { text: 'Line 2 of the paragraph', top: 825, descent: 7 },
+  { text: 'Line 3 of the paragraph', top: 850, descent: 7 },
+  { text: 'Line 4 of the paragraph', top: 875, descent: 4 },
+  { text: 'Line 5 of the paragraph', top: 900, descent: 4 },
+];
+
+test('settleLayout: the air 100 px down would cost the title - the line-box position stays, with the log field', async () => {
+  const page = fakePage(FAR_PAGE);
+  const settled = await settleLayout(page, ENTRY_SHOT, 'en', PHONE_CHROME);
+  assert.equal(settled.scrollY, 0);
+  assert.equal(page.window.scrollY, 0, 'the ink search left the page at 100; it is put back before the picture');
+  assert.equal(settled.lineOnBottomEdge, true);
+  assert.equal(settled.glyphsCutByTopBar, undefined);
+  assert.equal(settled.boxUnderTopBar, undefined);
+  assert.match(settled.why, /the ink position is 100 CSS px below the line-box position \(more than 8\)/);
+  assert.deepEqual(settled.inkProblems, ['text on the bottom edge (its glyphs must end 3 px above it): "Line 0 of the paragraph"']);
+  // The render log gets exactly the field (and no word of the run's output).
+  assert.deepEqual(renderLogFile({ bytes: 10, sha256: 'ab', ...settled }), { bytes: 10, sha256: 'ab', scrollY: 0, lineOnBottomEdge: true });
+  assert.equal(inkSetAside(settled), true);
+  // The ink position really is 100 (clean under all rules there, nowhere nearer), where the title (20..45)
+  // is above the screen - what the limit is for.
+  const problemsAt = async (y) => {
+    page.window.scrollY = y;
+    return (await page.evaluate(layoutProbe, { ...layoutArgs(ENTRY_SHOT, 'en', PHONE_CHROME), find: false })).problems;
+  };
+  assert.deepEqual(await problemsAt(100), [], 'all rules are clean at 100');
+  for (let y = 0; y < 100; y++) assert.ok((await problemsAt(y)).length > 0, `not clean at ${y}`);
+  assert.ok(TITLE.top + 25 - 100 < 0, 'the title is above the screen at 100');
+});
+
+test('settleLayout: the desktop frame on the same page goes 100 px down, as before the limit', async () => {
+  const page = fakePage(FAR_PAGE);
+  const settled = await settleLayout(page, ENTRY_SHOT, 'en', DESKTOP_CHROME);
+  assert.deepEqual(settled, { scrollY: 100, moved: 100 });
+  assert.equal(page.window.scrollY, 100);
+  assert.equal(inkSetAside(settled), false);
+});
+
+/**
+ * A page where the start, the line-box position and the ink position all differ: a paragraph of 12 lines
+ * from 775 (strokes on the edge, descent 7, except line 6 with descent 4), the window at 212 and 200 px each
+ * way. The line boxes alone stop at 224; the ink position is 150 - above it - when the ink search starts at
+ * 212 too. Started where the line-box search left the page (224), it would find 278 instead, 54 px below,
+ * and keep 224 with a false "lineOnBottomEdge": every search must start from the same position.
+ */
+test('settleLayout: every search starts where the page stood - the ink position above the line-box position is taken', async () => {
+  const lines = [TITLE, ...Array.from({ length: 12 }, (_, i) => ({ text: `Line ${i} of the long paragraph`, top: 775 + 25 * i, descent: i === 6 ? 4 : 7 }))];
+  const shot = { n: '05', slug: 'insights', up: 200, down: 200 };
+  const page = fakePage(lines, { scrollY: 212 });
+  const settled = await settleLayout(page, shot, 'en', PHONE_CHROME);
+  assert.deepEqual(settled, { scrollY: 150, moved: -62 });
+  assert.equal(page.window.scrollY, 150, 'the page stands where the picture is taken');
+  assert.ok(page.starts.length >= 2, 'two searches ran');
+  assert.deepEqual(page.starts, page.starts.map(() => 212), 'every search started at 212');
+  // The line boxes alone stop at 224 from that start (so the two searches really differ).
+  const lineBoxOnly = fakePage(lines, { scrollY: 212 });
+  assert.deepEqual(await settleLayout(lineBoxOnly, shot, 'en', { ...PHONE_CHROME, ink: null }), { scrollY: 224, moved: 12 });
+});
+
+/**
+ * The kept line-box position where the ink rule's complaint is the top bar, not the bottom edge (as Play ar
+ * and iw-IL 05-insights): the title's line box (20..45) is under the top edge at 45, but its descender
+ * (descent 8: ink to 46) peeks out 1 px. The next line (845..870) comes onto the screen only whole at 70,
+ * 25 px down - too far.
+ */
+test('settleLayout: the line-box position kept where a glyph peeks out under the top bar - the render log says glyphsCutByTopBar', async () => {
+  const lines = [
+    { text: 'The title, its descender under the top edge', top: 20, descent: 8 },
+    { text: 'The next line, below the screen at 45', top: 845, descent: 4 },
+  ];
+  const shot = { n: '05', slug: 'insights', up: 0, down: 40 };
+  const page = fakePage(lines, { scrollY: 45 });
+  const settled = await settleLayout(page, shot, 'en', PHONE_CHROME);
+  assert.equal(settled.scrollY, 45);
+  assert.equal(page.window.scrollY, 45);
+  assert.equal(settled.glyphsCutByTopBar, true);
+  assert.equal(settled.lineOnBottomEdge, undefined);
+  assert.deepEqual(settled.inkProblems, ['glyphs cut by the top bar (ink shows under its edge): "The title, its descender under the top edge"']);
+  assert.match(settled.why, /the ink position is 25 CSS px below the line-box position \(more than 8\)/);
+  assert.deepEqual(renderLogFile({ bytes: 10, sha256: 'ab', ...settled }), { bytes: 10, sha256: 'ab', scrollY: 45, glyphsCutByTopBar: true });
+  assert.equal(inkSetAside(settled), true);
+  assert.equal(
+    inkKeptLine('ar', shot, settled),
+    '  ar 05-insights: the line-box position 45 is kept - the ink position is 25 CSS px below the line-box position (more than 8); the ink rule there: glyphs cut by the top bar (ink shows under its edge): "The title, its descender under the top edge"',
+  );
+  // The desktop frame (no limit) takes the ink position on the same page.
+  assert.equal((await settleLayout(fakePage(lines, { scrollY: 45 }), shot, 'en', DESKTOP_CHROME)).scrollY, 70);
+});
+
+/**
+ * The last resort in both searches: a button (50..80) is under the top edge at every position the shot may
+ * take (60..70), so only a frame running under the top bar is clean; the last line's strokes sit on the edge
+ * at 60 and have their air at 63. Both searches need the last resort, 3 px apart: the ink position, and the
+ * final check from scratch must judge it with the last resort too.
+ */
+test('settleLayout: both searches need the last resort - the final check runs with it and the log says boxUnderTopBar', async () => {
+  const lines = [TITLE, { text: 'The last line, its strokes on the edge at 60', top: 835, descent: 7 }];
+  const shot = { n: '03', slug: 'entry', up: 0, down: 10 };
+  const page = fakePage(lines, { scrollY: 60, buttons: [{ text: 'Edit', top: 50, bottom: 80 }] });
+  const settled = await settleLayout(page, shot, 'en', PHONE_CHROME);
+  assert.deepEqual(settled, { scrollY: 63, moved: 3, boxUnderTopBar: true });
+  assert.equal(page.window.scrollY, 63);
+  assert.deepEqual(renderLogFile({ bytes: 1, sha256: 's', ...settled }), { bytes: 1, sha256: 's', scrollY: 63, boxUnderTopBar: true });
+  // Without the last resort the shot has no clean position at all.
+  page.window.scrollY = 60;
+  const strict = await page.evaluate(layoutProbe, { ...layoutArgs(shot, 'en', PHONE_CHROME), find: true });
+  assert.ok(strict.problems.some((p) => p.startsWith('a box cut by the top app bar: "[Edit]"')), strict.problems.join('\n'));
+});
+
+test('the run prints one line per file that kept the line-box position, and a count per set of a frame with the limit', () => {
+  const shot = { n: '03', slug: 'entry' };
+  const kept = { scrollY: 15, lineOnBottomEdge: true, why: 'the ink position is 33 CSS px below the line-box position (more than 8)', inkProblems: ['a', 'b'] };
+  assert.equal(inkKeptLine('de-DE', shot, kept), '  de-DE 03-entry: the line-box position 15 is kept - the ink position is 33 CSS px below the line-box position (more than 8); the ink rule there: a; b');
+  assert.equal(inkKeptLine('de-DE', shot, { scrollY: 18, moved: 3 }), null);
+  assert.equal(inkKeptLine('de-DE', shot, { scrollY: 0, boxUnderTopBar: true }), null);
+  const files = [{ lineOnBottomEdge: true }, { glyphsCutByTopBar: true }, { boxUnderTopBar: true }, {}];
+  assert.equal(inkCountLine('ar', PHONE_CHROME, files), '  ar     ink rule set aside (line-box position kept, see render-log.json): 2 of 4 file(s)');
+  assert.equal(inkCountLine('ar-SA', DESKTOP_CHROME, files), null);
+  // The render uses them: one line per such file, and the count after each set.
+  const source = readFileSync(path.join(HERE, 'render-screenshots.mjs'), 'utf8');
+  assert.match(source, /const layout = await settleLayout\(page, shot, appLocale, chrome\);\s*(?:\/\/[^\n]*\s*)?const kept = inkKeptLine\(folder, shot, layout\);\s*if \(kept\) console\.log\(kept\);/);
+  assert.match(source, /const count = inkCountLine\(folder, chromeOf\(profile\), files\);\s*if \(count\) console\.log\(count\);/);
+});
+
+test('inkFields and the render log entry: only true fields, each named after what the ink rule says', () => {
+  assert.deepEqual(inkFields([]), {});
+  assert.deepEqual(inkFields(['text on the bottom edge (its glyphs must end 3 px above it): "x"']), { lineOnBottomEdge: true });
+  assert.deepEqual(inkFields(['glyphs cut by the top bar (ink shows under its edge): "y"']), { glyphsCutByTopBar: true });
+  assert.deepEqual(inkFields(['glyphs cut by the top bar (ink shows under its edge): "y"', 'text on the bottom edge (its glyphs must end 3 px above it): "x"']), { lineOnBottomEdge: true, glyphsCutByTopBar: true });
+  assert.deepEqual(renderLogFile({ bytes: 1, sha256: 's', scrollY: 7, moved: 2 }), { bytes: 1, sha256: 's', scrollY: 7 });
+  assert.deepEqual(renderLogFile({ bytes: 1, sha256: 's', scrollY: 7, boxUnderTopBar: true, lineOnBottomEdge: false }), { bytes: 1, sha256: 's', scrollY: 7, boxUnderTopBar: true });
+  // The render writes the files of a set through renderLogFile.
+  const source = readFileSync(path.join(HERE, 'render-screenshots.mjs'), 'utf8');
+  assert.match(source, /files: Object\.fromEntries\(files\.map\(\(f\) => \[path\.basename\(f\.file\), renderLogFile\(f\)\]\)\)/);
+});
+
+test('the render log with the new field passes the Play check', () =>
+  withFixture((fx) => {
+    Object.assign(fx.log.sets['en-US'].files['02-diary.png'], { scrollY: 15, lineOnBottomEdge: true });
+    Object.assign(fx.log.sets['iw-IL'].files['01-home.png'], { scrollY: 0, glyphsCutByTopBar: true, boxUnderTopBar: true });
+    writeFileSync(path.join(fx.shots, 'render-log.json'), JSON.stringify(fx.log, null, 2));
+    const result = run(fx);
+    assert.deepEqual(result.problems, []);
+    assert.equal(result.ok, true);
+  }));
 
 test('arguments: locales are Play folder names, dark needs its own folder, unknown options fail', () => {
   assert.deepEqual(parseArgs(['--locale', 'en-US,iw-IL']).locales, ['en-US', 'iw-IL']);

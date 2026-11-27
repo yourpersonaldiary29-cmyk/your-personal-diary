@@ -73,11 +73,20 @@
  * a page title shortened with "..." beside the "Menu" button fails the shot like any other cut text.
  * The rules go by the glyphs' INK as well as by the line boxes (PHONE_CHROME.ink / DESKTOP_CHROME.ink, measured
  * from the font): a line on the screen keeps 3 CSS px of air between its lowest ink and the bottom edge of the
- * image, and no glyph of a line under the top bar may peek out below it. On the phone profiles since 2026-11-27
- * (the sets rendered before have lines whose lowest strokes touch the image's bottom edge); on the desktop
- * profiles from the start. The excerpt of a list card ends with "…" when the app shortened the text (the
- * server's makeExcerpt since release 1.1.0: cut at a word, at most 160 code points with the ellipsis): that is
- * the app's own text, not a cut line, and the phone sets show it as the app does.
+ * image, and no glyph of a line under the top bar may peek out below it. On the desktop profiles from the
+ * start, without a limit. On the phone profiles since 2026-11-27 (the sets rendered before have lines whose
+ * lowest strokes touch the image's bottom edge), WITH A LIMIT (PHONE_CHROME.ink.down, 8 CSS px): the air
+ * under the last line must not cost the top of the screen. Each phone shot is settled twice, by the line-box
+ * rules alone and by all rules (settleLayout, chooseLayout); the position with the air is taken when it lies
+ * at most 8 px below the line-box position or above it, and needs the last resort only where the line-box
+ * position does too. Otherwise the line-box position stays - the picture is the one the rules without the
+ * ink gave on 2026-11-26 - because further down the entry's title or a heading left the screen (the first
+ * render with the rule moved some pages 27 to 107 px), and a store visitor reads the title, not one more pixel
+ * of air under a stroke; the run prints a line for such a file and render-log.json says "lineOnBottomEdge"
+ * (or "glyphsCutByTopBar", whichever the ink rule complains about there).
+ * The excerpt of a list card ends with "…" when the app shortened the text (the server's makeExcerpt since
+ * release 1.1.0: cut at a word, at most 160 code points with the ellipsis): that is the app's own text, not
+ * a cut line, and the phone sets show it as the app does.
  *
  * THE PHONE FRAME (MobileShell, the same build for the Android and the iPhone sets; the owner's decision of
  * 2026-11-25): a sticky top app bar with the back arrow, the page title and, at its inline end, the "Menu"
@@ -129,7 +138,7 @@
  * characters in the middle of a word, and the guard looked for that); the layout rules went by the glyphs'
  * INK here first (DESKTOP_CHROME.ink; LAYOUT RULES above - the line-box leeway alone let descenders touch
  * the image edge and an Arabic hamza show under the header; the phone profiles have the same rule since
- * 2026-11-27); the entry
+ * 2026-11-27, with the limit of 8 CSS px that the desktop frame does not have); the entry
  * written offline in shot 08 has three more demo sentences than the phone's (desktopOfflineEntry), so its
  * page has a clean position; the account signs in as the
  * Windows app does (device name "Computer", localized). Check the set with
@@ -339,8 +348,19 @@ export const PHONE_CHROME = {
    * had dark pixels in their last pixel row). A line on the screen keeps `air` CSS px under its lowest ink (7.5
    * image px on the Play set, 9 on the iPhone sets), and a line under the top app bar counts as hidden only
    * when none of its ink shows below it. On since 2026-11-27 (release 1.1.0), for the Play and iPhone sets.
+   *
+   * `down`: the most the air may cost at the top of the screen, in CSS px (settleLayout, chooseLayout). The
+   * shot is settled twice - by the line-box rules alone and by all rules - and the position with the air is
+   * taken only when it lies at most `down` px below the line-box position (or above it: the page moved up).
+   * Further down the page jumped 27 to 107 px in the first render with the rule (2026-11-27) and the title of
+   * the entry or a heading left the screen; there the line-box position stays (the picture of 2026-11-26) and
+   * render-log.json says what the ink rule complains about there (inkFields: "lineOnBottomEdge" for the
+   * last line on the bottom edge, "glyphsCutByTopBar" for ink under the top bar). Every good move measured
+   * was at most 5.2 px, every bad one at least 27; and within 8 px no line of ordinary text can leave the
+   * screen whole (the top rules still refuse a cut one). The title is worth more than a pixel of air under
+   * the last line.
    */
-  ink: { air: 3 },
+  ink: { air: 3, down: 8 },
   /**
    * How the offline shot opens the new-entry form and then "My diary" without a page load: "My diary" is a
    * row of the menu, so the "Menu" button of the top app bar opens it first (`menuButton`, then the row).
@@ -374,7 +394,8 @@ export const DESKTOP_CHROME = {
    * bottom edge is the edge of the image here, so a line on the screen keeps `air` CSS px (3.75 image px)
    * under its lowest ink - the line-box leeway let descenders of a last line sit on, and lose a pixel to,
    * the image edge (fr / ru / bg Insights) - and a line under the header counts as hidden only when none
-   * of its ink shows below it (Arabic hamza-below of the scrolled navigation row showed in ar 08).
+   * of its ink shows below it (Arabic hamza-below of the scrolled navigation row showed in ar 08). No limit
+   * (`down`, PHONE_CHROME.ink): the desktop pictures were reviewed with the rule as it is, and stay so.
    */
   ink: { air: 3 },
   newEntryLink: '.nav a[href$="#/new"]',
@@ -1359,11 +1380,66 @@ export function layoutArgs(shot, appLocale, chrome = PHONE_CHROME) {
 }
 
 /**
- * Moves the page to the nearest clean position (layoutProbe) and checks it once more from scratch at
- * that position. Throws with the problems when there is none - such a shot is never written.
+ * The choice between the two searches of settleLayout on a frame whose ink rule has a limit
+ * (`inkRule.down`, the phone frame - PHONE_CHROME.ink): `lineBox` is the position the line-box rules alone
+ * found (the frame without its ink rule: what the script chose until 2026-11-26), `ink` the position all
+ * rules found. Each is { y, moved, problems, relaxed } (no problems: clean; `relaxed`: it needed the last
+ * resort, a box under the top bar), or null when that search did not run.
+ *
+ * The ink position is taken when it lies at most `inkRule.down` CSS px below the line-box position, or
+ * anywhere above it (the page moved up: nothing at the top of the screen is lost), and does not need the
+ * last resort where the line-box position does not. Otherwise the line-box position stays: further down,
+ * the title of an entry or a heading leaves the top of the screen, and a store visitor reads the title - he
+ * does not see one more pixel of air under the last line. When only one search found a clean position, that
+ * one is taken; when neither did, the ink search's result (with its problems) comes back and the shot fails
+ * as before. A frame without the limit (DESKTOP_CHROME.ink) always takes the ink position.
+ *
+ * Returns { rules: 'ink' | 'line boxes', result, inkGivenUp, why }: `inkGivenUp` is true when the line-box
+ * position was taken although the frame has the ink rule (settleLayout then asks what the ink rule says
+ * about that position and the render log records it); `why` says it in words for the run's output.
  */
-async function settleLayout(page, shot, appLocale, chrome = PHONE_CHROME) {
-  const args = layoutArgs(shot, appLocale, chrome);
+export function chooseLayout(lineBox, ink, inkRule) {
+  const clean = (r) => !!r && r.problems.length === 0;
+  const take = (rules, result, why, inkGivenUp = false) => ({ rules, result, inkGivenUp, why });
+  if (!inkRule || !Number.isFinite(inkRule.down)) return take('ink', ink, 'the frame sets no limit to the ink rule');
+  if (!clean(lineBox) && !clean(ink)) return take('ink', ink, 'no clean position under either rules');
+  if (!clean(lineBox)) return take('ink', ink, 'only the ink rules found a clean position');
+  if (!clean(ink)) return take('line boxes', lineBox, 'the ink rules found no clean position', true);
+  if (ink.relaxed && !lineBox.relaxed) return take('line boxes', lineBox, 'the ink position needs the last resort (a box under the top bar), the line-box position does not', true);
+  const down = ink.y - lineBox.y;
+  if (down < 0) return take('ink', ink, `the ink position is ${-down} CSS px above the line-box position`);
+  if (down <= inkRule.down) return take('ink', ink, `the ink position is ${down} CSS px below the line-box position (at most ${inkRule.down})`);
+  return take('line boxes', lineBox, `the ink position is ${down} CSS px below the line-box position (more than ${inkRule.down})`, true);
+}
+
+/**
+ * What the ink rule says about a position the line-box rules chose (layoutProbe's problems there under all
+ * rules), as the fields of the render log: `lineOnBottomEdge` - a line's lowest ink is within the air of
+ * the bottom edge; `glyphsCutByTopBar` - a glyph shows partly under the top bar. Only true fields.
+ */
+export function inkFields(problems) {
+  const fields = {};
+  for (const p of problems) {
+    if (p.startsWith('text on the bottom edge')) fields.lineOnBottomEdge = true;
+    else if (p.startsWith('glyphs cut by the top bar')) fields.glyphsCutByTopBar = true;
+  }
+  return fields;
+}
+
+/** Puts the page at `y` (instantly: STILL_CSS sets scroll-behavior auto) unless it stands there; returns where it stands. */
+const scrollPageTo = (y) => {
+  if (window.scrollY !== y) window.scrollTo(0, y);
+  return window.scrollY;
+};
+
+/**
+ * One search of settleLayout under one set of rules (`args`): with the shot's `prefer` elements first, then
+ * without them, then with the last resort (a box under the top bar). `from` (when not null) is where every
+ * search starts: layoutProbe with `find: true` scrolls the window to what it found, so a second search must
+ * not start where the first one left the page. Returns layoutProbe's { y, moved, problems } and `relaxed`.
+ */
+async function searchLayout(page, shot, args, from) {
+  if (from !== null && (await page.evaluate(scrollPageTo, from)) !== from) throw new Error(`${shot.n}-${shot.slug}: the page does not go back to ${from}`);
   // `prefer`: like `show`, but given up when no clean position has it on the screen.
   let found = shot.prefer ? await page.evaluate(layoutProbe, { ...args, show: [...args.show, ...shot.prefer], find: true }) : null;
   if (!found || found.problems.length) found = await page.evaluate(layoutProbe, { ...args, find: true });
@@ -1374,11 +1450,69 @@ async function settleLayout(page, shot, appLocale, chrome = PHONE_CHROME) {
     const again = await page.evaluate(layoutProbe, { ...args, boxUnderTopBar: true, find: true });
     if (!again.problems.length) [found, relaxed] = [again, true];
   }
+  return { ...found, relaxed };
+}
+
+/**
+ * Moves the page to the nearest clean position (layoutProbe) and checks it once more from scratch at
+ * that position. Throws with the problems when there is none - such a shot is never written.
+ *
+ * A frame whose ink rule has a limit (PHONE_CHROME.ink.down) is settled twice from the same start: by the
+ * line-box rules alone (the frame without `ink`) and by all rules; chooseLayout takes one of the two, and
+ * the final check runs under the rules that chose it. When the line-box position is taken although the ink
+ * rule complains there, the result carries inkFields (for the render log), `inkProblems` and `why`. A frame
+ * without the limit (the desktop's) is settled once by all its rules, as always.
+ */
+export async function settleLayout(page, shot, appLocale, chrome = PHONE_CHROME) {
+  const args = layoutArgs(shot, appLocale, chrome);
+  const limited = !!chrome.ink && Number.isFinite(chrome.ink.down);
+  const from = limited ? await page.evaluate(() => window.scrollY) : null;
+  const lineArgs = limited ? { ...args, chrome: { ...args.chrome, ink: null } } : null;
+  const lineBox = limited ? await searchLayout(page, shot, lineArgs, from) : null;
+  const ink = await searchLayout(page, shot, args, from);
+  const choice = chooseLayout(lineBox, ink, limited ? chrome.ink : null);
+  const found = choice.result;
+  const used = choice.rules === 'ink' ? args : lineArgs;
   if (found.problems.length) throw new Error(`${shot.n}-${shot.slug}: no clean scroll position within -${args.up}/+${args.down} px:\n  ${found.problems.join('\n  ')}`);
+  // The page must stand where the chosen search found it (the other search may have left it elsewhere).
+  if (limited && (await page.evaluate(scrollPageTo, found.y)) !== found.y) throw new Error(`${shot.n}-${shot.slug}: the page does not go to ${found.y}`);
   await page.waitForTimeout(150);
-  const final = await page.evaluate(layoutProbe, { ...args, boxUnderTopBar: relaxed, find: false });
+  const final = await page.evaluate(layoutProbe, { ...used, boxUnderTopBar: found.relaxed, find: false });
   if (final.problems.length) throw new Error(`${shot.n}-${shot.slug}: the screen is not clean at ${final.y}:\n  ${final.problems.join('\n  ')}`);
-  return { scrollY: final.y, moved: found.moved, ...(relaxed ? { boxUnderTopBar: true } : {}) };
+  if (limited && final.y !== found.y) throw new Error(`${shot.n}-${shot.slug}: the page stands at ${final.y}, not at ${found.y} where the ${choice.rules} rules chose`);
+  const settled = { scrollY: final.y, moved: found.moved, ...(found.relaxed ? { boxUnderTopBar: true } : {}) };
+  if (!choice.inkGivenUp) return settled;
+  // What the ink rule says about the position the line boxes kept (nothing, when it is clean there too).
+  const inkProblems = (await page.evaluate(layoutProbe, { ...args, boxUnderTopBar: found.relaxed, find: false })).problems;
+  const fields = inkFields(inkProblems);
+  return Object.keys(fields).length ? { ...settled, ...fields, inkProblems, why: choice.why } : settled;
+}
+
+/** The entry of one picture in render-log.json: size, SHA-256, where the page stood, and the layout rules' remarks (only true ones). */
+export function renderLogFile(f) {
+  return {
+    bytes: f.bytes,
+    sha256: f.sha256,
+    scrollY: f.scrollY,
+    ...(f.boxUnderTopBar ? { boxUnderTopBar: true } : {}),
+    ...(f.lineOnBottomEdge ? { lineOnBottomEdge: true } : {}),
+    ...(f.glyphsCutByTopBar ? { glyphsCutByTopBar: true } : {}),
+  };
+}
+
+/** The files of a set that the line-box rules settled although the ink rule complains there (render log fields of inkFields). */
+export const inkSetAside = (f) => !!(f.lineOnBottomEdge || f.glyphsCutByTopBar);
+
+/** The run's line for a file that kept the line-box position (inkSetAside), or null. */
+export function inkKeptLine(folder, shot, layout) {
+  if (!inkSetAside(layout)) return null;
+  return `  ${folder} ${shot.n}-${shot.slug}: the line-box position ${layout.scrollY} is kept - ${layout.why}; the ink rule there: ${layout.inkProblems.join('; ')}`;
+}
+
+/** The run's count at the end of a set on a frame whose ink rule has a limit (the phone's), or null. */
+export function inkCountLine(folder, chrome, files) {
+  if (!Number.isFinite(chrome.ink?.down)) return null;
+  return `  ${folder.padEnd(6)} ink rule set aside (line-box position kept, see render-log.json): ${files.filter(inkSetAside).length} of ${files.length} file(s)`;
 }
 
 /** Checks language and direction of the page against the set (a wrong language must never be shot). */
@@ -1598,6 +1732,9 @@ async function shootLocale({ browser, profile, base, log, folder, appLocale, pre
         else await blurFocus(page);
         await page.evaluate(() => document.fonts.ready);
         const layout = await settleLayout(page, shot, appLocale, chrome);
+        // The line boxes kept the page where the ink rule complains (PHONE_CHROME.ink.down): say so.
+        const kept = inkKeptLine(folder, shot, layout);
+        if (kept) console.log(kept);
         await assertNothingPrivate(page, chrome);
         const raw = await page.screenshot({ type: 'png', fullPage: false, animations: 'disabled', caret: 'hide', scale: 'device' });
         // The app's toast closes by itself after 8 s: still there after the capture = it is in the capture.
@@ -1834,14 +1971,18 @@ export async function renderScreenshots(options) {
         appLocale,
         account: prepared.account.displayName,
         entry: `${prepared.entryDate} ${prepared.entryTime}`,
-        // scrollY: where the page stood (CSS px). (Until 2026-11-25 a field "bottomNav" gave the height of
-        // the phone's bottom navigation; the phone frame has none now.)
-        files: Object.fromEntries(files.map((f) => [path.basename(f.file), { bytes: f.bytes, sha256: f.sha256, scrollY: f.scrollY, ...(f.boxUnderTopBar ? { boxUnderTopBar: true } : {}) }])),
+        // scrollY: where the page stood (CSS px); boxUnderTopBar / lineOnBottomEdge / glyphsCutByTopBar:
+        // renderLogFile. (Until 2026-11-25 a field "bottomNav" gave the height of the phone's bottom
+        // navigation; the phone frame has none now.)
+        files: Object.fromEntries(files.map((f) => [path.basename(f.file), renderLogFile(f)])),
         layout: 'clean',
         transport: { requests: transport.requests, hosts: transport.hosts.map((h) => h.replace(/:\d+$/, '')).filter((h, i, a) => a.indexOf(h) === i), refused: 0 },
       };
       const kb = files.map((f) => `${path.basename(f.file)} ${(f.bytes / 1024).toFixed(0)} KB`).join(', ');
       console.log(`  ${folder.padEnd(6)} (${appLocale}, ${prepared.account.displayName}, ${prepared.seeded.entries ?? '?'} entries) ${((performance.now() - t0) / 1000).toFixed(1)} s: ${kb}`);
+      // The frames with a limit to the ink rule (the phone's): how many files kept the line-box position.
+      const count = inkCountLine(folder, chromeOf(profile), files);
+      if (count) console.log(count);
     }
     if (failures?.length) throw new Error(`${failures.length} shot(s) failed (--keep-going; no render log written):\n${failures.join('\n')}`);
     const verdict = assertLoopbackOnly(log, base);

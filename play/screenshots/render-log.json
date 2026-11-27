@@ -30,19 +30,21 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 129656,
-          "sha256": "75169d3238aa1d06b42b4e2e08efdf181ee1c58bca65a8a6d96dca411ac9021d",
-          "scrollY": 705
+          "bytes": 129816,
+          "sha256": "a78637b6be4ceea42b172a4e79528ea20198b56d614441ca991d544dac40ac07",
+          "scrollY": 709
         },
         "05-insights.png": {
           "bytes": 214338,
           "sha256": "0b2d1651745579dcd028f7777f2059f9616b60731c7faa3dcb30dd47f2b103d6",
-          "scrollY": 312
+          "scrollY": 312,
+          "glyphsCutByTopBar": true
         },
         "06-settings.png": {
           "bytes": 157112,
           "sha256": "24f8cd6a668559d72768df8d1aa309892f4a67b239b72f94be08dbc9f2987617",
-          "scrollY": 12
+          "scrollY": 12,
+          "lineOnBottomEdge": true
         },
         "07-offline.png": {
           "bytes": 173921,
@@ -52,7 +54,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -102,7 +104,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -135,9 +137,9 @@
           "scrollY": 754
         },
         "05-insights.png": {
-          "bytes": 255203,
-          "sha256": "22b4bcc77a34128855c8f0c4951846311f0779a4082d042ae0bd0c89d7117e58",
-          "scrollY": 356
+          "bytes": 255173,
+          "sha256": "8ffeca5ed932fcf0e3e25bc502f194243f2cca20e961c807d3c5423e38cd45c6",
+          "scrollY": 360
         },
         "06-settings.png": {
           "bytes": 171658,
@@ -152,7 +154,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -170,14 +172,15 @@
           "scrollY": 0
         },
         "02-diary.png": {
-          "bytes": 205500,
-          "sha256": "e301aff3fa7ec833172d598fa0f573537e7d1e2760234c6bac0679128326ef92",
-          "scrollY": 1972
+          "bytes": 204434,
+          "sha256": "3b0820f866d78c8534ac62991f7b130116dadd0d1f56b1555104434622259a33",
+          "scrollY": 1973
         },
         "03-entry.png": {
           "bytes": 191931,
           "sha256": "d510882787d3e0b2c3cea1b0e369152ca07ef1c868c1dd7a62f217f98848d5cc",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
           "bytes": 137987,
@@ -202,7 +205,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -227,7 +230,8 @@
         "03-entry.png": {
           "bytes": 225328,
           "sha256": "475a340ad81b330270e858b1429ac190ab687c31a21ae0a401975e6b795dea9c",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
           "bytes": 166816,
@@ -242,7 +246,8 @@
         "06-settings.png": {
           "bytes": 214109,
           "sha256": "8c704250d1aab0d8c6f7d66760f88146e3704cffd2ba13572009247aab91f540",
-          "scrollY": 63
+          "scrollY": 63,
+          "lineOnBottomEdge": true
         },
         "07-offline.png": {
           "bytes": 235603,
@@ -252,7 +257,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -285,9 +290,9 @@
           "scrollY": 754
         },
         "05-insights.png": {
-          "bytes": 216233,
-          "sha256": "c58e5827ce44c5d3a3ba96967d15e19c02c5b0e904ce5b655f761062723c43b0",
-          "scrollY": 357
+          "bytes": 215008,
+          "sha256": "3cbf835d3ab2677e3eaa05f60e8f167d707f38c1a26fb8e90556c0444d9a1854",
+          "scrollY": 270
         },
         "06-settings.png": {
           "bytes": 169298,
@@ -302,7 +307,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -327,12 +332,13 @@
         "03-entry.png": {
           "bytes": 177835,
           "sha256": "85df095505305b951fc26e977d6d2960ee3bd4efe2ca078b5082b3f2a2ec74ed",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
-          "bytes": 146133,
-          "sha256": "e832bacd9fbb9ef8b5570f97ee83400f685277c457648169d37a4f51849a5917",
-          "scrollY": 705
+          "bytes": 146228,
+          "sha256": "a157c61ba35de319787b7481fa9a32d811f33f7c9c102c12d2c5b8ea7ee6ebcd",
+          "scrollY": 709
         },
         "05-insights.png": {
           "bytes": 224449,
@@ -352,7 +358,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -390,9 +396,9 @@
           "scrollY": 315
         },
         "06-settings.png": {
-          "bytes": 167645,
-          "sha256": "33cba45431696a9d8e4cdd9428c4f503633310aacd18a7c58f3faded2e41e6b0",
-          "scrollY": 63
+          "bytes": 167190,
+          "sha256": "64d56075ff12a45a258999bcedb34e2cccb5a7e453d72061499903aaf390248e",
+          "scrollY": 67
         },
         "07-offline.png": {
           "bytes": 196759,
@@ -402,7 +408,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -437,7 +443,8 @@
         "05-insights.png": {
           "bytes": 244197,
           "sha256": "8a2620233c65999346a3a12f9e47b549686bf654902a6e53b580caf29875e582",
-          "scrollY": 312
+          "scrollY": 312,
+          "lineOnBottomEdge": true
         },
         "06-settings.png": {
           "bytes": 166590,
@@ -452,7 +459,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -502,7 +509,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -525,9 +532,9 @@
           "scrollY": 1847
         },
         "03-entry.png": {
-          "bytes": 177512,
-          "sha256": "da500a662f6ddb0b992f5d5cf6b01632df5719ca64adbdd6c41849845e092645",
-          "scrollY": 15
+          "bytes": 177496,
+          "sha256": "0a91394a8e9aa1f96a0332a05b6239e0aae21dc3fba413fd50ae2efb19452eea",
+          "scrollY": 16
         },
         "04-habits.png": {
           "bytes": 133572,
@@ -537,7 +544,8 @@
         "05-insights.png": {
           "bytes": 238639,
           "sha256": "93c032903fdd0eb667b31657f9d7f1f61eb6778072804422201bb1095bf98d62",
-          "scrollY": 378
+          "scrollY": 378,
+          "lineOnBottomEdge": true
         },
         "06-settings.png": {
           "bytes": 172385,
@@ -552,7 +560,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -580,19 +588,21 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 112687,
-          "sha256": "83a9dd5f0a5b3a077b756a8e1682fecad8fcb25400d107b1fcc096cb837e4d84",
-          "scrollY": 678
+          "bytes": 112736,
+          "sha256": "0433cfc4ccf7cd9f116e29bd8c7b3dec32f4225117f9d63047c0f1f5f38f062b",
+          "scrollY": 683
         },
         "05-insights.png": {
           "bytes": 185233,
           "sha256": "3207786882d02205d7b0a1b16ec5a7eadb6cd25b3cdac8348c0064637a0dcd0d",
-          "scrollY": 287
+          "scrollY": 287,
+          "glyphsCutByTopBar": true
         },
         "06-settings.png": {
           "bytes": 140791,
           "sha256": "06f44a5324aaf46b7c7e1694c7796cabd3bd6b8bcb02cfa5ad704c0e2262d847",
-          "scrollY": 12
+          "scrollY": 12,
+          "lineOnBottomEdge": true
         },
         "07-offline.png": {
           "bytes": 149283,
@@ -602,7 +612,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -652,7 +662,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -677,7 +687,8 @@
         "03-entry.png": {
           "bytes": 188601,
           "sha256": "c351984aec1e3a423e844e87a98737a716c0abc384b3fbd016668433f23efdeb",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
           "bytes": 137035,
@@ -685,9 +696,9 @@
           "scrollY": 754
         },
         "05-insights.png": {
-          "bytes": 248388,
-          "sha256": "263db5a24a80f8fd366f6512a802f7b217855058b1b12577abe40791f806774c",
-          "scrollY": 379
+          "bytes": 238584,
+          "sha256": "6efe855866b49dc64cc2778cc82a74d4f3cc2cf18cd39eae9e41dd91e7769f4b",
+          "scrollY": 293
         },
         "06-settings.png": {
           "bytes": 173853,
@@ -702,7 +713,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -727,7 +738,8 @@
         "03-entry.png": {
           "bytes": 177220,
           "sha256": "0ad344f656ff242f66b0b0d50643552738b5526835fc06531cf188c898cc72fb",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
           "bytes": 136008,
@@ -740,9 +752,9 @@
           "scrollY": 315
         },
         "06-settings.png": {
-          "bytes": 177583,
-          "sha256": "6ea0990118c65d6e51e19665a5bf82d61815c18d6d992e3df02fef3349fff7b1",
-          "scrollY": 63
+          "bytes": 177079,
+          "sha256": "c333ad092c38af0b3f44fda62bd47278623b3dd5b0ec332d7bacc47294f23f23",
+          "scrollY": 67
         },
         "07-offline.png": {
           "bytes": 192814,
@@ -752,7 +764,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -777,7 +789,8 @@
         "03-entry.png": {
           "bytes": 176752,
           "sha256": "31c0a27785789a0ef5782ff426883eab2b311fe4b52832750bb13f274d44b38a",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
           "bytes": 127565,
@@ -785,9 +798,9 @@
           "scrollY": 754
         },
         "05-insights.png": {
-          "bytes": 226836,
-          "sha256": "c8b334e42a66e94f985fea15948ccbdc720a8e9d4aee3de24a134eabac4e2fa9",
-          "scrollY": 357
+          "bytes": 222411,
+          "sha256": "b2322abcc2e2dfc7ee3c9a4a518663c38328480053be2d95b6a9e3563f88e159",
+          "scrollY": 270
         },
         "06-settings.png": {
           "bytes": 169832,
@@ -802,7 +815,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -830,9 +843,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 134247,
-          "sha256": "737811f434969619c72849236e3d85dd95c241f14e34fa6898c733d3ef918531",
-          "scrollY": 705
+          "bytes": 134241,
+          "sha256": "c82e6bdc9f2f7c530cb1b87d437aea8ea0309cf39a2ab54090fde1e4aa043202",
+          "scrollY": 708
         },
         "05-insights.png": {
           "bytes": 224364,
@@ -852,7 +865,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -880,19 +893,19 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 147227,
-          "sha256": "8adac7cf538fd49c0842abe007bf2f4f519c845b70f8eca164d35ee65441eb6d",
-          "scrollY": 705
+          "bytes": 147263,
+          "sha256": "97836943652bfe4d49b52ed4b38d4f90e820e2b48ed1514a308215ffb98f67fd",
+          "scrollY": 708
         },
         "05-insights.png": {
-          "bytes": 260546,
-          "sha256": "39e07fcd9d00ac59e2268ac6e29e46db091579cf878975ddf360ca9b456a872e",
-          "scrollY": 354
+          "bytes": 260552,
+          "sha256": "0de58d5f62a743b857e6e91059d1a84095c73548f4420b784b79e9d16a3aa693",
+          "scrollY": 355
         },
         "06-settings.png": {
-          "bytes": 196463,
-          "sha256": "4db6756711f2672e8570069243c260079d1b7f4313d46c3e4bf7c39e7f7fc502",
-          "scrollY": 12
+          "bytes": 196496,
+          "sha256": "36b08043d650f199b3268d679f5017c4a56c3aee1ff9675c3aa0ff6d89f4b280",
+          "scrollY": 16
         },
         "07-offline.png": {
           "bytes": 194858,
@@ -902,7 +915,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -927,7 +940,8 @@
         "03-entry.png": {
           "bytes": 159498,
           "sha256": "51ba1ce7522e01a7e908bcdd1fa2f40c0f2c2f33fb827727d8da5ad740b97fac",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "04-habits.png": {
           "bytes": 126802,
@@ -935,9 +949,9 @@
           "scrollY": 754
         },
         "05-insights.png": {
-          "bytes": 241909,
-          "sha256": "9a2aa7218fa511fdc3cac54ced7c06d84c36fa22327692739b875d531922f327",
-          "scrollY": 331
+          "bytes": 241865,
+          "sha256": "35b4bf032368e9f40464175780460b3d2c1116063e056ca7794076d0473db328",
+          "scrollY": 335
         },
         "06-settings.png": {
           "bytes": 155374,
@@ -952,7 +966,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -980,19 +994,19 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 158665,
-          "sha256": "23170508adfcf2611cf1be30740c03a34e5cad52bc664eabfa243e642bf8185d",
-          "scrollY": 684
+          "bytes": 148191,
+          "sha256": "eebebf51c67b73cadcc02708ffa308b543d70b54e6a57076c42d8e7a17619542",
+          "scrollY": 664
         },
         "05-insights.png": {
-          "bytes": 278173,
-          "sha256": "2cff29f22b62306495ecf14e93770e2e9bdaf93ca76f5f713032b49b826757a4",
-          "scrollY": 320
+          "bytes": 278217,
+          "sha256": "c1d87bb7cfc5675605518e3596e23c34a29142518e24b221e553d1bca5ffa320",
+          "scrollY": 323
         },
         "06-settings.png": {
-          "bytes": 191837,
-          "sha256": "dc4153df47ef9e854b68a419d0d15c3761f02d02ee4a9dc905e44546258ef36e",
-          "scrollY": 12
+          "bytes": 191860,
+          "sha256": "41091b1a8a6273399ac3061511e2a78acb86ca66226fd6adff04d98cf55fb35e",
+          "scrollY": 14
         },
         "07-offline.png": {
           "bytes": 187684,
@@ -1002,7 +1016,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],

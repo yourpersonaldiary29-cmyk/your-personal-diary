@@ -16,9 +16,9 @@
       "entry": "2026-10-19 10:58",
       "files": {
         "01-home.png": {
-          "bytes": 169958,
-          "sha256": "aeeb8a41c2afbb1915e41e153ba072ed17c404b206abc944a7f5b777328e2dbb",
-          "scrollY": 47
+          "bytes": 169952,
+          "sha256": "16f3d7c39f89ce3e72c4a188880c838e746dc3d69585f81b9f8065cca30e1030",
+          "scrollY": 48
         },
         "02-diary.png": {
           "bytes": 221272,
@@ -43,7 +43,8 @@
         "06-settings.png": {
           "bytes": 226267,
           "sha256": "33daa11c3d5fe574e674fdcdc6b6f5730d58bf6b779c66164466cce6ba1a5b84",
-          "scrollY": 13
+          "scrollY": 13,
+          "lineOnBottomEdge": true
         },
         "07-offline.png": {
           "bytes": 254893,
@@ -53,7 +54,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -81,9 +82,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 213263,
-          "sha256": "0fbc8dc8a1b9a9afbcf13ed941ec7d70e02409769e01b75eea7e28cbfc5c3a4d",
-          "scrollY": 761
+          "bytes": 213277,
+          "sha256": "5c8df39841b57e0d0e9e8b6e471f3d88e08b0b5a38cf70a26705d008231f6290",
+          "scrollY": 762
         },
         "05-insights.png": {
           "bytes": 360674,
@@ -103,7 +104,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -121,8 +122,8 @@
           "scrollY": 47
         },
         "02-diary.png": {
-          "bytes": 260124,
-          "sha256": "7a090c562782ae4511e1f59bd60fb8e07a0997a6dd574fe7442de3399a6c6e04",
+          "bytes": 258929,
+          "sha256": "d25a1fcb92d4d3f67788056c5427f68901f67d69de329a00127ad5c174b03811",
           "scrollY": 1928
         },
         "03-entry.png": {
@@ -131,9 +132,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 225213,
-          "sha256": "215ffba609baf9a598e2313bb582798afa20c8a917d55101cd407679b80d2629",
-          "scrollY": 761
+          "bytes": 225207,
+          "sha256": "7983401d6af704d9b2a48e201dcdb1a2c281d96b5bcd4d06e90e13e81108f0fc",
+          "scrollY": 762
         },
         "05-insights.png": {
           "bytes": 361219,
@@ -146,14 +147,14 @@
           "scrollY": 0
         },
         "07-offline.png": {
-          "bytes": 311619,
-          "sha256": "ba7dcbb84780301c69dac6b021b4c50e51f5b42fd7b616ffbfa16ffef1a94a8c",
+          "bytes": 310356,
+          "sha256": "a674ab10a27351c11a7789c4ff0625f1fc4f56a9ac2402706930c567962727b6",
           "scrollY": 2304
         }
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -166,9 +167,9 @@
       "entry": "2026-10-19 10:58",
       "files": {
         "01-home.png": {
-          "bytes": 253535,
-          "sha256": "5001c0b23e054098facea608ff6819be6346bfecef6de504c7a6f1d3522dd259",
-          "scrollY": 47
+          "bytes": 253538,
+          "sha256": "904e6b7d05fec17c513806315ce92e0b8b7c41b91d53f32b5fc0b9e48ca02495",
+          "scrollY": 48
         },
         "02-diary.png": {
           "bytes": 309819,
@@ -181,19 +182,20 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 289152,
-          "sha256": "00090a9e91ff3e7ae968e45b9a3fb083803a2bd2b75afc53a4c34309cb78c996",
-          "scrollY": 786
+          "bytes": 289162,
+          "sha256": "5e3435ae650bfffc90361131141ba13c6aabc6084bc0e90436018bef42486dde",
+          "scrollY": 787
         },
         "05-insights.png": {
-          "bytes": 438377,
-          "sha256": "5ecaefee3ee7ac0960c8bf54f65a6d55eb1ffa838f2896a259c04ed12bfe3f96",
-          "scrollY": 347
+          "bytes": 438521,
+          "sha256": "ed18feafd2a3fcc4a0819e526caa6640dff1ffacaabaa993db9a7cfedd4fcbf0",
+          "scrollY": 351
         },
         "06-settings.png": {
           "bytes": 310114,
           "sha256": "417125620752c28903b5ad09375da6109c1b19a7f68cf501e95de574e400d138",
-          "scrollY": 1
+          "scrollY": 1,
+          "lineOnBottomEdge": true
         },
         "07-offline.png": {
           "bytes": 366487,
@@ -203,7 +205,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -243,7 +245,8 @@
         "06-settings.png": {
           "bytes": 269826,
           "sha256": "363542c8053c1890be9f0e2fd66da9b32280d97f80460209fbd74dfb4a807388",
-          "scrollY": 15
+          "scrollY": 15,
+          "lineOnBottomEdge": true
         },
         "07-offline.png": {
           "bytes": 283591,
@@ -253,7 +256,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -303,7 +306,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -331,9 +334,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 228540,
-          "sha256": "66c31e9a762df2bb3a17935dd20f15a661869205be74cf63c9cd9a0aa1923f24",
-          "scrollY": 786
+          "bytes": 228548,
+          "sha256": "0b79f7734f9b58308da62b480bb0553b0a9b171f4bb1927b49f762ef9ba635c6",
+          "scrollY": 787
         },
         "05-insights.png": {
           "bytes": 385367,
@@ -341,9 +344,9 @@
           "scrollY": 337
         },
         "06-settings.png": {
-          "bytes": 263739,
-          "sha256": "0ea5d6c1f57ee5ee394ceab18daff075084354c751bf4f52d603c146534167e8",
-          "scrollY": 1
+          "bytes": 263752,
+          "sha256": "d522af613b9842d0305fb9a23c3d40cbe0a88966a8820ed161e12ec9c20fcab6",
+          "scrollY": 2
         },
         "07-offline.png": {
           "bytes": 283297,
@@ -353,7 +356,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -366,9 +369,9 @@
       "entry": "2026-10-19 10:58",
       "files": {
         "01-home.png": {
-          "bytes": 163187,
-          "sha256": "e335cad8507e86c930083318c08adcde4955ab7bb216aef45cd492389816eeab",
-          "scrollY": 47
+          "bytes": 163200,
+          "sha256": "96007b3598c702cb95b02b28a3e5aa5759b029820d57e61daa5daf9ec657103e",
+          "scrollY": 48
         },
         "02-diary.png": {
           "bytes": 207005,
@@ -391,9 +394,9 @@
           "scrollY": 292
         },
         "06-settings.png": {
-          "bytes": 207365,
-          "sha256": "941415242380721a23396aca5b00d90de3425a277192262642afc4860202bc74",
-          "scrollY": 13
+          "bytes": 207440,
+          "sha256": "e0d77e049bb0149ee203a7b69bfb7a7adf987e37a6f1a0b957505cb6371801cc",
+          "scrollY": 15
         },
         "07-offline.png": {
           "bytes": 241196,
@@ -403,7 +406,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -421,9 +424,9 @@
           "scrollY": 47
         },
         "02-diary.png": {
-          "bytes": 250326,
-          "sha256": "cef91a7ee3b14f56f2e074e960a41f9ffe639e0ef5b64f59f71b14da89030bfe",
-          "scrollY": 1670
+          "bytes": 250407,
+          "sha256": "045446e111e54d6ddcc7531045f01767ea54d8c2e2b3d1aa6997577848d40fca",
+          "scrollY": 1668
         },
         "03-entry.png": {
           "bytes": 232926,
@@ -431,9 +434,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 213561,
-          "sha256": "8bb7151aceba97ffcb90c26369b5600a06c39261f15f6ede7aae74adad4a8127",
-          "scrollY": 786
+          "bytes": 213569,
+          "sha256": "4a2a19459b0d772212f04dc1b0ce41afa0f12914fd3ae194190d50d9d8c7b6ad",
+          "scrollY": 787
         },
         "05-insights.png": {
           "bytes": 361113,
@@ -453,7 +456,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -466,9 +469,9 @@
       "entry": "2026-10-19 10:58",
       "files": {
         "01-home.png": {
-          "bytes": 195505,
-          "sha256": "39a5d28b7fa4b99d2e8f248cbf40f5140a7af2d92d100b7d80239f1f308deb11",
-          "scrollY": 47
+          "bytes": 195523,
+          "sha256": "b52a4298981af62f70e2fb9a4ac24ac7fecda5b25badc2eda205c5efb5b3d6a8",
+          "scrollY": 48
         },
         "02-diary.png": {
           "bytes": 249361,
@@ -481,19 +484,19 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 230243,
-          "sha256": "34fb8d68763d3f8cc6bc13ae9514486b15f5ccb2f622151f3f7b11ae98ddb966",
-          "scrollY": 761
+          "bytes": 230258,
+          "sha256": "60ecd106825d85bc9b5fedda8f7298705fd8371e4804991b2f3aa543f8e010a9",
+          "scrollY": 762
         },
         "05-insights.png": {
-          "bytes": 384792,
-          "sha256": "5d89a45693e3f1ba8048707c2b04ed22648b0cc51f93fa2bf73e33086c911bb8",
-          "scrollY": 346
+          "bytes": 384858,
+          "sha256": "6f61f91f1541adab984757b74a7b766563312045559660836af95119fce2d976",
+          "scrollY": 347
         },
         "06-settings.png": {
-          "bytes": 276574,
-          "sha256": "08bf7e36ed5556388f39ce1127d558132584c48585fd6cabb31f0d8983b69156",
-          "scrollY": 2
+          "bytes": 276821,
+          "sha256": "34ada8b2b21a6f6fa0176315385d50d880e6d34ad76b85c5bad6059e19b2dd39",
+          "scrollY": 6
         },
         "07-offline.png": {
           "bytes": 307806,
@@ -503,7 +506,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -531,9 +534,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 227495,
-          "sha256": "07c5f3308297f55e0d764379f66e3309005da3a8c82242ab569e2dda10ae6565",
-          "scrollY": 786
+          "bytes": 227509,
+          "sha256": "a42ee8099c4d27280fa990042cc09ad81eb409811d2488f7b03b60981c9d4326",
+          "scrollY": 787
         },
         "05-insights.png": {
           "bytes": 358735,
@@ -553,7 +556,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -586,9 +589,9 @@
           "scrollY": 761
         },
         "05-insights.png": {
-          "bytes": 416781,
-          "sha256": "ee3743f33b18a27e73465e2b867ef21877061a965507041f113b368825d541a9",
-          "scrollY": 341
+          "bytes": 415163,
+          "sha256": "92617129d6bd6f2baf8600618b774613b5019ce5c357c93b0068e074be178ac4",
+          "scrollY": 291
         },
         "06-settings.png": {
           "bytes": 274976,
@@ -603,7 +606,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -616,9 +619,9 @@
       "entry": "2026-10-19 10:58",
       "files": {
         "01-home.png": {
-          "bytes": 206248,
-          "sha256": "13f3023d5e430da8c29b79b40c99c2ca6bb5041c0a612f41b5b914254a5c3189",
-          "scrollY": 47
+          "bytes": 206256,
+          "sha256": "03b389a2089f433afecdf4a1e13d34426b95a70e6e724919292888bb0d0bb2b1",
+          "scrollY": 48
         },
         "02-diary.png": {
           "bytes": 267986,
@@ -631,9 +634,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 236726,
-          "sha256": "dc005cab5194f5b0ca882d0cf349f7c0f3a3d60ea387df87c9a429ed53323bef",
-          "scrollY": 761
+          "bytes": 236718,
+          "sha256": "e207309f552c85d10e1d0398b7865730130b8b4d0a961fdfa20503b4765ed29d",
+          "scrollY": 762
         },
         "05-insights.png": {
           "bytes": 389588,
@@ -653,7 +656,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -681,9 +684,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 230122,
-          "sha256": "20d41241652f866d624c436d298ec775742b21a3eaa528b79f5476348570c9b1",
-          "scrollY": 786
+          "bytes": 230120,
+          "sha256": "844f694d3dd63f9a667dcdc541feea7c2a889916e4125a2befa1913a3dc70d45",
+          "scrollY": 787
         },
         "05-insights.png": {
           "bytes": 362757,
@@ -691,9 +694,9 @@
           "scrollY": 337
         },
         "06-settings.png": {
-          "bytes": 269158,
-          "sha256": "2e0c9be366dfd07c57e57b1514b6a0461e097d0cff725bd49d236ab942fa6aab",
-          "scrollY": 1
+          "bytes": 269134,
+          "sha256": "882d5612e72291c70d7f658d507f242dfc455470e15759441fa3bd4d0bf103cb",
+          "scrollY": 3
         },
         "07-offline.png": {
           "bytes": 286463,
@@ -703,7 +706,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -731,9 +734,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 206133,
-          "sha256": "5fb4bce752cb51a05bf1b78def991cb66b5e98ffaf96e580e69eed23d659cfe1",
-          "scrollY": 761
+          "bytes": 206146,
+          "sha256": "aa45a3bdc41dd079e01269e54c94270cdbb6cfb1bc15f6e5ca31ac9e8aa398b3",
+          "scrollY": 762
         },
         "05-insights.png": {
           "bytes": 354813,
@@ -741,9 +744,9 @@
           "scrollY": 317
         },
         "06-settings.png": {
-          "bytes": 255834,
-          "sha256": "947d90963aabd3f59441cb6e0b6eac2a647abce18cae2a3b462ac8f64e8f6d32",
-          "scrollY": 2
+          "bytes": 255865,
+          "sha256": "2b54cd03d56d98f1da3bd245752daf54dccb23ab4cd25aea91c942aedb67db32",
+          "scrollY": 6
         },
         "07-offline.png": {
           "bytes": 280503,
@@ -753,7 +756,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -786,14 +789,14 @@
           "scrollY": 688
         },
         "05-insights.png": {
-          "bytes": 370741,
-          "sha256": "4db367d112ab32e0a70c080993091f994f65350cf5475fcc9e38af95308d8b8a",
-          "scrollY": 344
+          "bytes": 370921,
+          "sha256": "78d21aa61f3221af84e5ea1826ecc7044ba0785fbe959ac8d5e84d1f85f21d0c",
+          "scrollY": 349
         },
         "06-settings.png": {
-          "bytes": 265155,
-          "sha256": "b7cbbd81b69c5b907609765f757f62e7c23309e0034be675bc4ce808f5a93ee8",
-          "scrollY": 2
+          "bytes": 265216,
+          "sha256": "568f4eefd6eb5d1082d5fc1364223b8e9431d3e1ad8e5a9faca2ae687e162c7a",
+          "scrollY": 6
         },
         "07-offline.png": {
           "bytes": 288840,
@@ -803,7 +806,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -821,9 +824,9 @@
           "scrollY": 47
         },
         "02-diary.png": {
-          "bytes": 276301,
-          "sha256": "776e28e7b07ca30a4449918ee9541000f3675fe512b9e4259a80bbd8a6493795",
-          "scrollY": 1687
+          "bytes": 276145,
+          "sha256": "45ad9e353e29e2dfb5682d4ea670a7a45d530790ada54e9164b22282c3088cc4",
+          "scrollY": 1685
         },
         "03-entry.png": {
           "bytes": 258832,
@@ -853,7 +856,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -866,9 +869,9 @@
       "entry": "2026-10-19 10:58",
       "files": {
         "01-home.png": {
-          "bytes": 184557,
-          "sha256": "fcac3f5c8939370ef6480086510c1062e74c6c524732bbbede4071e87bdb796e",
-          "scrollY": 47
+          "bytes": 184561,
+          "sha256": "ac665e3c15abeefed5dcf45d568a59d94fcb2a9f603c9399882567588e683fae",
+          "scrollY": 48
         },
         "02-diary.png": {
           "bytes": 230241,
@@ -881,9 +884,9 @@
           "scrollY": 0
         },
         "04-habits.png": {
-          "bytes": 210997,
-          "sha256": "bfa461abe8136ff4ae089b0e71c840b64cf7b3c87aec09bff41edf61eb66b2ed",
-          "scrollY": 761
+          "bytes": 211003,
+          "sha256": "72f5e4761fb53475282afd973bccb67bc42eee21f41d9e34ebfb1c107b56cdf0",
+          "scrollY": 762
         },
         "05-insights.png": {
           "bytes": 348390,
@@ -903,7 +906,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],
@@ -936,9 +939,9 @@
           "scrollY": 674
         },
         "05-insights.png": {
-          "bytes": 397980,
-          "sha256": "b224f290a797b85c5e55cbc249eae5bb1a39698cf5fdd8b46d77e455f94d60ec",
-          "scrollY": 317
+          "bytes": 398020,
+          "sha256": "bcef51fbe49623f520742bca4cf37a677726100238822e5fd3e2f2d32648e6c5",
+          "scrollY": 319
         },
         "06-settings.png": {
           "bytes": 262447,
@@ -953,7 +956,7 @@
       },
       "layout": "clean",
       "transport": {
-        "requests": 81,
+        "requests": 236,
         "hosts": [
           "127.0.0.1"
         ],

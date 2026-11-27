@@ -576,6 +576,20 @@ test('render-log.json: missing, wrong profile or size, no clean layout, a foreig
   });
 });
 
+test('render-log.json: the layout rules\' remarks on a file (boxUnderTopBar, lineOnBottomEdge, glyphsCutByTopBar) pass', () => {
+  withFixture({}, (f, check) => {
+    for (const folder of ['iphone-6.3', 'iphone-6.9']) {
+      rewrite(path.join(f.dir, folder, RENDER_LOG), (log) => {
+        Object.assign(log.sets['en-US'].files['03-entry.png'], { scrollY: 15, lineOnBottomEdge: true });
+        Object.assign(log.sets.he.files['01-home.png'], { scrollY: 0, glyphsCutByTopBar: true, boxUnderTopBar: true });
+      });
+    }
+    const result = check();
+    assert.deepEqual(result.problems, []);
+    assert.equal(result.ok, true);
+  });
+});
+
 test('the icon: missing, wrong, or skipped with icon: null', () => {
   withFixture({}, (f, check) => {
     assert.equal(check({ icon: null }).icon, null);
