@@ -143,6 +143,8 @@
 | GET | `/api/entries/meta/people` | - | `TagCount[]` |
 | GET | `/api/entries/meta/locations` | - | `TagCount[]` |
 
+**`EntrySummary.excerpt`** (ברשימות: `EntryPage.items`, `HomeSummary.lastEntry`, תוצאות החיפוש החכם) - תחילת הטקסט לתצוגה ברשימה, רצפי רווחים מכווצים לרווח אחד: טקסט של עד 160 code points מוחזר כמו שהוא; ארוך יותר נחתך כך שהתוצאה, עם `…` (U+2026) אחד בסופה, היא לכל היותר 160 code points - בסוף מילה כשיש רווח באחרונים 40 (אחרת ב-159: מילה ארוכה, כתובת, סינית / יפנית / תאית - או מעט לפני כן, כדי שאות לא תאבד את הניקוד או הסימנים שלה ואמוג'י או דגל לא ייחתכו באמצע), בלי רווח ופיסוק "חלש" (נקודה, פסיק, נקודתיים, מקף, סוגר או מירכאות פותחים) לפני ה-`…`. שלושה עותקים זהים: `server/src/db/entries-repo.ts`, `server/src/stats/entry-summary.ts` ו-`src/offline/overlay/effects.ts` (`makeExcerpt`); הכלל והמקרים: `shared/excerpt-cases.ts`. החיפוש (`text`) מחפש בטקסט המלא, לא ב-excerpt.
+
 ## הרגלים (`/api/habits`)
 
 | Method | Path | Request | Response |

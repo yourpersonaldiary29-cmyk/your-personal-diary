@@ -56,12 +56,96 @@ export interface OverlayContext {
 
 export const EXCERPT_LENGTH = 160;
 
-/** First 160 characters of the body with whitespace runs collapsed (code-point safe), as the server does. */
+/**
+ * The list text of an entry (`EntrySummary.excerpt`): the body with whitespace runs collapsed and
+ * trimmed; a body longer than 160 code points is cut at the end of a word where one is near,
+ * loses the weak punctuation before the cut and ends with one `…` (code-point safe: never half of a
+ * surrogate pair). The rule and its cases: `shared/excerpt-cases.ts`.
+ *
+ * THREE copies that must give the same answer for every input: `src/offline/overlay/effects.ts` (this
+ * one), `server/src/db/entries-repo.ts` and `server/src/stats/entry-summary.ts` (the offline overlay
+ * builds the summary of an entry still waiting on the device exactly as the server will).
+ * `server/test/excerpt.test.ts` runs the cases against all three and compares them. That test imports
+ * this file, so the server's type check (no DOM library) covers it: this file and what it imports must
+ * stay free of browser APIs.
+ */
 export function makeExcerpt(body: string, length: number = EXCERPT_LENGTH): string {
-  const normalised = String(body ?? '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  return Array.from(normalised).slice(0, length).join('');
+  // At least 1, so that the result is never longer than `length`.
+  const limit = Math.max(1, length);
+  const chars = Array.from(String(body ?? '').replace(/\s+/g, ' ').trim());
+  if (chars.length <= limit) return chars.join('');
+  // Room for the ellipsis, and never inside what the screen shows as one character.
+  const at = excerptCharacterStart(chars, limit - 1);
+  const cut = chars.slice(0, at);
+  const tries = [cut];
+  // Inside a word: back to the last space among the last EXCERPT_WORD_BACK code points kept, if any.
+  if (chars[at - 1] !== ' ' && chars[at] !== ' ') {
+    const space = cut.lastIndexOf(' ');
+    if (space >= 0 && space >= cut.length - EXCERPT_WORD_BACK) tries.unshift(cut.slice(0, space));
+  }
+  for (const part of tries) {
+    const end = excerptEnd(part);
+    if (end > 0) return part.slice(0, end).join('') + '\u2026';
+  }
+  // Nothing but weak punctuation: the plain cut.
+  return cut.join('').trimEnd() + '\u2026';
+}
+
+/** How far back (in code points) a cut inside a word looks for a space. */
+const EXCERPT_WORD_BACK = 40;
+/**
+ * Removed from the end of a cut excerpt: whitespace; full stops, commas, semicolons, colons, dashes
+ * and dots (also Arabic, Chinese / Japanese full-width, Hindi and Greek ones); a zero width joiner.
+ */
+const EXCERPT_WEAK = /[\s.,;:\-\u2010-\u2015\u05be\u2026\u060c\u061b\u3001\u3002\uff0c\uff1a\uff1b\u0964\u0965\u0387\u200d]/u;
+/** Also removed: what only ever opens (brackets, low quotation marks, Spanish inverted marks). */
+const EXCERPT_OPENING = /[([{\uff08\uff3b\uff5b\u3008\u300a\u300c\u300e\u3010\u3014\u3016\u201a\u201e\u00a1\u00bf]/u;
+/** Quotation marks that open in one language and close in another: removed only after a space, an opening mark or nothing. */
+const EXCERPT_QUOTE = /["'\u2018\u2019\u201c\u201d\u00ab\u00bb\u2039\u203a]/u;
+
+/** A combining mark (also a variation selector), a zero width joiner, a skin tone, an emoji tag. */
+const EXCERPT_EXTEND = /[\p{M}\u200d\u{1f3fb}-\u{1f3ff}\u{e0020}-\u{e007f}]/u;
+/** A regional indicator: two of them make a flag. */
+const EXCERPT_FLAG = /[\u{1f1e6}-\u{1f1ff}]/u;
+
+/**
+ * Whether `chars[i]` belongs to the same character on the screen as `chars[i - 1]`: a mark or a skin
+ * tone after it, anything after a zero width joiner or a Hindi virama (a conjunct), the second half of
+ * a flag. A space never does.
+ */
+function excerptJoins(chars: string[], i: number): boolean {
+  const c = chars[i];
+  const before = chars[i - 1];
+  if (c === ' ') return false;
+  if (EXCERPT_EXTEND.test(c) || before === '\u200d' || before === '\u094d') return true;
+  if (!EXCERPT_FLAG.test(c)) return false;
+  let flags = 0;
+  for (let j = i - 1; j >= 0 && EXCERPT_FLAG.test(chars[j]); j--) flags++;
+  return flags % 2 === 1;
+}
+
+/**
+ * Where to cut, at or before `at` (in code points), so that no character on the screen loses a part
+ * (a letter its marks, an emoji its skin tone or the rest of its sequence, a flag its second half);
+ * `at` itself when the whole beginning is one such character.
+ */
+function excerptCharacterStart(chars: string[], at: number): number {
+  let n = at;
+  while (n > 0 && excerptJoins(chars, n)) n--;
+  return n > 0 ? n : at;
+}
+
+/** How many code points of `part` stay before the ellipsis. */
+function excerptEnd(part: string[]): number {
+  let end = part.length;
+  while (end > 0) {
+    const last = part[end - 1];
+    const before = end > 1 ? part[end - 2] : ' ';
+    if (EXCERPT_WEAK.test(last) || EXCERPT_OPENING.test(last)) end--;
+    else if (EXCERPT_QUOTE.test(last) && (before === ' ' || EXCERPT_OPENING.test(before))) end--;
+    else break;
+  }
+  return end;
 }
 
 export function entryToSummary(entry: Entry): EntrySummary {

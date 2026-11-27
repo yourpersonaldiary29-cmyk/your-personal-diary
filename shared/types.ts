@@ -226,7 +226,11 @@ export interface EntrySummary {
   date: string;
   time: string;
   title: string;
-  /** First ~160 characters of the body. */
+  /**
+   * The beginning of the body for a list, whitespace runs collapsed: the whole body when it has at most
+   * 160 code points; otherwise at most 160 code points that end at a word where one is near and with
+   * one `…` (U+2026) that says it was cut (`makeExcerpt`; the rule and its cases: `shared/excerpt-cases.ts`).
+   */
   excerpt: string;
   mood: number | null;
   energy: number | null;

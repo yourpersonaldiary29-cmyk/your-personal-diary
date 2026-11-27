@@ -259,13 +259,15 @@ describe('listEntries', () => {
     expect(catchApi(() => listEntries(db, { limit: 1.5 })).field).toBe('limit');
   });
 
-  it('returns summaries with a 160-character excerpt', () => {
+  it('returns summaries with an excerpt of at most 160 characters that says where it was cut', () => {
+    // One long word: no space to go back to, so 159 letters and the ellipsis (the whole rule:
+    // shared/excerpt-cases.ts, server/test/excerpt.test.ts).
     const long = 'א'.repeat(300) + '\n\nשורה נוספת';
     createEntry(db, validateEntryInput(sampleEntry({ date: '2026-09-08', body: long })));
     const first = listEntries(db).items[0];
     expect(first.date).toBe('2026-09-08');
     expect(first.excerpt).toHaveLength(160);
-    expect(first.excerpt).toBe('א'.repeat(160));
+    expect(first.excerpt).toBe('א'.repeat(159) + '…');
     expect(Object.keys(first).sort()).toEqual(
       ['date', 'emotions', 'energy', 'excerpt', 'id', 'mood', 'sleepHours', 'stress', 'tags', 'time', 'title'].sort(),
     );
