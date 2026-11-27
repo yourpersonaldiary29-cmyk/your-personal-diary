@@ -731,7 +731,10 @@ describe('the versions before 1.1.0: refused on the session routes of their own 
       'app-update: a version before 1.1.0 of the mac app was asked to update (the first in 10 minutes)',
       'app-update: a version before 1.1.0 of the windows app was asked to update (the first in 10 minutes)',
     ]);
-  }, 120_000);
+    // The whole matrix in one test: 37-39 s inside a full run (4 workers) on the morning of 2026-11-27. Later
+    // that day the same machine ran about three times slower: 104-106 s alone, and more than the 120 s the test
+    // had then in two full runs. The time says nothing about the server, so the budget is 300 s.
+  }, 300_000);
 
   it('the answer: 503, the server\'s ordinary JSON error body, the localized message - the App Store for the iPhone, the Downloads page in the request\'s language for every other platform, with or without store links on the site; the token stays valid', async () => {
     // Android: every install of 1.0.0 and 1.0.1 came from the site's file, and an install from the site can be
