@@ -10,7 +10,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {
@@ -26,9 +26,11 @@ import {
 } from './check-screenshots.mjs';
 import { encodePng } from '../play/render-graphics.mjs';
 import {
+  chromeOf,
   DESKTOP_CHROME,
   DESKTOP_SHOTS,
   desktopOfflineEntry,
+  layoutArgs,
   layoutProbe,
   offlineEntry,
   PHONE_CHROME,
@@ -151,13 +153,16 @@ test('the desktop profile renders 1920x1080 from the root UI build, without touc
   for (const key of ['shots', 'chrome', 'deviceName', 'wholeExcerpts', 'offlineEntry']) assert.equal(p[key], undefined, `phone.${key}`);
 });
 
-test('layout rules by the glyphs\' ink (desktop only): air above the bottom edge of the image, nothing peeking under the header', () => {
+test('layout rules by the glyphs\' ink (desktop and phone): air above the bottom edge of the image, nothing peeking under the top bar', () => {
   // The window's bottom edge is the image's edge on the desktop: the last line keeps air under its ink.
   assert.ok(DESKTOP_CHROME.ink && DESKTOP_CHROME.ink.air >= 2, 'DESKTOP_CHROME.ink.air (CSS px)');
   assert.equal(PROFILES.desktop.chrome, DESKTOP_CHROME);
-  // The phone frame (Play and iPhone sets) has no ink rule: its line rules stay as they were, also since its
-  // bottom edge is the screen's own (no bottom navigation since 2026-11-25).
-  assert.equal(PHONE_CHROME.ink, undefined);
+  // The phone frame (Play and iPhone sets) has the same rule since 2026-11-27: its bottom edge is the screen's
+  // own (no bottom navigation since 2026-11-25), and lines sat on it in 51 of the 406 pictures of 2026-11-26.
+  assert.deepEqual(PHONE_CHROME.ink, { air: 3 });
+  assert.deepEqual(PHONE_CHROME.ink, DESKTOP_CHROME.ink);
+  // The Play profile and both iPhone profiles take PHONE_CHROME (no chrome of their own).
+  for (const name of ['phone', 'iphone-medium', 'iphone-large']) assert.equal(PROFILES[name].chrome, undefined, `${name} takes PHONE_CHROME`);
   const probe = layoutProbe.toString();
   // Measured from the font (canvas measureText: the real ink above / below the baseline) ...
   assert.ok(probe.includes('measureText') && probe.includes('actualBoundingBoxDescent') && probe.includes('fontBoundingBoxAscent'));
@@ -165,6 +170,86 @@ test('layout rules by the glyphs\' ink (desktop only): air above the bottom edge
   assert.ok(probe.indexOf('frame.ink.air') < probe.indexOf('if (bottom <= topEdge + HIDE || top >= navEdge - HIDE) continue;'));
   // ... and only when the frame asks for it.
   assert.ok(probe.includes('frame.ink ? document.createElement'));
+});
+
+/**
+ * Runs layoutProbe (written for the browser) on a minimal fake page: a window of 400 x 800 CSS px at scroll 0,
+ * no bars, and ONE line of text whose line box is 772..798 (2 px above the bottom edge, inside the line-box
+ * leeway) in a font whose metrics put the baseline at 790 and its ink `descent` px below it (+ 0.5 px of
+ * anti-aliasing). So with the ink rule (3 px of air: the ink must end by 797) a descent of 7 (797.5) is "text on
+ * the bottom edge" and a descent of 4 (794.5) is clean.
+ */
+function probeOneLine(args, descent) {
+  const names = ['window', 'document', 'NodeFilter', 'getComputedStyle'];
+  const saved = names.map((n) => [n, Object.getOwnPropertyDescriptor(globalThis, n)]);
+  const body = { tagName: 'BODY' };
+  const el = { tagName: 'P', className: '', parentElement: body, closest: () => null };
+  const node = { data: 'Ein Satz am Rand', parentElement: el };
+  const rect = { top: 772, bottom: 798, left: 16, right: 300, width: 284, height: 26 };
+  const style = { clipPath: 'none', clip: 'auto', overflowX: 'visible', overflowY: 'visible', lineHeight: '26px', textTransform: 'none', fontStyle: 'normal', fontWeight: '400', fontSize: '16px', fontFamily: 'Test' };
+  const metrics = { fontBoundingBoxAscent: 14, fontBoundingBoxDescent: 4, actualBoundingBoxAscent: 12, actualBoundingBoxDescent: descent };
+  const fake = {
+    window: { innerHeight: 800, innerWidth: 400, scrollY: 0, scrollTo() {} },
+    NodeFilter: { SHOW_TEXT: 4 },
+    getComputedStyle: () => style,
+    document: {
+      body,
+      documentElement: { scrollHeight: 800 },
+      querySelector: () => null,
+      querySelectorAll: () => [],
+      createRange: () => ({ selectNodeContents() {}, setStart() {}, setEnd() {}, getClientRects: () => [rect] }),
+      createTreeWalker: () => {
+        let done = false;
+        return { nextNode: () => (done ? null : ((done = true), node)) };
+      },
+      createElement: () => ({ getContext: () => ({ font: '', measureText: () => metrics }) }),
+    },
+  };
+  for (const n of names) Object.defineProperty(globalThis, n, { value: fake[n], configurable: true, writable: true });
+  try {
+    return layoutProbe(args).problems;
+  } finally {
+    for (const [n, d] of saved) {
+      if (d) Object.defineProperty(globalThis, n, d);
+      else delete globalThis[n];
+    }
+  }
+}
+
+test('the ink rule reaches layoutProbe for every profile: a line whose ink ends within 3 px of the bottom edge is refused', () => {
+  const shot = { n: '01', slug: 'probe' };
+  for (const name of ['phone', 'iphone-medium', 'iphone-large', 'desktop', 'mac']) {
+    // Exactly the arguments settleLayout builds for a shot of this profile.
+    const args = layoutArgs(shot, 'de', chromeOf(PROFILES[name]));
+    assert.deepEqual(args.chrome.ink, { air: 3 }, `${name}: the ink rule is passed on`);
+    const problems = probeOneLine(args, 7);
+    assert.ok(problems.some((p) => p.startsWith('text on the bottom edge')), `${name}: ${JSON.stringify(problems)}`);
+    assert.deepEqual(probeOneLine(args, 4), [], `${name}: 3.5 px of air is clean`);
+  }
+  // The control: without the rule the same line passes (its line box is within the leeway), which is what the
+  // phone sets of 2026-11-26 did.
+  assert.deepEqual(probeOneLine(layoutArgs(shot, 'de', { ...PHONE_CHROME, ink: undefined }), 7), []);
+});
+
+test('the desktop excerpt guard follows the server\'s excerpt of release 1.1.0: a card that ends with "…" was shortened', () => {
+  // makeExcerpt (server/src/db/entries-repo.ts) cuts a text longer than 160 code points at a word and ends it
+  // with ONE "…"; the desktop sets show whole sentences instead (wholeExcerpts), and the guard refuses a
+  // shortened card that is on the screen all the same.
+  assert.deepEqual(DESKTOP_CHROME.excerpt, { selector: '.entry-card__excerpt', length: 160, ellipsis: '…' });
+  assert.equal(PROFILES.desktop.wholeExcerpts, DESKTOP_CHROME.excerpt.length);
+  const probe = layoutProbe.toString();
+  assert.ok(probe.includes('text.endsWith(frame.excerpt.ellipsis)'));
+  // The old test (160 code points ending in a letter) can no longer find a shortened text: it is gone.
+  assert.ok(!probe.includes('frame.excerpt.length || !'));
+  // The phone sets show the app's excerpt as it is (no guard, no wholeExcerpts).
+  assert.equal(PHONE_CHROME.excerpt, undefined);
+  assert.equal(PROFILES.phone.wholeExcerpts, undefined);
+  // The guard's premise: no demo text ends with an ellipsis of its own (none has one at all), so an excerpt that
+  // ends with "…" is always one the server shortened.
+  const seedDir = new URL('../../server/src/db/seed-content/', import.meta.url);
+  const files = readdirSync(seedDir).filter((f) => f.endsWith('.ts'));
+  assert.ok(files.length >= 20, 'the seed content of the 20 languages');
+  for (const f of files) assert.ok(!readFileSync(new URL(f, seedDir), 'utf8').includes('…'), `${f} has a "…" (the desktop excerpt guard would refuse a whole text ending with it)`);
 });
 
 test('the desktop offline entry (shot 08): the phone\'s entry with three more demo sentences, joined the language\'s way', () => {

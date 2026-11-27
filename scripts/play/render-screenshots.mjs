@@ -71,6 +71,13 @@
  * being text, is still never cut; render-log.json then says "boxUnderTopBar" for that file). A shot can
  * also name elements that must be entirely on the screen (`show`). The top app bar's own texts count too:
  * a page title shortened with "..." beside the "Menu" button fails the shot like any other cut text.
+ * The rules go by the glyphs' INK as well as by the line boxes (PHONE_CHROME.ink / DESKTOP_CHROME.ink, measured
+ * from the font): a line on the screen keeps 3 CSS px of air between its lowest ink and the bottom edge of the
+ * image, and no glyph of a line under the top bar may peek out below it. On the phone profiles since 2026-11-27
+ * (the sets rendered before have lines whose lowest strokes touch the image's bottom edge); on the desktop
+ * profiles from the start. The excerpt of a list card ends with "…" when the app shortened the text (the
+ * server's makeExcerpt since release 1.1.0: cut at a word, at most 160 code points with the ellipsis): that is
+ * the app's own text, not a cut line, and the phone sets show it as the app does.
  *
  * THE PHONE FRAME (MobileShell, the same build for the Android and the iPhone sets; the owner's decision of
  * 2026-11-25): a sticky top app bar with the back arrow, the page title and, at its inline end, the "Menu"
@@ -115,12 +122,14 @@
  * phone), its own shot list (DESKTOP_SHOTS: Home, My diary, an entry, Calendar, Habits, Insights,
  * Settings, the offline status bar) and the output store/screenshots/<tag>/. Desktop-only additions
  * (DESKTOP_CHROME / PROFILES.desktop): the navigation row's links count as framed things (a filled tab
- * half under the header is refused); a list card's excerpt that the server cut at 160 characters in the
- * middle of a word is refused, and the demo texts of today and yesterday longer than that are shortened
- * to whole sentences before the shots (`wholeExcerpts`, a data change); the layout rules also go by the
- * glyphs' INK, measured from the font (DESKTOP_CHROME.ink: the image's bottom edge keeps 3 CSS px of air
- * under the last line's ink, and no glyph of a line under the header may peek out below it - the line-box
- * leeway alone let descenders touch the image edge and an Arabic hamza show under the header); the entry
+ * half under the header is refused); the demo texts of today and yesterday longer than the list's excerpt
+ * (160 code points) are shortened to whole sentences before the shots (`wholeExcerpts`, a data change), so
+ * their cards show whole sentences and no "…", and a list card whose excerpt the server shortened (it ends
+ * with "…") is refused as a guard (DESKTOP_CHROME.excerpt; until release 1.1.0 the server cut at 160
+ * characters in the middle of a word, and the guard looked for that); the layout rules went by the glyphs'
+ * INK here first (DESKTOP_CHROME.ink; LAYOUT RULES above - the line-box leeway alone let descenders touch
+ * the image edge and an Arabic hamza show under the header; the phone profiles have the same rule since
+ * 2026-11-27); the entry
  * written offline in shot 08 has three more demo sentences than the phone's (desktopOfflineEntry), so its
  * page has a clean position; the account signs in as the
  * Windows app does (device name "Computer", localized). Check the set with
@@ -324,6 +333,15 @@ export const PHONE_CHROME = {
   topName: 'the top app bar',
   bottomName: 'the bottom edge of the screen',
   /**
+   * The layout rules by the glyphs' ink, as on the desktop (DESKTOP_CHROME.ink, layoutProbe `frame.ink`): since
+   * the bottom navigation is gone (2026-11-25) the bottom edge of the screen is the edge of the image, and the
+   * line-box leeway let the lowest strokes of a last line sit on it (51 of the 406 phone pictures of 2026-11-26
+   * had dark pixels in their last pixel row). A line on the screen keeps `air` CSS px under its lowest ink (7.5
+   * image px on the Play set, 9 on the iPhone sets), and a line under the top app bar counts as hidden only
+   * when none of its ink shows below it. On since 2026-11-27 (release 1.1.0), for the Play and iPhone sets.
+   */
+  ink: { air: 3 },
+  /**
    * How the offline shot opens the new-entry form and then "My diary" without a page load: "My diary" is a
    * row of the menu, so the "Menu" button of the top app bar opens it first (`menuButton`, then the row).
    */
@@ -341,10 +359,16 @@ export const DESKTOP_CHROME = {
   /** More framed things for the layout rules: the navigation row's links (the current one is a filled tab - half of it under the header looks cut). */
   boxes: '.nav__link',
   /**
-   * A list card's excerpt is the server's first 160 characters of the text, cut wherever they end
-   * (server/src/db/entries-repo.ts makeExcerpt): one that is that long and ends in a letter is a cut word.
+   * A list card's excerpt is the server's beginning of the text (server/src/db/entries-repo.ts makeExcerpt,
+   * since release 1.1.0): a text of at most 160 code points as it is, a longer one cut at a word where one is
+   * near and ended with ONE "…" (U+2026), at most 160 code points with it. So an excerpt that ends with the
+   * ellipsis is a text the app shortened (no demo text ends with "…" of its own). The desktop sets show whole
+   * sentences instead (`wholeExcerpts`); this is the guard that refuses a shot when a shortened card is on the
+   * screen all the same (an entry older than yesterday scrolled into view, or wholeExcerpts gone). Until 1.1.0
+   * the server cut at 160 code points wherever they ended, and this rule looked for 160 code points ending in a
+   * letter (a broken word) - with the new server that test could no longer fail for a shortened text.
    */
-  excerpt: { selector: '.entry-card__excerpt', length: 160 },
+  excerpt: { selector: '.entry-card__excerpt', length: 160, ellipsis: '…' },
   /**
    * The layout rules by the glyphs' ink, not only by the line boxes (layoutProbe `frame.ink`): the window's
    * bottom edge is the edge of the image here, so a line on the screen keeps `air` CSS px (3.75 image px)
@@ -1090,8 +1114,8 @@ export function layoutProbe(args) {
     if (/[-\u2010-\u2015/\u00ad]/u.test(before)) return false;
     return spaced ? /[\p{L}\p{N}\p{M}]/u.test(before) && /[\p{L}\p{N}\p{M}]/u.test(after) : /[A-Za-z0-9]/.test(before) && /[A-Za-z0-9]/.test(after);
   };
-  // Glyph ink (frame.ink - the desktop profile only; the phone profile has none and its rules are exactly as
-  // before): where a line's glyphs really reach, from the font's own metrics (canvas measureText of the
+  // Glyph ink (frame.ink - every profile since 2026-11-27: DESKTOP_CHROME and PHONE_CHROME; a frame without it
+  // judges by the line boxes only): where a line's glyphs really reach, from the font's own metrics (canvas measureText of the
   // node's text in its computed font: the actual ink above / below the baseline), placed in the line box
   // the way the browser places the font's ascent and descent. EPS / HIDE above are leeway for the EMPTY
   // parts of a line box - a descender or an Arabic hamza below can still reach into them.
@@ -1190,14 +1214,15 @@ export function layoutProbe(args) {
       }
     }
   }
-  // Text the app itself cut at a fixed length (frame.excerpt, desktop): the word at its end is broken.
+  // Text the app itself shortened (frame.excerpt, desktop): a list card's excerpt that ends with the app's
+  // ellipsis (the server cut a text longer than frame.excerpt.length at a word and appended frame.excerpt.ellipsis).
   if (frame.excerpt) {
     for (const el of document.querySelectorAll(frame.excerpt.selector)) {
       const text = (el.textContent || '').trim();
-      if (Array.from(text).length < frame.excerpt.length || !/[\p{L}\p{N}\p{M}]$/u.test(text)) continue;
+      if (!text.endsWith(frame.excerpt.ellipsis)) continue;
       const r = el.getBoundingClientRect();
       if (r.width < 2 || r.height < 2) continue;
-      faults.push({ top: r.top + y0, bottom: r.bottom + y0, fixed: false, problem: `a text the app cut at ${frame.excerpt.length} characters (a broken word at its end): ${quote(text.slice(-40))}` });
+      faults.push({ top: r.top + y0, bottom: r.bottom + y0, fixed: false, problem: `a text the app shortened to ${frame.excerpt.length} characters (it ends with "${frame.excerpt.ellipsis}"): ${quote(text.slice(-40))}` });
     }
   }
   // Small framed things - buttons, badges, chips, fields: half of one under a bar or the floating button
@@ -1314,13 +1339,27 @@ export function layoutProbe(args) {
   return { y: best?.y ?? y0, moved: 0, problems: [`(tried ${lo}..${hi} of 0..${maxY}; fewest problems at ${best?.y ?? y0})`, ...(best?.problems ?? problemsAt(y0))] };
 }
 
+/** The frame a profile's shots are judged by: its own chrome (desktop, Mac) or the phone frame (Play, iPhone). */
+export function chromeOf(profile) {
+  return profile.chrome ?? PHONE_CHROME;
+}
+
+/**
+ * The arguments settleLayout gives layoutProbe for a shot: the parts of the frame it reads (with the ink
+ * rule, chrome.ink, and the desktop excerpt guard, chrome.excerpt) and the shot's own scroll range. The
+ * tests run layoutProbe with exactly these, so a frame part that gets lost on the way fails them.
+ */
+export function layoutArgs(shot, appLocale, chrome = PHONE_CHROME) {
+  const { top, bottom, nav, fab, bottomName, boxes, excerpt, ink } = chrome;
+  return { show: shot.show ?? [], spaced: !NO_WORD_SPACES.has(appLocale), up: shot.up ?? 0, down: shot.down ?? 0, step: 1, chrome: { top, bottom, nav, fab, bottomName, boxes, excerpt, ink } };
+}
+
 /**
  * Moves the page to the nearest clean position (layoutProbe) and checks it once more from scratch at
  * that position. Throws with the problems when there is none - such a shot is never written.
  */
 async function settleLayout(page, shot, appLocale, chrome = PHONE_CHROME) {
-  const { top, bottom, nav, fab, bottomName, boxes, excerpt, ink } = chrome;
-  const args = { show: shot.show ?? [], spaced: !NO_WORD_SPACES.has(appLocale), up: shot.up ?? 0, down: shot.down ?? 0, step: 1, chrome: { top, bottom, nav, fab, bottomName, boxes, excerpt, ink } };
+  const args = layoutArgs(shot, appLocale, chrome);
   // `prefer`: like `show`, but given up when no clean position has it on the screen.
   let found = shot.prefer ? await page.evaluate(layoutProbe, { ...args, show: [...args.show, ...shot.prefer], find: true }) : null;
   if (!found || found.problems.length) found = await page.evaluate(layoutProbe, { ...args, find: true });
@@ -1459,10 +1498,12 @@ export async function prepareAccount({ base, log, folder, appLocale, seedContent
   for (const summary of list.items) full.push(await api(base, log, `/api/entries/${summary.id}`, { token, locale: lang }));
   const best = pickEntry(full);
   if (!best) throw new Error('the demo has no entry in the last two weeks');
-  // `wholeExcerpts` (desktop): the list cards of today and yesterday show the server's excerpt, the
-  // first N characters of the text cut wherever they end ("Ich habe mit Ma"). Such a demo text is
-  // shortened to its whole sentences within N (a data change, the app is not touched), so the visible
-  // excerpts end with a full sentence. The entry of shot 03 is never changed.
+  // `wholeExcerpts` (desktop): the list cards of today and yesterday show the server's excerpt - a text
+  // longer than N code points cut at a word and ended with "…" (makeExcerpt since release 1.1.0; until then
+  // cut wherever the N characters ended, "Ich habe mit Ma"). Such a demo text is shortened to its whole
+  // sentences within N (a data change, the app is not touched), so the server returns it as it is and the
+  // visible excerpts end with a full sentence, as in the desktop sets rendered before 1.1.0. The entry of
+  // shot 03 is never changed.
   if (wholeExcerpts) {
     const since = new Date(Date.parse(FIXED_TIME) - 86400000).toISOString().slice(0, 10);
     for (const e of full) {
@@ -1530,7 +1571,7 @@ async function shootLocale({ browser, profile, base, log, folder, appLocale, pre
     // the server answers no request during it.
     await clock.withRealDate(() => page.clock.setFixedTime(new Date(FIXED_TIME)));
     let counter = 0;
-    const chrome = profile.chrome ?? PHONE_CHROME;
+    const chrome = chromeOf(profile);
     for (const shot of profile.shots ?? SHOTS) {
       if (only && !only.has(shot.n)) continue;
       try {

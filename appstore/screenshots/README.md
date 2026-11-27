@@ -229,11 +229,11 @@ number changes (section 7).
   design). The Play set of 2026-11-26 has no last-resort picture; the Store set has one in 03 (by 1 px) and `zh-CN`
   08. The Mac set has none (see `appStoreOfflineEntry`, section 6).
 * **A line on the picture's bottom edge.** Since the phone frame has no bottom bar, the bottom edge of the page is
-  the bottom edge of the picture, and the phone profiles' layout rules go by the line boxes: in some pictures of
+  the bottom edge of the picture, and the phone profiles' layout rules went by the line boxes only: in some pictures of
   both iPhone sets (and of the Play set) the last line on the screen sits on that edge and its lowest strokes touch
   it (51 of the 406 phone pictures of 2026-11-26 have dark pixels in their last pixel row; the text is readable).
-  The desktop profile's glyph-ink rule (`DESKTOP_CHROME.ink`: 3 CSS px of air under the last line's ink) is to be
-  switched on for the phone profiles at the next full render, before the release.
+  Since 2026-11-27 the phone profiles have the desktop profile's glyph-ink rule too (`PHONE_CHROME.ink`, as
+  `DESKTOP_CHROME.ink`: 3 CSS px of air under the last line's ink); the pictures rendered before that date do not.
 * **An entry's text in the list can end in the middle of a word** (`de-DE/02-diary.png`: "... Ich habe mit Ma"):
   the app shows the first 160 characters of an entry in the list and cuts there without an ellipsis (`makeExcerpt` in
   `server/src/db/entries-repo.ts`). The iPhone profiles show the app as it is, as the Play set does
