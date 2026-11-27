@@ -69,8 +69,8 @@ function runBuild(args) {
 
 // --- version: one place, Store rules ------------------------------------------------------------
 
-test('the Store package version has one place and is 1.0.1.0 (app version 1.0.1) for the first submission', () => {
-  assert.equal(readPackageVersion(), '1.0.1.0');
+test('the Store package version has one place and is 1.1.0.0 (app version 1.1.0) for the first submission', () => {
+  assert.equal(readPackageVersion(), '1.1.0.0');
   const check = validateVersion(readPackageVersion());
   assert.deepEqual(check, { errors: [], storeErrors: [] });
   assert.equal(path.relative(ROOT, VERSION_FILE).replace(/\\/g, '/'), 'src-tauri/msix/package-version.json');

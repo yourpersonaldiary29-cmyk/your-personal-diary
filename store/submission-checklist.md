@@ -69,7 +69,7 @@ units (the stricter count - Microsoft does not say how it counts) after filling 
 
 - [ ] Developer account opened at https://storedeveloper.microsoft.com (Individual), publisher display name **Ouriel Sebag**.
 - [ ] Name "Your Personal Diary" reserved (Partner Center > Apps and games > New product > MSIX or PWA app).
-- [ ] The three identity values copied from **Product management > Product identity** into `store/identity.json` (see `store/MSIX-BUILD.md`), and the Store `.msix` built from them (version **1.0.1.0** for the first submission).
+- [ ] The three identity values copied from **Product management > Product identity** into `store/identity.json` (see `store/MSIX-BUILD.md`), and the Store `.msix` built from them (version **1.1.0.0** for the first submission).
 - [ ] The privacy policy is live: open https://yourpersonaldiary.fly.dev/privacy/ and check that no `{{...}}` is left.
 - [ ] The demo account exists (**required**, policy 10.3.1): in the Store build, **Sign up** (this also proves that
       registration is open - no invite code), then Settings > Data > **Load sample data**. Only you keep its password;
@@ -132,7 +132,7 @@ Product declarations (the reasons are in `store/policy/partner-center-privacy.md
 ## 5. Packages
 
 - [ ] Upload the Store `.msix` built with the identity from `store/identity.json` (how: `store/MSIX-BUILD.md`).
-- [ ] The version has four parts and ends in `.0` - **1.0.1.0** for the first submission.
+- [ ] The version has four parts and ends in `.0` - **1.1.0.0** for the first submission.
 - [ ] Device families: Windows 10/11 Desktop only.
 - [ ] If the page shows an error about Name / Publisher, the identity values in the package do not match
       **Product identity** - copy them again and rebuild.

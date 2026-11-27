@@ -3,7 +3,7 @@
 | File | Purpose |
 | --- | --- |
 | `AppxManifest.template.xml` | Package manifest template. `scripts/store/build-msix.mjs` fills in the `{{PLACEHOLDERS}}` (identity from `store/identity.json`, the version, the 20 resource languages) and writes `AppxManifest.xml` into the package. |
-| `package-version.json` | **The one place of the Store package version** (`"packageVersion": "1.0.0.0"` for the first submission). Raise it for every new submission (for example `1.0.1.0`, `1.1.0.0`); the fourth part always stays `0`. It is independent of the app version in `tauri.conf.json` (0.1.0), which the Store would reject (first part 0). |
+| `package-version.json` | **The one place of the Store package version** (`"packageVersion": "1.1.0.0"` for the first submission - app version 1.1.0). Raise it for every new submission (for example `1.1.1.0`, `1.2.0.0`); the fourth part always stays `0`. It is independent of the app version in `tauri.conf.json` (0.1.0 when this folder was made, which the Store would reject - first part 0; 1.1.0 today). |
 | `assets/` | Optional hand-made logo files that replace generated ones (see `assets/README.md`). Empty by default: all logos are generated from `src-tauri/icons/icon.png` at build time. |
 
 Build, validation, research and decisions: `store/MSIX-BUILD.md`.

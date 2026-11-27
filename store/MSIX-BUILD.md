@@ -46,10 +46,10 @@ an unknown field.
 
 ### 1.2 The version - one place: `src-tauri/msix/package-version.json`
 
-`{ "packageVersion": "1.0.1.0" }` for the first submission (app version 1.0.1, since 2026-11-19).
-Every later submission that should update existing users needs a higher number (`1.0.2.0`,
-`1.1.0.0`, ...); the fourth part always stays 0. It is deliberately independent of the app version
-in `tauri.conf.json` (0.1.0 when this file was written - a `0.1.0.0` the Store would reject; 1.0.1
+`{ "packageVersion": "1.1.0.0" }` for the first submission (app version 1.1.0, since 2026-11-27).
+Every later submission that should update existing users needs a higher number (`1.1.1.0`,
+`1.2.0.0`, ...); the fourth part always stays 0. It is deliberately independent of the app version
+in `tauri.conf.json` (0.1.0 when this file was written - a `0.1.0.0` the Store would reject; 1.1.0
 today) [S1]: "the last (fourth) section of the version number is
 reserved for Store use and must be left as 0 when you build your package (although the Store may
 change the value in this section). The other sections must be set to an integer between 0 and
@@ -86,8 +86,8 @@ only; a Store package always takes this file.
   only for one build, a package changed inside `node_modules` without `package-lock.json`), and
   the content of `index.html` and the `public/` files is covered by the time check only (their
   names carry no hash).
-- Output: `src-tauri/target/release/bundle/msix/YourPersonalDiary_1.0.1.0_x64.msix` plus
-  `YourPersonalDiary_1.0.1.0_x64.files.json` (staged file list with sizes and SHA-256).
+- Output: `src-tauri/target/release/bundle/msix/YourPersonalDiary_1.1.0.0_x64.msix` plus
+  `YourPersonalDiary_1.1.0.0_x64.files.json` (staged file list with sizes and SHA-256).
   Upload the `.msix` in Partner Center -> the submission -> Packages. It is not signed - "The
   Microsoft Store will automatically re-sign your MSIX/AppX packages with a Microsoft certificate
   during the publishing process after your app passes certification." [S1]
@@ -394,7 +394,7 @@ packaged apps to avoid (they cannot start at all on Windows 10 S).
   > account-deletion pages of that site can be opened this way). It does not
   > require elevation, installs no drivers or services, and does not modify system settings.
 
-- Version: rule of [S1] (section 1.2); first submission `1.0.1.0`.
+- Version: rule of [S1] (section 1.2); first submission `1.1.0.0`.
 - Signing: never signed here; the Store re-signs [S1].
 - File names: "Be sure that all your filenames use ANSI." [S1] - checked (ASCII).
 - Size: "msix or .appx packages targeting Windows 10 or Windows 11: 25 GB maximum per package" [S1] - 3.1 MB.

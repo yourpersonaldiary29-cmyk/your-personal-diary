@@ -6,7 +6,7 @@
 
 **מה יש עכשיו בתיקייה `ios`:**
 
-* פרויקט Xcode שלם: `ios/App/App.xcodeproj`. המזהה `app.yourpersonaldiary`, השם Your Personal Diary, **iPhone בלבד** (בלי iPad), iOS 16.0 לפחות, גרסה 1.0.1 (Build 2) מאז 19.11.2026, והסמל של ה-App Store (`appstore/icon/AppIcon-1024.png`).
+* פרויקט Xcode שלם: `ios/App/App.xcodeproj`. המזהה `app.yourpersonaldiary`, השם Your Personal Diary, **iPhone בלבד** (בלי iPad), iOS 16.0 לפחות, גרסה 1.1.0 (Build 3) מאז 27.11.2026, והסמל של ה-App Store (`appstore/icon/AppIcon-1024.png`).
 * המסך שמופיע לרגע כשהאפליקציה נפתחת (Launch screen): רקע חלק בצבע של היומן - בהיר, או כהה כשה-iPhone במצב כהה.
 * צעדים 2 עד 5.5 שלמטה **כבר בוצעו** בפרויקט הזה, ולא חוזרים עליהם: ה-View Controller של היומן, התוספות ל-Info.plist (הטקסט של Face ID, `ITSAppUsesNonExemptEncryption = false`, 20 השפות, קובצי הגיבוי `.mpd`), ה-Privacy manifest (כולל Health ו-Fitness, כמו בתשובות של App Store Connect), וחמשת קובצי ה-Swift.
 * הבנייה לסימולטור, בלי חתימה, הצליחה (BUILD SUCCEEDED) - בלי שגיאות ובלי אזהרות בקוד של היומן. גם Archive ל-iPhone אמיתי - כמו בשלב ד, אבל בלי חתימה - הצליח.
@@ -53,7 +53,7 @@ npm run mobile:build && CI=1 npx cap sync ios && open ios/App/App.xcodeproj
 רק אחרי ההצטרפות ל-Apple Developer Program, ואחרי שרשומת האפליקציה נוצרה לפי `appstore/CHECKLIST.he.md`:
 
 1. **מיד לפני כל Archive, גם הראשון:** מדביקים שוב ב-Terminal את שלוש השורות של שלב א.2 ומחכים ש-Xcode חוזר לחזית. כך ה-Archive כולל את הממשק העדכני של היומן. בלי זה הוא לוקח את הממשק מהפעם הקודמת שבה השורות הורצו - אולי בלי תיקונים שנעשו מאז.
-2. בלשונית **General** של היעד App, תחת **Identity**, בודקים: **Version** = `1.0.1` ו-**Build** = `2` (כך הם מוגדרים בפרויקט מאז 19.11.2026; אם בהעלאה הראשונה מופיעים שם מספרים אחרים, מקלידים את אלה). בכל העלאה חדשה Build גבוה יותר: 3, 4 וכן הלאה.
+2. בלשונית **General** של היעד App, תחת **Identity**, בודקים: **Version** = `1.1.0` ו-**Build** = `3` (כך הם מוגדרים בפרויקט מאז 27.11.2026; אם בהעלאה הראשונה מופיעים שם מספרים אחרים, מקלידים את אלה). בכל העלאה חדשה Build גבוה יותר: 4, 5 וכן הלאה.
 3. בסרגל העליון, ברשימת המכשירים, בוחרים **Any iOS Device (arm64)**.
 4. בתפריט **Product ← Archive**. בסוף נפתח החלון **Organizer** עם הארכיון.
 5. לפני ההעלאה הראשונה: קליק ימני על הארכיון ← **Generate Privacy Report**. בדוח צריכים להופיע אותם סוגי מידע כמו ב-`mobile/ios-app/PrivacyInfo.xcprivacy` (סעיף 8, שורה 12).

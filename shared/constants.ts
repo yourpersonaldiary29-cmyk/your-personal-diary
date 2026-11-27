@@ -36,7 +36,7 @@ export const LEGACY_LOCALE: Locale = 'he';
  * the same value in every locale and must never be translated.
  */
 export const APP_NAME = 'Your Personal Diary';
-export const APP_VERSION = '1.0.1';
+export const APP_VERSION = '1.1.0';
 
 /**
  * The mark that every request of an app carries from version 1.1.0 on (src/api/client.ts): ONE constant header -

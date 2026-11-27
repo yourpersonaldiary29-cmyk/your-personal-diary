@@ -272,7 +272,7 @@ npx tauri build --bundles nsis
 ```
 
 * `beforeBuildCommand` הוא `npm run build` (הממשק ל-`dist/`; כתובת השרת נאפית מ-`src/config/server-default.json`), ואחריו קומפילציית Rust **בלי** `local-server`.
-* התוצר: `src-tauri/target/release/bundle/nsis/Your Personal Diary_1.0.1_x64-setup.exe` (כ-2.8 MB) - התקנה למשתמש הנוכחי, בלי הרשאות מנהל. **המתקין אינו כולל שרת**: `tauri.conf.json` לא מגדיר `externalBin` ולא `resources` (בדיקת Rust אוכפת זאת), ולכן קובץ התוכנה היחיד שהוא מתקין הוא `your-personal-diary.exe` (לצד המסיר ו-`install-locale.txt`). אם WebView2 חסר, המתקין מוריד את ה-bootstrapper של Microsoft (`downloadBootstrapper`).
+* התוצר: `src-tauri/target/release/bundle/nsis/Your Personal Diary_1.1.0_x64-setup.exe` (כ-2.8 MB) - התקנה למשתמש הנוכחי, בלי הרשאות מנהל. **המתקין אינו כולל שרת**: `tauri.conf.json` לא מגדיר `externalBin` ולא `resources` (בדיקת Rust אוכפת זאת), ולכן קובץ התוכנה היחיד שהוא מתקין הוא `your-personal-diary.exe` (לצד המסיר ו-`install-locale.txt`). אם WebView2 חסר, המתקין מוריד את ה-bootstrapper של Microsoft (`downloadBootstrapper`).
 * `npx tauri build --bundles nsis msi` מוסיף את `.../bundle/msi/Your Personal Diary_0.1.0_x64_he-IL.msi` - בעברית בלבד ובלי בחירת שפה. `npm run tauri:build` בונה את שניהם, ומריץ לפני כן גם את `server:build` ואת `sidecar:prepare` (הכנה למצב המקומי; התוצרים שלהם לא נארזים).
 * **שפת המתקין**: בתחילת ההתקנה נפתח בורר עם 20 השפות, כל אחת בשמה שלה. מסומנת מראש שפת Windows כשהיא אחת מהן, אחרת אנגלית; בהתקנה חוזרת - הבחירה הקודמת. המתקין כולו מוצג בשפה הזו, ו-`src-tauri/nsis/hooks.nsh` כותב את קוד השפה ל-`install-locale.txt` ליד התוכנה (ההסרה מוחקת אותו). האפליקציה מחילה אותו **פעם אחת**: מסכי הכניסה וההרשמה בשפה הזו, וחשבון חדש מתחיל בה; חשבונות קיימים שומרים על השפה שלהם, ועם "זכור אותי" שפת המתקין ממתינה למסך הכניסה הראשון שאחרי יציאה. הודעות ש-Tauri לא מתרגם, או מתרגם עם שגיאות, נמצאות ב-`src-tauri/nsis/<Language>.nsh` - שמורות ב-UTF-8 **בלי BOM** (Tauri מוסיף BOM בעצמו).
 * התקנה מעל גרסה ישנה שכללה את השרת המקומי מוחקת את `diary-server.exe` ואת קובצי `server\` שהיא השאירה, לפי שמם בלבד (`MPD_REMOVE_LEGACY_SERVER` ב-`hooks.nsh`, גם בהסרה).
@@ -282,11 +282,11 @@ npx tauri build --bundles nsis
 **חבילת Microsoft Store (MSIX)** - צריך את `store/identity.json`: עותק של `store/identity.example.json` עם שלושת הערכים שמופיעים ב-Partner Center (Product identity). הקובץ עוד לא קיים, והבנייה מסרבת בלעדיו או עם ערכי הדוגמה. מיד אחרי `npm run tauri:build`:
 
 ```bash
-node scripts/store/build-msix.mjs             # src-tauri/target/release/bundle/msix/YourPersonalDiary_1.0.1.0_x64.msix
+node scripts/store/build-msix.mjs             # src-tauri/target/release/bundle/msix/YourPersonalDiary_1.1.0.0_x64.msix
 node scripts/store/check-msix.mjs --release   # חייב להסתיים ב-PASSED
 ```
 
-מספר הגרסה בחנות - `src-tauri/msix/package-version.json` (`1.0.1.0` בהגשה הראשונה - גרסה 1.0.1 של האפליקציה). חבילת בדיקה שלא עולה לחנות: `--test`. הפרטים: [`store/MSIX-BUILD.md`](store/MSIX-BUILD.md).
+מספר הגרסה בחנות - `src-tauri/msix/package-version.json` (`1.1.0.0` בהגשה הראשונה - גרסה 1.1.0 של האפליקציה). חבילת בדיקה שלא עולה לחנות: `--test`. הפרטים: [`store/MSIX-BUILD.md`](store/MSIX-BUILD.md).
 
 **Android**
 
