@@ -315,3 +315,71 @@ async function sensitiveRows() {
     store.close();
   }
 }
+
+describe('a note made from a covered operation is covered too (section 4.8 "The end of a sign-out")', () => {
+  it('the dialog is open, a covered operation is rejected with no page waiting, "Delete them and sign out": the copy is deleted, nothing is kept', async () => {
+    await bootDevice({ server });
+    server.mode = 'down';
+    offline.__engineForTests()!.connectivity.noteFailure();
+    await api.entries.create({ ...ENTRY, title: 'w'.repeat(300) }); // saved on this device; the server will refuse it
+    setLogoutConfirmer(async () => {
+      // While the dialog is open the connection returns and the replayer turns the operation into a note.
+      server.mode = 'online';
+      await offline.tryNow();
+      await offline.drain();
+      expect(offline.notes.list().map((n) => n.reason)).toEqual(['rejected']);
+      expect((await offline.changesAtRest(DANA))!.operations).toEqual([]);
+      return 'delete';
+    });
+    const answer = await signOutDecision(DANA);
+    expect(answer).toMatchObject({ decision: 'wipe', count: 1 });
+    expect(await finishSignOut(DANA, answer)).toBe('wiped');
+    expect(await offline.changesAtRest(DANA)).toEqual({ operations: [], notes: [] });
+    expect(await openExistingAccountStore(DANA)).toBeNull();
+    expect(getSignedOutPending()).toBeNull();
+  }, 30000);
+
+  it('the same with an answer the server applied with a conflict (two notes of one covered operation): deleted', async () => {
+    await bootDevice({ server });
+    await api.settings.get();
+    server.mode = 'down';
+    offline.__engineForTests()!.connectivity.noteFailure();
+    await api.settings.update({ theme: 'dark', fontScale: 1.25 });
+    server.setSetting(DANA, 'fontScale', 1.5, '2026-10-21T08:00:00.000Z');
+    server.setSetting(DANA, 'theme', 'light', new Date(Date.now() + 60_000).toISOString());
+    setLogoutConfirmer(async () => {
+      server.mode = 'online';
+      await offline.tryNow();
+      await offline.drain();
+      expect(offline.notes.list().map((n) => n.reason)).toEqual(['otherLost', 'otherWon']);
+      return 'delete';
+    });
+    const answer = await signOutDecision(DANA);
+    expect(answer).toMatchObject({ decision: 'wipe', count: 1 });
+    expect(await finishSignOut(DANA, answer)).toBe('wiped');
+    expect(await offline.changesAtRest(DANA)).toEqual({ operations: [], notes: [] });
+  }, 30000);
+
+  it('an operation saved while the dialog is open and rejected with no page waiting was never asked about: its note is kept', async () => {
+    await bootDevice({ server });
+    server.mode = 'down';
+    offline.__engineForTests()!.connectivity.noteFailure();
+    await api.entries.create(ENTRY); // covered by the answer
+    setLogoutConfirmer(async () => {
+      await api.entries.create({ ...ENTRY, title: 'w'.repeat(300) }); // saved after the answer was counted
+      server.mode = 'online';
+      await offline.tryNow();
+      await offline.drain();
+      expect(offline.notes.list().map((n) => n.reason)).toEqual(['rejected']);
+      return 'delete';
+    });
+    const answer = await signOutDecision(DANA);
+    expect(answer).toMatchObject({ decision: 'wipe', count: 1 });
+    expect(await finishSignOut(DANA, answer)).toBe('kept');
+    const left = await offline.changesAtRest(DANA);
+    expect(left!.operations).toEqual([]);
+    expect(left!.notes).toHaveLength(1);
+    expect(left!.notes[0]).not.toBe(answer.covered!.operations[0]);
+    expect(server.diary(DANA).entries.size).toBe(1); // the covered one was uploaded while the dialog was open
+  }, 30000);
+});

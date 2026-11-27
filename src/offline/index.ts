@@ -278,37 +278,51 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
     return { enabled: true, recovered: running.recovered, readOnly: running.readOnly };
   }
 
+  // The engine this start opens, and whether `storeWrappedKey` has been called for it: from then on the
+  // vault may hold an entry of this start (also when that call failed - a native `wrap` that ended).
+  let opened: OfflineEngine | null = null;
+  let keyStored = false;
+  // The copy of the raw key for the vault: zeroed on every way out, the failing ones included.
+  let forVault: Uint8Array | null = null;
   try {
     const raw = aokBytes(res);
-    const forVault = persistent && keyVault() ? new Uint8Array(raw) : null;
+    forVault = persistent && keyVault() ? new Uint8Array(raw) : null;
     const keys = await armKeys(raw, args.user.id);
     if (ended()) {
       forVault?.fill(0);
       return { enabled: false, reason: 'failed' }; // signed out meanwhile: the database is not even opened
     }
     const e = await openEngine({ userId: args.user.id, keys, persistentCache: persistent, tokenTag, probe: args.probe, onError: args.onError, rememberMe: args.rememberMe });
-    // Signed out while the database opened, or while one of the steps below waited: `e` is stopped, nothing armed.
-    const abandoned = (): boolean => {
+    opened = e;
+    // Signed out while the database opened, or while one of the steps below waited: `e` is stopped, nothing
+    // armed. Once the vault was asked to wrap the key, what that call may have left goes first - the vault's
+    // entry (on the Mac the key at rest itself; a native `wrap` can end after a wipe's `remove`) and the
+    // wrapped-key rows while the store is still there - whatever ended the session: a wipe, a `stop()` of
+    // a sign-out that keeps the changes, the token gone. Starts are serialised, so the next start of this
+    // account runs only after this cleanup: it cannot remove what that start stores.
+    const abandoned = async (): Promise<boolean> => {
       if (!ended()) return false;
       forVault?.fill(0);
+      if (keyStored) await removeWrappedKey(e.store, args.user.id, true, args.onError);
       e.stop();
       return true;
     };
     const FAILED: StartOutcome = { enabled: false, reason: 'failed' };
-    if (abandoned()) return FAILED;
+    if (await abandoned()) return FAILED;
     await e.setEpoch(res.epoch);
     e.clock.learn(res.serverNow, Date.now() - 50, Date.now());
     if (persistent) {
-      if (abandoned()) return FAILED;
+      if (await abandoned()) return FAILED;
       if (forVault) {
+        keyStored = true;
         await storeWrappedKey(e.store, args.user.id, forVault).catch(args.onError);
         forVault.fill(0);
-        if (abandoned()) return FAILED;
+        if (await abandoned()) return FAILED;
       }
       await saveSnapshot(e.store, e.keys, snapshotOf(args, info)).catch(args.onError);
-      if (abandoned()) return FAILED;
+      if (await abandoned()) return FAILED;
       await writeBinding(args.user.id, token);
-      if (abandoned()) {
+      if (await abandoned()) {
         if (readBinding()?.userId === args.user.id) clearBinding(); // the one just written, for a session that is gone
         return FAILED;
       }
@@ -318,10 +332,10 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
       await removeWrappedKey(e.store, args.user.id, false, args.onError);
     }
     if (args.password) {
-      if (abandoned()) return FAILED;
+      if (await abandoned()) return FAILED;
       await keepPasswordWrap(e, args.password, res, args.onError);
     }
-    if (abandoned()) return FAILED;
+    if (await abandoned()) return FAILED;
     engine = e;
     setArmedAccount(args.user.id);
     e.start();
@@ -330,8 +344,16 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
       void warmUp(e);
     }
     return { enabled: true, recovered: e.recovered, readOnly: e.readOnly };
-  } catch (e) {
-    args.onError?.(e);
+  } catch (err) {
+    args.onError?.(err);
+    forVault?.fill(0);
+    // A start whose session ended once the vault was asked to wrap the key - here when `storeWrappedKey`
+    // threw on a store a wipe had closed meanwhile - leaves no key at rest either (see `abandoned`). A
+    // start that fails while its session goes on leaves the key at rest as it found it: the session's
+    // offline cold start keeps working (the wrap of this start holds the same account key).
+    const unarmed = opened !== null && engine !== opened ? opened : null;
+    if (keyStored && ended()) await removeWrappedKey(unarmed?.store ?? null, args.user.id, true, args.onError);
+    unarmed?.stop();
     await teardown(false);
     return { enabled: false, reason: 'failed' };
   }

@@ -20,7 +20,7 @@ import { deriveKeys, verifyKeyCheck, zero, type DerivedKeys } from './crypto';
 import { IdMap } from './ids';
 import { Journal } from './journal';
 import { ensureKeyCheck, META, removeVaultKey } from './keys';
-import { MirrorSink, clearMirror, decodeMirrorFile, noteFileName, opFileName } from './mirror';
+import { MirrorSink, clearMirror, decodeMirrorFile, fenceMirror, noteFileName, opFileName } from './mirror';
 import { Notes } from './notes';
 import { isPendingRecord, pendingOpIdOf } from './optimistic';
 import { Outbox, OpTooLargeError, opBytes, type EnqueueOutcome } from './outbox';
@@ -730,8 +730,13 @@ async function importMirror(store: OfflineStore, mirror: MirrorSink): Promise<nu
   return ops;
 }
 
-/** A full wipe of an account's data on this device (section 5.5): the database, the mirror files. */
+/**
+ * A full wipe of an account's data on this device (section 5.5): the database, the mirror files. The
+ * mirror is fenced first (`fenceMirror`): a native call of the account's engine that answers after this
+ * (a replayer step, a save under way) writes no copy that would bring the deleted text back.
+ */
 export async function wipeAccountData(userId: string): Promise<void> {
+  fenceMirror(userId);
   await deleteAccountStore(userId).catch(() => undefined);
   await clearMirror(userId);
 }

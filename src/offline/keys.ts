@@ -100,15 +100,34 @@ export async function loadWrappedKey(store: OfflineStore, userId: string): Promi
 }
 
 /**
+ * The longest the engine waits for the vault's `remove` (a native call). Past it the caller goes on and
+ * the call is left to end on its own: a plugin that never answers must not hold up a purge, a wipe, or
+ * the start that cleans up after itself (starts are serialised: every later start and every 401 purge
+ * would wait behind it until the app restarts).
+ */
+export const VAULT_REMOVE_WAIT_MS = 2000;
+
+/**
  * Asks the platform vault to forget the account's key: the Keychain item on the Mac (the key at rest
  * itself), the account's share of the Keystore alias on Android, nothing on Windows (the DPAPI blob
- * lives only in `meta`). Best effort: a vault that fails never stops the purge that asked.
+ * lives only in `meta`). Best effort: a vault that fails never stops the purge that asked, and one that
+ * does not answer within VAULT_REMOVE_WAIT_MS is not waited for any longer.
  */
 export async function removeVaultKey(userId: string, onError?: (e: unknown) => void): Promise<void> {
+  const vault = keyVault();
+  if (!vault) return;
+  let timer: ReturnType<typeof setTimeout> | null = null;
   try {
-    await keyVault()?.remove(userId);
+    await Promise.race([
+      vault.remove(userId),
+      new Promise<void>((resolve) => {
+        timer = setTimeout(resolve, VAULT_REMOVE_WAIT_MS);
+      }),
+    ]);
   } catch (e) {
     onError?.(e);
+  } finally {
+    if (timer) clearTimeout(timer);
   }
 }
 

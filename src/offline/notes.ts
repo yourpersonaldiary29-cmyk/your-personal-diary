@@ -45,9 +45,16 @@ export class Notes {
     return this.items.size;
   }
 
-  /** Encrypts a note body into a row without a key (encrypt BEFORE the transaction that writes it). */
-  async prepare(body: NoteBody, createdAt: number = Date.now()): Promise<NoteRow> {
-    const rid = randomUuid();
+  /**
+   * Encrypts a note body into a row without a key (encrypt BEFORE the transaction that writes it).
+   * `rid`: the row id of the operation the note is made from (the replayer), so that a sign-out whose
+   * dialog covered that operation covers its notes too (section 4.8); one operation can leave two notes
+   * with the same `rid` - they differ by `id`, and each encryption has a random nonce (the AAD names
+   * the `rid`, not the `id`: their ciphertexts could be swapped between the two rows at rest; section
+   * 4.8). Every note of the product is made this way; without a `rid` (`add`, used by tests only) the
+   * row id is a random UUID.
+   */
+  async prepare(body: NoteBody, createdAt: number = Date.now(), rid: string = randomUuid()): Promise<NoteRow> {
     return { rid, createdAt, ct: await encryptValue(this.keys, 'notes', rid, body) };
   }
 

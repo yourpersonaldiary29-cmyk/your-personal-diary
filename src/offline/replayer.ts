@@ -42,6 +42,13 @@ export const PAUSE_MAX_MS = 5 * 60_000;
 export const CHAIN_BACKOFF_MAX_MS = 10 * 60_000;
 export const STILL_TRYING_AFTER_ATTEMPTS = 5;
 export const BLOCKED_AFTER_STRIKES = 3;
+/**
+ * The longest a page claimed by an answer (`claim`) waits, from the commit of that answer's
+ * transaction, for the steps after it (the native mirror, the notes' mirror copies, the cache, the
+ * reload of the outbox). When they are not through by then, the page is told the committed outcome
+ * right away and the steps go on. Not longer than the page's own window (`ONLINE_CONFIRM_MS`, 2 s).
+ */
+export const CLAIMED_ANSWER_MS = 2000;
 
 export type AckOutcome = { kind: 'ack'; result: SyncOpResult; q: QueuedOp } | { kind: 'rejected'; error: ApiClientError } | { kind: 'timeout' };
 
@@ -433,7 +440,8 @@ export class Replayer {
 
     const journalRow = await e.journal.encryptRow(journalEntry);
     const idRows = await Promise.all(idmapRows.map((r) => e.idmap.encryptRow(r)));
-    const noteRows: NoteRow[] = await Promise.all(notes.map((n) => e.notes.prepare(n, now)));
+    // Notes made from this operation carry its row id: a sign-out that covered the operation covers them (section 4.8).
+    const noteRows: NoteRow[] = await Promise.all(notes.map((n) => e.notes.prepare(n, now, sealed.row.rid)));
     // From here the page waiting for this row hears the server's answer, whatever stops the engine meanwhile.
     const held = this.claim(sealed.row.seq);
     let noteIds: number[];
@@ -450,7 +458,9 @@ export class Replayer {
       for (const w of held) w.answer({ kind: 'timeout' });
       throw failure;
     }
-    try {
+    // Committed: the server's answer is the truth even when the engine was stopped in between - told
+    // after the steps below, or when they are not through within CLAIMED_ANSWER_MS, right then.
+    await withinBound(held, { kind: 'ack', result, q }, async () => {
       await e.mirror.remove(opFileName(sealed.row.seq, sealed.row.rid));
       e.journal.remember(journalEntry);
       for (const r of idmapRows) e.idmap.remember(r);
@@ -462,10 +472,7 @@ export class Replayer {
       e.publishCounts();
       bumpDataVersion();
       e.broadcast('changed');
-    } finally {
-      // Committed: the server's answer is the truth even when the engine was stopped in between.
-      for (const w of held) w.answer({ kind: 'ack', result, q });
-    }
+    });
   }
 
   /**
@@ -546,6 +553,8 @@ export class Replayer {
     const doomed = dependants(rows, sealed.row.seq);
     const first = rows.find((r) => r.row.seq === sealed.row.seq);
     const notes: NoteBody[] = [];
+    /** The row id of the operation each note is made from (section 4.8: covered with it). */
+    const noteRids: string[] = [];
     const removed: LoadedOp[] = [];
     // The pages waiting for these rows are claimed first: no timeout and no stop() can answer them any
     // more. So "no note, the page hears it" is decided once and kept: a claimed page is told "rejected"
@@ -558,16 +567,20 @@ export class Replayer {
     };
     if (first) {
       removed.push(first);
-      if (!held.get(first.row.seq)?.length) notes.push(noteOfRejection(first.q, err, e.idmap));
+      if (!held.get(first.row.seq)?.length) {
+        notes.push(noteOfRejection(first.q, err, e.idmap));
+        noteRids.push(first.row.rid);
+      }
     }
     for (const r of doomed) {
       removed.push(r);
       notes.push({ reason: 'blocked', label: labelOf(r.q), op: r.q.op, mine: entryOfOp(r.q.op, displayIdOf(e.idmap, r.q), r.q.hint?.createdAt) });
+      noteRids.push(r.row.rid);
     }
     let noteRows: NoteRow[];
     let noteIds: number[];
     try {
-      noteRows = await Promise.all(notes.map((n) => e.notes.prepare(n, e.now())));
+      noteRows = await Promise.all(notes.map((n, i) => e.notes.prepare(n, e.now(), noteRids[i])));
       noteIds = await e.store.tx(['outbox', 'notes'], 'readwrite', async (t) => {
         for (const r of removed) {
           const cur = await t.get('outbox', r.row.seq);
@@ -580,14 +593,13 @@ export class Replayer {
       answerAll({ kind: 'timeout' });
       throw failure;
     }
-    try {
+    // Committed: the pages hear "rejected" even when the engine was stopped or its store closed in
+    // between - after the steps below, or when they are not through within CLAIMED_ANSWER_MS, right then.
+    await withinBound([...held.values()].flat(), { kind: 'rejected', error: err }, async () => {
       for (const r of removed) await e.mirror.remove(opFileName(r.row.seq, r.row.rid));
       await e.notes.committed(noteRows, noteIds, notes);
       await e.outbox.load(); // before the page hears it: its next look at the waiting list no longer shows the rows
-    } finally {
-      // Committed: the pages hear "rejected" even when the engine was stopped or its store closed in between.
-      answerAll({ kind: 'rejected', error: err });
-    }
+    });
     e.publishCounts();
     bumpDataVersion();
     e.broadcast('changed');
@@ -597,6 +609,26 @@ export class Replayer {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+
+/**
+ * Runs the steps after a committed answer and tells the claimed pages `outcome` when they are through
+ * (also when one throws) - or, when they are not through within CLAIMED_ANSWER_MS of the commit (a
+ * native mirror call that never answers), right then; the steps go on afterwards as before. Telling a
+ * page twice is harmless (`answer` is idempotent), and so is a bound that runs out after `stop()`: a
+ * claimed page is answered only by its answer, with what was committed.
+ */
+async function withinBound(held: readonly AckWatcher[], outcome: AckOutcome, steps: () => Promise<void>): Promise<void> {
+  const tell = () => {
+    for (const w of held) w.answer(outcome);
+  };
+  const timer = held.length ? setTimeout(tell, CLAIMED_ANSWER_MS) : null;
+  try {
+    await steps();
+  } finally {
+    if (timer) clearTimeout(timer);
+    tell();
+  }
+}
 
 function haltFor(status: number): SyncHalt | null {
   switch (status) {

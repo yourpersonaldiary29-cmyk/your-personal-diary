@@ -55,7 +55,11 @@ export interface OutboxRow {
 /** `notes`: what the user must see (a conflict, a rejected change). `ct` holds the `SyncNote` body. */
 export interface NoteRow {
   id?: number;
-  /** A random UUID: the AAD record key of `ct` and the mirror file name (`<id>-<rid>.note`). */
+  /**
+   * The AAD record key of `ct` and part of the mirror file name (`<id>-<rid>.note`): the row id of the
+   * operation the note was made from (two notes of one operation share it; every note of the product is
+   * made from one), else a random UUID (`Notes.add`, tests only).
+   */
   rid: string;
   createdAt: number;
   ct: Uint8Array;

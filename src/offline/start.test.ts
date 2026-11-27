@@ -6,7 +6,7 @@ import { offline } from './index';
 import { isPendingRecord } from './optimistic';
 import { BINDING_KEY, loadSnapshot } from './session';
 import { getSyncStatus } from './status';
-import { META } from './keys';
+import { META, VAULT_REMOVE_WAIT_MS } from './keys';
 import { deleteAccountStore, openExistingAccountStore, setIdbFactory } from './store/idb';
 import type { OfflineStore, StoreName } from './store/types';
 import { bootDevice, brokenIndexedDb, DANA, fakeKeyVault, fakeMirror, flush, installWebCrypto, LIOR, resetOfflineTestEnv, waitFor, waitForAsync, wireDevice } from './test-utils/env';
@@ -698,5 +698,127 @@ describe('a start, a cache start, tryNow and updateSession whose session ends wh
     read.open();
     await expect(update).resolves.toBeUndefined();
     expect(writes).toBe(before);
+  }, 20000);
+});
+
+describe('a first start abandoned after the vault wrapped its key leaves no key at rest (section 5.5)', () => {
+  let server: FakeSyncServer;
+
+  beforeEach(() => {
+    server = new FakeSyncServer();
+  });
+
+  afterEach(async () => {
+    await resetOfflineTestEnv();
+  });
+
+  /** A key vault whose FIRST `wrap` waits for `open()` and then creates its entry (a native plugin that ends after a later `remove`). */
+  function heldWrapVault() {
+    const vault = fakeKeyVault();
+    const held = gate();
+    const realWrap = vault.wrap.bind(vault);
+    let calls = 0;
+    /** The key bytes each `wrap` was handed (the start must zero its copy on every way out). */
+    const received: Uint8Array[] = [];
+    vault.wrap = async (userId, key) => {
+      calls++;
+      received.push(key);
+      if (calls === 1) await held.done;
+      return realWrap(userId, key);
+    };
+    return { vault, inWrap: () => calls > 0, open: held.open, received };
+  }
+
+  it.each(['a wipe of the account', 'a stop() of a sign-out', 'the token gone'] as const)(
+    'the session ends by %s while the first start of a login is inside vault.wrap: no vault entry, no wrapped key, no binding, nothing armed',
+    async (how) => {
+      const v = heldWrapVault();
+      const { account, idb } = wireDevice({ server, rememberMe: true, app: true, keyVault: v.vault });
+      const start = offline.start({ user: account.user, rememberMe: true, token: account.token });
+      await waitFor(v.inWrap);
+      if (how === 'a wipe of the account') await offline.wipeAccount(DANA);
+      else if (how === 'a stop() of a sign-out') await offline.stop();
+      else signedOut();
+      expect(v.vault.blobs.has(DANA)).toBe(false);
+      v.open(); // the vault's wrap ends now and creates its entry
+      expect(await start).toEqual({ enabled: false, reason: 'failed' });
+      expect(offline.__engineForTests()).toBeNull();
+      expect(v.vault.blobs.has(DANA)).toBe(false);
+      expect(window.localStorage.getItem(BINDING_KEY)).toBeNull();
+      if (how === 'a wipe of the account') expect((await idb.databases()).map((d) => d.name).filter((n) => n?.includes(DANA))).toEqual([]);
+      const rest = await keyAtRest();
+      if (rest) expect(rest).toEqual({ key: undefined, by: undefined });
+      expect(v.received).toHaveLength(1);
+      expect(v.received[0].every((b) => b === 0)).toBe(true); // the raw key handed to the vault is zeroed
+    },
+    20000,
+  );
+
+  it('a vault whose remove never answers after the session ended: the abandoned start answers within the bound, and the next start is not held behind it', async () => {
+    const v = heldWrapVault();
+    const { account } = wireDevice({ server, rememberMe: true, app: true, keyVault: v.vault });
+    const first = offline.start({ user: account.user, rememberMe: true, token: account.token });
+    await waitFor(v.inWrap);
+    await offline.stop(); // a sign-out that keeps the changes
+    let removes = 0;
+    v.vault.remove = () => {
+      removes++;
+      return new Promise<void>(() => undefined); // a native plugin that never answers from now on
+    };
+    const t0 = Date.now();
+    v.open();
+    const outcome = await Promise.race([first, new Promise<'hung'>((r) => setTimeout(() => r('hung'), VAULT_REMOVE_WAIT_MS + 3000))]);
+    expect(outcome).toEqual({ enabled: false, reason: 'failed' });
+    expect(Date.now() - t0).toBeLessThan(VAULT_REMOVE_WAIT_MS + 1500);
+    expect(removes).toBeGreaterThan(0); // the cleanup asked the vault
+    expect(offline.__engineForTests()).toBeNull();
+    // The user signs in again: the start runs (starts are serialised - the queue is free).
+    const second = await Promise.race([offline.start({ user: account.user, rememberMe: true, token: account.token }), new Promise<'hung'>((r) => setTimeout(() => r('hung'), 8000))]);
+    expect(second).toMatchObject({ enabled: true });
+  }, 30000);
+
+  it('a start of a session that goes on, whose vault.wrap fails: the key at rest of the earlier start stays, the offline cold start still works, and the bytes are zeroed', async () => {
+    const vault = fakeKeyVault();
+    const { account, idb } = await bootDevice({ server, rememberMe: true, app: true, keyVault: vault });
+    expect(vault.blobs.has(DANA)).toBe(true);
+    const before = await keyAtRest();
+    expect(before?.key).toBeTruthy();
+    // The app is restarted; its me() succeeds, and the start's wrap fails (the vault refuses).
+    await offline.__resetForTests();
+    wireDevice({ server, rememberMe: true, app: true, keyVault: vault, idb, token: account.token });
+    const received: Uint8Array[] = [];
+    const realWrap = vault.wrap.bind(vault);
+    vault.wrap = async (_userId, key) => {
+      received.push(key);
+      throw new Error('the vault refused');
+    };
+    expect(await offline.start({ user: account.user, rememberMe: true, token: account.token })).toEqual({ enabled: false, reason: 'failed' });
+    expect(received).toHaveLength(1);
+    expect(received[0].every((b) => b === 0)).toBe(true);
+    expect(vault.blobs.has(DANA)).toBe(true);
+    expect(await keyAtRest()).toEqual(before);
+    vault.wrap = realWrap;
+    // The next launch without a connection opens from the cache as before.
+    await offline.__resetForTests();
+    wireDevice({ server, rememberMe: true, app: true, keyVault: vault, idb, token: account.token });
+    server.mode = 'down';
+    expect((await offline.startFromCache({ token: account.token })).ok).toBe(true);
+  }, 30000);
+
+  it('a new start of the same account right behind the abandoned one keeps what it stores: the cleanup runs before it', async () => {
+    const v = heldWrapVault();
+    const { account } = wireDevice({ server, rememberMe: true, app: true, keyVault: v.vault });
+    const first = offline.start({ user: account.user, rememberMe: true, token: account.token });
+    await waitFor(v.inWrap);
+    await offline.wipeAccount(DANA);
+    // The user signs in again at once: this start is asked for after the wipe and waits behind the first.
+    const second = offline.start({ user: account.user, rememberMe: true, token: account.token });
+    v.open();
+    expect(await first).toEqual({ enabled: false, reason: 'failed' });
+    expect(await second).toMatchObject({ enabled: true });
+    expect(offline.__engineForTests()).not.toBeNull();
+    expect(v.vault.blobs.has(DANA)).toBe(true);
+    expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
+    expect((await keyAtRest())?.key).toBeTruthy();
   }, 20000);
 });

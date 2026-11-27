@@ -6,11 +6,13 @@ import { OfflineEngine } from './engine';
 import { offline } from './index';
 import { aokBytes, armKeys, fetchSyncKey, META } from './keys';
 import { isPendingRecord } from './optimistic';
-import { __setOpTimeoutForTests } from './replayer';
+import { CLAIMED_ANSWER_MS, __setOpTimeoutForTests } from './replayer';
+import { ONLINE_CONFIRM_MS } from './facade';
 import { BINDING_KEY, tokenTagOf } from './session';
 import { getSyncStatus } from './status';
 import { openAccountStore } from './store/idb';
-import { bootDevice, DANA, fakeKeyVault, fakeMirror, flush, installWebCrypto, LIOR, resetOfflineTestEnv, waitFor, wireDevice } from './test-utils/env';
+import { MIRROR_NAME_RE } from './mirror';
+import { bootDevice, DANA, fakeKeyVault, fakeMirror, flush, freshIndexedDb, installWebCrypto, LIOR, resetOfflineTestEnv, waitFor, wireDevice } from './test-utils/env';
 import { FakeSyncServer } from './test-utils/fake-sync-server';
 
 beforeAll(() => installWebCrypto());
@@ -581,4 +583,305 @@ describe('replayer fixes (verified findings)', () => {
     await waitFor(() => getSyncStatus().phase === 'online', 3000);
     expect(getSyncStatus()).toMatchObject({ halted: 'locked', pending: 1 });
   });
+});
+
+/**
+ * A native mirror whose `remove` never answers while `hang` is set. `release()` lets every call that
+ * hung go on (the test's end: the replay loop holds the account's lock until its step is through).
+ */
+function hangingRemoveMirror() {
+  const mirror = fakeMirror();
+  const realRemove = mirror.remove.bind(mirror);
+  const hung: Array<() => void> = [];
+  let hang = false;
+  mirror.remove = (userId: string, name: string) => {
+    if (!hang) return realRemove(userId, name);
+    return new Promise<void>((resolve) => hung.push(() => void realRemove(userId, name).then(resolve)));
+  };
+  return {
+    mirror,
+    hangFromNow: () => {
+      hang = true;
+    },
+    hungCalls: () => hung.length,
+    release: () => {
+      hang = false;
+      for (const go of hung.splice(0)) go();
+    },
+  };
+}
+
+/** The page's answer, or 'none' when it has not come after `ms`. */
+async function answerWithin<T>(p: Promise<T>, ms: number): Promise<{ value: T } | { error: unknown } | 'none'> {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  try {
+    return await Promise.race([
+      p.then(
+        (value) => ({ value }),
+        (error: unknown) => ({ error }),
+      ),
+      new Promise<'none'>((r) => {
+        timer = setTimeout(() => r('none'), ms);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
+describe('a claimed page hears its answer within a bound (section 4.8 "A rejection while its page waits")', () => {
+  let server: FakeSyncServer;
+
+  beforeEach(() => {
+    server = new FakeSyncServer();
+    __setOpTimeoutForTests(null);
+  });
+
+  afterEach(async () => {
+    __setOpTimeoutForTests(null);
+    await resetOfflineTestEnv();
+  });
+
+  it('the bound is not longer than the page\'s own window', () => {
+    expect(CLAIMED_ANSWER_MS).toBeGreaterThan(0);
+    expect(CLAIMED_ANSWER_MS).toBeLessThanOrEqual(ONLINE_CONFIRM_MS);
+  });
+
+  it('a 400 whose mirror.remove never answers: the page hears "rejected" within the bound, the row is out of the outbox, no note', async () => {
+    const m = hangingRemoveMirror();
+    await bootDevice({ server, rememberMe: true, app: true, mirror: m.mirror });
+    m.hangFromNow();
+    try {
+      const t0 = Date.now();
+      const answer = await answerWithin(api.entries.create(entryInput('x'.repeat(300))), ONLINE_CONFIRM_MS + CLAIMED_ANSWER_MS + 2000);
+      const elapsed = Date.now() - t0;
+      expect(answer).not.toBe('none');
+      expect(answer).toMatchObject({ error: { status: 400 } });
+      expect(elapsed).toBeLessThan(ONLINE_CONFIRM_MS + CLAIMED_ANSWER_MS + 1000);
+      expect(m.hungCalls()).toBe(1); // the native remove of the operation's file is still under way
+      const disk = await onDisk();
+      expect(disk.outbox).toBe(0);
+      expect(disk.notes).toBe(0); // the page holds the text (the form): no note
+      expect(server.diary(DANA).entries.size).toBe(0);
+    } finally {
+      m.release();
+    }
+    await offline.drain();
+    expect(offline.notes.list()).toEqual([]);
+    expect(offline.pending()).toEqual([]);
+  }, 20000);
+
+  it('an applied save whose mirror.remove never answers: the page gets the server\'s record within the bound', async () => {
+    const m = hangingRemoveMirror();
+    await bootDevice({ server, rememberMe: true, app: true, mirror: m.mirror });
+    m.hangFromNow();
+    try {
+      const t0 = Date.now();
+      const answer = await answerWithin(api.entries.create(entryInput('Applied, mirror slow')), ONLINE_CONFIRM_MS + CLAIMED_ANSWER_MS + 2000);
+      const elapsed = Date.now() - t0;
+      expect(answer).not.toBe('none');
+      expect(answer).toHaveProperty('value');
+      const saved = (answer as { value: Entry }).value;
+      expect(elapsed).toBeLessThan(ONLINE_CONFIRM_MS + CLAIMED_ANSWER_MS + 1000);
+      expect(m.hungCalls()).toBe(1);
+      // Not "saved on this device": the row is no longer on the device, the server has it.
+      expect(isPendingRecord(saved)).toBe(false);
+      expect(saved.id).toBe([...server.diary(DANA).entries.values()][0].id);
+      expect((await onDisk()).outbox).toBe(0);
+    } finally {
+      m.release();
+    }
+    await offline.drain();
+    expect(server.diary(DANA).entries.size).toBe(1);
+  }, 20000);
+
+  it('stop() while the claimed page waits for the bound: the page still hears the committed answer, and a bound that runs out after stop() changes nothing', async () => {
+    const m = hangingRemoveMirror();
+    await bootDevice({ server, rememberMe: true, app: true, mirror: m.mirror });
+    m.hangFromNow();
+    try {
+      const pending = api.entries.create(entryInput('y'.repeat(300)));
+      await waitFor(() => m.hungCalls() === 1, 4000);
+      await offline.stop();
+      const answer = await answerWithin(pending, CLAIMED_ANSWER_MS + 2000);
+      expect(answer).toMatchObject({ error: { status: 400 } });
+      expect((await onDisk()).outbox).toBe(0);
+      expect((await onDisk()).notes).toBe(0);
+    } finally {
+      m.release();
+    }
+    await flush();
+  }, 20000);
+});
+
+describe('a note made from an operation carries that operation\'s row id (section 4.8 "The end of a sign-out")', () => {
+  let server: FakeSyncServer;
+
+  beforeEach(() => {
+    server = new FakeSyncServer();
+    __setOpTimeoutForTests(null);
+  });
+
+  afterEach(async () => {
+    __setOpTimeoutForTests(null);
+    await resetOfflineTestEnv();
+  });
+
+  /** The note rows on disk (no key: the plaintext fields only). */
+  async function noteRowsOnDisk(): Promise<Array<{ id: number; rid: string }>> {
+    const { store } = await openAccountStore(DANA);
+    const rows = await store.tx(['notes'], 'readonly', (t) => t.getAll('notes'));
+    store.close();
+    return rows.map((r) => ({ id: r.id!, rid: r.rid }));
+  }
+
+  it('two notes of one operation share its row id and both survive the save, a reload and a recovery from the mirror', async () => {
+    const mirror = fakeMirror();
+    const keyVault = fakeKeyVault();
+    const { idb, account } = await bootDevice({ server, rememberMe: true, app: true, mirror, keyVault });
+    await api.settings.get();
+    server.mode = 'down';
+    await api.settings.update({ theme: 'dark', fontScale: 1.25 });
+    const opRid = (await offline.changesAtRest(DANA))!.operations[0];
+    server.setSetting(DANA, 'fontScale', 1.5, '2026-10-21T08:00:00.000Z'); // earlier than our edit: ours wins
+    server.setSetting(DANA, 'theme', 'light', new Date(Date.now() + 60_000).toISOString()); // later: ours loses
+    server.mode = 'online';
+    await offline.drain();
+    const reasons = () => offline.notes.list().map((n) => [n.reason, n.label.settingKeys]);
+    const expected = [
+      ['otherLost', ['theme']],
+      ['otherWon', ['fontScale']],
+    ];
+    expect(reasons()).toEqual(expected);
+
+    // The save: two rows, two ids, one row id - the operation's (the format at rest is unchanged).
+    const rows = await noteRowsOnDisk();
+    expect(rows).toHaveLength(2);
+    expect(new Set(rows.map((r) => r.id)).size).toBe(2);
+    expect(rows.map((r) => r.rid)).toEqual([opRid, opRid]);
+    const noteFiles = () => [...(mirror.files.get(DANA)?.keys() ?? [])].filter((n) => n.endsWith('.note')).sort();
+    expect(noteFiles()).toEqual(rows.map((r) => `${r.id}-${opRid}.note`).sort());
+    expect(noteFiles().every((n) => MIRROR_NAME_RE.test(n))).toBe(true);
+    expect(await offline.changesAtRest(DANA)).toEqual({ operations: [], notes: [opRid, opRid] });
+
+    // A reload of the app: both notes decrypt; the orphan cleanup keeps both mirror copies.
+    await offline.__resetForTests();
+    await bootDevice({ server, rememberMe: true, app: true, mirror, keyVault, idb });
+    expect(reasons()).toEqual(expected);
+    expect(noteFiles()).toHaveLength(2);
+
+    // IndexedDB is evicted: both notes come back from the mirror.
+    await offline.__resetForTests();
+    const evicted = freshIndexedDb();
+    wireDevice({ server, rememberMe: true, app: true, mirror, keyVault, idb: evicted, token: account.token });
+    expect(await offline.start({ user: account.user, rememberMe: true, token: account.token })).toMatchObject({ enabled: true });
+    expect(reasons()).toEqual(expected);
+    expect((await noteRowsOnDisk()).map((r) => r.rid)).toEqual([opRid, opRid]);
+    expect(noteFiles()).toHaveLength(2);
+  }, 30000);
+
+  it('a 400 with no page waiting: the rejection note and the blocked note carry the row ids of their operations; a note that no operation made keeps a random one', async () => {
+    await bootDevice({ server });
+    server.mode = 'down';
+    offline.__engineForTests()!.connectivity.noteFailure();
+    const h = await api.habits.create({ ...HABIT, name: 'x'.repeat(150) });
+    await api.habits.log({ habitId: h.id, date: '2026-10-23', value: 1 });
+    const ops = (await offline.changesAtRest(DANA))!.operations;
+    expect(ops).toHaveLength(2);
+    server.mode = 'online';
+    await offline.drain();
+    expect(offline.notes.list().map((n) => n.reason)).toEqual(['rejected', 'blocked']);
+    expect(await offline.changesAtRest(DANA)).toEqual({ operations: [], notes: ops });
+    // A note that no operation made (`Notes.add`) keeps a random row id of its own.
+    await offline.__engineForTests()!.notes.add([{ reason: 'rejected', label: { kind: 'entry.delete' }, op: { kind: 'entry.delete' }, message: 'x' } as never]);
+    const own = (await offline.changesAtRest(DANA))!.notes.filter((rid) => !ops.includes(rid));
+    expect(own).toHaveLength(1);
+    expect(own[0]).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+  }, 30000);
+});
+
+describe('a full wipe fences the mirror: a native call that answers after it writes no copy (section 5.5)', () => {
+  let server: FakeSyncServer;
+
+  beforeEach(() => {
+    server = new FakeSyncServer();
+    __setOpTimeoutForTests(null);
+  });
+
+  afterEach(async () => {
+    __setOpTimeoutForTests(null);
+    await resetOfflineTestEnv();
+  });
+
+  const filesOf = (mirror: ReturnType<typeof fakeMirror>, userId = DANA) => [...(mirror.files.get(userId)?.keys() ?? [])].sort();
+
+  /** A change saved offline that the server will reject (400) with no page waiting: the replayer makes a rejection note of it. */
+  async function rejectedLater(): Promise<void> {
+    server.mode = 'down';
+    offline.__engineForTests()!.connectivity.noteFailure();
+    const saved = await api.entries.create(entryInput('z'.repeat(300)));
+    expect(isPendingRecord(saved)).toBe(true); // "saved on this device": no page waits for the upload
+    server.mode = 'online';
+  }
+
+  it('a 400 whose native mirror.remove answers after the wipe: the rejection note is not written to the mirror, and the next sign-in shows nothing', async () => {
+    const m = hangingRemoveMirror();
+    const keyVault = fakeKeyVault();
+    const { idb } = await bootDevice({ server, rememberMe: true, app: true, mirror: m.mirror, keyVault });
+    await rejectedLater();
+    m.hangFromNow();
+    void offline.tryNow();
+    await waitFor(() => m.hungCalls() === 1, 6000); // reject() committed: the outbox row is gone, the note row written
+    await offline.wipeAccount(DANA); // "Delete them and sign out" while that native call is under way
+    expect(filesOf(m.mirror)).toEqual([]);
+    m.release(); // the native remove answers now; the replayer goes on to the note's mirror copy
+    await flush(20);
+    await new Promise((r) => setTimeout(r, 200));
+    expect(filesOf(m.mirror)).toEqual([]);
+    expect(m.mirror.calls.filter((c) => c.startsWith('put ') && c.endsWith('.note'))).toEqual([]);
+
+    // The next sign-in of the account: a new database, nothing in the mirror to recover.
+    await offline.__resetForTests();
+    await bootDevice({ server, rememberMe: true, app: true, mirror: m.mirror, keyVault, idb });
+    expect(offline.notes.list()).toEqual([]);
+    expect(offline.pending()).toEqual([]);
+    expect(await offline.changesAtRest(DANA)).toEqual({ operations: [], notes: [] });
+  }, 30000);
+
+  it('a mirror put that was already under way when the wipe ran and lands after its clear is removed again', async () => {
+    const mirror = fakeMirror();
+    const realPut = mirror.put.bind(mirror);
+    const held: Array<() => void> = [];
+    let hold = false;
+    mirror.put = (userId, name, bytes) => {
+      if (!hold) return realPut(userId, name, bytes);
+      return new Promise<void>((resolve) => held.push(() => void realPut(userId, name, bytes).then(resolve)));
+    };
+    await bootDevice({ server, rememberMe: true, app: true, mirror, keyVault: fakeKeyVault() });
+    server.mode = 'down';
+    offline.__engineForTests()!.connectivity.noteFailure();
+    hold = true;
+    const save = api.entries.create(entryInput('Under way when the wipe ran'));
+    await waitFor(() => held.length === 1, 4000); // the outbox row committed, its native put not answered yet
+    await offline.wipeAccount(DANA);
+    hold = false;
+    for (const go of held.splice(0)) go(); // the native put lands after the wipe's clear
+    await save.catch(() => undefined);
+    await flush(20);
+    expect(filesOf(mirror)).toEqual([]);
+  }, 20000);
+
+  it('a sign-out that keeps the changes is not a wipe: a note made while the native call was under way is still mirrored', async () => {
+    const m = hangingRemoveMirror();
+    await bootDevice({ server, rememberMe: true, app: true, mirror: m.mirror, keyVault: fakeKeyVault() });
+    await rejectedLater();
+    m.hangFromNow();
+    void offline.tryNow();
+    await waitFor(() => m.hungCalls() === 1, 6000);
+    await offline.stop();
+    m.release();
+    await waitFor(() => filesOf(m.mirror).some((n) => n.endsWith('.note')), 4000);
+    expect(filesOf(m.mirror).filter((n) => n.endsWith('.op'))).toEqual([]);
+    expect((await onDisk()).notes).toBe(1);
+  }, 20000);
 });

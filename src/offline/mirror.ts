@@ -72,15 +72,40 @@ export function decodeMirrorFile(bytes: Uint8Array): { store: 'outbox'; row: Out
   }
 }
 
+/** The full wipes of each account in this run (`fenceMirror`). */
+const mirrorWipes = new Map<string, number>();
+
+/**
+ * A full wipe of `userId` begins (section 5.5): every `MirrorSink` of the account made before this call
+ * writes no file any more, and a write it had already handed to the platform is removed again when it
+ * ends. Without it a step of the replayer or a save that was under way when the wipe ran (a native call
+ * that answers late) wrote its copy AFTER `clearMirror`, and the next sign-in recovered the deleted text
+ * from it. Only a wipe fences: a 401 or a sign-out that keeps the changes goes on mirroring them.
+ */
+export function fenceMirror(userId: string): void {
+  mirrorWipes.set(userId, (mirrorWipes.get(userId) ?? 0) + 1);
+}
+
 /**
  * The engine's handle on the platform mirror of one account. Every call is best effort: a failing
- * mirror never fails a save (IndexedDB is the primary store) - it is reported to `onError`.
+ * mirror never fails a save (IndexedDB is the primary store) - it is reported to `onError`. A sink
+ * belongs to the account's data as it was when the sink was made: after a full wipe of the account
+ * (`fenceMirror`) it writes nothing (the next engine makes a new sink).
  */
 export class MirrorSink {
+  private readonly wipesAtStart: number;
+
   constructor(
     private readonly userId: string,
     private readonly onError: (e: unknown) => void = () => {},
-  ) {}
+  ) {
+    this.wipesAtStart = mirrorWipes.get(userId) ?? 0;
+  }
+
+  /** The account was wiped since this sink was made. */
+  private get fenced(): boolean {
+    return (mirrorWipes.get(this.userId) ?? 0) !== this.wipesAtStart;
+  }
 
   private get mirror(): OutboxMirror | undefined {
     return getOfflinePlatform().mirror;
@@ -91,11 +116,22 @@ export class MirrorSink {
   }
 
   async putOutbox(row: OutboxRow & { seq: number }): Promise<void> {
-    await this.safe((m) => m.put(this.userId, opFileName(row.seq, row.rid), encodeOutboxRow(row)));
+    await this.put(opFileName(row.seq, row.rid), () => encodeOutboxRow(row));
   }
 
   async putNote(row: NoteRow & { id: number }): Promise<void> {
-    await this.safe((m) => m.put(this.userId, noteFileName(row.id, row.rid), encodeNoteRow(row)));
+    await this.put(noteFileName(row.id, row.rid), () => encodeNoteRow(row));
+  }
+
+  /**
+   * Nothing once the account was wiped. A put that was under way when the wipe began may land after
+   * the wipe's `clear`: it is removed again when it ends (the name carries the row's random row id, so
+   * it is only ever this row's file).
+   */
+  private async put(name: string, bytes: () => Uint8Array): Promise<void> {
+    if (this.fenced) return;
+    await this.safe((m) => m.put(this.userId, name, bytes()));
+    if (this.fenced) await this.safe((m) => m.remove(this.userId, name));
   }
 
   async remove(name: string): Promise<void> {
@@ -135,8 +171,9 @@ export class MirrorSink {
   }
 }
 
-/** Removes every mirror file of an account (a full wipe). */
+/** Removes every mirror file of an account (a full wipe: the account's sinks are fenced first, `fenceMirror`). */
 export async function clearMirror(userId: string): Promise<void> {
+  fenceMirror(userId);
   const m = getOfflinePlatform().mirror;
   if (!m) return;
   try {

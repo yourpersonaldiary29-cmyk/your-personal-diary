@@ -96,13 +96,19 @@ function armedFor(userId: string): boolean {
   return offline.isActive() && offline.activeUserId() === userId;
 }
 
-/** True when every change in `now` is one of `covered` (compared by row id, never by count). */
+/**
+ * True when every change in `now` is one of `covered` (compared by row id, never by count). A note
+ * counts as covered when its row id is among the covered notes OR among the covered operations: the
+ * replayer gives a note made from an operation (a rejection, a blocked dependant, a conflict) that
+ * operation's row id, so an operation the user chose to delete is still covered after it became a note
+ * while the dialog was open. A note made from an operation saved later has that later row id: not covered.
+ */
 function coveredBy(covered: ChangesAtRest | null, now: ChangesAtRest): boolean {
   if (!now.operations.length && !now.notes.length) return true;
   if (!covered) return false;
   const ops = new Set(covered.operations);
   const notes = new Set(covered.notes);
-  return now.operations.every((id) => ops.has(id)) && now.notes.every((id) => notes.has(id));
+  return now.operations.every((id) => ops.has(id)) && now.notes.every((id) => notes.has(id) || ops.has(id));
 }
 
 /**
