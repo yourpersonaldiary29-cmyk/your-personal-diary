@@ -215,6 +215,11 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
     await teardown(false);
     return { enabled: false, reason: 'noToken' };
   }
+  // The steps written as best effort (the 401 purge with no engine armed, the snapshot, the key for the
+  // offline cold start) end with `.catch(report)`: a failure goes to `onError` when the caller passed one
+  // and never fails the start. Not `.catch(args.onError)`: the app passes no onError, and
+  // `promise.catch(undefined)` catches nothing - the whole start failed (section 4.8 "Starts and sign-outs").
+  const report = (e: unknown): void => args.onError?.(e);
   const info = args.serverInfo ?? getServerInfo();
   const app = isApp();
   const persistent = app && args.rememberMe;
@@ -253,7 +258,7 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
       // no binding for `onUnauthorized` to find), straight from the account's database. The outbox stays.
       const armedHere = stillArmed();
       await teardown(armedHere);
-      if (!armedHere) await purgeAccountAtRest(args.user.id).catch(args.onError);
+      if (!armedHere) await purgeAccountAtRest(args.user.id).catch(report);
       return { enabled: false, reason: 'noKey' };
     }
     await teardown(false);
@@ -267,10 +272,17 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
     if (!stillArmed() || ended()) return { enabled: false, reason: 'failed' };
     running.tokenTag = tokenTag;
     await running.setEpoch(res.epoch);
-    if (persistent && stillArmed()) await saveSnapshot(running.store, running.keys, snapshotOf(args, info)).catch(args.onError);
+    if (persistent && stillArmed()) await saveSnapshot(running.store, running.keys, snapshotOf(args, info)).catch(report);
     if (!stillArmed() || ended()) return { enabled: false, reason: 'failed' };
-    if (persistent) await writeBinding(args.user.id, token);
-    else await removeWrappedKey(running.store, args.user.id, false, args.onError);
+    if (persistent) {
+      await writeBinding(args.user.id, token);
+      // Signed out while the binding was written (its token tag's digest waits): the binding just written
+      // names a session that is gone - it goes, as in the branch that opens a new engine.
+      if (ended()) {
+        if (readBinding()?.userId === args.user.id) clearBinding();
+        return { enabled: false, reason: 'failed' };
+      }
+    } else await removeWrappedKey(running.store, args.user.id, false, args.onError);
     // At rest only when THIS start is remembered (the engine may have been opened persistent earlier).
     if (args.password && stillArmed()) await keepPasswordWrap(running, args.password, res, args.onError, persistent);
     if (!stillArmed() || ended()) return { enabled: false, reason: 'failed' };
@@ -315,11 +327,14 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
       if (await abandoned()) return FAILED;
       if (forVault) {
         keyStored = true;
-        await storeWrappedKey(e.store, args.user.id, forVault).catch(args.onError);
+        // A vault that refuses, or `meta` rows that cannot be written after the vault made its entry: the
+        // session goes on without a key at rest of this start (an earlier start's key stays as it was).
+        // A store a wipe closed meanwhile throws here too, and `abandoned()` below cleans up after it.
+        await storeWrappedKey(e.store, args.user.id, forVault).catch(report);
         forVault.fill(0);
         if (await abandoned()) return FAILED;
       }
-      await saveSnapshot(e.store, e.keys, snapshotOf(args, info)).catch(args.onError);
+      await saveSnapshot(e.store, e.keys, snapshotOf(args, info)).catch(report);
       if (await abandoned()) return FAILED;
       await writeBinding(args.user.id, token);
       if (await abandoned()) {
@@ -347,10 +362,12 @@ async function doStart(args: StartArgs, ticket: SessionTicket): Promise<StartOut
   } catch (err) {
     args.onError?.(err);
     forVault?.fill(0);
-    // A start whose session ended once the vault was asked to wrap the key - here when `storeWrappedKey`
-    // threw on a store a wipe had closed meanwhile - leaves no key at rest either (see `abandoned`). A
-    // start that fails while its session goes on leaves the key at rest as it found it: the session's
-    // offline cold start keeps working (the wrap of this start holds the same account key).
+    // The second line of the cleanup in `abandoned`: a start whose session ended once the vault was asked
+    // to wrap the key leaves no key at rest either when a step after it fails unexpectedly (the best-effort
+    // steps never throw, so only an unforeseen failure - the digest of the binding's token tag, an engine
+    // that fails to stop - comes here). A start that fails while its session goes on removes nothing: what
+    // is at rest (an earlier start's key, or the one this start stored: the same account key) keeps the
+    // session's offline cold start working.
     const unarmed = opened !== null && engine !== opened ? opened : null;
     if (keyStored && ended()) await removeWrappedKey(unarmed?.store ?? null, args.user.id, true, args.onError);
     unarmed?.stop();

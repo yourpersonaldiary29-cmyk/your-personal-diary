@@ -7,8 +7,8 @@ import { isPendingRecord } from './optimistic';
 import { BINDING_KEY, loadSnapshot } from './session';
 import { getSyncStatus } from './status';
 import { META, VAULT_REMOVE_WAIT_MS } from './keys';
-import { deleteAccountStore, openExistingAccountStore, setIdbFactory } from './store/idb';
-import type { OfflineStore, StoreName } from './store/types';
+import { deleteAccountStore, openAccountStore, openExistingAccountStore, setIdbFactory } from './store/idb';
+import type { OfflineStore, StoreName, StoreTx, TxOptions } from './store/types';
 import { bootDevice, brokenIndexedDb, DANA, fakeKeyVault, fakeMirror, flush, installWebCrypto, LIOR, resetOfflineTestEnv, waitFor, waitForAsync, wireDevice } from './test-utils/env';
 import { FakeSyncServer } from './test-utils/fake-sync-server';
 
@@ -568,6 +568,49 @@ describe('a start, a cache start, tryNow and updateSession whose session ends wh
     20000,
   );
 
+  // The running branch writes the binding after an await of its own (the digest of the token tag): a
+  // sign-out that lands there must not leave the binding just written behind, as the branch that opens a
+  // new engine already ensures.
+  it('a start with an armed engine whose sign-out lands while it writes the binding answers "failed" and leaves no binding', async () => {
+    const { account, engine } = await bootDevice({ server, rememberMe: true, app: true, keyVault: fakeKeyVault() });
+    let signOut: Promise<void> | null = null;
+    let armed = false;
+    // The snapshot save is the start's first write into `meta`; the next digest is the one of writeBinding.
+    onTx(engine.store, (stores, mode, p) => {
+      if (mode === 'readwrite' && stores.length === 1 && stores[0] === 'meta') armed = true;
+      return p;
+    });
+    const subtle = globalThis.crypto.subtle;
+    const own = Object.getOwnPropertyDescriptor(subtle, 'digest');
+    const realDigest = subtle.digest.bind(subtle);
+    Object.defineProperty(subtle, 'digest', {
+      configurable: true,
+      writable: true,
+      value: (...a: Parameters<SubtleCrypto['digest']>) => {
+        if (armed && !signOut) {
+          signOut = (async () => {
+            signedOut();
+            await offline.stop();
+          })();
+        }
+        return realDigest(...a);
+      },
+    });
+    let outcome;
+    try {
+      outcome = await offline.start({ user: account.user, rememberMe: true, token: account.token, password: 'pw' });
+    } finally {
+      if (own) Object.defineProperty(subtle, 'digest', own);
+      else delete (subtle as unknown as Record<string, unknown>).digest;
+    }
+    expect(signOut).not.toBeNull();
+    await signOut;
+    expect(outcome).toEqual({ enabled: false, reason: 'failed' });
+    expect(offline.isActive()).toBe(false);
+    expect(offline.__engineForTests()).toBeNull();
+    expect(window.localStorage.getItem(BINDING_KEY)).toBeNull();
+  }, 20000);
+
   it('the first start of a login whose sign-out lands during the key fetch arms nothing and writes no binding', async () => {
     const { account } = wireDevice({ server, rememberMe: true, app: true, keyVault: fakeKeyVault() });
     const held = holdRequest(server, '/api/sync/key');
@@ -777,7 +820,7 @@ describe('a first start abandoned after the vault wrapped its key leaves no key 
     expect(second).toMatchObject({ enabled: true });
   }, 30000);
 
-  it('a start of a session that goes on, whose vault.wrap fails: the key at rest of the earlier start stays, the offline cold start still works, and the bytes are zeroed', async () => {
+  it('a start of a session that goes on, whose vault.wrap fails: the engine is armed, the key at rest of the earlier start stays, the offline cold start still works, and the bytes are zeroed', async () => {
     const vault = fakeKeyVault();
     const { account, idb } = await bootDevice({ server, rememberMe: true, app: true, keyVault: vault });
     expect(vault.blobs.has(DANA)).toBe(true);
@@ -792,7 +835,10 @@ describe('a first start abandoned after the vault wrapped its key leaves no key 
       received.push(key);
       throw new Error('the vault refused');
     };
-    expect(await offline.start({ user: account.user, rememberMe: true, token: account.token })).toEqual({ enabled: false, reason: 'failed' });
+    // The wrap is best effort: the start goes on and arms the engine (the app passes no onError).
+    expect(await offline.start({ user: account.user, rememberMe: true, token: account.token })).toMatchObject({ enabled: true });
+    expect(offline.isActive()).toBe(true);
+    expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
     expect(received).toHaveLength(1);
     expect(received[0].every((b) => b === 0)).toBe(true);
     expect(vault.blobs.has(DANA)).toBe(true);
@@ -820,5 +866,291 @@ describe('a first start abandoned after the vault wrapped its key leaves no key 
     expect(v.vault.blobs.has(DANA)).toBe(true);
     expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
     expect((await keyAtRest())?.key).toBeTruthy();
+  }, 20000);
+});
+
+// ---------------------------------------------------------------------------------------------------
+// Release polish of 1.1.0: the four steps of a start written as best effort (the 401 purge with no
+// engine armed, the snapshot of a running engine, the key for the offline cold start, the snapshot of
+// a new engine) report to `onError` when there is one and never fail the start. The app passes NO
+// `onError` (src/context/AuthContext.tsx), so the tests call `offline.start` as the app does.
+// ---------------------------------------------------------------------------------------------------
+
+/** What a start answered - or what it rejected with (a start must never reject). */
+function outcomeOf<T>(p: Promise<T>): Promise<T | { rejected: string }> {
+  return p.then(
+    (v) => v,
+    (e: unknown) => ({ rejected: String(e) }),
+  );
+}
+
+/**
+ * Makes every write of the `meta` row `name` fail with `error` (its transaction aborts) on every store of
+ * this process until `restore()`: a snapshot or a key blob that cannot be written (a full disk, a broken
+ * profile). Patched on the store class, so it also reaches the store that a first start opens.
+ */
+async function failMetaWrite(name: string, error: Error) {
+  const probeUser = 'zz-store-class-probe';
+  const { store } = await openAccountStore(probeUser);
+  const proto = Object.getPrototypeOf(store) as { tx: OfflineStore['tx'] };
+  store.close();
+  await deleteAccountStore(probeUser);
+  const realTx = proto.tx;
+  let hits = 0;
+  proto.tx = function (this: OfflineStore, stores: readonly StoreName[], mode: 'readonly' | 'readwrite', fn: (t: StoreTx) => Promise<unknown>, options?: TxOptions) {
+    if (mode !== 'readwrite' || !stores.includes('meta')) return realTx.call(this, stores, mode, fn as never, options);
+    const failing = (t: StoreTx) =>
+      fn({
+        ...t,
+        put: (s, row) => {
+          if (s === 'meta' && (row as { name?: unknown }).name === name) {
+            hits++;
+            return Promise.reject(error);
+          }
+          return t.put(s, row);
+        },
+      });
+    return realTx.call(this, stores, mode, failing as never, options);
+  } as OfflineStore['tx'];
+  return {
+    hits: () => hits,
+    restore: () => {
+      proto.tx = realTx;
+    },
+  };
+}
+
+describe('the best-effort steps of a start never fail it (called as the app calls it: no onError)', () => {
+  let server: FakeSyncServer;
+
+  beforeEach(() => {
+    server = new FakeSyncServer();
+  });
+
+  afterEach(async () => {
+    await resetOfflineTestEnv();
+  });
+
+  it('the 401 purge of a start with no engine armed cannot reach the database: the start answers noKey and does not reject', async () => {
+    const keyVault = fakeKeyVault('keychain');
+    const { account, idb } = await bootDevice({ server, rememberMe: true, app: true, keyVault });
+    await offline.__resetForTests(); // the app restarts: nothing is armed; the binding and the key stay
+    wireDevice({ server, rememberMe: true, app: true, keyVault, idb, token: account.token });
+    server.revoke(account.token);
+    setIdbFactory(brokenIndexedDb()); // the purge's open fails
+    const outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token }));
+    expect(outcome).toEqual({ enabled: false, reason: 'noKey' });
+    expect(offline.__engineForTests()).toBeNull();
+    expect(offline.isActive()).toBe(false);
+    // The purge asked the vault all the same (the Keychain item, the key at rest on the Mac, is gone).
+    expect(keyVault.blobs.has(DANA)).toBe(false);
+    expect(keyVault.removed).toContain(DANA);
+    await offline.onUnauthorized(); // the 401's own purge, queued behind the start
+    expect(window.localStorage.getItem(BINDING_KEY)).toBeNull();
+    // The rows the broken database kept are ciphertext whose key is gone from the vault; the next purge,
+    // wipe or start of the account that reaches the database deletes or replaces them.
+    setIdbFactory(idb);
+    expect(await sensitiveAtRest()).toMatchObject({ wrappedKey: true, snapshot: true });
+  }, 20000);
+
+  it('the snapshot of a start that refreshes a running engine cannot be written: the start goes on - binding, password wrap, replay - and answers enabled', async () => {
+    const { account, engine } = await bootDevice({ server, rememberMe: true, app: true, keyVault: fakeKeyVault() });
+    const snapshotBefore = await loadSnapshot(engine.store, engine.keys);
+    window.localStorage.removeItem(BINDING_KEY); // so that the test sees the start write it again
+    let kicks = 0;
+    const realKick = engine.replayer.kick.bind(engine.replayer);
+    engine.replayer.kick = () => {
+      kicks++;
+      realKick();
+    };
+    const refused = new Error('the snapshot cannot be written');
+    const fail = await failMetaWrite(META.snapshot, refused);
+    let outcome;
+    try {
+      outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token, password: 'pw', lastActivityAt: 777 }));
+    } finally {
+      fail.restore();
+    }
+    expect(fail.hits()).toBe(1);
+    expect(outcome).toMatchObject({ enabled: true, readOnly: false });
+    expect(offline.__engineForTests()).toBe(engine);
+    expect(offline.isActive()).toBe(true);
+    expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
+    expect((await sensitiveAtRest())?.passwordWrap).toBe(true);
+    expect(kicks).toBeGreaterThan(0);
+    // The failed step added nothing: the snapshot at rest is the one of the earlier start.
+    expect(await loadSnapshot(engine.store, engine.keys)).toEqual(snapshotBefore);
+  }, 20000);
+
+  it('the first start of a login whose vault refuses to wrap the key goes on: snapshot, binding and password wrap, the engine armed, no key at rest', async () => {
+    const vault = fakeKeyVault('keychain');
+    const received: Uint8Array[] = [];
+    vault.wrap = async (_userId, key) => {
+      received.push(key);
+      throw new Error('the vault refused');
+    };
+    const { account, idb } = wireDevice({ server, rememberMe: true, app: true, keyVault: vault });
+    const outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token, password: 'pw' }));
+    expect(outcome).toMatchObject({ enabled: true, readOnly: false });
+    const e = offline.__engineForTests();
+    expect(e).not.toBeNull();
+    expect(offline.isActive()).toBe(true);
+    expect(vault.blobs.has(DANA)).toBe(false);
+    expect(await keyAtRest(e!.store)).toEqual({ key: undefined, by: undefined });
+    expect((await loadSnapshot(e!.store, e!.keys))?.user.id).toBe(DANA);
+    expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
+    expect((await sensitiveAtRest())?.passwordWrap).toBe(true);
+    expect(received).toHaveLength(1);
+    expect(received[0].every((b) => b === 0)).toBe(true);
+    // The next launch without a connection: no key at rest, as on any device without one.
+    await offline.__resetForTests();
+    wireDevice({ server, rememberMe: true, app: true, keyVault: vault, idb, token: account.token });
+    server.mode = 'down';
+    expect(await offline.startFromCache({ token: account.token })).toEqual({ ok: false, reason: 'noKey' });
+    // The binding is there: a later 401 finds the account's data at rest and purges it.
+    await offline.onUnauthorized();
+    expect(await sensitiveAtRest()).toMatchObject(PURGED);
+  }, 20000);
+
+  it('the first start of a login whose vault wraps the key but whose key rows cannot be written goes on: the vault keeps its entry, no rows, the engine armed', async () => {
+    const vault = fakeKeyVault('keychain');
+    const { account, idb } = wireDevice({ server, rememberMe: true, app: true, keyVault: vault });
+    const fail = await failMetaWrite(META.wrappedKey, new Error('the key rows cannot be written'));
+    let outcome;
+    try {
+      outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token }));
+    } finally {
+      fail.restore();
+    }
+    expect(fail.hits()).toBe(1);
+    expect(outcome).toMatchObject({ enabled: true });
+    const e = offline.__engineForTests()!;
+    expect(offline.isActive()).toBe(true);
+    expect(vault.blobs.has(DANA)).toBe(true); // the session goes on: the next purge, wipe or start removes or replaces it
+    expect(await keyAtRest(e.store)).toEqual({ key: undefined, by: undefined });
+    expect((await loadSnapshot(e.store, e.keys))?.user.id).toBe(DANA);
+    expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
+    await offline.__resetForTests();
+    wireDevice({ server, rememberMe: true, app: true, keyVault: vault, idb, token: account.token });
+    server.mode = 'down';
+    expect(await offline.startFromCache({ token: account.token })).toEqual({ ok: false, reason: 'noKey' });
+  }, 20000);
+
+  it('the first start of a login whose snapshot cannot be written goes on: the key at rest, the binding and the password wrap, the engine armed, no snapshot', async () => {
+    const vault = fakeKeyVault();
+    const { account, idb } = wireDevice({ server, rememberMe: true, app: true, keyVault: vault });
+    const fail = await failMetaWrite(META.snapshot, new Error('the snapshot cannot be written'));
+    let outcome;
+    try {
+      outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token, password: 'pw' }));
+    } finally {
+      fail.restore();
+    }
+    expect(fail.hits()).toBe(1);
+    expect(outcome).toMatchObject({ enabled: true, readOnly: false });
+    const e = offline.__engineForTests()!;
+    expect(offline.isActive()).toBe(true);
+    expect(vault.blobs.has(DANA)).toBe(true);
+    expect((await keyAtRest(e.store))?.key).toBeTruthy();
+    expect(await loadSnapshot(e.store, e.keys)).toBeNull();
+    expect(window.localStorage.getItem(BINDING_KEY)).toContain(DANA);
+    expect((await sensitiveAtRest())?.passwordWrap).toBe(true);
+    // The next launch without a connection: the key unwraps, but there is no session to show.
+    await offline.__resetForTests();
+    wireDevice({ server, rememberMe: true, app: true, keyVault: vault, idb, token: account.token });
+    server.mode = 'down';
+    expect(await offline.startFromCache({ token: account.token })).toEqual({ ok: false, reason: 'noSnapshot' });
+  }, 20000);
+
+  it.each(['the 401 purge', 'the snapshot of a running engine', 'the key for the cold start', 'the snapshot of a new engine'] as const)(
+    'with an onError, %s that fails reports its error exactly once and the start does not reject',
+    async (step) => {
+      const errors: unknown[] = [];
+      const onError = (e: unknown) => errors.push(e);
+      let injected: (e: unknown) => boolean;
+      let outcome;
+      if (step === 'the 401 purge') {
+        const keyVault = fakeKeyVault();
+        const { account, idb } = await bootDevice({ server, rememberMe: true, app: true, keyVault });
+        await offline.__resetForTests();
+        wireDevice({ server, rememberMe: true, app: true, keyVault, idb, token: account.token });
+        server.revoke(account.token);
+        setIdbFactory(brokenIndexedDb());
+        injected = (e) => e instanceof DOMException && e.name === 'UnknownError';
+        outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token, onError }));
+        expect(outcome).toEqual({ enabled: false, reason: 'noKey' });
+      } else if (step === 'the key for the cold start') {
+        const vault = fakeKeyVault();
+        const refused = new Error('the vault refused');
+        vault.wrap = async () => {
+          throw refused;
+        };
+        const { account } = wireDevice({ server, rememberMe: true, app: true, keyVault: vault });
+        injected = (e) => e === refused;
+        outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token, onError }));
+        expect(outcome).toMatchObject({ enabled: true });
+      } else {
+        const refused = new Error('the snapshot cannot be written');
+        injected = (e) => e === refused;
+        const account =
+          step === 'the snapshot of a running engine'
+            ? (await bootDevice({ server, rememberMe: true, app: true, keyVault: fakeKeyVault() })).account
+            : wireDevice({ server, rememberMe: true, app: true, keyVault: fakeKeyVault() }).account;
+        const fail = await failMetaWrite(META.snapshot, refused);
+        try {
+          outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token, onError }));
+        } finally {
+          fail.restore();
+        }
+        expect(fail.hits()).toBe(1);
+        expect(outcome).toMatchObject({ enabled: true });
+      }
+      expect(errors.filter(injected)).toHaveLength(1);
+    },
+    20000,
+  );
+
+  // Point C of the closing run, its second line: the cleanup in the outer catch. Once the four steps are
+  // best effort, only an unexpected failure after the key went to the vault reaches it - here the digest of
+  // the binding's token tag fails while the session ended meanwhile.
+  it('an unexpected failure after the vault wrapped the key, in a session that ended meanwhile, still leaves no key at rest (the outer catch)', async () => {
+    const vault = fakeKeyVault('keychain');
+    const subtle = globalThis.crypto.subtle;
+    const realWrap = vault.wrap.bind(vault);
+    let armed = false;
+    let fired = false;
+    vault.wrap = async (userId, key) => {
+      armed = true; // from here on the first digest is the one of writeBinding (the snapshot uses AES-GCM)
+      return realWrap(userId, key);
+    };
+    const { account } = wireDevice({ server, rememberMe: true, app: true, keyVault: vault });
+    const own = Object.getOwnPropertyDescriptor(subtle, 'digest');
+    const realDigest = subtle.digest.bind(subtle);
+    Object.defineProperty(subtle, 'digest', {
+      configurable: true,
+      writable: true,
+      value: (...a: Parameters<SubtleCrypto['digest']>) => {
+        if (armed && !fired) {
+          fired = true;
+          signedOut(); // the session ends ...
+          return Promise.reject(new Error('the digest failed')); // ... and the step in hand fails unexpectedly
+        }
+        return realDigest(...a);
+      },
+    });
+    let outcome;
+    try {
+      outcome = await outcomeOf(offline.start({ user: account.user, rememberMe: true, token: account.token }));
+    } finally {
+      if (own) Object.defineProperty(subtle, 'digest', own);
+      else delete (subtle as unknown as Record<string, unknown>).digest;
+    }
+    expect(fired).toBe(true);
+    expect(outcome).toEqual({ enabled: false, reason: 'failed' });
+    expect(offline.__engineForTests()).toBeNull();
+    expect(vault.blobs.has(DANA)).toBe(false);
+    expect(window.localStorage.getItem(BINDING_KEY)).toBeNull();
+    const rest = await keyAtRest();
+    if (rest) expect(rest).toEqual({ key: undefined, by: undefined });
   }, 20000);
 });
