@@ -530,7 +530,7 @@ Before the first operation it ensures the AOK and epoch are fresh (`GET /api/syn
 | View | Rule (B's table, adopted) |
 |---|---|
 | `Entry` by id | A pending create or update supplies the content. A pending delete gives `NOT_FOUND`. |
-| `EntryPage` list | Insert, replace or remove summaries that match the filter (from, to, tag, emotion, text: the same fields the server searches). `makeExcerpt` at 160 characters. Sorted by (date, time, id). `total` adjusted. |
+| `EntryPage` list | Insert, replace or remove summaries that match the filter (from, to, tag, emotion, text: the same fields the server searches). `makeExcerpt` (since release 1.1.0: at most 160 code points, cut at a word where a space lies within the last 40 code points kept, otherwise after 159, and ended with one "…"; the rule and its cases: `shared/excerpt-cases.ts`). Sorted by (date, time, id). `total` adjusted. |
 | `DaySummary` | Entries of that date, plus logs with names from cached habits. Averages recomputed as `getDay` does (mean rounded to 2 decimals; maximum sleep). |
 | `CalendarMonth` / `CalendarDay[]` | `entryCount`, `hasEntry`, `titles`. Averages recomputed when the day's full entries are cached; otherwise kept. |
 | `HabitWithProgress[]` | Create (zero progress), edit, archive, log value and note. `completed` follows the same rule as `isLogCompleted`. `weekTotal` adjusted by the delta. Streaks are kept and marked "updates when online". |

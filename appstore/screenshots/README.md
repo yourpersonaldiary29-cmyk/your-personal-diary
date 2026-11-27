@@ -7,13 +7,14 @@ that language with that language's demo diary, fictional accounts only. Rendered
 current tree on 2026-11-10; in the fixer pass of the same evening the Mac `08-offline.png` of all 19 localizations and
 the iPhone `07-offline.png` of `ja` and `zh-Hans` (both iPhone sets) were rendered again (final sprint, brief
 `docs/apple-tasks/SHOTS.md`, rules `docs/apple-tasks/ENV-FINAL.md`, Apple's requirements `docs/apple-tasks/APPSTORE-FACTS.md`
-sections 6 and 7). The Hebrew owner's guide is `README.he.md`; this file is the developer's reference.
+sections 6 and 7). All three sets were rendered again on 2026-11-27 (release 1.1.0); those are the current images.
+The Hebrew owner's guide is `README.he.md`; this file is the developer's reference.
 
 **Phone frame changed on 2026-11-25 (the owner's decision):** the iPhone app (the same phone build as Android) has no
 bottom navigation and no "More" tab any more. A "Menu" button (icon and word) at the inline end of the top app bar
 opens one panel that drops down from the top with every page; only the floating "New entry" button stays at the
 bottom. Both iPhone sets (`iphone-6.3/` and `iphone-6.9/`, 266 images) were rendered again with the new frame on
-2026-11-26; the Mac sets are not affected.
+2026-11-26; the Mac set was not affected by the frame. All three sets were rendered again on 2026-11-27.
 
 ## 1. What is in this folder
 
@@ -26,7 +27,7 @@ bottom. Both iPhone sets (`iphone-6.3/` and `iphone-6.9/`, 266 images) were rend
 | `README.md`, `README.he.md` | this file and the Hebrew guide | | | |
 
 418 images in all. Every image is a 24-bit PNG (colour type 2, RGB, no alpha channel, no transparency), about
-150-450 KB. `<code>` is Apple's locale shortcode and the folder name of `appstore/listing/<code>`: `en-US` (the
+140-430 KB. `<code>` is Apple's locale shortcode and the folder name of `appstore/listing/<code>`: `en-US` (the
 primary language), `he`, `ar-SA`, `zh-Hans`, `ja`, `hi`, `th`, `es-ES`, `pt-PT`, `fr-FR`, `it`, `de-DE`, `ro`, `el`,
 `pl`, `cs`, `hu`, `ru`, `tr`.
 
@@ -135,7 +136,8 @@ node scripts/play/render-screenshots.mjs --profile mac               # -> appsto
 node scripts/appstore/check-screenshots.mjs                          # the checker (section 8)
 ```
 
-Each run (about 10-13 minutes for the iPhone profiles, 8 for the Mac) builds the UI into a temporary folder - the
+Each run (about 11-12 minutes for the iPhone profiles, about 9 for the Mac; the render of 2026-11-27: 664 s, 707 s
+and 562 s) builds the UI into a temporary folder - the
 mobile (server-only) build the Capacitor iPhone app embeds for the iPhone profiles, the root `vite build` the Tauri
 window loads for the Mac profile - pointed at a hosted server (`server/src/hosted.ts`, `DIARY_MODE=hosted`) that the
 script runs from source on 127.0.0.1 with a temporary data directory; registers a fictional operator and, per
@@ -158,7 +160,9 @@ Partial runs: `--locale he,ar-SA` (folder names) renders only those sets and kee
 the end (exit 1, **no render log** - render the profile again, or the failed sets with `--locale`, once the cause is
 fixed); `--keep` keeps the temporary folder and saves the screen of a failed shot under `failed/`. A shot fails -
 and is never written - when the page has no clean scroll position (text cut by a bar, under the floating button,
-a word broken across two lines, an ellipsis), when the page language or direction is wrong, or when something that
+a word broken across two lines, text cut with an ellipsis by the layout; a list card's own "…", which the app adds
+to a shortened text, is the app's text and allowed on the iPhone profiles, while the Mac profile refuses a card
+ending with it - `DESKTOP_CHROME.excerpt`), when the page language or direction is wrong, or when something that
 changes from run to run would be visible (the account id, the server address).
 
 The profile definitions (`PROFILES` in `scripts/play/render-screenshots.mjs`):
@@ -205,39 +209,67 @@ number changes (section 7).
 * **No status bar, no Dynamic Island cut-out, no Mac title bar, no device frame** - page captures, as the Play and
   Store sets. Apple's specification has no such requirement for current devices (FACTS 6.1).
 * **The version in the Mac footer.** The desktop UI's footer shows the app version, and the footer is on the screen
-  at the bottom of the Mac shots `02-diary`, `03-entry` and `08-offline`: they read **`v0.1.0`** (bottom right; bottom
-  left in `he` / `ar-SA`). The footer prints `APP_VERSION` of `shared/constants.ts` (also Settings > Diagnostics "UI
-  version", the server's health / status / admin responses and the `version` field of the JSON export), a constant
-  that no script or test ties to `package.json` - and it is **not** on the sprint's version-bump list (ENV-FINAL:
-  `package.json`, `Cargo.toml`, `tauri.conf.json`, `version.properties`). So the shots show `v1.0.0` only if
-  `APP_VERSION` is changed too (a main-session decision: `shared/**` is frozen for the packages); then render the Mac
-  set again (`node scripts/play/render-screenshots.mjs --profile mac`, about 8 minutes) and run the checker. If nothing
-  else in the UI changed, only those three shots per localization come out different (the render is deterministic).
-  Check it by eye - the checker does not read the version: bottom right of `mac/en-US/02-diary.png` must say
-  `v1.0.0`. With `v0.1.0` the sets are still valid uploads (only the small version label is old). The iPhone layout
-  has no footer, so the iPhone sets do not show the version.
-* **Some iPhone screens start slightly scrolled** (the state of the render of 2026-11-26; `scrollY` in each set's
+  at the bottom of the Mac shots `02-diary`, `03-entry` and `08-offline`: in the render of 2026-11-27 they read
+  **`v1.1.0`** in all 19 localizations (bottom right; bottom left in `he` / `ar-SA`). The footer prints `APP_VERSION`
+  of `shared/constants.ts` (also Settings > Diagnostics "UI version", the server's health / status / admin responses
+  and the `version` field of the JSON export), a constant that no script or test ties to `package.json`; it is
+  `'1.1.0'` now. The Mac images before 2026-11-27 still read `v0.1.0` through versions 1.0.0 and 1.0.1, because the
+  set was not rendered again when the version rose. So render the Mac set again whenever the version rises
+  (`node scripts/play/render-screenshots.mjs --profile mac`, about 9 minutes) and run the checker. If nothing else in
+  the UI changed, only those three shots per localization come out different (the render is deterministic). Check it
+  by eye - the checker does not read the version: bottom right of `mac/en-US/02-diary.png` must say the new version.
+  The iPhone layout has no footer, so the iPhone sets do not show the version. The Microsoft Store set
+  (`store/screenshots/`, profile `desktop`) has the same footer: in `02-diary` and `03-entry` of all 20 languages and
+  in `zh-CN` `08-offline` (it too read `v0.1.0` before 2026-11-27). Render it again on every version rise too
+  (`node scripts/play/render-screenshots.mjs --profile desktop`, about 8-9 minutes; 502 s on 2026-11-27), run
+  `node scripts/store-shots/check-screenshots.mjs`, and check bottom right of `store/screenshots/en-US/02-diary.png`
+  by eye.
+* **Some iPhone screens start slightly scrolled** (the state of the render of 2026-11-27; `scrollY` in each set's
   `render-log.json` is the exact list). The layout rules take the nearest position at which no line of text is cut
   by the app bar or by the bottom edge of the screen. In the 6.9-inch set, `01-home` of all 19 localizations
-  (`scrollY` 47) starts with the greeting card: the page's own heading is under the app bar, whose title says the
-  same word. In the 6.3-inch set, `03-entry` of `de-DE`, `es-ES`, `it`, `ro` and `ru` (`scrollY` 72) starts with the
-  "Edit" button - the entry's title and its date are under the app bar (the 14 other localizations, at `scrollY` 10
-  or 1, and the 6.9-inch set show them); `fr-FR/01-home.png` is 6 px down; and `de-DE/07-offline.png` uses the
+  (`scrollY` 47, or 48 in `ar-SA`, `el`, `he`, `hu`, `pl` and `tr`) starts with the greeting card: the page's own
+  heading is under the app bar, whose title says the same word. In the 6.3-inch set, `03-entry` of `de-DE`, `es-ES`,
+  `it`, `ro` and `ru` (`scrollY` 72, or 73 in `de-DE` and `ru`) starts with the "Edit" button - the entry's title and
+  its date are under the app bar (the 14 other localizations, at `scrollY` 1 to 16, and the 6.9-inch set, at
+  `scrollY` 0, show them); `fr-FR/01-home.png` is 6 px down; and `de-DE/07-offline.png` uses the
   layout rules' last resort (`boxUnderTopBar` in `render-log.json`): the bottom edge of the frame of the previous
-  entry's "Open" button shows just under the app bar (its label is hidden). No line of text is cut in the middle anywhere. A fix would
+  entry's "Open" button shows just under the app bar (its label is hidden). No line of text is cut by the app bar
+  anywhere (for the bottom edge see the next point). A fix would
   need another entry for shot 03 or a different demo text - not done (the shot-03 entry is the same in every set by
-  design). The Play set of 2026-11-26 has no last-resort picture; the Store set has one in 03 (by 1 px) and `zh-CN`
-  08. The Mac set has none (see `appStoreOfflineEntry`, section 6).
+  design). The Play set of 2026-11-27 has no last-resort picture; the Store set has 21: `03-entry` of all 20
+  localizations (by 1 px) and `zh-CN` `08-offline`. The Mac set has none (see `appStoreOfflineEntry`, section 6).
 * **A line on the picture's bottom edge.** Since the phone frame has no bottom bar, the bottom edge of the page is
-  the bottom edge of the picture, and the phone profiles' layout rules went by the line boxes only: in some pictures of
-  both iPhone sets (and of the Play set) the last line on the screen sits on that edge and its lowest strokes touch
-  it (51 of the 406 phone pictures of 2026-11-26 have dark pixels in their last pixel row; the text is readable).
-  Since 2026-11-27 the phone profiles have the desktop profile's glyph-ink rule too (`PHONE_CHROME.ink`, as
-  `DESKTOP_CHROME.ink`: 3 CSS px of air under the last line's ink); the pictures rendered before that date do not.
-* **An entry's text in the list can end in the middle of a word** (`de-DE/02-diary.png`: "... Ich habe mit Ma"):
-  the app shows the first 160 characters of an entry in the list and cuts there without an ellipsis (`makeExcerpt` in
-  `server/src/db/entries-repo.ts`). The iPhone profiles show the app as it is, as the Play set does
-  (`play/screenshots/README.he.md` has the same note); the Mac profile avoids it with `wholeExcerpts: 160`.
+  the bottom edge of the picture. Until 2026-11-26 the phone profiles' layout rules went by the line boxes only, and
+  in 51 of the 406 phone pictures of 2026-11-26 the last line's lowest strokes touched that edge (dark pixels in the
+  last pixel row). Since 2026-11-27 the phone profiles have the glyph-ink rule too, with a limit:
+  `PHONE_CHROME.ink = { air: 3, down: 8 }` - 3 CSS px of air under the last line's ink and no glyph peeking out under
+  the top bar, as `DESKTOP_CHROME.ink`, but the air may cost at most 8 CSS px at the top of the screen. Each phone
+  shot is settled twice, by the line-box rules alone and by all rules (`settleLayout`, `chooseLayout`): the ink
+  position is taken when it lies at most 8 px below the line-box position, or above it, and needs the last resort
+  only where the line-box position does too. Otherwise the line-box position stays (the picture is byte for byte the
+  one of 2026-11-26: at the ink position the entry's title or a heading would have left the screen - a first render
+  without the limit moved such pages 27 to 107 px - or the frame of a button would have run under the top bar, as
+  in the Play set's `03-entry` of six languages) and `render-log.json` marks the file `lineOnBottomEdge` (the last
+  line's lowest ink is within 3 px of the edge) or `glyphsCutByTopBar` (ink of a line shows under the top bar). In
+  the render of 2026-11-27 that is, in the 6.3-inch set, 6 files, all `lineOnBottomEdge`: `05-insights` of `fr-FR`
+  and `tr`, `06-settings` of `de-DE`, `en-US`, `hu` and `ru`; in the 6.9-inch set 3 files, all `lineOnBottomEdge`:
+  `06-settings` of `ar-SA`, `el` and `en-US`; in the Play set 14 (12 `lineOnBottomEdge`, 2 `glyphsCutByTopBar`;
+  `play/screenshots/README.he.md`). Every such last line reads completely (in 6.3-inch `ru` `06-settings` the last
+  line is "... 2026 г. в" and the time that follows is below the edge) - decided (the title is worth more than a
+  pixel of air), not a fault. 19 of the 406 phone pictures have dark pixels in their last pixel row now; 10 of them
+  are iPhone pictures: 7 of the marked ones (not 6.3-inch `de-DE` and `en-US` `06-settings`, whose ink ends just above
+  the last row) and 3 where what touches the edge is not text - 6.3-inch `es-ES` and `pt-PT` `06-settings` (the
+  border of the "this device" badge) and 6.9-inch `th` `06-settings` (the round option buttons). The Mac set has the
+  air in every picture (`DESKTOP_CHROME.ink` has no limit).
+* **An entry's text in the list ends at a word with "…"** when it is long (`makeExcerpt` in
+  `server/src/db/entries-repo.ts` since release 1.1.0, commit 89a1389; the cases in `shared/excerpt-cases.ts`): at
+  most 160 code points with the ellipsis, cut at the end of a word where a space lies within the last 40 code points
+  kept (otherwise - one long word, Chinese, Japanese, Thai - after 159 code points). The iPhone profiles show the
+  app as it is, as the Play set does: `de-DE/02-diary.png` of both iPhone sets, and `de-DE/07-offline.png` of the
+  6.9-inch set, read "... Ich habe mit…" (before 2026-11-27: "... Ich habe mit Ma", cut in the middle of a word
+  without an ellipsis).
+  The Mac profile still shortens the demo texts of today and yesterday to whole sentences (`wholeExcerpts: 160`) and
+  refuses a shot with a card that ends with "…" (`DESKTOP_CHROME.excerpt`), so no Mac card ends with it.
 * **The iPhone offline shot shows the badge and the message, not the yellow offline bar** (the phone layout keeps
   the one-line bar above the screen, as the Play set does - section 4). The Mac shot shows the full bar.
 * The demo data is the app's own sample diary, translated per language; the dates are those of the fixed instant
